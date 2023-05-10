@@ -1,0 +1,748 @@
+<apex:page standardStylesheets="false" showHeader="false" controller="NCR_ActivityPageController">
+<html lang="en">
+
+<c:NCR_CustomHead />
+<!--<apex:stylesheet value="https://resource.digitalinsight.com/leapfrog/1.2/css/leapfrog.ap.min.css"/>-->
+<style>
+    .di-toggle-switch{
+        width:140px;
+        height:43px;
+        font-family:Arial;
+        font-weight:bold;
+        font-size:16px;
+        color:#666;
+        background-color:#ededed;
+        margin-left:-40px
+    }
+    
+    .di-toggle-switch-container{
+        width:95px;
+        height:42px;
+        overflow:hidden;
+        border:1px solid #ccc;
+        display:inline-block;
+        text-align:left
+    }
+    
+    .di-toggle-switch-container.sm{
+        width:85px;
+        height:35px
+    }
+    
+    .di-toggle-switch.active{
+        background-color:#666;
+        color:#fff;
+        margin-left:0
+    }
+    
+    .di-toggle-switch .label-on,.di-toggle-switch .label-off{
+        margin-top:-20px;
+        width:40px;
+        display:inline-block;
+        text-align:center;
+        vertical-align:middle
+    }
+    
+    .label-on:hover,.label-slider:hover,.label-off:hover{
+        opacity:.5;
+        filter:alpha(opacity=50)
+    }
+    
+    .di-toggle-switch .label-slider{
+        margin-top:5px;
+        background-color:#fff;
+        width:45px;
+        height:30px;
+        display:inline-block
+    }
+    
+    .di-toggle-switch .label-slider{
+        box-shadow:1px 1px 0 1px #ccc
+    }
+    
+    .di-toggle-switch.active .label-slider{
+        box-shadow:0 0 0 0 #ccc
+    }
+    
+    .di-toggle-switch .label-slider{
+        box-shadow:1px 1px 0 1px #ccc
+    }
+    
+    .di-toggle-switch.active .label-slider{
+        box-shadow:0 0 0 0 #ccc
+    }
+    
+    .di-toggle-switch-container.sm{
+        width:85px;
+        height:35px
+    }
+    
+    .sm .di-toggle-switch .label-silder,.sm .di-toggle-switch .label-slider{
+        width:35px;
+        height:22px
+    }
+    
+    .sm .di-toggle-switch .label-on,.sm .di-toggle-switch .label-off{
+        margin-top:-12px
+    }
+    
+    .di-toggle-switch.active,.di-toggle-switch{
+        transition:margin-left .25s linear
+    }
+    
+    .di-toggle-switch.active{
+        background-color:#004b8d
+    }
+    
+    .btn-primary {
+        background-image: -webkit-linear-gradient(top,#004b8d 0,#004099 100%) !important;
+        background-image: -o-linear-gradient(top,#004b8d 0,#004099 100%) !important;
+        background-image: -webkit-gradient(linear,left top,left bottom,from(#004b8d),to(#004099)) !important;
+        background-image: linear-gradient(to bottom,#004b8d 0,#004099 100%) !important;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff004b8d',endColorstr='#ff004099',GradientType=0) !important;
+        filter: progid:DXImageTransform.Microsoft.gradient(enabled = false) !important;
+        border-color: #004b8d !important;
+        color: #fff !important;
+    }
+</style>
+<body>
+ <c:NCR_HomepageHeader />
+ 
+ <apex:form >
+            <apex:actionFunction name="switchPageMyIdeas" action="{!updatePageMyIdeas}" rerender="dataPanelMyIdeas">                           
+                <apex:param name="selectedPageMyIdeas" value="x" assignTo="{!paginaterMyIdeas.pageNumMyIdeas}" />
+            </apex:actionFunction>
+            <apex:actionFunction name="switchPageReplies" action="{!updatePageReplies}" rerender="dataPanelReplies">                           
+                <apex:param name="selectedPageReplies" value="x" assignTo="{!paginaterReplies.pageNumReplies}" />
+            </apex:actionFunction>
+            <apex:actionFunction name="switchPageComment" action="{!updatePageComment}" rerender="dataPanelComment">                           
+                <apex:param name="selectedPageComment" value="x" assignTo="{!paginaterComment.pageNumComment}" />
+            </apex:actionFunction>
+            <apex:actionFunction name="switchPageFavorites" action="{!updatePageFavorites}" rerender="dataPanelFavorites">                           
+                <apex:param name="selectedPageFavorites" value="x" assignTo="{!paginaterFavorites.pageNumFavorites}" />
+            </apex:actionFunction>
+            
+            <apex:actionFunction name="switchPageFavIdeaThemes" action="{! updatePageIdeaThemes}" rerender="dataPanelFavIdeaThemes">                           
+                <apex:param name="selectedPageFavorites" value="x" assignTo="{!paginaterIdeaTheme.pageNum}" />
+            </apex:actionFunction>
+            
+            <apex:actionFunction name="switchPageMyTeam" action="{!updatePageMyTeam}" rerender="dataPanelMyTeam">                           
+                <apex:param name="selectedPageMyTeam" value="x" assignTo="{!paginaterMyTeam.pageNumMyTeam}" />
+            </apex:actionFunction>
+            <apex:actionFunction name="reloadPopularLOB" action="{!changePopularLineOfBusiness}" rerender="popularPicklists" >                           
+                            <apex:param name="reloadPopularPageLOB" value="x" assignTo="{!selectedPopularLineOfBusiness}" />
+                        </apex:actionFunction>
+                        <apex:actionFunction name="reloadPopularCategory" action="{!changePopularCategory}" rerender="popularPicklists">                           
+                            <apex:param name="reloadPopularPageCategory" value="x" assignTo="{!selectedPopularCategory}" />
+                        </apex:actionFunction>
+    <apex:actionFunction name="deleteSubscription" action="{! removeSubscription}" rerender="subscriptionListPanel" status="actStatus">
+                    <apex:param name="subscriptionId" value=""/>
+                </apex:actionFunction>
+     
+     
+                
+            <apex:actionStatus id="actStatus" >
+                <apex:facet name="start">
+                    <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.65; z-index: 1000; background-color:#ededed;">
+                        &nbsp;
+                    </div>
+                    <div style="position: fixed; left: 0; top: 0; bottom: 0; right: 0; z-index: 1001; margin-top:50%; text-align: center; display:inline-block; ">
+                        <img src="{! $Resource.spinner}" style="width:35px; height:35px; display:inline-block !important;" /> <span>Loading...</span>
+                    </div>
+                </apex:facet>
+            </apex:actionStatus>
+    
+<div class="di-container" style="padding:2px;">
+<div class="col-md-12">
+<script>
+            function unsubscribe(subId, subCat) {
+                var opt = confirm(" Are you Sure ?\n Unsubscribe From "+subCat);
+                if (opt == true) {
+                    deleteSubscription(subId);
+                } else {
+                    // Nothing.
+                }
+            }
+         </script>
+
+ 
+
+<!--Recent-->     
+<div class="row panel">
+
+ <div class="row">
+    <div class="col-md-10">
+    <h1 >My Activity</h1>
+    <h3><apex:outputLink value="{!returl}" rendered="{!rendBack}"> Back</apex:outputLink></h3>
+    <p style="margin-top:20px;">View your ideas, collaborations, and activity</p>
+     </div> 
+ </div>
+ 
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+<!--panel1-->    
+  <div class="panel panel-default">
+  
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title " ><span class="glyphicon glyphicon-triangle-bottom gi-2x"></span>
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="{!IF(selectedRow=='MyIdeas',true,false)}" aria-controls="collapseOne">
+          My Ideas
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse {!IF(selectedRow=='MyIdeas','in','')}" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+            <apex:outputPanel id="dataPanelMyIdeas">
+                <apex:outputLabel value="{!noMyIdeas}" />
+                <apex:repeat value="{!MyIdeasList}" var="ri">
+                        <div style="width: 100% !important;">
+                            <div style="width: 100px !important; height:120px !important; float: left !important; min-width: 100px !important;" align="center">
+                                <div style="padding-left:0px; width:100px !important; height:100px !important;" >
+                                        <apex:image url="{!IF(ri.fIMageMyIdeas!=null, newUrl+ri.fIMageMyIdeas, URLFOR($Resource.NCR_cssjsimg, 'img/ideas-default-avatar.png'))}" style="margin-top: 15px; max-width: 90px !important; max-height: 80px !important;"/>
+                                        <br/>
+                                        <apex:outputText value="{!ri.voteTotal} pts." style="font-size: 13px !important;" />
+                                </div>                       
+                            </div>
+                            <div class="idea-context" style="width: 85% !important; float: left !important;">
+                                <h2 class="col-md-9 title-drk-blue" style="float:left; width: 100%;">
+                                    <apex:outputLink value="/apex/NCR_ViewIdeapage?id={!ri.idMyIdeas}&pge=NCR_Activitypage&gb={!urlVal}&mb={!tab}" styleclass="title-drk-blue">{!ri.titleMyIdeas}</apex:outputLink>
+                                </h2>
+                                <div class="col-md-9">
+                                <apex:outputLink value="/apex/NCR_ViewAllPage?selectTab=AllIdeas&chan={!ri.statusMyIdeas}" style="background-color: #676767 !important; color: #FFFFFF !important; padding: 3px !important; font-size: 14px !important; border-radius: 3px !important; text-decoration: none;" rendered="{!ri.statusMyIdeas!=null && ri.statusMyIdeas!='Under Point Threshold'}">{!ri.statusMyIdeas}</apex:outputLink>
+                                <!--<apex:outputText value="{!ri.statusMyIdeas}" styleclass="idea-status" rendered="{!ri.statusMyIdeas!=null && ri.statusMyIdeas!='Under Point Threshold'}" />-->
+                                <apex:outputLink value="/apex/NCR_ViewAllPage?lob={!ri.lobMyIdeas}&selectTab=AllIdeas" rendered="{!ri.lobMyIdeas!=null}" styleClass="my-idea-text" > {!ri.lobMyIdeas}</apex:outputLink>
+                                <apex:outputText value=", {!ri.channelMyIdeas}" rendered="{!ri.lobMyIdeas!='Platform Solutions' && ri.lobMyIdeas!=null}" styleClass="my-idea-text"/>
+                                <apex:outputLink value="/apex/NCR_ViewAllPage?cat={!ri.categoryMyIdeas}&selectTab=AllIdeas" rendered="{!ri.categoryMyIdeas!=null}" styleClass="my-idea-text">, {!ri.categoryMyIdeas}</apex:outputLink>
+                                </div>
+                                <!-- <apex:outputText escape="false" value="{!ri.bodyMyTeam}" style="width: 100%; max-height: 63px !important; padding-left: 7px !important; overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;" />-->
+                                <div class="col-md-9 drk-gray" style="width: 100%; max-height: 80px !important; padding-left: 7px !important; padding-top: 5px !important; margin-bottom: 5px !important; overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;"><apex:outputText escape="false" value="{!ri.bodyMyIdeas}" /></div>
+                                <div class="row" style="padding-left: 7px !important; margin-top: 5px !important;">
+                                    <p class="col-md-9 drk-gray"> <apex:outputText value="{!ri.cNameMyIdeas}" styleclass="drk-gray"/><apex:outputText value="{! ', '+ri.createdByTitle}" rendered="{! ri.createdByTitle != null}" styleclass="drk-gray"/><apex:outputText value="{! ', '+ri.createdByDiFiName}" rendered="{! ri.createdByDiFiName != null}" styleclass="drk-gray"/> | <apex:outputText value="{0,date, MM/dd/yy}" styleclass="drk-gray"> <apex:param value="{!ri.createdDateMyIdeas}" /> </apex:outputText></p>
+                                </div>                                          
+                            </div>
+                            <div class="gray-line" style=" float: left !important;"></div> 
+                        </div>
+                 </apex:repeat>
+             </apex:outputPanel>
+                         <div id="page-selectionMyIdeas" align = "center" style="float:left; width: 100%;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title"><span class="glyphicon glyphicon-triangle-bottom gi-2x"></span>
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="{!IF(selectedRow=='Replies',true,false)}" aria-controls="collapseTwo">
+          Replies to My Ideas 
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse {!IF(selectedRow=='Replies','in','')}" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+            <apex:outputPanel id="dataPanelReplies">
+                <apex:outputLabel value="{!noReplies}" />
+                <apex:repeat value="{!RepliesList}" var="ri">                   
+                        <div style="width: 100% !important;">
+                            <div style="width: 100px !important; height:120px !important; float: left !important; min-width: 100px !important;" align="center">
+                                <div style="padding-left:0px; width:100px !important; height:100px !important;" >
+                                        <apex:image url="{!IF(ri.fIMageReplies!=null, newUrl+ri.fIMageReplies, URLFOR($Resource.NCR_cssjsimg, 'img/ideas-default-avatar.png'))}" style="margin-top: 15px; max-width: 90px !important; max-height: 65px !important;"/>
+                                         <br/>
+                                        <apex:outputText value="{!ri.voteTotal} pts." style="font-size: 13px !important;" />
+                                </div>                       
+                            </div>
+                            <div class="idea-context" style="width: 85% !important; float: left !important; ">
+                                <h2 class="col-md-9 title-drk-blue" style=" float:left; width: 100%;">
+                                    <apex:outputLink value="/apex/NCR_ViewIdeapage?id={!ri.ideaIdReplies}&pge=NCR_Activitypage&gb={!urlVal}&mb={!tab}" styleclass="title-drk-blue">{!ri.ideaTitleReplies}</apex:outputLink>
+                                </h2>
+                                <div class="col-md-9">
+                                    <apex:outputLink value="/apex/NCR_ViewAllPage?selectTab=AllIdeas&chan={!ri.statReplies}" style="background-color: #676767 !important; color: #FFFFFF !important; padding: 3px !important; font-size: 14px !important; border-radius: 3px !important; text-decoration: none;" rendered="{!ri.statReplies!=null && ri.statReplies!='Under Point Threshold'}">{!ri.statReplies}</apex:outputLink>
+                                    <!--<apex:outputText value="{!ri.statReplies}" styleclass="idea-status" rendered="{!ri.statReplies!=null && ri.statReplies!='Under Point Threshold'}" />-->
+                                    <apex:outputLink value="/apex/NCR_ViewAllPage?lob={!ri.lobReplies}&selectTab=AllIdeas" rendered="{!ri.lobReplies!=null}" styleClass="my-idea-text" > {!ri.lobReplies}</apex:outputLink>
+                                    <apex:outputText value=", {!ri.channelReplies}" rendered="{!ri.lobReplies!='Platform Solutions' && ri.lobReplies!=null}" styleClass="my-idea-text"/>
+                                    <apex:outputLink value="/apex/NCR_ViewAllPage?cat={!ri.catReplies}&selectTab=AllIdeas" rendered="{!ri.catReplies!=null}" styleClass="my-idea-text">, {!ri.catReplies}</apex:outputLink>
+                                </div>
+                                <div class="col-md-9 drk-gray" style="width: 100%; padding-left: 7px !important; padding-top: 5px !important; margin-bottom: 5px !important;"><apex:outputText escape="false" value="{!ri.bodyReplies}" /></div>
+                                <div class="row" style="padding-left: 7px !important; margin-top: 5px !important;max-height: 60px !important;">
+                                    <p class="col-md-9 drk-gray"> <apex:outputText value="{!ri.cNameReplies}" styleclass="drk-gray"/> <apex:outputText value="{! ', '+ ri.createdByTitle}" rendered="{! ri.createdByTitle != null}" styleClass="drk-gray"/><apex:outputText value="{! ', '+ ri.createdByDiFiName}" rendered="{! ri.createdByDiFiName != null}" styleClass="drk-gray"/> | <apex:outputText value="{0,date, MM/dd/yy}" styleclass="drk-gray"> <apex:param value="{!ri.createdDateReplies}" /> </apex:outputText></p>
+                                </div>                                          
+                            </div>
+                            <div class="gray-line" style=" float: left !important;"></div> 
+                        </div>
+                 </apex:repeat>
+             </apex:outputPanel>
+                         <div id="page-selectionReplies" align = "center" style="float:left; width: 100%;"></div>
+
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title"><span class="glyphicon glyphicon-triangle-bottom gi-2x"></span>
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="{!IF(selectedRow=='Comments',true,false)}" aria-controls="collapseThree">
+          My Comments
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse {!IF(selectedRow=='Comments','in','')}" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+            <apex:outputPanel id="dataPanelComment">
+                <apex:outputLabel value="{!noComments}" />
+                <apex:repeat value="{!CommentList}" var="ri">
+                        <div style="width: 100% !important;">
+                            <div style="width: 100px !important; height:120px !important; float: left !important; min-width: 100px !important;" align="center">
+                                <div style="padding-left:0px; width:100px !important; height:100px !important;" >
+                                        <apex:image url="{!IF(ri.fIMageComment!=null, newUrl+ri.fIMageComment, URLFOR($Resource.NCR_cssjsimg, 'img/ideas-default-avatar.png'))}" style="margin-top: 15px; max-width: 90px !important; max-height: 65px !important;"/>
+                                         <br/>
+                                        <apex:outputText value="{!ri.voteTotal} pts." style="font-size: 13px !important;" />
+                                </div>                       
+                            </div>
+                            <div class="idea-context" style="width: 85% !important; float: left !important; ">
+                                <h2 class="col-md-9 title-drk-blue" style=" float:left; width: 100%;">
+                                    <apex:outputLink value="/apex/NCR_ViewIdeapage?id={!ri.ideaIdComment}&pge=NCR_Activitypage&gb={!urlVal}&mb={!tab}" styleclass="title-drk-blue">{!ri.ideaTitleComment}</apex:outputLink>
+                                </h2>
+                                <div class="col-md-9">
+                                    <apex:outputLink value="/apex/NCR_ViewAllPage?selectTab=AllIdeas&chan={!ri.statComment}" style="background-color: #676767 !important; color: #FFFFFF !important; padding: 3px !important; font-size: 14px !important; border-radius: 3px !important; text-decoration: none;" rendered="{!ri.statComment!=null && ri.statComment!='Under Point Threshold'}">{!ri.statComment}</apex:outputLink>
+                                    <!--<apex:outputText value="{!ri.statComment}" styleclass="idea-status" rendered="{!ri.statComment!=null && ri.statComment!='Under Point Threshold'}" />-->
+                                    <apex:outputLink value="/apex/NCR_ViewAllPage?lob={!ri.lobComment}&selectTab=AllIdeas" rendered="{!ri.lobComment!=null}" styleClass="my-idea-text" > {!ri.lobComment}</apex:outputLink>
+                                    <apex:outputText value=", {!ri.channelComment}" rendered="{!ri.lobComment!='Platform Solutions' && ri.lobComment!=null}" styleClass="my-idea-text"/>
+                                    <apex:outputLink value="/apex/NCR_ViewAllPage?cat={!ri.catComment}&selectTab=AllIdeas" rendered="{!ri.catComment!=null}" styleClass="my-idea-text">, {!ri.catComment}</apex:outputLink>
+                                </div>
+                                <div class="col-md-9 drk-gray" style="max-height: 60px !important;width: 100%; padding-left: 7px !important; padding-top: 5px !important; margin-bottom: 5px !important;"><apex:outputText escape="false" value="{!ri.bodyComment}" /></div>
+                                <div class="row" style="padding-left: 7px !important; margin-top: 5px !important;">
+                                    <p class="col-md-9 drk-gray"> <apex:outputText styleclass="drk-gray">{!ri.cNameComment}</apex:outputText>  <apex:outputText value="{! ', '+ ri.createdByTitle}" rendered="{! ri.createdByTitle != null}" styleClass="drk-gray"/><apex:outputText value="{! ', '+ ri.createdByDiFiName}" rendered="{! ri.createdByDiFiName != null}" styleClass="drk-gray"/> | <apex:outputText value="{0,date, MM/dd/yy}" styleclass="drk-gray"> <apex:param value="{!ri.createdDateComment}" /> </apex:outputText></p>
+                                </div>                                          
+                            </div>
+                            <div class="gray-line" style=" float: left !important;"></div> 
+                        </div>
+                 </apex:repeat>
+             </apex:outputPanel>
+                         <div id="page-selectionComment" align = "center" style="float:left; width: 100%;"></div>
+
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingFour">
+      <h4 class="panel-title"><span class="glyphicon glyphicon-triangle-bottom gi-2x"></span>
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="{!IF(selectedRow=='Favorites',true,false)}" aria-controls="collapseFour">
+          Favorites
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFour" class="panel-collapse collapse {!IF(selectedRow=='Favorites','in','')}" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+            <apex:outputPanel id="dataPanelFavIdeaThemes">
+                <span><b>Themes</b></span><br/><br/>
+                <apex:outputLabel value="{! noFavoriteThemes }" />
+                <apex:repeat value="{! ideaThemeList}" var="rec">
+                    <div style="width: 100% !important;">
+                            <div style="width: 100px !important; height:120px !important; float: left !important; min-width: 100px !important;" align="center">
+                                <div style="padding-left:0px; width:100px !important; height:100px !important;" >
+                                        <apex:image url="{! rec.featuredImage}" style="width:55px;height:55px;"/>
+                                </div>                       
+                            </div>
+                            
+                            <div class="idea-context" style="width: 85% !important; float: left !important; ">
+                                <h2 class="col-md-9 title-drk-blue" style=" float:left; width: 100%;">
+                                    <apex:outputLink value="/apex/ncr_themeDetail?id={!rec.themeId}&pge=NCR_Activitypage&gb={!urlVal}&mb={!tab}" styleclass="title-drk-blue">{!rec.title}</apex:outputLink>
+                                </h2>
+                                <div style="clear:both;"></div>
+                                <span class="text-long"><apex:outputText value="{! rec.description}" escape="false"/></span>
+                                <div style="padding-top:15px;">
+                                    <span class="text-legal"><apex:outputText value="{! rec.lineOfBusiness}"/></span>
+                                    <sapn><apex:outputText value=", " rendered="{! NOT(OR(ISBLANK(rec.lineOfBusiness),ISBLANK(rec.category))) }"></apex:outputText></sapn>
+                                    <span class="text-legal"><apex:outputText value="{! rec.category}"/></span>
+                                    <span class="label label-primary text-legal" style="background-color:#EDEDED;font-weight: none;"><apex:outputText value="{! rec.status}"/></span>
+                                </div>
+                                <!--
+                                <div class="col-md-9">
+                                    <apex:outputLink value="/apex/NCR_ViewAllPage?selectTab=AllIdeas&chan={!ri.statusFavorites}" style="background-color: #676767 !important; color: #FFFFFF !important; padding: 3px !important; font-size: 14px !important; border-radius: 3px !important; text-decoration: none;" rendered="{!ri.statusFavorites!=null && ri.statusFavorites!='Under Point Threshold'}">{!ri.statusFavorites}</apex:outputLink>
+                                    <apex:outputLink value="/apex/NCR_ViewAllPage?lob={!ri.lobFavorites}&selectTab=AllIdeas" rendered="{!ri.lobFavorites!=null}" styleclass="my-idea-text"> {!ri.lobFavorites}</apex:outputLink> 
+                                    <apex:outputText value=", {!ri.channelFavorites}" rendered="{!ri.lobFavorites!='Platform Solutions' && ri.lobFavorites!=null}" styleclass="my-idea-text"/>
+                                    <apex:outputLink value="/apex/NCR_ViewALLPage?cat={!ri.categoryFavorites}&selectTab=AllIdeas" rendered="{!ri.categoryFavorites!=null}" styleclass="my-idea-text">, {!ri.categoryFavorites}</apex:outputLink>
+                                </div>
+                                <div class="col-md-9 drk-gray" style="float:left;width: 100%; max-height: 80px !important; padding-left: 7px !important; padding-top: 5px !important; margin-bottom: 5px !important; overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;"><apex:outputText escape="false" value="{!ri.bodyFavorites}" /></div>
+                                <div class="row" style="padding-left: 7px !important; margin-top: 5px !important;">
+                                    <p class="col-md-9 drk-gray"> <apex:outputText styleclass="drk-gray">{!ri.cNameFavorites}</apex:outputText>  <apex:outputText value="{! ', '+ ri.createdByTitle}" rendered="{! ri.createdByTitle != null}" styleClass="drk-gray"/><apex:outputText value="{! ', '+ ri.createdByDiFiName}" rendered="{! ri.createdByDiFiName != null}" styleClass="drk-gray"/> | <apex:outputText value="{0,date, MM/dd/yy}" styleclass="drk-gray"> <apex:param value="{!ri.createdDateFavorites}" /> </apex:outputText></p>
+                                </div>    -->                                      
+                            </div> 
+                            <div class="gray-line" style=" float: left !important;margin-top:15px;"></div> 
+                       </div>
+                </apex:repeat>
+            </apex:outputPanel>
+            <div id="page-selectionFavIdeaTheme" align = "center" style="float:left; width: 100%;"></div>
+            <div style="clear:both"></div>
+            <div class="gray-line" style=" float: left !important;margin-top:15px;"></div> 
+            <apex:outputPanel id="dataPanelFavorites">
+                <span><b>Ideas</b></span><br/><br/>
+                <apex:outputLabel value="{!noFavorites}" />
+                <apex:repeat value="{!FavoritesList}" var="ri">
+                     <div style="width: 100% !important;">
+                            <div style="width: 100px !important; height:120px !important; float: left !important; min-width: 100px !important;" align="center">
+                                <div style="padding-left:0px; width:100px !important; height:100px !important;" >
+                                        <apex:image url="{!IF(ri.fIMageFavorites!=null, newUrl+ri.fIMageFavorites, URLFOR($Resource.NCR_cssjsimg, 'img/ideas-default-avatar.png'))}" style="margin-top: 15px; max-width: 90px !important; max-height: 65px !important;"/>
+                                        <br/>
+                                        <apex:outputText value="{!ri.voteTotal} pts." style="font-size: 13px !important;" />
+                                </div>                       
+                            </div>
+                            <div class="idea-context" style="width: 85% !important; float: left !important; ">
+                                <h2 class="col-md-9 title-drk-blue" style=" float:left; width: 100%;">
+                                    <apex:outputLink value="/apex/NCR_ViewIdeapage?id={!ri.idFavorites}&pge=NCR_Activitypage&gb={!urlVal}&mb={!tab}" styleclass="title-drk-blue">{!ri.titleFavorites}</apex:outputLink>
+                                </h2>
+                                <div class="col-md-9">
+                                    <apex:outputLink value="/apex/NCR_ViewAllPage?selectTab=AllIdeas&chan={!ri.statusFavorites}" style="background-color: #676767 !important; color: #FFFFFF !important; padding: 3px !important; font-size: 14px !important; border-radius: 3px !important; text-decoration: none;" rendered="{!ri.statusFavorites!=null && ri.statusFavorites!='Under Point Threshold'}">{!ri.statusFavorites}</apex:outputLink>
+                                <!--<apex:outputText value="{!ri.statusFavorites}" styleclass="idea-status" rendered="{!ri.statusFavorites!=null && ri.statusFavorites!='Under Point Threshold'}" />-->
+                                    <apex:outputLink value="/apex/NCR_ViewAllPage?lob={!ri.lobFavorites}&selectTab=AllIdeas" rendered="{!ri.lobFavorites!=null}" styleclass="my-idea-text"> {!ri.lobFavorites}</apex:outputLink> 
+                                    <apex:outputText value=", {!ri.channelFavorites}" rendered="{!ri.lobFavorites!='Platform Solutions' && ri.lobFavorites!=null}" styleclass="my-idea-text"/>
+                                    <apex:outputLink value="/apex/NCR_ViewALLPage?cat={!ri.categoryFavorites}&selectTab=AllIdeas" rendered="{!ri.categoryFavorites!=null}" styleclass="my-idea-text">, {!ri.categoryFavorites}</apex:outputLink>
+                                <!-- <apex:outputText escape="false" value="{!Left(ri.bodyMyTeam,125)}" style="width: 100%; max-height: 63px !important; padding-left: 7px !important;" /> -->
+                                <!-- <apex:outputText escape="false" value="{!ri.bodyMyTeam}" style="width: 100%; max-height: 63px !important; padding-left: 7px !important; overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;" />-->
+                                </div>
+                                <div class="col-md-9 drk-gray" style="float:left;width: 100%; max-height: 80px !important; padding-left: 7px !important; padding-top: 5px !important; margin-bottom: 5px !important; overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;"><apex:outputText escape="false" value="{!ri.bodyFavorites}" /></div>
+                                <div class="row" style="padding-left: 7px !important; margin-top: 5px !important;">
+                                    <p class="col-md-9 drk-gray"> <apex:outputText styleclass="drk-gray">{!ri.cNameFavorites}</apex:outputText>  <apex:outputText value="{! ', '+ ri.createdByTitle}" rendered="{! ri.createdByTitle != null}" styleClass="drk-gray"/><apex:outputText value="{! ', '+ ri.createdByDiFiName}" rendered="{! ri.createdByDiFiName != null}" styleClass="drk-gray"/> | <apex:outputText value="{0,date, MM/dd/yy}" styleclass="drk-gray"> <apex:param value="{!ri.createdDateFavorites}" /> </apex:outputText></p>
+                                </div>                                          
+                            </div>
+                            <div class="gray-line" style=" float: left !important;"></div> 
+                         </div>   
+                 </apex:repeat>
+             </apex:outputPanel>
+             <div id="page-selectionFavorites" align = "center" style="float:left; width: 100%;"></div>
+             
+
+      </div>
+    </div>
+  </div>
+  
+  <!-- ----------------------------------------------------------------------------------------------------------------------------------->
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="subscriptionTab">
+            <h4 class="panel-title"><span class="glyphicon glyphicon-triangle-bottom gi-2x"></span>
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#subscriptionSection" aria-expanded="{!IF(selectedRow=='Subscriptions',true,false)}" aria-controls="subscriptionSection">
+                    Subscriptions
+                </a>
+            </h4>
+        </div>
+        <div id="subscriptionSection" class="panel-collapse collapse {!IF(selectedRow=='Subscriptions','in','')}" role="tabpanel" aria-labelledby="subscriptionTab">
+          <div class="panel-body">
+            
+            <h3>Daily Idea Digest</h3>
+            <span class="text-long">Receive a daily email summary of new ideas</span>
+            <div class="row">
+                <div class="col-xs-6">
+                    <apex:outputPanel id="toggleBtn" layout="block" styleClass="di-toggle-switch-container sm">
+                        <apex:outputPanel id="toggleSwitch" layout="block" styleClass="di-toggle-switch {!IF(isUserSubForDailyDigest, 'active', '')}">
+                            <span class='label-on '>ON</span>
+                            <span class='label-slider'> </span>
+                            <span class='label-off '>OFF</span>
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                </div>
+            </div>
+              
+            <h3>New Theme Alert</h3>
+            <span class="text-long">Want to be notified by email when a new theme is added?</span>
+            <div class="row">
+                <div class="col-xs-6">
+                    <apex:outputPanel id="newThemeAlertToggleBtn" layout="block" styleClass="di-toggle-switch-container sm">
+                        <apex:outputPanel id="newThemeAlertToggleSwitch" layout="block" styleClass="di-toggle-switch {!IF(IsUserSubForNewThemeNot, 'active', '')}">
+                            <span class='label-on '>ON</span>
+                            <span class='label-slider'> </span>
+                            <span class='label-off '>OFF</span>
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                </div>
+            </div>
+              
+            <br/>
+            <h3>Categories</h3>
+            <span class="text-long">Subscribe to Receive an email when a new idea is posted to a category</span>
+            <br/><br/>
+            <apex:outputPanel id="subscriptionListPanel" >
+          <apex:repeat value="{!SubscriptionList}" var="pl">
+          
+               <apex:outputText value="{!pl.DI_LineOfBusiness__c+' > '}" style="text-decoration: none !important;font-size: 14px;font-family: Arial;color:#666666;" />  <apex:outputText value="{!pl.DI_SubscriptionCategory__c}" style="color:#0055CC ;font-size: 14px;font-family: Arial;"/> <a onclick="unsubscribe('{! pl.Id}','{! pl.DI_SubscriptionCategory__c}');" ><apex:image url="{!$Resource.AddImage}" width="20" height="20" style="float:right;!important;"/></a>
+                              <div class="gray-line"></div>  
+                          
+                </apex:repeat>
+                <br/> 
+                </apex:outputPanel>
+                 <apex:outputPanel id="popularPicklists" rendered="{!SubscriberCheck}">
+                                        <div class="row">
+                                        <div class="col-md-4">Line of Business
+                                            <apex:selectList value="{!selectedPopularLineOfBusiness}" size="1" styleClass="form-control" onchange="changePopularLOB(this.value);">
+                                                <apex:selectOptions value="{!LineOfBusinessValues}"/>
+                                            </apex:selectList>
+                                        </div>
+                                        <div class="col-md-4">Category
+                                            <apex:selectList value="{!selectedPopularCategory}" size="1" styleClass="form-control" onchange="changePopularCategory(this.value);" disabled="{!selectedPopularLineOfBusiness==null || selectedPopularLineOfBusiness=='All'}">
+                                                <apex:selectOptions value="{!PopularCategoryValues}"/>
+                                            </apex:selectList>
+                                        </div>
+                                        <div class="col-md-4" align="left" style="padding-top:21px;">
+                                         <apex:commandButton value="Subscribe" action="{!Subscribe}" styleClass="btn btn-primary">
+                                                                                                                                                                       
+                                                       </apex:commandButton>
+                                                       </div> 
+                                        </div> 
+                                         
+                                    </apex:outputPanel> 
+                                     <br/>
+          <div class="col-md-9" align="left">
+                                     <!--<apex:image url="{!$Resource.AddImage}" width="20" height="20" style="Color:blue;!important;"/>-->
+                                    <span class="glyphicon glyphicon-plus" style="color:blue"></span>
+                                  <apex:commandLink value="Add Subscription" action="{!Subscription}" style="color:#0055CC; text-decoration:none; background: none; border: none;">
+                                   </apex:commandLink>
+    
+                            </div> 
+            
+          </div>
+        </div>
+  </div>
+    <apex:actionFunction name="afSubscribtion" action="{! processSubScribtion}" reRender="toggleSwitch,newThemeAlertToggleSwitch" >
+        <apex:param name="requestType" value=""/>
+        <apex:param name="subscription" value=""/>
+    </apex:actionFunction>
+
+  <script>
+    $("[id$='toggleBtn']").on("click", function() {
+        if ($("[id $= toggleSwitch]").hasClass("active")) {
+            afSubscribtion('off','Daily Digest');
+        } else {
+            afSubscribtion('on','Daily Digest');
+        }
+    });
+    
+    $("[id$='newThemeAlertToggleBtn']").on("click", function() {
+        if ($("[id $= newThemeAlertToggleSwitch]").hasClass("active")) {
+            afSubscribtion('off','New Theme Alert');
+        } else {
+            afSubscribtion('on','New Theme Alert');
+        }
+    });    
+  </script>
+  <!-- ----------------------------------------------------------------------------------------------------------------------------------->
+   
+   <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingFive">
+      <h4 class="panel-title"><span class="glyphicon glyphicon-triangle-bottom gi-2x"></span>
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="{!IF(selectedRow=='MyTeams',true,false)}" aria-controls="collapseFive">
+          My Team
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFive" class="panel-collapse collapse {!IF(selectedRow=='MyTeams','in','')}" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+            <apex:outputPanel id="dataPanelMyTeam">
+                <apex:outputLabel value="{!noMyTeam}" />
+                <apex:repeat value="{!MyTeamList}" var="ri">
+                        <div style="width: 100% !important;">
+                            <div style="width: 100px !important; height:120px !important; float: left !important; min-width: 100px !important;" align="center">
+                                <div style="padding-left:0px; width:100px !important; height:100px !important;" >
+                                        <apex:image url="{!IF(ri.fIMageMyTeam!=null, newUrl+ri.fIMageMyTeam, URLFOR($Resource.NCR_cssjsimg, 'img/ideas-default-avatar.png'))}" style="margin-top: 15px; max-width: 90px !important; max-height: 65px !important;"/>
+                                           <br/>
+                                        <apex:outputText value="{!ri.voteTotal} pts." style="font-size: 13px !important;" />
+                                
+                                </div>                       
+                            </div>
+                            <div class="idea-context" style="width: 85% !important; float: left !important; ">
+                                <h2 class="col-md-9 title-drk-blue" style=" float:left; width: 100%;">
+                                    <apex:outputLink value="/apex/NCR_ViewIdeapage?id={!ri.idMyTeam}&pge=NCR_Activitypage&gb={!urlVal}&mb={!tab}" styleclass="title-drk-blue">{!ri.titleMyTeam}</apex:outputLink>
+                                </h2>
+                                <div class="col-md-9">
+                                <apex:outputLink value="/apex/NCR_ViewAllPage?selectTab=AllIdeas&chan={!ri.statusMyTeam}" style="background-color: #676767 !important; color: #FFFFFF !important; padding: 3px !important; font-size: 14px !important; border-radius: 3px !important; text-decoration: none;" rendered="{!ri.statusMyTeam!=null && ri.statusMyTeam!='Under Point Threshold'}">{!ri.statusMyTeam}</apex:outputLink>
+                                <!--<apex:outputText value="{!ri.statusMyTeam}" styleclass="idea-status" rendered="{!ri.statusMyTeam!=null && ri.statusMyTeam!='Under Point Threshold'}" />-->
+                                <apex:outputLink value="/apex/NCR_ViewAllPage?lob={!ri.lobMyTeam}&selectTab=AllIdeas" rendered="{!ri.lobMyTeam!=null}" styleclass="my-idea-text"> {!ri.lobMyTeam}</apex:outputLink>
+                                <apex:outputText value=", {!ri.channelMyTeam}" rendered="{!ri.lobMyTeam!='Platform Solutions' && ri.lobMyTeam!=null}" styleclass="my-idea-text"/>
+                                <apex:outputLink value="/apex/NCR_ViewAllPage?cat={!ri.categoryMyTeam}&selectTab=AllIdeas" rendered="{!ri.categoryMyTeam!=null}" styleclass="my-idea-text">, {!ri.categoryMyTeam}</apex:outputLink>
+                                </div>
+                                <div class="col-md-9 drk-gray" style="width: 100%; max-height: 80px !important; padding-left: 7px !important; padding-top: 5px !important; margin-bottom: 5px !important; overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;"><apex:outputText escape="false" value="{!ri.bodyMyTeam}" /></div>
+                                
+                                <div class="row" style="padding-left: 7px !important; margin-top: 5px !important;">
+                                    <p class="col-md-9 drk-gray"> <apex:outputText styleclass="drk-gray">{!ri.cNameMyTeam}</apex:outputText>  <apex:outputText value="{! ', '+ ri.createdByTitle}" rendered="{! ri.createdByTitle != null}" styleClass="drk-gray"/><apex:outputText value="{! ', '+ ri.createdByDiFiName}" rendered="{! ri.createdByDiFiName != null}" styleClass="drk-gray"/> | <apex:outputText value="{0,date, MM/dd/yy}" styleclass="drk-gray"> <apex:param value="{!ri.createdDateMyTeam}" /> </apex:outputText></p>
+                                </div>                                          
+                            </div>
+                            <div class="gray-line" style=" float: left !important;"></div> 
+                        </div>
+                 </apex:repeat>
+             </apex:outputPanel>
+                         <div id="page-selectionMyTeam" align = "center" style="float:left; width: 100%;"></div>
+
+      </div>
+    </div>
+  </div>    
+   
+ </div>   
+</div>
+</div>
+</div>
+<apex:includeScript value="{!URLFOR($Resource.NCR_cssjsimg, 'js/leapfrog.min.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.NCR_cssjsimg, 'js/docs.js')}"/>
+ </apex:form>
+</body>
+        <apex:includeScript value="{!$Resource.bootpag}"/>
+        <script>
+            $(document).ready(function(){
+                $("#page-selectionMyIdeas").bootpag({
+                    total: {!paginaterMyIdeas.totalPageMyIdeas},
+                    page: 1,
+                    maxVisible: 5,
+                    leaps: false,
+                    firstLastUse: true,
+                    first: '←',
+                    last: '→',
+                    wrapClass: 'pagination',
+                    activeClass: 'active',
+                    disabledClass: 'disabled',
+                    nextClass: 'next',
+                    prevClass: 'prev',
+                    lastClass: 'last',
+                    firstClass: 'first'
+                }).on("page", function(event, num){
+                    //alert('page ' + num);
+                    switchPageMyIdeas(num);
+                    //$("#content").html("Page " + num); // or some ajax content loading...
+                }); 
+            });
+            function changePopularLOB(sel) {
+                    reloadPopularLOB(sel);
+                }
+                function changePopularCategory(sel) {
+                    reloadPopularCategory(sel);
+                }
+            $(document).ready(function(){
+                $("#page-selectionReplies").bootpag({
+                    total: {!paginaterReplies.totalPageReplies},
+                    page: 1,
+                    maxVisible: 5,
+                    leaps: false,
+                    firstLastUse: true,
+                    first: '←',
+                    last: '→',
+                    wrapClass: 'pagination',
+                    activeClass: 'active',
+                    disabledClass: 'disabled',
+                    nextClass: 'next',
+                    prevClass: 'prev',
+                    lastClass: 'last',
+                    firstClass: 'first'
+                }).on("page", function(event, num){
+                    //alert('page ' + num);
+                    switchPageReplies(num);
+                    //$("#content").html("Page " + num); // or some ajax content loading...
+                }); 
+            });
+            
+            $(document).ready(function(){
+                $("#page-selectionComment").bootpag({
+                    total: {!paginaterComment.totalPageComment},
+                    page: 1,
+                    maxVisible: 5,
+                    leaps: false,
+                    firstLastUse: true,
+                    first: '←',
+                    last: '→',
+                    wrapClass: 'pagination',
+                    activeClass: 'active',
+                    disabledClass: 'disabled',
+                    nextClass: 'next',
+                    prevClass: 'prev',
+                    lastClass: 'last',
+                    firstClass: 'first'
+                }).on("page", function(event, num){
+                    //alert('page ' + num);
+                    switchPageComment(num);
+                    //$("#content").html("Page " + num); // or some ajax content loading...
+                }); 
+            });
+            
+            $(document).ready(function(){
+                $("#page-selectionFavIdeaTheme").bootpag({
+                    total: {!paginaterIdeaTheme.totalPage},
+                    page: 1,
+                    maxVisible: 5,
+                    leaps: false,
+                    firstLastUse: true,
+                    first: '←',
+                    last: '→',
+                    wrapClass: 'pagination',
+                    activeClass: 'active',
+                    disabledClass: 'disabled',
+                    nextClass: 'next',
+                    prevClass: 'prev',
+                    lastClass: 'last',
+                    firstClass: 'first'
+                }).on("page", function(event, num){
+                    //alert('page ' + num);
+                    switchPageFavIdeaThemes(num);
+                    //$("#content").html("Page " + num); // or some ajax content loading...
+                }); 
+            });
+            
+            $(document).ready(function(){
+                $("#page-selectionFavorites").bootpag({
+                    total: {!paginaterFavorites.totalPageFavorites},
+                    page: 1,
+                    maxVisible: 5,
+                    leaps: false,
+                    firstLastUse: true,
+                    first: '←',
+                    last: '→',
+                    wrapClass: 'pagination',
+                    activeClass: 'active',
+                    disabledClass: 'disabled',
+                    nextClass: 'next',
+                    prevClass: 'prev',
+                    lastClass: 'last',
+                    firstClass: 'first'
+                }).on("page", function(event, num){
+                    //alert('page ' + num);
+                    switchPageFavorites(num);
+                    //$("#content").html("Page " + num); // or some ajax content loading...
+                }); 
+            });
+            
+            $(document).ready(function(){
+                $("#page-selectionMyTeam").bootpag({
+                    total: {!paginaterMyTeam.totalPageMyTeam},
+                    page: 1,
+                    maxVisible: 5,
+                    leaps: false,
+                    firstLastUse: true,
+                    first: '←',
+                    last: '→',
+                    wrapClass: 'pagination',
+                    activeClass: 'active',
+                    disabledClass: 'disabled',
+                    nextClass: 'next',
+                    prevClass: 'prev',
+                    lastClass: 'last',
+                    firstClass: 'first'
+                }).on("page", function(event, num){
+                    //alert('page ' + num);
+                    switchPageMyTeam(num);
+                    //$("#content").html("Page " + num); // or some ajax content loading...
+                }); 
+            });
+            
+            
+            //google analytics
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+             
+              ga('create', 'UA-66575504-1', 'auto');
+              ga('send', 'pageview');
+        </script>
+<style>
+    .nicEdit-panel {
+        padding:8px 5px;
+        background:transparent linear-gradient(to bottom, #f4f4f4 0px, #d7d6d6 100%) repeat scroll 0% 0%!important;
+        margin:0px!important;
+    }
+  
+</style>
+
+</html>
+
+
+</apex:page>

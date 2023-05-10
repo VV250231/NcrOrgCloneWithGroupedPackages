@@ -1,0 +1,37 @@
+<aura:component controller="GetHelpFileUploadController" 
+                implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningquickactionwithoutheader" access="global">
+ 	
+   
+ 	<!-- 'showLoadingSpinner' attribute for show/hide the uploading image and msg in aura:if-->
+   	<aura:attribute name="showLoadingSpinner" type="boolean" default="false" />
+    <aura:handler event="force:refreshView" action="{!c.isRefreshed}" />
+
+ 	<!-- 'fileName' attribute for display the selected file name -->  
+   	<aura:attribute name="fileName" type="String" default="No File Selected.." />
+     <div class="slds">
+    	<div class="section">
+            <table class="slds-table slds-table_bordered slds-min-medium-table_stacked-horizontal">
+                <tbody>
+                    <tr class="slds-hint-parent">
+                        <td data-label="Action">
+                            <ui:message title="Use 'Upload Files' icon to add attachments." severity="confirm" closable="false" />
+                            <lightning:input aura:id="fileId" onchange="{!c.handleFilesChange}" type="file" name="file" label="Upload Attachment" multiple="false"/>
+                            <div class="slds-text-body_small slds-text-color_error">{!v.fileName} </div>
+                         
+                            <!--use aura:if for show-hide the loading spinner image--> 
+                            <aura:if isTrue="{!v.showLoadingSpinner}">
+                                <div class="slds-text-body_small slds-text-color_error">Uploading... 
+                                    <img src="/auraFW/resources/aura/images/spinner.gif" class="spinner-img" alt="Loading"/>
+                                </div>
+                            </aura:if>
+                            <button class="slds-button slds-button_brand" onclick="{!c.doSave}">Save Attachment</button>
+                        </td>
+                        <!--<td data-label="Action1">
+                            <button class="slds-button slds-button_brand" onclick="{!c.doSave}">Save Attachment</button>
+                        </td>-->
+                    </tr>
+                </tbody>
+            </table>
+         </div>
+    </div>
+</aura:component>

@@ -1,0 +1,51 @@
+<apex:component controller="NCR_HomePageSidebarController">
+       <c:NCR_CustomHead />
+    
+        <!--My Activity-->  
+        <ul class="row panel nav bs-docs-sidenav">
+            <li><h3>My Activity</h3></li>
+           <!-- <li><a href="/apex/ncr_ideathemehomepage" style="font-size:14px !important; color:#004b8d !important; text-decoration:none !important;">Theme</a></li>--> 
+            <li><a href="/apex/NCR_Activitypage?SelectRow=MyIdeas&pge={!urlVal}&tb={!Tab}" style="font-size:14px !important; color:#004b8d !important; text-decoration:none !important;">My Ideas( {!myIdeasCount} )</a></li>
+            <li><a href="/apex/NCR_Activitypage?SelectRow=Replies&pge={!urlVal}&tb={!Tab}" style="font-size:14px !important; color:#004b8d !important; text-decoration:none !important;">Replies to My Ideas ( {!myReplies} )</a></li>
+            <li><a href="/apex/NCR_Activitypage?SelectRow=Favorites&pge={!urlVal}&tb={!Tab}" style="font-size:14px !important; color:#004b8d !important; text-decoration:none !important;">Favorites ( {!myFavoritesCount} )</a></li>
+            <li><a href="/apex/NCR_Activitypage?SelectRow=Comments&pge={!urlVal}&tb={!Tab}" style="font-size:14px !important; color:#004b8d !important; text-decoration:none !important;">My Comments ( {!mycommentsCount} )</a></li>
+            <li><a href="/apex/NCR_Activitypage?SelectRow=Subscriptions&pge={!urlVal}&tb={!Tab}" style="font-size:14px !important; color:#004b8d !important; text-decoration:none !important;">Subscriptions ( {!SubscriptionCount} )</a></li>
+            <li><a href="/apex/NCR_Activitypage?SelectRow=MyTeams&pge={!urlVal}&tb={!Tab}" style="font-size:14px !important; color:#004b8d !important; text-decoration:none !important;">My Team ( {!myTeamCount} )</a></li>           
+        </ul>
+        
+        <!-- Recent 7 themes -->
+        
+       <div class="row panel" style="margin-top:20px;"> 
+            <h2>Active Theme</h2>                
+            <apex:repeat value="{!themes}" var="theme">
+                <div class="row">
+                <div class="col-xs-3 col-sm-3 col-md-3 recent-img" style="margin-top:10px;vertical-align: middle;">
+                   <apex:image url="{! theme.Featured_Image__c}" style="width:55px;height:55px;"/>
+                </div>
+                <div class="col-xs-9 col-sm-9 col-md-9" style="vertical-align: middle;">
+                    <h4>
+                        <apex:outputLink value="{! '/apex/ncr_themeDetail?id='+theme.Id}" style="text-decoration:none; color:#004b8d !important;">{! theme.Title}</apex:outputLink>
+                    </h4>
+                </div>
+               
+                </div>
+            </apex:repeat>
+        </div>       
+        <!--Collaborators-->  
+        <div class="row panel" style="margin-top:20px;">                
+            <h2>Top Collaborators</h2>                
+            <apex:repeat value="{!TopCollaborators}" var="tc">
+            <div class="row">
+                <div class="col-md-3 recent-img" style="margin-top:10px;width:25%;">
+                   <apex:image url="{!IF(tc.User.pics__c!=null, newUrl+tc.User.pics__c, URLFOR($Resource.NCR_cssjsimg, 'img/ideas-default-avatar.png'))}" style="width:55px;"/>
+                </div>
+                <h4 class="col-md-7" style="margin-bottom:0px;margin-left:5px;width:72%;"><apex:outputLink value="/apex/NCR_MyProfilepage?id={!tc.UserId}&pge={!urlVal}&selectedTab={!Tab}" style="text-decoration:none; color:#004b8d !important;">{!tc.User.Name}</apex:outputLink></h4>
+                <p class="top-points col-md-7" style="margin-left:5px;">{!tc.Score}
+                </p>
+                </div>
+            </apex:repeat>            
+        </div>
+        
+
+        
+</apex:component>

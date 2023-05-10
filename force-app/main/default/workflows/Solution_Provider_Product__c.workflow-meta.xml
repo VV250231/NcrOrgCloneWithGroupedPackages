@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Update_Solution_Provider_Number_on_SPP</fullName>
+        <field>Solution_Provider_Number__c</field>
+        <formula>Solution_Provider_Id__r.Solution_Provider_Number__c</formula>
+        <name>Update Solution Provider Number on SPP</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Populate Solution Provider Number on Vendor Product</fullName>
+        <actions>
+            <name>Update_Solution_Provider_Number_on_SPP</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>This workflow is used to populate Solution Provider Number field on Solution Provider Product from Solution Provider Account.</description>
+        <formula>NOT(ISNULL(Solution_Provider_Id__c ))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

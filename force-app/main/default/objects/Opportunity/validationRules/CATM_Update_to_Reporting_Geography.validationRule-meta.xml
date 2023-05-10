@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CATM_Update_to_Reporting_Geography</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+CATM_Record__c,
+ISCHANGED(Reporting_Geography__c),
+OLI_Count__c &gt; 0)</errorConditionFormula>
+    <errorMessage>ERROR:  You must delete products before changing the &apos;Reporting Geography&apos;.</errorMessage>
+</ValidationRule>

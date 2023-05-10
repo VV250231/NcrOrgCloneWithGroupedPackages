@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Update_Last_Activity_Date_on_Case_Email</fullName>
+        <description>Updates Case Last Modified Date by updating Case Last Activity Date</description>
+        <field>Last_Activity_Date__c</field>
+        <formula>NOW()</formula>
+        <name>Update Last Activity Date on Case Email</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>ParentId</targetObject>
+    </fieldUpdates>
+    <rules>
+        <fullName>EMAIL%3A Update Case when Email Sent</fullName>
+        <actions>
+            <name>Update_Last_Activity_Date_on_Case_Email</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>EmailMessage.Status</field>
+            <operation>equals</operation>
+            <value>Replied,Sent</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>IPT Partner</value>
+        </criteriaItems>
+        <description>Updates Entitlement Cases Last Activity Date from new Email Sent or Replied</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

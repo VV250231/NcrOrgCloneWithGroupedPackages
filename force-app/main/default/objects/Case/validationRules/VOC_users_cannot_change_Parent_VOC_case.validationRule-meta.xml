@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VOC_users_cannot_change_Parent_VOC_case</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND
+(
+  $Profile.Name =&apos;VOC Partner Community User&apos;,
+  OR(RecordType.Name = &apos;Close the Loop&apos; , RecordType.Name = &apos;CX Case&apos;)
+)</errorConditionFormula>
+    <errorDisplayField>of_Expired_Items__c</errorDisplayField>
+    <errorMessage>You cannot change the parent case</errorMessage>
+</ValidationRule>

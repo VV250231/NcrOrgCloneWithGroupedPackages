@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Case$CaseNumber</field>
+    </columns>
+    <columns>
+        <field>Case$Status</field>
+    </columns>
+    <columns>
+        <field>Case$Status_Reason__c</field>
+    </columns>
+    <columns>
+        <field>Case$Subject</field>
+    </columns>
+    <columns>
+        <field>Case$Support_Queue__c</field>
+    </columns>
+    <columns>
+        <field>Case$Priority</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>Case$Status_Reason__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>,Client Hold/Action Required,Monitoring Incident,PS/Professional Services,Other Internal Group,Third Party/Vendor,Support Implemented Fix,Support Referred to Resolver Group,Customer Response Required,Dispatch – Part Only,Dispatch – Part &amp; Tech,Dispatch - Tech Only,NCR Support - Follow Up,NCR Support - Upgrade Planned,After Hours Support,DEV – SEAT,DEV – Analysis,DEV – QA,DEV – Awaiting Release,Case No Longer Needed,Email Response Received,Dispatch - PNA (Part Not Available)</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case$Support_Queue__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>HOS SMB Texas transfers</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case$Status</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>,New,Approved,Assess,Assigned,Auto Response - No Action,Closed,CFS Account Review,&quot;Closed, Discontinued&quot;,Closed No Response (3 attempts),Closed with Exception,Closed without Revenue,Closed with Revenue,Compile,Contact Completed,Contact Unresponsive,CSM Assigned,Customer Unresponsive,Duplicate,Escalated,Executing,Follow-up Completed,In_Progress,In Progress,In Progress - With BU Admin,In Progress - With Central Admin,In Progress - With EDL/SF,In Progress - With Gainsight,In Progress - With Gainsight Support,In Sprint,Issue Resolved,No Action Reply,On Hold,Open,Pending,Pending Assignment,Pending BOC,Pending Collections,Pending CSM Assignment,Pending Customer,Pending Customer Confirmation,Pending EOJ,Pending LT Approval (Leadership Team),Pending RDS,Pending Response,Pending Review &amp; Approval,Pending Sales Team,Pending SOM,Pending Tax,Reconcile,Rejected,&quot;Reopen, Hold&quot;,&quot;Reopen, In Progress&quot;,Reopened,Resolution Action Completed,Resolution Action Started,Resolved,Review W.O. in EDW,Run Sprint 2 Report,Submitted,Transferred,Troubleshooting,Under Review,Waiting for Dispute Resolution,Waiting on Response,Pending Assignment-DD,Assigned to Deals Desk Consultant-DD,Awaiting Input-DD,Bid P&amp;L/T&amp;C&apos;s Under Construction-DD,Bid P&amp;L/T&amp;C Pre-Approval Review-DD,Pending Approval-DD,Approved-DD,Rejected Bid-DD</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>PROJECT</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Case_With_Lookup_Info__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Case$CreatedDate</dateColumn>
+        <endDate>2023-03-16</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2023-01-01</startDate>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prompt xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>7/20-7/21 CPQ Downtime Partner Notification</masterLabel>
+    <promptVersions>
+        <body>&lt;p&gt;&lt;strong&gt;WED (7/20) 8pm ET – THURS (7/21) 8am ET &lt;/strong&gt;Although the system may be available during portions of the downtime, users&lt;strong&gt; should not&lt;/strong&gt; &lt;strong&gt;create &lt;/strong&gt;or &lt;strong&gt;edit &lt;/strong&gt;quotes, orders, contracts, or billing during the window noted above.&lt;/p&gt;&lt;p&gt;Thanks!&lt;/p&gt;</body>
+        <delayDays>1</delayDays>
+        <dismissButtonLabel>Dismiss</dismissButtonLabel>
+        <displayPosition>TopCenter</displayPosition>
+        <displayType>FloatingPanel</displayType>
+        <endDate>2022-07-21</endDate>
+        <isPublished>false</isPublished>
+        <masterLabel>7/20-7/21 CPQ Downtime Partner Notification</masterLabel>
+        <shouldDisplayActionButton>false</shouldDisplayActionButton>
+        <shouldIgnoreGlobalDelay>false</shouldIgnoreGlobalDelay>
+        <startDate>2022-07-20</startDate>
+        <themeColor>Theme1</themeColor>
+        <themeSaturation>Light</themeSaturation>
+        <timesToDisplay>1</timesToDisplay>
+        <title>*CPQ &amp; Billing Downtime ALERT*</title>
+        <uiFormulaRule>
+            <criteria>
+                <leftValue>{!$User.Profile.Key}</leftValue>
+                <operator>EQUAL</operator>
+                <rightValue>custom_hospitality smb partner user</rightValue>
+            </criteria>
+        </uiFormulaRule>
+        <userAccess>Everyone</userAccess>
+        <userProfileAccess>SpecificProfiles</userProfileAccess>
+        <versionNumber>1</versionNumber>
+    </promptVersions>
+</Prompt>

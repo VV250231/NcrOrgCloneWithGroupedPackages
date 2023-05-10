@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Texas_Case_Management</fullName>
+    <columns>Site_Does_Not_Have_HelpDesk_Support__c</columns>
+    <columns>No_HelpDesk_Support_Reason__c</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>Site_Id__c</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>Status_Reason__c</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>Support_Queue__c</columns>
+    <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+    <columns>CASES.LAST_UPDATE_DATE_ONLY</columns>
+    <columns>Customer_Contact_Email1__c</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Closed</value>
+    </filters>
+    <filters>
+        <field>Support_Queue__c</field>
+        <operation>contains</operation>
+        <value>Texas Case Management</value>
+    </filters>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Cancelled</value>
+    </filters>
+    <filters>
+        <field>OWNER_NAME</field>
+        <operation>notContain</operation>
+        <value>Texas Field Services</value>
+    </filters>
+    <label>HOS SMB Texas Case Management</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

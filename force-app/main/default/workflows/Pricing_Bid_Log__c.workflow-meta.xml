@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Send_an_email_to_owner_if_the_status_has_not_changed_after_30_days_of_Bid_creati</fullName>
+        <description>Send an email to owner if the status has not changed, after 30 days of Bid creation.</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Desk_Template_Folder/Pricing_Bid_Reminder_Email_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_second_email_to_owner_if_the_status_has_not_changed_after_60_days_of_bid_cr</fullName>
+        <description>Send second email to owner if the status has not changed after 60 days of bid creation!!</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Desk_Template_Folder/Pricing_Bid_Reminder_Email_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_third_email_to_owner_if_the_status_has_not_changed_after_90_days_of_Bid_cre</fullName>
+        <description>Send third email to owner if the status has not changed, after 90 days of Bid creation.</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Desk_Template_Folder/Pricing_Bid_Reminder_Email_Template</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Populate_Customer_Field</fullName>
+        <field>Customer_Auto_Populate__c</field>
+        <formula>Customer__r.Name</formula>
+        <name>Populate Customer Field</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Populate_Opportunity_Name_Field</fullName>
+        <field>Opportunity_Auto_Populate__c</field>
+        <formula>Opportunity_Number__r.Name</formula>
+        <name>Populate Opportunity Name Field</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Prefix_Minus_Sign_on_GM_Change_in_Percnt</fullName>
+        <field>GM_Change_in__c</field>
+        <formula>-  ( GM_Change_in__c )</formula>
+        <name>Prefix Minus Sign on GM Change in Percnt</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Uncheck_Checkbox_Create_Version</fullName>
+        <field>Create_Version__c</field>
+        <literalValue>0</literalValue>
+        <name>Uncheck Checkbox Create Version</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Bid_Version_on_Update</fullName>
+        <field>Bid_Version__c</field>
+        <formula>Bid_Version__c  + 1</formula>
+        <name>Update Bid Version on Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Increase Bid Version Number on Updating the Bid Log Entry</fullName>
+        <actions>
+            <name>Uncheck_Checkbox_Create_Version</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Bid_Version_on_Update</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Pricing_Bid_Log__c.Create_Version__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Make the value negative before saving</fullName>
+        <actions>
+            <name>Prefix_Minus_Sign_on_GM_Change_in_Percnt</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>NOT( ISBLANK( GM_Change_in__c ) )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Send Email to Bid Owner If the status has not changed for 30 days</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Pricing_Bid_Log__c.Bid_Status__c</field>
+            <operation>notEqual</operation>
+            <value>Lost,Discontinued,On Hold,Won</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Pricing_Bid_Log__c.Bid_Status__c</field>
+            <operation>equals</operation>
+            <value>In Progress</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Send_second_email_to_owner_if_the_status_has_not_changed_after_60_days_of_bid_cr</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Pricing_Bid_Log__c.CreatedDate</offsetFromField>
+            <timeLength>60</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Send_third_email_to_owner_if_the_status_has_not_changed_after_90_days_of_Bid_cre</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Pricing_Bid_Log__c.CreatedDate</offsetFromField>
+            <timeLength>90</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Send_an_email_to_owner_if_the_status_has_not_changed_after_30_days_of_Bid_creati</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Pricing_Bid_Log__c.CreatedDate</offsetFromField>
+            <timeLength>30</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+</Workflow>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_Associated_To_Account</fullName>
+    <active>true</active>
+    <description>The primary contact should be set on the Account</description>
+    <errorConditionFormula>And( Partner_Primary_Contact__c,
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c), OR(LEN(Account.Primary_Contact__c) = 0, Id &lt;&gt; Account.Primary_Contact__c))</errorConditionFormula>
+    <errorDisplayField>Partner_Primary_Contact__c</errorDisplayField>
+    <errorMessage>Contact should be set as Primary Contact on the Account</errorMessage>
+</ValidationRule>

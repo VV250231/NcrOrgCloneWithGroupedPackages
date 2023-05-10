@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Leadership_Description_Cannot_be_blank</fullName>
+    <active>true</active>
+    <description>Must be populated when Industry Leadership, Pub Paper, Awards, Recognition field is checked</description>
+    <errorConditionFormula>AND( Thought_Leadership_Awards_Recognition__c  = TRUE,  LEN( Leadership_Description__c ) =0)</errorConditionFormula>
+    <errorDisplayField>Leadership_Description__c</errorDisplayField>
+    <errorMessage>Must be populated when Industry Leadership, Pub Paper, Awards, Recognition field is checked</errorMessage>
+</ValidationRule>

@@ -1,0 +1,32 @@
+<aura:component controller="HierarchyController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction">
+    <aura:attribute name="acc" type="Account" default="{'sobjectType': 'Account'}"/>
+    <aura:attribute name="oppCreate" type="Boolean" default="false"/>
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <aura:handler name="change" value="{!v.recordId}" action="{!c.init}"/>
+    <lightning:spinner aura:id="mySpinner" />
+    <div class="slds-box slds-theme_shade slds-theme_alert-texture">
+        <lightning:card iconName="standard:account" footer="Account Detail ↓" title="{!v.acc.Name}" variant="narrow">
+            <lightning:recordViewForm recordId="{!v.recordId}" objectApiName="Account">
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_1-of-4"> Account Type:<lightning:outputField fieldName="CDM_Account_Type__c" variant="label-hidden"/></div>                
+                    <div class="slds-col slds-size_1-of-4"> <span>Global Ultimate:<lightning:outputField fieldName="Global_Ultimate_Lookup__c" variant="label-hidden"/></span></div>                
+                    <div class="slds-col slds-size_1-of-4"> Domestic Ultimate:<lightning:outputField fieldName="Domestic_Ultimate_Lookup__c" variant="label-hidden"/></div>                
+                    <div class="slds-col slds-size_1-of-4 test-id__field-label">Can Create Opportunity:
+                        <aura:if isTrue="{! v.oppCreate}">
+                            &nbsp;<lightning:icon iconName="utility:success" alternativeText="Success!" variant="Success"
+                                                  title="success variant small" size="small" />                    
+                            <aura:set attribute="else">
+                                &nbsp; <lightning:icon iconName="utility:error" alternativeText="Success!" variant="error"
+                                                       title="success variant small" size="small" />
+                            </aura:set>
+                        </aura:if>        
+                        
+                    </div>    
+                </div>
+            </lightning:recordViewForm>
+        </lightning:card>
+    </div>
+    <aura:if isTrue="{!not(empty(v.recordId))}">
+        <force:recordView recordId="{!v.recordId}" />
+    </aura:if>
+</aura:component>

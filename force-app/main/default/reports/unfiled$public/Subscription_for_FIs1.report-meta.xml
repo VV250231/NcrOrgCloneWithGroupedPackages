@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Account.Zuora__Subscription_Rate_Plans__r.Zuora__Subscription_Product_Charges__r$Zuora__ProductDescription__c</field>
+    </columns>
+    <columns>
+        <field>Account.Zuora__Subscription_Rate_Plans__r$Name</field>
+    </columns>
+    <columns>
+        <field>Account.Zuora__Subscription_Rate_Plans__r.Zuora__Subscription_Product_Charges__r$Zuora__RatePlanDescription__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.Zuora__Subscription_Rate_Plans__r.Zuora__Subscription_Product_Charges__r$Zuora__Price__c</field>
+    </columns>
+    <columns>
+        <field>Account.Zuora__Subscription_Rate_Plans__r.Zuora__Subscription_Product_Charges__r$Zuora__EffectiveStartDate__c</field>
+    </columns>
+    <columns>
+        <field>Account.Zuora__Subscription_Rate_Plans__r.Zuora__Subscription_Product_Charges__r$Salesperson__c</field>
+    </columns>
+    <currency>USD</currency>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Account$Name</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Subscription for FIs</name>
+    <params>
+        <name>co</name>
+        <value>0</value>
+    </params>
+    <reportType>Accounts_with_Subscription_Rate_Plans_and_Charges__c</reportType>
+    <scope>user</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>false</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Account.Zuora__Subscription_Rate_Plans__r.Zuora__Subscription_Product_Charges__r$Zuora__SpecificEndDate__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

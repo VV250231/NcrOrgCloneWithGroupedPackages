@@ -1,0 +1,391 @@
+<apex:page docType="html-5.0" applyHtmlTag="false" applyBodyTag="false"  standardController="Opportunity" extensions="OppContactRoleCtrl" tabStyle="Opportunity" cache="true" 
+    standardStylesheets="false" showHeader="false" id="thepage" >
+       <!-- sf1 onestarter files -->
+<html>
+<head>     
+      <meta charset="utf-8" />
+      <meta name="apple-mobile-web-app-capable" content="yes" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+      <apex:stylesheet value="{!URLFOR($Resource.OneStarter,'icons.css')}"/>
+      <apex:stylesheet value="{!URLFOR($Resource.OneStarter,'styles.css')}"/>
+      <apex:stylesheet value="{!URLFOR($Resource.OneStarter,'OneStarter.css')}"/>
+      <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+      
+      <style type="text/css">
+            select.sf1select  {
+                background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9ImRvd25fMV8iIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iNjRweCIgaGVpZ2h0PSI2NHB4IiB2aWV3Qm94PSIwIDAgNjQgNjQiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDY0IDY0IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxnIGlkPSJEb3duX3g0MF8yeC5wbmdfMV8iPg0KCTxnIGlkPSJkaXJlY3Rkb3duX2NvcHkiPg0KCQk8Zz4NCgkJCTxwYXRoIGZpbGw9IiM5Njk4OTkiIGQ9Ik01NS4wNjYsMTcuODY2Yy0wLjUzMy0wLjkzNC0xLjQ2Ny0xLjUzMy0yLjUzMy0xLjZDNTIuMzk4LDE2LjE5OSw0Mi4zOTgsMTUuNiwzMiwxNS42DQoJCQkJYy0xMC4zOTksMC0yMC40LDAuNi0yMC41MzMsMC42NjdjLTEuMDY2LDAuMDY2LTIuMDY2LDAuNjY2LTIuNTMzLDEuNmMtMC41MzMsMC45MzQtMC41MzMsMi4wNjYsMCwzDQoJCQkJYzcuOTMzLDE0LjA2NiwyMC40LDI2LjI2NywyMC45MzMsMjYuNzMyYzEuMiwxLjA2NiwzLjA2NiwxLjA2Niw0LjI2NywwYzAuNTMzLTAuNDY3LDEzLTEyLjY2NiwyMC45MzMtMjYuNzMyDQoJCQkJQzU1LjYsMTkuOTMzLDU1LjYsMTguOCw1NS4wNjYsMTcuODY2eiIvPg0KCQk8L2c+DQoJPC9nPg0KPC9nPg0KPC9zdmc+DQo=);
+                background-repeat: no-repeat;
+                background-position: 95% 50%;
+                background-size: 16px 16px,100% 100%;
+                background-color: #ffffff;
+                -webkit-appearance: none;
+            }
+            
+            
+            .label--lookup:before {
+                top: inherit !important;
+                bottom: 28px !important;
+                color: #7e7f80; 
+            }
+            
+            th {
+                white-space: normal;
+            }
+            
+             .ui-content {
+                padding: 0.2em !important;
+             }
+             
+            .paddedIcon {
+                display: inline-block;
+                font-size: 14px;
+             }
+
+            
+            .search .searchMessage {
+                padding-left: 7px;
+                font-size: 14px;
+                font-style: normal;
+                font-variant: normal;
+                font-variant-ligatures: normal;
+                font-weight: normal;
+                height: auto;
+                left: auto;
+                letter-spacing: normal;
+                line-height: 14px;
+           }
+             
+           
+            
+      </style>
+</head>
+<body>
+
+<div data-role="page"  data-enhance="false" id="conrolepage"> 
+<apex:outputPanel id="role-panel" layout="block" html-data-enhance="false">
+<div data-role="header" >
+<article class="padded" style="margin-left: 0px;margin-right: 0px;">
+    <div class="icon icon-left icon--opportunity"></div>
+    {!Opportunity.Name}
+</article>
+</div>
+<div data-role= "content" >
+
+
+<apex:form >            
+ 
+<table class="detailList" border="0" cellpadding="0" cellspacing="0" >
+<tr class="detailRow last">
+    <td colspan="4">
+        <table>
+            <tr><th class="radioCol" >Primary</th><th>Contact</th><th>Role</th></tr>
+            <tr><td class="radioCol cbindex" valign="middle">
+                        <input checked="checked" id="primary-1" name="primary" title="No Primary Contact" type="radio" value="-1"   onclick="setPrimary(this ,'first-hiddenprimary');" />
+                        <input id="first-hiddenprimary" type="hidden" />
+                </td>
+                <td class=""><label  for="primary-1" style="margin-top: 15px;">No Primary Contact</label><br /></td> 
+                <td class="data"> &nbsp;</td>
+            </tr>
+            
+            
+            <apex:variable value="{!1}" var="rowNum"/>
+            <apex:repeat value="{!oppContactRole}" var="a">
+                <tr>
+                    <td class="radioCol cbindex"><input id="primradio{!FLOOR(rowNum)}" name="primary" type="radio" value="2" onclick="setPrimary(this ,'{!$Component.hiddenprimary}');" />   
+                        <apex:inputHidden value="{!a.IsPrimary}" id="hiddenprimary"/>
+                        <script>
+                            if({!a.IsPrimary}){
+                                document.getElementById('primradio{!FLOOR(rowNum)}').checked = true;
+                                 
+                            } else {
+                                 document.getElementById('primradio{!FLOOR(rowNum)}').checked = false;  
+                            }
+                        </script>
+                    </td>
+                    <td class="">
+                       
+                             <!-- label class="size-full icon-utility-search pos-abs label--lookup">
+                                <span class="dn">Lookup</span>
+                            </label-->
+                            <apex:inputText id="conlkpname" value="{!a.Contact.Name}" html-placeholder="Lookup" html-readonly="readonly"  onclick="changepage(this.id,'{!$Component.hiddencontactId}');return false;"/> 
+                             <label class="icon-utility-search pos-abs label--lookup" style="width:43%;">
+                            </label>
+                            <apex:inputHidden value="{!a.ContactId}" id="hiddencontactId" />
+                        
+                    </td>
+                    <td class=""> <apex:inputfield value="{!a.Role}" styleClass="sf1select"/></td>
+                </tr>
+                <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+            </apex:repeat>
+         </table>
+     </td>
+ </tr></table>
+   <br/> 
+    <center>      
+     <apex:commandButton value="Save" onclick="jquerySavingmsg();" action="{!saveConRoles}" oncomplete="oppRedirect();" />
+  </center>      
+<!-- input type="button" value="click" onclick="changepage();"  /-->
+
+</apex:form>
+
+</div>
+ </apex:outputPanel>
+</div>
+
+
+<!-- contact search page -start -->
+<div data-role="page" id="listpage" data-theme="a">
+     <div data-role="content" id="contactList">
+          <form class="ui-filterable"> 
+                       <input id="filterBasic-input" data-type="search" placeholder="Search Contact" />  
+                </form>
+
+                 <ul id="cList" data-filter="true" data-inset="true" data-role="listview" data-input="#filterBasic-input"
+                    data-theme="a" data-icon="false">
+                 </ul> 
+    </div>
+</div>
+
+<!-- contact search page -end-->
+
+<!-- script-start -->
+ 
+   <apex:includeScript value="{!URLFOR($Resource.jqueryResource, 'jquery-1.9.1.min.js')}"/>
+   <apex:includeScript value="/canvas/sdk/js/publisher-min.js" />
+      
+     <script>
+         var $j = jQuery.noConflict();
+         var conlist = [];
+         var compflag = -1;
+         
+         /** ignore jquery styling for one starter */
+         $j(document).on('mobileinit', function () {
+             $j.mobile.ignoreContentEnabled = true;
+         });
+         
+        
+         /** document ready **/
+         $j(document).ready(function() {
+             $j('div[id*="role-panel"]').oneStarter('record-action');
+             contactFilterCallback(); 
+             /*Sfdc.canvas.publisher.publish({name: "publisher.setValidForSubmit", payload:"true"}); */
+         });
+    
+    
+         /** hide visible ul li elements **/
+         function hideVisListElems() {
+             $j('ul#cList li').each(function () {  
+                 if(this.className.indexOf('ui-screen-hidden') == -1){
+                     $j(this).addClass('ui-screen-hidden');    
+                 }         
+            });
+         }
+         
+        /** jquery loadiing msg with text **/
+        function jqueryLoadingmsg() {
+            $j.mobile.loading( "show", {
+              text: "Loading",
+              textVisible: true,
+              theme: "b"
+            });
+        }
+        
+        /** jquery saving msg with text **/
+        function jquerySavingmsg() {
+            $j.mobile.loading( "show", {
+              text: "Saving",
+              textVisible: true,
+              theme: "b"
+            });
+        }
+         
+         /** setting isprimary for contact role **/
+         function setPrimary(radioele, hiddenele) {
+             var inputElem = document.getElementsByTagName("input");
+             for(var i=0; i<inputElem.length; i++) {
+                if(inputElem[i].id.indexOf("hiddenprimary") != -1)
+                    inputElem[i].value = false;
+             }
+             document.getElementById(hiddenele).value = true;
+         }
+         
+         /** redirect to opp detail page after save complete **/
+         function oppRedirect(){
+              sforce.one.navigateToSObject('{!Opportunity.ID}');
+              Sfdc.canvas.publisher.publish({name: "publisher.close", payload:{refresh:"true"}});
+         }
+         
+         /** contact list filter and refresh function **/
+         function contactFilterCallback() {
+                compflag  = -1;
+                $j.mobile.filterable.prototype.options.filterCallback = function(index, searchValue) {
+                    var resultflag = false;
+                    /* remove new search lis on list refresh */
+                    if(this.className.indexOf('searchlk') != -1){
+                        $j('#cList li').eq(index).remove();
+                        return true; 
+                    }
+                    if(searchValue == '' || searchValue == null ) {
+                        /* do nothing if search text is null */
+                        resultflag = false;
+                        if(this.id == 'search-lastchild' ) {
+                            resultflag = true;
+                        }
+                    } else { 
+                        if(index == 0) {
+                            compflag  = -1;  
+                            resultflag = false;  
+                        } else {
+                            if(this.id == 'search-lastchild' ) {
+                                resultflag = false; 
+                                this.style.display = 'block'; 
+                                $j(this).find("span.searchMessage").text("Search for \"" + searchValue + "\"");
+                            } else {    
+                                var litext = this.innerText;
+                                var compresult = litext.toLowerCase().indexOf(searchValue);
+                                if(compflag == -1) { compflag = compresult;}
+                                resultflag = (compresult === -1);    
+                            }         
+                       }   
+                    } 
+            return resultflag; 
+        };}
+                    
+         
+        /** ajax call for fatching recent conatcts **/ 
+        function changepage(lkname, hiddenlkid) {
+            jqueryLoadingmsg();
+            if(conlist != null && conlist.length == 0) {
+                 /** do external call for recent items **/
+              
+                 Visualforce.remoting.Manager.invokeAction(
+                   '{!$RemoteAction.OppContactRoleCtrl.loadContact}',
+                    function(result, event){
+                        if (event.status) {
+                             conlist = result;
+                             showContacts(result, lkname, hiddenlkid);      
+                        } else if (event.type === 'exception') {
+                          //alert( event.message);    
+                        } else {
+                             //alert( event.message);      
+                        }
+                    }, 
+                    {escape: true}
+                );   
+                
+                
+                /** do external call for recent items **/ 
+              
+             } else {
+                /* get recent items from conlist */
+                showContacts(conlist, lkname, hiddenlkid);
+                $j.mobile.changePage('#listpage', {changeHash: true});     
+             }
+         }
+         
+         /** add contact list header and icon */
+         function addListHeader() {
+            var headerLi = $j('<li id="searchpanel" data-filtertext=""></li>');  
+            var headerdiv = $j('<div class="icon icon-left icon--contact" style="float: left;"></div><span class="label" style="float: left;padding: 7px 0 0 0px; color : #3c3d3e; font-weight:bold;">Contact</span>');        
+            headerLi.append(headerdiv);            
+            headerLi.appendTo('#cList');
+         }
+         
+         
+         function showContacts(records, lkname, hiddenlkid) {   
+            $j('#cList').empty();
+            
+            /* add contact header and icon */
+            addListHeader();
+            
+            /* add records list elemets to clist and set click event */
+            $j.each(records, function() {
+                    var contname = this.Name.toString().split(",");
+                    contname =  ((contname.length > 1) ? contname[1] : "") + " " + contname[0];
+                    var newLi = $j('<li></li>');          
+                    var newLink = $j('<a id="' + this.Id + '" >' +  contname + '</a>');
+                    
+                    newLink.click(function(e) {
+                        e.preventDefault();
+                        document.getElementById(lkname).value = contname ;
+                        document.getElementById(hiddenlkid).value = this.id;
+                        $j.mobile.changePage('#conrolepage', {changeHash: true});
+                    });
+                    
+                    newLi.append(newLink);            
+                    newLi.appendTo('#cList');
+            });
+            
+            /* add search for li in created list */
+            var firstLi = $j('<li id="search-lastchild" style="display:none;"></li>');
+            var firstLink = $j('<a class="search" href="javascript:void(0);"><div class="icon-utility-search paddedIcon" ><!----></div><span class="searchMessage">Search for </span></a>');
+            firstLink .click(function(e) {
+                e.preventDefault();
+                jqueryLoadingmsg();
+                dynamicSearchContact($j("#filterBasic-input").val(), lkname, hiddenlkid);
+            });
+            firstLi.append(firstLink);            
+            firstLi.appendTo('#cList'); 
+            /* add search for li in created list */
+            
+            $j('#cList').listview().listview('refresh');
+            $j('li[id*="searchpanel"]').oneStarter('record-action');  
+            $j.mobile.loading( "hide" );
+            $j.mobile.changePage('#listpage', {changeHash: true})   
+        }
+    
+   
+        /** dynamic conatct search method **/
+        function dynamicSearchContact(searchstr, lkname, hiddenlkid) {
+                Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.OppContactRoleCtrl.searchContact}',
+                searchstr, 
+                function(result, event){
+                    if (event.status) {
+                        
+                          if(result != null && result.length > 0) {
+                              /* hide existing li childs */
+                              hideVisListElems();
+                              
+                              /*  add new childs */
+                              $j.each(result, function() {
+                                  
+                                       
+                                        var resLi = $j('<li class="searchlk"></li>');          
+                                        var resLink = $j('<a class="ui-btn" id="' + this.Id + '" >' +  this.Name + '</a>');
+                                        resLink.click(function(e) {
+                                            e.preventDefault();
+                                            document.getElementById(lkname).value = this.innerText;
+                                            document.getElementById(hiddenlkid).value = this.id;
+                                            $j.mobile.changePage('#conrolepage', {changeHash: true});
+                                        });
+                                        resLi.append(resLink);            
+                                        resLi.appendTo('#cList');
+                                    });
+                        } else {
+                            $j("span.searchMessage").text("No results found in Contact for searchstr");
+                        }
+                        $j.mobile.loading( "hide" );
+                    } else if (event.type === 'exception') {
+                        /*document.getElementById("responseErrors").innerHTML = 
+                            event.message + "<br/>\n<pre>" + event.where + "</pre>";*/
+                    } else {
+                        /*document.getElementById("responseErrors").innerHTML = event.message;*/
+                    }
+                }, 
+                {escape: true}
+            );    
+         }
+         
+    </script>
+   
+    <script src="https://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>  
+    <apex:includeScript value="{!URLFOR($Resource.OneStarter,'jquery.onestarter.js')}"/>
+   
+    
+  <!-- script-end-->
+        
+   
+</body>
+</html>
+</apex:page>

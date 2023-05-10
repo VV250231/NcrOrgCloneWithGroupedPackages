@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SDR_Lead_Quality_reqd_for_SDR_Reps</fullName>
+    <active>false</active>
+    <description>This validation rule is to require the SDR Lead Quality field for users in the HOSP SMB SDR Reps role when the Status is no &quot;Open&quot;. Removed: Shawnessy has confirmed that this field can be removed in a recent email chain 8/24/2022</description>
+    <errorConditionFormula>AND(
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+ CATM_Record__c = false,
+ISBLANK(TEXT(SDR_Lead_Quality__c)),
+(LastModifiedBy.UserRoleId = &quot;00E4u000001kcnq&quot;))</errorConditionFormula>
+    <errorDisplayField>SDR_Lead_Quality__c</errorDisplayField>
+    <errorMessage>The SDR Lead Quality field is required for your role.</errorMessage>
+</ValidationRule>

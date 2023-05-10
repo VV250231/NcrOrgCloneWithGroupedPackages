@@ -1,0 +1,46 @@
+<apex:component controller="UserDeactivateNotification" access="global">
+    <apex:attribute name="userId" type="id" required="required" description="To get the user id from template"/>
+    <p>
+    <!--<apex:outputText rendered="{!wrapdata[userId][0].isMngr}">-->
+    	<b>{!wrapdata[userId][0].UserName}</b> is no longer showing as a Salesforce user or no longer with NCR.Therefore, the accounts below are now reassigned to you as
+        their manager.To reassign to a different user, please access by clicking this link &nbsp;<apex:outputLink value="{!$Label.BPMCommunityLink}" style="color:blue;text-decoration: Underline;">APOC application</apex:outputLink>
+    <!--</apex:outputText>
+    <apex:outputText rendered="{!!wrapdata[userId][0].isMngr}">
+        <b>{!wrapdata[userId][0].UserName}</b> and their associated manager is inactive in SF or no longer with NCR so unable to reassign the accounts to another owner. Please login to Salesforce and reassign the accounts to an active SF user on their behalf. Manager of this user, as per the workday data is <b>{!wrapdata[userId][0].mngr}</b>.
+        </apex:outputText>-->
+    </p>
+    <p>
+    <apex:outputText rendered="{!lstSize[userId]>5}">
+         Please find the attached file for details.
+    </apex:outputText>
+     </p>
+  
+     <apex:outputText rendered="{!lstSize[userId]<=5}">
+    <table style="border: 2px Solid black !important;">
+         
+        <tr style="background-color: #D9E1F2; text-align: center; ">
+            <th style="border: 2px Solid black; margin-left:10px;margin-right:10px;">Name</th>
+            <th style="border: 2px Solid black; margin-left:10px; margin-right:10px;">QuickLookId</th>
+            <th style="border: 2px Solid black;margin-left:10px; margin-right:10px;">Retired Date</th>
+            <th style="border: 2px Solid black;margin-left:10px; margin-right:10px;">Role Name</th>
+            <th style="border: 2px Solid black;margin-left:10px; margin-right:10px;">Account Name</th>
+            <th style="border: 2px Solid black;margin-left:10px; margin-right:10px;">Master Number</th>
+        </tr> 
+        <apex:repeat value="{!wrapdata[userId]}" var="a">
+            <tr style="text-align: center;">
+                <td style="border: 2px Solid black; margin-left:10px;margin-right:10px;">{!a.UserName}</td>
+                <td style="border: 2px Solid black; margin-left:10px;margin-right:10px;">{!a.QuicklookId}</td>
+                <td style="border: 2px Solid black; margin-left:10px;margin-right:10px;">{!a.retiredDate}</td>
+                 <td style="border: 2px Solid black; margin-left:10px;margin-right:10px;">{!a.accSup.Role_Name__c}</td>
+                <td style="border: 2px Solid black; margin-left:10px;margin-right:10px;">{!a.accSup.Account_Name__c}</td>
+                 <td style="border: 2px Solid black; margin-left:10px;margin-right:10px;">{!a.accSup.Master__c}</td>
+            </tr>
+        </apex:repeat>
+    </table>
+        </apex:outputText>
+    
+    <p>
+     Warmest regards,<br/>
+   <b> APOC Admin</b>
+    </p>
+</apex:component>

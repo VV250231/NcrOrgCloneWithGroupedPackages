@@ -1,0 +1,48 @@
+<apex:page standardController="Co_Op__c" extensions="CoOpViewExt" standardStylesheets="true" tabStyle="Co_Op__c">
+    <apex:includeScript value="{!$Resource.jquery_1_11_3}"/>
+    <apex:form >
+        
+        <apex:pageBlock title="Co Op Detail">
+        <apex:pagemessages ></apex:pagemessages>
+            <apex:pageBlockButtons >
+                <apex:image value="/img/lock_small.gif" alt="Lock" width="16" height="16" title="Lock" rendered="{! isRecordLocked}"/> 
+                <apex:commandButton value="Edit" action="{! redirectToEdit}"/>
+                <apex:commandButton value="Submit for Approval" action="{! submitRequest}" rendered="{! NOT(isRecordLocked)}"/>
+                <apex:commandButton value="Cancel" action="{! cancel}"/>
+                <!--<apex:commandButton value="Cancel" action="{! cancel}"/>-->
+            </apex:pageBlockButtons>                      
+            <apex:pageBlockSection title="Account Information">
+                <apex:outputField value="{! Co_Op__c.Account__c}" />
+                <apex:outputField value="{! Co_Op__c.Contact__c}" />
+                <apex:outputField value="{! Co_Op__c.Master_Customer_Number__c}" />
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Activity Information" >
+                <apex:outputField value="{! Co_Op__c.Activity_Name__c}" />
+                <apex:outputField value="{! Co_Op__c.Activity_Type__c}" />
+                <apex:outputField value="{! Co_Op__c.Activity_Start_Date__c}" />
+                <apex:outputField value="{! Co_Op__c.Activity_End_Date__c}" />
+                <!--<apex:outputField value="{! Co_Op__c.Description__c}" />-->
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Request Information">
+                <apex:outputField value="{! Co_Op__c.Name}" />
+                <apex:outputField value="{! Co_Op__c.Request_Submitted_Date__c}" />
+                <apex:outputField value="{! Co_Op__c.Status__c}" />
+                <apex:outputField value="{! Co_Op__c.Request_Approved_Rejected_Date__c}" />
+                <apex:outputField value="{! Co_Op__c.Number_of_pages_to_follow__c}" />
+                <apex:outputField value="{! Co_Op__c.Total_Cost__c}" />
+                <apex:outputField value="{! Co_Op__c.Approved_Amount__c}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        
+    </apex:form>
+    <apex:relatedList list="Supporting_Documents__r"/>
+    <apex:relatedList list="ProcessSteps"></apex:relatedList>
+    <script>
+        $j = jQuery.noConflict();
+        
+        // Added a check for a specific custom object
+        $j(document).ready(function() {     
+          $j("input[name='piSubmit']").hide();
+        });
+    </script>
+</apex:page>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contract_Time_Remaining_in_mths__c</fullName>
+    <description>CATM</description>
+    <externalId>false</externalId>
+    <formula>(MONTH(Previous_Contract_Expiration_Date__c) + (12*(YEAR(Previous_Contract_Expiration_Date__c)-YEAR(TODAY()))) - MONTH(TODAY()))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Contract Time Remaining (in mths)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

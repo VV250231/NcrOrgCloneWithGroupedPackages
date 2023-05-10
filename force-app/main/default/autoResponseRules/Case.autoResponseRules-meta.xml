@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AutoResponseRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <autoResponseRule>
+        <fullName>Case Auto Response</fullName>
+        <active>false</active>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <senderEmail>nsc.administration@ncr.com</senderEmail>
+            <senderName>SF Global Support</senderName>
+            <template>NSC_Admin_Templates/SFDC_Case_Accepted</template>
+        </ruleEntry>
+    </autoResponseRule>
+    <autoResponseRule>
+        <fullName>Case Auto Response Rule</fullName>
+        <active>true</active>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Origin</field>
+                <operation>equals</operation>
+                <value>Email</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.OwnerId</field>
+                <operation>equals</operation>
+                <value>AAS Support Case Queue</value>
+            </criteriaItems>
+            <notifyCcRecipients>true</notifyCcRecipients>
+            <senderEmail>salesforce.donotreply@ncr.com</senderEmail>
+            <senderName>NCR Global Do Not Reply</senderName>
+            <template>unfiled$public/AAS_Support_Case_Submission_Template</template>
+        </ruleEntry>
+    </autoResponseRule>
+    <autoResponseRule>
+        <fullName>SFDC Case Closed</fullName>
+        <active>false</active>
+    </autoResponseRule>
+</AutoResponseRules>

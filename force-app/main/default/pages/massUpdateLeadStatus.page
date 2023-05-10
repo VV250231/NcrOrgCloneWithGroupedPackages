@@ -1,0 +1,51 @@
+<apex:page lightningStyleSheets="true" standardController="Lead" extensions="Lead_ChangeStatus" recordSetVar="leads"  showHeader="false" id="mulead" >
+    <style>
+
+    </style>
+    <apex:slds />
+    <apex:form id="muform">
+        <!-- <apex:pageMessage summary="Selected Collection Size: {!mySelectedSize}" severity="info" id="mupms" />
+<apex:pageMessage summary="Record Set Size: {!myRecordsSize}" severity="info" id="mupmr" /> -->
+        <apex:pageBlock >
+               <apex:pageMessages />
+            <apex:pageBlockSection columns="2" rendered="{!isEditable}">  
+                
+                <apex:pageBlock mode="edit" id="mub1" >
+                <center> <h2>
+                 <b>Lead Mass-Status Update</b>
+                </h2></center>  
+                   
+                    <apex:pageBlockSection id="mus1">
+                        <apex:inputField value="{!lead.status}" id="statusname">
+                            <apex:actionSupport event="onchange" rerender="muselectedlist"/>
+                        </apex:inputField>
+                    </apex:pageBlockSection>
+                        
+                    <apex:pageBlockSection id="mus2">
+                        <apex:inputField value="{!lead.Return_to_Nurture_Reason__c}" id="Retrun_to_nurture" required="true">
+                            <apex:actionSupport event="onchange" rerender="muselectedlist"/>
+                        </apex:inputField>  
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection id="mus3">
+                        <apex:inputField value="{!lead.Disqualified_Reason__c}" id="Disqualified_Reason" required="true" >
+                            <apex:actionSupport event="onchange" rerender="muselectedlist"/>
+                        </apex:inputField>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockButtons location="bottom" id="mubut">
+                        <apex:commandButton value="Save" action="{!save}" id="butsav"/>
+                        <apex:commandButton value="Cancel" action="{!cancel}" id="butcan"/>
+                    </apex:pageBlockButtons>
+                </apex:pageBlock>
+                <apex:pageBlock title="Selected Leads" id="muselectedlist">
+                    <apex:pageBlockTable value="{!selected}" var="lds" id="mutab">
+                        <apex:column value="{!lds.name}" id="ldsname"/>
+                        <apex:column value="{!lds.status}" id="ldsstatus"/>
+                    </apex:pageBlockTable>
+                </apex:pageBlock>
+                
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>    
+</apex:page>

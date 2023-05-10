@@ -1,0 +1,229 @@
+<apex:page controller="Tableaupagecontroller" standardStylesheets="false" showheader="false" applyBodyTag="false"  sidebar="false" docType="html-5.0" action="{!init}" >
+<head>
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/bootstrap/css/bootstrap.min.css')}"/>        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"/>   
+    <style>
+        .tooltip1 {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted black;
+        }
+        
+        .tooltip1 .tooltiptext1 {
+        visibility: hidden;
+        width: 100px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 3px 0;
+        
+         /* Position the tooltip */
+        position: absolute;
+        z-index: 1;
+        top: 28px;
+        right: 105%;
+        }
+        .skiplink{
+        visibility: hidden;
+        } 
+        .tooltip1:hover .tooltiptext1 {
+        visibility: visible;
+        }
+    </style>
+</head>
+<script>
+    function openintableau(){
+     window.open('{!tbobject.TableauServerAddress__c}');
+    };
+    function openmyaccounttableau(){
+    window.open('{!tbobject.TableauServerAddress__c}');
+    }; 
+    function openinnewtab(){
+    window.open('{!tbobject.VisualforcePageURL__c}');
+    };
+    window.onload=function(){  
+          
+     if('{!H2Leaders}' == 'block'){
+        var element = document.getElementById("tab_1");
+        element.classList.add("active");
+       }
+       else  if('{!H3Leaders}' == 'block'){
+        var element = document.getElementById("tab_2");
+        element.classList.add("active");
+       }
+        else  if('{!h2funnel}' == 'block'){
+        var element = document.getElementById("tab_3");
+        element.classList.add("active");
+       }
+        else  if('{!h3funnel}' == 'block'){
+        var element = document.getElementById("tab_4");
+        element.classList.add("active");
+       }
+        else  if('{!variance}' == 'block'){
+        var element = document.getElementById("tab_5");
+        element.classList.add("active");
+       }
+        else  if('{!qtdnetnew}' == 'block'){
+        var element = document.getElementById("tab_6");
+        element.classList.add("active");
+       }
+        else  if('{!wfrcurrent}' == 'block'){
+        var element = document.getElementById("tab_7");
+        element.classList.add("active");
+       }
+        else  if('{!wfrhistoric}' == 'block'){
+        var element = document.getElementById("tab_8");
+        element.classList.add("active");
+       }
+        else  if('{!attachrate}' == 'block'){
+        var element = document.getElementById("tab_9");
+        element.classList.add("active");
+       }
+        else  if('{!retemea}' == 'block'){
+        var element = document.getElementById("tab_10");
+        element.classList.add("active");
+       }
+        else  if('{!finmea}' == 'block'){
+        var element = document.getElementById("tab_10");
+        element.classList.add("active");
+       }
+        else  if('{!fineuro}' == 'block'){
+        var element = document.getElementById("tab_10");
+        element.classList.add("active");
+       }
+    };
+    function fullscreen(element){
+    //var element= document.getElementById("AuthenticationBody");
+     document.getElementById("fullscreenresize").style.display="None";
+    document.getElementById("resize").style.display="";
+    var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+    requestMethod.call(element);
+    
+    };
+    function fullscreen1(element){
+    document.getElementById("fullscreenresize").style.display="";
+    document.getElementById("resize").style.display="None";
+    if(document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if(document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if(document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+   };
+ </script>
+    
+    <apex:form >
+    
+    <body class="hold-transition lockscreen" id="AuthenticationBody" style="Display:Block;">
+               
+                <div class="wrapper" style="Display:Block;margin-right:1.1px;margin-left:1.1px;">
+           
+            <!--        #########################################################################################################      -->
+            <div class="row">
+                        <div class="col-md-12">
+                        <div class="nav-tabs-custom">
+                                <ul class="nav nav-tabs" style="height:37px;background-color: #1f1200;">
+                                    <li class="active" style="top: 4px;"><a href="#tab_1" data-toggle="tab" style="height:31px;">H2 Leaders Dashboard</a></li>
+                                    <li style="top: 4px;" onClick='document.getElementById("tab2").src="https://svcanalytics.corp.ncr.com/t/Sales/views/H3LeadersDashboard1_1/H3LeadersDashboard?:iid=5?:embed=yes&:toolbar=yes&:iid=11#35";' ><a href="#tab_2" data-toggle="tab" style="height:31px;">H3 Leaders Dashboard</a></li>
+                                    <li style="top: 4px;" onClick='document.getElementById("tab3").src="https://svcanalytics.corp.ncr.com/t/Sales/views/H2FunnelPlaybook1_0/H2FunnelPlaybook?:iid=5?:embed=yes&:toolbar=yes&:iid=11#35";' ><a href="#tab_3" data-toggle="tab" style="height:31px;">H2 Funnel Playbook</a></li>
+                                    <li style="top: 4px;" onClick='document.getElementById("tab4").src="https://svcanalytics.corp.ncr.com/t/Sales/views/H3FunnelPlaybook1_0/H3FunnelPlaybook?:iid=5?:embed=yes&:toolbar=yes&:iid=11#35";' ><a href="#tab_4" data-toggle="tab" style="height:31px;">H3 Funnel Playbook</a></li>
+                                    <li style="top: 4px;" onClick='document.getElementById("tab5").src="https://svcanalytics.corp.ncr.com/t/Sales/views/Variance1_1_0/VarianceHighlights?:iid=5?:embed=yes&:toolbar=yes&:iid=11#35";' ><a href="#tab_5" data-toggle="tab" style="height:31px;">Variance</a></li>
+                                    <li style="top: 4px;" onClick='document.getElementById("tab6").src="https://svcanalytics.corp.ncr.com/t/Sales/views/QTDNetNew1_0/QTDNetNew1_0?:iid=5?:embed=yes&:toolbar=yes&:iid=11#35";' ><a href="#tab_6" data-toggle="tab" style="height:31px;">QTD Net New </a></li>
+                                    <li style="top: 4px;" onClick='document.getElementById("tab7").src="https://svcanalytics.corp.ncr.com/t/Sales/views/WFRCurrent1_1/OpenArea?:iid=5?:embed=yes&:toolbar=yes&:iid=11#35";' ><a href="#tab_7" data-toggle="tab" style="height:31px;">WFR Current</a></li>
+                                    <li style="top: 4px;" onClick='document.getElementById("tab8").src="https://svcanalytics.corp.ncr.com/t/Sales/views/WFRHistoric1_1/ForecastStatus?:iid=5?:embed=yes&:toolbar=yes&:iid=11#35";' ><a href="#tab_8" data-toggle="tab" style="height:31px;">WFR Historic </a></li>
+                                    <li style="top: 4px;" onClick='document.getElementById("tab9").src="https://svcanalytics.corp.ncr.com/t/Sales/views/AttachRates1_0/H2AttachRates?:iid=5?:embed=yes&:toolbar=yes&:iid=11#35";' ><a href="#tab_9" data-toggle="tab" style="height:31px;">Attach Rates</a></li>
+                                    <li style="top: 4px;" onClick='document.getElementById("tab10").src="https://svcanalytics.corp.ncr.com/t/Sales/views/RetailIEMEA1_2/Summary?:iid=5?:embed=yes&:toolbar=yes&:iid=11#35";' ><a href="#tab_10" data-toggle="tab" style="height:31px;">Retail IEMEA</a></li>
+                                    <li style="top: 4px;" onClick='document.getElementById("tab11").src="https://svcanalytics.corp.ncr.com/t/Sales/views/FinancialEMEA/CurrentDaily?:iid=5?:embed=yes&:toolbar=yes&:iid=11#35";' ><a href="#tab_11" data-toggle="tab" style="height:31px;">Finance EMEA</a></li>
+                                    <li style="top: 4px;" onClick='document.getElementById("tab13").src="https://svcanalytics.corp.ncr.com/t/Sales/views/ProductSummary1_0_0/ProductScorecard-CurrenttoPreviousPeriod?:iid=5?:embed=yes&:toolbar=yes&:iid=11#35";' ><a href="#tab_13" data-toggle="tab" style="height:31px;">Product Summary</a></li>
+                                    <li style="top: 4px;" onClick='document.getElementById("tab14").src="https://svcanalytics.corp.ncr.com/t/Sales/views/OCRFunnelReport/OCRGlobal?:iid=5?:embed=yes&:toolbar=yes&:iid=11#35";' ><a href="#tab_14" data-toggle="tab" style="height:31px;">OCR Funnel Report</a></li>
+                                    <li style="top: 4px;" onClick='document.getElementById("tab15").src="https://svcanalytics.corp.ncr.com/t/Sales/views/Japan1_0_0/CurrentDaily?:iid=5?:embed=yes&:toolbar=yes&:iid=11#35";' ><a href="#tab_15" data-toggle="tab" style="height:31px;">Japan</a></li>
+                              <li style="top: 4px;" onClick='document.getElementById("tab16").src="https://svcanalytics.corp.ncr.com/t/Sales/views/RetAPACOCRDashboard/FunnelbyCountry-GEO?:iid=5?:embed=yes&:toolbar=yes&:iid=11#35";' ><a href="#tab_16" data-toggle="tab" style="height:31px;">Ret APAC OCR Dashboard</a></li>
+                              <li style="top: 4px;" onClick='document.getElementById("tab17").src="https://svcanalytics.corp.ncr.com/t/Sales/views/Windows10FunnelReporting/Windows10FunnelSummary?:iid=5?:embed=yes&:toolbar=yes&:iid=11#35";' ><a href="#tab_17" data-toggle="tab" style="height:31px;">Windows 10 Funnel Reporting</a></li>
+                              <li style="top: 4px;" onClick='document.getElementById("tab18").src="https://svcanalytics.corp.ncr.com/t/Sales/views/China/CurrentDaily?:iid=5?:embed=yes&:toolbar=yes&:iid=11#35";' ><a href="#tab_18" data-toggle="tab" style="height:31px;">China</a></li>
+                              <li style="top: 4px;" onClick='document.getElementById("tab19").src="https://svcanalytics.corp.ncr.com/t/Sales/views/ProfessionalServices/ProfessionalServices?:iid=5?:embed=yes&:toolbar=yes&:iid=11#35";' ><a href="#tab_19" data-toggle="tab" style="height:31px;">Professional Services</a></li>   
+                                  
+                                  <div class="box-tools pull-right">
+                                        <a class="tooltip1 glyphicon glyphicon-new-window" href="https://ncr.my.salesforce.com/apex/Tableau_Workbooks_HomePage?sfdc.tabName=01r0g000000YMg0" target="_Blank"  style="margin-top: 10px; margin-right: 15px;" >
+                                            <span class="tooltiptext1">Open in New Tab</span>
+                                        </a>
+                                         <a class="tooltip1 glyphicon glyphicon-resize-full" id="fullscreenresize" onclick="fullscreen(document.documentElement)" style="margin-right: 15px;">
+                                            <span class="tooltiptext1">Full-screen</span>
+                                        </a>
+                                        <a class="tooltip1 glyphicon glyphicon-resize-small" id="resize" onclick="fullscreen1(document.documentElement)" style="margin-right: 15px; Display:None;">
+                                            <span class="tooltiptext1">Resize</span>
+                                        </a>
+                                        <a class="tooltip1 glyphicon glyphicon-info-sign" href="https://svcanalytics.corp.ncr.com/#/site/Sales/" target="_Blank" style="margin-right: 15px;" >
+                                             <span class="tooltiptext1">Open Tableau</span>
+                                        </a>
+                                   </div>
+                                </ul>
+                            <div class="tab-content">
+                            <div class="tab-pane active" id="tab_1">
+                             <center> <apex:iframe src="https://svcanalytics.corp.ncr.com/t/Sales/views/H2LeadersDashboard1_1/H2LeadersDashboard1_1?:iid=5?:embed=yes&:toolbar=yes&:iid=11#35" width="100%" height="1110px" scrolling="true"/> </center>
+                              </div>
+                              <div class="tab-pane" id="tab_2">
+                             <center> <apex:iframe id="tab2" width="100%" height="1110px" scrolling="true"/> </center>
+                              </div>
+                               <div class="tab-pane" id="tab_3">
+                             <center> <apex:iframe id="tab3" width="100%" height="1110px" scrolling="true"/> </center>
+                              </div>
+                              <div class="tab-pane" id="tab_4">
+                             <center> <apex:iframe id="tab4" width="100%" height="1110px" scrolling="true"/> </center>
+                              </div>
+                              <div class="tab-pane" id="tab_5">
+                             <center> <apex:iframe id="tab5" width="100%" height="1110px" scrolling="true"/> </center>
+                              </div>
+                              <div class="tab-pane" id="tab_6">
+                             <center> <apex:iframe id="tab6" width="100%" height="1110px" scrolling="true"/> </center>
+                              </div>
+                              <div class="tab-pane" id="tab_7">
+                             <center> <apex:iframe id="tab7" width="100%" height="1110px" scrolling="true"/> </center>
+                              </div>
+                              <div class="tab-pane" id="tab_8">
+                             <center> <apex:iframe id="tab8" width="100%" height="1110px" scrolling="true"/> </center>
+                              </div>
+                              <div class="tab-pane" id="tab_9">
+                             <center> <apex:iframe id="tab9" width="100%" height="1110px" scrolling="true"/> </center>
+                              </div>
+                                <div class="tab-pane" id="tab_10">
+                             <center> <apex:iframe id="tab10" width="100%" height="1110px" scrolling="true"/> </center>
+                              </div>
+                              <div class="tab-pane" id="tab_11">
+                             <center> <apex:iframe id="tab11" width="100%" height="1110px" scrolling="true"/> </center>
+                              </div>
+                                 <div class="tab-pane" id="tab_13">
+                             <center> <apex:iframe id="tab13" width="100%" height="1110px" scrolling="true"/> </center>
+                              </div>
+                               <div class="tab-pane" id="tab_14">
+                             <center> <apex:iframe id="tab14" width="100%" height="1110px" scrolling="true"/> </center>
+                              </div>
+                                <div class="tab-pane" id="tab_15">
+                             <center> <apex:iframe id="tab15" width="100%" height="1110px" scrolling="true"/> </center>
+                              </div>
+                              <div class="tab-pane" id="tab_16">
+                             <center> <apex:iframe id="tab16" width="100%" height="1110px" scrolling="true"/> </center>
+                              </div>
+                              <div class="tab-pane" id="tab_17">
+                             <center> <apex:iframe id="tab17" width="100%" height="1110px" scrolling="true"/> </center>
+                              </div>
+                              <div class="tab-pane" id="tab_18">
+                             <center> <apex:iframe id="tab18" width="100%" height="1110px" scrolling="true"/> </center>
+                              </div>
+                              <div class="tab-pane" id="tab_19">
+                             <center> <apex:iframe id="tab19" width="100%" height="1110px" scrolling="true"/> </center>
+                              </div>
+                            </div>
+                          </div>
+                          <!--        #########################################################################################################      --> 
+             </div>
+             </div>     
+            </div>
+               </body>
+</apex:form>
+<script src="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/bootstrap/js/jQuery-2.2.0.min.js')}"></script>
+    <script src="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/bootstrap/js/bootstrap.min.js')}"></script>
+    <script src="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/bootstrap/js/app.min.js')}"></script>
+    
+</apex:page>

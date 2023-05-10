@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MS_Opps_In_Review</fullName>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <columns>OPPORTUNITY.CLOSE_DATE</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>Annual_Contract_Value__c</columns>
+    <columns>Products__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CATM_Record__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Product_Category__c</field>
+        <operation>contains</operation>
+        <value>Managed</value>
+    </filters>
+    <filters>
+        <field>Deal_Committee_Status__c</field>
+        <operation>equals</operation>
+        <value>In Review</value>
+    </filters>
+    <filters>
+        <field>OPPORTUNITY.STAGE_NAME</field>
+        <operation>equals</operation>
+        <value>Prospecting,Analyzing,Validating,Offering,Proposing,Closing</value>
+    </filters>
+    <filters>
+        <field>Business_Unit__c</field>
+        <operation>contains</operation>
+        <value>FI</value>
+    </filters>
+    <label>CATM MS Opps (FI) - In Review</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>All_CATM</group>
+    </sharedTo>
+</ListView>

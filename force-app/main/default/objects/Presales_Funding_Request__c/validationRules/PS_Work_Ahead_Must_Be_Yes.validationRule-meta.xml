@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PS_Work_Ahead_Must_Be_Yes</fullName>
+    <active>true</active>
+    <description>This rule required the value of the &quot;Is Recoverable&quot; field to be equal to &quot;yes&quot; if the Presales Category= &quot;5- PS &apos;work-ahead&apos;, pending SOW Signature&quot;</description>
+    <errorConditionFormula>ISPICKVAL( PFR_Is_this_Recoverable__c , &quot;No&quot;) &amp;&amp;  ISPICKVAL( PFR_Presales_Category__c , &quot;5- PS &apos;work-ahead&apos;, pending SOW signature&quot;)</errorConditionFormula>
+    <errorDisplayField>PFR_Is_this_Recoverable__c</errorDisplayField>
+    <errorMessage>&quot;Is Recoverable?&quot; must be &quot;Yes&quot; if the Presales Category = &quot;5- PS &apos;work-ahead&apos;, pending SOW signature&quot;</errorMessage>
+</ValidationRule>

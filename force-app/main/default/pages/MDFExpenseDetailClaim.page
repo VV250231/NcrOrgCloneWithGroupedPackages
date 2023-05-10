@@ -1,0 +1,91 @@
+<apex:page standardController="SFDC_MDF_Claim__c" extensions="MDFExpenseDetailExtClaim" sidebar="false" showHeader="false">
+    <style>
+        .bPageBlock {
+          background-color: white !important;
+          padding: none !important;
+          border: none !important;
+        }
+        
+        .pageSec {
+          background-color: white !important;
+          padding: none !important;
+        }
+    </style>
+    <apex:form >
+        <!-- View Mode -->
+        <apex:pageBlock rendered="{! pageMode == 'view'}">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Edit" action="{! editMode}"/>
+            </apex:pageBlockButtons>
+            <apex:actionRegion >
+                <apex:pageBlockSection id="pb" columns="1"  collapsible="false" html-class="pageSec">
+                    <apex:pageBlockTable value="{! mdfExpenseDetailList}" var="item" styleClass="table-striped" rules="all">                      
+                        <apex:column headerValue="Activity" footerValue="Total:" >
+                            <apex:outputText value="{! item.Actvity__c}"/>
+                        </apex:column>
+                        <apex:column headerValue="Estimated Cost" >
+                            <apex:outputField value="{! item.Estimated_Cost__c}"/>
+                            <apex:facet name="footer">USD {! mdfClaim.Fund_Request__r.Total_Estimated_Cost__c}</apex:facet>
+                        </apex:column>
+                        <apex:column headerValue="Approved Reimbursement Limit" >
+                            <apex:outputField value="{! item.NCR_Estimated_Participation__c}"/>
+                            <apex:facet name="footer">USD {! mdfClaim.Fund_Request__r.Total_NCR_Estimated_Participation__c}</apex:facet>
+                        </apex:column>
+                        <apex:column headerValue="Actual Cost (Based on POP)">
+                            <apex:outputField value="{! item.Actual_Cost__c}"/>
+                            <apex:facet name="footer">USD {! mdfClaim.Actual_Total_Cost__c}</apex:facet>
+                        </apex:column>                      
+                        <apex:column headerValue="NCR Approved">
+                            <apex:outputField value="{! item.NCR_Approved__c}"/>
+                            <apex:facet name="footer">USD {! mdfClaim.Amount__c}</apex:facet>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection>
+            </apex:actionRegion>  
+        </apex:pageBlock>
+        
+        <apex:pageBlock id="editPB" rendered="{! pageMode == 'edit'}">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Cancel" action="{! cancelEditing}"/>
+                <apex:commandButton value="Save" action="{! saveExpenseDetail}"/>
+            </apex:pageBlockButtons>
+            <apex:actionRegion >
+                <apex:pageBlockSection id="pb" columns="1"  collapsible="false" html-class="pageSec">
+                    <apex:variable var="rowNumber" value="{!0}"/>
+                    <apex:pageBlockTable value="{! mdfExpenseDetailList}" var="item" styleClass="table-striped" rules="all">                      
+                        <apex:column headerValue="Activity" footerValue="Total:" >
+                            <apex:inputText value="{! item.Actvity__c}"/>
+                        </apex:column>
+                        <apex:column headerValue="Estimated Cost" >
+                            <apex:inputField value="{! item.Estimated_Cost__c}"/>
+                            <apex:facet name="footer">USD {! mdfClaim.Fund_Request__r.Total_Estimated_Cost__c}</apex:facet>
+                        </apex:column>
+                        <apex:column headerValue="Approved Reimbursement Limit" >
+                            <apex:inputField value="{! item.NCR_Estimated_Participation__c}"/>
+                            <apex:facet name="footer">USD {! mdfClaim.Fund_Request__r.Total_NCR_Estimated_Participation__c}</apex:facet>
+                        </apex:column>
+                        <apex:column headerValue="Actual Cost (Based on POP)">
+                            <apex:inputField value="{! item.Actual_Cost__c}" />
+                            <apex:outputField value="{! item.Actual_Cost__c}"/>
+                            <apex:facet name="footer">USD {! mdfClaim.Actual_Total_Cost__c}</apex:facet>
+                        </apex:column>                      
+                        <apex:column headerValue="NCR Approved">
+                            <apex:inputField value="{! item.NCR_Approved__c}" />
+                            <apex:outputField value="{! item.NCR_Approved__c}"/>
+                            <apex:facet name="footer">USD {! mdfClaim.Amount__c}</apex:facet>
+                        </apex:column>                        
+                        <apex:column rendered="{! mdfExpenseDetailList  != null && mdfExpenseDetailList.size > 1}">
+                            <apex:facet name="header">Action</apex:facet>
+                            <apex:commandLink action="{! deleteExpenseDetail}" reRender="pb,pageMessages" value="Delete" immediate="true">
+                                <apex:param name="rowIndex" value="{!rowNumber}"/>
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 
+                            </apex:commandLink>
+                            <apex:variable var="rowNumber" value="{!rowNumber+1}"/>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection>
+            </apex:actionRegion>  
+        </apex:pageBlock>
+               
+    </apex:form>
+</apex:page>

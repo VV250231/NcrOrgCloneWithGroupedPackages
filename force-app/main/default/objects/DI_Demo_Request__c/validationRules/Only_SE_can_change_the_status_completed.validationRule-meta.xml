@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Only_SE_can_change_the_status_completed</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR(
+ISPICKVAL(Status__c,&quot;Completed&quot;)&amp;&amp;AND(SE_Assigned__c !=  $User.Id||Alt_SE__c ==  $User.Id,SE_Assigned__c ==  $User.Id||Alt_SE__c !=  $User.Id)&amp;&amp;RecordType.DeveloperName ==&apos;DI_Demo_Request&apos;,
+
+ISPICKVAL(Status__c,&quot;Completed&quot;)&amp;&amp;AND(Assigned_to_SE__c !=  $User.Id||alt_add_SE__c ==  $User.Id,Assigned_to_SE__c ==  $User.Id||alt_add_SE__c !=  $User.Id)&amp;&amp;RecordType.DeveloperName ==&apos;SE_Demo_Request&apos;)</errorConditionFormula>
+    <errorMessage>You are not allowed to mark it completed.</errorMessage>
+</ValidationRule>

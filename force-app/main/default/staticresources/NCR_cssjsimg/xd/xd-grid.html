@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head profile="http://www.w3.org/2005/10/profile">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" 
+          type="image/png" 
+          href="../img/favicon.png" />
+        
+    <title>Leapfrog Bootstrap Grid</title>
+	<!-- Bootstrap core CSS -->
+	<!-- <link href="css/bootstrap.css" rel="stylesheet"> -->
+	<!-- Bootstrap theme CSS -->
+	<!-- <link href="css/bootstrap-theme.css" rel="stylesheet"> -->
+	<link href="../../css/latest/leapfrog.min.css" rel="stylesheet">
+	
+	<!-- Custom styles for this template -->
+	 <link href="css/leapfrog.css" rel="stylesheet">
+    <link href="css/grid.css" rel="stylesheet">
+	 
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body role="document">
+  
+   <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+    
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="xd-index.html">XD Leapfrog Demo</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+			<li><a href="#container_width">Width</a></li>
+			<li><a href="#container_padding">Padding</a></li>
+			<li><a href="#typography">Typography</a></li>
+			<li><a href="#grid">Grid</a></li>        
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    
+    
+    <div class="container theme-showcase" role="main">
+<h1>Responsive container widths</h1>
+
+<div class="jumbotron">We use fixed containers driven by the device width. Use default bootstrap breakpoints(XS,S,M,L) along with the container width unless specified differently for a design.
+    <br>Page background is #f2f2f2. Container background is #FFFFFF. Please refer to <a href="http://di.facetstudios.com/guide">DI Style Guide (di.facetstudios.com/guide)</a> for container types.</div>
+
+<div class="row viewport-ruler">
+	<div class="col-xs-12 col-sm-6 col-md-8">
+    	<div class="panel"><span class="media-query-gauge"></span>
+        </div>
+        <code>.col-xs-12 .col-sm-6 .col-md-8</code>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 legend">
+    	<div class="legend-L">L</div>
+        <div class="legend-M">M</div>
+        <div class="legend-S">S</div>
+        <div class="legend-XS">XS</div>
+        <br>
+        <br>
+        <code>.col-xs-12 .col-sm-6 .col-md-4</code>
+    </div>
+</div>
+
+<h2 id="general">General Rules for Responsive Designs</h2>
+<div class="row"><img src="img/responsive-design-general.png" width="1194" height="2384" alt="Rules of responsive" class="panel" /></div>
+
+
+	<h2 id="container_width">Container width</h2>
+    <table>
+    	<tr>
+        	<th>Device width</th><th>Container width</th>
+     	</tr>
+        <tr>
+        	<td>(L) 1200px or higher</td>
+        	<td>1170px</td>
+        </tr>    
+        <tr>
+        	<td>(M) 992px to 1199px</td>
+        	<td>970px</td>
+        </tr>
+        <tr>
+        	<td>(S) 768px to 991px</td>
+        	<td>auto (container flush to the edge of the device)</td>
+        </tr> 
+        <tr>
+        	<td>(XS) Less than 768px</td>
+        	<td>auto (container flush to the edge of the device)</td>
+        </tr> 
+  </table>
+    
+    
+    <h2 id="container_padding">Container Padding</h2>              
+<table>
+  <tr>
+    <th>Container Width</th>
+    <th>Padding</th>
+  </tr>
+  <tr>
+    <td>L</td>
+    <td>30px  (from edge of the container to content)</td>
+  </tr>
+  <tr>
+    <td>M</td>
+    <td>30px (from edge of the container to content)</td>
+  </tr>
+  <tr>
+    <td>S</td>
+    <td>20px (from the edge of the container to content)</td>
+  </tr>
+  <tr>
+    <td>XS</td>
+    <td>15px (from the edge of the mobile phone to content)</td>
+  </tr>
+</table>                  
+              
+<h2 id="typography">Typography by resolution</h2>
+<h3>Text</h3>
+<h4>Note: values may vary per design based on information hierarchy needs.</h4>
+<table>
+<!--   <tr>
+    <th>Container width</th>
+    <th colspan="4" class="text-center">Element</th>
+  </tr> -->
+  <tr>
+  	<th></th>
+    <th>Heading 1</th>
+    <th>Heading 2</th>
+    <th>Heading 3</th>
+    <th>Body text</th>
+  </tr>
+  <tr>
+ 	<th>L, M, S</th>
+    <td>28px</td>
+    <td>24px</td>
+    <td>18px</td>
+    <td>16px</td>
+  </tr>
+  <tr>
+ 	<th>XS</th>
+    <td>24px</td>
+    <td>22px</td>
+    <td>16px</td>
+    <td>14px</td>
+  </tr>
+</table>
+
+<h3>Buttons</h3>
+
+<table>
+<!--   <tr>
+    <th>Container width</th>
+    <th colspan="4" class="text-center">Element</th>
+  </tr> -->
+  <tr>
+    <th>Container Width</th>
+    <th>Button Width</th>
+  </tr>
+  <tr>
+ 	<th>L, M, S</th>
+    <td><ol>
+    		<li>If there are buttons laid out side by side in the same row, the width of the button is determined by the longest label + 20 px inside on each size. Both buttons should be of the same width.</li>
+            <li>If there is only one button on a row, the width of label + 20 px inside on each side.</li>
+         </ol>
+    </td>
+  </tr>
+  <tr>
+ 	<th>XS</th>
+    <td>Container width with 15px padding on left and right</td>
+  </tr>
+</table>
+        
+<h2 id="hyperlinks">Hyperlink typography and behavior</h2>
+	<ul>
+        <li>link-color: FI  color or default #0055CC</li>
+        <li>Underlined by default and on hover, underline goes away.</li>
+	</ul>
+
+Focus state for any form elements should be the browser default. We don’t have a custom leapfrog style. </li>
+
+
+<h1 id="grid">Bootstrap grid examples</h1>
+<p class="lead">Basic grid layouts to get you familiar with building within the Bootstrap grid system.</p>
+
+      <h3>Three equal columns</h3>
+      <p>Get three equal-width columns <strong>starting at desktops and scaling to large desktops</strong>. On mobile devices, tablets and below, the columns will automatically stack.</p>
+      <div class="row">
+        <div class="col-md-4">
+        	<div class="panel">panel</div>.col-md-4
+        </div>
+        <div class="col-md-4">
+        	<div class="panel">panel</div>.col-md-4
+        </div>
+        <div class="col-md-4">
+        	<div class="panel">panel</div>.col-md-4
+        </div>
+      </div>
+
+      <h3>Three unequal columns</h3>
+      <p>Get three columns <strong>starting at desktops and scaling to large desktops</strong> of various widths. Remember, grid columns should add up to twelve for a single horizontal block. More than that, and columns start stacking no matter the viewport.</p>
+      <div class="row">
+        <div class="col-md-5">.col-md-5</div>
+        <div class="col-md-4">.col-md-4</div>
+        <div class="col-md-3">.col-md-3</div>
+      </div>
+
+      <h3>Two columns</h3>
+      <p>Get two columns <strong>starting at desktops and scaling to large desktops</strong>.</p>
+      <div class="row">
+        <div class="col-md-8">.col-md-8</div>
+        <div class="col-md-4">.col-md-4</div>
+      </div>
+
+      <h3>Full width, single column</h3>
+      <p class="text-warning">No grid classes are necessary for full-width elements.</p>
+
+      <hr>
+
+      <h3>Two columns with two nested columns</h3>
+      <p>Per the documentation, nesting is easy—just put a row of columns within an existing column. This gives you two columns <strong>starting at desktops and scaling to large desktops</strong>, with another two (equal widths) within the larger column.</p>
+      <p>At mobile device sizes, tablets and down, these columns and their nested columns will stack.</p>
+      <div class="row">
+        <div class="col-md-8">
+          .col-md-8
+          <div class="row">
+            <div class="col-md-6">.col-md-6</div>
+            <div class="col-md-6">.col-md-6</div>
+          </div>
+        </div>
+        <div class="col-md-4">.col-md-4</div>
+      </div>
+
+      <hr>
+
+      <h3>Mixed: mobile and desktop</h3>
+      <p>The Bootstrap 3 grid system has four tiers of classes: xs (phones), sm (tablets), md (desktops), and lg (larger desktops). You can use nearly any combination of these classes to create more dynamic and flexible layouts.</p>
+      <p>Each tier of classes scales up, meaning if you plan on setting the same widths for xs and sm, you only need to specify xs.</p>
+      <div class="row">
+        <div class="col-xs-12 col-md-8">.col-xs-12 .col-md-8</div>
+        <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+        <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+        <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">.col-xs-6</div>
+        <div class="col-xs-6">.col-xs-6</div>
+      </div>
+
+      <hr>
+
+      <h3>Mixed: mobile, tablet, and desktop</h3>
+      <p></p>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-lg-8">.col-xs-12 .col-sm-6 .col-lg-8</div>
+        <div class="col-xs-6 col-lg-4">.col-xs-6 .col-lg-4</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6 col-sm-4">.col-xs-6 .col-sm-4</div>
+        <div class="col-xs-6 col-sm-4">.col-xs-6 .col-sm-4</div>
+        <div class="col-xs-6 col-sm-4">.col-xs-6 .col-sm-4</div>
+      </div>
+
+      <hr>
+
+      <h3>Column clearing</h3>
+      <p><a href="http://getbootstrap.com/css/#grid-responsive-resets">Clear floats</a> at specific breakpoints to prevent awkward wrapping with uneven content.</p>
+      <div class="row">
+        <div class="col-xs-6 col-sm-3">
+          .col-xs-6 .col-sm-3
+          <br>
+          Resize your viewport or check it out on your phone for an example.
+        </div>
+        <div class="col-xs-6 col-sm-3">.col-xs-6 .col-sm-3</div>
+
+        <!-- Add the extra clearfix for only the required viewport -->
+        <div class="clearfix visible-xs"></div>
+
+        <div class="col-xs-6 col-sm-3">.col-xs-6 .col-sm-3</div>
+        <div class="col-xs-6 col-sm-3">.col-xs-6 .col-sm-3</div>
+      </div>
+
+      <hr>
+
+      <h3>Offset, push, and pull resets</h3>
+      <p>Reset offsets, pushes, and pulls at specific breakpoints.</p>
+      <div class="row">
+        <div class="col-sm-5 col-md-6">.col-sm-5 .col-md-6</div>
+        <div class="col-sm-5 col-sm-offset-2 col-md-6 col-md-offset-0">.col-sm-5 .col-sm-offset-2 .col-md-6 .col-md-offset-0</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-md-5 col-lg-6">.col-sm-6 .col-md-5 .col-lg-6</div>
+        <div class="col-sm-6 col-md-5 col-md-offset-2 col-lg-6 col-lg-offset-0">.col-sm-6 .col-md-5 .col-md-offset-2 .col-lg-6 .col-lg-offset-0</div>
+      </div>
+
+
+    </div> <!-- /container -->
+
+	<script src="../../js/latest/leapfrog.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

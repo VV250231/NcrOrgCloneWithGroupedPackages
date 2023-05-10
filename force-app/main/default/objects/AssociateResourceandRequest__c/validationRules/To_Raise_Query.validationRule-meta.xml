@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>To_Raise_Query</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND (
+Raise_to_Opportunity_Owner__c = false,
+Raise_to_PS_Team__c = false,
+Raise_to_Other__c = false
+)</errorConditionFormula>
+    <errorMessage>To create/raise query, please check respected checkbox of team.</errorMessage>
+</ValidationRule>

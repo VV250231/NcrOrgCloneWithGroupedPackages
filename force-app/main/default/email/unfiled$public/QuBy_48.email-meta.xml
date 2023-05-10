@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>QuBy_48</name>
+    <style>none</style>
+    <subject>48 Hour Notification</subject>
+    <textOnly>48 Hour Notification 
+
+Quote Number {!QuBy_Detail__c.Quote_Number__c} has been Acknowledged, however it is not linked to an Opportunity. 
+
+Please create or attach Quote {!QuBy_Detail__c.Quote_Number__c} to the appropriate existing Opportunity. If the Quote is not attached to an Opportunity within 48 hours, then a new Opportunity will be created. 
+
+
+Quote Name: {!QuBy_Detail__c.Name} 
+Country: {!QuBy_Detail__c.Country_Code__c} 
+Customer (Name/MCN): {!QuBy_Detail__c.Account__c}/{!QuBy_Detail__c.MCN__c} 
+Access via QuoteBuilder or Salesforce</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

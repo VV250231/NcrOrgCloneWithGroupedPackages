@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>CDF1</field>
+    </columns>
+    <columns>
+        <field>ADDRESS1_CITY</field>
+    </columns>
+    <columns>
+        <field>ADDRESS1_STATE</field>
+    </columns>
+    <columns>
+        <field>ADDRESS1_ZIP</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>IF(CONTAINS(ROLLUP_DESCRIPTION,&quot;Channel&quot;),
+IF(CONTAINS(ROLLUP_DESCRIPTION,&quot;Central&quot;),&quot;Channel Central&quot;,
+IF(CONTAINS(ROLLUP_DESCRIPTION,&quot;North&quot;),&quot;Channel North&quot;,
+IF(CONTAINS(ROLLUP_DESCRIPTION,&quot;South&quot;),&quot;Channel South&quot;,
+IF(CONTAINS(ROLLUP_DESCRIPTION,&quot;West&quot;),&quot;Channel West&quot;, &quot;Channel &quot; &amp; ROLLUP_DESCRIPTION)))), 
+IF(CONTAINS(ROLLUP_DESCRIPTION,&quot;Northeast&quot;),&quot;Northeast&quot;,
+IF(CONTAINS(ROLLUP_DESCRIPTION,&quot;Southeast&quot;),&quot;Southeast&quot;,
+IF(CONTAINS(ROLLUP_DESCRIPTION,&quot;Central&quot;),&quot;Central&quot;,
+IF(CONTAINS(ROLLUP_DESCRIPTION,&quot;Florida&quot;),&quot;Florida&quot;,
+IF(CONTAINS(ROLLUP_DESCRIPTION,&quot;Texas&quot;),&quot;Texas&quot;,
+IF(CONTAINS(ROLLUP_DESCRIPTION,&quot;West&quot;),&quot;West&quot;, ROLLUP_DESCRIPTION)))))))</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>SMB Region</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>ROLLUP_DESCRIPTION</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>SMB</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>STAGE_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Closed/Booked,Closed/Booked - NonFunnel,Closed/Lost</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CDF1</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Channel,Northeast,Southeast,Central,Florida,Texas,West</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>2023 Associate Territories Open Opps</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>open</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>OpportunityProduct</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

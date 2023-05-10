@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOSPD_HWM_Backup_Request</fullName>
+    <active>true</active>
+    <description>This will prevent a case from being closed when Subcategory is HWM Backup Request and required fields not completed.</description>
+    <errorConditionFormula>( 
+Backup_matched_invoice__c  = FALSE
+||
+Further_research_inquiry_needed__c = FALSE
+||
+Inconsistencies_in_pricing_service_level__c = FALSE
+||
+ISBLANK(What_inconsistencies_noted__c )
+)
+&amp;&amp;
+ISPICKVAL(Subcategory__c,&quot;HWM Backup Request&quot;)
+&amp;&amp;
+ISCHANGED(Status)
+&amp;&amp;
+ISPICKVAL(Status, &quot;Closed&quot;)</errorConditionFormula>
+    <errorMessage>Must complete fields in HWM Backup Request section to Close Case</errorMessage>
+</ValidationRule>

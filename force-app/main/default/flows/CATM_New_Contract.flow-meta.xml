@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <assignments>
+        <name>Set_CATM_Account_Owner_as_Contract_Owner</name>
+        <label>Set CATM Account Owner as Contract Owner</label>
+        <locationX>314</locationX>
+        <locationY>1031</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.OwnerId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Account.OwnerId</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Set_RM_as_Contract_Owner</name>
+        <label>Set RM as Contract Owner</label>
+        <locationX>50</locationX>
+        <locationY>791</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.OwnerId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Relationship_Manager.UserId</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Set_Sales_Specialist_as_Contract_Owner</name>
+        <label>Set Sales Specialist as Contract Owner</label>
+        <locationX>578</locationX>
+        <locationY>1271</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.OwnerId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Sales_Specialist.UserId</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <name>Found_Relationship_Manager</name>
+        <label>Found Relationship Manager</label>
+        <locationX>281</locationX>
+        <locationY>671</locationY>
+        <defaultConnector>
+            <targetReference>Get_Account_Owner</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Found_RM</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Relationship_Manager</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_RM_as_Contract_Owner</targetReference>
+            </connector>
+            <label>Found RM</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Found_Sales_Specialist_Decision</name>
+        <label>Found Sales Specialist</label>
+        <locationX>710</locationX>
+        <locationY>1151</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Found_Sales_Specialist</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Sales_Specialist</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Sales_Specialist_as_Contract_Owner</targetReference>
+            </connector>
+            <label>Found Sales Specialist</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_Account_Owner_a_CATM_User</name>
+        <label>Is Account Owner a CATM User?</label>
+        <locationX>512</locationX>
+        <locationY>911</locationY>
+        <defaultConnector>
+            <targetReference>Get_Sales_Specialist</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>CATM_Account_Owner</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Account_Owner.Profile.Name</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>CATM</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_CATM_Account_Owner_as_Contract_Owner</targetReference>
+            </connector>
+            <label>CATM Account Owner</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>NABG_Decision</name>
+        <label>NABG?</label>
+        <locationX>693</locationX>
+        <locationY>431</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Is_NABG</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Account.CATM_Region__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>NABG</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Relationship_Manager</targetReference>
+            </connector>
+            <label>Is NABG</label>
+        </rules>
+    </decisions>
+    <description>Sets the CATM Record flag if the Contract is created by a CATM User. Assigns Contract ownership for NABG.</description>
+    <environments>Default</environments>
+    <interviewLabel>CATM New Contract {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>CATM New Contract</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Account_Owner</name>
+        <label>Get Account Owner</label>
+        <locationX>512</locationX>
+        <locationY>791</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Is_Account_Owner_a_CATM_User</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Account.OwnerId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>User</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Relationship_Manager</name>
+        <label>Get Relationship Manager</label>
+        <locationX>281</locationX>
+        <locationY>551</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Found_Relationship_Manager</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.AccountId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>TeamMemberRole</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Solution Sales Specialist RM</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>User_Profile__c</field>
+            <operator>StartsWith</operator>
+            <value>
+                <stringValue>CATM</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>AccountTeamMember</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Sales_Specialist</name>
+        <label>Get Sales Specialist</label>
+        <locationX>710</locationX>
+        <locationY>1031</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Found_Sales_Specialist_Decision</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.AccountId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>TeamMemberRole</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Solution Sales Specialist</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>User_Profile__c</field>
+            <operator>StartsWith</operator>
+            <value>
+                <stringValue>CATM</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>AccountTeamMember</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_CATM_Flag</name>
+        <label>Update CATM Flag</label>
+        <locationX>693</locationX>
+        <locationY>311</locationY>
+        <connector>
+            <targetReference>NABG_Decision</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>CATM_Record__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>567</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Update_CATM_Flag</targetReference>
+        </connector>
+        <filterFormula>AND(
+NOT({!$Setup.Automation_Setting__c.Skip_Flow__c}),
+{!$Record.CATM_Record__c}=false,
+{!$Permission.CATM_User}
+)</filterFormula>
+        <object>Contract</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

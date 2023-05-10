@@ -1,0 +1,31 @@
+<aura:component controller="PRM_EngineerController" 
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	
+    <aura:attribute name="myRecordId" type="String"/>
+	<aura:attribute name="lstAttachment" type="Attachment__c[]"/>
+    <aura:handler name="init" value="{!this}" action="{!c.cAttachmentDetails}"/>
+    
+            <table class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout">
+                <thead>
+                     <tr class="slds-text-heading-label slds-text-title_caps">
+                         <th scope="col"><div class="slds-truncate" title="Title">Attachment Name</div></th>
+                         <th scope="col"><div class="slds-truncate" title="Type">Type</div></th>
+                        
+                     </tr>
+                 </thead>
+                 <tbody>
+                    <aura:iteration items="{!v.lstAttachment}" var="rec">
+                         <tr>
+                             <td>
+                                 <div class="slds-truncate">                                     
+                                    <a data-ids="{!rec.Attachment__c}" onclick="{!c.openFile}">{! rec.Attachment_Name__c}</a>
+                                 </div>
+                             </td>
+                             <td><div class="slds-truncate" >{!rec.Engineer_Attachment_Type__c}</div></td>
+                            
+                         </tr>
+                     </aura:iteration>
+                 </tbody> 
+            </table> 
+         
+</aura:component>

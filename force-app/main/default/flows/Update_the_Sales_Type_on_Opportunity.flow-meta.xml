@@ -1,0 +1,1690 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <processMetadataValues>
+            <name>apexSelection</name>
+            <value>
+                <stringValue>NoActionDoNothing</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>myRule_1_A1</name>
+        <label>Do Nothing</label>
+        <locationX>100</locationX>
+        <locationY>200</locationY>
+        <actionName>NoActionDoNothing</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+    </actionCalls>
+    <apiVersion>49.0</apiVersion>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision</name>
+        <label>myDecision</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision2</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_1</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_1</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_1_A1</targetReference>
+            </connector>
+            <label>Bypass Validation</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>5.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision10</name>
+        <label>myDecision10</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision12</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_11</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_11</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_11_A1</targetReference>
+            </connector>
+            <label>Account Sub Type M/Agent/Opty-Blank&amp;Product-ATM Turnkey</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>6.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision12</name>
+        <label>myDecision12</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision14</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_13</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_13</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_13_A1</targetReference>
+            </connector>
+            <label>Acc-Sub Type Merchant/Agent/Opty-Agent Processing - No Buyrate</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>7.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision14</name>
+        <label>myDecision14</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision16</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_15</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_15</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_15_A1</targetReference>
+            </connector>
+            <label>Acc-Sub Type Agent/Opty-Blank</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>8.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision16</name>
+        <label>myDecision16</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision18</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_17</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_17</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_17_A1</targetReference>
+            </connector>
+            <label>Acc-Sub Type Merchant &amp; Opty-Change of Ownership</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>9.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision18</name>
+        <label>myDecision18</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision20</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_19</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_19</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_19_A1</targetReference>
+            </connector>
+            <label>Acc-Sub Type M/Agent/Opty-Same Owner - Resign</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision2</name>
+        <label>myDecision2</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision4</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_3</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_3</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_3_A1</targetReference>
+            </connector>
+            <label>Acc-Sub Type M/Agent/Opty Conversion/Flip</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>10.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision20</name>
+        <label>myDecision20</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision22</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_21</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_21</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_21_A1</targetReference>
+            </connector>
+            <label>Acc-Sub Type M/Agent/Opty-Contract Extension</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>11.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision22</name>
+        <label>myDecision22</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_23</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_23</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_23_A1</targetReference>
+            </connector>
+            <label>Acc-Sub Type M/Agent/Opty Conversion/Flip</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>2.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision4</name>
+        <label>myDecision4</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision6</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_5</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_5</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_5_A1</targetReference>
+            </connector>
+            <label>Acc-Sub Type Merchant/Opty-Blank</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>3.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision6</name>
+        <label>myDecision6</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision8</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_7</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_7</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_7_A1</targetReference>
+            </connector>
+            <label>Product Equipment Only</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>4.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision8</name>
+        <label>myDecision8</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision10</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_9</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_9</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_9_A1</targetReference>
+            </connector>
+            <label>Acc-Sub Type Merchant &amp;Opty-Blank&amp;Product-ATM Placement</label>
+        </rules>
+    </decisions>
+    <description>Based on Account Sub Type and Opportunity Source Sales Type will be updated</description>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>OR($Setup.Automation_Setting__c.Skip_Flow__c = TRUE,
+NOT([Opportunity].CATM_Record__c ))</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_1</name>
+        <dataType>Boolean</dataType>
+        <expression>OR({!$Setup.Automation_Setting__c.Skip_Flow__c} = TRUE,
+NOT({!myVariable_current.CATM_Record__c} ))</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>OR(
+[Opportunity].Account.CDM_Sub_Account_Type__c  = &apos;3RD PARTY&apos;,
+[Opportunity].Account.CDM_Sub_Account_Type__c = &apos;CHANNEL&apos;,
+[Opportunity].Account.CDM_Sub_Account_Type__c = &apos;DIRECT&apos;
+)
+&amp;&amp;
+ISBLANK(TEXT([Opportunity].Opportunity_Source__c)) &amp;&amp;
+[Opportunity].Products__c = &apos;ATM As A Service for Retail - Turnkey&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closing&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closed/Lost&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closed/Booked&apos;</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_11</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+{!myVariable_current.Account.CDM_Sub_Account_Type__c}  = &apos;3RD PARTY&apos;,
+{!myVariable_current.Account.CDM_Sub_Account_Type__c} = &apos;CHANNEL&apos;,
+{!myVariable_current.Account.CDM_Sub_Account_Type__c} = &apos;DIRECT&apos;
+)
+&amp;&amp;
+ISBLANK(TEXT({!myVariable_current.Opportunity_Source__c})) &amp;&amp;
+{!myVariable_current.Products__c} = &apos;ATM As A Service for Retail - Turnkey&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closing&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closed/Lost&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closed/Booked&apos;</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>OR(
+[Opportunity].Account.CDM_Sub_Account_Type__c  = &apos;3RD PARTY&apos;,
+[Opportunity].Account.CDM_Sub_Account_Type__c = &apos;CHANNEL&apos;
+)
+&amp;&amp;
+TEXT([Opportunity].Opportunity_Source__c) = &apos;Agent Processing - No Buyrate&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closing&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closed/Lost&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closed/Booked&apos;</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_13</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+{!myVariable_current.Account.CDM_Sub_Account_Type__c}  = &apos;3RD PARTY&apos;,
+{!myVariable_current.Account.CDM_Sub_Account_Type__c} = &apos;CHANNEL&apos;
+)
+&amp;&amp;
+TEXT({!myVariable_current.Opportunity_Source__c}) = &apos;Agent Processing - No Buyrate&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closing&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closed/Lost&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closed/Booked&apos;</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>OR(
+[Opportunity].Account.CDM_Sub_Account_Type__c  = &apos;3RD PARTY&apos;,
+[Opportunity].Account.CDM_Sub_Account_Type__c = &apos;CHANNEL&apos;
+)
+&amp;&amp;
+ISBLANK(TEXT([Opportunity].Opportunity_Source__c))  &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closing&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closed/Lost&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closed/Booked&apos;</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_15</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+{!myVariable_current.Account.CDM_Sub_Account_Type__c}  = &apos;3RD PARTY&apos;,
+{!myVariable_current.Account.CDM_Sub_Account_Type__c} = &apos;CHANNEL&apos;
+)
+&amp;&amp;
+ISBLANK(TEXT({!myVariable_current.Opportunity_Source__c}))  &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closing&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closed/Lost&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closed/Booked&apos;</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>[Opportunity].Account.CDM_Sub_Account_Type__c = &apos;DIRECT&apos; &amp;&amp;
+TEXT([Opportunity].Opportunity_Source__c) = &apos;Change of Ownership&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closing&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closed/Lost&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closed/Booked&apos;</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_17</name>
+        <dataType>Boolean</dataType>
+        <expression>{!myVariable_current.Account.CDM_Sub_Account_Type__c} = &apos;DIRECT&apos; &amp;&amp;
+TEXT({!myVariable_current.Opportunity_Source__c}) = &apos;Change of Ownership&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closing&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closed/Lost&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closed/Booked&apos;</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>OR(
+[Opportunity].Account.CDM_Sub_Account_Type__c  = &apos;3RD PARTY&apos;,
+[Opportunity].Account.CDM_Sub_Account_Type__c = &apos;CHANNEL&apos;,
+[Opportunity].Account.CDM_Sub_Account_Type__c = &apos;DIRECT&apos; 
+)
+&amp;&amp;
+TEXT([Opportunity].Opportunity_Source__c) = &apos;Same Owner Re-sign&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closing&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closed/Lost&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closed/Booked&apos; &amp;&amp;
+TEXT([Opportunity].Type) != &apos;Existing Customer - Service Renewal&apos;</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_19</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+{!myVariable_current.Account.CDM_Sub_Account_Type__c}  = &apos;3RD PARTY&apos;,
+{!myVariable_current.Account.CDM_Sub_Account_Type__c} = &apos;CHANNEL&apos;,
+{!myVariable_current.Account.CDM_Sub_Account_Type__c} = &apos;DIRECT&apos; 
+)
+&amp;&amp;
+TEXT({!myVariable_current.Opportunity_Source__c}) = &apos;Same Owner Re-sign&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closing&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closed/Lost&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closed/Booked&apos; &amp;&amp;
+TEXT({!myVariable_current.Type}) != &apos;Existing Customer - Service Renewal&apos;</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>OR(
+[Opportunity].Account.CDM_Sub_Account_Type__c  = &apos;3RD PARTY&apos;,
+[Opportunity].Account.CDM_Sub_Account_Type__c = &apos;CHANNEL&apos;,
+[Opportunity].Account.CDM_Sub_Account_Type__c = &apos;DIRECT&apos;
+)
+&amp;&amp;
+TEXT([Opportunity].Opportunity_Source__c) = &apos;Contract Extension&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closing&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closed/Lost&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closed/Booked&apos;</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_21</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+{!myVariable_current.Account.CDM_Sub_Account_Type__c}  = &apos;3RD PARTY&apos;,
+{!myVariable_current.Account.CDM_Sub_Account_Type__c} = &apos;CHANNEL&apos;,
+{!myVariable_current.Account.CDM_Sub_Account_Type__c} = &apos;DIRECT&apos;
+)
+&amp;&amp;
+TEXT({!myVariable_current.Opportunity_Source__c}) = &apos;Contract Extension&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closing&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closed/Lost&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closed/Booked&apos;</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>OR(
+[Opportunity].Account.CDM_Sub_Account_Type__c  = &apos;3RD PARTY&apos;,
+[Opportunity].Account.CDM_Sub_Account_Type__c = &apos;CHANNEL&apos;,
+[Opportunity].Account.CDM_Sub_Account_Type__c = &apos;DIRECT&apos;  
+)
+&amp;&amp;
+TEXT([Opportunity].Opportunity_Source__c) = &apos;Conversion/Flip&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closing&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closed/Lost&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closed/Booked&apos;</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_23</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+{!myVariable_current.Account.CDM_Sub_Account_Type__c}  = &apos;3RD PARTY&apos;,
+{!myVariable_current.Account.CDM_Sub_Account_Type__c} = &apos;CHANNEL&apos;,
+{!myVariable_current.Account.CDM_Sub_Account_Type__c} = &apos;DIRECT&apos;  
+)
+&amp;&amp;
+TEXT({!myVariable_current.Opportunity_Source__c}) = &apos;Conversion/Flip&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closing&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closed/Lost&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closed/Booked&apos;</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>OR(
+[Opportunity].Account.CDM_Sub_Account_Type__c  = &apos;3RD PARTY&apos;,
+[Opportunity].Account.CDM_Sub_Account_Type__c = &apos;CHANNEL&apos;,
+[Opportunity].Account.CDM_Sub_Account_Type__c = &apos;DIRECT&apos;
+) &amp;&amp;
+AND(
+TEXT([Opportunity].StageName) != &apos;Closing&apos;,
+TEXT([Opportunity].StageName) != &apos;Closed/Booked&apos;,
+TEXT([Opportunity].StageName) != &apos;Closed/Lost&apos;
+) &amp;&amp;
+OR(
+[Opportunity].Products__c = &apos;Allpoint Surcharge Free Network&apos;,
+[Opportunity].Products__c = &apos;ATM As A Service for Retail - ATM+&apos;,
+[Opportunity].Products__c = &apos;ATM as a Service for FI - 1.0 Dynamic Currency Conversion&apos;,
+[Opportunity].Products__c = &apos;ATM As A Service for Retail - Extended Warranty&apos;,
+[Opportunity].Products__c = &apos;Retail - Wireless Communications Package&apos;
+) 
+&amp;&amp;
+ISBLANK(TEXT([Opportunity].Opportunity_Source__c))</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_3</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+{!myVariable_current.Account.CDM_Sub_Account_Type__c}  = &apos;3RD PARTY&apos;,
+{!myVariable_current.Account.CDM_Sub_Account_Type__c} = &apos;CHANNEL&apos;,
+{!myVariable_current.Account.CDM_Sub_Account_Type__c} = &apos;DIRECT&apos;
+) &amp;&amp;
+AND(
+TEXT({!myVariable_current.StageName}) != &apos;Closing&apos;,
+TEXT({!myVariable_current.StageName}) != &apos;Closed/Booked&apos;,
+TEXT({!myVariable_current.StageName}) != &apos;Closed/Lost&apos;
+) &amp;&amp;
+OR(
+{!myVariable_current.Products__c} = &apos;Allpoint Surcharge Free Network&apos;,
+{!myVariable_current.Products__c} = &apos;ATM As A Service for Retail - ATM+&apos;,
+{!myVariable_current.Products__c} = &apos;ATM as a Service for FI - 1.0 Dynamic Currency Conversion&apos;,
+{!myVariable_current.Products__c} = &apos;ATM As A Service for Retail - Extended Warranty&apos;,
+{!myVariable_current.Products__c} = &apos;Retail - Wireless Communications Package&apos;
+) 
+&amp;&amp;
+ISBLANK(TEXT({!myVariable_current.Opportunity_Source__c}))</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>[Opportunity].Account.CDM_Sub_Account_Type__c = &apos;DIRECT&apos; &amp;&amp;
+ISBLANK(TEXT([Opportunity].Opportunity_Source__c)) &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closing&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closed/Lost&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closed/Booked&apos; &amp;&amp;
+TEXT([Opportunity].Type) = &apos;New Customer&apos; &amp;&amp;
+OR( 
+[Opportunity].Products__c != &apos;ATM as a Service for FI - 1.0 Equipment Sales&apos;,
+[Opportunity].Products__c != &apos;ATM As A Service for Retail - Equipment Sales&apos;)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_5</name>
+        <dataType>Boolean</dataType>
+        <expression>{!myVariable_current.Account.CDM_Sub_Account_Type__c} = &apos;DIRECT&apos; &amp;&amp;
+ISBLANK(TEXT({!myVariable_current.Opportunity_Source__c})) &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closing&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closed/Lost&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closed/Booked&apos; &amp;&amp;
+TEXT({!myVariable_current.Type}) = &apos;New Customer&apos; &amp;&amp;
+OR( 
+{!myVariable_current.Products__c} != &apos;ATM as a Service for FI - 1.0 Equipment Sales&apos;,
+{!myVariable_current.Products__c} != &apos;ATM As A Service for Retail - Equipment Sales&apos;)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>OR( 
+[Opportunity].Products__c = &apos;ATM as a Service for FI - 1.0 Equipment Sales&apos;,
+[Opportunity].Products__c = &apos;ATM As A Service for Retail - Equipment Sales&apos;)
+&amp;&amp;
+OR(
+[Opportunity].Account.CDM_Sub_Account_Type__c  = &apos;3RD PARTY&apos;,
+[Opportunity].Account.CDM_Sub_Account_Type__c = &apos;CHANNEL&apos;,
+[Opportunity].Account.CDM_Sub_Account_Type__c = &apos;DIRECT&apos;
+) &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closing&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closed/Booked&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closed/Lost&apos; 
+</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_7</name>
+        <dataType>Boolean</dataType>
+        <expression>OR( 
+{!myVariable_current.Products__c} = &apos;ATM as a Service for FI - 1.0 Equipment Sales&apos;,
+{!myVariable_current.Products__c} = &apos;ATM As A Service for Retail - Equipment Sales&apos;)
+&amp;&amp;
+OR(
+{!myVariable_current.Account.CDM_Sub_Account_Type__c}  = &apos;3RD PARTY&apos;,
+{!myVariable_current.Account.CDM_Sub_Account_Type__c} = &apos;CHANNEL&apos;,
+{!myVariable_current.Account.CDM_Sub_Account_Type__c} = &apos;DIRECT&apos;
+) &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closing&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closed/Booked&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closed/Lost&apos;</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>[Opportunity].Account.CDM_Sub_Account_Type__c = &apos;DIRECT&apos; &amp;&amp;
+ISBLANK(TEXT([Opportunity].Opportunity_Source__c)) &amp;&amp;
+[Opportunity].Products__c = &apos;ATM As A Service for Retail - Placement&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closing&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closed/Lost&apos; &amp;&amp;
+TEXT([Opportunity].StageName) != &apos;Closed/Booked&apos;</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_9</name>
+        <dataType>Boolean</dataType>
+        <expression>{!myVariable_current.Account.CDM_Sub_Account_Type__c} = &apos;DIRECT&apos; &amp;&amp;
+ISBLANK(TEXT({!myVariable_current.Opportunity_Source__c})) &amp;&amp;
+{!myVariable_current.Products__c} = &apos;ATM As A Service for Retail - Placement&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closing&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closed/Lost&apos; &amp;&amp;
+TEXT({!myVariable_current.StageName}) != &apos;Closed/Booked&apos;</expression>
+    </formulas>
+    <interviewLabel>Update_the_Sales_Type_on_Opportunity-9_InterviewLabel</interviewLabel>
+    <label>CATM Update the Sales Type on Opportunity</label>
+    <processMetadataValues>
+        <name>ObjectType</name>
+        <value>
+            <stringValue>Opportunity</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>ObjectVariable</name>
+        <value>
+            <elementReference>myVariable_current</elementReference>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OldObjectVariable</name>
+        <value>
+            <elementReference>myVariable_old</elementReference>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>TriggerType</name>
+        <value>
+            <stringValue>onAllChanges</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Workflow</processType>
+    <recordUpdates>
+        <processMetadataValues>
+            <name>evaluationType</name>
+            <value>
+                <stringValue>always</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>isChildRelationship</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>reference</name>
+            <value>
+                <stringValue>[Opportunity]</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
+        </processMetadataValues>
+        <name>myRule_11_A1</name>
+        <label>Sales Type Turnkey</label>
+        <locationX>1100</locationX>
+        <locationY>200</locationY>
+        <connector>
+            <targetReference>myDecision12</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <processMetadataValues>
+                <name>implicit</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Sales Type</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Sales_Type__c</field>
+            <value>
+                <stringValue>Turnkey</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <processMetadataValues>
+            <name>evaluationType</name>
+            <value>
+                <stringValue>always</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>isChildRelationship</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>reference</name>
+            <value>
+                <stringValue>[Opportunity]</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
+        </processMetadataValues>
+        <name>myRule_13_A1</name>
+        <label>Sales type Agent - No Buyrate</label>
+        <locationX>1300</locationX>
+        <locationY>200</locationY>
+        <connector>
+            <targetReference>myDecision14</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <processMetadataValues>
+                <name>implicit</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Sales Type</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Sales_Type__c</field>
+            <value>
+                <stringValue>Agent-No Buy Rate</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <processMetadataValues>
+            <name>evaluationType</name>
+            <value>
+                <stringValue>always</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>isChildRelationship</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>reference</name>
+            <value>
+                <stringValue>[Opportunity]</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
+        </processMetadataValues>
+        <name>myRule_15_A1</name>
+        <label>Sales Type Agent - Buy Rate</label>
+        <locationX>1500</locationX>
+        <locationY>200</locationY>
+        <connector>
+            <targetReference>myDecision16</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <processMetadataValues>
+                <name>implicit</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Sales Type</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Sales_Type__c</field>
+            <value>
+                <stringValue>Agent-Buy Rate</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <processMetadataValues>
+            <name>evaluationType</name>
+            <value>
+                <stringValue>always</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>isChildRelationship</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>reference</name>
+            <value>
+                <stringValue>[Opportunity]</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
+        </processMetadataValues>
+        <name>myRule_17_A1</name>
+        <label>Sales Type Change of Ownership</label>
+        <locationX>1700</locationX>
+        <locationY>200</locationY>
+        <connector>
+            <targetReference>myDecision18</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <processMetadataValues>
+                <name>implicit</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Sales Type</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Sales_Type__c</field>
+            <value>
+                <stringValue>Change of Ownership</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <processMetadataValues>
+            <name>evaluationType</name>
+            <value>
+                <stringValue>always</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>isChildRelationship</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>reference</name>
+            <value>
+                <stringValue>[Opportunity]</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
+        </processMetadataValues>
+        <name>myRule_19_A1</name>
+        <label>Sales Type Same Owner - Resign</label>
+        <locationX>1900</locationX>
+        <locationY>200</locationY>
+        <connector>
+            <targetReference>myDecision20</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <processMetadataValues>
+                <name>implicit</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Sales Type</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Sales_Type__c</field>
+            <value>
+                <stringValue>Same Owner-Resign</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <processMetadataValues>
+            <name>evaluationType</name>
+            <value>
+                <stringValue>always</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>isChildRelationship</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>reference</name>
+            <value>
+                <stringValue>[Opportunity]</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
+        </processMetadataValues>
+        <name>myRule_21_A1</name>
+        <label>Sales Type EMV Upgrade</label>
+        <locationX>2100</locationX>
+        <locationY>200</locationY>
+        <connector>
+            <targetReference>myDecision22</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <processMetadataValues>
+                <name>implicit</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Sales Type</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Sales_Type__c</field>
+            <value>
+                <stringValue>EMV Upgrade</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <processMetadataValues>
+            <name>evaluationType</name>
+            <value>
+                <stringValue>always</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>isChildRelationship</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>reference</name>
+            <value>
+                <stringValue>[Opportunity]</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
+        </processMetadataValues>
+        <name>myRule_23_A1</name>
+        <label>Sales Type Cash Assist</label>
+        <locationX>2300</locationX>
+        <locationY>200</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <processMetadataValues>
+                <name>implicit</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Sales Type</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Sales_Type__c</field>
+            <value>
+                <stringValue>Cash Assist</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <processMetadataValues>
+            <name>evaluationType</name>
+            <value>
+                <stringValue>always</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>isChildRelationship</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>reference</name>
+            <value>
+                <stringValue>[Opportunity]</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
+        </processMetadataValues>
+        <name>myRule_3_A1</name>
+        <label>Sales Type Add On</label>
+        <locationX>300</locationX>
+        <locationY>200</locationY>
+        <connector>
+            <targetReference>myDecision4</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <processMetadataValues>
+                <name>implicit</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Sales Type</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Sales_Type__c</field>
+            <value>
+                <stringValue>Ancillary Services</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <processMetadataValues>
+            <name>evaluationType</name>
+            <value>
+                <stringValue>always</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>isChildRelationship</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>reference</name>
+            <value>
+                <stringValue>[Opportunity]</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
+        </processMetadataValues>
+        <name>myRule_5_A1</name>
+        <label>Sales Type MOL</label>
+        <locationX>500</locationX>
+        <locationY>200</locationY>
+        <connector>
+            <targetReference>myDecision6</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <processMetadataValues>
+                <name>implicit</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Sales Type</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Sales_Type__c</field>
+            <value>
+                <stringValue>MOL</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <processMetadataValues>
+            <name>evaluationType</name>
+            <value>
+                <stringValue>always</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>isChildRelationship</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>reference</name>
+            <value>
+                <stringValue>[Opportunity]</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
+        </processMetadataValues>
+        <name>myRule_7_A1</name>
+        <label>Sales Type is Equipment Only</label>
+        <locationX>700</locationX>
+        <locationY>200</locationY>
+        <connector>
+            <targetReference>myDecision8</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <processMetadataValues>
+                <name>implicit</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Sales Type</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Sales_Type__c</field>
+            <value>
+                <stringValue>Equipment</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <processMetadataValues>
+            <name>evaluationType</name>
+            <value>
+                <stringValue>always</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>isChildRelationship</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>reference</name>
+            <value>
+                <stringValue>[Opportunity]</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
+        </processMetadataValues>
+        <name>myRule_9_A1</name>
+        <label>Sales Type ATM Placement</label>
+        <locationX>900</locationX>
+        <locationY>200</locationY>
+        <connector>
+            <targetReference>myDecision10</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <processMetadataValues>
+                <name>implicit</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Sales Type</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Sales_Type__c</field>
+            <value>
+                <stringValue>ATM Placement</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <startElementReference>myDecision</startElementReference>
+    <status>Active</status>
+    <variables>
+        <name>myVariable_current</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Opportunity</objectType>
+    </variables>
+    <variables>
+        <name>myVariable_old</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Opportunity</objectType>
+    </variables>
+</Flow>

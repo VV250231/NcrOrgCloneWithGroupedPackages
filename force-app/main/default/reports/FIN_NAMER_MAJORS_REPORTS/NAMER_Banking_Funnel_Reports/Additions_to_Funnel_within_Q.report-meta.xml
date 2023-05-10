@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>Opportunity.Software_Products__c.CONVERT:SUM-CDF1:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>SW (perpetual)</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_86693059</developerName>
+        <masterLabel>AREA</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>User.Manager_Level_01__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Ian Kirkpatrick</sourceValue>
+            </sourceValues>
+            <value>CANADA</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Alan Walsh</sourceValue>
+            </sourceValues>
+            <value>ENTERPRISE</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Ron Furnier</sourceValue>
+            </sourceValues>
+            <value>MIDWEST</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>David E Watson</sourceValue>
+            </sourceValues>
+            <value>NATIONALS</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Brian Pilla</sourceValue>
+            </sourceValues>
+            <value>NORTHEAST</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Mark Leinenkugel</sourceValue>
+            </sourceValues>
+            <value>CENTRAL</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>John D Morgan</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>James deSilva</sourceValue>
+            </sourceValues>
+            <value>SOUTHEAST</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Benjamin Seelos</sourceValue>
+            </sourceValues>
+            <value>WEST</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>User.Manager_Level_01__c</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Forecast_Category__c</field>
+    </columns>
+    <columns>
+        <field>RECORDTYPE</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Solution_Value__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>CDF1</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>Opportunity.Solution_Value__c.CONVERT-Opportunity.Soln_Opp_Amount__c.CONVERT</calculatedFormula>
+        <dataType>Double</dataType>
+        <developerName>CDF1</developerName>
+        <label>SW TCV</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <description>opportunities added in the last 7 days</description>
+    <filter>
+        <criteriaItems>
+            <column>User.Region_VP__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Chad Bruhn</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Opportunity.Indirect_Exclude_from_Funnel,Opportunity.ExcludefromFunnel</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User.Manager_Level_01__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>William Thornton</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_86693059</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Additions to Funnel within Q</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>open</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>Opportunity.Opportunity_Number__c</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CURNEXT1</interval>
+    </timeFrameFilter>
+</Report>

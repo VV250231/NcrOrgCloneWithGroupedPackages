@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CATM_AUS_NB_Mntly_Gross_Profit_New_Cont</fullName>
+    <active>true</active>
+    <description>CATM - Mnthly Gross Profit field must be completed for new business opps when opps are in Pending Contract Signature or Closed Won Pending stages. This is applicable to AUS IBG team only</description>
+    <errorConditionFormula>AND (
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+CATM_Record__c,
+IsPickVal( StageName , &quot;Closing&quot;),
+TEXT(Opportunity_Classification__c) = &quot;CATM - IBG (Core)&quot;,
+IsPickVal(   Type  , &quot;New Business&quot;),
+AND (
+   OR(
+      IsPickVal(  Reporting_Geography__c  , &quot;Australia&quot;),
+      IsPickVal(  Reporting_Geography__c  , &quot;New Zealand&quot;)
+   ),
+Isblank( Text(  Monthly_Gross_Profit__c ))
+)
+)</errorConditionFormula>
+    <errorMessage>Please update &quot;Monthly Gross Profit&quot; field</errorMessage>
+</ValidationRule>

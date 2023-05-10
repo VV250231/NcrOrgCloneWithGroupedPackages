@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_5875395</developerName>
+        <masterLabel>Opportunity Status</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>STAGE_NAME</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Prospecting</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Analyzing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Validating</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Offering</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Proposing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Closing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Analyzing - NonFunnel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Validating - NonFunnel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Offering - NonFunnel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Proposing - NonFunnel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Closing - NonFunnel</sourceValue>
+            </sourceValues>
+            <value>Open</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Closed/Booked - NonFunnel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Closed/Booked</sourceValue>
+            </sourceValues>
+            <value>WON</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Closed/Lost</sourceValue>
+            </sourceValues>
+            <value>LOST</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_39301633</developerName>
+        <masterLabel>Opportunity Type</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>TYPE</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Existing Customer - Service Renewal</sourceValue>
+            </sourceValues>
+            <value>Renewal</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Existing Customer - New Solution/Service</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Ongoing Roll-out</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Service Winback</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Upgrade</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - PS Custom Work</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Back Billing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Service Termination</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - ATMaaS</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Pilot</sourceValue>
+            </sourceValues>
+            <value>New Footprint</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>New Customer</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>New Customer - ATMaaS</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>New Customer - Pilot</sourceValue>
+            </sourceValues>
+            <value>New Customer</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Collection</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Indirect Channel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Revenue Leakage</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>One-Time Payment Project</sourceValue>
+            </sourceValues>
+            <value>Other</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Existing Customer - Replacement</sourceValue>
+            </sourceValues>
+            <value>Replacement</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>FK_$Sales_Org__c.Hierarchy_3__c</field>
+    </columns>
+    <columns>
+        <field>FK_$Sales_Org__c.Hierarchy_2__c</field>
+    </columns>
+    <columns>
+        <field>Account.Account_Country_Code__c</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_OWNER</field>
+    </columns>
+    <columns>
+        <field>User.Area_VP__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>BucketField_39301633</field>
+    </columns>
+    <columns>
+        <field>BucketField_5875395</field>
+    </columns>
+    <columns>
+        <field>FORECAST_CATEGORY</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Offer__c</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Actual_Close_Date__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>TOTAL_PRICE.CONVERT</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>FK_$Sales_Org__c.Hierarchy_2__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>GS:Hosp</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Opportunity.Indirect_Include_in_Funnel_Distributor,Opportunity.Indirect_Include_in_Funnel,Opportunity.IncludeinFunnel</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OpportunityLineItem.Revenue_Type__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>HWM,SWM,Managed Service</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Previous_Forecast_Category__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>COMMIT</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Final Weekly Annuity Order Closed</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>closedwon</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>OpportunityProduct@Opportunity.Sales_Org__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_THISWEEK</interval>
+    </timeFrameFilter>
+</Report>

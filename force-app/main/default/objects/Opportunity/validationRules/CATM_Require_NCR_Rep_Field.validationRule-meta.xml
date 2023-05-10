@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CATM_Require_NCR_Rep_Field</fullName>
+    <active>true</active>
+    <description>NCR Rep text box must be completed if Lead Source is NCR Rep</description>
+    <errorConditionFormula>AND(
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+CATM_Record__c,
+    ISPICKVAL(LeadSource , &apos;NCR Rep&apos;),
+    ISBLANK(NCR_Rep__c ),
+Skip_Validation_Rule_for_Lead_Conversion__c
+)</errorConditionFormula>
+    <errorDisplayField>NCR_Rep__c</errorDisplayField>
+    <errorMessage>ERROR:  NCR Rep Field should be completed</errorMessage>
+</ValidationRule>

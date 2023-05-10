@@ -1,0 +1,98 @@
+<messaging:emailTemplate subject="ValuePrompter Form for Opportunity #: {!relatedTo.Opportunity__r.Opportunity_Number__c}" recipientType="User" relatedToType="Value_Prompter__c" >
+<messaging:htmlEmailBody >
+    <html>
+         <style>
+              p {
+                font-family: Verdana, Helvetica, sans-serif;
+                color: rgb(0,0,0);
+                font-size: 12.5px;
+                font-style: normal;
+                font-variant: normal;
+                font-weight: 400;
+                line-height: 20px;
+              }
+              
+              .inlineText {
+                  display: inline-block;
+                  margin-left: 12px;
+              }
+             
+         </style>
+    <body>
+
+<center>
+<table cellpadding="0" width="54%" cellspacing="0" id="x_topTable" height="450">
+<tbody>
+    <tr valign="top">
+    <td style="background-color:#FFFFFF; vertical-align:middle; height:30; text-align:left">
+    <img src="https://ncr--ltngdev--c.cs40.content.force.com/servlet/servlet.ImageServer?id=01554000000DtoC&oid=00D5400000096yo" border="0" /></td>
+    </tr>
+
+    <tr valign="top">
+    <td style="background-color:#FFFFFF; height:0"></td>
+    </tr>
+
+    <tr valign="top">
+    <td height="300" style="background-color:#FFFFFF;color:#000000;font-size:12pt;">
+        <table border="0" cellpadding="5"  cellspacing="5" height="400">
+        <tbody>
+        <tr valign="top" height="400">
+        <td style="background-color:#FFFFFF;color:#000000;font-size:12pt;font-family:arial;">
+        <div>
+        <p>{!relatedTo.Account_Name__c} <br/>
+        <apex:outputText escape="false" value="{!relatedTo.Account_Billing_Address__c}" /><br/></p> 
+       
+        <p><br/></p>
+        <p >Dear {!relatedTo.Contact__c},</p>
+        <p ><br/></p>
+        <p >Thank you for taking the time to talk with me last week and for your consideration of NCR to partner with {!relatedTo.Account_Name__c} to assist you in hitting your goals. The purpose of this letter is to summarize our conversation. As you review this, please feel free to make any changes or additions to ensure accuracy.</p>
+        
+        <p><br/></p>
+        <p >The primary challenge you face is to&nbsp;{!relatedTo.Business_Issue__c}<span >.</span></p>
+        <p ><br/></p>
+        <p >To enable this growth, you need to overcome the following challenges:</p>
+        <p ><br /></p>
+        <p ><apex:outputPanel styleClass="inlineText"><apex:outputField value="{!relatedTo.Problem__c}"/></apex:outputPanel></p>
+        <p ><br /></p>
+        <p >You mentioned several solutions that you considering in overcoming these challenges:</p>
+        <p ><br/></p>
+        <p ><apex:outputPanel styleClass="inlineText"><apex:outputField value="{!relatedTo.Solution__c}" /></apex:outputPanel></p>
+        <p ><br/></p>
+        <p >You indicated that overcoming these challenges would enable you to:</p>
+        <p ><br/></p>
+        <p ><apex:outputPanel styleClass="inlineText"><apex:outputField value="{!relatedTo.Value__c}" /></apex:outputPanel></p>
+        <p><br/></p>
+        <p >We agreed to next steps (you could also say "see attached for a list of action items") that will further allow you to assess the potential for a partnership:</p>
+        <p ><br/></p>
+        <p ><apex:outputPanel styleClass="inlineText">{!relatedTo.Plan__c}</apex:outputPanel></p>
+        <p ><br/></p>
+        <p >This completion of these activities is designed to enable you to determine whether entering into a partnership with NCR is the best way to help you resolve these business issues and achieve your objectives. I look forward to receiving your feedback.</p>
+        <p ><br/>
+        </p>
+        <p >Sincerely,</p>
+        <p >Account Executive</p>
+        </div>
+        </td>
+        </tr>
+        </tbody>
+        </table>
+    </td>
+    </tr>
+<tr valign="top">
+<td style="background-color:#FFFFFF; height:0"></td>
+</tr>
+<tr valign="top">
+<td style="background-color:#FFFFFF; vertical-align:top; height:0; text-align:left">
+</td>
+</tr>
+<tr valign="top">
+<td style="background-color:#FFFFFF; height:0"></td>
+</tr>
+</tbody>
+</table>
+    </center>
+</body>
+</html>
+
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>

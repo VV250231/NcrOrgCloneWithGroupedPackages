@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Industry_Profiles_Self_Checkout_Lanes</fullName>
+    <active>true</active>
+    <description>Validation rule for Self Checkout Lanes % to be between &gt;=0 and &lt;=100%</description>
+    <errorConditionFormula>OR(
+   Self_Checkout_Lanes__c&gt; 1.0,
+   Self_Checkout_Lanes__c &lt; 0.0
+)</errorConditionFormula>
+    <errorDisplayField>Self_Checkout_Lanes__c</errorDisplayField>
+    <errorMessage>Percentage must be between 0 and 100%</errorMessage>
+</ValidationRule>

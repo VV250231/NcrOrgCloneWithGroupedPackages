@@ -1,0 +1,125 @@
+<template>  
+  <template if:true={showLoadingSpinner}>
+    <lightning-spinner alternative-text="Loading......" size="medium"></lightning-spinner>
+  </template>
+    <div class="slds-page-header slds-page-header_record-home">
+      <div class="slds-page-header__row">
+        <div class="slds-page-header__col-title">
+          <div class="slds-media">
+            <div class="slds-media__figure">
+              <span class="slds-icon_container slds-icon-standard-opportunity">
+                <lightning-icon icon-name="standard:action_list_component" alternative-text="MDF"></lightning-icon>
+              </span>
+            </div>
+            <div class="slds-media__body">
+              <div class="slds-page-header__name">
+                <div class="slds-page-header__name-title">
+                  <h1>
+                    <span>MDF Results 
+                      <template if:true={rowCount}>
+                        <strong>({rowCount})</strong>
+                      </template>
+                    </span>
+                  </h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slds-page-header__col-actions">
+          <div class="slds-page-header__controls">
+            <template if:true={isButtonShow}>
+              <ul class="slds-button-group-list">
+                
+              </ul>
+            </template>
+          </div>
+        </div>
+      </div>
+      <div class="slds-page-header__row slds-page-header__row_gutters">
+        <div class="slds-page-header__col-details"></div>
+      </div>
+    </div> 
+      <table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal">
+        <thead>
+          <tr class="slds-line-height_reset">
+            <th class="" scope="col">
+              <div class="slds-truncate" title="MDF Request No">
+                MDF Request No
+              </div>
+            </th>
+            <th class="" scope="col">
+              <div class="slds-truncate" title="MDF Request No">
+                Request  ID
+              </div>
+            </th>
+            <th class="" scope="col">
+              <div class="slds-truncate" title="Activity Name">Activity name</div>
+            </th>
+            <th class="" scope="col">
+              <div class="slds-truncate" title="Claim Name">Claim Name</div>
+            </th>
+  
+            <th class="" scope="col">
+              <div class="slds-truncate" title="Current Revenue Earned">
+                Current Revenue Earned
+              </div>
+            </th>
+  
+            <th class="" scope="col">
+              <div class="slds-truncate" title="Claim Status">ROI Status</div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <template for:each={partnerFundROIList} for:item="partnerFundROI">
+            <tr class="slds-hint-parent" key={partnerFundROI.Id}>
+              <th data-label="MDF Request No">
+                <div class="slds-truncate" title="MDF Request No">
+                  <a data-record={partnerFundROI.Id} href={partnerFundROI.pathId}>
+                    <p>{partnerFundROI.Name}</p>
+                  </a>
+                </div>
+              </th>
+  
+              <td data-label="Activity name">
+                <div class="slds-truncate" title="Request  ID">
+                  <template if:true={partnerFundROI.Fund_Request__c}>
+                    <a href={partnerFundROI.pathUrl} data-record={partnerFundROI.Fund_Request__c} >   
+                    <p>{partnerFundROI.Fund_Request__r.Request_ID__c}</p>
+                    </a>
+                  </template>
+                </div>
+              </td>
+  
+              <td data-label="Activity name">
+                <div class="slds-truncate" title="Activity Name">
+                  <template if:true={partnerFundROI.Fund_Request__c}>
+                    <p>{partnerFundROI.Fund_Request__r.Name}</p>
+                  </template>
+                </div>
+              </td>
+  
+              <th data-label="Claim Name">
+                <div class="slds-truncate" title="Claim Name">
+                  <template if:true={partnerFundROI.Fund_Claim__c}>
+                    <p>{partnerFundROI.Fund_Claim__r.Name}</p>
+                  </template>
+                </div>
+              </th>
+              <th data-label="Current Revenue Earned">
+                <div class="slds-truncate" title="Current Revenue Earned">
+                  <p>{partnerFundROI.Current_Revenue_earned__c}</p>
+                </div>
+              </th>
+  
+              <td data-label="Claim Status">
+                <div class="slds-truncate" title="Claim Status">
+                  <p>{partnerFundROI.Status__c}</p>
+                </div>
+              </td>
+            </tr>
+          </template>
+        </tbody>
+      </table> 
+  </template>

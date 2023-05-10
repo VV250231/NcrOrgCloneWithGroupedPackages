@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>51.0</apiVersion>
+    <assignments>
+        <name>Update_Value</name>
+        <label>Update Value</label>
+        <locationX>540</locationX>
+        <locationY>341</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.qtc_Channel_Local_Office_Record_Type__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.SBQQ__Opportunity2__r.Channel_Office__r.CDM_Account_Type__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Payments_First_Partner_value_different</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Update_Value_1</name>
+        <label>Update Value 1</label>
+        <locationX>558</locationX>
+        <locationY>559</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.qtc_Payments_First_Partner__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.SBQQ__Opportunity2__r.Channel_Office__r.qtc_Payments_First_Partner__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Partner_MDM_Enterprise_Name_different</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Update_Value_1_0</name>
+        <label>Update Value 1</label>
+        <locationX>588</locationX>
+        <locationY>798</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.qtc_Partner_MDM_Enterprise_Name__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.SBQQ__Opportunity2__r.Channel_Office__r.MDM_Enterprise_Name__c</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <name>Partner_MDM_Enterprise_Name_different</name>
+        <label>Partner MDM Enterprise Name different?</label>
+        <locationX>280</locationX>
+        <locationY>779</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes_MDM_Value_Different</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.SBQQ__Opportunity2__r.Channel_Office__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.qtc_Partner_MDM_Enterprise_Name__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.SBQQ__Opportunity2__r.Channel_Office__r.MDM_Enterprise_Name__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Value_1_0</targetReference>
+            </connector>
+            <label>Yes - MDM Value Different</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Payments_First_Partner_value_different</name>
+        <label>Payments First Partner value different?</label>
+        <locationX>280</locationX>
+        <locationY>542</locationY>
+        <defaultConnector>
+            <targetReference>Partner_MDM_Enterprise_Name_different</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes_PF_Value_Different</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.SBQQ__Opportunity2__r.Channel_Office__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.qtc_Payments_First_Partner__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.SBQQ__Opportunity2__r.Channel_Office__r.qtc_Payments_First_Partner__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Value_1</targetReference>
+            </connector>
+            <label>Yes - PF Value Different</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Value_Different</name>
+        <label>Value Different and Blank?</label>
+        <locationX>248</locationX>
+        <locationY>327</locationY>
+        <defaultConnector>
+            <targetReference>Payments_First_Partner_value_different</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No - Not Different</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Value_Different</name>
+            <conditionLogic>2 AND 1</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.qtc_Channel_Local_Office_Record_Type__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.SBQQ__Opportunity2__r.Channel_Office__r.CDM_Account_Type__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.SBQQ__Opportunity2__r.Channel_Office__r.CDM_Account_Type__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Value</targetReference>
+            </connector>
+            <label>Yes Value Different and Blank?</label>
+        </rules>
+    </decisions>
+    <description>ATG - 23-Dec-2021 - SFCPQBLG-776 - Added in population for MDM Enterprise Name
+ATG - 23-Sept-2021 - SFCPQBLG-508 - Fixed validation error about required type.
+ATG - 21-Sept-2021 - SFCPQBLG-508 - Added update for PF Partner checkbox, fixed
+Updated to point to CDM_Account_type__c instead of Record Type
+Added a check for Null on CDM_Account_type__c</description>
+    <interviewLabel>Populate Channel/Local Office Record Type on Quote {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Populate Channel/Local Office Record Type on Quote</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>51</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Value_Different</targetReference>
+        </connector>
+        <object>SBQQ__Quote__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

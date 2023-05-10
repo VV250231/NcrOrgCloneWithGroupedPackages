@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>USERS.NAME</field>
+    </columns>
+    <columns>
+        <field>Account.DI_Customer__c</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>ADDRESS1_STATE</field>
+    </columns>
+    <columns>
+        <field>Account.Retail_Online_Banking_CED__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.Assets_current__c</field>
+    </columns>
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Customer_Satisfaction_Temp_Level__c</field>
+    </columns>
+    <columns>
+        <field>Account.Comments__c</field>
+    </columns>
+    <columns>
+        <field>Account.Additional_Comments__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>This report is to hold any accounts that have terminated since being on the at-risk file</description>
+    <filter>
+        <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+        <criteriaItems>
+            <column>Account.DI_Customer__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>,4774,1337,5490,3507,3404,1623,3539,8024,3123,1619,1016,3447,1637,4900,1132,3561,5472,7413,4839,1047,5209,1000,1373,1636,3456</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>USERS.NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>,Sanjay Wadhwa,Amber McCollum,Douglas Demino,Leigh-anne O&apos;regan,Rosario Cocozza,Allison Hissey,Scott Lieberman,Robert McClanahan,Dougla Demino,Ellen Janevicius,Susan Fulford,Gretchen McCabe,Jason Duke,Eli Truett,Kelly-Jo Jones,Rachel Cooper,Lynda Shehan</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User.Manager_Level_01__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Chris Slaughter,Douglas Rounds,Kelly O&apos;Connor,Puneet Malhotra,Andy Edwards,Tom Mayo</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>User.Manager_Level_01__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>At-Risk Accounts Lost</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList@Account.DPV_Software__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>DUE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

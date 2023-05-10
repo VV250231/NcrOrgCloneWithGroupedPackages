@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opportunity_Product_Total_Price_Length</fullName>
+    <active>true</active>
+    <description>Enforces that the Opportunity Product Total Price is not greater than 18 characters</description>
+    <errorConditionFormula>NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c) &amp;&amp;
+UnitPrice * Quantity &gt; (100000000.00 * 50)</errorConditionFormula>
+    <errorMessage>Total Price is Too Big!!</errorMessage>
+</ValidationRule>

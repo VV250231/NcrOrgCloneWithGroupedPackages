@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOS_SMB_IM_Sales</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>Site_Id__c</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>Support_Queue__c</columns>
+    <columns>CORE.USERS.LAST_NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Cancelled,Closed</value>
+    </filters>
+    <filters>
+        <field>Support_Queue__c</field>
+        <operation>equals</operation>
+        <value>hos smb im sales</value>
+    </filters>
+    <filters>
+        <field>OWNER_NAME</field>
+        <operation>notContain</operation>
+        <value>,geoffrey hollinden,john pinner,mary remmert</value>
+    </filters>
+    <label>HOS SMB IM Sales - all owners</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>Opportunity.Silver_Aloha_One_Payments_TCV__c.CONVERT:SUM+AMOUNT.CONVERT:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Total Opportunity TCV</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>Opportunity.Silver_Aloha_One_Payments_TCV__c.CONVERT:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA2</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Silver Aloha One Time Payments</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>AMOUNT.CONVERT:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA3</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Total Amount</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_23839639</developerName>
+        <masterLabel>Region</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Opportunity.Cloud_Rep__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Daria Nisandzic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Milica Vukotic</sourceValue>
+            </sourceValues>
+            <value>West - Jay Singh</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Djordje Jovanovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Milan Marinkovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Marko Soso</sourceValue>
+            </sourceValues>
+            <value>Midwest - Bill Lecos</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Jelena Lazic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Milos Tomasovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Srboljub Dragisic</sourceValue>
+            </sourceValues>
+            <value>Texas - April Andras</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Maja Peric</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Danijela Cankovic</sourceValue>
+            </sourceValues>
+            <value>Florida - Todd Wallin</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Milos Djordjevic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Nikola Kovacevic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Irena Jevric</sourceValue>
+            </sourceValues>
+            <value>Atlanta/Carolinas - Jessica Coyle</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Igor Momic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Dusan Simic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Dijana Novakovic</sourceValue>
+            </sourceValues>
+            <value>Northeast - Gary Gosselin</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Cloud_Rep__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>AMOUNT</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>PROBABILITY</field>
+    </columns>
+    <columns>
+        <field>ROLLUP_DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>PRODUCT_NAME</field>
+    </columns>
+    <columns>
+        <field>QUANTITY</field>
+    </columns>
+    <columns>
+        <field>UNIT_PRICE</field>
+    </columns>
+    <columns>
+        <field>UNIT_PRICE.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>TOTAL_PRICE</field>
+    </columns>
+    <columns>
+        <field>TOTAL_PRICE.CONVERT</field>
+    </columns>
+    <columns>
+        <field>SERVICE_DATE</field>
+    </columns>
+    <columns>
+        <field>SERVICE_MONTH</field>
+    </columns>
+    <columns>
+        <field>PRODUCT_DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>PRODUCT_PRICE</field>
+    </columns>
+    <columns>
+        <field>PRODUCT_PRICE.CONVERT</field>
+    </columns>
+    <columns>
+        <field>PRODUCT_CUSTOMER_ID</field>
+    </columns>
+    <columns>
+        <field>PRODUCT_ACTIVE</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>OWNER_MANAGER</field>
+    </columns>
+    <columns>
+        <field>User.Manager_Level_02__c</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>If(OR(OWNER_MANAGER=&quot;Angel Gonzalez&quot;,OWNER_MANAGER=&quot;Gary Gosselin&quot;,OWNER_MANAGER=&quot;Lee Lewin&quot;,OWNER_MANAGER=&quot;Jay Sparano&quot;),&quot;Gary Gosselin-Northeast&quot;,IF(OR(OWNER_MANAGER=&quot;Jason Johnson&quot;,OWNER_MANAGER=&quot;Doug Stanley&quot;,OWNER_MANAGER=&quot;Bill Lecos&quot;,OWNER_MANAGER=&quot;Adam Stewart&quot;,OWNER_MANAGER=&quot;Matt Wulf&quot;,OWNER_MANAGER=&quot;Doug Stanley-INACTIVE&quot;,FULL_NAME=&quot;Bill Lecos&quot;),&quot;Bill Lecos-Midwest&quot;,If(Or(OWNER_MANAGER=&quot;Jessica Coyle&quot;,OWNER_MANAGER=&quot;Frampton Ash&quot;,OWNER_MANAGER=&quot;Erik Williams&quot;),&quot;Jessica Coyle-Atlanta/Carolinas&quot;,If(or(OWNER_MANAGER=&quot;Jesse Hutchinson&quot;,OWNER_MANAGER=&quot;Patti Philpott&quot;,OWNER_MANAGER=&quot;Jason Racimo&quot;,OWNER_MANAGER=&quot;Jay Singh&quot;),&quot;Jay Singh-West&quot;,if(or(OWNER_MANAGER=&quot;Chris Matthews&quot;,OWNER_MANAGER=&quot;April Andras&quot;,OWNER_MANAGER=&quot;Kayla Pryor&quot;,FULL_NAME=&quot;April Andras&quot;),&quot;April Andras-Texas&quot;,IF(OR(OWNER_MANAGER=&quot;David Winterling&quot;,OWNER_MANAGER=&quot;Todd Wallin&quot;,OWNER_MANAGER=&quot;Pamela Norman&quot;,OWNER_MANAGER=&quot;Timothy Fleming&quot;,OWNER_MANAGER=&quot;Tim Fleming&quot;),&quot;Todd Wallin-Florida&quot;,IF(OWNER_MANAGER=&quot;Sava Matkovic&quot;,&quot;Jovana Trifunovic&quot;,OWNER_MANAGER)))))))</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>Manager</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <booleanFilter>1 AND 2 AND 3</booleanFilter>
+        <criteriaItems>
+            <column>Opportunity.Cloud_Rep__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Jelena Lazic,Daria Nisandzic,Milan Marinkovic,Dusan Simic,Maja Peric,Igor Momic,Nikola Kovacevic,Milica Vukotic,Djordje Jovanovic,Milos Djordjevic,Milos Tomasovic,Danijela Cankovic,Dijana Novakovic,Srboljub Dragisic,Irena Jevric,Marko Soso</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OPPORTUNITY_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>ASV</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OPPORTUNITY_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>Addon</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_23839639</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Opportunity.Silver_Aloha_One_Payments_TCV__c.CONVERT</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>AMOUNT.CONVERT</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>SMB Silver Managers Won</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>closedwon</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>OpportunityProduct</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_PREVFY</interval>
+    </timeFrameFilter>
+</Report>

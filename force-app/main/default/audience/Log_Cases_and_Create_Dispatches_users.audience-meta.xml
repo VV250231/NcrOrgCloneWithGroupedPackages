@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Audience xmlns="http://soap.sforce.com/2006/04/metadata">
+    <audienceName>Log Cases and Create Dispatches users</audienceName>
+    <container>Hospitality Customer</container>
+    <criteria>
+        <criterion>
+            <criteriaNumber>1</criteriaNumber>
+            <criterionValue>
+                <profile>customer view &amp; log cases user</profile>
+            </criterionValue>
+            <operator>Equal</operator>
+            <type>Profile</type>
+        </criterion>
+        <criterion>
+            <criteriaNumber>2</criteriaNumber>
+            <criterionValue>
+                <profile>customer view log cases &amp; create dispatches user</profile>
+            </criterionValue>
+            <operator>Equal</operator>
+            <type>Profile</type>
+        </criterion>
+        <criterion>
+            <criteriaNumber>3</criteriaNumber>
+            <criterionValue>
+                <profile>admin</profile>
+            </criterionValue>
+            <operator>Equal</operator>
+            <type>Profile</type>
+        </criterion>
+        <criterion>
+            <criteriaNumber>4</criteriaNumber>
+            <criterionValue>
+                <profile>customer view log cases &amp; create dispatches login user</profile>
+            </criterionValue>
+            <operator>Equal</operator>
+            <type>Profile</type>
+        </criterion>
+        <criterion>
+            <criteriaNumber>5</criteriaNumber>
+            <criterionValue>
+                <profile>customer view &amp; log cases login user</profile>
+            </criterionValue>
+            <operator>Equal</operator>
+            <type>Profile</type>
+        </criterion>
+        <criterion>
+            <criteriaNumber>6</criteriaNumber>
+            <criterionValue>
+                <isEnabled>true</isEnabled>
+                <permissionName>Hospitality_EC_Create_Dispatches</permissionName>
+                <permissionType>Custom</permissionType>
+            </criterionValue>
+            <operator>Equal</operator>
+            <type>Permission</type>
+        </criterion>
+    </criteria>
+    <formulaFilterType>AnyCriterionMatches</formulaFilterType>
+    <isDefaultAudience>false</isDefaultAudience>
+    <targets>
+        <target>
+            <groupName>0b2cb5de-d0ab-4848-afab-da052faf8439$#$d3c0e96c-0e54-462e-924e-52e0936ce643</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>Welcome_Tile_Menu_Component</targetValue>
+        </target>
+        <target>
+            <groupName>4a77702b-2222-4acb-916d-a8175bba1a1f$#$c78b5c3d-6f51-434e-b76e-39fc722b5cfd</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>Case_Detail_Flow_Component</targetValue>
+        </target>
+    </targets>
+</Audience>

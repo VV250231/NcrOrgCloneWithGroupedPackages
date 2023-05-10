@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>50.0</apiVersion>
+    <formulas>
+        <name>CLM_Dashboard_Link</name>
+        <dataType>String</dataType>
+        <expression>URLENCODE(&apos;http://clm.ncr.com&apos;)</expression>
+    </formulas>
+    <formulas>
+        <name>Document_Sign_and_Store_Link</name>
+        <dataType>String</dataType>
+        <expression>URLENCODE({!$Label.CLM_DS_BASE_URL}+&apos;Sign%20and Store - For Account?aid=&apos;+{!$Label.CLM_ENV_ID}+&apos;&amp;eos[0].Id=&apos;+{!Account_Detail.Id}+&apos;&amp;eos[0].System=Salesforce&amp;eos[0].Type=Account&amp;eos[0].Name=&apos;+{!Account_Detail.Name}+&apos; &apos;+ {!Account_Detail.Master_Customer_Number__c}+&apos;&amp;eos[0].ScmPath=/SalesForce/Account&apos;)</expression>
+    </formulas>
+    <formulas>
+        <name>Generate_Contract_Document_Link</name>
+        <dataType>String</dataType>
+        <expression>URLENCODE({!$Label.CLM_DS_BASE_URL}+&apos;PreDocGen Account?aid=&apos;+{!$Label.CLM_ENV_ID}+&apos;&amp;eos[0].Id=&apos;+{!Account_Detail.Id}+&apos;&amp;eos[0].System=Salesforce&amp;eos[0].Type=Account&amp;eos[0].Name=&apos;+{!Account_Detail.Name}+&apos; &apos;+{!Account_Detail.Master_Customer_Number__c}+&apos;&amp;eos[0].ScmPath=/SalesForce/Account&apos;)</expression>
+    </formulas>
+    <formulas>
+        <name>IsCountryCodeUS</name>
+        <dataType>Boolean</dataType>
+        <expression>ISPICKVAL({!$User.Country_Code__c}, &apos;US&apos;)</expression>
+    </formulas>
+    <interviewLabel>Contract Action on Account {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Contract Action on Account</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordLookups>
+        <name>Account_Detail</name>
+        <label>Account Detail</label>
+        <locationX>810</locationX>
+        <locationY>69</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Contract_Action</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <screens>
+        <name>Contract_Action</name>
+        <label>Contract Action</label>
+        <locationX>533</locationX>
+        <locationY>252</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>PreDocGenScreen</name>
+            <fieldText>&lt;p&gt;&lt;a href=&quot;/apex/ContractActionsButtonVF?obj=Account&amp;amp;page=Generate Contract Documents&amp;amp;url={!Generate_Contract_Document_Link}&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot; style=&quot;color: rgb(21, 77, 173); font-size: 16px;&quot;&gt;&lt;b&gt;Generate Contract Documents&lt;/b&gt;&lt;/a&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Account_Screen</name>
+            <fieldText>&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/apex/ContractActionsButtonVF?obj=Account&amp;amp;page=Documents Sign and Store&amp;amp;url={!Document_Sign_and_Store_Link}&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot; style=&quot;color: rgb(21, 77, 173); font-size: 16px; background-color: rgb(255, 255, 255); font-family: var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, &amp;quot;Segoe UI&amp;quot;, Roboto, Helvetica, Arial, sans-serif, &amp;quot;Apple Color Emoji&amp;quot;, &amp;quot;Segoe UI Emoji&amp;quot;, &amp;quot;Segoe UI Symbol&amp;quot;);&quot;&gt;&lt;b&gt;Document Sign &amp;amp; Store&lt;/b&gt;&lt;/a&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>DashboardScreen</name>
+            <fieldText>&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/apex/ContractActionsButtonVF?obj=Account&amp;amp;page=CLM Dashboard&amp;amp;url={!CLM_Dashboard_Link}&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot; style=&quot;color: rgb(21, 77, 173); font-size: 16px; font-family: var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, &amp;quot;Segoe UI&amp;quot;, Roboto, Helvetica, Arial, sans-serif, &amp;quot;Apple Color Emoji&amp;quot;, &amp;quot;Segoe UI Emoji&amp;quot;, &amp;quot;Segoe UI Symbol&amp;quot;);&quot;&gt;&lt;b&gt;CLM Dashboard&lt;/b&gt;&lt;/a&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>false</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>282</locationX>
+        <locationY>42</locationY>
+        <connector>
+            <targetReference>Account_Detail</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

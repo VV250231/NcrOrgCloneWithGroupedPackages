@@ -1,0 +1,413 @@
+<aura:component controller="PRM_EquipmentController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:hasRecordId" access="global" >
+    
+    <aura:attribute name="objEquipment" type="Equipment_Declaration__c"/>
+    <aura:attribute name="recordId" type="Id"/>
+    
+    <aura:attribute name="description" type="String" default=""/>
+    <aura:attribute name="isWLRR" type="Boolean" default="false"/>
+    <aura:handler name="init" value="{!this}" action="{!c.getEquipment}"/>
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+    
+    <!--loading spinner start... style=Brand Medium (blue dots)-->
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner_brand  slds-spinner slds-spinner_large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    <!-- Loading spinner end--> 
+    
+    <div class="slds-page-header" role="banner">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-has-flexi-truncate"> 
+                <div class="slds-media slds-media_center slds-no-space slds-grow">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-account">
+                            <lightning:icon iconName="standard:account" size="large" alternativeText="Indicates approval"/>
+                            <span class="slds-assistive-text"> Equipment</span>
+                        </span>
+                    </div>
+                    <div class="slds-media__body ">
+                        <p class="slds-text-title_caps slds-line-height_reset" title="Equipment">
+                            <h2 class="slds-text-heading_small">Equipment</h2></p>
+                    </div>
+                </div>                    
+            </div>  
+            <!-- ACTION BUTTONS -->
+            <div class="slds-col slds-no-flex slds-grid slds-wrap slds-align-top">
+                
+                <button class="slds-button slds-button_neutral" onclick="{!c.openEdit}">
+                    Edit
+                </button>
+                <button class="slds-button slds-button_neutral" onclick="{!c.openClone}">
+                    Clone
+                </button>
+                
+                <button class="slds-button slds-button_neutral" onclick="{!c.cOpenWLRR}">
+                    Warranty Labor Reimbursement Request
+                </button>
+                
+                <button class="slds-button slds-button_neutral" onclick="{!c.cBack}">
+                    Back
+                </button>
+                
+            </div>
+            <!-- / ACTION BUTTONS -->               
+        </div>
+    </div>
+    
+    <div class="slds">
+        <div class="section">
+            <h2 class="slds-text-heading_small section-heading">Equipment Details</h2>
+            <div class="slds-grid slds-wrap section-body">
+                <!-- / FIRST COLUMN -->
+                <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                    <div class="slds-form">
+                        
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control" >
+                                <label class="slds-form-element__label">Serial Number</label>
+                                <div class="slds-form-element__control">
+                                    <ui:outputText class="slds-form-element__static" aura:id="Last_Name"  value="{!v.objEquipment.Name}" />
+                                </div>
+                            </div>    
+                        </div> 
+                        
+                        
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Partner Account</label>
+                            
+                            <div class="slds-form-element__control">
+                                <ui:outputText class="slds-form-element__static" aura:id="Partner_Account" value="{!v.objEquipment.Partner_Account__r.Name}" />
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Customer Name</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText class="slds-form-element__static" aura:id="Customer_Name"  value="{!v.objEquipment.Customer_Name__c}" />
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Customer Account Name</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText class="slds-form-element__static" aura:id="Account" value="{!v.objEquipment.Account__r.Name}"/>
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">FDIC#</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText class="slds-form-element__static" aura:id="FDIC"  value="{!v.objEquipment.FDIC__c}" />
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">NCUA#</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText class="slds-form-element__static" aura:id="NCUA"  value="{!v.objEquipment.NCUA__c}" />
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">SWIFT CODE</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText class="slds-form-element__static" aura:id="SWIFT_CODE"  value="{!v.objEquipment.SWIFT_CODE__c}" />
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <!-- / SECOND COLUMN -->
+                <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                    <div class="slds-form">  
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <label class="slds-form-element__label">Active Unit</label>
+                                <div class="slds-form-element__control">
+                                    <ui:outputCheckbox class="slds-form-element__static" aura:id="Active_Unit"  value="{!v.objEquipment.Active_Unit__c}" />
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Class</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText class="slds-form-element__static" aura:id="State_Province" value="{!v.objEquipment.Class__c}" />
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Class Type</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText class="slds-form-element__static" aura:id="City" value="{!v.objEquipment.Class_Type__c}" />
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Features</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText class="slds-form-element__static" aura:id="City" value="{!v.objEquipment.Features__c}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="section">
+            <h2 class="slds-text-heading_small section-heading">Unit Installation Location</h2>
+            <div class="slds-grid slds-wrap section-body">
+                <!-- / FIRST COLUMN -->
+                <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                    <div class="slds-form">
+                        
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Installation Address1</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText class="slds-form-element__static" aura:id="Installation_Address1"  value="{!v.objEquipment.Installation_Address1__c}" />
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Installation Address2</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText class="slds-form-element__static" aura:id="Installation_Address2"  value="{!v.objEquipment.Installation_Address2__c}" />
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <!-- / SECOND COLUMN -->
+                <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                    <div class="slds-form">
+                        
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Installation City</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText class="slds-form-element__static" aura:id="Installation_City"  value="{!v.objEquipment.Installation_City__c}" />
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Installation State/Province</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText class="slds-form-element__static" aura:id="Installation_State_Province"  value="{!v.objEquipment.Installation_State_Province__c}" />
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Installation Postal Code</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText class="slds-form-element__static" aura:id="Installation_Postal_Code"  value="{!v.objEquipment.Installation_Postal_Code__c}" />
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Country Code</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText class="slds-form-element__static" aura:id="Country_Code"  value="{!v.objEquipment.Country_Code__c}" />
+                            </div>
+                        </div>
+                        
+                    </div> 
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="slds-text-heading_small section-heading">Service History</h2>
+            <div class="slds-grid slds-wrap section-body">
+                <!-- / FIRST COLUMN -->
+                <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                    <div class="slds-form">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Installation Date of New Unit</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputDate aura:id="Installation_Date_of_New_Unit"  class="slds-form-element__static" 
+                                               value="{!v.objEquipment.Installation_Date_of_New_Unit__c}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- / SECOND COLUMN -->
+                <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                    <div class="slds-form">
+                        
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Service Assumption Date</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputDate aura:id="Service_Assumption_Date"  class="slds-form-element__static"
+                                               value="{!v.objEquipment.Service_Assumption_Date__c}" />
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Previous Service Provider</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText class="slds-form-element__static" aura:id="Previous_Service_Provider"  value="{!v.objEquipment.Previous_Service_Provider__c}" />
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Previous Service Provider (If Other)</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText class="slds-form-element__static" aura:id="Previous_Service_Provider_If_Other"  
+                                               value="{!v.objEquipment.Previous_Service_Provider_If_Other__c}" />
+                            </div>
+                        </div>
+                        
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <h2 class="slds-text-heading_small section-heading">Warranty Labor Request</h2>
+            <div class="slds-form">
+                <c:PRM_WarrantyLaborRequestList eqId="{!v.recordId}"/>
+            </div>
+        </div>
+    </div>
+    
+    <!--Warranty Labor Reimbursement Request -->
+    
+    <aura:if isTrue="{!v.isWLRR}">
+        <div class="demo-only"  aura:id="" style="height: 200px;">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" 
+                     class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeDocModal}">
+                            X<span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Submit Warranty Labor Reimbursement Request</h2>
+                    </header>
+                    <div class="slds-modal__content" id="modal-content-id-1">
+                        <div class="section">
+                            <h2 class="slds-text-heading_small section-heading">Mail Header</h2>
+                            <div class="slds-grid slds-wrap section-body">
+                                <!-- / First COLUMN -->
+                           		<div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                                    <div class="slds-form">
+                                        
+                                        <div class="slds-form-element slds-border_bottom">
+                                            <label class="slds-form-element__label" for="toAddress">Send To</label>
+                                            <div class="slds-form-element__control">
+                                                <ui:outputText aura:id="toAddress" value="America,Partner Programs"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- / Secound COLUMN -->
+                                <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                                    <div class="slds-form">
+                                        
+                                       <div class="slds-form-element slds-border_bottom">
+                                            <label class="slds-form-element__label" for="subject">Subject</label>
+                                            <div class="slds-form-element__control">
+                                                <ui:outputText aura:id="subject" value=" Warranty Labor Reimbursement Request"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <h2 class="slds-text-heading_small section-heading">Unit Installation Location</h2>
+                            <div class="slds-grid slds-wrap section-body">
+                                <!-- / First COLUMN -->
+                                <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                                    <div class="slds-form">
+                                        
+                                        <div class="slds-form-element slds-border_bottom">
+                                            <label class="slds-form-element__label" for="serialNumber">Serial Number</label>
+                                            <div class="slds-form-element__control">
+                                                <ui:outputText aura:id="serialNumber" value="{! v.objEquipment.Name}"/>
+                                            </div>
+                                        </div>
+                                        <div class="slds-form-element slds-border_bottom">
+                                            <label class="slds-form-element__label" for="productId">Product ID</label>
+                                            <div class="slds-form-element__control">
+                                                <ui:outputText aura:id="productId" value="{! v.objEquipment.Class__c}"/>
+                                            </div>
+                                        </div>
+                                        <div class="slds-form-element slds-border_bottom">
+                                            <label class="slds-form-element__label" for="customerName">Customer Name</label>
+                                            <div class="slds-form-element__control">
+                                                <ui:outputText aura:id="customerName" value="{! v.objEquipment.Customer_Name__c}"/>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                
+                                <!-- / SECOND COLUMN -->
+                                <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                                    <div class="slds-form">
+                                        
+                                        <div class="slds-form-element slds-border_bottom">
+                                            <label class="slds-form-element__label" for="installationDate">Installation Date</label>
+                                            <div class="slds-form-element__control">
+                                                <ui:outputText aura:id="installationDate" value="{! v.objEquipment.Installation_Date_of_New_Unit__c}"/>
+                                            </div>
+                                        </div>
+                                        <div class="slds-form-element slds-border_bottom">
+                                            <label class="slds-form-element__label" for="actName">Account Name</label>
+                                            <div class="slds-form-element__control">
+                                                <ui:outputText aura:id="actName" value="{! v.objEquipment.Partner_Account__r.Name}"/>
+                                            </div>
+                                        </div>
+                                        <div class="slds-form-element slds-border_bottom">
+                                            <label class="slds-form-element__label" for="salesforceId">SalesForce ID</label>
+                                            <div class="slds-form-element__control">
+                                                <ui:outputText aura:id="salesforceId" value="{! v.objEquipment.Id}"/>
+                                            </div>
+                                        </div>
+                                        <div class="slds-form-element slds-border_bottom">
+                                            <label class="slds-form-element__label" for="dateOfService"><abbr class="slds-required" title="required">*</abbr> Date of Service</label>
+                                            <div class="slds-form-element__control">
+                                                <ui:inputDate aura:id="dateOfService" value="{! v.objEquipment.Service_Date__c}" displayDatePicker="true" required="true"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <h2 class="slds-text-heading_small section-heading">Service Problem and Repair Description</h2>
+                            <div class="slds-grid slds-wrap section-body">
+                                <!-- / First COLUMN -->
+                                <div class="slds-size_1-of-1 slds-medium-size_1-of-1 slds-col_padded">
+                                    <div class="slds-form">
+                                        <div class="slds-form-element">
+                                            <label class="slds-form-element__label" for="prbDescription"> Description</label>
+                                            <div class="slds-form-element__control">
+                                                <ui:inputTextArea aura:id="prbDescription" value="{!v.description}" rows="5"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" type="button" onclick="{!c.cSaveWLRR}">Submit</button>
+                        <button class="slds-button slds-button_neutral" onclick="{!c.closeDocModal}">Cancel</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+    
+</aura:component>

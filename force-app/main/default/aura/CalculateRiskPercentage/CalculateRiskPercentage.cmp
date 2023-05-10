@@ -1,0 +1,54 @@
+<aura:component Controller="CalculateRiskPercentageController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	<aura:attribute name="checked" type="Boolean"  />
+    <aura:attribute name="readonly" type="Boolean" default="false" />
+    <aura:attribute name="inlineUpdate" type="Boolean" default="false" />
+    <aura:attribute name="weightage" type="Integer"></aura:attribute>
+    <aura:attribute name="TotalWeitage" type="Integer" Default="0.0"></aura:attribute> 
+    <aura:attribute name="WeightagePerSection" type="Integer"></aura:attribute>
+    <aura:attribute name="DisplaySectionWeightage" type="Integer" Default="0.0"></aura:attribute>
+    <aura:attribute name="Result" type="Integer" Default="0.0"></aura:attribute>
+    <aura:attribute name="value" type="List"></aura:attribute>
+    <aura:attribute name="OppId" type="String"></aura:attribute>
+    <aura:attribute name="RecordId" type="String"></aura:attribute>
+    <aura:attribute name="RecordToUpsert" type="Value_Prompter__c" default="{ 'sobjectType': 'Value_Prompter__c'}"/>
+	                <table class="slds-table"> 
+                      <tbody> 
+                         <aura:iteration items="{!v.value}" var="ele2" indexVar="key2"> 
+                             <tr class="quesCell">
+                             <td><label class="slds-form-element">
+                                    {!ele2.SectionQuestion} 
+                                 </label>
+                             </td>
+                             <td> 
+                                
+                                 <div class="slds-form_inline slds-float_right">
+                                    <div class="slds-form-element">
+                                        <label class="slds-radio" >
+                                            <ui:inputRadio value="{!ele2.ifYes}" aura:id="yeschkbox" text="{!ele2.QuestionWeightage}"  name="{!ele2.SectionApiName}" disabled="{!v.readonly}" change="{!c.AddToSection}"/>
+                                            <span class="slds-radio_faux"></span>
+                                            <span class="slds-form-element__label">Yes</span> 
+                                        </label> 
+                                        <label class="slds-radio" >
+                                           <ui:inputRadio value="{!ele2.ifNo}" aura:id="nochkbox" text="{!ele2.QuestionWeightage}"  name="{!ele2.SectionApiName}" disabled="{!v.readonly}"  change="{!c.SubtractFromSection}"/>
+                                            <span class="slds-radio_faux"></span> 
+                                            <span class="slds-form-element__label">No</span>  
+                                        </label> 
+                                    </div>
+                                </div>
+                                
+                             </td>
+                             </tr>
+                         </aura:iteration>
+                          <span aura:id="SpinnerId" class="slds-spinner_container slds-hide">
+                                        <span role="status" class="rdajaxLoad">Saving</span>
+                          </span>
+                      </tbody>        
+            </table>
+            <div class="slds-form-element__group" style="padding-top:10px;padding-bottom:10px;">
+                 <div class="slds-grid slds-gutters"> 
+                     <div class="slds-col slds-size_2-of-2">
+                   				 <div class="slds-badge" style="float: right; text-align: center;margin-right: 8px;width: 100px;" >&nbsp;{!v.DisplaySectionWeightage}</div>
+               	     </div>               
+                 </div>
+            </div>
+</aura:component>

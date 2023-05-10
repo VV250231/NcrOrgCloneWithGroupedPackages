@@ -1,0 +1,22 @@
+<aura:component controller="PRM_Opp_Net_New_Customer_PopUP_Contoller" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <!--@Component Attribute 
+        @OpportunityId : Contain Opportunity ID.
+        @ popShow : Responsible to show and hide the POP-UP Section.
+    -->
+    
+    <aura:attribute name="OpportunityId" type="id" default="{!v.recordId}"/><!-- {!v.recordId} -->
+    <aura:attribute name="popShow" type="Boolean" Default="false"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <!--div class="slds-notify_container slds-is-relative"-->
+    <aura:if isTrue="{! v.popShow}">
+        <div class="slds-notify slds-notify_alert slds-theme_alert slds-theme_warning" role="alert">
+            <span class="slds-assistive-text">Warning</span>           
+            <h2 class="slds-text-heading_small "><strong>Warning :&nbsp;</strong>By checking the Net New Customer box you affirm this is a net new customer for this opportunity by your partner as defined in Deal Registration Program Guide.</h2>
+            <div class="slds-notify__close"> 
+                <lightning:buttonIcon iconName="utility:check"  variant="bare" size="large" onclick="{! c.confirmNetNewCustomer }" alternativeText="Confirm" class="slds-button_icon-border-inverse" />
+            </div>
+        </div>
+    </aura:if>
+</aura:component>

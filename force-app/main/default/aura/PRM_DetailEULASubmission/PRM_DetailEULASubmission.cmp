@@ -1,0 +1,329 @@
+<aura:component controller="PRM_EULASubmissionController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes" access="global" >
+    
+    <aura:attribute name="objEULA" type="EULA_submission__c"/>
+    <aura:attribute name="recordId" type="Id"/>
+    
+    <aura:attribute name="comment" type="String" default=""/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.getEULA}"/>
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+    
+    <!-- 'showLoadingSpinner' attribute for show/hide the uploading image and msg in aura:if-->
+   	<aura:attribute name="showLoadingSpinner" type="boolean" default="false" />
+ 	<!-- 'fileName' attribute for display the selected file name -->  
+   	<aura:attribute name="fileName" type="String" default="No File Selected.." />
+    
+    <aura:attribute name="isAttachment" type="boolean" default="false"/>
+    <aura:attribute name="isApproval" type="boolean" default="false"/>
+    
+    <!--loading spinner start... style=Brand Medium (blue dots)-->
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner_brand  slds-spinner slds-spinner_large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    <!-- Loading spinner end--> 
+    
+    <div class="slds-page-header" role="banner">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-has-flexi-truncate"> 
+                <div class="slds-media slds-media_center slds-no-space slds-grow">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-account">
+                            <lightning:icon iconName="standard:account" size="large" alternativeText="Indicates approval"/>
+                            <span class="slds-assistive-text"> EULA Submission</span>
+                        </span>
+                    </div>
+                    <div class="slds-media__body ">
+                        <p class="slds-text-title_caps slds-line-height_reset" title="EULA Submission">
+                            <h2 class="slds-text-heading_small">EULA Submission</h2></p>
+                    </div>
+                </div>                    
+            </div>  
+            <!-- ACTION BUTTONS -->
+            <div class="slds-col slds-no-flex slds-grid slds-wrap slds-align-top">
+                
+                <aura:if isTrue = "{!v.objEULA.Status__c == 'Created'}" >
+                <button class="slds-button slds-button_neutral" onclick="{!c.openEdit}">
+                    Edit
+                </button>
+                </aura:if>
+                
+                <button class="slds-button slds-button_neutral" onclick="{!c.cOpenAttachment}">
+                    Attach
+                </button>
+                <aura:if isTrue = "{!v.objEULA.Status__c == 'Created'}" >
+                <button class="slds-button slds-button_neutral" onclick="{!c.cOpenApproval}">
+                    Submit for Approval
+                </button>
+                </aura:if>
+                
+                 <button class="slds-button slds-button_neutral" onclick="{!c.back}">
+                    Back
+                </button>
+                
+            </div>
+            <!-- / ACTION BUTTONS -->               
+        </div>
+    </div>
+    
+    <div class="slds">
+        <div class="section">
+            <h2 class="slds-text-heading_small section-heading">EULA Submission Details</h2>
+            <div class="slds-grid slds-wrap section-body">
+                <!-- / FIRST COLUMN -->
+                <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                    <div class="slds-form">
+                        
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control" >
+                                <label class="slds-form-element__label">EULA Submission #</label>
+                                <div class="slds-form-element__control">
+                                    <ui:outputText class="slds-form-element__static" aura:id="Last_Name"  value="{!v.objEULA.Name}" />
+                                </div>
+                            </div>    
+                        </div> 
+                      
+                    </div>
+                </div>
+                <!-- / SECOND COLUMN -->
+                <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                    <div class="slds-form">  
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <label class="slds-form-element__label">Status</label>
+                                <div class="slds-form-element__control">
+                                    <ui:outputText class="slds-form-element__static" aura:id="Active_Unit"  value="{!v.objEULA.Status__c}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="slds-text-heading_small section-heading">Partner Details</h2>
+            <div class="slds-grid slds-wrap section-body">
+                <!-- / FIRST COLUMN -->
+                <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                    <div class="slds-form">
+
+                        
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Account</label>
+                            
+                            <div class="slds-form-element__control">
+                                <ui:outputText class="slds-form-element__static" aura:id="Account" value="{!v.objEULA.Account__r.Name}" />
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">CAM</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText class="slds-form-element__static" aura:id="CAM"  value="{!v.objEULA.CAM__r.Name}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- / SECOND COLUMN -->
+                <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                    <div class="slds-form">  
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <label class="slds-form-element__label">Contact</label>
+                                <div class="slds-form-element__control">
+                                    <ui:outputText class="slds-form-element__static" aura:id="Contact"  value="{!v.objEULA.Contact__r.Name}" />
+                                </div>
+                            </div>
+                        </div>
+                                               
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="slds-text-heading_small section-heading">Customer Details</h2>
+            <div class="slds-grid slds-wrap section-body">
+                <!-- / FIRST COLUMN -->
+                <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                    <div class="slds-form">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Customer Name</label>
+                            
+                            <div class="slds-form-element__control">
+                                <ui:outputText class="slds-form-element__static" aura:id="Customer_Name" value="{!v.objEULA.Customer_Name__c}" />
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Solution Name or Identifying PID</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText class="slds-form-element__static" aura:id="Solution_Name_or_Identifying_PID" value="{!v.objEULA.Solution_Name_or_Identifying_PID__c}" />
+                            </div>
+                        </div>
+                        
+                         <div class="slds-form-element">
+                            <label class="slds-form-element__label">Country</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText class="slds-form-element__static" aura:id="Country" value="{!v.objEULA.Country__c}" />
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <label class="slds-form-element__label">End Date of Agreement</label>
+                                <div class="slds-form-element__control">
+                                    <ui:outputDate class="slds-form-element__static" aura:id="End_Date_of_Agreement"  value="{!v.objEULA.End_Date_of_Agreement__c}" />
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <!-- / SECOND COLUMN -->
+                <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                    <div class="slds-form">  
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <label class="slds-form-element__label">Customer Number (MCN)</label>
+                                <div class="slds-form-element__control">
+                                    <ui:outputText class="slds-form-element__static" aura:id="Customer_Number_MCN"  value="{!v.objEULA.Customer_Number_MCN__c}" />
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <label class="slds-form-element__label">Address</label>
+                                <div class="slds-form-element__control">
+                                    <ui:outputText class="slds-form-element__static" aura:id="Address"  value="{!v.objEULA.Address__c}" />
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <label class="slds-form-element__label">Date of Agreement</label>
+                                <div class="slds-form-element__control">
+                                    <ui:outputDate class="slds-form-element__static" aura:id="Date_of_Agreement"  value="{!v.objEULA.Date_of_Agreement__c}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="slds-text-heading_small section-heading">Attachments</h2>
+            <div class="slds-form">
+           <c:PRM_EULASubmissionAttachmentList /> 
+            </div>
+        </div>
+    </div>
+    <aura:if isTrue="{!v.isAttachment}">
+        <div class="demo-only " style="height: 640px;">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" 
+                     class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeDocModal}">
+                            X<span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Upload Attachment</h2>
+                    </header>
+                    
+                    
+                    <div class="slds-modal__content slds-p-around_medium section-heading" id="modal-content-id-1">
+                       
+                        <div class="slds-grid slds-wrap section-body">
+                            <div class="slds-size_1-of-1 slds-medium-size_1-of-1 slds-col_padded">
+                                
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-size_1-of-1">
+                                        <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                            <div class="slds-form-element__control"> 
+                                                                           
+                                                <ui:message title="Use 'Upload Files' icon to add attachments." severity="confirm" closable="false">
+                                                 
+                                                </ui:message>
+                                               	<lightning:input aura:id="fileId" onchange="{!c.handleFilesChange}" type="file" name="file" label="Upload Attachment" multiple="false"/>
+                                               	<div class="slds-text-body_small slds-text-color_error">{!v.fileName} </div>
+                                                
+                                                
+                                                <aura:if isTrue="{!v.showLoadingSpinner}">
+                                                    <div class="slds-text-body_small slds-text-color_error">Uploading... 
+                                                        <img src="/auraFW/resources/aura/images/spinner.gif" class="spinner-img" alt="Loading"/>
+                                                    </div>
+                                                </aura:if>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                                                                                                                                            
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick="{!c.closeDocModal}">Cancel</button>
+                       
+                        <button class="slds-button slds-button_brand" onclick="{!c.saveFileController}">Save</button>
+                        
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+    
+     <aura:if isTrue="{!v.isApproval}">
+        <div class="demo-only " style="height: 640px;">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" 
+                     class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeDocModal}">
+                            X<span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Submit for Approval</h2>
+                    </header>
+                    
+                    <div class="slds-modal__content slds-p-around_medium section-heading" id="modal-content-id-1">
+                       
+                        <div class="slds-grid slds-wrap section-body">
+                            <div class="slds-size_1-of-1 slds-medium-size_1-of-1 slds-col_padded">
+                                
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-size_1-of-1">
+                                        <div class="slds-form-element slds-hint-parent">
+                                            <div class="slds-form-element__control"> 
+                                                <lightning:textarea name="comment" value="{!v.comment}" label="Comments" maxlength="500" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                                                                                                                                            
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick="{!c.closeDocModal}">Cancel</button>
+                       
+                        <button class="slds-button slds-button_brand" onclick="{!c.cSubmitForApproval}">Submit</button>
+                        
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+</aura:component>

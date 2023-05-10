@@ -1,0 +1,8 @@
+<messaging:emailTemplate subject="Submission for {! If(relatedTo.Name_of_Account_Financial_Institution__c == '' && relatedTo.Name_of_Account_Financial_Institution__c == null,relatedTo.End_Customer_Company_Name__c ,relatedTo.Name_of_Account_Financial_Institution__c)} was not approved" recipientType="User" relatedToType="Deal_Registration__c" >
+<messaging:htmlEmailBody >'
+
+<c:DealRegRejectEmailtemplate DealRegId="{!relatedTo.Id}" /><br/><br/>
+
+</messaging:htmlEmailBody>
+
+</messaging:emailTemplate>

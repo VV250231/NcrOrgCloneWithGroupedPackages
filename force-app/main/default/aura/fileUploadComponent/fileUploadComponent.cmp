@@ -1,0 +1,472 @@
+<aura:component controller="FileUploadController" implements="flexipage:availableForAllPageTypes,force:hasRecordId,force:LightningQuickAction" access="global" >
+    
+    <ltng:require scripts="{! $Resource.PSFR_Resource + '/PSFR_Resource/bootstrap/js/jQuery-2.2.0.min.js'}"  afterScriptsLoaded="{!c.setup}" />
+    <ltng:require scripts="{! $Resource.CSVparser + '/PapaParse-4.3.2/papaparse.js'}" afterScriptsLoaded="{!c.setup}"/>
+    
+    
+    <aura:attribute name="parentId" type="Id" default="{!v.recordId}"/>
+    <aura:attribute name="DealArray" type="String[]"/>
+    <aura:attribute name="uploadedFileName" type="String"/>
+    <aura:attribute name="showTable" type="String"/>
+    <aura:attribute name="showSpinner" type="String"/>
+    <aura:attribute name="WrapFile" type="CSVWrapper[]" />
+    <aura:attribute name="WrapFileSerBL" type="CSVWrapperServiceBL[]" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="RTname" type="String"/>
+    
+    <div class="slds-form-element">
+        <span class="slds-form-element__label" id="file-selector-id">Please Select File to Upload:</span>
+        <div class="slds-form-element__control">
+            <div class="slds-file-selector slds-file-selector_files">
+                <div class="slds-fileselector__dropzone" >
+                    <input type="file" aura:id="file" class="slds-file-selector__input slds-assistive-text" accept=".csv" id="file-upload-input-01" aria-describedby="file-selector-id" onchange="{!c.uploadFile}" />
+                    <label class="slds-file-selector__body" for="file-upload-input-01">
+                        <span class="slds-file-selector__button slds-button slds-button_neutral slds-m-around_medium" >
+                            <c:svgIcon class="slds-icon myfill" svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#upload" size="x-small" />
+                            Upload Files</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/Upload Section -->
+    <!--Spinner -->
+    <aura:renderIf isTrue="{!v.showSpinner=='Y'}">
+        <div class="slds-spinner_container" id="spinnerdiv" >
+            <div class="slds-spinner_brand slds-spinner slds-spinner_large" aria-hidden="false" role="alert">
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div> 
+        </div>
+    </aura:renderIf>
+    <!--/Spinner ends-->
+    
+    <aura:renderIf isTrue="{!v.showTable=='Y'}">
+        <div id="table"  class="slds-scrollable">
+            <!--Validation Check for recordType -->
+            <aura:renderIf isTrue="{!v.RTname == 'SolutionBidLog'}">
+                <!--/Validation Check for recordType/ -->
+                <table class="slds-table slds-table_bordered slds-scrollable" role="grid" >
+                    <thead>
+                        <tr class="slds-text-title_caps">
+                            <th scope="col">
+                                <div class="slds-truncate" title="WOT">WOT</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="PID">PID</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Description">Description</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Product Category">Product Category</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Local Currency">Local Currency</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Exchange Rate">Exchange Rate</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Extended List Price">Extended List Price</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Extended MRP">Extended MRP</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="MRP Discount %">MRP Discount %</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Net Price">Net Price </div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Quantity">Quantity</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Product Revenue">Product Revenue</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Controllable GM">Controllable GM</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Standard GM">Standard GM</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{!v.WrapFile}" var="item">
+                            <tr class="slds-hint-parent">
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Wot}   
+                                    </div>
+                                </td>     
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Product Name">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.PID}    
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Description}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Product_Category}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Local_Currency}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Exchange_Rate}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Extended_List_Price}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Extended_MRP}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.MRP_Discount}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Net_Price}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Qty}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Product_Revenue}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Controllable_GM}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Standard_GM}   
+                                    </div>
+                                </td>
+                            </tr>
+                        </aura:iteration>  
+                    </tbody>
+                </table>
+                <center>
+                    <ui:button class="slds-button slds-button_neutral slds-button_brand slds-m-top_medium" press="{!c.saveSolutionBL}" >Save</ui:button>
+                    <ui:button class="slds-button slds-button_neutral slds-button_brand slds-m-top_medium" press="{!c.saveSolutionBLwithNewVersion}" >Save as new Version</ui:button>
+                    <ui:button class="slds-button slds-button_neutral slds-button_brand slds-m-top_medium" press="{!c.Cancel}" >Cancel</ui:button>
+                </center>
+            </aura:renderIf>
+            <aura:renderIf isTrue="{!v.RTname == 'ServicesBidLog'}">
+                <table class="slds-table slds-table_bordered slds-scrollable" role="grid" >
+                    <thead>
+                        <tr class="slds-text-title_caps">
+                            <th scope="col">
+                                <div class="slds-truncate" title="Date">Date</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="ServiceNow Opportunity Number">ServiceNow Opportunity Number</div>
+                            </th> 
+                            <th scope="col">
+                                <div class="slds-truncate" title="Region">Region</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="SSC (Salesperson)">SSC (Salesperson)</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Solution Architect">Solution Architect</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Controllable OI">Controllable OI</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Duration of Contract (Years)">Duration of Contract (Years)</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="BU Warranty">BU Warranty</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="BU Warranty Term">BU Warranty Term</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="BU Warranty SLA">BU Warranty SLA</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="SLA">SLA</div>
+                            </th> 
+                            <th scope="col">
+                                <div class="slds-truncate" title="SLA Description">SLA Description</div>
+                            </th> 
+                            <th scope="col">
+                                <div class="slds-truncate" title="SID">SID</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="PID">PID</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Product Description">Product Description</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Total Quantity (Labor Hours)">Total Quantity (Labor Hours)</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="CAF List Price($ Per Unit)">CAF List Price($ Per Unit)</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Upgrade Unit Discount">Upgrade Unit Discount</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Upgrade Unit Total Discount">Upgrade Unit Total Discount</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Upgrade Unit Extended Net $">Upgrade Unit Extended Net $</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Regular Charge Unit Discount">Regular Charge Unit Discount</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Regular Charge Unit Total Discount">Regular Charge Unit Total Discount</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Regular Charge Unit Extended Net $">Regular Charge Unit Extended Net $</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Exchange Rate">Exchange Rate</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="SAMY Rate">SAMY Rate</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="SAMY Type">SAMY Type</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="FLMY Rate">FLMY Rate</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="SGM $">SGM $</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="SGM">SGM</div>
+                            </th> 
+                            <th scope="col">
+                                <div class="slds-truncate" title="GM $">GM $</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="GM">GM</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Installation Total Qty">Installation Total Qty</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Installation Unit Cost">Installation Unit Cost</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Managed Services?">Managed Services?</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{!v.WrapFileSerBL}" var="item">
+                            <tr class="slds-hint-parent">
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Date_dt}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.ServiceNow_Opportunity_Number}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Region}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.SSC_Salesperson}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Solution_Architect}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Controllable_OI}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Duration_of_Contract}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.BU_Warranty}   
+                                    </div>
+                                </td> 
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.BU_Warranty_Term}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Product Name">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.BU_Warranty_SLA}    
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.SLA}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.SLA_Description}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.SID}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.PID}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Product_Description}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Total_Quantity_Labor_Hours}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.CAF_List_Price}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Upgrade_Unit_Discount}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Upgrade_Unit_Total_Discount}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Upgrade_Unit_Extended_Net}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Regular_Charge_Unit_Discount}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Regular_Charge_Unit_Total_Discount}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Regular_Charge_Unit_Extended_Net}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Exchange_Rate}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.SAMY_rate}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.SAMY_Type}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.FLMY_Rate}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.SGM_dollar}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.SGM}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.GM_dollar}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.GM}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Installation_Total_Qty}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Installation_Unit_Cost}   
+                                    </div>
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <div class="slds-truncate"  style="">
+                                        {!item.Managed_Services}   
+                                    </div>
+                                </td>
+                            </tr>
+                        </aura:iteration>  
+                    </tbody>
+                </table>
+                <center>
+                    <ui:button class="slds-button slds-button_neutral slds-button_brand slds-m-top_medium" press="{!c.saveServicesBL}" >Save</ui:button>
+                    <ui:button class="slds-button slds-button_neutral slds-button_brand slds-m-top_medium" press="{!c.saveServicesBLwithNewVersion}" >Save as new Version</ui:button>
+                    <ui:button class="slds-button slds-button_neutral slds-button_brand slds-m-top_medium" press="{!c.Cancel}" >Cancel</ui:button>            
+                </center>
+            </aura:renderIf>
+        </div>
+    </aura:renderIf>
+</aura:component>

@@ -1,0 +1,39 @@
+<apex:component controller="FulfillmentOrderReport" access="global">
+    <apex:attribute name="channelPartnerId" type="Id" description="Id of the partner" assignTo="{!partnerId}"/>
+    <apex:dataTable value="{!fulfillmentOrders}" var="s_fulfillment" headerClass="theHead"
+    rowClasses="odd,even" styleClass="tableClass">
+        <apex:column >
+            <apex:facet name="header">Fulfillment Order Name</apex:facet>
+            <apex:outputText value="{!s_fulfillment.Name}"/>
+            <apex:facet name="footer"></apex:facet>
+        </apex:column>
+        <apex:column >
+            <apex:facet name="header">Quote Number</apex:facet>
+            <apex:outputlink value="{!instanceURL}/{!s_fulfillment.qtc_Quote__c}">{!s_fulfillment.qtc_Quote__r.Name}</apex:outputlink>
+            <apex:facet name="footer"></apex:facet>
+        </apex:column>
+        <apex:column >
+            <apex:facet name="header">Partner Name</apex:facet>
+            <apex:outputText value="{!s_fulfillment.qtc_Quote__r.SBQQ__Partner__r.Name}"/>
+            <apex:facet name="footer"></apex:facet>
+        </apex:column>
+        <apex:column >
+            <apex:facet name="header">Account Name</apex:facet>
+            <apex:outputText value="{!s_fulfillment.qtc_Quote__r.SBQQ__Account__r.Name}"/>
+            <apex:facet name="footer"></apex:facet>
+        </apex:column>
+        <apex:column >
+            <apex:facet name="header">Deliver To Site Name</apex:facet>
+            <apex:outputText value="{!s_fulfillment.qtc_Quote__r.Deliver_To_Site__r.Name}"/>
+            <apex:facet name="footer"></apex:facet>
+        </apex:column>
+        <apex:column >
+            <apex:facet name="header">Order Start Date</apex:facet>
+            <apex:outputText value="{!s_fulfillment.qtc_OrderStartDate__c}"/>
+            <apex:facet name="footer"></apex:facet>
+        </apex:column>
+    </apex:dataTable>
+    <br/>
+    Please review the Order Start Date field for each Order. If change to the Order Start Date is needed, please reach out to&nbsp;<b><apex:outputText value="{!alohaBusinessEmail}"/></b> with the desired date change.
+ 
+</apex:component>

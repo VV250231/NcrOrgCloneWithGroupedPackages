@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>What_was_closest_competitor_price_req</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+NOT(CATM_Record__c),
+(ISPICKVAL(Primary_Loss_Reason__c ,&quot;Price Sensitivity&quot;) ) &amp;&amp; (ISBLANK( What_was_the_closest_competitor_price__c )) &amp;&amp; 
+($Profile.Name &lt;&gt; &quot;Soup Integration&quot;)
+)</errorConditionFormula>
+    <errorDisplayField>What_was_the_closest_competitor_price__c</errorDisplayField>
+    <errorMessage>Required field missing for Closed Lost: What was the closest competitor price must be completed when Primary Reason is price sensitivity.</errorMessage>
+</ValidationRule>

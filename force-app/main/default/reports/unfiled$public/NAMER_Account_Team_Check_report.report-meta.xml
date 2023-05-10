@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>if(CDF1:SUM&lt;4,1,0)</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Incomplete Account Team</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_30620552</developerName>
+        <masterLabel>GEO</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Account.Account_Region__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>APAC</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>APJ</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>CHINA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>INDIA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>INDIA &amp; SEA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NORTH ASIA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>SAPAC</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>SEA</sourceValue>
+            </sourceValues>
+            <value>APAC</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>EMEA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>EUROPE</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>EUROPE EXC RUSSIA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>MEA</sourceValue>
+            </sourceValues>
+            <value>EMEA</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>AMERICAS</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NAMER</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NAMER CFI</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NAMER DIRECT</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NAMER MAJORS</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NAMER SMB</sourceValue>
+            </sourceValues>
+            <value>NAMER</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>BRAZIL</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>CLA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>CLA BRAZIL</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>LATAM</sourceValue>
+            </sourceValues>
+            <value>LATAM</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>JAPAN</sourceValue>
+            </sourceValues>
+            <value>Japan</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>GLOBAL</sourceValue>
+            </sourceValues>
+            <value>Global Account</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_75125934</developerName>
+        <masterLabel>Roles Bucket</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>MEMBER_ROLE</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Pre-Sales Consultant</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Pre-Sales Consulting Engineer</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Pre-Sales Engineer</sourceValue>
+            </sourceValues>
+            <value>Pre-Sales</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Lead Services Sales Consultant</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Services Sales Consultant</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Retail Services Sales Consultant</sourceValue>
+            </sourceValues>
+            <value>SSC</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Account Manager</sourceValue>
+            </sourceValues>
+            <value>AM</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Inside Sales - Account Manager</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Inside Sales - Demand Generation</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Inside Sales Specialist</sourceValue>
+            </sourceValues>
+            <value>ISS</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>BucketField_30620552</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_OWNER_NAME</field>
+    </columns>
+    <columns>
+        <field>MEMBER_NAME</field>
+    </columns>
+    <columns>
+        <field>MEMBER_ROLE</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>CDF1</field>
+    </columns>
+    <columns>
+        <field>Account.Account_Region__c</field>
+    </columns>
+    <columns>
+        <field>Account.Account_Country_Code__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.Current_Year_Open_Opportunities__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.Open_Opportunity_Value__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.Current_Year_Commit_Opportunities__c.CONVERT</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>IF((CASE(MEMBER_ROLE,
+&quot;Pre-Sales Engineer&quot;,&quot;1&quot;,&quot;Pre-Sales Consulting Engineer&quot;,&quot;1&quot;,&quot;Pre-Sales Consultant&quot;,&quot;1&quot;,
+&quot;Lead Services Sales Consultant&quot;,&quot;2&quot;,&quot;Retail Services Sales Consultant&quot;,&quot;2&quot;,&quot;Services Sales Consultant&quot;,&quot;2&quot;,
+&quot;Inside Sales - Account Manager&quot;,&quot;3&quot;,&quot;Inside Sales - Demand Generation&quot;,&quot;3&quot;,&quot;Inside Sales Specialist&quot;,&quot;3&quot;,
+&quot;Account Manager&quot;,&quot;4&quot;,
+&quot;5&quot;))=&quot;1&quot;,1,
+IF((CASE(MEMBER_ROLE,
+&quot;Pre-Sales Engineer&quot;,&quot;1&quot;,&quot;Pre-Sales Consulting Engineer&quot;,&quot;1&quot;,&quot;Pre-Sales Consultant&quot;,&quot;1&quot;,
+&quot;Lead Services Sales Consultant&quot;,&quot;2&quot;,&quot;Retail Services Sales Consultant&quot;,&quot;2&quot;,&quot;Services Sales Consultant&quot;,&quot;2&quot;,
+&quot;Inside Sales - Account Manager&quot;,&quot;3&quot;,&quot;Inside Sales - Demand Generation&quot;,&quot;3&quot;,&quot;Inside Sales Specialist&quot;,&quot;3&quot;,
+&quot;Account Manager&quot;,&quot;4&quot;,
+&quot;5&quot;))=&quot;2&quot;,1,IF((CASE(MEMBER_ROLE,
+&quot;Pre-Sales Engineer&quot;,&quot;1&quot;,&quot;Pre-Sales Consulting Engineer&quot;,&quot;1&quot;,&quot;Pre-Sales Consultant&quot;,&quot;1&quot;,
+&quot;Lead Services Sales Consultant&quot;,&quot;2&quot;,&quot;Retail Services Sales Consultant&quot;,&quot;2&quot;,&quot;Services Sales Consultant&quot;,&quot;2&quot;,
+&quot;Inside Sales - Account Manager&quot;,&quot;3&quot;,&quot;Inside Sales - Demand Generation&quot;,&quot;3&quot;,&quot;Inside Sales Specialist&quot;,&quot;3&quot;,
+&quot;Account Manager&quot;,&quot;4&quot;,
+&quot;5&quot;))=&quot;3&quot;,1,IF((CASE(MEMBER_ROLE,
+&quot;Pre-Sales Engineer&quot;,&quot;1&quot;,&quot;Pre-Sales Consulting Engineer&quot;,&quot;1&quot;,&quot;Pre-Sales Consultant&quot;,&quot;1&quot;,
+&quot;Lead Services Sales Consultant&quot;,&quot;2&quot;,&quot;Retail Services Sales Consultant&quot;,&quot;2&quot;,&quot;Services Sales Consultant&quot;,&quot;2&quot;,
+&quot;Inside Sales - Account Manager&quot;,&quot;3&quot;,&quot;Inside Sales - Demand Generation&quot;,&quot;3&quot;,&quot;Inside Sales Specialist&quot;,&quot;3&quot;,
+&quot;Account Manager&quot;,&quot;4&quot;,
+&quot;5&quot;))=&quot;4&quot;,1,0))))</calculatedFormula>
+        <dataType>Double</dataType>
+        <developerName>CDF1</developerName>
+        <label>Team Member Point</label>
+        <scale>0</scale>
+    </customDetailFormulas>
+    <filter>
+        <booleanFilter>(1 OR 5) AND 2 AND 3 AND 4</booleanFilter>
+        <criteriaItems>
+            <column>INDUSTRY</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>RETAIL:CFR,RETAIL:DSR,RETAIL:FDMM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Active_Account__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Account.Customer,Account.Partner</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>BucketField_30620552</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>NAMER</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Account_Owner_Role__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>RET,Retail</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Account.Master_Customer_Number__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>ACCOUNT.NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_75125934</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>NAMER Account Team Check report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountTeam</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>false</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>DUE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>FIRST_NAME</field>
+    </columns>
+    <columns>
+        <field>LAST_NAME</field>
+    </columns>
+    <columns>
+        <field>Lead.LeadType__c</field>
+    </columns>
+    <columns>
+        <field>LEAD_SOURCE</field>
+    </columns>
+    <columns>
+        <field>CITY</field>
+    </columns>
+    <columns>
+        <field>STATE</field>
+    </columns>
+    <columns>
+        <field>ZIP</field>
+    </columns>
+    <columns>
+        <field>OWNER</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>IF(CONTAINS(OWNER_ROLE,&quot;Channel&quot;),
+IF(CONTAINS(OWNER_ROLE,&quot;Central&quot;),&quot;Channel Central&quot;,
+IF(CONTAINS(OWNER_ROLE,&quot;North&quot;),&quot;Channel North&quot;,
+IF(CONTAINS(OWNER_ROLE,&quot;South&quot;),&quot;Channel South&quot;,
+IF(CONTAINS(OWNER_ROLE,&quot;West&quot;),&quot;Channel West&quot;, &quot;Channel Other&quot;)))), 
+IF(CONTAINS(OWNER_ROLE,&quot;Northeast&quot;),&quot;Northeast&quot;,
+IF(CONTAINS(OWNER_ROLE,&quot;Southeast&quot;),&quot;Southeast&quot;,
+IF(CONTAINS(OWNER_ROLE,&quot;Central&quot;),&quot;Central&quot;,
+IF(CONTAINS(OWNER_ROLE,&quot;Florida&quot;),&quot;Florida&quot;,
+IF(CONTAINS(OWNER_ROLE,&quot;Texas&quot;),&quot;Texas&quot;,
+IF(CONTAINS(OWNER_ROLE,&quot;West&quot;),&quot;West&quot;,
+IF(CONTAINS(OWNER_ROLE,&quot;ISR&quot;),&quot;Inside Sales&quot;,OWNER_ROLE))))))))</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>SMB Region</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>STATUS</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>,Open,Researching,Marketing Qualified,Partner Managed,Contacted,Deferred,Pending,Qualified,Nurture</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OWNER_ROLE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Hosp SMB,HOSP SMB</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead.LeadType__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Sales</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CDF1</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>OWNER_ROLE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Hosp Marketing leads by region</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>LeadList</reportType>
+    <scope>org</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

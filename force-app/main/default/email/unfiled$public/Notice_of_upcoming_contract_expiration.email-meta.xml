@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email notification of contract expiration in 365 days</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Notice of upcoming contract expiration</name>
+    <style>none</style>
+    <subject>Your Customers Contract is coming up for renewal.</subject>
+    <textOnly>Your Customers Contract is coming up for renewal. This is not an auto-renewal contract. A task was assigned to {!Account.OwnerFullName} to create a new opportunity to manage this renewal.”  Account Name:  {!Account.Name}  Master Customer Number:  {!Account.Master_Customer_Number__c}  Contract End Date: {!Account.Pramata_AggTerm_End_Date__c}  Link to Account: {!Account.Link}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

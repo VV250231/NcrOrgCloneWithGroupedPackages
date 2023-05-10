@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <aggregateTypes>Unique</aggregateTypes>
+        <field>FIRST_NAME</field>
+    </columns>
+    <columns>
+        <field>LAST_NAME</field>
+    </columns>
+    <columns>
+        <field>TITLE</field>
+    </columns>
+    <columns>
+        <field>User.Manager_Level_01__c</field>
+    </columns>
+    <columns>
+        <field>User.Manager_Level_02__c</field>
+    </columns>
+    <columns>
+        <field>DEPARTMENT</field>
+    </columns>
+    <columns>
+        <field>User.L2_Industry__c</field>
+    </columns>
+    <columns>
+        <field>User.L4_Sub_Region__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>EXCLUDE:BPM, Live Agent, TableauPortal, IPT, IdeaExchange, Chatter, Pramata, Cloud, Data Backup, Accounts Receivable, iPaas, Marketo, MyNCR, Integration, Community, 02 NSC Administrator, AR Collector,Admin,Marketing,Read Only, Dispute,Deals Desk, Product</description>
+    <filter>
+        <criteriaItems>
+            <column>PROFILE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>BPM,Live Agent,TableauPortal,IPT,IdeaExchange,Chatter,Pramata,Cloud,Data Backup,Accounts Receivable,iPaas,Marketo,MyNCR,Integration,Community,02 NSC Administrator,AR Collector,Admin,Marketing,Read Only,Dispute,Deals Desk,Product,Partner</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Copy of User Count by Profile</name>
+    <params>
+        <name>active</name>
+        <value>active</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>0</value>
+    </params>
+    <reportType>User</reportType>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>LAST_LOGIN</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

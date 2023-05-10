@@ -1,0 +1,111 @@
+<aura:component  controller="LeadHelpController">
+    <!-- attribute list start -->
+    <aura:attribute name="parent" type="Aura.Component" required="true"/>
+    <aura:attribute name="showOnLoad" type="Boolean" />
+    <aura:attribute name="leadConList" type="List" access="private"  />
+    <aura:attribute name="isDntShowMsg" type="Boolean" default="false" />
+    <!-- attribute list end -->
+    
+    <!-- handler start -->
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <!-- handler end -->
+    
+    
+    <header class="slds-modal__header" style="flex:1;flex-grow:0;"> 
+        <h2 class="slds-text-heading_medium slds-hyphenate">Sales Support Operations Contacts Per LOB</h2>
+    </header>
+    
+    <div class="slds-modal__content slds-p-around_small lhmodal" style="flex:1;flex-grow:50;">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-align_absolute-center slds-size_1-of-1 ">
+                <div style="padding:0px 5px 0px 5px;">
+                    <h2 class="slds-page-header__title slds-text-heading_small" title="These are the contacts and email addresses for Sales Support with CDM">
+                        <p style="text-align:justify;">
+                            These are the contacts and email addresses for Sales Support with CDM. CDM is the record of reference that feeds Salesforce all Account information.  
+                            Please contact the appropriate Sales Support person to assist with changes to CDM. Once changed in CDM, Salesforce will be updated with the correct information.
+                        </p>  
+                        
+                        <p class="sectoppadding">
+                            Before reaching out to the appropriate Sales Support person, please check to see if the Account you need already exists by using the Account Search option.  
+                        </p>
+                    </h2>
+                    
+                    
+                    <div  class="sectoppadding" style="padding-left:5px;">     
+                        <ul class="hypenul lhlist slds-text-heading_small">
+                            <li >To search for an Account, select the "Account Search" tab.</li>
+                            <li class="childli"><ul class="lhlist cirlceul">
+                                <li>Please note, this is a different tab than the Accounts tab.</li>
+                                </ul></li>
+                            <li  style="padding-top:7px;">On the Accounts Search tab in the "Search by Account Name or Master Customer Number" search box input one of the following values to search for an Account:</li>
+                            <li class="childli"><ul class="lhlist cirlceul">
+                                <li>Master Customer Number (MCN)</li>
+                                <li>Account Name</li>
+                                <li>Please note - The more generic the search, the better chance of results. For example:  ABC Company may be listed as A.B.C. Company or A B C Company, but a search for ABC Company won’t find the other two.</li>
+                            </ul></li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="slds-col slds-size_1-of-1 slds-p-top_small">                
+                <aura:iteration items="{!v.leadConList}" var="item" indexVar="itemIndex">
+                    <lightning:card class="notopmargin"> 
+                        <aura:set attribute="title">
+                            <h3 class="slds-section__title slds-theme_default">
+                                <span class="slds-page-header__title" title="{!item.MasterLabel}">{!item.MasterLabel}:</span>
+                            </h3> 
+                        </aura:set> 
+                        
+                        <aura:iteration items="{!item.Lead_Help_Configs__r}" var="con">                                                   
+                            <div class="slds-p-left_xx-large slds-p-top_small"> 
+                                <div class="slds-grid slds-gutters_small slds-wrap lhrow">                                    
+                                    <span class="slds-col slds-size_1-of-3 lhrowHeader">
+                                        {!con.Region__c} 
+                                    </span>
+                                    <aura:if isTrue="{!!empty(con.Contact_Person_Name__c)}">
+                                        <span class="slds-col slds-size_1-of-3">
+                                            {!con.Contact_Person_Name__c}   
+                                        </span>
+                                    </aura:if>
+                                    <aura:if isTrue="{!!empty(con.Contact_Person_Email__c)}">
+                                        <span class="slds-col slds-size_1-of-3">
+                                            {!con.Contact_Person_Email__c}   
+                                        </span>
+                                    </aura:if>
+                                </div>
+                            </div> 
+                        </aura:iteration>                        
+                    </lightning:card>                       
+                </aura:iteration>
+            </div>
+            
+            <div class="slds-col slds-align_absolute-center slds-size_1-of-1" >
+                <div class="slds-page-header__title slds-text-heading_small" style="padding:0px 5px 0px 5px;">
+                    <hr style="border-width: 1px;border-color: black;margin-bottom:5px;margin-top:5px;"/> 
+                <p>For Salesforce functionality questions, please email the Salesforce mailbox at nsc.administration@ncr.com. </p> 
+				<p class="sectoppadding"> You can also complete a New SF Support Case request as an alternative to using the mailbox listed above. New SF Support Case can be found in the Tab Bar.</p> 
+                </div>
+
+            </div>    
+                
+        </div>     
+    </div>
+    
+    <footer class="slds-modal__footer" style="flex-grow:1;">  
+        <div class="slds-grid">
+            <aura:if isTrue="{!v.showOnLoad}">
+                <span class="slds-col slds-no-flex"> 
+                    <lightning:input type="checkbox" class="dnsclass"  name="dnschkbox" checked="{!v.isDntShowMsg}"/>  
+                    <div class="dnsclass" style="margin-left:-5px;">                        
+                        <span class="slds-form-element__static dnstitle">Don't show this message again</span>
+                        <span class="slds-form-element__label dnshelp">To view this information in the future, please click the New SF Support Case on Lead record page.</span>
+                    </div>
+                </span>
+            </aura:if>
+            <span class="slds-col"> <button class="slds-button slds-button_brand" onclick="{!c.closeAction}">Close</button></span>
+        </div>
+    </footer>
+</aura:component>

@@ -1,0 +1,1306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Create_Post</name>
+        <label>Create Post</label>
+        <locationX>1379</locationX>
+        <locationY>853</locationY>
+        <actionName>chatterPost</actionName>
+        <actionType>chatterPost</actionType>
+        <connector>
+            <targetReference>SetMCN</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>text</name>
+            <value>
+                <elementReference>Message</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>subjectNameOrId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>visibility</name>
+            <value>
+                <stringValue>internalUsers</stringValue>
+            </value>
+        </inputParameters>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
+        <name>Create_Post1</name>
+        <label>Create Post1</label>
+        <locationX>1554</locationX>
+        <locationY>852</locationY>
+        <actionName>chatterPost</actionName>
+        <actionType>chatterPost</actionType>
+        <connector>
+            <targetReference>SetMCN</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>text</name>
+            <value>
+                <elementReference>Message1</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>subjectNameOrId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>visibility</name>
+            <value>
+                <stringValue>internalUsers</stringValue>
+            </value>
+        </inputParameters>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
+        <name>Post6</name>
+        <label>Post6</label>
+        <locationX>239</locationX>
+        <locationY>1478</locationY>
+        <actionName>chatterPost</actionName>
+        <actionType>chatterPost</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>text</name>
+            <value>
+                <elementReference>ComMsg</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>subjectNameOrId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>visibility</name>
+            <value>
+                <stringValue>internalusers</stringValue>
+            </value>
+        </inputParameters>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
+        <name>SE_Demo_Request</name>
+        <label>SE Demo Request</label>
+        <locationX>1417</locationX>
+        <locationY>313</locationY>
+        <actionName>DI_Demo_Request__c.SE_Demo_Request</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>53.0</apiVersion>
+    <assignments>
+        <name>SetCompletedMsg_1</name>
+        <label>SetCompletedMsg_1</label>
+        <locationX>357</locationX>
+        <locationY>566</locationY>
+        <assignmentItems>
+            <assignToReference>ComMsg</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>CompletedMsg_1</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Set_Completed_Date</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>SetCompletedMsg_2</name>
+        <label>SetCompletedMsg_2</label>
+        <locationX>259</locationX>
+        <locationY>495</locationY>
+        <assignmentItems>
+            <assignToReference>ComMsg</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>CompletedMsg_2</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Set_Completed_Date</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>SetCompletedMsgAltSE</name>
+        <label>SetCompletedMsgAltSE</label>
+        <locationX>49</locationX>
+        <locationY>378</locationY>
+        <assignmentItems>
+            <assignToReference>ComMsg</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>CompletedMsgAltSE</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Set_Completed_Date</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>SetCompletedMsgAltSE2</name>
+        <label>SetCompletedMsgAltSE2</label>
+        <locationX>148</locationX>
+        <locationY>459</locationY>
+        <assignmentItems>
+            <assignToReference>ComMsg</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>CompletedMsgAltSE2</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Set_Completed_Date</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>SetDateTimeChanged_1</name>
+        <label>SetDateTimeChanged_1</label>
+        <locationX>615</locationX>
+        <locationY>811</locationY>
+        <assignmentItems>
+            <assignToReference>ComMsg</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>DateTimeChanged1</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Post6</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>SetDateTimeChanged_2</name>
+        <label>SetDateTimeChanged_2</label>
+        <locationX>706</locationX>
+        <locationY>812</locationY>
+        <assignmentItems>
+            <assignToReference>ComMsg</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>DateTimeChanged2</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Post6</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>SetDateTimeChangedAltSE</name>
+        <label>SetDateTimeChangedAltSE</label>
+        <locationX>523</locationX>
+        <locationY>714</locationY>
+        <assignmentItems>
+            <assignToReference>ComMsg</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>DateTimeChangedAltSE</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Post6</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>SetDateTimeChangedAltSE2</name>
+        <label>SetDateTimeChangedAltSE2</label>
+        <locationX>424</locationX>
+        <locationY>667</locationY>
+        <assignmentItems>
+            <assignToReference>ComMsg</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>DateTimeChangedAltSE2</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Post6</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>SetScheduledMsg_1</name>
+        <label>SetScheduledMsg_1</label>
+        <locationX>1089</locationX>
+        <locationY>1165</locationY>
+        <assignmentItems>
+            <assignToReference>ComMsg</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ScheduledMsg_1</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Post6</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>SetScheduledMsg_2</name>
+        <label>SetScheduledMsg_2</label>
+        <locationX>1019</locationX>
+        <locationY>1116</locationY>
+        <assignmentItems>
+            <assignToReference>ComMsg</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ScheduledMsg_2</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Post6</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>SetScheduledMsgAltSE</name>
+        <label>SetScheduledMsgAltSE</label>
+        <locationX>948</locationX>
+        <locationY>927</locationY>
+        <assignmentItems>
+            <assignToReference>ComMsg</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ScheduledMsgAltSE</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Post6</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>SetScheduledMsgAltSE2</name>
+        <label>SetScheduledMsgAltSE2</label>
+        <locationX>984</locationX>
+        <locationY>1008</locationY>
+        <assignmentItems>
+            <assignToReference>ComMsg</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ScheduledMsgAltSE_2</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Post6</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>SetSEAssigned_2</name>
+        <label>SetSEAssigned_2</label>
+        <locationX>1222</locationX>
+        <locationY>1356</locationY>
+        <assignmentItems>
+            <assignToReference>ComMsg</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>SEAssigned_2</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Post6</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>SetSEAssignedAltSE</name>
+        <label>SetSEAssignedAltSE</label>
+        <locationX>1274</locationX>
+        <locationY>1411</locationY>
+        <assignmentItems>
+            <assignToReference>ComMsg</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>SEAssignedAltSE</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Post6</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>SetSEAssignedAltSE2</name>
+        <label>SetSEAssignedAltSE2</label>
+        <locationX>1312</locationX>
+        <locationY>1503</locationY>
+        <assignmentItems>
+            <assignToReference>ComMsg</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>SEAssignedAltSE_2</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Post6</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>SetSetSEAssigned_1</name>
+        <label>SetSEAssigned_1</label>
+        <locationX>1213</locationX>
+        <locationY>1275</locationY>
+        <assignmentItems>
+            <assignToReference>ComMsg</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>SEAssigned_1</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Post6</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Check_If_location_is_same_as_account</name>
+        <label>Check If location is same as account</label>
+        <locationX>1755</locationX>
+        <locationY>1183</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Different_Location</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.On_Site_Location__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>BillingAddress</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Location</targetReference>
+            </connector>
+            <label>Different Location</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Scope_Of_Demo</name>
+        <label>Check Scope Of Demo</label>
+        <locationX>1011</locationX>
+        <locationY>366</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>SE_Demo_created</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>SE_Demo_Request</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SE_Demo_Request</targetReference>
+            </connector>
+            <label>SE Demo created</label>
+        </rules>
+        <rules>
+            <name>Status_Submitted</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>New Request</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>DI_Demo_Request</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Collaboration_Group</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>Status Submitted</label>
+        </rules>
+        <rules>
+            <name>SE_Assigned</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.SE_Assigned__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>DI_Demo_Request</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>IS_ALT_SE_ASSIGNED_3</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>SE Assigned</label>
+        </rules>
+        <rules>
+            <name>Status_Scheduled</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Scheduled</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>DI_Demo_Request</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>IS_ALT_SE_Assigned_2</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>Status Scheduled</label>
+        </rules>
+        <rules>
+            <name>Confirmed_Date_Time_Changed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Confirmed_Date_Time__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>DI_Demo_Request</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>IS_ALT_SE_Assigned_1</targetReference>
+            </connector>
+            <label>Confirmed Date Time Changed</label>
+        </rules>
+        <rules>
+            <name>Status_Completed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Completed</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>DI_Demo_Request</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>IS_ALT_SE_Assigned</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>Status Completed</label>
+        </rules>
+        <rules>
+            <name>Opportunitychanged</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Opportunity__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>DI_Demo_Request</stringValue>
+                </rightValue>
+            </conditions>
+            <label>Opportunitychanged</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>IS_ALT_SE_Assigned</name>
+        <label>IS ALT SE Assigned</label>
+        <locationX>309</locationX>
+        <locationY>371</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>AltSEAssigned</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Alt_SE__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Requestor__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SetCompletedMsgAltSE2</targetReference>
+            </connector>
+            <label>Alt Not Null Owner Not Equal Req</label>
+        </rules>
+        <rules>
+            <name>Alt_Not_Null_Owner_Equal_Req3</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Alt_SE__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Requestor__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SetCompletedMsgAltSE</targetReference>
+            </connector>
+            <label>Alt Not Null Owner Equal Req</label>
+        </rules>
+        <rules>
+            <name>Alt_Null_Owner_Not_Equal_Req4</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Alt_SE__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Requestor__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SetCompletedMsg_2</targetReference>
+            </connector>
+            <label>Alt Null Owner Not Equal Req</label>
+        </rules>
+        <rules>
+            <name>Alt_Null_Owner_Equal_Req4</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Alt_SE__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Requestor__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SetCompletedMsg_1</targetReference>
+            </connector>
+            <label>Alt Null Owner Equal Req</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>IS_ALT_SE_Assigned_1</name>
+        <label>IS ALT SE Assigned 1</label>
+        <locationX>651</locationX>
+        <locationY>654</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>ALT_SE_Assigned_1</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Alt_SE__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Requestor__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SetDateTimeChangedAltSE2</targetReference>
+            </connector>
+            <label>Alt Not Null Owner Not Equal Req</label>
+        </rules>
+        <rules>
+            <name>Alt_Not_Null_Owner_Equal_Req2</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Alt_SE__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Requestor__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SetDateTimeChangedAltSE</targetReference>
+            </connector>
+            <label>Alt Not Null Owner Equal Req</label>
+        </rules>
+        <rules>
+            <name>Alt_Null_Owner_Not_Equal_Req2</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Alt_SE__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Requestor__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SetDateTimeChanged_2</targetReference>
+            </connector>
+            <label>Alt Null Owner Not Equal Req</label>
+        </rules>
+        <rules>
+            <name>Alt_Null_Owner_Not_Equal_Req3</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Alt_SE__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Requestor__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SetDateTimeChanged_1</targetReference>
+            </connector>
+            <label>Alt Null Owner Equal Req</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>IS_ALT_SE_Assigned_2</name>
+        <label>IS ALT SE Assigned 2</label>
+        <locationX>1037</locationX>
+        <locationY>793</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Alt_SE_Assigned_2</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Alt_SE__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Requestor__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SetScheduledMsgAltSE2</targetReference>
+            </connector>
+            <label>Alt Not Null Owner Not Equal Req</label>
+        </rules>
+        <rules>
+            <name>Alt_Not_Null_Owner_Equal_Req</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Alt_SE__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Requestor__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SetScheduledMsgAltSE</targetReference>
+            </connector>
+            <label>Alt Not Null Owner Equal Req</label>
+        </rules>
+        <rules>
+            <name>Alt_Null_Owner_Not_Equal_Req</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Alt_SE__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Requestor__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SetScheduledMsg_2</targetReference>
+            </connector>
+            <label>Alt Null Owner Not Equal Req</label>
+        </rules>
+        <rules>
+            <name>Alt_Null_Owner_Equal_Req</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Alt_SE__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Requestor__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SetScheduledMsg_1</targetReference>
+            </connector>
+            <label>Alt Null Owner Equal Req</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>IS_ALT_SE_ASSIGNED_3</name>
+        <label>IS ALT SE ASSIGNED 3</label>
+        <locationX>1265</locationX>
+        <locationY>883</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>ALT_SE_3</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Alt_SE__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Requestor__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SetSEAssignedAltSE2</targetReference>
+            </connector>
+            <label>Alt Not Null Owner Not equal Requestor</label>
+        </rules>
+        <rules>
+            <name>Alt_Null_Owner</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Alt_SE__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Requestor__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SetSEAssignedAltSE</targetReference>
+            </connector>
+            <label>Alt Not Null Owner equal Requestor</label>
+        </rules>
+        <rules>
+            <name>Alt_Null_Owner_Not_equal_Requester</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Alt_SE__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Requestor__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SetSEAssigned_2</targetReference>
+            </connector>
+            <label>Alt Null Owner Not equal Requester</label>
+        </rules>
+        <rules>
+            <name>Alt_Null_Owner_equal_Requester</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Alt_SE__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Requestor__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SetSetSEAssigned_1</targetReference>
+            </connector>
+            <label>Alt Null Owner equal Requester</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_owner_equals_SE</name>
+        <label>Is owner equals SE</label>
+        <locationX>1453</locationX>
+        <locationY>725</locationY>
+        <defaultConnector>
+            <targetReference>Create_Post1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>own_eql_SE</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.SE_Assigned__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Post</targetReference>
+            </connector>
+            <label>own eql SE</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>ONSiteSelected</name>
+        <label>ONSiteSelected</label>
+        <locationX>1445</locationX>
+        <locationY>1182</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Onsitesel</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Type_of_Demo__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>On-site at Financial Institution</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>get_account</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>Onsitesel</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>AccountMCN</name>
+        <dataType>String</dataType>
+        <expression>{!$Record.Opportunity__r.Account.Master_Customer_Number__c}</expression>
+    </formulas>
+    <formulas>
+        <name>BillingAddress</name>
+        <dataType>String</dataType>
+        <expression>{!get_account.BillingStreet}+&apos; &apos;+{!get_account.BillingCity}+&apos; &apos;+{!get_account.BillingState}+&apos; &apos;+{!get_account.BillingPostalCode}+&apos; &apos;+{!get_account.BillingCountry}</expression>
+    </formulas>
+    <formulas>
+        <name>currDate</name>
+        <dataType>Date</dataType>
+        <expression>today()</expression>
+    </formulas>
+    <formulas>
+        <name>msg</name>
+        <dataType>String</dataType>
+        <expression>&apos;@&apos;+{!$Record.Requestor__c}+&apos;&apos;+ &apos;@&apos;+{!$Record.Requestor__r.ManagerId}+&apos;Record is submitted.&apos;</expression>
+    </formulas>
+    <interviewLabel>Demo Request Set Location {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Demo Request Set Location</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>get_account</name>
+        <label>get account</label>
+        <locationX>1616</locationX>
+        <locationY>1186</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_If_location_is_same_as_account</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Account_Name__r.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Collaboration_Group</name>
+        <label>Get Collaboration Group</label>
+        <locationX>1485</locationX>
+        <locationY>588</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Is_owner_equals_SE</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>SE and SE&apos;s Manager</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>CollaborationGroup</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Set_Completed_Date</name>
+        <label>Set Completed Date</label>
+        <locationX>77</locationX>
+        <locationY>715</locationY>
+        <connector>
+            <targetReference>Post6</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Completed_Date__c</field>
+            <value>
+                <elementReference>currDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Set_Location</name>
+        <label>Set Location</label>
+        <locationX>1953</locationX>
+        <locationY>1196</locationY>
+        <inputAssignments>
+            <field>On_Site_Location__c</field>
+            <value>
+                <elementReference>BillingAddress</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>SetMCN</name>
+        <label>SetMCN</label>
+        <locationX>1452</locationX>
+        <locationY>1042</locationY>
+        <connector>
+            <targetReference>ONSiteSelected</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>MCN__c</field>
+            <value>
+                <elementReference>$Record.Account_Name__r.Master_Customer_Number__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>432</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Check_Scope_Of_Demo</targetReference>
+        </connector>
+        <filterLogic>(1 AND 2) OR 3</filterLogic>
+        <filters>
+            <field>Opportunity__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>RecordTypeId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>0124u000000UUrFAAW</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>RecordTypeId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>0124u000000UUrEAAW</stringValue>
+            </value>
+        </filters>
+        <object>DI_Demo_Request__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Draft</status>
+    <textTemplates>
+        <name>CompletedMsg_1</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>New Action Completed:
+Hello, @[{!$Record.OwnerId}] @[{!$Record.SE_Assigned__c}] 
+What resonated with the FI : {!$Record.What_resonated_with_the_FI__c}
+What did not resonate with the FI : {!$Record.What_did_not_resonate_with_the_FI__c}
+What could we do to improve : {!$Record.What_could_we_do_to_improve__c}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>CompletedMsg_2</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>New Action Completed:
+Hello, @[{!$Record.OwnerId}] @[{!$Record.SE_Assigned__c}] @[{!$Record.Requestor__c}] 
+What resonated with the FI : {!$Record.What_resonated_with_the_FI__c}
+What did not resonate with the FI : {!$Record.What_did_not_resonate_with_the_FI__c}
+What could we do to improve : {!$Record.What_could_we_do_to_improve__c}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>CompletedMsgAltSE</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>New Action Completed:
+Hello, @[{!$Record.OwnerId}] @[{!$Record.SE_Assigned__c}] @[{!$Record.Alt_SE__c}]
+What resonated with the FI : {!$Record.What_resonated_with_the_FI__c}
+What did not resonate with the FI : {!$Record.What_did_not_resonate_with_the_FI__c}
+What could we do to improve : {!$Record.What_could_we_do_to_improve__c}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>CompletedMsgAltSE2</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>New Action Completed:
+Hello, @[{!$Record.OwnerId}] @[{!$Record.SE_Assigned__c}] @[{!$Record.Alt_SE__c}]@[{!$Record.Requestor__c}]
+What resonated with the FI : {!$Record.What_resonated_with_the_FI__c}
+What did not resonate with the FI : {!$Record.What_did_not_resonate_with_the_FI__c}
+What could we do to improve : {!$Record.What_could_we_do_to_improve__c}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>DateTimeChanged1</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>New Action Completed:
+Hello, @[{!$Record.OwnerId}] @[{!$Record.SE_Assigned__c}]
+Confirmed Date and Time has been changed.
+Confirmed Date and Time : {!$Record.Confirmed_Date_Time__c}
+Confirmed Duration : {!$Record.Confirmed_Duration__c}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>DateTimeChanged2</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>New Action Completed:
+Hello, @[{!$Record.OwnerId}] @[{!$Record.SE_Assigned__c}]@[{!$Record.Requestor__c}]
+Confirmed Date and Time has been changed.
+Confirmed Date and Time : {!$Record.Confirmed_Date_Time__c}
+Confirmed Duration : {!$Record.Confirmed_Duration__c}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>DateTimeChangedAltSE</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>New Action Completed:
+Hello, @[{!$Record.OwnerId}] @[{!$Record.SE_Assigned__c}] @[{!$Record.Alt_SE__c}]
+Confirmed Date and Time has been changed.
+Confirmed Date and Time : {!$Record.Confirmed_Date_Time__c}
+Confirmed Duration : {!$Record.Confirmed_Duration__c}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>DateTimeChangedAltSE2</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>New Action Completed:
+Hello, @[{!$Record.OwnerId}] @[{!$Record.SE_Assigned__c}] @[{!$Record.Alt_SE__c}]@[{!$Record.Requestor__c}]
+Confirmed Date and Time has been changed.
+Confirmed Date and Time : {!$Record.Confirmed_Date_Time__c}
+Confirmed Duration : {!$Record.Confirmed_Duration__c}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>Message</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>New Action Completed: 
+Hello, @[{!$Record.OwnerId}] @[{!Get_Collaboration_Group.Id}] 
+Name of Requestor : {!$Record.Requestor__r.FirstName} {!$Record.Requestor__r.LastName}
+DI/D3 Client or prospect : {!$Record.DI_D3_Prospect_or_Client__c}
+Preferred Date and Time 1 : {!$Record.Preferred_Date_Time_1__c}
+Time Zone : {!$Record.Time_Zone__c}
+Details (Demo request/response) : {!$Record.Demo_Request_Summary__c}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>Message1</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>New Action Completed: 
+Hello, @[{!$Record.OwnerId}]@[{!$Record.Requestor__c}] @[{!Get_Collaboration_Group.Id}] 
+Name of Requestor : {!$Record.Requestor__r.FirstName} {!$Record.Requestor__r.LastName}
+DI/D3 Client or prospect : {!$Record.DI_D3_Prospect_or_Client__c}
+Preferred Date and Time 1 : {!$Record.Preferred_Date_Time_1__c}
+Preferred Date and Time 2 : {!$Record.Preferred_Date_Time_2__c}
+Time Zone : {!$Record.Time_Zone__c}
+Details (Demo request/response) : {!$Record.Demo_Request_Summary__c}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ScheduledMsg_1</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>New Action Completed:
+Hello, @[{!$Record.OwnerId}]  @[{!$Record.SE_Assigned__c}] 
+Confirmed Date and Time : {!$Record.Confirmed_Date_Time__c}
+Confirmed Duration : {!$Record.Confirmed_Duration__c}
+Assigned to SE : {!$Record.SE_Assigned__r.FirstName} {!$Record.SE_Assigned__r.LastName}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ScheduledMsg_2</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>New Action Completed:
+Hello, @[{!$Record.OwnerId}]  @[{!$Record.SE_Assigned__c}] @[{!$Record.Requestor__c}] 
+Confirmed Date and Time : {!$Record.Confirmed_Date_Time__c}
+Confirmed Duration : {!$Record.Confirmed_Duration__c}
+Assigned to SE : {!$Record.SE_Assigned__r.FirstName} {!$Record.SE_Assigned__r.LastName}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ScheduledMsgAltSE</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>New Action Completed:
+Hello, @[{!$Record.OwnerId}]  @[{!$Record.SE_Assigned__c}] @[{!$Record.Alt_SE__c}]
+Confirmed Date and Time : {!$Record.Confirmed_Date_Time__c}
+Confirmed Duration : {!$Record.Confirmed_Duration__c}
+Assigned to SE : {!$Record.SE_Assigned__r.FirstName} {!$Record.SE_Assigned__r.LastName}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ScheduledMsgAltSE_2</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>New Action Completed:
+Hello, @[{!$Record.OwnerId}]  @[{!$Record.SE_Assigned__c}] @[{!$Record.Alt_SE__c}]@[{!$Record.Requestor__c}]
+Confirmed Date and Time : {!$Record.Confirmed_Date_Time__c}
+Confirmed Duration : {!$Record.Confirmed_Duration__c}
+Assigned to SE : {!$Record.SE_Assigned__r.FirstName} {!$Record.SE_Assigned__r.LastName}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>SEAssigned_1</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>New Action Completed: 
+Hello, @[{!$Record.OwnerId}] @[{!$Record.SE_Assigned__c}] 
+SE has been assigned.</text>
+    </textTemplates>
+    <textTemplates>
+        <description>Requester not equals owner</description>
+        <name>SEAssigned_2</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>New Action Completed: 
+Hello, @[{!$Record.OwnerId}] @[{!$Record.SE_Assigned__c}] @[{!$Record.Requestor__c}] 
+SE has been assigned.</text>
+    </textTemplates>
+    <textTemplates>
+        <name>SEAssignedAltSE</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>New Action Completed:
+Hello, @[{!$Record.OwnerId}] @[{!$Record.SE_Assigned__c}] @[{!$Record.Alt_SE__c}]
+SE has been assigned.</text>
+    </textTemplates>
+    <textTemplates>
+        <name>SEAssignedAltSE_2</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>New Action Completed:
+Hello, @[{!$Record.OwnerId}] @[{!$Record.SE_Assigned__c}] @[{!$Record.Alt_SE__c}]@[{!$Record.Requestor__c}]
+SE has been assigned.</text>
+    </textTemplates>
+    <variables>
+        <name>ComMsg</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>View_All_Zuora_Products</fullName>
+    <columns>PRODUCT2.NAME</columns>
+    <columns>PRODUCT2.CUSTOMER_PRODUCT_ID</columns>
+    <columns>PRODUCT2.DESCRIPTION</columns>
+    <columns>PRODUCT2.FAMILY</columns>
+    <columns>RequiredSPPCategory__c</columns>
+    <columns>RequiredSPPInterfaceType__c</columns>
+    <columns>zqu__SKU2__c</columns>
+    <columns>zqu__ZuoraId__c</columns>
+    <columns>zqu__Deleted__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>zqu__Deleted__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>zqu__ZuoraId__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <label>View All Zuora Products</label>
+</ListView>

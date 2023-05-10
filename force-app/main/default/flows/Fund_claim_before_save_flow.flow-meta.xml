@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <assignments>
+        <description>Used in favor of the approval status field so that the Apex trigger which will fire using this True/ False field rather than a text based value in the approval status page</description>
+        <name>Update_Approved_to_True</name>
+        <label>Update Approved to True</label>
+        <locationX>50</locationX>
+        <locationY>1103</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Approved__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Update_Claim_Status_to_Paid</name>
+        <label>Update Claim Status to Paid</label>
+        <locationX>50</locationX>
+        <locationY>767</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Paid</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Set_Approved_True_for_Status_Approved</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Update Claim Submitted Date</description>
+        <name>Update_Claim_Submitted_Date</name>
+        <label>Update Claim Submitted Date</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Claim_Submission_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Claim_Approval_Status</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>Work flow when a MDF claim is submitted.</description>
+        <name>Claim_Submission</name>
+        <label>Claim Submission</label>
+        <locationX>182</locationX>
+        <locationY>311</locationY>
+        <defaultConnector>
+            <targetReference>Update_Claim_Approval_Status</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Condition does not matched</defaultConnectorLabel>
+        <rules>
+            <name>Condition_1</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Submitted</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Claim_Submitted_Date</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>Condition 1</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>When the Status field for Fund Claim is Approved, Approved checkbox is checked.</description>
+        <name>Set_Approved_True_for_Status_Approved</name>
+        <label>Set Approved True for Status Approved</label>
+        <locationX>182</locationX>
+        <locationY>983</locationY>
+        <defaultConnectorLabel>Condition not matched</defaultConnectorLabel>
+        <rules>
+            <name>condition_2</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Approved</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Approved_to_True</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>condition 2</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Update_Claim_Approval_Status</name>
+        <label>Update Claim Approval Status</label>
+        <locationX>182</locationX>
+        <locationY>647</locationY>
+        <defaultConnector>
+            <targetReference>Set_Approved_True_for_Status_Approved</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not matched</defaultConnectorLabel>
+        <rules>
+            <name>condition_3</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Claim_Paid_Month__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Claim_Paid_Year__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+            </conditions>
+            <connector>
+                <targetReference>Update_Claim_Status_to_Paid</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>condition 3</label>
+        </rules>
+    </decisions>
+    <interviewLabel>Fund claim before save flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Fund Claim Before Save Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Claim_Submission</targetReference>
+        </connector>
+        <object>SFDC_MDF_Claim__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

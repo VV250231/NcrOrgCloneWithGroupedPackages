@@ -1,0 +1,27 @@
+<!--
+<aura:component implements="force:LightningQuickActionWithoutHeader,force:hasRecordId,flexipage:availableForAllPageTypes" access="global" controller="CustomCloneController">
+ -->
+<aura:component access="global" controller="CustomCloneController">
+    <aura:attribute name="recordId" type="String"/>
+    <!-- Record Id 
+    <aura:attribute name="recordId" type="String" default="{!v.recordId}"/>
+	-->
+    <!-- Clonning Options Attribute -->
+    <aura:attribute name="isCloneWithProduct" type="boolean" default="false"/>
+    <aura:attribute name="isCloneWithLink" type="boolean" default="false"/>
+    <aura:attribute name="isCloneWithoutProduct" type="boolean" default="false"/>
+    
+    <!-- getting required field data -->
+    <aura:attribute name="populateRecord" type="Object[]" />    
+    <!-- to fetch records on component load -->
+    <aura:handler name="init" value="{!this}" action="{!c.doinit}" />
+    
+    <!-- Spinner -->
+    <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand slds-show" aura:id="spinnerDiv">
+        <span class="slds-assistive-text">Loading</span>
+        <div class="slds-spinner__dot-a"></div>
+        <div class="slds-spinner__dot-b"></div>
+    </div>
+    <!-- Spinner -->
+    
+</aura:component>

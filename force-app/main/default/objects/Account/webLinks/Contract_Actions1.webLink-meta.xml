@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contract_Actions1</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <hasMenubar>false</hasMenubar>
+    <hasScrollbars>true</hasScrollbars>
+    <hasToolbar>false</hasToolbar>
+    <height>600</height>
+    <isResizable>true</isResizable>
+    <linkType>url</linkType>
+    <masterLabel>Contract Actions</masterLabel>
+    <openType>newWindow</openType>
+    <position>none</position>
+    <protected>false</protected>
+    <showsLocation>false</showsLocation>
+    <showsStatus>false</showsStatus>
+    <url>/apex/ContractActionsButtonVF?obj=Account&amp;page=Generate Contract Documents&amp;url={! URLENCODE($Label.CLM_DS_BASE_URL+&apos;PreDocGen Account?aid=&apos;+$Label.CLM_ENV_ID+&apos;&amp;eos[0].Id=&apos;+Account.Id+&apos;&amp;eos[0].System=Salesforce&amp;eos[0].Type=Account&amp;eos[0].Name=&apos;+&apos;accName&apos;+&apos; &apos;+&apos;accMCN&apos;+&apos;&amp;eos[0].ScmPath=/SalesForce/Account&apos;)}&amp;acid={!Account.Id}</url>
+</WebLink>

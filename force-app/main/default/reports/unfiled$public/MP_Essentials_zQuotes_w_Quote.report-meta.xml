@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>zqu__Quote__c$Entered_Approval_Process__c</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c$Name</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c.zqu__Quote_Rate_Plans__r$Id</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c$zqu__Account__c</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c$CreatedDate</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c$Bill_To_MCN__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>zqu__Quote__c$Reporting_BillTo_CMRR__c</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c$zqu__Status__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <booleanFilter>1 AND 2 AND 3</booleanFilter>
+        <criteriaItems>
+            <column>zqu__Quote__c.zqu__Quote_Rate_Plans__r$Name</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>NCR Mobile Pay - EDC - Essentials,NCR Mobile Pay - CP 3rd Party,NCR Mobile Pay - CP 3rd Party - Essentials,NCR Mobile Pay - CP with NPP Above Store Promo,NCR Mobile Pay - EDC,NCR Mobile Pay - i3 CP with NPP,NCR Mobile Pay with NPP - Essentials,NCR Connected Payments - High Value Tokenization - Mobile Pay Promo,NCR Connected Payments Base Plan - Mobile Pay Promo,NCR Mobile Pay - CP with NPP,All Promo,NCR Mobile Pay - CP with NPP Promotion</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>zqu__Quote__c$Entered_Approval_Process__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>zqu__Quote__c$zqu__Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Sent to Z-Billing,QA Processing Complete</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>zqu__Quote__c.zqu__Quote_Rate_Plans__r$Name</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>MP + Essentials  zQuotes w/Quote</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>zQuotes_w_Quote_Rate_Plan__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>zqu__Quote__c$Approved_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

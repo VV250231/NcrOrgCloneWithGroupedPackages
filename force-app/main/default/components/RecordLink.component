@@ -1,0 +1,8 @@
+<apex:component controller="NCR_URL" access="global">
+    <!-- attributes -->
+    <apex:attribute name="recordId" type="string" description="Id of the record for which full url need to create"/>
+    <apex:attribute name="outputLinkText" type="string" description="Text which you want to see in outputlink"/>
+    <!-- end attributes -->
+    
+    <apex:outputLink value="{! 'https://ncr.my.salesforce.com'+'/'+recordId}">{!outputLinkText}</apex:outputLink>
+</apex:component>

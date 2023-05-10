@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Template for Global Entitlements to notify Account Owner Manager of Escalation, sent to escalated to Account Owner Manager, Doug Jones and Bob Tramontano</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Global_Entitlements_Letterhead</letterhead>
+    <name>Third Escalation Email</name>
+    <style>freeForm</style>
+    <subject>URGENT ESCALATED ACTION: Recovery Entitlement Found for {!Case.Account}</subject>
+    <textOnly>{!Case.Account_Owner_First_Name__c}-
+
+We have reached out to {!Case.Account_Owner__c} on several prior occasions to discuss the final direction/approval regarding Entitlement for {!Case.Account}. I have called and left messages, sent emails and scheduled several meetings. I haven’t been able to speak with {!Case.Account_Owner_First_Name__c}. I am needing your assistance to obtain the final direction/approval regarding Entitlements concerns. Here’s a breakdown of the findings:
+•         Name of Account - {!Case.Account}
+•         Line of Business - {!Case.Industry__c}
+•         Master Customer Number – {!Case.Master_Customer_Number__c}
+•         Back Bill $ found – {!Case.Exception_Back_Bill__c}
+•         Future Bill $ Impact – {!Case.Future_Bill_Total__c}
+•         Number of Months remaining in Contract – {!Case.Months_Remaining_on_Contract__c}
+•         Next billing date – {!Case.Next_Billing_Date__c}
+•         Summary of issues found - {!Case.Description}
+
+
+
+We are needing to obtain direction on this account. We either need to process the billing or understand why these items aren’t being billed. If you elect not to bill or agree to only a partial bill, we will need to know how this gap in revenue will be made up with the customer. This is necessary since we are required to report each item found and what was done with each.
+I&apos;d like to schedule a meeting with you on {!Case.Meeting_Date_Time_1__c}
+
+
+or {!Case.Meeting_Date_Time_2__c}
+
+
+. Please let me know which day and time works best for you.
+
+Thank you for assistance,
+
+
+{!Case.OwnerFullName}
+{!User.Title}
+{!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

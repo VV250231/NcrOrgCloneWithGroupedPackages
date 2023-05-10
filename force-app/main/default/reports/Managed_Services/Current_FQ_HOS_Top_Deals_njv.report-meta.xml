@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>Opportunity.HWM__c.CONVERT:SUM + Opportunity.Managed_Service__c.CONVERT:SUM +Opportunity.SWM__c.CONVERT:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Annuity Revenue</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>Opportunity.HWM__c.CONVERT:SUM * 1</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA2</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>HWM</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>Opportunity.SWM__c.CONVERT:SUM * 1</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA3</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>SWM</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>Opportunity.Managed_Service__c.CONVERT:SUM * 1</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA4</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>MS</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_67560177</developerName>
+        <masterLabel>Open Funnel</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>STAGE_NAME</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Prospecting</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Analyzing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Validating</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Offering</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Proposing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Closing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Analyzing - NonFunnel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Validating - NonFunnel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Offering - NonFunnel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Proposing - NonFunnel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Closing - NonFunnel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Closed/Booked</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Closed/Booked - NonFunnel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Closed/Lost</sourceValue>
+            </sourceValues>
+            <value>Open Funnel</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_24328964</developerName>
+        <masterLabel>SvC Order Type</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>TYPE</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Existing Customer - New Solution/Service</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Ongoing Roll-out</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - PS Custom Work</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Indirect Channel</sourceValue>
+            </sourceValues>
+            <value>New Footprint</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Existing Customer - Service Winback</sourceValue>
+            </sourceValues>
+            <value>WinBack</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>New Customer</sourceValue>
+            </sourceValues>
+            <value>New Customer</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Services_Sales_Consultant__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Services_Sales_Leader__c</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>ROLLUP_DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>AMOUNT</field>
+    </columns>
+    <columns>
+        <field>PROBABILITY</field>
+    </columns>
+    <columns>
+        <field>AGE</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Svcs__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>BucketField_24328964</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.HWM__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.SWM__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Managed_Service__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.TS_Product_Total__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.S_I_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.SWM__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.HWM__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6</booleanFilter>
+        <criteriaItems>
+            <column>FK_$Sales_Org__c.Hierarchy_2__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>GS:Hosp</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Opportunity.IncludeinFunnel</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FORECAST_CATEGORY</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>,Omitted,Pipeline,Upside,Commit</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.S_I_Products__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>USD 0</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>STAGE_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Prospecting,Analyzing,Validating,Offering,Proposing,Closing</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CLOSE_DATE2</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>NEXT_N_DAYS:365</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_67560177</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Next 365 Days Open - HOS - Top Deals</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>open</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity@Opportunity.Sales_Org__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

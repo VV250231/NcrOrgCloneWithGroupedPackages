@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cannot_Manually_Set_Stage_as_Offering</fullName>
+    <active>true</active>
+    <description>Cannot manually set stage as Offering for CPQ Opptys</description>
+    <errorConditionFormula>AND (
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+NOT(CATM_Record__c),
+($Profile.Name &lt;&gt; &quot;04 NSC UI Administrator&quot;),
+($Profile.Name &lt;&gt;&quot;System Administrator&quot;),
+CPQ__c,NOT(Silver_Opportunity_flag__c),
+ISCHANGED(StageName),
+ISPICKVAL(StageName, &apos;Offering&apos;),
+(ISPICKVAL(SBQQ__PrimaryQuote__r.ApprovalStatus__c, &apos;&apos;))
+)</errorConditionFormula>
+    <errorDisplayField>StageName</errorDisplayField>
+    <errorMessage>You cannot manually set CPQ opportunity stage as Offering.</errorMessage>
+</ValidationRule>

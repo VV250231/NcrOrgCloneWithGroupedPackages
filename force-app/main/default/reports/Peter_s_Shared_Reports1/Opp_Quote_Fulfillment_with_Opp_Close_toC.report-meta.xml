@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Opportunity$Name</field>
+    </columns>
+    <columns>
+        <field>Opportunity$CreatedDate</field>
+    </columns>
+    <columns>
+        <field>Opportunity.SBQQ__Quotes2__r$Name</field>
+    </columns>
+    <columns>
+        <field>Opportunity.SBQQ__Quotes2__r.Fulfillment_Orders__r$qtc_Quote__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.SBQQ__Quotes2__r$CreatedDate</field>
+    </columns>
+    <columns>
+        <field>Opportunity.SBQQ__Quotes2__r.Fulfillment_Orders__r$Name</field>
+    </columns>
+    <columns>
+        <field>Opportunity.SBQQ__Quotes2__r.Fulfillment_Orders__r$CreatedDate</field>
+    </columns>
+    <columns>
+        <field>Opportunity$Actual_Close_Date__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Report for Bram reporting ask to Marcus</description>
+    <format>Tabular</format>
+    <name>Opp, Quote, Fulfillment with Opp Close</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunities_Quotes_Fulfillment_Order__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Opportunity$Actual_Close_Date__c</dateColumn>
+        <interval>INTERVAL_CURRENT</interval>
+    </timeFrameFilter>
+</Report>

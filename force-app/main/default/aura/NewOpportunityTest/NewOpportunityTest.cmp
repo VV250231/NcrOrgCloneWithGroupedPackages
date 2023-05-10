@@ -1,0 +1,19 @@
+<aura:component controller ="APL_RecordTypeSelection" implements="force:lightningQuickActionWithoutHeader,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+    <aura:attribute name="opportunityRecordType" type="List"/>
+    <aura:handler name="init" value ="{!this}" action = "{!c.doInit}"/>  
+    <header class="slds-modal__header"> 
+        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">New Opportunity</h2>
+    </header>
+    <div class="slds-p-top_medium">
+		<div class="slds-text-heading_small">Select a record type</div>
+        <div class="slds-p-top_medium"></div>
+        <aura:iteration items = "{!v.opportunityRecordType}" var = "recordType">
+            <div class="slds-p-top_medium">     
+                <lightning:input type="radio" label="{!recordType.Name}" name="recordType" value="{!recordType.Id}" onclick="{!c.navigateToOpp}"/>
+                <div class="slds-p-horizontal_medium">
+                    <div class="slds-text-color_weak slds-p-left_medium">{!recordType.Description}</div>             
+                </div> 
+            </div>        
+        </aura:iteration>
+    </div> 
+</aura:component>

@@ -1,0 +1,101 @@
+<apex:page standardStylesheets="false" showHeader="false" standardController="Idea" extensions="NCR_EditIdeaPageController">
+
+    <style>
+        label {
+            font-weight: normal !important;
+        }
+    </style>
+    <c:NCR_CustomHead />
+    
+    <apex:form >
+        <c:NCR_HomepageHeader />
+        
+        <div class="" style='padding:2px'>
+            <div class="col-md-12">
+                <div class="row panel">
+                    <h1>Post Idea</h1>
+                    <div style="margin-top:20px;">
+                        <h2>Title</h2>
+                        <apex:inputField label="Title" styleClass="col-md-12" html-placeholder="As you enter a descriptive title, similar ideas may display." style="width:100%" value="{!newIdea.Title}" id="myTitle">
+                            <apex:actionSupport event="onkeyup" reRender="similarIdeasId" action="{!searchTitle}" status="statusRecent"/>
+                        </apex:inputField>
+                    </div>
+                                    <apex:actionStatus id="statusRecent">
+                                        <apex:facet name="start">
+                                            <div style="width: 500px;" align="left">
+                                                <img src="/img/loading24.gif" style="vertical-align:middle; width:15px;"/>
+                                                <span style="margin-left: 2px; font-size: 12px; color: #000000;">Searching for duplicates</span>
+                                            </div>
+                                        </apex:facet>
+                                    </apex:actionStatus>
+                                    
+                    <apex:outputPanel id="similarIdeasId" style="font-size: 14px">
+                        <apex:outputText value="Similar Ideas" style="font-weight: bold; font-family: Arial !important; font-size: 14px !important;" rendered="{!similarIdeasList.size>0}" /> <apex:outputText value="(Click to open in new window)" style="font-size: 14px !important; font-family: Arial !important;" rendered="{!similarIdeasList.size>0}" />
+                        <apex:repeat value="{!similarIdeasList}" var="si">
+                            <ul style="margin-bottom:0px;">
+                                <li><apex:outputLink value="/apex/NCR_ViewIdeaPage?id={!si.id}" style="color: #000000; font-family: Arial !important;" target="_blank">{!si.Title}</apex:outputLink> - {!si.VoteTotal} Points</li>
+                            </ul>
+                        </apex:repeat>
+                    </apex:outputPanel>
+                
+                <div>                  
+                    <div id="sample" style="margin-top:30px;float:left;width:100%;">
+                          <h2>Description</h2>
+                          
+       <apex:inputtextarea value="{!newIdea.Body}" id="ideaBody">
+       <!--apex:actionSupport event="onblur" reRender="postButtonId" action="{!validateButton}"/-->
+       </apex:inputtextarea>
+                          <!--apex:inputField value="{!newIdea.Body}" id="newText" /-->
+                    </div> <!--end of div id sample-->
+                    
+                    <div class="row" style="margin-left:8px; margin-bottom: 15px;">
+                        <br/><br/><apex:outputText value="{!newIdea.Di_Idea_Line_of_Business__c}, " rendered="{!newIdea.Di_Idea_Line_of_Business__c!=null}"/> <apex:outputText value="{!newIdea.Di_Idea_Channel__c}, " rendered="{!newIdea.Di_Idea_Channel__c!=null}"/> <apex:outputText value="{!newIdea.Di_Idea_Category__c}" rendered="{!newIdea.Di_Idea_Category__c!=null}"/>
+                    </div> <!--end of div class row-->
+                        
+                </div> <!-- end of div-->
+                        <apex:messages style="background-color: #FDE8E5; padding: 10px 50px; list-style-image: url('https://free-121d5f44d20-121d603d1c5-121ee2b8103.force.com/img/msg_icons/warning16.png');"/> 
+                        <!-- <apex:pageMessages style="background-color: #FDE8E5; padding: 10px; list-style-image: url('sqpurple.gif');" />  -->
+                        <div class="row">
+                            <apex:commandButton value="Save" action="{!updateNewIdea}" style="margin-left:8px;margin-top:10px;" styleClass="btn btn-default col-md-2"/>
+                            <apex:commandButton value="Cancel" action="/apex/NCR_ViewIdeaPage?id={!newIdea.id}" style="margin-left:8px;margin-top:10px;" styleClass="btn btn-default col-md-2"/>
+                        </div> <!--end of div class row-->
+                
+            </div>  <!--end of div class row panel-->
+            </div>
+        </div> <!--enf of div class container-->
+    
+    </apex:form>
+        <apex:includeScript value="{!URLFOR($Resource.NCR_cssjsimg, 'js/leapfrog.min.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.NCR_cssjsimg, 'js/docs.js')}"/>
+    
+    
+    <script>            
+            //google analytics
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+             
+              ga('create', 'UA-66575504-1', 'auto');
+              ga('send', 'pageview');
+              
+    </script>
+     <apex:stylesheet value="{!URLFOR($Resource.NCR_cssjsimg, 'tooltip/tooltip.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.NCR_cssjsimg, 'tooltip/tooltip.js')}"/>
+    <script src="//cdn.ckeditor.com/4.5.4/standard/ckeditor.js"></script>
+     <script>
+         CKEDITOR.replace( 'j_id0:j_id10:ideaBody', {
+             //language: 'fr',
+             //uiColor: '#9AB8F3',
+             toolbar: [
+                
+                ['Bold', 'Italic'],
+                ['SpellChecker'],
+                ['NumberedList', 'BulletedList'],
+                ['Link', 'Unlink']
+                //['Image']
+
+            ]
+         });
+     </script>
+</apex:page>

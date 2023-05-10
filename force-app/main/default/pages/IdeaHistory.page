@@ -1,0 +1,34 @@
+<apex:page standardController="Idea"  showHeader="true" sidebar="false" extensions="IdeaHistoryExtension" action="{!getIdeaHistoryList}">
+    <apex:pageBlock >
+        <apex:form >
+            <apex:commandButton action="{!back}" value="Back" />
+        </apex:form> 
+        <div class="gray-line" style="margin: 10px 0 0 0 !important;"></div>
+        <apex:pageBlockSection title="Idea History " columns="1" collapsible="false">
+            <apex:outputLabel ><h1>   
+                Idea Title</h1>&nbsp;&nbsp;
+                <span style="align:center;color:white;background-color:#41c1fc">&nbsp;{!title}&nbsp;</span>
+            </apex:outputLabel>
+            
+            
+            
+            <apex:pageBlockTable value="{!wrapIdeaHistoryList}" var="ih"  width="30%" style="height:25px;font-size:9pt;font-family: Helvetica;border:0.5px inset grey;order-column=0.2;" border="1">
+                <apex:column value="{!ih.field}"  headerValue="Changed Field"/>
+                <apex:column value="{!ih.newValue}"  headerValue="New Value "/>
+                <apex:column value="{!ih.oldValue}"  headerValue="Old Value"/>modifieldBy
+                <apex:column value="{!ih.modifieldBy}"  headerValue="Modified By"/>
+                <apex:column value="{!ih.onDate}"  headerValue="On Date"/>
+                
+            </apex:pageBlockTable>  
+            <div  style="margin: 10px 0 0 0 !important;"></div>
+            <apex:form >
+                <apex:commandButton action="{!back}" value="Back" />
+            </apex:form>  
+            
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    
+    
+    
+    
+</apex:page>

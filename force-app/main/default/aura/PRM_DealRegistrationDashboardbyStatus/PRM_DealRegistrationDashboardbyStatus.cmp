@@ -1,0 +1,18 @@
+<aura:component controller="PRM_DealRegistrationDashboardCont" 
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <!-- Handle component initialization in a client-side controller -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="DealRegistration" type="List" />
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="recordId" type="String" access="public" />
+
+    <div style = "width : 100%; height: 260px ; ">
+    <lightning:datatable 
+               keyField="id" 
+               data="{! v.DealRegistration }" 
+               columns="{! v.columns }" 
+               hideCheckboxColumn="true"/>
+    </div>
+    
+
+</aura:component>

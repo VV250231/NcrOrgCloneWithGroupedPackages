@@ -1,0 +1,21 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:appHostable,force:hasRecordId,flexipage:availableForRecordHome,force:lightningQuickAction" access="GLOBAL">
+    <aura:attribute name="options" type="List" default="[]"/>
+    <aura:attribute name="values" type="List" default="[]"/>
+    <aura:attribute name="assignValue" type="String" />
+    <aura:attribute name="label" type="String" />
+    <aura:attribute name="disabled" type="Boolean" />
+    <aura:attribute name="changeAttribute" type="Integer" />
+    <aura:attribute name="notify" type="Boolean" />
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <aura:registerEvent name="Event_Notify" type="c:Event_Notify"/>
+    <aura:handler name="change" value="{!v.changeAttribute}" action="{!c.handleValueChange}"/>
+    
+
+    
+    <lightning:combobox aura:id="selectItem" label="{!v.label}"
+                      placeholder="Select Option"                     
+                      onchange="{!c.handleChange}"
+                      options="{!v.options}"
+                        disabled="{!v.disabled}"/>
+    
+</aura:component>

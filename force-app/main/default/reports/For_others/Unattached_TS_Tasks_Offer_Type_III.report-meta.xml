@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>RowCount</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Requests</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>RowCount/RowCount</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA2</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Call Type</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>RowCount/RowCount</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA3</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Status</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_12000318</developerName>
+        <masterLabel>Customer Contact</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>CONTACT</sourceColumnName>
+        <useOther>false</useOther>
+    </buckets>
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_91935695</developerName>
+        <masterLabel>Opportunity Type</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Activity.Call_Result__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Issue Resolution</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Initial Proposal to Customer</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Not Qualified</sourceValue>
+            </sourceValues>
+            <value>Hardware</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Proposal Follow-up</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Issue - WIP</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Qualified Lead</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Post-Sale Issue</sourceValue>
+            </sourceValues>
+            <value>Services</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_61405857</developerName>
+        <masterLabel>Request Result</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Activity.Call_Result__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Not Qualified</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Issue Resolution</sourceValue>
+            </sourceValues>
+            <value>Already working on it</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Sale Closed</sourceValue>
+            </sourceValues>
+            <value>Sales initiated</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Requirements Gathering</sourceValue>
+            </sourceValues>
+            <value>Gathering Information</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Post-Sale Issue</sourceValue>
+            </sourceValues>
+            <value>ISS Prevented</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Issue - WIP</sourceValue>
+            </sourceValues>
+            <value>Not able to work on it</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_53090152</developerName>
+        <masterLabel>Status</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>STATUS</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Completed</sourceValue>
+            </sourceValues>
+            <value>Completed</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>In Progress</sourceValue>
+            </sourceValues>
+            <value>In progress</value>
+        </values>
+    </buckets>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <axisBinding>y</axisBinding>
+            <column>RowCount</column>
+        </chartSummaries>
+        <chartType>HorizontalBar</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>Activity.Offer_Type__c</groupingColumn>
+        <location>CHART_BOTTOM</location>
+        <showAxisLabels>false</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>ASSIGNED</field>
+    </columns>
+    <columns>
+        <field>WHAT_NAME</field>
+    </columns>
+    <columns>
+        <field>BucketField_12000318</field>
+    </columns>
+    <columns>
+        <field>Activity.NCR_Contact_Person__c</field>
+    </columns>
+    <columns>
+        <field>Activity.Industry__c</field>
+    </columns>
+    <columns>
+        <field>Activity.Region__c</field>
+    </columns>
+    <columns>
+        <field>Activity.Country__c</field>
+    </columns>
+    <columns>
+        <field>Activity.Offer_Details__c</field>
+    </columns>
+    <columns>
+        <field>SUBJECT</field>
+    </columns>
+    <columns>
+        <field>Activity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>DESCRIPTION</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>SUBJECT</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>ASM/ESM/ISS TS Campaign,ASM/ESM Opportunity</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>WHAT_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Brenka Test Account</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Activity.Country__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Singapore,Malaysia,Thailand,Indonesia,Philippines,Brunei</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Activity.Opportunity_Upsell_Type__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Unattached TS</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Activity.Offer_Type__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Activity.Quantity__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Unattached TS Tasks Offer Type III</name>
+    <params>
+        <name>closed</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>type</name>
+        <value>t</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Activity</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>WHAT_NAME</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>DUE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

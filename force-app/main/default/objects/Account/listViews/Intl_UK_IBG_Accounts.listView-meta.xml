@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Intl_UK_IBG_Accounts</fullName>
+    <columns>Business_Unit__c</columns>
+    <columns>Geography__c</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>ACCOUNT.TYPE</columns>
+    <columns>No_of_ATM_s__c</columns>
+    <columns>ACCOUNT.PHONE1</columns>
+    <columns>ACCOUNT.ADDRESS1_STREET</columns>
+    <columns>ACCOUNT.ADDRESS1_CITY</columns>
+    <columns>ACCOUNT.RECORDTYPE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Geography__c</field>
+        <operation>equals</operation>
+        <value>UK</value>
+    </filters>
+    <filters>
+        <field>Business_Unit__c</field>
+        <operation>contains</operation>
+        <value>IBG (Core)</value>
+    </filters>
+    <label>CATM Intl UK IBG Accounts</label>
+    <sharedTo>
+        <group>All_CATM</group>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hosp_Creation_Category_Required_on_Close</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName = &quot;Hospitality_Support&quot;,
+$Setup.Automation_Setting__c.Skip_Validation_Rule__c == FALSE,
+Hospitality_Validation_Rule_Bypass_flag__c == False,
+ISPICKVAL(Status, &quot;Closed&quot;),
+OR(
+ISCHANGED(Creation_Category__c),
+ISCHANGED(Status)
+),
+ISBLANK(Creation_Category__c)
+)</errorConditionFormula>
+    <errorMessage>Creation Category Is Required Prior To Closing. Please update this using Quick update.</errorMessage>
+</ValidationRule>

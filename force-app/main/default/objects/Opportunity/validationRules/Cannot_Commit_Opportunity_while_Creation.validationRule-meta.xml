@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cannot_Commit_Opportunity_while_Creation</fullName>
+    <active>true</active>
+    <description>Retail opportunities should be required to have at least one question of valueprompter equal to yes before they can be moved to Commit.</description>
+    <errorConditionFormula>AND( 
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+NOT(CATM_Record__c),
+ISPICKVAL( Industry__c ,&apos;Retail&apos; ),
+ISPICKVAL( Forecast_Category__c ,&apos;Commit&apos; ),
+ISNEW(),
+OR(
+$RecordType.Name=&quot;Include in Funnel&quot;,
+$RecordType.Name=&quot;Indirect - Include in Funnel Distributor&quot;,
+$RecordType.Name=&quot;Indirect - Include in Funnel Reseller&quot;
+)
+
+)</errorConditionFormula>
+    <errorMessage>You cannot Commit this opportunity upon creation. Please update the Forecast Category to create, and answer ‘Yes’ to at least one question on the ValuePrompter/’Commitment Risk’ tab in order to successfully Commit this opportunity.</errorMessage>
+</ValidationRule>

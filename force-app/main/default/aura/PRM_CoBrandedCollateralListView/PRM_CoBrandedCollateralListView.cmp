@@ -1,0 +1,115 @@
+<aura:component controller="PRM_CoBrandedCollateralController" implements="forceCommunity:availableForAllPageTypes">
+
+    
+	 <aura:attribute name="ObjectData" type="List" />
+    
+    <aura:attribute name="PaginationList" type="List"/>
+    <aura:attribute name="currentPage" type="Integer" default="0"/>
+    <aura:attribute name="start" type="Integer" default="0"/>
+    <aura:attribute name="end" type="Integer" default="0"/>
+    <aura:attribute name="totalPages" type="Integer" default="0"/>
+    <aura:attribute name="paginationTable" type="List" />
+    <aura:attribute name="totalRecords" type="Integer" default="0"/>
+    <aura:attribute name="pageSize" type="Integer" default="10"/>
+    <aura:attribute name="selectedView" type="String" default="All"/>
+    <aura:attribute name="next" type="boolean" default="true"/>
+    <aura:attribute name="prev" type="boolean" default="true" />
+   
+    
+    <aura:attribute name="coBrandedListviews" type="String[]" 
+                    default="All,Draft,Approved,Rejected,Submitted"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+    
+    <!--loading spinner start... style=Brand Medium (blue dots)-->
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+           <div class="slds-spinner_brand  slds-spinner slds-spinner_large slds-is-relative" role="alert">
+             <span class="slds-assistive-text">Loading</span>
+             <div class="slds-spinner__dot-a"></div>
+             <div class="slds-spinner__dot-b"></div>
+           </div>
+        </div>
+     </aura:if>
+    <!-- Loading spinner end-->
+    
+    <div class="slds-page-header" role="banner">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-has-flexi-truncate"> 
+                <div class="slds-media slds-media_center slds-no-space slds-grow">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-account">
+                            <lightning:icon iconName="standard:account" size="large" alternativeText="Indicates approval"/>
+                            <span class="slds-assistive-text">Co-Branded Collaterals</span>
+                        </span>
+                    </div>
+                    <div class="slds-media__body slds-size_1-of-4 ">
+                       
+                        <lightning:select aura:id="select" name="select" label="Co-Branded Collaterals" value="{!v.selectedView}" onchange="{! c.cViewChange}" >
+                            <aura:iteration items="{!v.coBrandedListviews}" var="val">
+                                <option value="{!val}" text="{!val}"></option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>
+                </div>                    
+            </div>  
+            <!-- ACTION BUTTONS -->
+            <div class="slds-col slds-no-flex slds-grid slds-wrap slds-align-top">
+                <div class="slds-button-group" role="group">
+                    <button class="slds-button slds-button_neutral" onclick="{!c.cNewCoBrandedCollateral}">
+                        New Co-Branded Collateral
+                    </button>
+                </div>
+            </div>
+            <!-- / ACTION BUTTONS -->               
+        </div>
+    </div>
+    
+        
+    <table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal slds-no-row-hover" style="margin-bottom: 10px;"><!--Table must be responsive-->
+        <thead>
+            <tr class="slds-text-heading_label ">
+                <th class="" scope="col"><div class="slds-truncate" title="Co-Branded #">Co-Branded #</div></th>  
+                <th class="" scope="col"><div class="slds-truncate" title="Status">Status</div></th>
+                <th class="" scope="col"><div class="slds-truncate" title="Campaign Name">Campaign Name</div></th>
+                                    
+                <th class="slds-is-sortable" scope="col"><div class="slds-truncate" title="Final dimensions you need">Final dimensions you need</div></th>
+                <th class="slds-is-sortable" scope="col"><div class="slds-truncate" title="What kind of document are you requesting">What kind of document...</div></th>
+                <th class="slds-is-sortable" scope="col"><div class="slds-truncate" title="What is your deadline?">What is your deadline?</div></th>
+                <th class="slds-is-sortable" scope="col"><div class="slds-truncate" title="Created Date">Created Date</div></th> 
+            </tr>  
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.PaginationList}" var="cob">
+                <tr class="slds-hint-parent">  
+                    
+                    <td data-label="Co-Branded #" class="slds-cell-wrap">
+                        <a data-record="{!cob.Id}" onclick="{!c.redirectToRecord}">{!cob.Name}</a>
+                    </td>
+                    <td data-label="Status" class="slds-cell-wrap"><ui:outputText value="{!cob.Status__c}" /></td>
+                    <td data-label="Campaign Name" class="slds-cell-wrap"><ui:outputText value="{!cob.Campaign_Name__c}"/></td>
+                    <td data-label="Final dimensions you need" class="slds-cell-wrap">
+                        {!cob.Final_dimensions_you_need__c}
+                     </td>
+                    <td data-label="What kind of document are you requesting" class="slds-cell-wrap"> 
+                        {!cob.What_kind_of_document_are_you_requesting__c}
+                    </td>
+                    <td data-label=" What is your deadline"> <ui:outputDate value="{!cob.What_is_your_deadline__c}"/> </td>
+                    <td data-label="Created Date"><ui:outputDate value="{!cob.CreatedDate}"/></td> 
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table>
+    <lightning:button label="Previous" disabled="{! 1 >= v.currentPage }" 
+                      class="slds-button slds-button_neutral slds-p-horizontal_xx-small slds-m-right_x-small slds-float_left"  
+                      onclick="{!c.cPrevious}" variant="brand"
+                      iconName='utility:back'/>
+    
+    <lightning:button label="Next" disabled="{!v.currentPage >= v.totalPages}"
+                      class="slds-button slds-button_neutral slds-p-horizontal_xx-small slds-m-right_x-small slds-float_left"
+                      onclick="{!c.cNext}" variant="brand"
+                      iconName='utility:forward' iconPosition='right'/>
+    
+</aura:component>

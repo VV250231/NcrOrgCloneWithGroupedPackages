@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Non_whole_number_quantity</fullName>
+    <active>true</active>
+    <description>Quantities must be whole numbers</description>
+    <errorConditionFormula>AND(
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+Quantity  &lt;&gt;  FLOOR(Quantity),
+				 Product2.ProductCode &lt;&gt; &apos;9678-1104-0000&apos;,
+				 Product2.ProductCode &lt;&gt; &apos;9678-1103-0000&apos;,
+				 Product2.ProductCode &lt;&gt; &apos;9678-1100-0000&apos;,
+					Product2.ProductCode &lt;&gt; &apos;9678-1105-0000&apos;,
+					Product2.ProductCode &lt;&gt; &apos;9678-1102-0000&apos;,
+					Product2.ProductCode &lt;&gt; &apos;9678-1101-0000&apos;)</errorConditionFormula>
+    <errorDisplayField>Quantity</errorDisplayField>
+    <errorMessage>You must enter a quantity in whole units</errorMessage>
+</ValidationRule>

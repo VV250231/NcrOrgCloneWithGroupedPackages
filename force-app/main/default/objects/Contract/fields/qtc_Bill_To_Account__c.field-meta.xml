@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>qtc_Bill_To_Account__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>This field will be set on account creation from the Order. The user can then update this field to update Bill To Site on related Orders.</description>
+    <externalId>false</externalId>
+    <label>Bill To Site</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Account.Bill_To__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Contracts</relationshipLabel>
+    <relationshipName>Contracts</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

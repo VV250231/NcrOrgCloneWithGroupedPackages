@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ACV_without_One_Time_Revenue__c</fullName>
+    <description>CATM - ACV with out One Time Revenue</description>
+    <externalId>false</externalId>
+    <formula>If (Contract_Term_Mths__c &gt;= 12,((Reoccurring_Revenue_OLI__c/ Contract_Term_Mths__c)  * 12) , (Reoccurring_Revenue_OLI__c))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>ACV without One Time Revenue</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Currency</type>
+</CustomField>

@@ -1,0 +1,48 @@
+<apex:page >
+    
+    <script>
+    
+        function pageName( keyVal ){
+            var pgName = {
+                '001': 'Account',
+                '006': 'Opportunity',
+                '003': 'Contact',
+                '00Q': 'Lead',
+                'a15': 'Customer Temperature',
+                'ProductSchedule':'Product Scheduler',
+                'home':'Home'
+            };
+                
+            return pgName[ keyVal ];
+        }
+        
+        
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-78748446-2', 'auto');
+        
+        ga('set', 'dimension1', '{!$User.Division}');
+        ga('set', 'dimension2', '{!$Profile.Name}');
+        ga('set', 'dimension3', '{!$User.Quicklook_ID__c}');
+        
+        if( document.referrer.split('/')[3] == 'apex' ){
+            if( document.referrer.split('/')[4] == 'ProductSchedule' ){
+                ga('set', 'title',  pageName( 'ProductSchedule' ) );                
+            }else{
+                ga('set', 'title',  pageName( document.referrer.split('/')[3].substring(0,3) ) );
+            }
+        }else{
+            ga('set', 'title',  pageName( document.referrer.split('/')[3].substring(0,3) ) );
+        }
+        
+        ga('send', 'pageview');
+        
+        
+        
+        
+    </script>
+
+    
+</apex:page>

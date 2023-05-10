@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Only_PP_Parent_Quotes</fullName>
+    <active>true</active>
+    <description>Only PP Parent quotes can have payments sites.</description>
+    <errorConditionFormula>AND(
+				NOT(ISBLANK(Quote__c)),
+				Quote__r.qtc_Multi_Site__c,
+OR(
+				ISPICKVAL(Quote__r.qtc_Multi_Site_Relationship__c ,&apos;Child&apos;),
+				AND(
+								ISPICKVAL(Quote__r.qtc_Multi_Site_Relationship__c ,&apos;Parent&apos;),
+								ISPICKVAL( Quote__r.qtc_Multi_Site_Type__c ,&apos;AE Only&apos;)
+								)
+        )
+								)</errorConditionFormula>
+    <errorDisplayField>qtc_Account_Site_Parent__c</errorDisplayField>
+    <errorMessage>Only Multi-Site Payments Parent quotes can have Payments Sites added.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>InvalidOmitted_LTNG</fullName>
+    <active>true</active>
+    <description>The user has selected a Forecast Value of Omitted for an Open or Closed-Book Selling Stage</description>
+    <errorConditionFormula>AND(
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+NOT(CATM_Record__c),
+NOT(Skip_Validation_Rule_for_Lead_Conversion__c),
+OR (
+AND(ISPICKVAL(StageName, &quot;Analyzing&quot;),  ISPICKVAL(Forecast_Category__c, &quot;Omitted&quot;)),
+
+AND(ISPICKVAL(StageName, &quot;Validating&quot;),  ISPICKVAL(Forecast_Category__c, &quot;Omitted&quot;)),
+
+AND(ISPICKVAL(StageName, &quot;Offering&quot;),  ISPICKVAL(Forecast_Category__c, &quot;Omitted&quot;)),
+
+AND(ISPICKVAL(StageName, &quot;Proposing&quot;),  ISPICKVAL(Forecast_Category__c, &quot;Omitted&quot;)),
+
+AND(ISPICKVAL(StageName, &quot;Closing&quot;),  ISPICKVAL(Forecast_Category__c, &quot;Omitted&quot;)),
+
+AND(ISPICKVAL(StageName, &quot;Closed/Booked&quot;),  ISPICKVAL(Forecast_Category__c, &quot;Omitted&quot;))
+)
+,($Profile.Name &lt;&gt; &quot;02 NSC Administrator&quot;)
+,($Profile.Name &lt;&gt; &quot;04 NSC UI Administrator&quot;)
+,($Profile.Name &lt;&gt; &quot;Soup Integration&quot;) 
+,($Profile.Name &lt;&gt; &quot;31 GS Account Manager-Omitted Pilot&quot;)
+,($Profile.Name &lt;&gt; &quot;51 Hospitality Account Manager-Omitted Pilot&quot;)
+,($Profile.Name &lt;&gt; &quot;iPaas Administration&quot;)
+,($Profile.Name &lt;&gt; &quot;C9 Administration&quot;)
+,($Profile.Name &lt;&gt; &quot;Soup Integration&quot;) 
+)</errorConditionFormula>
+    <errorDisplayField>Forecast_Category__c</errorDisplayField>
+    <errorMessage>A Forecast Category of Omitted is not valid for this Selling Stage.  Please select a valid Forecast Category.</errorMessage>
+</ValidationRule>

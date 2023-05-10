@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type_is_Core_Processing_Vendor</fullName>
+    <active>true</active>
+    <description>A &quot;Core Processing Vendor&quot; product type requires the Support Type and Hosting Type values.</description>
+    <errorConditionFormula>AND ( 
+     ISPICKVAL( Product_Type__c , &apos;Core Processing Vendor&apos;), 
+     OR( ISPICKVAL( Software_Support_Type__c, &apos;&apos; ), 
+         ISPICKVAL( Hosting_Type__c, &apos;&apos; ))
+)</errorConditionFormula>
+    <errorMessage>Software Support Type and Hosting Type are required for Core Processing Vendor products.</errorMessage>
+</ValidationRule>

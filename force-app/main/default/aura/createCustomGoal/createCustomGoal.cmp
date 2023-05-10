@@ -1,0 +1,72 @@
+<aura:component controller="createCustomerGoal" Implements="lightning:availableForFlowScreens" access="global" >
+     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	 <aura:attribute name="SalesSurveyid" type="String" />
+     <aura:attribute name="NewCustomerGoalList" type="List"/>
+     <aura:handler name="DeleteRowEvt" event="c:DeleteRowEvt" action="{!c.removeDeletedRow}"/>
+     <aura:handler name="AddRowEvt" event="c:AddNewRowEvt" action="{!c.addNewRow}"/>
+     <aura:attribute name="FinalSSCustGoal"  type="List"/>
+     <aura:attribute name="FinalListcolumns" type="List"/>
+     <aura:attribute name="FinalSSCustomerGoaltoShow"  type="List"/>
+
+
+      <table class="slds-table slds-table_bordered slds-table_cell-buffer"> 
+            <thead>
+                <tr class="slds-text-title_caps">
+                    <th scope="col">
+                        <div class="slds-truncate">S.No</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Concept of Goals">CONCEPT OF GOALS</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Details">DETAILS</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Aligned Solutions">ALIGNED SOLUTIONS</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Add/Remove">Add/Remove</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.NewCustomerGoalList}" var="item" indexVar="index">
+                    <c:addCustomerGoal ConRow="{!item}" rowIndex="{!index}"/>
+                </aura:iteration>
+            </tbody>
+    </table>
+      <div class="slds-text-align_center">
+        <lightning:buttonGroup>
+        <lightning:button label="Add" variant="brand" disabled="false" onclick="{! c.handleAdd }"/>
+        </lightning:buttonGroup>
+        </div>
+    <aura:if isTrue="{!not(empty(v.FinalSSCustGoal))}">
+        <div class="slds-p-around_medium">
+            <b>Selected Sales Survey Contacts</b>
+        </div>
+        <lightning:datatable
+                             keyField="Id"
+                             columns="{! v.FinalListcolumns }"
+                             data="{! v.FinalSSCustGoal }"
+                             showRowNumberColumn="true"
+        					 onrowaction="{! c.handleRowAction }"
+                             hideCheckboxColumn="true"/>
+        <br/>
+       <div class="slds-text-align_center">
+        <lightning:button label="Save" variant="brand" disabled="false" onclick="{! c.handleSave }"/>
+        </div>
+    </aura:if>
+      <aura:if isTrue="{!not(empty(v.FinalSSCustomerGoaltoShow))}">
+        <div class="slds-p-around_medium">
+            <b>Saved Sales Survey Contacts</b>
+        </div>
+        <lightning:datatable
+                             keyField="Id"
+                             columns="{! v.FinalListcolumns }"
+                             data="{! v.FinalSSCustomerGoaltoShow }"
+                             showRowNumberColumn="true"
+        					 onrowaction="{! c.handleRowAction }"
+                             hideCheckboxColumn="true"/>
+        <br/>
+    </aura:if>
+</aura:component>

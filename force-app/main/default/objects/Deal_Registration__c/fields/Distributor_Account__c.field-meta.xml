@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Distributor_Account__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Distributor Account</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Account.RecordType.DeveloperName</field>
+            <operation>notEqual</operation>
+            <value>Site</value>
+        </filterItems>
+        <filterItems>
+            <field>Account.RecordType.DeveloperName</field>
+            <operation>notEqual</operation>
+            <value>Enterprise</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Deal Registrations (Distributor Account)</relationshipLabel>
+    <relationshipName>Deal_Registrations3</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trueHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

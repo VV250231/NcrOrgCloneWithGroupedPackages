@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>X2015_NCR_Logo_Letterhead</letterhead>
+    <name>Email to Notify User After the Record is Approved</name>
+    <style>formalLetter</style>
+    <subject>Congratulations! Your Request has been approved!!</subject>
+    <textOnly>Hello {!Ticket_Request__c.OwnerFullName},
+
+
+Your event request is approved for {!Ticket_Request__c.Event_Typ__c}
+ {!Ticket_Request__c.Event_Name_Date__c}
+
+
+Someone will reach out to you on logistics and the transfer of tickets/parking, 2 weeks prior to your event. If you are requesting within that window, someone will be in touch with you within 48 hours.
+
+
+
+Thanks!!</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,31 @@
+<messaging:emailTemplate subject="Quote Approval - RECALLED: {!relatedTo.CPQ_Quote_Reference__r.Name} for {!relatedTo.CPQ_Quote_Reference__r.SBQQ__Opportunity2__r.Name}"
+recipientType="User"
+relatedToType="sbaa__Approval__c">
+<messaging:HtmlEmailBody >
+<html>
+<body>
+
+
+<b></b>
+<p></p><br/>
+
+Hello {!recipient.name},
+
+<p> Your approval request for Quote {!relatedTo.CPQ_Quote_Reference__r.Name} has been recalled.
+</p>
+
+<p>
+<b>Quote Name: </b>&nbsp;<apex:outputLink value="{!LEFT($Api.Enterprise_Server_URL_300, FIND('/services',$Api.Enterprise_Server_URL_300))}/{!relatedTo.CPQ_Quote_Reference__r.Id}" >{!relatedTo.CPQ_Quote_Reference__r.Name}</apex:outputLink><br/>
+<b>Opportunity Name: </b>&nbsp;<apex:outputLink value="{!LEFT($Api.Enterprise_Server_URL_300, FIND('/services',$Api.Enterprise_Server_URL_300))}/{!relatedTo.CPQ_Quote_Reference__r.SBQQ__Opportunity2__r.Id}" >{!relatedTo.CPQ_Quote_Reference__r.SBQQ__Opportunity2__r.Name}</apex:outputLink><br/>
+</p>
+
+<p>
+<b>Approvals:</b><br/>
+<sbaa:relatedList rendered="{!relatedTo.CPQ_Quote_Reference__c != null}" recordId="{!relatedTo.CPQ_Quote_Reference__c}" relationshipName="AAE_Approvals__r" fieldSetName="Approval_Request_Email"/>
+</p>
+
+
+</body>
+</html>
+</messaging:HtmlEmailBody>
+</messaging:emailTemplate>

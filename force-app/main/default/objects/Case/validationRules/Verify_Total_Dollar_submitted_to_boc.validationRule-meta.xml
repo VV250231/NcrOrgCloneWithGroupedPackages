@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Verify_Total_Dollar_submitted_to_boc</fullName>
+    <active>true</active>
+    <description>This will verify the total dollar amount submitted to the boc based off hw and sw dollar amounts.</description>
+    <errorConditionFormula>NOT(ISBLANK(Total_Dollars_Submitted_to_BOC__c)) &amp;&amp; ((HW_Dollars_Submitted_to_BOC__c  +  SW_Dollars_Submitted_to_BOC__c )&lt;&gt; Total_Dollars_Submitted_to_BOC__c)</errorConditionFormula>
+    <errorDisplayField>Total_Dollars_Submitted_to_BOC__c</errorDisplayField>
+    <errorMessage>The HW and SW dollar amounts do not equal the total amount submitted.</errorMessage>
+</ValidationRule>

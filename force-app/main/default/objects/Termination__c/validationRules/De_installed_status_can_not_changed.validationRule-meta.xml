@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>De_installed_status_can_not_changed</fullName>
+    <active>false</active>
+    <description>De-installed status is the final status you can&apos;t move to other status.</description>
+    <errorConditionFormula>!$Setup.Automation_Setting__c.Skip_Validation_Rule__c &amp;&amp;
+IF(
+OR(
+AND($Profile.Name &lt;&gt;&apos;System Administrator&apos;,$Profile.Name &lt;&gt;&apos;Legal Team&apos;,
+ISPICKVAL(PRIORVALUE(Termination_Status__c),&quot;De-installed&quot;), OR(ISPICKVAL(Termination_Status__c,&quot;Pending Removal&quot;),ISPICKVAL(Termination_Status__c,&quot;Requested&quot;),ISPICKVAL(Termination_Status__c,&quot;Cancelled&quot;),ISPICKVAL(Termination_Status__c,&quot;Awaiting Approval&quot;))
+)
+
+)
+
+, true, false)</errorConditionFormula>
+    <errorMessage>Incorrect status selected, please contact Sales Support</errorMessage>
+</ValidationRule>

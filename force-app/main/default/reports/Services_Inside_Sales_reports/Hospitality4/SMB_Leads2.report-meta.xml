@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>COMPANY</field>
+    </columns>
+    <columns>
+        <field>FIRST_NAME</field>
+    </columns>
+    <columns>
+        <field>LAST_NAME</field>
+    </columns>
+    <columns>
+        <field>PHONE</field>
+    </columns>
+    <columns>
+        <field>EMAIL</field>
+    </columns>
+    <columns>
+        <field>LEAD_SOURCE</field>
+    </columns>
+    <columns>
+        <field>Lead.Lead_Marketing_Notes__c</field>
+    </columns>
+    <columns>
+        <field>LEAD_ID</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>If(OR(OWNER=&quot;Vicente Gouvea&quot;,OWNER=&quot;Alejandro Torres&quot;,OWNER=&quot;Alberto Vega&quot;),&quot;LATAM&quot;,IF(OR(OWNER=&quot;Daniela Gava&quot;,OWNER=&quot;Canan Selcuk&quot;,OWNER=&quot;Ignacio Fernandez&quot;,OWNER=&quot;Antonio Badenes&quot;,OWNER=&quot;Lucie Subrova&quot;,OWNER=&quot;Samaia Hamza&quot;,OWNER=&quot;Lola Barrado Espelosin&quot;,OWNER=&quot;Bader Al-awad&quot;),&quot;EMEA&quot;,If(Or(OWNER=&quot;Ye Huang&quot;,OWNER=&quot;Eva Merriam Montecillo&quot;,OWNER=&quot;Rudelyn Bucio&quot;,OWNER=&quot;Jelena Atanackovic&quot;,OWNER=&quot;Jelena Filipovic&quot;,OWNER=&quot;Bozidar Jeremic&quot;,OWNER=&quot;Jelena Malusev&quot;,OWNER=&quot;Achraf Rharib&quot;,OWNER=&quot;Charles Huang&quot;),&quot;APAC&quot;,&quot;&quot;)))</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>Region Actual</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <booleanFilter>((1 AND 2) OR 3) AND 4</booleanFilter>
+        <criteriaItems>
+            <column>OWNER</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Milica Vukotic,Jelena Lazic,Nikola Kovacevic,Dusan Simic,Daria Nisandzic,Milan Marinkovic,Maja Peric,Igor Momic,Milos Tomasovic,Djordje Jovanovic,Milos Djordjevic,Danijela Cankovic,Dijana Novakovic,Irena Jevric,Srboljub Dragisic,Marko Soso</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CREATED_DATE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>lessThan</operator>
+            <value>8/1/2022 12:00 AM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>LEAD_ID</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>00Q4u00001jtsOq,00Q4u00001ij8qt,00Q4u00001juJOg,00Q4u00001jt7Q6,00Q4u00001jtbWv,00Q4u00001ijUmi,00Q4u00001ijPxE,00Q4u00001jvIEU,00Q4u00001jvADA,00Q4u00001ijKpC,00Q4u00001jvGKj,00Q4u00001ijfBl,00Q4u00001ijBEi,00Q4u00001juN26,00Q4u00001jufVw,00Q4u00001jua9F,00Q4u00001ijC7G,00Q4u00001iipgi,00Q4u00001jtCrK,00Q4u00001jubTy,00Q4u00001ij8X3,00Q4u00001ij08Q</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>LEAD_ID</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>00Q4u00001l5lp1</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>STATUS</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Lead.Country__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>OWNER</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Channel Marketing Leads</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>LeadList</reportType>
+    <scope>org</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

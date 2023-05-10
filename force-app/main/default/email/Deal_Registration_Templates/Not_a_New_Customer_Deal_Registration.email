@@ -1,0 +1,197 @@
+<messaging:emailTemplate subject="Deal Registration Request for {!relatedTo.Name} with Partner Industry - {!relatedTo.Partner_Industry__c} is Rejected"
+    recipientType="Contact" relatedToType="Deal_Registration__c">
+    <messaging:htmlEmailBody >
+        <html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
+            xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+            xmlns="http://www.w3.org/TR/REC-html40">
+
+        <head>
+            <!--[if !mso]>
+          <style>
+            v\:* {
+              behavior: url(#default#VML);
+            }
+            o\:* {
+              behavior: url(#default#VML);
+            }
+            w\:* {
+              behavior: url(#default#VML);
+            }
+            .shape {
+              behavior: url(#default#VML);
+            }
+          </style>
+        <![endif]-->
+            <!--[if gte mso 9]>
+          <xml>
+            <o:OfficeDocumentSettings>
+              <o:AllowPNG />
+            </o:OfficeDocumentSettings>
+          </xml>
+        <![endif]-->
+            <style>
+                a {
+                    color: #54b948;
+                }
+
+                table,
+                th,
+                tr,
+                td {
+                    padding: 0px;
+                    margin: 0px;
+                }
+
+                td {
+                    mso-table-lspace: 0pt;
+                    mso-table-rspace: 0pt;
+                }
+            </style>
+
+            <!--[if gte mso 10]>
+          <style>
+            /* Style Definitions */
+            table.MsoNormalTable {
+              mso-style-name: "Table Normal";
+              mso-tstyle-rowband-size: 0;
+              mso-tstyle-colband-size: 0;
+              mso-style-noshow: yes;
+              mso-style-priority: 99;
+              mso-style-parent: "";
+              mso-padding-alt: 0in 5.4pt 0in 5.4pt;
+              mso-para-margin: 0in;
+              mso-para-margin-bottom: 0.0001pt;
+              mso-pagination: widow-orphan;
+              font-size: 10pt;
+              font-family: "Times New Roman", serif;
+            }
+          </style>
+        <![endif]-->
+        </head>
+
+        <body bgcolor="#FFFFFF">
+            <table class="MsoNormalTable" width="660" border="0" align="center" cellpadding="0" cellspacing="0"
+                style="mso-cellspacing:0in;mso-yfti-tbllook:1184;mso-padding-alt: 0in 0in 0in 0in">
+                <tr style="height: 148px; mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes">
+                    <td>
+                        <c:New_Email_Header HeadTitle="DEAL REGISTRATION" />
+                    </td>
+                </tr>
+
+                <tr valign="top" bgcolor="#ffffff" style="mso-yfti-irow:0;mso-yfti-firstrow:yes;">
+                    <td valign="top" style="padding:0in 0in 0in 0in">
+                        <table class="MsoNormalTable" width="660" border="0" align="center" cellpadding="0"
+                            cellspacing="0"
+                            style="mso-cellspacing:0in;mso-yfti-tbllook:1184;mso-padding-alt: 0in 0.1in 0.1in 0.1in;">
+                            <tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;">
+                                <td style="padding:.2in 0in 0in 0in">
+                                    <p align="left"
+                                        style="font-family: 'Open Sans', sans-serif; font-size: 12px; line-height: 15px; color: #58585A; padding:0in .1in .1in .1in;">
+                                        Dear {!relatedTo.Owner.Name},
+                                    </p>
+                                    <p align="left"
+                                        style="font-family: 'Open Sans', sans-serif; font-size: 12px; line-height: 15px; color: #58585A; padding:0in .1in .1in .1in;">
+                                        Your Deal Registration has been reviewed by Global Channel
+                                        Operations to determine if it is for a Net New Customer,
+                                        unfortunately it does not qualify and has been rejected as
+                                        a Net New Customer by Channel Operations.
+                                    </p>
+
+                                    <p align="left"
+                                        style="font-family: 'Open Sans', sans-serif; font-size: 12px; line-height: 15px; color: #58585A; padding:0in .1in .1in .1in;">
+                                        Here are the details for your submission and its rejection
+                                    </p>
+
+                                    <p align="left"
+                                        style="font-family: 'Open Sans', sans-serif; font-size: 12px; line-height: 15px; color: #58585A;padding:0in .1in .0in .1in; ">
+                                        <b>Details : </b>
+                                        <ul
+                                            style="font-family: 'Open Sans', sans-serif; font-size: 12px; color: #58585A;">
+                                            <li
+                                                style="font-family: 'Open Sans', sans-serif; font-size: 12px;  color: #58585A;">
+                                                Deal Registration Number : {!relatedTo.Name}
+                                            </li>
+                                            <li
+                                                style="font-family: 'Open Sans', sans-serif; font-size: 12px;  color: #58585A;">
+                                                Customer Account Name :
+                                                {!relatedTo.End_Customer_Company_Name__c}
+                                            </li>
+                                            <li
+                                                style="font-family: 'Open Sans', sans-serif; font-size: 12px;  color: #58585A;">
+                                                Customer is not verified as Net New
+                                            </li>
+                                            <li
+                                                style="font-family: 'Open Sans', sans-serif; font-size: 12px;  color: #58585A;">
+                                                Deal Name : {!relatedTo.Deal_Name__c}
+                                            </li>
+                                            <li
+                                                style="font-family: 'Open Sans', sans-serif; font-size: 12px;  color: #58585A;">
+                                                Projected Opportunity Value :
+                                                ${!relatedTo.Projected_Opportunity_Value__c}
+                                            </li>
+
+                                            <li
+                                                style="font-family: 'Open Sans', sans-serif; font-size: 12px;  color: #58585A;">
+                                                Expires on : <apex:outputText value="{!relatedTo.Expiration_Date__c}"></apex:outputText>
+                                            </li>
+                                        </ul>
+                                    </p>
+                                    <p align="left"
+                                        style="font-family: 'Open Sans', sans-serif; font-size: 12px; line-height: 15px; color: #58585A; padding:0in .1in .1in .1in;">
+                                        Please contact your Channel Account Manager regarding this
+                                        Deal Registration. You are invited to resubmit this
+                                        opportunity as another Deal Registration Type:
+                                    </p>
+                                    <p align="left"
+                                        style="font-family: 'Open Sans', sans-serif; font-size: 12px; line-height: 15px; color: #58585A;padding:0in .1in .0in .1in; ">
+                                        <ul
+                                            style="font-family: 'Open Sans', sans-serif; font-size: 12px; color: #58585A;">
+                                            <li
+                                                style="font-family: 'Open Sans', sans-serif; font-size: 12px;  color: #58585A;">
+                                                Existing Partner Account Customer
+                                            </li>
+                                            <li
+                                                style="font-family: 'Open Sans', sans-serif; font-size: 12px;  color: #58585A;">
+                                                Existing NCR Customer
+                                            </li>
+                                            <li
+                                                style="font-family: 'Open Sans', sans-serif; font-size: 12px;  color: #58585A;">
+                                                Existing Customer of another partner
+                                            </li>
+                                        </ul>
+                                    </p>
+                                    <p align="left"
+                                        style="font-family: 'Open Sans', sans-serif; font-size: 12px; line-height: 15px; color: #58585A; padding:0in .1in .1in .1in;">
+                                        Thank you again for your submission and your patience
+                                        during this process.
+                                    </p>
+                                    <p align="left"
+                                        style="font-family: 'Open Sans', sans-serif; font-size: 12px; line-height: 15px; color: #58585A; padding:0in .1in .1in .1in;">
+                                        Sincerely,
+                                    </p>
+
+                                    <b>
+                                        <p align="left"
+                                            style="font-family: 'Open Sans', sans-serif; font-size: 12px; line-height: 15px; color: #58585A; padding:0in .1in .1in .1in;">
+                                            NCR Channel Program Team
+                                        </p>
+                                    </b><br></br>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;">
+                    <td align="center" valign="middle" style="padding:0in 0in 0in 0in">
+                        <c:InteractProgramToolFooter />
+                    </td>
+                </tr>
+            </table>
+            <img height="1" width="1" style="visibility:hidden"
+                src="https://www.cprpt.com/NCREmail/o.aspx?t=50038.10019.19808.19886.0.1.N.295797.1429.0&amp;e=RG250274@ncr.com" />
+        </body>
+
+        </html>
+    </messaging:htmlEmailBody>
+</messaging:emailTemplate>

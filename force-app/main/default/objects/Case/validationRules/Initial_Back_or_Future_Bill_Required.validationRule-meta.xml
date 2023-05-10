@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Initial_Back_or_Future_Bill_Required</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND 
+(NOT(ISBLANK( Potential_Recovery__c )),
+ISBLANK( Current_Billing_Impact__c  ),
+ISBLANK ( Remaining_Billing_Impact__c )
+)</errorConditionFormula>
+    <errorDisplayField>Potential_Recovery__c</errorDisplayField>
+    <errorMessage>Current Billing Impact or Remaining Billing Impact Required for Potential Recovery</errorMessage>
+</ValidationRule>

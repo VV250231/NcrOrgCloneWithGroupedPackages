@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>VOC CSM Case Comment Template</name>
+    <style>none</style>
+    <subject>You have a new comment on Case {!Case.CaseNumber}</subject>
+    <textOnly>Case Submitted
+
+
+Case submitted for NCR
+
+Thank you for submitting a case for your issue.
+
+Case Number:  {!Case.CaseNumber}
+Query/Issue:  {!Case.Reason_for_Reaching_CSM_Team__c}
+Description:  {!Case.Description}
+Status:  {!Case.Status}
+
+
+NCR CSM will shortly be picking up this case to address your concern.
+
+Click Here To View Case Record
+
+Note: Cases submitted after 2:00 p.m. eastern time, will be processed the next business day.
+
+Warmest regards,
+
+NCR Support
+
+
+NCR Confidential. FOR INTERNAL USE ONLY.
+NCR Corporation 864 Spring St. NW, Atlanta, GA 30308-1007
+©2020 NCR Corporation. All rights reserved.  ncr.com
+NCR respects your privacy.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

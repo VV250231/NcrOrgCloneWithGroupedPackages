@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Previous_Service_Provider_mandatory</fullName>
+    <active>true</active>
+    <description>if the Service Assumption Date is input by the Partner user, the Previous Service Provider field should be required.</description>
+    <errorConditionFormula>AND(NOT(ISBLANK(Service_Assumption_Date__c)),(Service_Assumption_Date__c &gt; DATE(2017, 08, 23)), ISBLANK( TEXT(Previous_Service_Provider__c)) )</errorConditionFormula>
+    <errorMessage>Please select Previous Service Provider.</errorMessage>
+</ValidationRule>

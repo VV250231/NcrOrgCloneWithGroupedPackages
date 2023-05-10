@@ -1,0 +1,71 @@
+<apex:page standardController="Equipment_Declaration__c" extensions="WarrLaborReimbursementRequest" showHeader="true">
+    <apex:form rendered="{!errorcontent}">
+        <apex:commandLink action="{!cancel}" value="Back to the Equipment Declaration"/>
+        <br/><br/>
+        <apex:outputText >The equipment is in inactive state. No mail can be sent against inactive Equipments.</apex:outputText>
+    </apex:form>
+    <apex:form rendered="{!mailcontent}">
+        <apex:pageBlock title="Warr Labor Reimbursement Request">
+            <apex:pageBlockSection title="Mail Header" collapsible="false" columns="1">
+                
+                <table>
+                    <tr>
+                        <td style="width:70px"><h1 style="display:inline">Send To </h1></td>
+                        <td><p style="display:inline;">  : America,Partner Programs</p></td>
+                    </tr>
+                    <tr>
+                        <td><h1 style="display:inline">Subject:</h1></td>
+                        <td><p style="display:inline;"> : Warranty Labor Reimbursement Request</p></td>
+                    </tr>
+                </table>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Description" collapsible="false" columns="1">
+                <apex:pageblockSectionItem >    
+                <table style="width:40%">
+                    <tr>
+                        <th style="width:50%">Serial Number</th>
+                        <td>: {!equipmentDeclaration.Name}</td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <th>Product ID </th>
+                        <td>: {!equipmentDeclaration.Class__c}</td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <th>Customer Name </th>
+                        <td>: {!equipmentDeclaration.Customer_Name__c}</td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <th>Installation Date </th>
+                        <td>: {!equipmentDeclaration.Installation_Date_of_New_Unit__c}</td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <th>Account Name </th>
+                        <td>: {!equipmentDeclaration.Partner_Account__r.Name}</td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <th>SalesForce ID </th>
+                        <td>: {!equipmentDeclaration.Id}</td>
+                    </tr>
+                    <tr></tr>
+                </table>
+                </apex:pageblockSectionItem>
+                <apex:pageblocksectionItem labelStyle="text-align:justify;width:20%;font-size:105%;color:#2E2EFE;" dataStyle="text-align:left;" helpText="{!$ObjectType.Equipment_Declaration__c.Fields.Service_Date__c.inlineHelpText}"> 
+                    <apex:outputLabel >&nbsp;&nbsp;&nbsp;Date of Service:</apex:outputLabel>
+                    <apex:inputfield value="{!equipmentDeclaration.Service_Date__c}" required="true"/>    
+                </apex:pageblocksectionItem>
+            </apex:pageBlockSection>
+            <br/>
+            <apex:pageBlockSection title="Service Problem and Repair Description" collapsible="false" >
+                <apex:inputTextarea style="width:200%" rows="12" value="{!mailBody}"/>  
+                <br/>
+            </apex:pageBlockSection>
+            <apex:commandButton action="{! createWarrLabourReimbursementObj}" value="Submit"/>
+            <apex:commandButton action="{!cancel}" Value="Cancel"/>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

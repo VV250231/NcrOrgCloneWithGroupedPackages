@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>ERP_Order_Reject_Email_Alert</fullName>
+        <description>ERP Order Reject Email Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email_Recipient__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>ERP_OM_Template/ERP_Order_Reject_Email_Template</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>ERP_Order_Reject_Field_Update</fullName>
+        <description>ERP Order Reject Field Update</description>
+        <field>Email_Recipient__c</field>
+        <formula>$Label.AE_BIZ_OPS_EMAIL</formula>
+        <name>ERP Order Reject Field Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>ERP Order Reject Email</fullName>
+        <actions>
+            <name>ERP_Order_Reject_Email_Alert</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>ERP_Order_Reject_Field_Update</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Email send to AE BIZ ops in case order get rejected in OM due to data issue in header and lines.</description>
+        <formula>( Status__c  = &quot;FAILURE&quot;)  &amp;&amp; ( Interface_Type__c = &quot;ERP Order Acknowledgement&quot;) &amp;&amp; (ISPICKVAL(Fulfillment_Order__r.Order_Interface_Status__c,&quot;Data Issue on Header&quot;) || ISPICKVAL(Fulfillment_Order__r.Order_Interface_Status__c ,&quot;Data Issue on Lines&quot;))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

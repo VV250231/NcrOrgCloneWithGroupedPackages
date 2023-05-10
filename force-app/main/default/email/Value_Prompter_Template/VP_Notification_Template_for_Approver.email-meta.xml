@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>NCRLogoLetterhead</letterhead>
+    <name>VP Notification Template for Approver</name>
+    <style>formalLetter</style>
+    <subject>ValuePrompter Record Approval Request</subject>
+    <textOnly>Hi,
+{!Opportunity.OwnerFullName} has requested your approval for the following record of ValuePrompter:
+
+Contact :  {!Value_Prompter__c.Contact__c}
+Business Issue :  {!Value_Prompter__c.Business_Issue__c}
+Problem :  {!Value_Prompter__c.Problem__c}
+Value :  {!Value_Prompter__c.Value__c}
+Solution :  {!Value_Prompter__c.Solution__c}
+Power :  {!Value_Prompter__c.Power__c}
+
+VisionMatch:
+
+Business issue: Is it a Business Issue (versus a technical problem)? Can it be directly related to Revenue or Profit? - {!IF(Value_Prompter__c.Can_it_be_related_to_Revenue_or_Profit__c=TRUE, &quot;Yes&quot;, &quot;No&quot;)}
+Has the prospect acknowledged the business issue? - {!IF(Value_Prompter__c.Has_prspect_acknowledged_business_issue__c=TRUE, &quot;Yes&quot;, &quot;No&quot;)}
+Have we identified the problems or challenges that make this issue difficult to solve? - {!IF(Value_Prompter__c.Find_prob_make_this_issue_hard_to_solve__c=TRUE, &quot;Yes&quot;, &quot;No&quot;)}
+Have we identified/introduced problems that only we can solve? - {!IF(Value_Prompter__c.identified_prblm_that_only_we_can_solve__c=TRUE, &quot;Yes&quot;, &quot;No&quot;)}
+Would the prospect say any of the solution requirements are unique or differentiated? - {!IF(Value_Prompter__c.Is_prospect_req_any_unique_or_diff_sol__c=TRUE, &quot;Yes&quot;, &quot;No&quot;)}
+Comments : {!Value_Prompter__c.VisionMatch_Comments__c}
+
+
+Value:
+
+Has the Business Value been uncovered and quantified? - {!IF(Value_Prompter__c.Has_the_Business_Value_been_quantified__c=TRUE, &quot;Yes&quot;, &quot;No&quot;)}
+Has a cost justification or ROI been completed? - {!IF(Value_Prompter__c.Has_a_cost_justification_been_completed__c=TRUE, &quot;Yes&quot;, &quot;No&quot;)}
+Does the prospect agree with the potential value to their business? - {!IF(Value_Prompter__c.Do_prospect_agreed_potential_buss_value__c=TRUE, &quot;Yes&quot;, &quot;No&quot;)}
+Was the Business Value confirmed as part of the Plan letter? - {!IF(Value_Prompter__c.Was_any_personal_value_uncovered__c=TRUE, &quot;Yes&quot;, &quot;No&quot;)}
+Do we understand the personal value of the ultimate decision maker / Power Person? - {!IF(Value_Prompter__c.Understand_personal_value_of_dec_maker__c=TRUE, &quot;Yes&quot;, &quot;No&quot;)}
+Comments : {!Value_Prompter__c.Value_Comments__c}
+
+
+Power:
+
+Organizational chart Completed? -   {!IF(Value_Prompter__c.Organizational_chart_Completed__c=TRUE, &quot;Yes&quot;, &quot;No&quot;)}
+Do we have access to the Power Person? - {!IF(Value_Prompter__c.Access_to_the_Power_Person__c=TRUE, &quot;Yes&quot;, &quot;No&quot;)}
+Do we understand the Decision Making Process? - {!IF(Value_Prompter__c.Have_we_developed_an_eVP__c=TRUE, &quot;Yes&quot;, &quot;No&quot;)}
+Validated the Power Person&apos;s decision making authority? - {!IF(Value_Prompter__c.Validatd_Power_Person_decsion_authority__c=TRUE, &quot;Yes&quot;, &quot;No&quot;)}
+Have we confirmed the Power Person has access to the funds and budget (do not assume)? - {!IF(Value_Prompter__c.Power_Person_has_access_to_funds_bdgt__c=TRUE, &quot;Yes&quot;, &quot;No&quot;)}
+Comments : {!Value_Prompter__c.Power_Comments__c}
+
+
+Plan:
+
+Has the Plan been mutually developed , confirmed in writing  and agreed upon with the customer? - {!IF(Value_Prompter__c.Has_Plan_confirmed_with_customer__c=TRUE, &quot;Yes&quot;, &quot;No&quot;)}
+Has client agreed to a completion date that maps to their urgency to act or compelling event? - {!IF(Value_Prompter__c.Has_client_agreed_to_a_completion_date__c=TRUE, &quot;Yes&quot;, &quot;No&quot;)}
+Has the power person agreed to a mutual plan of activities? - {!IF(Value_Prompter__c.Has_power_person_agreed_on_mutual_plan__c=TRUE, &quot;Yes&quot;, &quot;No&quot;)}
+If this plan is with a sponsor, does it include access to the decision maker? - {!IF(Value_Prompter__c.Is_this_Plan_with_a_sponsor__c=TRUE, &quot;Yes&quot;, &quot;No&quot;)}
+Are there logical checkpoints for Decision Maker review? - {!IF(Value_Prompter__c.Are_checkpnts_for_Decision_Maker_review__c=TRUE, &quot;Yes&quot;, &quot;No&quot;)}
+Comments : {!Value_Prompter__c.Plan_Comments__c}
+
+
+To approve or reject this item, click this link :: {!ApprovalRequest.Internal_URL}
+
+
+
+Please Approve or Reject.
+Thanks,
+NCR Salesforce Administration</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

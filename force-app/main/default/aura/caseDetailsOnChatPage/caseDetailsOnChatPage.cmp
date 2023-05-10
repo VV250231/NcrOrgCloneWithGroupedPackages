@@ -1,0 +1,15 @@
+<aura:component controller="caseDetailsOnChatPageController" implements="force:lightningQuickActionWithoutHeader,flexipage:availableForRecordHome,force:hasRecordId">
+    
+    <aura:attribute name="caseiddata" type="object"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="recordtypedetails" type="String"/>
+    <lightning:tabset selectedTabId="caseDetails">
+        <lightning:tab label="Details" id="caseDetails">
+            <lightning:card >
+                <lightning:recordForm recordId="{!v.caseiddata}" objectApiName="Case" layoutType="Full" columns="2" mode="edit" 
+                                      recordTypeId="{!v.recordtypedetails}" />
+            </lightning:card>
+        </lightning:tab>
+    </lightning:tabset>
+    
+</aura:component>

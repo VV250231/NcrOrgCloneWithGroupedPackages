@@ -1,0 +1,162 @@
+<aura:component controller="RmaCon" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="rmaRecordTypes" type="List" />
+    <aura:attribute name="selectedRecType" type="String"/>
+    <aura:attribute name="isRecordTypeSelection" type="Boolean" default="true"/>
+    <aura:attribute name="recordTypeDevName" type="String"/>
+    <aura:attribute name="isView" type="Boolean" default="false"/>
+    <aura:attribute name="mode" type="String" default="edit"/>
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="rmaObj" type="RMA__c" default="{'sobjectType':'RMA__c'}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    
+    <aura:if isTrue="{! v.mode == 'edit'}">    
+        
+        <!-- Record Type Selection -->
+        <aura:if isTrue="{! v.isRecordTypeSelection}">
+            <!-- Record Type Selection -->
+            <div class="slds">
+                <div class="section">
+                    <div class="section-body">
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3">
+                                <lightning:select name="RMA_RecordTypes" label="Select RMA Request Type" required="true" value="{! v.selectedRecType}">
+                                    <option value="">-- None --</option>
+                                    <aura:iteration items="{! v.rmaRecordTypes}" var="recordType">
+                                        <option value="{! recordType.DeveloperName}" text="{!recordType.Name}"/>       
+                                    </aura:iteration>
+                                </lightning:select>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3">
+                                <ul class="slds-button-group-row slds-float_right">
+                                    <li class="slds-button-group-item">
+                                        <lightning:button variant="Neutral" label="Cancel" title="Cancel" onclick="{! c.handleRecTypeChangeCancel }"/>
+                                    </li>
+                                    <li class="slds-button-group-item">
+                                        <lightning:button variant="brand" label="Next" title="Next Action" onclick="{! c.handleRecTypeChange }"/>
+                                    </li>
+                                    
+                                </ul> 
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </aura:if>
+        <!-- Record Type Selection End-->
+        
+        <!-- Spare Parts RMA Request -->
+        <aura:if isTrue="{! v.recordTypeDevName == 'Spare_Parts_RMA'}">
+            
+           
+                
+            <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3">
+                                <ul class="slds-button-group-row slds-float_left">
+                                    <li class="slds-button-group-item">
+                                        <lightning:button variant="Neutral" label="Close" title="Cancel" onclick="{! c.handleRecTypeChangeCancel }"/>
+                                    </li>
+                                </ul> 
+                            </div>
+                        </div>
+                     
+                
+            <br/>
+            
+            
+            <div class="slds-box">
+                <p>
+                    To process Spare Parts RMAs, NCR partners are requested to use the Service Parts Application or contact the following:
+                    <ul style="list-style-type: disc;">
+                        <li>
+                            NAMER and CLA Service Parts Support Team: OMI, Channel Partners <lightning:formattedEmail value="ChannelPartners.OMI@ncr.com" /> (Call: 1-800-438-7830 option 2)
+                        </li>
+                        <li>
+                            EMEA Service Parts Support Team: <lightning:formattedEmail value="eslc.partsales@ncr.com" /> (From 09:00 AM to 05:PM CET, Call (+44) 2030 278 005 Option 2)
+                        </li>
+                    </ul>
+                    If there are any other questions about the Spare Parts RMA process, please email Partner.Assist@ncr.com
+                </p>
+            </div>
+        </aura:if>
+        <!-- Spare Parts RMA Request End-->
+        
+        <!-- Equipment RMA Request -->
+        <aura:if isTrue="{! v.recordTypeDevName == 'Equipment_RMA'}">
+            <div class="slds-page-header" role="banner">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-has-flexi-truncate"> 
+                        <div class="slds-media slds-media--center slds-no-space slds-grow">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-account">
+                                    <lightning:icon iconName="standard:account" size="large" alternativeText="Indicates approval"/>
+                                    <span class="slds-assistive-text">New RMA</span>
+                                </span>
+                            </div>
+                            <div class="slds-media__body ">
+                                <p class="slds-text-title--caps slds-line-height--reset" title="Deal Registration">
+                                    <h2 class="slds-text-heading_small">New RMA</h2></p>
+                            </div>
+                        </div>                    
+                    </div>                 
+                </div>
+            </div>
+            
+            <div class="slds">
+                <div class="section">
+                    <h2 class="slds-text-heading_small section-heading">Return Material Authorization Rquest</h2>
+                    <div class="section-body">
+                        <lightning:messages />                       
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning:input label="Order Number" value="{! v.rmaObj.Order_Number__c}" required="true"/>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning:input label="Product ID" value="{! v.rmaObj.Product_ID__c}" required="true"/>
+                            </div>
+                            
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning:input label="Quantity" value="{! v.rmaObj.Quantity__c}" required="true"/>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning:textarea label="Reason for Return" value="{! v.rmaObj.Reason_for_Return__c}" required="true"/>
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_2-of-2">
+                                <lightning:textarea label="Additional Comments" value="{! v.rmaObj.Additional_Comments__c}" />
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-1">
+                                <ul class="slds-button-group-row slds-float_right">
+                                    <li class="slds-button-group-item">
+                                        <lightning:button variant="brand" name="cancel" label="Cancel" class="slds-button slds-button_neutral" onclick="{! c.handleRecTypeChangeCancel}"/>
+                                    </li>
+                                    <li class="slds-button-group-item">
+                                        <lightning:button variant="brand" name="save" label="Save" class="slds-button slds-button_neutral" onclick="{! c.chandleRecSave }"/>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aura:if>
+        <!-- Equipment RMA Request End-->
+    </aura:if>
+    
+    <aura:if isTrue="{!v.mode == 'view'}">
+        <c:PRM_RMA_View recordId="{!v.recordId}"/>
+    </aura:if>
+    
+    
+</aura:component>

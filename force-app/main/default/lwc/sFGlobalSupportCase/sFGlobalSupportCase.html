@@ -1,0 +1,78 @@
+<template>
+		
+<div class="slds-scrollable_y" style="height:25rem">
+
+        <div class="slds-form">
+            <c-generic-dependent-picklist 
+                object-api-name="Case"
+                record-type-id="0120g00000060f3"
+                dependent-picklist-api-name="Reason_Type__c"
+                dependent-picklist-label="Reason Type"
+                dependent-picklist-required="true"
+                dependent-picklist-value={reasonTypeSelValue}
+                controlling-picklist-api-name="Reason"
+                controlling-picklist-label="Case Reason"
+                controlling-picklist-required="true"
+                controlling-picklist-value={caseReasonSelValue}
+                onselectedpicklists={handlePicklistChange} >
+            </c-generic-dependent-picklist>
+            <div class="slds-form-element slds-form-element_stacked">
+                <lightning-input class="gstxtsubject" name="Subject"  type="text" label="Case Subject" value={CaseRecord.Subject} required></lightning-input>
+            </div>
+            <div class="slds-form-element slds-form-element_stacked">
+                <lightning-textarea class="gstxtdesc" name="Description" label="Case Description" value={CaseRecord.Description} required></lightning-textarea>
+            </div>
+            
+            <div class="slds-form-element slds-form-element_stacked" >
+                    <template if:true={showlookup}>
+                        <c-search-component
+                            object-name={lkpobject}
+                            icon-name={lkpicon}
+                            show-label=true
+                            label-name={lkpLabel}
+                            placeholder="Search"                            
+                            show-fields={displayFields}
+                            onlookup={handleLookup}
+                            required="true" >
+                        </c-search-component>
+                        <!--//fields={displayFields}-->
+                    </template>
+            </div>
+        <div class="slds-form-element slds-form-element_stacked" >
+            <template if:true={showlookup1}>
+                <c-search-component
+                    object-name={lkpobject1}
+                    icon-name={lkpicon1}
+                    show-label=true
+                    label-name={lkpLabel1}
+                    placeholder="Search"                            
+                    show-fields={displayFields1}
+                    onlookup={handleLookup1}
+                    required="false" >
+                </c-search-component>
+                <!--//fields={displayFields}-->
+            </template>
+    </div>
+
+
+    <div class="slds-form-element slds-form-element_stacked" >
+        <template if:true={showlookup2}>
+            <c-search-component
+                object-name={lkpobject2}
+                icon-name={lkpicon2}
+                show-label=true
+                label-name={lkpLabel2}
+                placeholder="Search"                            
+                show-fields={displayFields2}
+                onlookup={handleLookup2}
+                required="false" >
+            </c-search-component>
+            <!--//fields={displayFields}-->
+        </template>
+</div>
+        </div>
+        
+<lightning-button label="Next" variant="brand" onclick={handleNext} class="slds-float_right slds-m-top_x-small"></lightning-button>
+</div>
+ 
+</template>

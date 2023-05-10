@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Notifies Tanya Lebron that an Accenture Case has been moved to Assess Status.</description>
+        <name>Notify_Global_Entitlements_Managers_Accenture_Case_moved_to_Assess</name>
+        <label>Notify Global Entitlements Managers Accenture Case moved to Assess</label>
+        <locationX>50</locationX>
+        <locationY>398</locationY>
+        <actionName>Case.Global_Entitlements_Notify_Global_Entitlement_Manager_Accenture_Case_Moved_to_As</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Checking_case_contract_begin_date</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>CaseNew.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>Sends email to supervisor when Hospitality Namer Direct Subcategory equals to Support Escalation.</description>
+        <name>Notify_supervisor</name>
+        <label>Notify supervisor</label>
+        <locationX>204</locationX>
+        <locationY>1958</locationY>
+        <actionName>Case.HOSPD_Case_Escalated</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>CaseNew.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>53.0</apiVersion>
+    <decisions>
+        <description>Checking case status to perform required operation depending on further conditions.</description>
+        <name>Check_case_status</name>
+        <label>Check case status</label>
+        <locationX>336</locationX>
+        <locationY>158</locationY>
+        <defaultConnector>
+            <targetReference>Checking_case_contract_begin_date</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Else</defaultConnectorLabel>
+        <rules>
+            <name>If_case_status_is_assess</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>CaseNew.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Assess</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Check_case_subject_value</targetReference>
+            </connector>
+            <label>If case status is assess</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking case subject details.</description>
+        <name>Check_case_subject_value</name>
+        <label>Check case subject value</label>
+        <locationX>182</locationX>
+        <locationY>278</locationY>
+        <defaultConnector>
+            <targetReference>Checking_case_contract_begin_date</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Else</defaultConnectorLabel>
+        <rules>
+            <name>If_subject_contains_Accenture</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>CaseNew.Subject</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Accenture</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>CaseOld.Status</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Assess</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Notify_Global_Entitlements_Managers_Accenture_Case_moved_to_Assess</targetReference>
+            </connector>
+            <label>If subject contains Accenture</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Checking_annual_billing_date</name>
+        <label>Checking annual billing date</label>
+        <locationX>336</locationX>
+        <locationY>1046</locationY>
+        <defaultConnector>
+            <targetReference>Checking_case_account_owner_value</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Else</defaultConnectorLabel>
+        <rules>
+            <name>If_annual_billing_date_not_null</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>CaseNew.Annual_Billing_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update</targetReference>
+            </connector>
+            <label>If annual billing date not null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Checking_case_account_owner_value</name>
+        <label>Checking case account owner value</label>
+        <locationX>336</locationX>
+        <locationY>1382</locationY>
+        <defaultConnector>
+            <targetReference>Checking_case_subcategory_value</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Else</defaultConnectorLabel>
+        <rules>
+            <name>If_account_owner_is_not_null</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>CaseNew.Account_Owner__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>CaseNew.AccountId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Case_Account_Owner_Details</targetReference>
+            </connector>
+            <label>If account owner is not null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Checking_case_contract_begin_date</name>
+        <label>Checking case contract begin date</label>
+        <locationX>336</locationX>
+        <locationY>710</locationY>
+        <defaultConnector>
+            <targetReference>Checking_annual_billing_date</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Else</defaultConnectorLabel>
+        <rules>
+            <name>If_contract_begin_date_is_not_null</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>CaseNew.Contract_Begin_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>CaseNew.Total_Months_on_Contract__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_months_remaining_on_contract</targetReference>
+            </connector>
+            <label>If contract begin date is not null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Checking_case_subcategory_value</name>
+        <label>Checking case subcategory value</label>
+        <locationX>336</locationX>
+        <locationY>1838</locationY>
+        <defaultConnectorLabel>Else</defaultConnectorLabel>
+        <rules>
+            <name>If_subcategory_equals_to_Support_Escalation</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>CaseNew.Subcategory__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Support Escalation</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>CaseOld.Subcategory__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>CaseNew.Subcategory__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>CaseNew.ContactEmail</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Notify_supervisor</targetReference>
+            </connector>
+            <label>If subcategory equals to Support Escalation</label>
+        </rules>
+    </decisions>
+    <description>This is a subflow being referenced in case after flow.
+Following workflow rule has been migrated to this flow:
+1. Notify Global Entitlements Managers Accenture Case moved to Assess
+2. Global Entitlements: Calculate Months Remaining on Contract
+3. GLOBAL ENTITLEMENTS: Billing Cycle Remaining
+4. Update Account Owner Info
+5. HOSPD: Support Escalation</description>
+    <formulas>
+        <description>Calculating Contract Billing Remaining.</description>
+        <name>ContractBillingRemaining</name>
+        <dataType>Number</dataType>
+        <expression>({!CaseNew.Next_Billing_Date__c} - TODAY())/30</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <description>Calculating Remaining Months of Contract</description>
+        <name>RemainingMonthsofContract</name>
+        <dataType>Number</dataType>
+        <expression>{!CaseNew.Total_Months_on_Contract__c} -  (MONTH(Today()) - MONTH({!CaseNew.Contract_Begin_Date__c}) )</expression>
+        <scale>0</scale>
+    </formulas>
+    <interviewLabel>Case Subflow Global Entitlement {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Case Subflow - Global Entitlement</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Case_Account_Owner_Details</name>
+        <label>Get Case Account Owner Details</label>
+        <locationX>204</locationX>
+        <locationY>1502</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Update_AO_manager_field</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>CaseNew.Account.OwnerId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>User</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Assigning value to # of Months to Next Billing Date field.</description>
+        <name>Update</name>
+        <label>Update # of Months to Next Billing Date field</label>
+        <locationX>204</locationX>
+        <locationY>1166</locationY>
+        <connector>
+            <targetReference>Checking_case_account_owner_value</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>CaseNew.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Months_Remaining_on_Bill_Cycle__c</field>
+            <value>
+                <elementReference>ContractBillingRemaining</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_AO_manager_field</name>
+        <label>Update AO manager field</label>
+        <locationX>204</locationX>
+        <locationY>1622</locationY>
+        <connector>
+            <targetReference>Checking_case_subcategory_value</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>CaseNew.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>AccountId</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>AO_Manager_Email__c</field>
+            <value>
+                <elementReference>Get_Case_Account_Owner_Details.Manager.Email</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Updates field with calculation of Months Remaining on Contact.</description>
+        <name>Update_months_remaining_on_contract</name>
+        <label>Update months remaining on contract</label>
+        <locationX>204</locationX>
+        <locationY>830</locationY>
+        <connector>
+            <targetReference>Checking_annual_billing_date</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>CaseNew.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Months_Remaining_on_Contract__c</field>
+            <value>
+                <elementReference>RemainingMonthsofContract</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <start>
+        <locationX>210</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Check_case_status</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>This variable contains new case record details.</description>
+        <name>CaseNew</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Case</objectType>
+    </variables>
+    <variables>
+        <description>This variable contains old case record details.</description>
+        <name>CaseOld</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Case</objectType>
+    </variables>
+</Flow>

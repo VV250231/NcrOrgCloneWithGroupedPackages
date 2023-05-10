@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OTIF_Status__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(LOB__c&lt;&gt;&apos;Banking&apos;,
+IF((DATEVALUE(TEXT(Current_Target_Date__c)) - DATEVALUE(TEXT(Project_Close_Date__c)) )&lt;=0,&apos;On Time&apos;,
+IF((DATEVALUE(TEXT(Current_Target_Date__c)) - DATEVALUE(TEXT(Project_Close_Date__c)) )&gt;0,
+IF((DATEVALUE(TEXT(Current_Target_Date__c)) - DATEVALUE(TEXT(Project_Close_Date__c)) )&lt;=7,&apos;Late within a Week&apos;,&apos;Late more than a Week&apos;),&apos;&apos;)
+),
+
+IF(ISNULL(Project_Close_Date__c),
+IF(DATEVALUE(TEXT(Today())) - DATEVALUE(TEXT(Project_Close_Date__c))&lt;=90,&apos;ON TIME&apos;,
+IF(DATEVALUE(TEXT(Today())) - DATEVALUE(TEXT(Project_Close_Date__c))&gt;90,
+IF(DATEVALUE(TEXT(Today())) - DATEVALUE(TEXT(Project_Close_Date__c))&lt;=97,&apos;Late within a Week&apos;,&apos;Late more than a Week&apos;),&apos;&apos;)),
+IF(DATEVALUE(TEXT(Project_Close_Date__c)) - DATEVALUE(TEXT(Project_Start_Date__c))&lt;=90,&apos;ON TIME&apos;,
+IF(DATEVALUE(TEXT(Project_Close_Date__c)) - DATEVALUE(TEXT(Project_Start_Date__c))&gt;90,
+IF(DATEVALUE(TEXT(Project_Close_Date__c)) - DATEVALUE(TEXT(Project_Start_Date__c))&lt;=97,&apos;Late within a Week&apos;,&apos;Late more than a Week&apos;),&apos;&apos;))))</formula>
+    <label>OTIF Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

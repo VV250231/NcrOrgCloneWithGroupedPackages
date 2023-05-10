@@ -1,0 +1,278 @@
+<aura:component controller="RmaCon" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+    <!-- Attributes -->
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="rmaObj" type="RMA__c" default="{'sobjectType':'RMA__c'}"/>
+    <aura:attribute name="isApproval" type="Boolean" default="false"/>
+    <aura:attribute name="isFileUpload" type="Boolean" default="false"/>
+    <aura:attribute name="approvalComment" type="String" />
+    <aura:attribute name="fileLst" type="List"/>
+    <aura:attribute name="mode" type="String" default="view"/>
+    
+    <!-- Handlers -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <!-- Approval Modal -->
+    <aura:if isTrue="{!v.isApproval}">
+        <div class="demo-only"  aura:id="" style="height: 200px;">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" 
+                     class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeDocModal}">
+                            X<span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Submit for Approval</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium section-heading" id="modal-content-id-1">
+                        <lightning:textarea name="comment" value="{!v.approvalComment}" label="Comments" maxlength="500" />
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" type="button" onclick="{!c.submitRecordForApproval}">Submit</button>
+                        <button class="slds-button slds-button_neutral" onclick="{!c.closeDocModal}">Cancel</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+    
+    <!-- File Upload Modal -->
+    <aura:if isTrue="{!v.isFileUpload}">
+        <div class="demo-only"  aura:id="" style="height: 200px;">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" 
+                     class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeFileModal}">
+                            X<span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">File Upload</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium section-heading" id="modal-content-id-1">
+                        <lightning:fileUpload  name="fileUploader" 
+                                              label= "File Upload"
+                                              multiple="false"
+                                              recordId="{!v.rmaObj.Id}"
+                                              onuploadfinished="{! c.handleUploadFinished }"/>
+                        
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <!--<button class="slds-button slds-button_neutral" type="button" onclick="{!c.submitRecordForApproval}">Upload</button>-->
+                        <button class="slds-button slds-button_neutral" onclick="{!c.closeFileModal}">Cancel</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+    
+    <aura:if isTrue="{!v.mode== 'view'}">
+        <div class="slds">
+            <lightning:recordViewForm recordId="{! v.recordId}" objectApiName="RMA__c">
+                <div class="slds-page-header slds-page-header_record-home">
+                    <div class="slds-page-header__row">
+                        <div class="slds-page-header__col-title">
+                            <div class="slds-media">
+                                <div class="slds-media__figure">
+                                    <span class="slds-icon_container slds-icon-standard-opportunity">                                
+                                        <lightning:icon iconName="custom:custom21" size="large" alternativeText="RMA Request"/>
+                                    </span>
+                                </div>
+                                <div class="slds-media__body">
+                                    <div class="slds-page-header__name">
+                                        <div class="slds-page-header__name-title">
+                                            <h1>
+                                                <span>Return Material Authorization</span>
+                                                <span class="slds-page-header__title slds-truncate" title="{!Name}">{! v.rmaObj.Name}</span>
+                                            </h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-page-header__col-actions">
+                            <div class="slds-page-header__controls">
+                                <div class="slds-page-header__control">
+                                    <button class="slds-button slds-button_neutral slds-button_stateful slds-not-selected" aria-live="assertive">
+                                        <span class="slds-text-not-selected">
+                                        </span>
+                                        <span class="slds-text-selected">
+                                        </span>
+                                        <span class="slds-text-selected-focus">
+                                        </span>
+                                    </button>
+                                </div>
+                                <div class="slds-page-header__control">
+                                    <ul class="slds-button-group-list">
+                                        <li> <!--<aura:if isTrue="{!v.rmaObj.Status__c == 'Draft'}">-->
+                                            <button class="slds-button slds-button_neutral" onclick="{!c.chandleEdit}">Edit</button>
+                                            <!--</aura:if>-->
+                                        </li>
+                                        <li>
+                                            <!--<button class="slds-button slds-button_neutral" onclick="{!c.handleDelete}">Delete</button>-->
+                                        </li>
+                                        <li>
+                                            <button class="slds-button slds-button_neutral" onclick="{!c.showFileModal}">Attach File</button>
+                                        </li>
+                                        <li>
+                                            <!--
+                                            <aura:if isTrue="{!v.rmaObj.Status__c == 'Draft'}">
+                                                <button class="slds-button slds-button_neutral" onclick="{!c.showApprovalModal}">Submit for Approval</button>
+                                            </aura:if>-->
+                                            
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                
+                
+                <div class="section">
+                    
+                    <h2 class="slds-text-heading_small section-heading">
+                        Partner Details
+                    </h2>
+                    
+                    <div class="section-body">
+                        
+                        <div class="slds-form slds-form_stacked" role="list">
+                            
+                            <div class="slds-grid slds-gutters_small">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <lightning:outputField fieldName="Account__c" />
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <lightning:outputField fieldName="MCN__c" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-gutters_small">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <lightning:outputField fieldName="Contact__c" />
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <lightning:outputField fieldName="Email__c" />
+                                    </div>
+                                </div>
+                            </div>                            
+                        </div>                        
+                    </div>                    
+                </div>
+                
+                <div class="section">
+                    
+                    <h2 class="slds-text-heading_small section-heading">RMA Request Details </h2>
+                    
+                    
+                    <div class="section-body">
+                        
+                        <div class="slds-form slds-form_stacked" role="list">
+                            
+                            <div class="slds-grid slds-gutters_small">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <lightning:outputField fieldName="Name" />
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <lightning:outputField fieldName="CreatedDate" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-gutters_small">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <lightning:outputField fieldName="Status__c" />
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="slds-grid slds-gutters_small">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <lightning:outputField fieldName="Order_Number__c" />
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <lightning:outputField fieldName="Product_ID__c" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-gutters_small">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <lightning:outputField fieldName="Quantity__c" />
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <lightning:outputField fieldName="Reason_for_Return__c" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-gutters_small">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <lightning:outputField fieldName="Additional_Comments__c" />
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <lightning:outputField fieldName="NCR_Status_Comments__c" />
+                                    </div>
+                                </div>
+                            </div>   
+                        </div>                
+                    </div>            
+                </div>     
+            </lightning:recordViewForm>
+            
+            <div class="section">
+                <h2 class="slds-text-heading_small section-heading">Attached Files</h2>
+                
+                <div class="section-body">
+                    <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                        <thead>
+                            <tr class="slds-text-title_caps">
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Action">Title</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <aura:iteration items="{!v.fileLst}" var="recFile">
+                                <tr>
+                                    <td>
+                                        <a data-ids="{!recFile.Id}" onclick="{!c.openFile}">{! recFile.Title}</a>
+                                    </td>
+                                </tr>
+                            </aura:iteration>
+                        </tbody>
+                    </table>
+                    
+                </div>    
+            </div>
+        </div>
+    </aura:if>
+    
+    <aura:if isTrue="{! v.mode=='edit'}">
+        <c:PRM_RMA_Edit recordId="{! v.recordId}" cancelEdit="{!c.cHandlecancelEdit}" saveEdit="{!c.cHandleSaveEdit}"/>
+    </aura:if>
+</aura:component>

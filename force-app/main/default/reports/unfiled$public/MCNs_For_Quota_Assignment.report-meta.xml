@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Account.Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>USERS.NAME</field>
+    </columns>
+    <columns>
+        <field>Account.LOB__c</field>
+    </columns>
+    <columns>
+        <field>CDF1</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.CDM_SMB_Flag__c</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Account_Name_Local__c</field>
+    </columns>
+    <columns>
+        <field>Account.MDM_Customer_Entity_Name__c</field>
+    </columns>
+    <columns>
+        <field>Account.Billing_State_with_Name__c</field>
+    </columns>
+    <columns>
+        <field>Account.Parent_Account_Name__c</field>
+    </columns>
+    <columns>
+        <field>Account.MDM_Enterprise_Name__c</field>
+    </columns>
+    <columns>
+        <field>Account.Active_Account__c</field>
+    </columns>
+    <columns>
+        <field>User.Active_Status__c</field>
+    </columns>
+    <columns>
+        <field>Account.StoreNext_Partner__c</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>IF(CONTAINS(Account.Account_Owner_Role__c,&quot;Channel&quot;),
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;Central&quot;),&quot;Channel Central&quot;,
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;North&quot;),&quot;Channel North&quot;,
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;South&quot;),&quot;Channel South&quot;,
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;West&quot;),&quot;Channel West&quot;, &quot;Channel &quot; &amp; Account.Account_Owner_Role__c)))), 
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;Northeast&quot;),&quot;Northeast&quot;,
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;Southeast&quot;),&quot;Southeast&quot;,
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;Central&quot;),&quot;Central&quot;,
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;Florida&quot;),&quot;Florida&quot;,
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;Texas&quot;),&quot;Texas&quot;,
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;West&quot;),&quot;West&quot;, Account.Account_Owner_Role__c)))))))</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>SMB Region</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6)</booleanFilter>
+        <criteriaItems>
+            <column>Account.Master_Customer_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value></value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>ACCOUNT.NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Hurricane Grill &amp; Wings,Buffalo’s Café,Twin Peaks,Great American Cookie,Pretzelmaker,Hot Dog on a Stick,Marble Slab Creamery,Maggie Moo’s,Fatburger,Elevation Burger,Native Grill &amp; Wings,Johnny Rockets,Round Table Pizza,Yalla Mediterranean Grill,Fazoli’s,Ponderosa Steakhouse,Bonanza Steakhouse</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Account_Name_Local__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Hurricane Grill &amp; Wings,Buffalo’s Café,Twin Peaks,Great American Cookie,Pretzelmaker,Hot Dog on a Stick,Marble Slab Creamery,Maggie Moo’s,Fatburger,Elevation Burger,Native Grill &amp; Wings,Johnny Rockets,Round Table Pizza,Yalla Mediterranean Grill,Fazoli’s,Ponderosa Steakhouse,Bonanza Steakhouse</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.MDM_Enterprise_Name__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Hurricane Grill &amp; Wings,Buffalo’s Café,Twin Peaks,Great American Cookie,Pretzelmaker,Hot Dog on a Stick,Marble Slab Creamery,Maggie Moo’s,Fatburger,Elevation Burger,Native Grill &amp; Wings,Johnny Rockets,Round Table Pizza,Yalla Mediterranean Grill,Fazoli’s,Ponderosa Steakhouse,Bonanza Steakhouse</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Billing_State_with_Name__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Hurricane Grill &amp; Wings,Buffalo’s Café,Twin Peaks,Great American Cookie,Pretzelmaker,Hot Dog on a Stick,Marble Slab Creamery,Maggie Moo’s,Fatburger,Elevation Burger,Native Grill &amp; Wings,Johnny Rockets,Round Table Pizza,Yalla Mediterranean Grill,Fazoli’s,Ponderosa Steakhouse,Bonanza Steakhouse</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Parent_Account_Name__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Hurricane Grill &amp; Wings,Buffalo’s Café,Twin Peaks,Great American Cookie,Pretzelmaker,Hot Dog on a Stick,Marble Slab Creamery,Maggie Moo’s,Fatburger,Elevation Burger,Native Grill &amp; Wings,Johnny Rockets,Round Table Pizza,Yalla Mediterranean Grill,Fazoli’s,Ponderosa Steakhouse,Bonanza Steakhouse</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>MCNs For Quota Assignment</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

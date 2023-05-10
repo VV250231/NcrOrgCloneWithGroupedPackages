@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_2223408</developerName>
+        <masterLabel>SUB REGION</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Opportunity.OCR_TEAM__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>FS - NAMER - Majors - BAC-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FS - NAMER - Majors - CARD-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FS - NAMER - Majors - Canada - CIBC</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FS - NAMER - Majors - Canada - Channel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FS - NAMER - Majors - Canada - Intria</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FS - NAMER - Majors - Canada - RBC</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FS - NAMER - Majors - Canada - SSPAY</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FS - NAMER - Majors - JPMC</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FS - NAMER - Majors - MA-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FS - NAMER - Majors - NE 2</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FS - NAMER - Majors - NE-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FS - NAMER - Majors - PNC</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FS - NAMER - Majors - Pay Channel-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FS - NAMER - Majors - SE-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FS - NAMER - Majors - Wells-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FS - NAMER - Majors-D6</sourceValue>
+            </sourceValues>
+            <value>Financial-Namer Majors</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>FS - NAMER - CFI - Central-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FS - NAMER - CFI - Inside Sales-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FS - NAMER - CFI - MidAtlantic-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FS - NAMER - CFI - Mountain-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FS - NAMER - CFI - Northeast-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FS - NAMER - CFI - Relatnship Mgmt East-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FS - NAMER - CFI - Relatnship Mgmt West-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FS - NAMER - CFI - South Central-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FS - NAMER - CFI - South West-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FS - NAMER - CFI - SouthEast-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FS - NAMER - CFI - West-D6</sourceValue>
+            </sourceValues>
+            <value>Financial-Namer CFI</value>
+        </values>
+    </buckets>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <aggregate>Sum</aggregate>
+            <axisBinding>y</axisBinding>
+            <column>Opportunity.Soln_Opp_Amount__c.CONVERT</column>
+        </chartSummaries>
+        <chartType>VerticalColumn</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>BucketField_2223408</groupingColumn>
+        <location>CHART_TOP</location>
+        <showAxisLabels>true</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>ROLLUP_DESCRIPTION</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Soln_Opp_Amount__c.CONVERT</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>FORECAST_CATEGORY</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Upside,Commit</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Soln_Opp_Amount__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>greaterThan</operator>
+            <value>USD 0</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.OCR_TEAM__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>startsWith</operator>
+            <value>FS - NAMER</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.OCR_TEAM__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>Europe,MEA</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_2223408</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Soln sub region FIN CQ</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>open</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>Opportunity.Soln_Opp_Amount__c.CONVERT</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CURRENTQ</interval>
+    </timeFrameFilter>
+</Report>

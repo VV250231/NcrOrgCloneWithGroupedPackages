@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Case$CaseNumber</field>
+    </columns>
+    <columns>
+        <field>Case$Status</field>
+    </columns>
+    <columns>
+        <field>Case$Subject</field>
+    </columns>
+    <columns>
+        <field>Case$Support_Queue__c</field>
+    </columns>
+    <columns>
+        <field>Case$Priority</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Case$Case_Age_In_Days__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>Case$Site_Id__c.Site_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>9309615,9309617,9309583,9309605,10033698,9975146,9728709,8732414,10180619,9309609,9309568,9309580,9565538,9309613,9309574,9309592,9210065,9309610,9309572,9309581,9309499,9097186,8887222,9309585,9309587,9309608,9309575,9858214,9309591,9309593,9309604,9309503,9309578,9309603,10358018,9717427,9074243,9309616,9309579,9309582,9309571,10305936,9565593,9309584,9309589,9325070,10583430,42565412,X41171534X,X41181550X,42367404,42816298,42816446,42816439,42816448,42816445,42816443,42816444,42816299,42815953,42764085,41149906,40718305,42347327,42714255,42665909,42715389,9621063,42549310,9557648,7692158,7516895,9920042,7521436,7517068,9625696,7521783,7517176,7521786,9625697,7516456,10268088,41136794,41136797,7698829,9183730,8118996,7516885,7517161,7516335,7517083,9563296,6809217,9695733,10043349,9556195,7516545,7394364,40730772,42565987,10542595,9986256,7516644,9757720,10023567,9035371,10141338,10025087,9183743,10059078,7516440,8741396,7522068,9035435,7521788,7522110,7517259,9938053,8304452,8801838,7521558,7516162,9216691,9471104,7517096,8462136,7601065,7522688,9557649,9281733,7843330,8670907,8035560,41153652,42482430,41161184,X41027536X,X8140240X,42418905,42441197,42418908,X41248174X,42549608,42680787</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case$Status</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>New,Assigned,In_Progress,In Progress,Open,Pending</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>City BBQ MA Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Case_With_Lookup_Info__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Case$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Channel_Office__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Channel/Local Office</label>
+    <lookupFilter>
+        <active>true</active>
+        <booleanFilter>(5 AND ((1 OR 4) AND 2) OR 3) AND (6 AND 7) AND 8</booleanFilter>
+        <filterItems>
+            <field>Account.CDM_Account_Type__c</field>
+            <operation>equals</operation>
+            <value>PARTNER, LOCAL OFFICE</value>
+        </filterItems>
+        <filterItems>
+            <field>Account.Account_Country_Code__c</field>
+            <operation>equals</operation>
+            <value>US</value>
+        </filterItems>
+        <filterItems>
+            <field>$Profile.Name</field>
+            <operation>equals</operation>
+            <value>C9 Administration, 02 NSC Administrator, 04 NSC UI Administrator,HOSP Inside Sales, 50 Hospitality Account Director, 55 Hosted Solutions Sales, iPaas Administration, Soup Integration</value>
+        </filterItems>
+        <filterItems>
+            <field>Account.CDM_Sub_Account_Type__c</field>
+            <operation>equals</operation>
+            <value>CHANNEL</value>
+        </filterItems>
+        <filterItems>
+            <field>Account.Active_Account__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <filterItems>
+            <field>Account.RecordType.DeveloperName</field>
+            <operation>notEqual</operation>
+            <value>Site</value>
+        </filterItems>
+        <filterItems>
+            <field>Account.RecordType.DeveloperName</field>
+            <operation>notEqual</operation>
+            <value>Enterprise</value>
+        </filterItems>
+        <filterItems>
+            <field>Account.LOB__c</field>
+            <operation>equals</operation>
+            <value>HOSPITALITY, RETAIL</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Opportunities (Channel Office)</relationshipLabel>
+    <relationshipName>Opportunities2</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

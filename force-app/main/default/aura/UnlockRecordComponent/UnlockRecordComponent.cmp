@@ -1,0 +1,29 @@
+<!-- Developer : Deeksharth 
+ * Date: 02-08-2019
+ * Comment : This component was created to handle unlock approval record from lightning detail Page for dealer us quick action
+-->
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" controller="PRM_UnlockDealerRecordController">
+    <aura:attribute name="islock" type="Boolean" default="true"/>
+    <aura:attribute name="isApproved" type="Boolean" default="false"/>
+    <aura:attribute name="isDataLoaded" type="Boolean" default="false"/>
+    <aura:handler name="init" value="{! this}" action="{!c.doInit}" />
+    <aura:if isTrue="{! v.islock &amp;&amp; (!v.isApproved) &amp;&amp; v.isDataLoaded}">
+        <div class="slds-align_absolute-center">
+            Are you sure want to unlock the record?
+        </div>
+        <br/>
+        <div class="slds-align_absolute-center">
+            <lightning:button class="slds-button slds-button_brand" variant="brand" label="Yes" iconName="utility:unlock" onclick="{! c.unlockRecordcr }"/>
+        </div>
+    </aura:if>
+    <aura:if isTrue="{!and(!v.islock, !v.isApproved)}">
+        <div class="slds-align_absolute-center">
+            Record already unlocked.
+        </div>
+    </aura:if>
+    <aura:if isTrue="{!v.isApproved}">
+        <div class="slds-align_absolute-center">
+            Record is approved can't be unlock.
+        </div>
+    </aura:if>
+</aura:component>

@@ -1,0 +1,46 @@
+<aura:component controller="SalesforceMapPrivacyControllerClass" implements="lightning:availableForFlowScreens,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader" access="global" >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="isOpen" type="boolean" default="false" />
+    <aura:attribute name="isAgreeButtonPressed" type="boolean" default="false" />
+    <aura:attribute name="isDisAgreeButtonPressed" type="boolean" default="false" /> 
+    <aura:attribute name="runmodalonce" type="Boolean" default="true"/>
+    <aura:attribute name="currentUserId" type="String"/>
+    <aura:attribute name="User" type="Object"/>
+    <aura:attribute name="UserRecord" type="Object" default="{'sobjectType':'User', 'NCR_Maps_Privacy_Notice_Acknowledged__c' : false,'NCR_Maps_Privacy_Notice_Declined__c' : false}"/>
+    <aura:attribute name="recordSaveError" type="String" description="An error message bound to force:recordData"/>
+    
+    <aura:if isTrue="{!or(v.isAgreeButtonPressed, v.isDisAgreeButtonPressed) }">
+        <force:recordData aura:id="UserRec" 
+                          fields="NCR_Maps_Privacy_Notice_Acknowledged__c,NCR_Maps_Privacy_Notice_Declined__c"
+                          recordId="{!v.currentUserId}"  
+                          targetError="{!v.recordSaveError}"
+                          targetRecord="{!v.User}"
+                          targetFields="{!v.UserRecord}"
+                          mode="EDIT"
+                          recordUpdated="{!c.recordUpdated}" 
+                          />
+  
+    </aura:if>
+    <aura:if isTrue="{!v.isOpen}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Salesforce Map's Privacy Notice</h2>
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.closeModal }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning:flow aura:id="DisplayPrivacyOnLoginFlow" onstatuschange="{!c.handleStatusChange}"  />
+                    <div class="slds-float_right">
+                        <lightning:button aura:id="Agree" label="Agree" value="Agree" variant="brand" onclick="{!c.verifyButtonPressed}" />
+                        <lightning:button aura:id="DisAgree" label="Disagree" value="DisAgree" variant="brand" onclick="{!c.verifyButtonPressed}" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+</aura:component>

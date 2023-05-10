@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CATM_AUS_NZ_Oppty_Renewal_validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( 
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+CATM_Record__c,
+TEXT(Opportunity_Classification__c) = &quot;CATM - IBG (Core)&quot;,
+IsPickVal( Type , &quot;Existing Customer - Service Renewal&quot;),
+IsPickVal(Opportunity_Source__c , &quot;Swap/Exchange&quot;),
+OR(
+IsPickVal( Reporting_Geography__c , &quot;Australia&quot;),
+IsPickVal( Reporting_Geography__c , &quot;New Zealand&quot;)
+),
+AND (
+OR(
+IsPickVal( Product_Subtype__c , &quot;&quot;) ,
+IsPickVal( Zone__c , &quot;&quot;),
+ISBLANK( Monthly_Gross_Profit__c ),
+ISBLANK( Monthly_Gross_Profit_Amt_Old_Contract__c ),
+ISPICKVAL( Equipment_Needed__c ,&quot;&quot; )
+),
+
+OR(
+IsPickVal( StageName , &quot;Validating&quot;),
+IsPickVal( StageName , &quot;Offering&quot;),
+IsPickVal( StageName , &quot;Closing&quot;)
+)
+)
+)</errorConditionFormula>
+    <errorMessage>Please complete the following fields: 
+Equipment Needed, Product Subtype, Monthly Gross Profit Amt (old contract), Monthly Gross Profit and Zone.</errorMessage>
+</ValidationRule>

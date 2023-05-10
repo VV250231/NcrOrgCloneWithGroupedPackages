@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Geography_and_Sales_Territory_validation</fullName>
+    <active>true</active>
+    <description>Sales territory field must be filled for IBG (Core) users/Managers in AUS,NZ,UK</description>
+    <errorConditionFormula>AND(
+!$Setup.Automation_Setting__c.Skip_Validation_Rule__c,
+OR( $Permission.CATM_IBG_Manager = true,
+ $Permission.CATM_IBG_User = true),OR(ISPICKVAL(Owner:User.Geography__c , &quot;Australia&quot;),ISPICKVAL(Owner:User.Geography__c , &quot;New Zealand&quot;),ISPICKVAL(Owner:User.Geography__c , &quot;UK&quot;)),ISPICKVAL(Sales_Territory__c ,&apos;&apos;), RecordType.Name = &apos;Removals&apos;)</errorConditionFormula>
+    <errorDisplayField>Sales_Territory__c</errorDisplayField>
+    <errorMessage>Please fill the Sales Territory</errorMessage>
+</ValidationRule>

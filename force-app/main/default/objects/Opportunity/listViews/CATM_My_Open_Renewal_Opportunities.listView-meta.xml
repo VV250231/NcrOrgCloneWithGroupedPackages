@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CATM_My_Open_Renewal_Opportunities</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <columns>OPPORTUNITY.CLOSE_DATE</columns>
+    <columns>OPPORTUNITY.PROBABILITY</columns>
+    <columns>Num_of_ATMs__c</columns>
+    <columns>Contract_Term_Mths__c</columns>
+    <columns>Monthly_Revenue_Amount__c</columns>
+    <columns>Annual_Contract_Value__c</columns>
+    <columns>Overall_Contract_Value__c</columns>
+    <columns>In_Year_Revenue__c</columns>
+    <columns>OPPORTUNITY.NEXT_STEP</columns>
+    <columns>Next_Steps_Last_Updated__c</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>CATM_Record__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>OPPORTUNITY.STAGE_NAME</field>
+        <operation>equals</operation>
+        <value>Prospecting,Analyzing,Validating,Offering,Proposing,Closing</value>
+    </filters>
+    <filters>
+        <field>OPPORTUNITY.TYPE</field>
+        <operation>equals</operation>
+        <value>Renewal</value>
+    </filters>
+    <label>CATM My Open Renewal Opportunities</label>
+    <sharedTo>
+        <group>All_CATM</group>
+    </sharedTo>
+</ListView>

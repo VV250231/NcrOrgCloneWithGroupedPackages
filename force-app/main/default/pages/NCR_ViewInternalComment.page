@@ -1,0 +1,23 @@
+<apex:page standardController="Idea" extensions="NCR_ViewInternalCommentExtension" >
+<apex:form >
+
+    <h1 class="title-drk-blue" style="width: 100% !important;">
+    <apex:commandLink action="{!ideaDetail}" value="{!Idea2.Title}" id="theCommandLink" style="font-size:175%"/></h1>    
+    <hr/>
+    
+    <apex:repeat value="{!comments}" var="string" id="theRepeat">
+        <apex:outputField value="{!string.Di_Idea_CommentBody__c}" id="theValue2"/><br/>
+        By :&nbsp;<apex:outputField value="{!string.createdby.name}" id="theValue3"/>
+        :&nbsp;<apex:outputField value="{!string.CreatedDate}" id="theValue4"/><hr/>
+    </apex:repeat>
+  
+  
+        <h2>Add a Comment</h2>
+        <apex:outputPanel id="formPage3" style="margin-top: 20px;"><!--comment text box and button form-->
+        <apex:inputTextarea style="width: 100%; height: 100px;"  id="newText" value="{!newCommentValue}" richText="true"/>
+        <apex:messages />
+        <apex:commandButton value="Post Comment" style="margin-top:20px;" styleClass="btn btn-default col-md-2" action="{!insertComment}" reRender="none"/>
+        </apex:outputPanel>
+        
+</apex:form>
+</apex:page>

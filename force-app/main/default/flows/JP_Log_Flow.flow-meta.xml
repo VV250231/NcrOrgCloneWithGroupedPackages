@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Inbound_Payments_status_update_failed</name>
+        <label>Inbound Payments status update failed</label>
+        <locationX>641</locationX>
+        <locationY>498</locationY>
+        <actionName>JPLogs__c.Inbound_Payments_status_update_failed</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>OutBound_Service_Failed_Email_Alert</name>
+        <label>OutBound Service Failed Email Alert</label>
+        <locationX>383</locationX>
+        <locationY>525</locationY>
+        <actionName>JPLogs__c.JP_OutBound_Service_Failed</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>54.0</apiVersion>
+    <decisions>
+        <name>JP_services</name>
+        <label>JP services</label>
+        <locationX>499</locationX>
+        <locationY>383</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>JP_Outbound_Service_Failed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>OutBound</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Failure</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>OutBound_Service_Failed_Email_Alert</targetReference>
+            </connector>
+            <label>JP Outbound Service Failed</label>
+        </rules>
+        <rules>
+            <name>JP_Inbound_Service_Failed</name>
+            <conditionLogic>(1 AND (2 OR 3) AND (NOT (4)))</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>InBound</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Failure</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Exce</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Response__c</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Failure-Error :Infinicept Application Id does not exist</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Inbound_Payments_status_update_failed</targetReference>
+            </connector>
+            <label>JP Inbound Service Failed</label>
+        </rules>
+    </decisions>
+    <interviewLabel>JP Log Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>JP Log Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>373</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>JP_services</targetReference>
+        </connector>
+        <object>JPLogs__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

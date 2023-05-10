@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sol_CoD_Qual__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( AND( Sol_Reward__c  = &quot;CoD&quot;,  Order_Attain__c &gt;= 1.1, Order_Obj__c &gt;=10000000),2,IF (AND (Sol_Reward__c  = &quot;CoD&quot;,  Order_Attain__c &gt;= 1.1, Order_Obj__c &lt;10000000),1,IF(AND(Sol_Reward__c  = &quot;CoD&quot;,  Revenue_Attain__c &gt;=1.1),1,0)))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Solution CoD Qualifications</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

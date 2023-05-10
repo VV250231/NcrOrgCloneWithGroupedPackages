@@ -1,0 +1,12 @@
+<aura:component >
+    <aura:attribute name="selectedRowsCount" type="Integer" default="0"/>
+    <aura:attribute name="totelQuots" type="Integer" default="0"/>
+    <aura:handler event="c:quoteSelectionEvent" action="{!c.handleApplicationEvent}"/>
+    <aura:handler event="c:closeQuotsAssociation" action="{!c.handleCloseEvent}"/>
+    <aura:registerEvent name="AssociteQuotsEvent" type="c:AssociteQuotsEvent"/>
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    <div style = "float:left;font-weight: bold;"> Selected Quotes: {! v.selectedRowsCount }</div><br/>
+    <div style = "float:left;font-weight: bold;"> Available Quotes: {! v.totelQuots }</div>
+    
+	<lightning:button variant="brand" label="Associate Selected Quotes" title="Associate Selected Quotes" onclick="{! c.associateQuots }" />
+</aura:component>

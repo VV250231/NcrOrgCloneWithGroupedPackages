@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>USERS.NAME</field>
+    </columns>
+    <columns>
+        <field>DUE_DATE</field>
+    </columns>
+    <columns>
+        <field>ADDRESS1_STATE</field>
+    </columns>
+    <columns>
+        <field>LAST_UPDATE</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>Account.Master_Customer_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>5426935,7392914,9301520,9303714,6338428,9301008,7393006,7425658,2434323,52945,7423840,10061104,3143901,9978290,33780,5544695,9986034,70275424,7410252,5216758,7941206,1006225RTX,2453665,38194,3156379,9300710,No MCN,AmerisourceBergen,71372,4576299,004401MX,3381739,3628745,7232432,8138779,9596442,26763,8929582,31711467,9978270,6209833,2858762CA,9983889,2456526,4600653,1009387RTX,6286296,32137,32213,7085834,44348,2637100,9658104,1005656RTX,7025106,28002,7050165,48744,1008761RTX,2529734CA,52916,7337797,9986109</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>ACCOUNT.NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Wave 2 targets*</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

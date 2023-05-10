@@ -1,0 +1,1393 @@
+<apex:page docType="html-5.0" extensions="ExecutiveBriefingInputController" showHeader="false" standardController="Account">
+    <apex:form >
+        <!--<apex:pageMessages id="messages"/>-->   
+        <head>
+            <meta charset="utf-8"/>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>Example of Bootstrap 3 Tables with Borders</title>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+            <apex:stylesheet value="{!URLFOR($Resource.Hirarchy_Chart,'/HirarchyChart/jquery.orgchart.css')}"/>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script> 
+            <script  src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+
+            <script type="text/javascript">
+               
+            var AvilableContact=[];
+            var ContactUniqueArray=[];
+            var HirarchyArray=[]; 
+            var selectList_Default;
+            var SFObjectArray = new Array();
+            AvilableContact.push({Name:'Select' ,Designation:'Select'});
+            $( document ).ready(function() {
+                //alert('ready');  
+                selectList_Default = document.createElement("select");
+                selectList_Default.setAttribute("id", "list_id");
+                selectList_Default.setAttribute("class", "btn_class");
+                var Defaultoption = document.createElement("option");
+                Defaultoption.value = 'Select';
+                Defaultoption.text = 'Select'; 
+                selectList_Default.appendChild(Defaultoption);
+                
+                <apex:repeat value="{!AllRelatedContact}" var="arrayItem">
+                    //SFObjectArray.push('{!arrayItem.Name}');
+                    var option = document.createElement("option");
+                option.value = '{!arrayItem.Name}'+'('+'{!arrayItem.Title}'+')';
+                option.text =  '{!arrayItem.Name}'+'('+'{!arrayItem.Title}'+')';
+                selectList_Default.appendChild(option);
+                </apex:repeat>    
+                
+            });
+            var testData = [
+                {id: 1, name: 'Select', parent: 0},   
+            ];
+                
+                $(function(){
+                org_chart = $('#orgChart').orgChart({
+                data: testData,
+                showControls: true,
+                allowEdit: true,
+                onAddNode: function(node){ 
+                
+                org_chart.newNode(node.data.id); 
+                },
+                onDeleteNode: function(node){
+                //alert(node.data.id);  
+                org_chart.deleteNode(node.data.id); 
+                
+                for(var i=0;i<HirarchyArray.length;i++){
+                if(Number(node.data.id) === Number(HirarchyArray[i].id)){
+                    HirarchyArray.splice(i,1);
+                }
+            }
+            //console.log(JSON.stringify(HirarchyArray)); 
+            
+            },
+                onClickNode: function(node){
+                    
+                }
+            
+            });
+            });
+            
+            function callAction_Function()
+            {
+                
+                //alert(JSON.stringify(HirarchyArray));
+                html2canvas($('#orgChartContainer'), {
+                    
+                    onrendered: function(canvas) {
+                        
+                        SaveHirarchyAF(canvas.toDataURL(),JSON.stringify(HirarchyArray));
+                        //alert('Success');
+                    }
+                }); 
+                
+                
+                
+            }
+            
+            function Submit_Form(){
+                SubmitForm();
+                alert('Success');
+            }
+            
+            
+            //Api for chart//
+            (function($) {
+                $.fn.orgChart = function(options) {
+                    var opts = $.extend({}, $.fn.orgChart.defaults, options);
+                    return new OrgChart($(this), opts);        
+                }
+                
+                $.fn.orgChart.defaults = {
+                    data: selectList_Default,
+                    showControls: false,
+                    allowEdit: false,
+                    onAddNode: null,
+                    onDeleteNode: null,
+                    onClickNode: null,
+                    newNodeText: 'Add Child'
+                };
+                
+                function OrgChart($container, opts){
+                    var data = opts.data; 
+                    var nodes = {};
+                    var rootNodes = [];
+                    this.opts = opts;
+                    this.$container = $container;
+                    var self = this;
+                    
+                    this.draw = function(){
+                        $container.empty().append(rootNodes[0].render(opts));
+                        $container.find('.node').click(function(){
+                            if(self.opts.onClickNode !== null){
+                                self.opts.onClickNode(nodes[$(this).attr('node-id')]);
+                            }
+                        });
+                        
+                        if(opts.allowEdit){
+                            $container.find('.node h2').click(function(e){
+                                var thisId = $(this).parent().attr('node-id');
+                                self.startEdit(thisId);
+                                e.stopPropagation();
+                            });
+                        }
+                        
+                        // add "add button" listener
+                        $container.find('.org-add-button').click(function(e){
+                            var thisId = $(this).parent().attr('node-id');
+                            
+                            if(self.opts.onAddNode !== null){
+                                self.opts.onAddNode(nodes[thisId]);
+                            }
+                            else{
+                                self.newNode(thisId);
+                            }
+                            e.stopPropagation();
+                        });
+                        
+                        $container.find('.org-del-button').click(function(e){
+                            var thisId = $(this).parent().attr('node-id');
+                            
+                            if(self.opts.onDeleteNode !== null){
+                                self.opts.onDeleteNode(nodes[thisId]);
+                            }
+                            else{
+                                self.deleteNode(thisId);
+                            }
+                            e.stopPropagation();
+                        });
+                    }
+                    
+                    this.startEdit = function(id){
+                        //on edit value
+                        //var inputElement = $('<input class="org-input" type="text" value="'+nodes[id].data.name[0].AvilableContact+'"/>');
+                        
+                        var selectList = document.createElement("select");
+                        selectList.setAttribute("id", "list_id");
+                        selectList.setAttribute("class", "btn_class");
+                        var Defaultoption = document.createElement("option");
+                        Defaultoption.value = 'Select';
+                        Defaultoption.text = 'Select'; 
+                        selectList.appendChild(Defaultoption);
+                        
+                        <apex:repeat value="{!AllRelatedContact}" var="arrayItem">
+                            var option = document.createElement("option");
+                        option.value = '{!arrayItem.Name}'+'('+'{!arrayItem.Title}'+')';
+                        option.text =  '{!arrayItem.Name}'+'('+'{!arrayItem.Title}'+')';
+                        selectList.appendChild(option);
+                        </apex:repeat> 
+                        
+                        var inputElement =   $(selectList);
+                        $container.find('div[node-id='+id+'] h2').replaceWith(inputElement);
+                        var commitChange = function(){
+                            var h2Element = $('<h2 title="nodes[id].data.name" >'+nodes[id].data.name+'</h2>');
+                            if(opts.allowEdit){
+                                h2Element.click(function(){
+                                    self.startEdit(id);
+                                })
+                            }
+                            inputElement.replaceWith(h2Element); 
+                        }  
+                        inputElement.focus();
+                        inputElement.keyup(function(event){
+                            if(event.which == 13){
+                                commitChange();
+                            }
+                            else{
+                                nodes[id].data.name = inputElement.val();
+                            }
+                        });
+                        inputElement.blur(function(event){
+                            commitChange();
+                        });
+                        
+                        inputElement.change(function(event){
+                            var DublicateFound=false; 
+                            HirarchyArray=[];
+                            for(var i in nodes){
+                                
+                                //{id: 1, name: 'Select', parent: 0},
+                                
+                                
+                                if(Number(nodes[i].data.id) !== Number(id)){
+                                    if(nodes[i].data.name.replace('<br />(','(') === inputElement.val()){
+                                        alert('User already Selected');
+                                        DublicateFound=true;
+                                        break;
+                                    }
+                                }
+                                
+                            }
+                            
+                            if(DublicateFound){
+                                commitChange();
+                            }
+                            
+                            else{
+                                nodes[id].data.name=inputElement.val().replace('(', '<br />(');
+                                commitChange();
+                                //console.log(nodes[i].data.id);
+                                //console.log(inputElement.val());
+                                //console.log(nodes[i].data.parent);
+                            }
+                            
+                            for(var i in nodes){
+                                HirarchyArray.push({id: nodes[i].data.id, name: nodes[i].data.name, parent: nodes[i].data.parent});
+                            }
+                        });
+                    }
+                    
+                    this.newNode = function(parentId){
+                        var nextId = Object.keys(nodes).length;
+                        while(nextId in nodes){
+                            nextId++;
+                            //console.log(nextId);
+                        }
+                        
+                        self.addNode({id: nextId, name: 'Select', parent: parentId});
+                    } 
+                    
+                    this.addNode = function(data){
+                        var newNode = new Node(data);
+                        nodes[data.id] = newNode;
+                        
+                        nodes[data.parent].addChild(newNode);
+                        
+                        self.draw();
+                        self.startEdit(data.id);  
+                    }
+                    
+                    this.deleteNode = function(id){
+                        
+                        for(var i=0;i<nodes[id].children.length;i++){
+                            self.deleteNode(nodes[id].children[i].data.id);
+                        }
+                        nodes[nodes[id].data.parent].removeChild(id);
+                        delete nodes[id];
+                        self.draw();
+                        
+                    }
+                    
+                    this.getData = function(){
+                        var outData = [];
+                        for(var i in nodes){
+                            outData.push(nodes[i].data);
+                        }
+                        return outData;
+                    }
+                    
+                    //constructor
+                    for(var i in data){
+                        
+                        var node = new Node(data[i]);
+                        nodes[data[i].id] = node;
+                        
+                    }
+                    
+                    //generate parent child tree
+                    for(var i in nodes){
+                        
+                        if(nodes[i].data.parent == 0){
+                            rootNodes.push(nodes[i]);
+                        }
+                        else{
+                            nodes[nodes[i].data.parent].addChild(nodes[i]);
+                        }
+                    }
+                    
+                    // draw org chart
+                    $container.addClass('orgChart');
+                    self.draw();
+                }
+                
+                function Node(data){
+                    this.data = data;
+                    
+                    this.children = [];
+                    var self = this;
+                    
+                    this.addChild = function(childNode){
+                        this.children.push(childNode);
+                        
+                    }
+                    
+                    this.removeChild = function(id){
+                        for(var i=0;i<self.children.length;i++){
+                            if(self.children[i].data.id == id){
+                                self.children.splice(i,1);
+                                return;
+                            }
+                        }
+                    }
+                    
+                    this.render = function(opts){
+                        
+                        var childLength = self.children.length,
+                            mainTable;
+                        
+                        mainTable = "<table cellpadding='0' cellspacing='0' border='0'>";
+                        var nodeColspan = childLength>0?2*childLength:2;
+                        mainTable += "<tr><td colspan='"+nodeColspan+"'>"+self.formatNode(opts)+"</td></tr>";
+                        
+                        if(childLength > 0){
+                            var downLineTable = "<table cellpadding='0' cellspacing='0' border='0'><tr class='lines x'><td class='line left half'></td><td class='line right half'></td></table>";
+                            mainTable += "<tr class='lines'><td colspan='"+childLength*2+"'>"+downLineTable+'</td></tr>';
+                            
+                            var linesCols = '';
+                            for(var i=0;i<childLength;i++){
+                                if(childLength==1){
+                                    linesCols += "<td class='line left half'></td>";    // keep vertical lines aligned if there's only 1 child
+                                }
+                                else if(i==0){
+                                    linesCols += "<td class='line left'></td>";     // the first cell doesn't have a line in the top
+                                }
+                                    else{
+                                        linesCols += "<td class='line left top'></td>";
+                                    }
+                                
+                                if(childLength==1){
+                                    linesCols += "<td class='line right half'></td>";
+                                }
+                                else if(i==childLength-1){
+                                    linesCols += "<td class='line right'></td>";
+                                }
+                                    else{
+                                        linesCols += "<td class='line right top'></td>";
+                                    }
+                            }
+                            mainTable += "<tr class='lines v'>"+linesCols+"</tr>";
+                            
+                            mainTable += "<tr>";
+                            for(var i in self.children){
+                                mainTable += "<td colspan='2'>"+self.children[i].render(opts)+"</td>";
+                            }
+                            mainTable += "</tr>";
+                        }
+                        mainTable += '</table>';
+                        return mainTable;
+                    }
+                    
+                    this.formatNode = function(opts){
+                        var nameString = '',
+                            descString = '';
+                        
+                        if(typeof data.name !== 'undefined'){
+                            nameString = '<h2  title="pankaj">'+self.data.name+'</h2>';
+                        }
+                        if(typeof data.description !== 'undefined'){
+                            descString = '<p>'+self.data.description+'</p>';
+                        }
+                        if(opts.showControls){
+                            var buttonsHtml = "<div class='org-add-button'>"+opts.newNodeText+"</div><div class='org-del-button'></div>";
+                        }
+                        else{
+                            buttonsHtml = ''; 
+                        }
+                        return "<div class='node' style='min-width: 185px;width:auto;background-color: #88c651;' node-id='"+this.data.id+"'>"+nameString+descString+buttonsHtml+"</div>";
+                    }
+                }
+                
+            })(jQuery);
+            
+            </script>
+            <style type="text/css">
+                .bs-example{
+                margin: 20px;
+                }
+                
+                .table-bordered {
+                border: 1px solid #101010 !important;
+                }
+                
+                .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
+                border: 1px solid #101010;
+                }
+                
+                .accSummLeft {
+                vertical-align: middle !Important;
+                height: 50px;
+                width: 25%;
+                padding-left: 20px;
+                font-weight: bold; 
+                }
+                .childTable {
+                width:100%;
+                max-width:100%;
+                }
+                .childTable>tbody>tr>td {
+                border-left: 1px solid #101010;
+                border-right: 1px solid #101010;
+                border-bottom: 1px solid #101010;
+                padding: 8px;
+                }
+                
+                .summTable {
+                border: 1px solid #101010;
+                font-size:90%;
+                }
+                .summTable thead th { background-color :#0099BF;}
+                .summTable tfoot td { background-color :#54B648; font-weight: bold;}
+                
+                .summTable>thead>tr>th, .summTable>tbody>tr>td, .summTable>tfoot>tr>td {
+                border: 1px solid #101010; 
+                padding: 5px;
+                white-space: unset;
+                text-align: center;
+                }        
+                .tableCaption {
+                text-align: left;
+                margin-top : 25px;
+                margin-left: 5px;
+                text-decoration: underline;
+                }
+                .summTable>tfoot>tr>td.numFooter {
+                text-align:right;
+                }
+                
+                .Node_ElipsesClass{
+                
+                width: 100%; /* fallback if needed */
+                width: calc(100% - 3em);
+                
+                }  
+                
+                
+                
+                
+                
+                .tooltip {
+    
+    opacity : 1 ;
+}
+
+.attendee_tooltip {
+    float : right ;
+}
+
+.tooltip {
+    display:inline-block;
+    position:relative;
+    border-bottom:1px dotted #666;
+    text-align:left;
+}
+
+.tooltip .right {
+    min-width:200px; 
+    top:50%;
+    left:100%;
+    margin-left:20px;
+    transform:translate(0, -50%);
+    padding:10px 20px;
+    color:#444444;
+    background-color:#EEEEEE;
+    font-weight:normal;
+    font-size:13px;
+    border-radius:8px;
+    position:absolute;
+    z-index:99999999;
+    box-sizing:border-box;
+    box-shadow:0 1px 8px rgba(0,0,0,0.5);
+    display:none;
+}
+
+.tooltip:hover .right {
+    display:block;
+}
+
+.tooltip .right i {
+    position:absolute;
+    top:50%;
+    right:100%;
+    margin-top:-12px;
+    width:12px;
+    height:24px;
+    overflow:hidden;
+}
+
+.tooltip .right i::after {
+    content:'';
+    position:absolute;
+    width:12px;
+    height:12px;
+    left:0;
+    top:50%;
+    transform:translate(50%,-50%) rotate(-45deg);
+    background-color:#EEEEEE;
+    box-shadow:0 1px 8px rgba(0,0,0,0.5);
+}
+
+.tooltip .left {
+    min-width:200px; 
+    top:50%;
+    right:100%;
+    margin-right:20px;
+    transform:translate(0, -50%);
+    padding:10px 20px;
+    color:#444444;
+    background-color:#EEEEEE;
+    font-weight:normal;
+    font-size:13px;
+    border-radius:8px;
+    position:absolute;
+    z-index:99999999;
+    box-sizing:border-box;
+    box-shadow:0 1px 8px rgba(0,0,0,0.5);
+    display:none;
+}
+
+.tooltip:hover .left {
+    display:block;
+}
+
+.tooltip .left i {
+    position:absolute;
+    top:50%;
+    left:100%;
+    margin-top:-12px;
+    width:12px;
+    height:24px;
+    overflow:hidden;
+}
+
+.tooltip .left i::after {
+    content:'';
+    position:absolute;
+    width:12px;
+    height:12px;
+    left:0;
+    top:50%;
+    transform:translate(-50%,-50%) rotate(-45deg);
+    background-color:#EEEEEE;
+    box-shadow:0 1px 8px rgba(0,0,0,0.5);
+}
+
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+    }
+                
+                
+            </style>
+        </head>
+        <body>
+            <div class="bs-example">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan ="4" style="background-color: #88c651;"><span><b><center>EXECUTIVE CUSTOMER BRIEFING SUMMARY</center></b></span></th>
+                            
+                        </tr>
+                       <!-- <tr>
+                            <div class="btn btn-primary tooltip">Hover Me to Preview
+                                <div class="top">
+                                    <h3>Lorem Ipsum</h3>
+                                    <p>Dolor sit amet, consectetur adipiscing elit.</p>
+                                    <i></i>
+                                </div>
+                            </div>
+                            
+                        </tr> -->
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan ="5" width="35%">
+                                <div class="btn btn-primary tooltip attendee_tooltip"><i class="fas fa-question-circle"></i>
+            
+                                    <div class="right">
+                                      <!--  <h3>Lorem Ipsum</h3> -->
+                                        <p>Insert Customer Name and Logo</p>
+                                        <i></i>
+                                    </div>
+                                </div>
+                                
+                                <apex:inputField value="{!objEB.Company_Logo__c}"/>
+                            </td>
+                            <td>Date</td>
+                            <td><apex:inputField value="{!objEB.Date_Time__c}"/></td>
+                            
+                        </tr>
+                        
+                        <tr>
+                            
+                            <td>Location</td>
+                            <td><apex:inputField value="{!objEB.Location__c}"/></td>
+                            
+                        </tr>
+                        
+                        <tr>
+                            
+                            <td>Attire</td>
+                            <td><apex:inputField value="{!objEB.Attire__c}"/></td>
+                            
+                        </tr>
+                        <tr>
+                            
+                            <td>News</td>
+                            <td><apex:inputField value="{!objEB.News__c}"/></td>
+                            
+                        </tr>
+                        <tr>
+                            <!--<td></td>-->
+                            <td>Ownership</td>
+                            <td><apex:inputField value="{!objEB.Ownership__c}"/></td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+                <apex:outputPanel id="thePanel"></apex:outputPanel>
+                
+                <!-------------------- Table 2 ---------------------------->
+                <apex:outputPanel id="thePanel1">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th colspan ="5" style="background-color: #88c651;"><span><b><center>Attendees</center></b></span></th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <tr style="background-color: #ddd;">
+                                <td>Customer Attendee</td>
+                                <td>Title</td>
+                                <td>Decision Maker or Influencer</td>
+                                <td>Friend, Foe, or Neutral?</td>
+                                <td width="20%">Attended a Previous CEC? If yes, date and brief summary.</td>
+                            </tr> 
+                            
+                            <apex:repeat value="{!listCustomerAttendee}" var="CustomerAttendee" id="theRepeat">
+                                <tr>
+                                    <td height ="35px">
+                                        <apex:selectList size="1" value="{!CustomerAttendee.ConId}" style="width:250px;"> 
+                                            <apex:actionSupport event="onchange"  action="{!ContactDetail}" reRender="messages,thePanel1,PanelIdBio1,PanelIdBio2,PanelIdBio3,PanelIdBio4,PanelIdBio5"/>
+                                            <apex:selectOptions value="{!ContactName}"/>  
+                                        </apex:selectList>&nbsp;<apex:outputPanel style="color: red;" rendered="{!CustomerAttendee.IsUserAllRedaySelected}">User Already Selected.</apex:outputPanel> 
+                                    </td>
+                                    <td>{!CustomerAttendee.selectedConInfo.Title} </td>
+                                    <td>{!CustomerAttendee.selectedConInfo.Decision_Maker__c}</td>
+                                    <td>
+                                        <apex:selectList id="chooseFriendFoe" value="{!CustomerAttendee.SelectedFriendFoe}" size="1" >
+                                            <apex:selectOption itemValue="None" itemLabel="-None-"/>
+                                            <apex:selectOption itemValue="Friend" itemLabel="Friend"/>
+                                            <apex:selectOption itemValue="Foe" itemLabel="Foe"/>
+                                            <apex:selectOption itemValue="Neutral" itemLabel="Neutral"/>
+                                            <apex:actionSupport event="onchange" reRender="PanelIdBio1,PanelIdBio2,PanelIdBio3,PanelIdBio4,PanelIdBio5" action="{!ContactDetail}"/>
+                                        </apex:selectList> 
+                                    </td>
+                                    <td><apex:inputText value="{!CustomerAttendee.AttendedPreviousCEC}"/></td>    
+                                </tr>
+                            </apex:repeat>
+                            
+                            <tr>
+                                <td><span><apex:commandButton value="Add More" action="{!AddMore}" reRender="thePanel1"/> </span></td>
+                                
+                            </tr>
+                            <!------------------------- Sub Attendee Table---------------------------->
+                            
+                            <tr style="background-color: #ddd;">
+                                
+                                <td>NCR Attendee</td>
+                                <td>Title</td>
+                                <td colspan ="3" align="center">Meeting Role</td>
+                                
+                                
+                            </tr>
+                            <tr>
+                                
+                                <td><apex:inputField value="{!objEB.NCR_Attendee_1__c}">
+                                    <apex:actionSupport event="onchange" rerender="usr_title_1" action="{!retrieveTitle1}" immediate="false"/>
+                                    </apex:inputField>
+                                </td>
+                                <td><apex:outputPanel id="usr_title_1">
+                                    {!usr_Title_1}
+                                    </apex:outputPanel>
+                                </td>
+                                <td colspan ="3"><apex:inputField value="{!objEB.NCR_Attendee_1_Role__c}"/></td>
+                                
+                                
+                            </tr>
+                            <tr>
+                                
+                                <td> <apex:inputField value="{!objEB.NCR_Attendee_2__c}">
+                                    <apex:actionSupport event="onchange" rerender="usr_title_2" action="{!retrieveTitle2}" immediate="false"/>
+                                    </apex:inputField>
+                                </td>
+                                <td><apex:outputPanel id="usr_title_2">
+                                    {!usr_Title_2}
+                                    </apex:outputPanel>
+                                </td>
+                                <td colspan ="3"><apex:inputField value="{!objEB.NCR_Attendee_2_Role__c}"/></td>
+                                
+                                
+                            </tr>
+                            <tr>
+                                
+                                <td><apex:inputField value="{!objEB.NCR_Attendee_3__c}">
+                                    <apex:actionSupport event="onchange" rerender="usr_title_3" action="{!retrieveTitle3}" immediate="false"/>
+                                    </apex:inputField>
+                                </td>
+                                <td><apex:outputPanel id="usr_title_3">
+                                    {!usr_Title_3}
+                                    </apex:outputPanel>
+                                </td>
+                                <td colspan ="3"><apex:inputField value="{!objEB.NCR_Attendee_3_Role__c}"/></td>
+                                
+                                
+                            </tr>
+                            <tr>
+                                
+                                <td><apex:inputField value="{!objEB.NCR_Attendee_4__c}">
+                                    <apex:actionSupport event="onchange" rerender="usr_title_4" action="{!retrieveTitle4}" immediate="false"/>
+                                    </apex:inputField>
+                                </td>
+                                <td><apex:outputPanel id="usr_title_4">
+                                    {!usr_Title_4}
+                                    </apex:outputPanel>
+                                </td>
+                                <td colspan ="3"><apex:inputField value="{!objEB.NCR_Attendee_4_Role__c}"/></td>
+                                
+                                
+                            </tr>
+                            
+                            <!------------------------- End Sub Attendee Table------------------------>
+                        </tbody>
+                    </table>
+                </apex:outputPanel>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan ="5" style="background-color: #88c651;"><span><b><center>Meeting Agenda</center></b></span></th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan ="5" align="left">
+                                <apex:inputField value="{!objEB.Meeting_Agenda__c}" style="width:700px;"/>
+                            </td>
+                        </tr>
+                    </tbody> 
+                </table>
+                
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan ="4" style="background-color: #88c651;"><span><b><center>Meeting Objectives</center></b></span></th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            
+                            <td colspan="2" style="background-color: #ddd;">Customer Meeting Goals
+                            <div class="btn btn-primary tooltip"><i class="fas fa-question-circle"></i>
+
+                                <div class="right">
+                                  <!--  <h3>Lorem Ipsum</h3> -->
+                                    <p>What are the customer's goals for this meeting? Be specific.</p> 
+                                    <i></i>
+                                </div>
+                            </div>
+                            </td>                
+                            
+                        </tr>
+                        <tr>
+                            
+                            <td colspan="2">
+                                <apex:inputField value="{!objEB.Meeting_Objective_1__c}" style="width:700px;"/>
+                            </td>
+                        </tr>
+                        
+                        
+                        <tr>
+                            
+                            <td colspan="2" style="background-color: #ddd;">NCR Meeting Goals
+                            <div class="btn btn-primary tooltip"><i class="fas fa-question-circle"></i>
+
+                                <div class="right">
+                                  <!--  <h3>Lorem Ipsum</h3> -->
+                                    <p>What are NCR's goals for this meeting? Be specific</p>  
+                                    <i></i>
+                                </div>
+                            </div>
+                            </td>                
+                            
+                        </tr>   
+                        <tr>
+                            
+                            <td colspan="2">
+                                <apex:inputField value="{!objEB.Meeting_Objective_2__c}" style="width:700px;"/>
+                                
+                            </td>
+                            
+                        </tr> 
+                        
+                        <tr>
+                            <td width="25%" style="background-color: #ddd;">Key Messages
+                            <div class="btn btn-primary tooltip"><i class="fas fa-question-circle"></i>
+    
+                            <div class="right">
+                              <!--  <h3>Lorem Ipsum</h3> -->
+                                <p>What are the most important messages we want the customer to take away from the meeting?</p>  
+                                <i></i>
+                            </div>
+                        </div>
+                            </td>
+                            <td >
+                                <apex:inputField value="{!objEB.Key_Message_1__c}" style="width:700px;"/>  
+                                
+                            </td>
+                            
+                        </tr>  
+                        <tr>
+                            <td style="background-color: #ddd;">Key Questions or Asks
+                             <div class="btn btn-primary tooltip"><i class="fas fa-question-circle"></i>
+
+                                <div class="right">
+                                  <!--  <h3>Lorem Ipsum</h3> -->
+                                    <p>What questions do we need to have answered by the customer in this meeting? What asks do we have of the customer?</p>  
+                                    <i></i>
+                                </div>
+                            </div>
+                            </td>
+                            <td>  
+                                <apex:inputField value="{!objEB.Key_Question_1__c}" style="width:700px;"/> 
+                            </td>
+                            
+                        </tr>  
+                        <tr>
+                            <td style="background-color: #ddd;">Highlights or Red Flags 
+                             <div class="btn btn-primary tooltip"><i class="fas fa-question-circle"></i>
+
+                                <div class="right">
+                                  <!--  <h3>Lorem Ipsum</h3> -->
+                                    <p>What relevant relationship highlights could we discuss? <br/>What potential issues/concerns could the customer bring up and what is our response?
+                                    </p>  
+                                    <i></i>
+                                </div>
+                            </div>
+                            </td>
+                            <td>
+                                <apex:inputField value="{!objEB.Highlight_Flag_1__c}" style="width:700px;"/>
+                            </td>
+                            
+                        </tr>  
+                    </tbody>
+                </table>
+                
+                <!-------==============================End Table 2 ==================----------------->
+                
+                
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan ="4" style="background-color: #88c651;"><span><b><center>
+                                
+                                
+                                Insert a brief bio including roles at current and previous companies, education, and affiliations.
+                           <!-- <div class="btn btn-primary tooltip"><i class="fas fa-question-circle"></i>
+
+                                <div class="right">
+                                  
+                                    <p>Insert bio info. Add additional boxes for additional attendees as needed
+                                    </p>  
+                                    <i></i>
+                                </div>
+                            </div> -->
+                            
+                            </center></b></span></th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            
+                            <td> <apex:outputPanel id="PanelIdBio1">
+                                {!con1.Name}<br/>
+                                {!con1.Title}<br/>
+                                {!con1.Decision_Maker__c}<br/>
+                                {!Friend_Foe_1}
+                                </apex:outputPanel>
+                            </td>
+                            
+                            <td  width="25%">
+                                 <div class="btn btn-primary tooltip attendee_tooltip"><i class="fas fa-question-circle"></i>
+
+                                    <div class="right">
+                                      <!--  <h3>Lorem Ipsum</h3> -->
+                                        <p>Insert attendee picture
+                                        </p>  
+                                        <i></i>
+                                    </div>
+                                </div>
+                                
+                                <apex:inputField value="{!objEB.Cutsomer_Attendees_Bio_Pic_1__c}" /></td>
+                            
+                            <td> <apex:outputPanel id="PanelIdBio2">
+                                {!con2.Name}<br/>
+                                {!con2.Title}<br/>
+                                {!con2.Decision_Maker__c}<br/>
+                                {!Friend_Foe_2}
+                                </apex:outputPanel>
+                            </td>
+                            
+                            <td width="25%">
+                                <div class="btn btn-primary tooltip attendee_tooltip"><i class="fas fa-question-circle"></i>
+
+                                    <div class="left">
+                                      <!--  <h3>Lorem Ipsum</h3> -->
+                                        <p>Insert attendee picture
+                                        </p>  
+                                        <i></i>
+                                    </div>
+                                </div>
+                                <apex:inputField value="{!objEB.Customer_Attendees_Bios_Pic_2__c}" /></td>
+                            
+                            
+                        </tr>
+                        <tr>
+                            
+                            <td colspan="2"> 
+                            <div class="btn btn-primary tooltip attendee_tooltip"><i class="fas fa-question-circle"></i>
+
+                                <div class="right">
+                                  <!--  <h3>Lorem Ipsum</h3> -->
+                                    <p>Insert a brief bio highlight including roles at current and previous companies, education, and affiliations
+                                    </p>  
+                                    <i></i>
+                                </div>
+                            </div>
+                            <apex:inputField value="{!objEB.Customer_Attendees_Bios_1__c}" style="width:700px;"/></td>
+                            <td colspan="2">
+                                <div class="btn btn-primary tooltip attendee_tooltip"><i class="fas fa-question-circle"></i>
+
+                                    <div class="left">
+                                      <!--  <h3>Lorem Ipsum</h3> -->
+                                        <p>Insert a brief bio highlight including roles at current and previous companies, education, and affiliations
+                                        </p>  
+                                        <i></i>
+                                    </div>
+                                </div>
+                                <apex:inputField value="{!objEB.Customer_Attendees_Bios_2__c}" style="width:700px;" /></td>
+                            
+                            
+                        </tr>
+                        <tr>
+                            
+                            
+                            <td> <apex:outputPanel id="PanelIdBio3">
+                                {!con3.Name}<br/>
+                                {!con3.Title}<br/>
+                                {!con3.Decision_Maker__c}<br/>
+                                {!Friend_Foe_3}
+                                </apex:outputPanel>
+                            </td>
+                            
+                            <td  width="25%">
+                                <div class="btn btn-primary tooltip attendee_tooltip"><i class="fas fa-question-circle"></i>
+            
+                                    <div class="right">
+                                      <!--  <h3>Lorem Ipsum</h3> -->
+                                        <p>Insert attendee picture
+                                        </p>  
+                                        <i></i>
+                                    </div>
+                                </div>
+                                
+                                <apex:inputField value="{!objEB.Customer_Attendees_Bios_Pic_3__c}" /></td>
+                            <!--<apex:outputPanel id="PanelIdBio4">-->
+                            <td><apex:outputPanel id="PanelIdBio4">
+                                {!con4.Name}<br/>
+                                {!con4.Title}<br/>
+                                {!con4.Decision_Maker__c}<br/>
+                                {!Friend_Foe_4}
+                                </apex:outputPanel>
+                            </td>
+                            <!--</apex:outputPanel>-->
+                            <td width="25%">
+                                <div class="btn btn-primary tooltip attendee_tooltip"><i class="fas fa-question-circle"></i>
+
+                                    <div class="left">
+                                      <!--  <h3>Lorem Ipsum</h3> -->
+                                        <p>Insert attendee picture
+                                        </p>  
+                                        <i></i>
+                                    </div>
+                                </div>
+                                
+                                <apex:inputField value="{!objEB.Customer_Attendees_Bios_Pic_4__c}" /></td>
+                            
+                            
+                        </tr>
+                        
+                        <tr>
+                            
+                            <td colspan="2">
+                                 <div class="btn btn-primary tooltip attendee_tooltip"><i class="fas fa-question-circle"></i>
+
+                                    <div class="right">
+                                      <!--  <h3>Lorem Ipsum</h3> -->
+                                        <p>Insert a brief bio highlight including roles at current and previous companies, education, and affiliations
+                                        </p>  
+                                        <i></i>
+                                    </div>
+                                </div>
+                                 <apex:inputField value="{!objEB.Customer_Attendees_Bios_3__c}" style="width:700px;"/> </td>
+                            <td colspan="2">
+                                <div class="btn btn-primary tooltip attendee_tooltip"><i class="fas fa-question-circle"></i>
+
+                                    <div class="left">
+                                      <!--  <h3>Lorem Ipsum</h3> -->
+                                        <p>Insert a brief bio highlight including roles at current and previous companies, education, and affiliations
+                                        </p>  
+                                        <i></i>
+                                    </div>
+                                </div>
+                                <apex:inputField value="{!objEB.Customer_Attendees_Bios_4__c}" style="width:700px;"/></td>
+                            
+                            
+                        </tr>
+                        
+                        <tr>
+                            
+                            <!--<apex:outputPanel id="PanelIdBio5">-->
+                            <td><apex:outputPanel id="PanelIdBio5">
+                                {!con5.Name}<br/>
+                                {!con5.Title}<br/>
+                                {!con5.Decision_Maker__c}<br/>
+                                {!Friend_Foe_5}
+                                </apex:outputPanel>
+                            </td>
+                            <!--</apex:outputPanel>-->
+                            <td  width="25%">
+                                <div class="btn btn-primary tooltip attendee_tooltip"><i class="fas fa-question-circle"></i>
+
+                                    <div class="right">
+                                      <!--  <h3>Lorem Ipsum</h3> -->
+                                        <p>Insert attendee picture
+                                        </p>  
+                                        <i></i>
+                                    </div>
+                                </div>
+                                <apex:inputField value="{!objEB.Customer_Attendees_Bios_Pic_5__c}" /></td>
+                            
+                            
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="btn btn-primary tooltip attendee_tooltip"><i class="fas fa-question-circle"></i>
+
+                                    <div class="right">
+                                      <!--  <h3>Lorem Ipsum</h3> -->
+                                        <p>Insert a brief bio highlight including roles at current and previous companies, education, and affiliations
+                                        </p>  
+                                        <i></i>
+                                    </div>
+                                </div>
+                                <apex:inputField value="{!objEB.Customer_Attendees_Bios_5__c}" style="width:700px;"/></td>
+                        </tr>
+                        
+                        
+                    </tbody>
+                </table>
+                
+                
+                <table class="table table-bordered" style="margin-bottom:0px;">
+                    <thead>
+                        <tr>
+                            <th colspan ="4" style="background-color: #88c651;"><span><b><center>ACCOUNT SUMMARY</center></b></span></th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr >  
+                            <td colspan="4">  
+                                <apex:inputField value="{!objEB.Account_Summary_Image__c}"/>
+                            </td> 
+                        </tr>  
+                        <tr>  
+                            <td class="accSummLeft"> 
+                                Who Are They
+                                 <div class="btn btn-primary tooltip"><i class="fas fa-question-circle"></i>
+
+                                    <div class="right">
+                                      <!--  <h3>Lorem Ipsum</h3> -->
+                                        <p>Provide overview of their business including the products they provide, # of customers, # of employees, # of locations etc
+                                        </p>  
+                                        <i></i>
+                                    </div>
+                                </div>
+                                
+                            </td> 
+                            <td> 
+                                
+                                <apex:inputTextarea rows="3"   value="{!objEB.Who_Are_They__c}" style="width:70%;"/>
+                            </td> 
+                        </tr>
+                        <tr>  
+                            <td class="accSummLeft"> 
+                                Key Metrics
+                                
+                                 <div class="btn btn-primary tooltip"><i class="fas fa-question-circle"></i>
+            
+                                    <div class="right">
+                                      <!--  <h3>Lorem Ipsum</h3> -->
+                                        <p>Provide key metrics including annual revenue, market cap, market share (vs. competitors). Include any recent insight from latest earnings call/annual report.
+                                        </p>  
+                                        <i></i>
+                                    </div>
+                                </div>
+                            </td> 
+                            <td> 
+                                <apex:inputField value="{!objEB.Key_Metrics__c}"  style="width:70%;" />  
+                            </td> 
+                        </tr>
+                        <tr>  
+                            <td class="accSummLeft"> 
+                                Values and Mission
+                                
+                                <div class="btn btn-primary tooltip"><i class="fas fa-question-circle"></i>
+
+                                    <div class="right">
+                                      <!--  <h3>Lorem Ipsum</h3> -->
+                                        <p>Provide summary of their values/mission statement
+                                        </p>  
+                                        <i></i>
+                                    </div>
+                                </div>
+                            </td> 
+                            <td> 
+                                <apex:inputField value="{!objEB.Values_and_Mission__c}" style="width:70%;" />  
+                            </td> 
+                        </tr>
+                        <tr>  
+                            <td class="accSummLeft"> 
+                                Business Environment
+                                
+                                 <div class="btn btn-primary tooltip"><i class="fas fa-question-circle"></i>
+
+                                    <div class="right">
+                                      <!--  <h3>Lorem Ipsum</h3> -->
+                                        <p>Provide summary of strengths and challenges including industry trends and how they are positioned positively or negatively vs. their competitors. Include any recent insight from latest earnings call/annual report.
+                                        </p>  
+                                        <i></i>
+                                    </div>
+                                </div>
+                            </td> 
+                            <td> 
+                                <apex:inputField value="{!objEB.Business_Environment__c}" style="width:70%;" /> 
+                                
+                            </td> 
+                        </tr>
+                        
+                    </tbody>
+                    
+                    
+                </table>
+                
+                <table class="table childTable">
+                    <tbody>
+                        <tr>  
+                            <td style="width:50%;"> 
+                                <span style="width:40%;display:inline-block;">
+                                    <label classs="accSummLeft">Customer Since:</label>    
+                                </span> 
+                                <span>
+                                    <apex:inputField type="number"   value="{!objEB.Customer_Since__c}"/>
+                                </span> 
+                            </td> 
+                            
+                            <td style="width:50%;"> 
+                                <span style="width:40%;display:inline-block;">
+                                    <label classs="accSummLeft">Account Loyalty Score:</label>
+                                     <div class="btn btn-primary tooltip"><i class="fas fa-question-circle"></i>
+
+                                        <div class="right">
+                                          <!--  <h3>Lorem Ipsum</h3> -->
+                                            <p> Positive/Negative/Neutral
+                                            </p>  
+                                            <i></i>
+                                        </div>
+                                    </div>
+                                </span> 
+                                <span>
+                                    <apex:inputField type="number" html-maxlength="3" value="{!objEB.Account_Loyalty_Score__c}" style="height:25px;" /> </span> 
+                            </td> 
+                        </tr>
+                        <tr>  
+                            <td style="width:50%;"> 
+                                <span style="width:40%;display:inline-block;">
+                                    <label classs="accSummLeft">Account Manager/Sales Leader:</label>
+                                </span> 
+                                <span>
+                                    <apex:inputField value="{!objEB.Account_Manager_Sales_Leader__c}" style="height:25px;" /> </span> 
+                            </td> 
+                            
+                            <td style="width:50%;"> 
+                                <span style="width:40%;display:inline-block;">
+                                    <label classs="accSummLeft">Referenceable:</label>
+                                </span> 
+                                <span>
+                                    <apex:inputField value="{!objEB.Referenceable__c}" style="height:25px;" /> </span> 
+                            </td> 
+                        </tr>
+                        <tr>  
+                            <td style="width:50%;padding-top:25px;"> 
+                                <label style="font-weight:bold;text-decoration:underline;">NCR Spend</label><br/>
+                                <apex:dataTable value="{!NCRSpendWrapperList}" var="c" width="100%"  styleClass="table summTable" captionClass="tableCaption" columnsWidth="25%,25%,25%,25%"> 
+                                    
+                                    
+                                    <apex:column headerValue="Revenue" >
+                                        <apex:outputText value="{!c.revType}" />
+                                        <apex:facet name="footer">Total</apex:facet>
+                                    </apex:column>
+                                    <apex:column style="text-align:right;" footerClass="numFooter">
+                                        <apex:facet name="header">{!(YEAR(TODAY()) -1)}</apex:facet>
+                                        <span style="margin-right:32%"> 
+                                            <apex:outputText value="{0, number, ###,##0}" >
+                                                <apex:param value="{!c.PrevYearAmount}"/>
+                                            </apex:outputText>
+                                        </span>
+                                        <apex:facet name="footer"> 
+                                            <apex:outputText value="${0, number, ###,###,###,##0}" style="margin-right:32%">
+                                                <apex:param value="{!prevYearTtlNCRSpend}" />
+                                            </apex:outputText>
+                                        </apex:facet>
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">{!(YEAR(TODAY()) -1)} Est. % Wallet Share</apex:facet>
+                                        <apex:inputText onkeypress="return isNumberKey(event)" value="{!c.prevYearWaltShare}" size="10" maxlength="12"/>
+                                        
+                                    </apex:column>
+                                    <apex:column style="text-align:right;" footerClass="numFooter">
+                                        <apex:facet name="header">{!YEAR(TODAY())} YTD Actual</apex:facet>
+                                        <span style="margin-right:32%"> 
+                                            <apex:outputText value="{0, number, ###,##0}" >
+                                                <apex:param value="{!c.CurrYearAmount}"/>
+                                            </apex:outputText> 
+                                        </span>
+                                        
+                                        <apex:facet name="footer"> 
+                                            <apex:outputText value="${0, number, ###,###,###,##0}" style="margin-right:32%">
+                                                <apex:param value="{!currYearTtlNCRSpend}" />
+                                            </apex:outputText>
+                                        </apex:facet>
+                                        
+                                    </apex:column>
+                                </apex:dataTable> 
+                                
+                                <label style="font-weight:bold;text-decoration:underline;">Current Year Opportunities</label><br/>
+                                <apex:dataTable value="{!CurrYearOppLIst}" var="opp" width="100%"  styleClass="table summTable" captionClass="tableCaption" columnsWidth="55%,15%,15%,15%"> 
+                                    
+                                    <apex:column headerValue="Solution" style="text-align:left;">
+                                        <apex:outputField value="{!opp.Name}" />
+                                        <apex:facet name="footer">Total</apex:facet>
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">$ Value ($,000)</apex:facet>
+                                        <apex:outputText value="{!ROUND(opp.Converted_Opportunity_Amount__c/1000, 0)}K" />
+                                        <apex:facet name="footer">$&nbsp;{!currYearTtlAmt}M</apex:facet>
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">Forecast Category</apex:facet>
+                                        <apex:outputField value="{!opp.ForecastCategoryName}" />
+                                        
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">Expected Book Date</apex:facet>
+                                        <apex:outputText value="{0,date,MM/dd}"> <apex:param value="{!opp.CloseDate}" /> </apex:outputText>
+                                    </apex:column>
+                                </apex:dataTable> 
+                                
+                            </td> 
+                            <td style="width:50%;">
+                                <div style="width:100%;margin-top:25px;">
+                                    <label style="font-weight:bold;text-decoration:underline;">Customer Strategic Objectives</label>
+                                    <div class="btn btn-primary tooltip"><i class="fas fa-question-circle"></i>
+
+                                        <div class="right">
+                                          <!--  <h3>Lorem Ipsum</h3> -->
+                                            <p>Outline customer strategic objectives here
+                                            </p>  
+                                            <i></i>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <apex:inputTextarea rows="5" html-maxlength="255" value="{!objEB.Customer_Strategic_Objectives__c}" style="width:100%"/>
+                                </div>
+                                <div style="width:100%;margin-top:25px;">
+                                    <label style="font-weight:bold;text-decoration:underline;">How NCR Aligns</label>
+                                    <div class="btn btn-primary tooltip"><i class="fas fa-question-circle"></i>
+
+                                        <div class="right">
+                                          <!--  <h3>Lorem Ipsum</h3> -->
+                                            <p>Outline how NCR solutions align to customer’s strategic objectives
+                                            </p>  
+                                            <i></i>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <apex:inputTextarea html-maxlength="255" rows="5"  value="{!objEB.How_NCR_Aligns__c}" style="width:100%"/>
+                                </div>
+                            </td> 
+                        </tr>
+                        
+                        
+                        <tr>
+                            <td colspan="4">
+                                <div id="orgChartContainer" style="background-color:white;"> 
+                                <br/>
+                                 <div><center><b>Org Chart</b>
+                                    <div class="btn btn-primary tooltip"><i class="fas fa-question-circle"></i>
+                
+                                        <div class="right">
+                                          <!--  <h3>Lorem Ipsum</h3> -->
+                                            <p>Insert customer org/alignment chart here 
+                                            </p>  
+                                            <i></i>
+                                        </div>
+                                    </div>
+                                
+                                </center> 
+                                
+                            </div>
+                                
+                                
+                                
+                                    <div id="orgChart"></div> 
+                                    
+                                </div>
+                                <center> 
+                                    <apex:outputPanel >
+                                        <apex:actionFunction action="{!SaveHirarchy}" status="" name="SaveHirarchyAF"  reRender="frm" oncomplete="Submit_Form();">
+                                            <apex:param assignTo="{!strImageBlob}"  name="imageBlob" value=""/>
+                                            <apex:param assignTo="{!UserHirarchy}" name="UserHirarchyArray" value=""/> 
+                                        </apex:actionFunction> 
+                                        
+                                        <apex:actionFunction action="{!saveExecBrfng}"  name="SubmitForm" reRender="frm"/>                                  
+                                        
+                                    </apex:outputPanel>     
+                                </center>  
+                                <!--<apex:commandButton value="Save Changes" onclick="callAction_Function();" rerender="frm"/>-->
+                            </td> 
+                        </tr>
+                        <tr>
+                            <td colspan="4">   
+                                <center> <!--<apex:commandButton onclick="callAction_Function();" action="{!saveExecBrfng}" value="Submit" styleClass="btn btn-primary" />-->
+                                    <button value="Submit" onclick="callAction_Function(); return false;">
+                                        Submit 
+                                    </button>
+                                </center>
+                            </td>
+                        </tr>  
+                    </tbody>
+                </table>   
+            </div>  
+        </body> 
+    </apex:form>  
+</apex:page>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VisionMatch_Ques_Score__c</fullName>
+    <externalId>false</externalId>
+    <formula>((IF(Can_it_be_related_to_Revenue_or_Profit__c,1,0) + 
+IF(Has_prspect_acknowledged_business_issue__c,1,0) + 
+IF(Find_prob_make_this_issue_hard_to_solve__c,1,0) +
+IF(identified_prblm_that_only_we_can_solve__c,1,0) +
+IF(Is_prospect_req_any_unique_or_diff_sol__c,1,0))*20)/100</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>VisionMatch Ques Score</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

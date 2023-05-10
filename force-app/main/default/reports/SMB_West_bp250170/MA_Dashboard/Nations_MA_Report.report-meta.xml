@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Case$CaseNumber</field>
+    </columns>
+    <columns>
+        <field>Case$Status</field>
+    </columns>
+    <columns>
+        <field>Case$Subject</field>
+    </columns>
+    <columns>
+        <field>Case$Support_Queue__c</field>
+    </columns>
+    <columns>
+        <field>Case$Priority</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Case$Case_Age_In_Days__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>Case$Site_Id__c.Site_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>7411685,8787795,8787789,8787799,8787792,10618752,8787796,8787802,8787790,8787814,8787812,8787794,8787813,6811844,8787826,8787806,8787801,8787797,8787800,10616242,8787809,8787791,9110235,8787808,8787810,8787804,8787788,8787807,8787798,8787811,8787793,8787803,8743215,8787805,9298847,7515859,7845538,7521418,7515550,7521358,7515480,7516180,7515840,7521582,7515576,7520844,7521823,7522002,7515673,7511069,7515561,7516217,7522193,7516268,7521116,7515497,7521456,7516191,8437436,8437442,7522028,7516178,7521506,7515611,7522123,7521178,7515539,7522026,7521293,7521830,7515744,7515319,7515318,7515656,7515889,7521317,8689963,7522078,7515858,7516250,8867711,7522602,7521122,10613219,41294719,41486953</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case$Status</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>New,Assigned,In_Progress,In Progress,Open,Pending</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Nations MA Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Case_With_Lookup_Info__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Case$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

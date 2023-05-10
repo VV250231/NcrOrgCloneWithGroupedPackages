@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Email_Notification_on_Day_three</fullName>
+        <description>Email Notification on Day 3</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Campaign_Activities/Email_Notification_on_Day3</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_notification_Regarding_the_task_is_duee</fullName>
+        <description>Email notification Regarding the task is due on day 5</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Owner_s_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Campaign_Activities/Email_Notification_on_Day_5</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Email_to_Manager_after_5_days_due_date_has_passed</fullName>
+        <description>Send Email to Manager after 5 days due date has passed</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Owner_s_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Campaign_Activities/Email_Notification_on_Day_5</template>
+    </alerts>
+    <alerts>
+        <fullName>Whenever_a_new_Task_is_Created_and_Assigned_it_to_the_Owner</fullName>
+        <description>Whenever a new Task is Created and Assigned it to the Owner</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Campaign_Activities/New_Task_Creation_and_Assignment</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Due_Date_5</fullName>
+        <field>Due_Date_Passed__c</field>
+        <formula>Due_Date_Passed__c  + 5</formula>
+        <name>Due Date + 5 Recoocurence</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Stage_to_MQL</fullName>
+        <field>Stage__c</field>
+        <literalValue>MQL</literalValue>
+        <name>Update Stage to MQL</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Stage_to_SQL</fullName>
+        <field>Stage__c</field>
+        <literalValue>SQL</literalValue>
+        <name>Update Stage to SQL</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>due_date_Passed_after_5_days</fullName>
+        <field>Due_Date_Passed__c</field>
+        <formula>today()</formula>
+        <name>due date Passed after 5 days</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>After 5 Days of Creation mail to manager</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Campaign_Activity__c.Due_Date_Passed__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Campaign_Activity__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Open</value>
+        </criteriaItems>
+        <description>Notification sent to manager after every 5 days of due date has been passed</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Send_Email_to_Manager_after_5_days_due_date_has_passed</name>
+                <type>Alert</type>
+            </actions>
+            <actions>
+                <name>Due_Date_5</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Campaign_Activity__c.Due_Date_Passed__c</offsetFromField>
+            <timeLength>5</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Email Notification on Day 3 and Day 5</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Campaign_Activity__c.CreatedById</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Campaign_Activity__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Open</value>
+        </criteriaItems>
+        <description>Sending an Email notification to the customer on Day 3 and Day 5</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Email_notification_Regarding_the_task_is_duee</name>
+                <type>Alert</type>
+            </actions>
+            <actions>
+                <name>due_date_Passed_after_5_days</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Campaign_Activity__c.CreatedDate</offsetFromField>
+            <timeLength>4</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Email_Notification_on_Day_three</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Campaign_Activity__c.CreatedDate</offsetFromField>
+            <timeLength>2</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>On Creation of Campaign Activity</fullName>
+        <actions>
+            <name>Whenever_a_new_Task_is_Created_and_Assigned_it_to_the_Owner</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <description>Whenever a New Task is Created and Assigned it to Owner</description>
+        <formula>NOT( ISBLANK(CreatedDate  ) )</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Stage to MQL</fullName>
+        <actions>
+            <name>Update_Stage_to_MQL</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Campaign_Activity__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Open</value>
+        </criteriaItems>
+        <description>Update Stage to MQL if status is open.</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Stage to SQL</fullName>
+        <actions>
+            <name>Update_Stage_to_SQL</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Campaign_Activity__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Qualified</value>
+        </criteriaItems>
+        <description>Update stage to SQL if status is qualified</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

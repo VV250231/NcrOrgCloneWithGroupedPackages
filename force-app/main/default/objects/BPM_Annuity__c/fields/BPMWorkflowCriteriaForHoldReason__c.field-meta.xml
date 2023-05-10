@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BPMWorkflowCriteriaForHoldReason__c</fullName>
+    <description>This formula checks all the conditions getting satisfied or not to send the BPM notifications</description>
+    <externalId>false</externalId>
+    <formula>AND(
+CA_Hold_Alert_New__c,
+OR(Start_Date_CH__c &gt;= TODAY(),
+End_Date_CH__c &gt;= TODAY()),
+If(LOWER(Industry_Group_Name_CH__c)=&apos;telecom and tech&apos;,Unbilled_Amt__c &gt;= 15000,Unbilled_Amt__c &gt;= VALUE($Label.BPM_Unbilled_Amount)),
+LOWER(Industry_Group_Name_CH__c) != &apos;hospitality&apos;
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>It is checked when Contract is fulfilling all the requirements for sending out the notification.</inlineHelpText>
+    <label>Contract Valid For Notifications</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

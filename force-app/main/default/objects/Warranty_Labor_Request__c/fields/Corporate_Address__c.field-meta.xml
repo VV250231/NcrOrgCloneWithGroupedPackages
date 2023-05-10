@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Corporate_Address__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(Street__c&lt;&gt;&apos;&apos;, Street__c &amp; &apos;, &apos;,&apos;&apos;)&amp; IF(City__c&lt;&gt;&apos;&apos;, City__c &amp; &apos;, &apos;,&apos;&apos;)&amp; IF(Street__c&lt;&gt;&apos;&apos;, State__c &amp; &apos; &apos;,&apos;&apos;) &amp; IF(Postal__c&lt;&gt;&apos;&apos;, Postal__c &amp; &apos; &apos;,&apos;&apos;)&amp; Country__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Corporate Address</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

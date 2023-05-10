@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>USERS.NAME</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>ADDRESS1_STATE</field>
+    </columns>
+    <columns>
+        <field>Account.Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_ID</field>
+    </columns>
+    <crossFilters>
+        <operation>with</operation>
+        <primaryTableColumn>ACCOUNT_ID</primaryTableColumn>
+        <relatedTable>Contact</relatedTable>
+        <relatedTableJoinColumn>Account</relatedTableJoinColumn>
+    </crossFilters>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>Account.Master_Customer_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>29254,10013359,10016600,10020992,10061393,10273555,10340814,10556624,150406,27334,31760147,167511,26471,158061,9173339,34369,3708906,34686,19163,32010331,7514695,162092,246759,5639841,165377,52444,28600,27632,31526187,27744,8808543,4096487,31918,4598111,31695101,37701,37889,28169,7451593,28033,61324,7512954,4350337,3807748,7472777,35189,31665271,41365,7508251,31670271,30025,150750,8060918,15060,8469299,37638,31739689,6524800,2324963,9041144,7018906,4117451,8028409,7381699,25459,80633,81369,7149021,53938,4672638,6627608,7903940,5612942,3127040,37095,9031098,6869219,4143552,5155451,6742902,3869480,5986939,8998940,5452138,32004930,78643597,40270,150644,32004750,27958,150770,151950,160857,169100,30137,30339,33298,34144,34188,35832,36265,37772,38161,39120,39515,41606,44875,47031,47157,50913,51486,65478,65830,68417,70510,81852,84552,86352,99799,1968545,31602075,73137235,77642104,4214722,4235380,4982012,4983452,5517737,5694735,6422288,33196,33208,6755196,7119139,7129426,7254330,7318470,7488912,7870636,8033884,8451502,8654810,8721239,8864905,8937341,8945526,8950394,9915947,9915557,31689,9402217,9524543,9679152,9694104,9697846,9706114,31527955,50819</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>INDUSTRY</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>FINANCIAL:BANKING CFI,FINANCIAL:BANKING MAJOR,FINANCIAL:OTHER</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>USERS.NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>,Charles Lee,Chip Oliver,Paula Britton,Darin Boudreaux,Sydney Aaron,Audra Bradstreet,Pamela Hoy,Scott Smythe,Andrew Riccioni,Amanda Lukin</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>USERS.NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>Catherine Skinner,Daniel Odom,Luiz Carlos Roque,David Tattersall,Ralf Raabe,Doris Schirripa,Kuldeep Dhar,Mahmoud Mahmoud,Vladimir Volikov,Anup Sharma,NSC Admin,Kinuko Takahashi,Atippong Thongsuchoti,Mark Sammut</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>ITM benchmarking contacts</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

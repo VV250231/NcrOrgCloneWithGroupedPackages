@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Internal_email_alert_sent_to_opportunity_owner_when_opportunity_is_moved_to_clos</name>
+        <label>Opportunity.Internal_email_alert_sent_to_opportunity_owner_when_opportunity</label>
+        <locationX>176</locationX>
+        <locationY>335</locationY>
+        <actionName>Opportunity.Internal_email_alert_sent_to_opportunity_owner_when_opportunity_is_moved_to_clos</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>55.0</apiVersion>
+    <environments>Default</environments>
+    <interviewLabel>CATM_Email sent to Opp Owner when Opp moved to Closed Won {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>CATM_Email sent to Opp Owner when Opp moved to Closed Won</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Internal_email_alert_sent_to_opportunity_owner_when_opportunity_is_moved_to_clos</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterFormula>AND(
+NOT({!$Setup.Automation_Setting__c.Skip_Flow__c}),
+{!$Record.CATM_Record__c},
+ISPICKVAL({!$Record.StageName}, &quot;Closed/Booked&quot;),
+{!$Record.Business_Unit__c} = &quot;IBG (Core)&quot;,
+OR({!$Record.Geography__c} = &quot;UK&quot;,
+{!$Record.Geography__c} = &quot;ROI&quot;,
+{!$Record.Geography__c} = &quot;Germany&quot;,
+{!$Record.Geography__c} = &quot;Spain&quot;,
+{!$Record.Geography__c} = &quot;Australia&quot;,
+{!$Record.Geography__c} = &quot;New Zealand&quot;)
+)</filterFormula>
+        <object>Opportunity</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

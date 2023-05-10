@@ -1,0 +1,51 @@
+<apex:component >
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <title>Digital Insight</title>
+
+    <!-- Bootstrap core CSS -->
+    <apex:stylesheet value="{!URLFOR($Resource.NCR_cssjsimg, 'css/leapfrog.min.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.NCR_cssjsimg, 'css/docs.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.NCR_cssjsimg, 'css/style.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.NCR_cssjsimg, 'css/carousel.css')}"/>
+    
+    
+
+    <script type="text/javascript">
+        function make_base_auth(user, pass) {
+            var tok = user + ':' + pass;
+            var hash = btoa(tok);
+            return "Basic " + hash;
+        }
+       /*function authenticateGuides() {
+            $.ajax
+            ({
+                type: "GET",
+                url: "http://di.facetstudios.com/guide/#web",
+                dataType: 'json',
+                async: false,
+                username: "leapfrog",
+                password: "FNHtmXHPf9Qz",
+                crossDomain: true,
+                jsonp: true,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", make_base_auth("leapfrog", "FNHtmXHPf9Qz"));
+                },
+                success: function () {
+                    window.open("http://di.facetstudios.com/guide/#web?httpd_username='leapfrog'&httpd_password='FNHtmXHPf9Qz'");
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                    window.open("http://di.facetstudios.com/guide/#web?httpd_username='leapfrog'&httpd_password='FNHtmXHPf9Qz'");
+                }
+            });
+        }*/ 
+    </script>
+
+</head>
+</apex:component>

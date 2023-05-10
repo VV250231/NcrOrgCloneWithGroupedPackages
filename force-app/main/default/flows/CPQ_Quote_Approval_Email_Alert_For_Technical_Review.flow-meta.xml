@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>When a quote status is updated to Approved, Quote&apos;s SalesPerson should receive an email to start the sales survey technical review approval.</description>
+        <name>Email_Alert_To_SalesPerson_For_Sales_Survey_Technical_Review</name>
+        <label>Email Alert To SalesPerson For Sales Survey Technical Review</label>
+        <locationX>176</locationX>
+        <locationY>335</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>Email_Body</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>QuoteSalesPersonEmail</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sendRichBody</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue> {!$Record.Name} is ready for Technical Review.</stringValue>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>56.0</apiVersion>
+    <environments>Default</environments>
+    <formulas>
+        <name>OppURL</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!$Api.Enterprise_Server_URL_100}, FIND( &apos;/services&apos;, $Api.Enterprise_Server_URL_100)) &amp; {!$Record.SBQQ__Opportunity2__r.Id}</expression>
+    </formulas>
+    <formulas>
+        <name>QuoteURL</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!$Api.Enterprise_Server_URL_100}, FIND( &apos;/services&apos;, $Api.Enterprise_Server_URL_100)) &amp; {!$Record.Id}</expression>
+    </formulas>
+    <interviewLabel>CPQ Quote Approval Email Alert For Technical Review {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>CPQ Quote Approval Email Alert For Technical Review</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Email_Alert_To_SalesPerson_For_Sales_Survey_Technical_Review</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>SBQQ__Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Approved</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>qtc_Channel_Local_Office_Record_Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>LOCAL OFFICE</stringValue>
+            </value>
+        </filters>
+        <object>SBQQ__Quote__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>Email_Body</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;p&gt;Hello {!$Record.SBQQ__SalesRep__r.FirstName} {!$Record.SBQQ__SalesRep__r.LastName}, &lt;/p&gt;&lt;p&gt;&lt;strong&gt;{!$Record.Name}&lt;/strong&gt; is now approved. Please finalize your Sales Survey by updating Sales Survey Status to &quot;Complete&quot; and submit the quote for Technical Review via the Quote Page.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Quote Number: &lt;/strong&gt;&lt;a href=&quot;{!QuoteURL}&quot;&gt;{!$Record.Name}&lt;/a&gt;&lt;br&gt;&lt;strong&gt;Quote Name: &lt;/strong&gt;&lt;a href=&quot;{!QuoteURL}&quot;&gt;{!$Record.qtc_Quote_Name__c}&lt;/a&gt;&lt;br&gt;&lt;strong&gt;Opportunity:&lt;/strong&gt; &lt;a href=&quot;{!OppURL}&quot;&gt;{!$Record.SBQQ__Opportunity2__r.Name}&lt;/a&gt;&lt;br&gt;&lt;strong&gt;Site Name:&lt;/strong&gt; {!$Record.Deliver_To_Site__r.Name}&lt;br&gt;&lt;strong&gt;Site Address:&lt;/strong&gt; {!$Record.Deliver_To_Site__r.BillingStreet}&lt;/p&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>QuoteSalesPersonEmail</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>{!$Record.SBQQ__SalesRep__r.Email}</text>
+    </textTemplates>
+</Flow>

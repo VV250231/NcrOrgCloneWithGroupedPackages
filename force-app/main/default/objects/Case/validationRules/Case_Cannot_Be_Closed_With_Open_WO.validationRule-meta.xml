@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case_Cannot_Be_Closed_With_Open_WO</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName = &quot;Hospitality_Support&quot;,
+$Setup.Automation_Setting__c.Skip_Validation_Rule__c == FALSE,
+ISPICKVAL(Status, &quot;Closed&quot;),
+$Profile.Name = &quot;Hospitality Access Profile&quot;,
+Open_Work_Order__c ==TRUE
+)</errorConditionFormula>
+    <errorMessage>Case Cannot Be Closed With Open Work Orders</errorMessage>
+</ValidationRule>

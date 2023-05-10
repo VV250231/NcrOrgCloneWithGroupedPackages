@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Expected_start_Date_not_backdated</fullName>
+    <active>true</active>
+    <description>Expected book date should not be back dated</description>
+    <errorConditionFormula>AND(PFR_Expected_Date__c &lt; today(),Text(Approval_Status__c) = &apos;New&apos;)</errorConditionFormula>
+    <errorDisplayField>PFR_Expected_Date__c</errorDisplayField>
+    <errorMessage>Expected start date cannot be back dated.</errorMessage>
+</ValidationRule>

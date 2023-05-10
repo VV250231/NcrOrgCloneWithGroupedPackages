@@ -1,0 +1,326 @@
+<!--this this component is used in the APOC Tab in community-->
+<!--CREATED BY : Varsha Pal-->
+
+<aura:component controller="APOCRolesController" implements="lightning:actionOverride,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:hasRecordId,force:lightningQuickActionWithoutHeader" access="global" >
+    <!-- new attribute added-->
+    <aura:attribute name="pageNumber" type ="Integer" default="1"/>
+    <aura:attribute name="AccountSupportListPage" type="Object[]"/>
+    <aura:attribute name="isNextDisabled" type="Boolean" default ="true"/>
+    <aura:attribute name="pageSize" type ="Integer" default="10"/>
+    <aura:attribute name="totalPage" type ="Integer" default="0"/>
+    <aura:attribute name="currentPage" type ="Integer" default="0"/>
+    <aura:attribute name="AccountSupportListMain" type="Object[]" />
+    <!-- new attribute added-->
+    <aura:attribute name="AccountSupportList" type="Object[]"/>
+    <aura:attribute name="AccountSupportListAssigned" type="Object[]" />
+    <aura:attribute name="AccountSupportListUnassignedASM" type="Object[]"/>
+    <aura:attribute name="AccountSupportListUnassignedPO" type="Object[]" />
+    <aura:attribute name="AccountSupportListUnassignedCA" type="Object[]" />
+    <aura:attribute name="spinner" type="boolean" default="false"/>
+    <aura:attribute name="showModal" type="boolean" default="false"/>
+    <aura:attribute name="isdisabled" type="boolean" default="true"/>
+    <aura:attribute name="isNew" type="boolean" default="false"/>
+    <aura:attribute name="SearchAccountSupport" type="String" default=""/>
+    <aura:attribute name="currentTab" type="String" default="tab-default-1__item"/>
+    <aura:attribute name="ASMHirarchy" type="Object[]" />
+    <aura:attribute name="isbulkUpdate" type="boolean" default="false"/>
+    <aura:attribute name="selectAllList" type="boolean" default="false"/>    
+    <aura:method name="callParentdoInit" action="{!c.doInit}"/>
+    <aura:method name="doFilter"/>
+    <aura:attribute name="recordToReassign" type="Object[]"/>
+    <aura:attribute name="ManageRoles" type="String[]"/>
+    
+    <aura:attribute name="arrowDirection" type="string" default="arrowup" />
+    <aura:attribute name="isAsc" type="boolean" default="false" /> 
+    <aura:attribute name="selectedTabsoft" type="string" default="accountName"/>  
+    <aura:attribute name="accName" type="string"/>
+    <aura:attribute name="accId" type="String"/>
+    <aura:attribute name="accMaster" type="String"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <!--<aura:handler event="c:LookUpEvt" action="{!c.handleLookUpEvent}"/>-->
+    
+    <aura:registerEvent name="NewAPOC_PopulateData" type="c:NewAPOC_PopulateData"/>
+    <!--Account Support Header start -->
+    <aura:if isTrue="{!v.spinner}">
+        <lightning:spinner aura:id="mySpinner" alternativeText="Processing.." title="Processing.." variant="brand" size="large"/>
+    </aura:if>
+    <div class="slds-page-header">
+        <div class="slds-page-header__row " >
+            <div class="slds-page-header__col-title">
+                <div class="slds-media">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-opportunity">
+                            <lightning:icon iconName="standard:service_resource" size="large" />
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <div class="slds-page-header__name">
+                            <div class="slds-page-header__name-title">
+                                <h1>
+                                    <span></span>
+                                    <span class="slds-page-header__title slds-truncate" title="Recently Viewed" style="font-size: 23px;">Account Point Of Contact</span>
+                                    <span class="slds-page-header__meta-text" style="font-size: 20px;">Total Showing Record ({!v.AccountSupportList.length})</span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="" style="margin-top : -18px;">
+                
+                <lightning:input aura:id="SearchBox" name="Search" placeholder="Search APOC" value="{!v.SearchAccountSupport}" onchange="{!c.searchAccountSupport}"/>  
+            </div>  
+            
+            <div class="slds-page-header__col-actions">
+                <div class="slds-page-header__controls">
+                    <div class="slds-page-header__control">
+                        <ul class="slds-button-group-list">
+                            <!--<li>
+                                <lightning:button aura:id="NewSearch" class="slds-button slds-button_neutral" onclick="{!c.searchAccountSupport}">Search Users</lightning:button>
+                            </li>-->
+                            <li>
+                                <lightning:button aura:id="New" class="slds-button slds-button_neutral" onclick="{!c.showModal}">New APOC</lightning:button>
+                            </li>
+                            <li>
+                                <lightning:button aura:id="Reassign" class="slds-button slds-button_neutral" onclick="{!c.reassignInBulk}" disabled="{!v.isdisabled}">Reassign</lightning:button>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-page-header__row slds-m-top_medium" style="background : #7ccdec;">
+            <div class="">
+                <ul class="slds-tabs_default__nav " role="tablist">
+                    <li aura:id="tab-default-1__item" class="slds-tabs_default__item slds-is-active tabActive" title="Assigned" role="presentation" id="tab-default-1__item" onclick = "{!c.handleTab}">
+                        <a  class="slds-tabs_default__link " href="javascript:void(0);" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-default-1" id="tab-default-1__item">Assigned </a>
+                    </li>
+                    <li aura:id="tab-default-2__item" class="slds-tabs_default__item" title="Unassigned ASM" role="presentation" id="tab-default-2__item" onclick = "{!c.handleTab}">
+                        <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-2" id="tab-default-2__item">Unassigned ASM</a>
+                    </li>
+                    <!--<li aura:id="tab-default-3__item" class="slds-tabs_default__item" title="Servay()" role="presentation" id="tab-default-3__item" onclick = "{!c.handleTab}">
+                        <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-3" id="tab-default-3__item">Unassigned PO/Billing Person</a>
+                    </li>-->
+                    <li aura:id="tab-default-4__item" class="slds-tabs_default__item" title="Unassigned CA" role="presentation" id="tab-default-4__item" onclick = "{!c.handleTab}">
+                        <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-4" id="tab-default-4__item">Unassigned CA</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--Account Support Header End -->
+    
+    
+    <!-- List view Start here -->
+    <aura:if isTrue='{!(v.AccountSupportList.length &gt;0)}'>
+        <div class="slds-p-horizontal_medium" >
+            <table class="slds-table slds-table_bordered slds-table_fixed-layout " role="grid">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th class="" scope="col" style="width:3.25rem">
+                            <div class="slds-truncate" title="Select"><lightning:input type="checkbox"  name="input2" checked="{!v.selectAllList}" onclick="{!c.selectAll}"/></div>
+                        </th>
+                        <!--<th class="slds-is-sortable" scope="col">
+                        <div class="slds-truncate slds-is-sortable" title="Account Support Name">APOC Name</div>
+                    </th>-->
+                        
+                        <th class="" scope="col" onclick="{!c.sortAccounName}" style="width:23%">
+                            <div class="" title="Account Name">
+                                <a href="javascript:void(0);" class="slds-th__action slds-text-link_reset">
+                                    ACCOUNT NAME  
+                                    <aura:if isTrue="{! and(v.arrowDirection == 'arrowdown', v.selectedTabsoft == 'accountName') }">&nbsp;  &#9660; </aura:if>  
+                                    <aura:if isTrue="{! and(v.arrowDirection != 'arrowdown', v.selectedTabsoft == 'accountName') }"> &nbsp;  &#9650; </aura:if>                      
+                                </a>
+                            </div>
+                        </th>
+                        
+                        
+                        <th class="slds-is-sortable slds-text-title_caps" scope="col" onclick="{!c.sortMasterNumber}" style="width:23%">
+                            <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+                                <span class="slds-assistive-text">Sort</span>
+                                <span class="slds-text-align_left" title="Master Customer Number">Master Customer Number</span>  
+                                <aura:if isTrue="{! and(v.arrowDirection == 'arrowdown', v.selectedTabsoft == 'master') }">&nbsp;  &#9660; </aura:if>  
+                                <aura:if isTrue="{! and(v.arrowDirection != 'arrowdown', v.selectedTabsoft == 'master') }"> &nbsp;  &#9650; </aura:if>                      
+                            </a>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="ASM Name">ASM Name</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="PO Name">PO/Billing Person</div>
+                        </th>
+                        
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="PO Name">CA Name</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Reassign">Reassign</div>
+                        </th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{!v.AccountSupportList}" var="obj" indexVar="index">
+                        
+                        <tr class="slds-hint-parent" id="{!index}">
+                            <td >
+                                <div class="slds-truncate" title="Select"><lightning:input type="checkbox"  name="input2" checked="{!obj.isChecked}" onchange="{!c.selectItem}"/></div>
+                            </td>
+                            <td scope="row" style="padding-left: 1.5%;">
+                                <div class="slds-size_5-of-6 slds-truncate" title="{!obj.accountName}" id="this">
+                                    <a href="javascript:void(0);" tabindex="-1" onclick="{!c.gotoDetail}" id="{!index}">{!obj.accountName}</a>
+                                    <!-- <lightning:icon class="slds-m-left_medium" size="x-small" iconName="utility:record_lookup" alternativeText="View More Info" onmouseover="{!c.showMoreInfo}"/>-->
+                                </div>
+                            </td>
+                            
+                            
+                            <!--<td data-label="Account Name" scope="row">
+                                <div class="slds-truncate" title="Account Name" id="this">
+                                   
+                                     <lightning:icon class="slds-m-left_medium" size="x-small" iconName="utility:info" alternativeText="View More Info" onmouseover="{!c.showMoreInfo}"/>
+                                </div>
+                            </td>-->
+                            
+                            
+                            
+                            <td data-label="Master Number" style="padding-left: 1.5%;">
+                                <div class="slds-truncate" title="{!obj.master}">{!obj.master}</div>
+                            </td>
+                            <!--<td data-label="Close Date">
+                    <div class="slds-truncate" title="LOB">{!obj.LOB__c}</div>
+                </td>-->
+                            <!--<td data-label="Prospecting">
+                                <div class="slds-truncate" title="Sub Industry">{!obj.accSupport.Account_Support__r.Sub_Industry__c}</div>
+                            </td>-->
+                            
+                            <aura:if isTrue="{!empty(obj.asmroles)}">
+                                <td data-label="Confidence">
+                                    <div class="slds-truncate" title="ASM Name"><br/></div>
+                                </td>					
+                                <aura:set attribute="else">
+                                    <td data-label="Confidence">
+                                        <aura:iteration items="{!obj.asmroles}" var="asm" indexVar="index">
+                                            
+                                            <aura:if isTrue='{!not(empty(asm.UserName))}'>
+                                                <div class="slds-truncate" title="{!asm.UserName}"><aura:if isTrue="{!obj.asmroles.length>1}">{!index+1}. </aura:if>{!asm.UserName}<br/></div>
+                                            </aura:if>
+                                            
+                                            
+                                        </aura:iteration>
+                                    </td>
+                                </aura:set>
+                            </aura:if>
+                            
+                            <aura:if isTrue="{!empty(obj.poroles)}">
+                                <td data-label="Confidence">
+                                    <div class="slds-truncate" title="PO/Billing Person Name"><br/></div>
+                                </td>					
+                                <aura:set attribute="else">
+                                    <td data-label="Confidence">
+                                        <aura:iteration items="{!obj.poroles}" var="po" indexVar="index">
+                                            
+                                            <aura:if isTrue='{!not(empty(po.UserName))}'>
+                                                <div class="slds-truncate" title="{!po.UserName}"><aura:if isTrue="{!obj.poroles.length>1}">{!index+1}. </aura:if>{!po.UserName}<br/></div>
+                                            </aura:if>
+                                            
+                                            
+                                        </aura:iteration>
+                                    </td>
+                                </aura:set>
+                            </aura:if>
+                            <aura:if isTrue="{!empty(obj.caroles)}">
+                                <td data-label="Confidence">
+                                    <div class="slds-truncate" title="PO Name"><br/></div>
+                                </td>					
+                                <aura:set attribute="else">
+                                    <td data-label="Confidence">
+                                        <aura:iteration items="{!obj.caroles}" var="ca" indexVar="index">
+                                            
+                                            <aura:if isTrue='{!not(empty(ca.UserName))}'>
+                                                <div class="slds-truncate" title="{!ca.UserName}"><aura:if isTrue="{!obj.caroles.length>1}">{!index+1}. </aura:if>{!ca.UserName}<br/></div>
+                                            </aura:if>
+                                            
+                                            
+                                        </aura:iteration>
+                                    </td>
+                                </aura:set>
+                            </aura:if>
+                            <td data-label="Confidence">
+                                <div class="slds-truncate" title="Reassign" ><lightning:buttonIcon variant="brand" disabled="{!!v.isdisabled}" iconName="utility:reassign" tabindex="{!index}" onclick="{!c.reassignByRow}"/></div>
+                            </td>
+                        </tr>
+                    </aura:iteration>
+                    
+                </tbody>
+            </table>
+            <!--<aura:if isTrue="{!and(v.AccountSupportList.length &lt; v.pageSize+1,v.totalPage>1,v.AccountSupportList.length!=0)}">-->
+            
+        </div>
+        <aura:set attribute="else">
+            <div class="slds-p-horizontal_medium" >
+                <p>There are no records in this tab!!!</p>
+            </div>
+        </aura:set>
+    </aura:if>    
+    <!-- Pagination Start here-->
+    <aura:if isTrue = "{!!v.isNextDisabled}">    
+        <footer class="slds-modal__footer ">
+            <div class="slds-truncate slds-p-horizontal_medium">
+                <div class="slds-align_absolute-center">
+                    <p><b>Total Page: {!v.totalPage}</b>  Goto Page :  </p> 
+                    <lightning:input type="number" name='pageNumber ' class='inputwitdh' value='{!v.pageNumber}' min='1' max='{!v.totalPage}'/>
+                    <button class="slds-button slds-button_brand" onclick="{!c.gotopage}" disabled ="{!or(v.pageNumber&lt;1,v.pageNumber>v.totalPage)}">Goto</button>
+                    <button class="slds-button slds-button_brand" onclick="{!c.prevPage}" disabled ="{!v.currentPage &lt;2}">Prev</button>
+                    <button class="slds-button slds-button_brand" onclick="{!c.nextPage}" disabled ="{!v.currentPage>=v.totalPage}">Next</button>
+                </div>
+                
+            </div>
+        </footer>
+    </aura:if>
+    <!-- Pagination End -->
+    <!-- List view End here -->
+    <aura:if isTrue="{!v.showModal}">
+        <aura:if isTrue="{!v.isNew}">
+            <c:NewAccountPointOFContacts showModal="{!v.showModal}"
+                                         ASMHirarchy = "{!v.ASMHirarchy}" 
+                                         currentTab = "{!v.currentTab}"    
+                                         isStandard="false"
+                                         ManageRoles = "{!v.ManageRoles}"
+                                         AccountSupportList = "{!v.AccountSupportList}"
+                                         AccountSupportListMain = "{!v.AccountSupportListMain}"
+                                         currentPage = "{!v.currentPage}"
+                                         parent="{!this}"
+                                         />
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.isbulkUpdate}">
+                    <c:APOCMultiReassignRoles showModal="{!v.showModal}"
+                                              isbulkUpdate ="{!v.isbulkUpdate}"
+                                              ManageRoles = "{!v.ManageRoles}"
+                                              isNew ="{!v.isNew}"
+                                              recordToReassign = "{!v.recordToReassign}"
+                                              parent="{!this}"
+                                              />
+                    <aura:set attribute="else">
+                        <c:NewASMReassignModal showModal="{!v.showModal}"
+                                               currentTab = "{!v.currentTab}" 
+                                               AccountSupportList = "{!v.AccountSupportList}"
+                                               ASMHirarchy = "{!v.ASMHirarchy}"
+                                               parent="{!this}"
+                                               recordToReassign = "{!v.recordToReassign}" 
+                                               isAsc = "{!v.isAsc}"
+                                               ManageRoles = "{!v.ManageRoles}"
+                                               arrowDirection = "{!v.arrowDirection}"
+                                               currentPage = "{!v.currentPage}"
+                                               accName ="{!v.accName}"
+                                               accId ="{!v.accId}"
+                                               accMaster="{!v.accMaster}"
+                                               />
+                    </aura:set>
+                </aura:if>
+            </aura:set>
+        </aura:if>
+    </aura:if>
+</aura:component>

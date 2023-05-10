@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>Activity.Quantity__c:SUM /PARENTGROUPVAL(Activity.Quantity__c:SUM, GRAND_SUMMARY)</calculatedFormula>
+        <datatype>percent</datatype>
+        <developerName>FORMULA1</developerName>
+        <downGroupingContext>Activity.Call_Result__c</downGroupingContext>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Percentage Quantity</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>Activity.Quantity__c:SUM / PARENTGROUPVAL(Activity.Quantity__c:SUM, GRAND_SUMMARY)</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA2</developerName>
+        <downGroupingContext>Activity.Call_Result__c</downGroupingContext>
+        <isActive>false</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>% Qunatity</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_81839288</developerName>
+        <masterLabel>POS Version</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Activity.Offer_Type__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>12.3 SMB Call Campaign</sourceValue>
+            </sourceValues>
+            <value>12.3 Version</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>6.7 SMB Call Campaign</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>SMB Cal Campaign</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>SMB Call Campaign</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>SMB Call Campain</sourceValue>
+            </sourceValues>
+            <value>6.7 Version</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>15.1 SMB Call Campaign</sourceValue>
+            </sourceValues>
+            <value>15.1 Version</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>Activity.Activity__c</field>
+    </columns>
+    <columns>
+        <field>ASSIGNED</field>
+    </columns>
+    <columns>
+        <field>SUBJECT</field>
+    </columns>
+    <columns>
+        <field>TASK_TYPE</field>
+    </columns>
+    <columns>
+        <field>WHAT_NAME</field>
+    </columns>
+    <columns>
+        <field>WHO_NAME</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Activity.Quantity__c</field>
+    </columns>
+    <columns>
+        <field>DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>STATUS</field>
+    </columns>
+    <columns>
+        <field>ACCOWNER</field>
+    </columns>
+    <columns>
+        <field>Activity.Offer_Type__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>ASSIGNED</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Tanja Stojicic,Jovana Markovic,Petar Ostojic,Milica Dimitrijevic,Nevena Parlic,Bojan Stevanovic,Gavrilo Boskovic,Lazar Sertic,Dusica Pavlovic,Jelena Antic,Milena Lukovic,Filip Dragic,Andjela Kocovic,Vanja Knezevic,Milan Lakic,Jelena Randelovic,Jelena Cacanovic,Milos Pesic,Nenad Jelic,Sandra Brasnjovic,Sonja Stupar,Svetlana Pasic,Jovana Radovic</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Activity.Offer_Type__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>LOAR</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>WHAT_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Brenka Test Account</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Activity.Call_Result__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Month</dateGranularity>
+        <field>CREATED_DATE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>SMB LOAR Report 1</name>
+    <params>
+        <name>closed</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>type</name>
+        <value>te</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Activity</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>DUE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

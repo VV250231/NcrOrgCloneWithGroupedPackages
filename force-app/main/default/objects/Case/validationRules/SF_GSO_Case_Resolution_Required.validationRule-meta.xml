@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SF_GSO_Case_Resolution_Required</fullName>
+    <active>true</active>
+    <description>If Case Status is Closed &amp; Record Type is SF Global Support then Close Resolution is required</description>
+    <errorConditionFormula>AND(
+    RecordType.Name = &quot;SF Global Support&quot;, 
+    ISPICKVAL(Status, &quot;Closed&quot;), 
+    ISBLANK(Close_Resolution__c )
+
+)</errorConditionFormula>
+    <errorMessage>Case Resolution is required on Closed Cases. Please navigate to Close Case tab and update.</errorMessage>
+</ValidationRule>

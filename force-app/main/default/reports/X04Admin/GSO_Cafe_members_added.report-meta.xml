@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CollaborationGroup$Name</field>
+    </columns>
+    <columns>
+        <field>CollaborationGroup.GroupMembers$Member</field>
+    </columns>
+    <columns>
+        <field>CollaborationGroup.GroupMembers$Member.Quicklook_ID__c</field>
+    </columns>
+    <columns>
+        <field>CollaborationGroup.GroupMembers$CollaborationRole</field>
+    </columns>
+    <columns>
+        <field>CollaborationGroup.GroupMembers$CreatedBy</field>
+    </columns>
+    <columns>
+        <field>CollaborationGroup.GroupMembers$CreatedDate</field>
+    </columns>
+    <currency>USD</currency>
+    <description>report for Jovana and Andrijana</description>
+    <filter>
+        <criteriaItems>
+            <column>CollaborationGroup$Id</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>0F970000000LNl6</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CollaborationGroup.GroupMembers$CreatedBy</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Jovana Stojanovic,Andrijana Starcevic</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>GSO Cafe members added</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Chatter_Groups_with_Group_Members__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>CollaborationGroup.GroupMembers$CreatedDate</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CollaborationGroup$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

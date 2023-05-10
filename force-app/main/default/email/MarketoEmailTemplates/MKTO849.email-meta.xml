@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>08-11-21 HOS CMC Agent 19.2.6. Release Notes.Email 1</name>
+    <style>none</style>
+    <subject>Command Center Release Notes</subject>
+    <textOnly>Command Center Agent, version 19.2.6
+About this Release
+This release is a maintenance update of the Command Center Agent 19.2 General Release.
+
+This update is required for all U.S. production and pre-production sites not yet migrated in order to successfully migrate to our Azure data center per the February 26th announcement about the upcoming decommissioning of Command Center in the NCR Dallas Data Center. Additionally, this release includes an update which removes a deprecated configuration element causing an irrelevant mid-level alert on some sites and corrects site-side remote login capabilities for our international sector. This upgrade will also terminate its installation when attempted through a junction point.
+
+This release is now available to all CMC customers for labs and production sites. If you would like to upgrade your Command Center agent to version 19.2.6, please contact our support team to coordinate the upgrade.
+
+NCR will push this CMC Agent version upgrade to all CMC NCR Dallas Data Center company trees as part of the migration process at least one week prior to migration activities.
+Enhancements
+CMC-766: Migration Process Fortified and Streamlined 
+
+Specifically for use by Command Center migration teams to migrate sites to the Azure data centers (such as US-PROD migration from DFW05 to NUA01-SEC).
+
+In the CmcInst action to migrate, 
+connectivity checks will now be made to the required endpoints: RDFWeb, RDFServer, SSH servers, and, if applicable, the OnlineOrderServer specified in the config file.
+
+Recurring connectivity checks will continue as necessary to complete the migration. If the connectivity checks fail and CmcAgent resumes connectivity to the &quot;originating&quot; data center, the connectivity checks will continue every 4 hours to determine whether or not all “destination” data center endpoints can be reached. Once successful, the agent will disconnect from the “originating” data center and connect to the “destination” data center.
+
+CMC-755: Terminate Installation when Site is Using a Junction Point
+
+If a shortcut exists in the CmcAgent install path on the site controller (this is called a &quot;junction point&quot;), the installer may not be able to configure the Windows Firewall to allow nodes to connect. CmcInst will now check for the existence of a junction point in the CmcAgent install path before performing an upgrade or install. If a junction point is found in the install path, the CmcInst process will terminate and provide related messaging. This applies to fresh installs as well as to upgrades.
+
+Note that any site using a junction point in the CmcAgent install path will not be able receive this release or future CmcAgent updates. The decision to use a shortcut in this manner is managed by the customer. Corrective action steps can be provided by our Support team.
+
+CMC-745: Removes a Configuration Element Resulting in Irrelevant a Mid-Level Alert
+
+When CmcInst performs this upgrade, it will remove a previously deprecated configuration element, if present, which has resulted in some sites reporting an irrelevant, medium-level alert regarding an error in CommandCenter.config.
+Fixes
+CMC-818 (ARE-4072): Again allowing store-side CmcPopUp.exe to run on all supported BOH system languages (English, Italian, French, German, and Spanish) in EDC or CFC remote logins within VNC session.
+Notes
+To schedule the upgrade of your company’s sites to CMC Agent version 19.2.6, please send a request to NCR Support at support@alohaenterprise.com. 
+
+To request more information about this release or any NCR solution, contact us at NCR.com &lt;[[https://www.ncr.com/contact-us]]&gt;.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

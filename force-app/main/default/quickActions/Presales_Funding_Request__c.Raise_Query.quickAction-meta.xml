@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldOverrides>
+        <field>All_Previously_Notified_PS_Team_Users__c</field>
+        <formula>&quot;PS Team :-&quot; &amp; BR() &amp;
+&quot;PS Team User 1 :&quot; &amp;
+Presales_Funding_Request__c.PS_Team_User1__c  
+&amp; &quot;, &quot; &amp; BR()
+&amp;
+&quot;PS Team User 2 :&quot; &amp;
+Presales_Funding_Request__c.PS_Team_User2__c 
+&amp; &quot;, &quot; &amp; BR()
+&amp;
+&quot;PS Team User 3 :&quot; &amp;
+Presales_Funding_Request__c.PS_Team_User3__c 
+&amp; &quot;, &quot; &amp; BR()
+&amp;
+&quot;PS Team User 4 :&quot; &amp;
+Presales_Funding_Request__c.PS_Team_User4__c 
+&amp; &quot;, &quot; &amp; BR()
+&amp;
+&quot;PS Team User 5 :&quot; &amp;
+Presales_Funding_Request__c.PS_Team_User5__c 
+&amp; &quot;, &quot; &amp; BR()
+&amp;
+&quot;PS Team User 6 :&quot; &amp;
+Presales_Funding_Request__c.PS_Team_User6__c</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Notified_Users__c</field>
+        <formula>&quot;Opportunity Team :-&quot; &amp; BR() &amp;
+&quot;Fund Request Owner :&quot; &amp;
+ Presales_Funding_Request__c.Owner:User.Username
+&amp;
+&quot;, &quot; &amp; BR()
+&amp;
+&quot;Account Owner :&quot; &amp;
+Presales_Funding_Request__c.Account__r.Account_Owner_Name__c &amp;
+&quot;, &quot; &amp; BR()
+&amp;
+&quot;Opportunity Owner Manager: &quot; &amp;
+ Presales_Funding_Request__c.Opportunity_Owner_Manager__c 
+&amp; &quot;, &quot; &amp; BR()
+&amp;
+&quot;Opportunity Owner :&quot; &amp;
+ Presales_Funding_Request__c.PFR_Opportunity_Owner__c</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Presales_Funding_Request__c</field>
+        <formula>Presales_Funding_Request__c.Id</formula>
+    </fieldOverrides>
+    <label>Raise Query</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <quickActionLayout>
+        <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>
+        <quickActionLayoutColumns>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Additional_Commnets__c</field>
+                <uiBehavior>Required</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Raise_to_Opportunity_Owner__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Notified_Users__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Raise_to_PS_Team__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>All_Previously_Notified_PS_Team_Users__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Raise_to_Other__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Email_ID__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>CC_1__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>CC_2__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+        </quickActionLayoutColumns>
+        <quickActionLayoutColumns/>
+    </quickActionLayout>
+    <successMessage>Query is raised to respective teams !</successMessage>
+    <targetObject>AssociateResourceandRequest__c</targetObject>
+    <targetParentField>Presales_Funding_Request__c</targetParentField>
+    <type>Create</type>
+</QuickAction>

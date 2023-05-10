@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>sp1Lead_Esclation_Email_for_Partners_Users</name>
+        <label>Lead.Lead_Esclation_Email_for_Partners_Users</label>
+        <locationX>308</locationX>
+        <locationY>288</locationY>
+        <actionName>Lead.Lead_Esclation_Email_for_Partners_Users</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>55.0</apiVersion>
+    <description>Migrated from the: 1.2.1 Lead Escalation workflow rule
+Workflow rule description: &quot;</description>
+    <environments>Default</environments>
+    <label>1.2.1 Lead Escalation</label>
+    <migratedFromWorkflowRuleName>1.2.1 Lead Escalation</migratedFromWorkflowRuleName>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterFormula>AND( {!$Record.Last_Modified_Date__c}-{!$Record.Last_Assigned_Date_To_Partner_User__c}=0, {!$Record.RecordType.Name}=&quot;Partner Community Lead&quot; ,NOT({!$Setup.Automation_Setting__c.Skip_Flow__c}) ,{!$Record.CATM_Record__c} = false)</filterFormula>
+        <object>Lead</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <scheduledPaths>
+            <name>X24_Hours_After_Lead_is_Updated</name>
+            <connector>
+                <targetReference>sp1Lead_Esclation_Email_for_Partners_Users</targetReference>
+            </connector>
+            <label>24 Hours After Lead is Updated</label>
+            <offsetNumber>24</offsetNumber>
+            <offsetUnit>Hours</offsetUnit>
+            <timeSource>RecordTriggerEvent</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Obsolete</status>
+</Flow>

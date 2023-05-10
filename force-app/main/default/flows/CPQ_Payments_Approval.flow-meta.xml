@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Send Payments Approval Email alert to Local Office&apos;s recipient.</description>
+        <name>CPQ_Local_Office_Payments_Approval</name>
+        <label>CPQ Local Office Payments Approval</label>
+        <locationX>314</locationX>
+        <locationY>815</locationY>
+        <actionName>sbaa__Approval__c.CPQ_Local_Office_Payments_Approval</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>Send Payments Approval Email alert to Partner&apos;s recipient.</description>
+        <name>CPQ_Partner_Payments_Approval</name>
+        <label>CPQ Partner Payments Approval</label>
+        <locationX>50</locationX>
+        <locationY>695</locationY>
+        <actionName>sbaa__Approval__c.CPQ_Partner_Payments_Approval</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>55.0</apiVersion>
+    <decisions>
+        <description>Channel Type = Local Office</description>
+        <name>Channel_Type_Local_Office</name>
+        <label>Channel Type Local Office</label>
+        <locationX>446</locationX>
+        <locationY>695</locationY>
+        <defaultConnectorLabel>Non Local Office</defaultConnectorLabel>
+        <rules>
+            <name>Local_Office</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Quote.qtc_Channel_Local_Office_Record_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>LOCAL OFFICE</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>CPQ_Local_Office_Payments_Approval</targetReference>
+            </connector>
+            <label>Local Office</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Channel Type = Partner</description>
+        <name>Channel_Type_Partner</name>
+        <label>Channel Type Partner</label>
+        <locationX>248</locationX>
+        <locationY>575</locationY>
+        <defaultConnector>
+            <targetReference>Channel_Type_Local_Office</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Non Partner</defaultConnectorLabel>
+        <rules>
+            <name>Partner</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Quote.qtc_Channel_Local_Office_Record_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>PARTNER</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>CPQ_Partner_Payments_Approval</targetReference>
+            </connector>
+            <label>Partner</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Check CPQ quote or not</description>
+        <name>Check_CPQ_Quote</name>
+        <label>Check CPQ Quote</label>
+        <locationX>545</locationX>
+        <locationY>455</locationY>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Quote.SBQQ__Opportunity2__r.CPQ__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Channel_Type_Partner</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>CPQ Payments Approval based upon channel Type (Partner/Local Office)</description>
+    <environments>Default</environments>
+    <interviewLabel>CPQ Payments Approval {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>CPQ Payments Approval</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Get a quote to check whether its CPQ quote or not</description>
+        <name>Get_Quote</name>
+        <label>Get Quote</label>
+        <locationX>545</locationX>
+        <locationY>335</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_CPQ_Quote</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Quote__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>SBQQ__Quote__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>SBQQ__Opportunity2__c</queriedFields>
+        <queriedFields>qtc_Channel_Local_Office_Record_Type__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>419</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Quote</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>qtc_Approver_Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Payments Approver Group</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>sbaa__Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Approved</stringValue>
+            </value>
+        </filters>
+        <object>sbaa__Approval__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

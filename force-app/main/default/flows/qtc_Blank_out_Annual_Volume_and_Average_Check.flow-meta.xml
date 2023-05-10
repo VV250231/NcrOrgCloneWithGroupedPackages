@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>51.0</apiVersion>
+    <assignments>
+        <name>Blank_out_Annual_Volume_and_Average_Check</name>
+        <label>Blank out Annual Volume and Average Check</label>
+        <locationX>173</locationX>
+        <locationY>383</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.qtc_Annual_Volume__c</assignToReference>
+            <operator>Assign</operator>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.qtc_Average_Check__c</assignToReference>
+            <operator>Assign</operator>
+        </assignmentItems>
+    </assignments>
+    <description>ATG - August 18, 2021- Moved to be before update.
+ATG - August 3, 2021 - Updated to check for Payments Solution being blank rather than being set to &quot;No Payments&quot;.
+ATG - June 29, 2021 - Updated to check Payments Solution field since that indicates if a quote has a payments product
+This flow is necessary due to a bug in Salesforce CPQ with the setting &quot;Enable Large Configurations&quot;. Once we complete bundle simplification and can turn that setting off then we can move this functionality to a price rule.</description>
+    <interviewLabel>Blank out Annual Volume and Average Check {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Blank out Annual Volume and Average Check</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>update_quote</name>
+        <label>update quote</label>
+        <locationX>338</locationX>
+        <locationY>460</locationY>
+        <inputAssignments>
+            <field>qtc_Annual_Volume__c</field>
+        </inputAssignments>
+        <inputAssignments>
+            <field>qtc_Average_Check__c</field>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Blank_out_Annual_Volume_and_Average_Check</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>qtc_Payments_Solution__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>SBQQ__Quote__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

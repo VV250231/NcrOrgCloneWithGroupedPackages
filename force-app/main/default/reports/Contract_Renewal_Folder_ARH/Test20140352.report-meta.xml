@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>AMOUNT.CONVERT:SUM - Opportunity.Initial_Renewal_Value__c.CONVERT:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Total</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>IF(Opportunity.Initial_Renewal_Value__c.CONVERT:SUM=0,1,(AMOUNT.CONVERT:SUM-Opportunity.Initial_Renewal_Value__c.CONVERT:SUM)/Opportunity.Initial_Renewal_Value__c.CONVERT:SUM)</calculatedFormula>
+        <datatype>percent</datatype>
+        <developerName>FORMULA2</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Uplift %</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>Opportunity.Initial_Renewal_Value__c.CONVERT:SUM * 1</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA3</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Current FV</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_24053510</developerName>
+        <masterLabel>Teams</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>OWNER_MANAGER</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Marko Avramovic</sourceValue>
+            </sourceValues>
+            <value>AFA</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Marija Brenka</sourceValue>
+            </sourceValues>
+            <value>AFB</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Jovana Trifunovic</sourceValue>
+            </sourceValues>
+            <value>ARH</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Larvin Esguerra</sourceValue>
+            </sourceValues>
+            <value>APJ</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Hasan Sarakbi</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ralf Bruggemann</sourceValue>
+            </sourceValues>
+            <value>MEA</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Miodrag Stevanovic</sourceValue>
+            </sourceValues>
+            <value>EUE</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>Account.Account_Country_Code__c</field>
+    </columns>
+    <columns>
+        <field>BucketField_24053510</field>
+    </columns>
+    <columns>
+        <field>Account.Account_Region__c</field>
+    </columns>
+    <columns>
+        <field>Account.LOB__c</field>
+    </columns>
+    <columns>
+        <field>Account.Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Annuity_Contract_Term__c</field>
+    </columns>
+    <columns>
+        <field>AGE</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Expected_Service_Start_Date__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Created_Date__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Initial_Renewal_Value__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>AMOUNT.CONVERT</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+        <criteriaItems>
+            <column>ACCOUNT_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Brenka Test Account</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OWNER_MANAGER</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Jovana Trifunovic</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FULL_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Ana Teodorovic</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>STAGE_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>ACCOUNT_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>DB:ARH: Uplift %</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>open</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>OPPORTUNITY_NAME</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_NEXT30</interval>
+    </timeFrameFilter>
+</Report>

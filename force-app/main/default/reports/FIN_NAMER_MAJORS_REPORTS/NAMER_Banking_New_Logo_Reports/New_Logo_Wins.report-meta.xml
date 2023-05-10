@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_20402393</developerName>
+        <masterLabel>Manager</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>User.Manager_Level_01__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Mark Leinenkugel</sourceValue>
+            </sourceValues>
+            <value>Mark Leinenkugel</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>James deSilva</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>John D Morgan</sourceValue>
+            </sourceValues>
+            <value>John Morgan</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Ron Furnier</sourceValue>
+            </sourceValues>
+            <value>Ron Furnier</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Benjamin Seelos</sourceValue>
+            </sourceValues>
+            <value>Ben Seelos</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Brian Pilla</sourceValue>
+            </sourceValues>
+            <value>Brian Pilla</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>AMOUNT</field>
+    </columns>
+    <columns>
+        <field>AGE</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Actual_Close_Date__c</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>Account.Coverage__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Primary_Competitor__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Hardware_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Software_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.PS_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.TS_Product_Total__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>User.Manager_Level_01__c</field>
+    </columns>
+    <columns>
+        <field>RECORDTYPE</field>
+    </columns>
+    <columns>
+        <field>LAST_STAGE_CHANGE_DATE</field>
+    </columns>
+    <columns>
+        <field>Opportunity.End_Customer__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>STAGE_DURATION</field>
+    </columns>
+    <columns>
+        <field>Opportunity.NewTypeSection__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <booleanFilter>2 AND 1 AND (3 OR 4)</booleanFilter>
+        <criteriaItems>
+            <column>TYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>New Customer</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Actual_Close_Date__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>THIS_FISCAL_YEAR</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User.Manager_Level_01__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Ron Furnier,Ian Kirkpatrick,Alan Walsh,David Watson,David E Watson</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User.Manager_Level_02__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Ron Furnier</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>Account.Assets_current__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>ACCOUNT_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_20402393</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>New Logo Wins</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>closedwon</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <roleHierarchyFilter>FIN_NAMER</roleHierarchyFilter>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Canada_FI_Survey_Customers</fullName>
+    <columns>FULL_NAME</columns>
+    <columns>Key_Contact__c</columns>
+    <columns>Survey_Flag__c</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>CONTACT.TITLE</columns>
+    <columns>CONTACT.PHONE1</columns>
+    <columns>CONTACT.EMAIL</columns>
+    <columns>ACCOUNT.OWNER.FIRST_NAME</columns>
+    <columns>ACCOUNT.OWNER.LAST_NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Inactive__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>ACCOUNT.TYPE</field>
+        <operation>equals</operation>
+        <value>Customer</value>
+    </filters>
+    <filters>
+        <field>CATM_Region__c</field>
+        <operation>equals</operation>
+        <value>NABG</value>
+    </filters>
+    <filters>
+        <field>Account.Business_Unit__c</field>
+        <operation>equals</operation>
+        <value>Account.FI_Account</value>
+    </filters>
+    <filters>
+        <field>Account.Geography__c</field>
+        <operation>equals</operation>
+        <value>Canada</value>
+    </filters>
+    <label>CATM Canada FI Survey - Customers</label>
+    <sharedTo>
+        <role>Canada_Retail_and_FI</role>
+        <role>NA_CAN_FI_Sales</role>
+    </sharedTo>
+</ListView>

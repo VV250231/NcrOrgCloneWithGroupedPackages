@@ -1,0 +1,196 @@
+<apex:page controller="PSFRResource_R" standardStylesheets="false" applyBodyTag="false" sidebar="false" showHeader="false" docType="html-5.0">
+    <head>
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/bootstrap/css/bootstrap.min.css')}"/>        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"/>   
+
+        <!-- DataTables -->     
+        <link rel="stylesheet" href="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/datatables/dataTables.bootstrap.css')}"/>
+        
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/bootstrap/css/AdminLTE.min.css')}"/>
+        <style>
+            .container-fluid {
+                margin-top: 15px;
+            }
+            
+        </style>
+    </head>
+    
+    <body>
+        
+        
+        <apex:form >
+            <apex:actionFunction name="delete_Row" action="{!removeResource}" reRender="tabRen" immediate="true">
+                <apex:param name="DEl_ID" value="" assignTo="{!COUNT_FRM_PAGE}"/>
+            </apex:actionFunction>
+   
+            
+            <div class="container-fluid">
+                <div class="row">
+                    <!---------------------------------Completed by information------------------------------------>
+                 
+                    <div class="col-md-12">
+                        <div class="box box-primary box-solid ">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Completed by information</h3>                                
+                            </div>
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Completed by Name</label>                                            
+                                            <apex:inputText value="{!CompletedbyName}" required="true" styleClass="form-control" html-placeholder="Enter Text"/>
+                                            <!--<apex:input type="text" value="{!CompletedbyName}" required="true" styleClass="form-control" html-placeholder="Enter Text"/>-->
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Completed by Email ID</label>
+                                            <!--<apex:inputText value="{!CompletedbyEmail}" required="true" styleClass="form-control" html-placeholder="Enter Email"/>-->
+                                            <apex:input type="email" value="{!CompletedbyEmail}" required="true" styleClass="form-control" html-placeholder="Enter Email"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                      
+                    <!---------------------------------Completed by information------------------------------------>
+                    
+                    <!---------------------------------Resource Information------------------------------------>
+            
+                        <apex:actionFunction name="delete_Row" action="{!removeResource}" reRender="tabRen" immediate="true">
+                            <apex:param name="DEl_ID" value="" assignTo="{!COUNT_FRM_PAGE}"/>
+                        </apex:actionFunction>
+                    <div class="col-md-12">
+                        <div class="box box-primary box-solid ">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Resource Information</h3>                                
+                            </div>
+                            <div class="box-body table-responsive no-padding">
+                            <apex:outputPanel id="tabRen">
+                                <table class="table table-hover">
+                                    <tr>
+                                        <th style="text-align:center;">Resource Name</th>
+                                        <th style="text-align:center;">Task name</th>
+                                        <th style="text-align:center;">BU</th>
+                                        <th style="text-align:center;">Travel Cost (USD)</th>
+                                        <th style="text-align:center;">Hours Not to Exceed</th>
+                                        <th style="text-align:center;">Hourly Rate (USD)</th>
+                                        <th style="text-align:center;"></th>
+                                    </tr>
+                                    <!--
+                                    <apex:repeat value="{!listResource}" var="Resources">
+                                        <tr>
+                                            <td><apex:inputField value="{!Resources.PFR_Resource_Name__c}" required="true"/></td>
+                                            <td><apex:inputField value="{!Resources.PFR_Task__c}" required="true" /></td>
+                                            <td><apex:inputField value="{!Resources.PFR_BU__c}" required="true"/></td>
+                                            <td><apex:inputField value="{!Resources.PFR_Travel_Cost__c}" required="true" /></td>
+                                            <td><apex:inputField value="{!Resources.PFR_Num_of_days_not_to_exceed__c}" required="true"/></td>
+                                            <td ><apex:inputField value="{!Resources.PFR_Daily_Rate_USD__c}" required="true"/></td>
+                                        </tr>
+                                    </apex:repeat>
+                                    -->
+                                    <apex:repeat value="{!WrapperList}" var="Resources">
+                                        <tr>
+                                            
+                                            <td><apex:inputField value="{!Resources.Reso.PFR_Resource_Name__c}" required="true" style="width:150px;text-align:left;" /></td>
+                                            <td><apex:inputField value="{!Resources.Reso.PFR_Task__c}" required="true"  style="width:560px;text-align:left;" /></td>
+                                            <td><apex:inputField value="{!Resources.Reso.PFR_BU__c}" html-placeholder="PS" required="true" style="width:100px;text-align:left;" /></td>
+                                            <td><apex:inputField value="{!Resources.Reso.PFR_Travel_Cost__c}" required="true" style="width:120px;text-align:center;" /></td>
+                                            <td><apex:inputField value="{!Resources.Reso.PFR_Num_of_days_not_to_exceed__c}" required="true" style="width:140px;text-align:center;" /></td>
+                                            <td><apex:inputField value="{!Resources.Reso.PFR_Daily_Rate_USD__c}" required="true" style="width:120px;text-align:center;" /></td>
+                                            <td>
+                                                <button type="button" class="btn btn-danger btn-xs" title="Remove Row" onclick="delete_Row( '{!Resources.Count}' );"><i class="fa fa-remove"></i></button>
+                                                
+                                            </td>
+                                        </tr>
+                                    </apex:repeat>
+                                    
+                                </table>
+                                </apex:outputPanel>
+                                <apex:commandButton styleClass=" btn btn-primary" value="Calculate Total"  action="{!Calcualte}" style="margin:5px;" reRender="grandTotal,grandTotal1"/>
+                                <apex:commandButton styleClass=" btn btn-primary" value="Add Resource Row" action="{!addResource}" style="margin:5px;" reRender="tabRen" immediate="true"/>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <!---------------------------------Resource Information------------------------------------>
+                    
+                    <!---------------------------------Grand Total----------------------------------->
+                    <!------------------------------------
+                    <apex:outputPanel id="grandTotal">
+                    <div class="col-md-12">
+                        <div class="box box-primary box-solid ">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Grand Total</h3>                                
+                            </div>
+                            <div class="box-body table-responsive no-padding">
+                                
+                                <table class="table table-bordered">
+                                    
+                                    <tr>
+                                        <th style="text-align:center;">Total Traveling Cost</th>
+                                        <th></th>
+                                        <th style="text-align:center;">Total Hours not to exceed</th>
+                                        <th></th>
+                                        <th style="text-align:center;">Total Hourly Rate</th>
+                                        <th></th>
+                                        <th style="text-align:center;">Total Value</th>
+                                    </tr>
+                                    <tr>
+                                        
+                                        <td style="text-align:right;"><apex:OutputText value="{!rm.PFR_Travel_Cost__c}" /></td>
+                                        <th></th>
+                                        <td style="text-align:center;"><apex:OutputText value="{!rm.PFR_Num_of_days_not_to_exceed__c}"  /></td>
+                                        <th></th>
+                                        <td style="text-align:right;"><apex:OutputText value="{!rm.PFR_Daily_Rate_USD__c}" /></td>
+                                        <th></th>
+                                        <td style="text-align:right;"><apex:OutputText value="{!TotalHours}" /></td>
+                                        
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>                         
+                    </apex:outputPanel>
+                    ------------------------------------------->
+                    <apex:outputPanel id="grandTotal1">
+                    <div class="col-md-12">
+                        <div class="box box-primary box-solid ">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Grand Total</h3>                                
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-3 text-center"><b>Total Traveling Cost</b></div>
+                                <div class="col-md-3 text-center"><b>Total Hours not to exceed</b></div>
+                                <!--<div class="col-md-3 text-center"><b>Total Hourly Rate</b></div>-->
+                                <div class="col-md-3 text-center"><b>-</b></div>
+                                <div class="col-md-3 text-center"><b>Total Value</b></div>
+                                
+                                <div class="col-md-3 text-center"><b><apex:OutputText value="{!rm.PFR_Travel_Cost__c}" /></b></div>
+                                <div class="col-md-3 text-center"><b><apex:OutputText value="{!rm.PFR_Num_of_days_not_to_exceed__c}"  /></b></div>
+                                <!--<div class="col-md-3 text-center"><b><apex:OutputText value="{!rm.PFR_Daily_Rate_USD__c}" /></b></div>-->
+                                <div class="col-md-3 text-center"><b>-</b></div>
+                                <div class="col-md-3 text-center"><b><apex:OutputText value="{!TotalHours}" /></b></div>
+                            </div>
+                        </div>
+                    </div>                         
+                    </apex:outputPanel>
+                    
+                        
+                    <!--------------------------------------------------------------------->
+                    
+                    <apex:commandButton styleClass=" btn btn-primary" value="Save Details" action="{!saveResource}" /> 
+                
+                    </div>
+            </div>
+                </apex:form>
+        
+    </body>
+    <script>
+        function onClickCalCulate(){
+            Calculate();
+            return false;
+        }
+    </script>
+</apex:page>

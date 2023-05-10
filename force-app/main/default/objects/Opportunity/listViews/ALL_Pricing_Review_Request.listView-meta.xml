@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ALL_Pricing_Review_Request</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>Opportunity_Number__c</columns>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>CORE.USERS.FULL_NAME</columns>
+    <columns>OPPORTUNITY.AMOUNT</columns>
+    <columns>Pricing_Analyst__c</columns>
+    <columns>Pricing_Approver_Name__c</columns>
+    <columns>Pricing_Review_Request_Status__c</columns>
+    <columns>Initial_Pricing_Review_Submission_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>OPPORTUNITY.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Opportunity.IncludeinFunnel</value>
+    </filters>
+    <filters>
+        <field>Initial_Pricing_Review_Submission_Date__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <label>*ALL Pricing Review Request</label>
+    <sharedTo>
+        <group>Pricing_Analyst_Team</group>
+    </sharedTo>
+</ListView>

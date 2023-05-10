@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Industry_del__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(INCLUDES(Account__r.Partner_Industry__c , &quot;Financial&quot;), &quot;Financial&quot;, IF (INCLUDES(Account__r.Partner_Industry__c , &quot;Retail &amp; Hospitality&quot;), &quot;Retail&quot;, &quot;None&quot;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Industry</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

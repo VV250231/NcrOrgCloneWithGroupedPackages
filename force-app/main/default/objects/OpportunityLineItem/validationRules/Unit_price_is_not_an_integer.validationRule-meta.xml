@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unit_price_is_not_an_integer</fullName>
+    <active>false</active>
+    <description>Unit price contains decimals</description>
+    <errorConditionFormula>UnitPrice   &lt;&gt;  FLOOR(UnitPrice)</errorConditionFormula>
+    <errorDisplayField>UnitPrice</errorDisplayField>
+    <errorMessage>Please enter a Unit Price as a whole number</errorMessage>
+</ValidationRule>

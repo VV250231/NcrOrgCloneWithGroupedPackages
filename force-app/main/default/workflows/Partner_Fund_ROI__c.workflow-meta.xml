@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Acknowledgement_to_CAM_for_ROI</fullName>
+        <description>Acknowledgement to CAM for ROI</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Channel_Account_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDF_ROI/ROI_Submission_Approver_Acknowledge_CAM</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_to_Partner_to_Acknowledge_his_request_approved</fullName>
+        <description>Email to Partner to Acknowledge his request approved</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDF_ROI/ROI_Approved_Acknowledgment</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_to_Partner_to_Acknowledge_his_request_rejected</fullName>
+        <description>Email to Partner to Acknowledge his request rejected</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDF_ROI/ROI_Rejection_Acknowledgment</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_to_Partner_to_Acknowledge_his_request_submission</fullName>
+        <description>Email to Partner to Acknowledge his request submission</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDF_ROI/ROI_Submission_Partner_Acknowledgment</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>ROI_Status_to_Approved</fullName>
+        <field>Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>ROI Status to Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>ROI_Status_to_Rejected</fullName>
+        <field>Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>ROI Status to Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>ROI_Status_to_Submitted</fullName>
+        <field>Status__c</field>
+        <literalValue>Submitted</literalValue>
+        <name>ROI Status to Submitted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Acknowledge Email to Partner</fullName>
+        <actions>
+            <name>Acknowledgement_to_CAM_for_ROI</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>Email_to_Partner_to_Acknowledge_his_request_submission</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Partner_Fund_ROI__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Submitted</value>
+        </criteriaItems>
+        <description>Sends email to partner when he submits Partner ROI Request.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Approved Acknowledge Email to Partner</fullName>
+        <actions>
+            <name>Email_to_Partner_to_Acknowledge_his_request_approved</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Partner_Fund_ROI__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </criteriaItems>
+        <description>Sends email to partner when channel operation team approves the request.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Rejection Email to Partner</fullName>
+        <actions>
+            <name>Email_to_Partner_to_Acknowledge_his_request_rejected</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Partner_Fund_ROI__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Rejected</value>
+        </criteriaItems>
+        <description>Sends email to partner when channel operation team rejects the request.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

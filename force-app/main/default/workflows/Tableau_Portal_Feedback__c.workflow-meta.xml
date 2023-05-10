@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Admin_Communication</fullName>
+        <description>Admin Communication</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>ad250024@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>sr250320@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>DefaultWorkflowUser</senderType>
+        <template>Tableau_Portal_Communications/Tableau_Portal_Feedback_Query</template>
+    </alerts>
+    <alerts>
+        <fullName>User_Communication</fullName>
+        <description>User Communication</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>DefaultWorkflowUser</senderType>
+        <template>Tableau_Portal_Communications/Tableau_Portal_Feedback_Thanks</template>
+    </alerts>
+    <rules>
+        <fullName>Tableau Portal Contact</fullName>
+        <actions>
+            <name>Admin_Communication</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>User_Communication</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <formula>true</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

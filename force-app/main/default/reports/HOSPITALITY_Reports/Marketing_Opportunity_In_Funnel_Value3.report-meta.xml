@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_32211473</developerName>
+        <masterLabel>Sales</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>Opportunity.Owner_Role__c</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - Central</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - Central Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - North East - Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - South East</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - South East - Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - Texas</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - Texas Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - West Sales</sourceValue>
+            </sourceValues>
+            <value>Refresh (AE)</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - ATL/CAR</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - ATL/CAR Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - BOS/DC</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - BOS/DC Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - Central</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - Central Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - CHI/DEN Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - Florida</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - Florida Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - N CAL Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - NY1</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - NY1 Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - Texas 1 Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - Texas 2 Sales</sourceValue>
+            </sourceValues>
+            <value>New (BDR)</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Business Development Office</sourceValue>
+            </sourceValues>
+            <value>New Biz</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>Opportunity.Owner_Role__c</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Unique</aggregateTypes>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>AMOUNT.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <aggregateTypes>Average</aggregateTypes>
+        <field>AGE</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>CAMPAIGN_SOURCE</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>OpportunityLineItem.Total_Cost_Value__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>OpportunityLineItem.Topline_Product_Lkp__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>TOTAL_PRICE</field>
+    </columns>
+    <columns>
+        <field>LEAD_SOURCE</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>QUANTITY</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>Account.LOB__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>HOSPITALITY</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>ROLLUP_DESCRIPTION</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>SMB</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CAMPAIGN_SOURCE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>2021_MarketingInboundCalls_Campaign_Hospitality,2020_October_FastCasualSummit_Hospitality,FM-20-MURTEC-Vegas,2020_09_SmallBusinessPOS_Campaign_Hospitality,2020_09_RestaurantSolutions_Campaign_Hospitality,travirtualevent2020,hospitality-contact-us,2020_05_ConsultationOffer_Campaign_Hospitality,2020_05_MobilePay_Campaign_Hospitality,2020_06_ContactlessDiningExperience_Campaign_Hospitality,IFBTA_2020,contactus-2020-marketo,2020_04_OnlineOrderingStarterPack_Campaign_Hospitality,2020_10_BackedByNCR_Campaign_Brand,2020_09_AtlantaBlitz_Campaign_Hospitality,2020_10_DallasBlitz_Campaign_Hospitality</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Quarter</dateGranularity>
+        <field>CLOSE_MONTH</field>
+        <sortOrder>Desc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_32211473</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Marketing Opportunity In-Funnel Value</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>open</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>OpportunityProduct</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_MONTH</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2021-01-01</startDate>
+    </timeFrameFilter>
+</Report>

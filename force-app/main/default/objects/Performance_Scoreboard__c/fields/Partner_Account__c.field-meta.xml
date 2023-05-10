@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Partner_Account__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( And(Account__r.RecordTypeId = &quot;0127000000014kq&quot;,  ISPICKVAL(Account__r.Partnership_Status__c,&quot;Active&quot;)),&quot;Yes&quot;,&quot;No&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Partner Account?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

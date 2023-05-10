@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>53.0</apiVersion>
+    <description>Skip Flow Condition Added In Flow Entery Condition - 06-Feb-2023 DP250110</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>f_SWEndDate</name>
+        <dataType>Date</dataType>
+        <expression>IF(TEXT({!$Record.qtc_Quote__r.SBQQ__Type__c}) = &quot;Quote&quot;, 
+
+DATE(
+ 	/*YEAR*/
+ 	YEAR({!f_SWStartDate}) + FLOOR((MONTH({!f_SWStartDate}) + BLANKVALUE(BLANKVALUE({!$Record.qtc_Quote__r.SBQQ__SubscriptionTerm__c},36),36)- 1)/12),
+
+ 	/*MONTH*/
+ 	CASE(MOD(MONTH({!f_SWStartDate}) + BLANKVALUE({!$Record.qtc_Quote__r.SBQQ__SubscriptionTerm__c},36), 12 ), 0, 12, MOD(MONTH({!f_SWStartDate})+ BLANKVALUE({!$Record.qtc_Quote__r.SBQQ__SubscriptionTerm__c},36), 12 )),
+
+ 	/*DAY*/
+ 	MIN(DAY({!f_SWStartDate}), CASE(MOD(MONTH({!f_SWStartDate}) + BLANKVALUE({!$Record.qtc_Quote__r.SBQQ__SubscriptionTerm__c},36),12),
+ 		9, 30,
+ 		4, 30,
+ 		6, 30,
+ 		11, 30,
+ 		2,
+
+ 		/* return max days for February dependent on if end date is leap year */
+ 		IF(MOD(YEAR({!f_SWStartDate}) + FLOOR((MONTH({!f_SWStartDate}) + BLANKVALUE({!$Record.qtc_Quote__r.SBQQ__SubscriptionTerm__c},36))/12), 400) = 0
+ 			|| (MOD(YEAR({!f_SWStartDate}) + FLOOR((MONTH({!f_SWStartDate}) + BLANKVALUE({!$Record.qtc_Quote__r.SBQQ__SubscriptionTerm__c},36))/12), 4) = 0
+ 				&amp;&amp; MOD(YEAR({!f_SWStartDate}) + FLOOR((MONTH({!f_SWStartDate}) + BLANKVALUE({!$Record.qtc_Quote__r.SBQQ__SubscriptionTerm__c},36))/12), 100) &lt;&gt; 0 ),
+ 			29,
+ 			28),
+ 		31)
+ 	)
+ 	) - 1
+
+, {!$Record.qtc_Quote__r.SBQQ__EndDate__c})</expression>
+    </formulas>
+    <formulas>
+        <name>f_SWStartDate</name>
+        <dataType>Date</dataType>
+        <expression>BLANKVALUE({!$Record.qtc_ExpectedDeliveryDate__c} , DATEVALUE({!$Record.qtc_QuoteShipAuthDate__c}) + 30)</expression>
+    </formulas>
+    <interviewLabel>CPQ - Set ERP Fields on FO Product {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>CPQ - Set ERP Fields on FO Product</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_FO_Products</name>
+        <label>Update FO Products</label>
+        <locationX>186</locationX>
+        <locationY>459</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>qtc_FulfillmentOrder__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>qtc_ProductCode__c</field>
+            <operator>StartsWith</operator>
+            <value>
+                <stringValue>H400</stringValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>qtc_SW_Key_End_Date__c</field>
+            <value>
+                <elementReference>f_SWEndDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>qtc_SW_Key_Start_Date__c</field>
+            <value>
+                <elementReference>f_SWStartDate</elementReference>
+            </value>
+        </inputAssignments>
+        <object>qtc_FulfillmentOrderProduct__c</object>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Update_FO_Products</targetReference>
+        </connector>
+        <filterFormula>AND(NOT({!$Setup.Automation_Setting__c.Skip_Flow__c}),OR(ISCHANGED({!$Record.qtc_QuoteShipAuthDate__c}),ISCHANGED({!$Record.qtc_ExpectedDeliveryDate__c})))</filterFormula>
+        <object>qtc_FulfillmentOrder__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

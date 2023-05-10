@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Nordsee</fullName>
+    <columns>Site_Id__c</columns>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>CreatedDate__c</columns>
+    <columns>CASES.LAST_UPDATE_DATE_ONLY</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.PRIORITY</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Support_Queue__c</field>
+        <operation>contains</operation>
+        <value>Service Desk</value>
+    </filters>
+    <filters>
+        <field>CreatedDate__c</field>
+        <operation>greaterOrEqual</operation>
+        <value>9/27/2022 12:00 AM</value>
+    </filters>
+    <label>Nordsee</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

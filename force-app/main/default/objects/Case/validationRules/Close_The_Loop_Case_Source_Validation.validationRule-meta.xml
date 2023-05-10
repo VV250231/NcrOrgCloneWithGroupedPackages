@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Close_The_Loop_Case_Source_Validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( NOT( ISNEW() ) ,
+OR(RecordType.Name = &apos;Close the Loop&apos;,RecordType.Name = &apos;Follow-up&apos;) , ISCHANGED( Case_Source__c ))</errorConditionFormula>
+    <errorDisplayField>Case_Source__c</errorDisplayField>
+    <errorMessage>You cannot update Case Source field</errorMessage>
+</ValidationRule>

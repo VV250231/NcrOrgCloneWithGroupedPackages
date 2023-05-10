@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Asbestos_Survey_Required_validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+!$Setup.Automation_Setting__c.Skip_Validation_Rule__c, 
+OR(
+ $Permission.CATM_IBG_Manager = true,
+ $Permission.CATM_IBG_User = true
+),
+ISPICKVAL(Owner:User.Geography__c , &quot;UK&quot;),ISPICKVAL( Asbestos_Survey_Required__c,&quot;&quot;), RecordType.Name =&apos;Removals&apos;)</errorConditionFormula>
+    <errorDisplayField>Asbestos_Survey_Required__c</errorDisplayField>
+    <errorMessage>Please fill the Asbestos Survey Required?</errorMessage>
+</ValidationRule>

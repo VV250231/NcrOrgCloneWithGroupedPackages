@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Opportunity$Name</field>
+    </columns>
+    <columns>
+        <field>Opportunity$Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Value_Prompter__r$Is_Qualified_Prospect__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity$Actual_Close_Date__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>This is a report showing which Opportunities have ValuePrompter completed.</description>
+    <format>Tabular</format>
+    <name>ValuePrompter</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunities_with_Value_Prompt__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Opportunity$Actual_Close_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

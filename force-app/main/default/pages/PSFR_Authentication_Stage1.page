@@ -1,0 +1,62 @@
+<!--
+
+This page is for authentication Page 1(landing page)
+
+Created by Saagar Kinja
+
+-->
+
+<apex:page controller="PSFRApexController" standardStylesheets="false" applyBodyTag="false" sidebar="false" showHeader="false" docType="html-5.0" applyHTMLTag="false" cache="false" expires="0">
+    
+    <head>
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/bootstrap/css/bootstrap.min.css')}"/>        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"/>   
+        
+        
+        <link rel="stylesheet" href="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/datatables/dataTables.bootstrap.css')}"/>
+        
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/bootstrap/css/AdminLTE.min.css')}"/>
+        <style>
+            
+            .centered-text {
+            text-align:center
+            } 
+            
+        </style>
+    </head>
+    <!--
+    Please highlight for greyed backgroud
+    <body >
+    -->
+    
+    <body class="hold-transition lockscreen">
+        <apex:form >
+            <!----------------------------wizard for authentication------------------>
+            <div class="register-box">
+                <div class="register-logo">
+                    <b>PS</b>-Authentication
+                </div>
+                
+                <div class="register-box-body">
+                    <p class="login-box-msg">Please proceed to continue</p>
+                    
+                    <form >
+                        <div class="form-group has-feedback">
+                        <apex:commandButton styleclass="btn btn-primary btn-block" value="Sign In"  action="{!Generate_Auth_Token}" style="margin:4px;"  />
+                           
+                    </div>
+                    
+                </form>
+                
+            </div>
+            <!-- /.form-box -->
+        </div>
+
+         
+        
+    </apex:form>
+    
+</body>
+<script src="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/bootstrap/js/jQuery-2.2.0.min.js')}"></script>
+<script src="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/bootstrap/js/bootstrap.min.js')}"></script>
+</apex:page>

@@ -1,0 +1,66 @@
+<apex:page controller="NCR_FI_User_ManagementController" showHeader="false">
+ <apex:sectionHeader title="FI User Management" />
+  <apex:form >
+  <apex:pageMessages id="pm"/>
+  
+  <script>
+        function CheckALL(checkElement){
+            
+            var allelements = document.getElementsByClassName('checkbxCLS');
+            if(checkElement.checked){
+                for(var i = 0; i< allelements.length; i++ ){
+                    if(checkElement.id != allelements[i].id)
+                        allelements[i].checked = true;
+                }            
+            }
+            if(checkElement.checked==false){
+                 for(var i = 0; i< allelements.length; i++ ){
+                    if(checkElement.id != allelements[i].id)
+                        allelements[i].checked = false;
+                }
+            }
+        }
+    </script>
+  
+ <br/><center>
+ <apex:inputFile value="{!contentFile}" filename="{!nameFile}"/>
+<apex:commandButton value="Display User Data" id="theButton" action="{!Results}"/> 
+ </center><br/>
+  <apex:pageBlock >
+  <apex:outputPanel id="results">
+  <p>File Name: {!nameFile}</p><br/>
+  <!--<p>Row Count: {!rowCount}</p>
+  <p>column Count: {!colCount}</p>-->
+    <table title="CSV Output" border="1" width="100%">
+       
+       <apex:repeat value="{!lstwrp}" var="row">
+           <tr>
+              
+                   <td width="20%">{!row.str}</td>
+                   <td width="20%">{!row.usr.Name}</td>
+                   <td width="20%">{!row.usr.userName}</td>
+                   <td width="20%">{!row.usr.Email}</td>
+                   <td width="20%">
+                   <!--<apex:inputcheckbox id="check" value="{!row.usr.isActive}" styleclass="checkbxCLS"  onchange="if(row.usr.id!=nulljavascript:CheckALL(this);)"/></td> -->
+                   <apex:inputcheckbox value="{!row.usr.isActive}" styleclass="checkbxCLS"/></td>
+           </tr>
+            
+       </apex:repeat>
+       <center>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <apex:commandButton value="Update User Data" id="theButton" action="{!saveUserDetails}"/>
+       
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  
+                   <apex:inputcheckbox id="check" onchange="javascript:CheckALL(this);">SelectAll Or DeSelectAll</apex:inputcheckbox>
+           </center><br/>
+     </table>
+  </apex:outputPanel>
+  </apex:pageBlock>
+  </apex:form>
+</apex:page>

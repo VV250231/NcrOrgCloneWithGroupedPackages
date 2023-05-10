@@ -1,0 +1,69 @@
+<messaging:emailTemplate subject="Notification: Partner opportunity request has been submitted for Approval" recipientType="User" relatedToType="Partner_Opportunity__c">
+
+<messaging:plainTextEmailBody >
+    Dear {!relatedTo.Owner.Name},
+
+    Thank you for your recent Opportunity registration submission. Your submission has been sent to your Channel Account Manager for review; they will either approve for submission and be in contact with you regarding this submission.
+    
+    Regards,
+    NCR Interact Channel Program Team
+</messaging:plainTextEmailBody>
+
+<messaging:htmlEmailBody >
+        <html>
+        <body bgcolor="#FFFFFF">
+            <style>
+              
+            a {
+                color: #54b948;
+            }
+            
+            p {
+                margin-top: 0px;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 12px;
+                line-height: 15px;
+                color: #58585A;
+            }
+            </style>
+                    <table width="660" border="0" align="center" cellpadding="0" cellspacing="0">
+            <tr bgcolor="#ffffff">
+                <td valign="top">
+                    <c:InteractProgramToolHeader />
+                </td>
+            </tr>
+            <tr valign="top" bgcolor="#ffffff">
+                <td valign="top">
+                    <table width="100%" cellpadding="20" cellspacing="0">
+                        <tr>
+                            <td>
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #58585A;margin-bottom:15px;"> Dear {!relatedTo.Owner.Name},</p>
+        
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #58585A;margin-bottom:15px;">
+                                    Thank you for your recent Opportunity registration submission. 
+                                    Your submission has been sent to your Channel Account Manager for review; they will either approve for submission and be in contact with you regarding this submission.
+                                </p>
+                                
+                                 <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #58585A;line-height:20px;">Regards,<br/>
+                                
+                                    <b><span style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: color: #58585A;">NCR Interact Channel Program Team</span></b>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="center" valign="middle">
+                    <c:InteractProgramToolFooter />
+                </td>
+
+            </tr>
+        </table>
+        <img height="1" width="1" style="visibility:hidden" src="https://www.cprpt.com/NCREmail/o.aspx?t=50038.10019.19808.19886.0.1.N.295797.1429.0&amp;e=RG250274@ncr.com"/>
+        
+        </body>
+        </html>
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>

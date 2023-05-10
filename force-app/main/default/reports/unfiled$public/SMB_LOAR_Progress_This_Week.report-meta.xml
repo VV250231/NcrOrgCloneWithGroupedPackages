@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>field_key</field>
+    </columns>
+    <columns>
+        <field>OLDVAL</field>
+    </columns>
+    <columns>
+        <field>NEWVAL</field>
+    </columns>
+    <columns>
+        <field>Credit_Detail__c.Customer_Balance__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Credit_Detail__c.X1_30_Days_Late__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Credit_Detail__c.X31_60_Days_Late__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Credit_Detail__c.X61_90_Days_Late__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Credit_Detail__c.X91_180_Days_Late__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Credit_Detail__c.X181_360_Days_Late__c</field>
+    </columns>
+    <columns>
+        <field>Credit_Detail__c.X361_Days_Late__c</field>
+    </columns>
+    <columns>
+        <field>CUST_OWNER_NAME</field>
+    </columns>
+    <columns>
+        <field>Credit_Detail__c.Account_Owner_Manager__c</field>
+    </columns>
+    <columns>
+        <field>Credit_Detail__c.Assigned_Collector__c</field>
+    </columns>
+    <columns>
+        <field>Credit_Detail__c.Secondary_Collector__c</field>
+    </columns>
+    <columns>
+        <field>Credit_Detail__c.Risk_Level__c</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>IF(CONTAINS(CUST_OWNER_ROLE,&quot;Channel&quot;),
+IF(CONTAINS(CUST_OWNER_ROLE,&quot;Central&quot;),&quot;Channel Central&quot;,
+IF(CONTAINS(CUST_OWNER_ROLE,&quot;North&quot;),&quot;Channel North&quot;,
+IF(CONTAINS(CUST_OWNER_ROLE,&quot;South&quot;),&quot;Channel South&quot;,
+IF(CONTAINS(CUST_OWNER_ROLE,&quot;West&quot;),&quot;Channel West&quot;, &quot;Channel &quot; &amp; CUST_OWNER_ROLE)))), 
+IF(CONTAINS(CUST_OWNER_ROLE,&quot;Northeast&quot;),&quot;Northeast&quot;,
+IF(CONTAINS(CUST_OWNER_ROLE,&quot;Southeast&quot;),&quot;Southeast&quot;,
+IF(CONTAINS(CUST_OWNER_ROLE,&quot;Central&quot;),&quot;Central&quot;,
+IF(CONTAINS(CUST_OWNER_ROLE,&quot;Florida&quot;),&quot;Florida&quot;,
+IF(CONTAINS(CUST_OWNER_ROLE,&quot;Texas&quot;),&quot;Texas&quot;,
+IF(CONTAINS(CUST_OWNER_ROLE,&quot;West&quot;),&quot;West&quot;, CUST_OWNER_ROLE)))))))</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>SMB Region</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+        <criteriaItems>
+            <column>CDF1</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Northeast,Southeast,Central,Florida,Texas,West</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CDF1</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Channel</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CDF1</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>FIN-,&quot;Channel Channel Programs, Ops, Offers &amp; Services Directors&quot;</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CUST_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CDF1</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Credit_Detail__c.Account__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>SMB LOAR Progress This Week</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntityAuditHistory$Credit_Detail__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>CREATED_DATE</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_THISWEEK</interval>
+    </timeFrameFilter>
+</Report>

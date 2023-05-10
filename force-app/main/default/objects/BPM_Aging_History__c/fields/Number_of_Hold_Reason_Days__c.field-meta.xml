@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Number_of_Hold_Reason_Days__c</fullName>
+    <description>It will store difference between hold reason start date and hold reason end date.</description>
+    <externalId>false</externalId>
+    <formula>IF(ISNULL(Hold_Reason_Type_End_Date__c),today()- Hold_Reason_Type_Start_Date__c,Hold_Reason_Type_End_Date__c-Hold_Reason_Type_Start_Date__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Number of Hold Reason Days</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

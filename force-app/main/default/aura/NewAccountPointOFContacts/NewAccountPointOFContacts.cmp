@@ -1,0 +1,165 @@
+<aura:component controller = "APOCRolesController" implements="lightning:actionOverride,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:hasRecordId,force:lightningQuickActionWithoutHeader" access="global" >
+    <aura:attribute name="parent" type="Aura.Component"/>
+    <aura:attribute name="AccountSupportList" type="Object[]"/>
+    <aura:attribute name="AccountSupportListMain" type="Object[]" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="ManageRoles" type="String[]"/>
+    <aura:attribute name="showModal" type="boolean" default="true"/>
+    <aura:attribute name="toggleLookup" type="boolean" default="false"/>
+    <aura:attribute name="isNext" type="boolean" default="true"/>
+    <aura:attribute name="isSave" type="boolean" default="true"/>
+    <aura:attribute name="ASMHirarchy" type="Object[]"/>
+    <!--<aura:attribute Name="AccountSupport" type="object" access="public" default="{}"/>
+    <aura:attribute Name="ASMSelItem" type="object" access="public"/> -->
+    <aura:attribute Name="selItem" type="object" access="public"/> 
+    <!--<aura:attribute Name="POSelItem" type="object" access="public" />
+    <aura:attribute Name="selManager1" type="object" access="public" />
+    <aura:attribute Name="Manager1" type="object" access="public" />-->
+    <aura:attribute Name="accSelItem" type="object" access="public" />
+    <!--<aura:attribute Name ="ASMInfoObject" type="Map" default="{'isASMyourSelf':false,'val':'this ','text':'','ObjRecord':{'attributes':{'type':'','url':''},'Name':'','Id':'','Quicklook_ID__c':'','Phone':'','Email':''},'objName':''}"/>
+    <aura:attribute Name ="asmUsersObj" type="Account_Support_ASM_Information__c[]"/>
+    <aura:attribute Name ="asm" type="Account_Support_ASM_Information__c" default="{'ASM_User__c' : '','QuickLook_ID__c' : '','ASM_Phone__c' : '','ASM_Email__c' : '','ASM_User_Name__c' : ''}"/>
+    <aura:attribute Name="ASMUserCopy" type="Object[]"  access="public"/>
+    <aura:attribute Name="ASMUser" type="Object[]"  access="public" default="[{'isASMyourSelf':false,'val':'','text':'','ObjRecord':{'attributes':{'type':'','url':''},'Name':'','Id':'','Quicklook_ID__c':'','Phone':'','Email':''},'objName':''}]"/>
+	<aura:attribute Name="POUser" type="object" access="public"/>
+    <aura:attribute Name="CAUser" type="object" access="public"/>
+    <aura:attribute Name="CASelItem" type="object" access="public" />-->
+    <aura:attribute Name="errorText" type="String" access="public" default=""/>
+    <aura:attribute name="currentTab" type="String" default="tab-default-1__item"/>
+    <aura:attribute name="spinner" type="boolean" default="FALSE"/>
+    <aura:attribute name="IsAccountExist" type="boolean" default="true"/>
+    <aura:attribute name="DuplicateAsmError" type="String"/>
+    <aura:attribute name ="ShowUSerSection" type="boolean" default ='false'/>
+    <aura:attribute name="isStandard" type="boolean" default="true"/>
+    <aura:attribute name="fromAPOCCommunity" type="boolean" default="false"/>
+     <aura:attribute name="accName" type="string"/>
+   <aura:attribute name="accMaster" type="String"/>
+       <aura:attribute name="currentPage" type ="Integer" default="0"/>
+    <aura:method name="closeModal" />
+    <aura:method name="goPrev"/>
+    <aura:method name="callParentdoInit"/>
+    <!-- Attribute Section End  -->
+    
+    <!-- Event Handler goes here -->
+    <aura:handler event="c:LookUpEvt" action="{!c.handleLookUpEvent}"/>
+    
+    <!-- Event Handler End  here -->
+    <!--loading spinner start-->
+    <aura:if isTrue="{!v.spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container" style="position: fixed;">
+            <div class="slds-spinner_brand  slds-spinner slds-spinner_large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    <!-- Loading spinner end--> 
+    <!-- modal start here -->
+                       
+    <aura:if isTrue="{!v.showModal}">
+        <aura:if isTrue="{!v.isNext}">
+    <div aura:id="NewModal"  class="slds-modal slds-fade-in-open" style="height:640px;">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeModal}">
+                        <lightning:icon class="IconColor" iconName="utility:close" size="small"/>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate"><b>New APOC</b></h2>
+                    
+                </header>
+                
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1" style="height : 500px;">
+                        <!--first Page -->
+                        <div  class="subHeaderColor"><p class="slds-m-left_x-small whiteFont" style="font-size: 20px;">Account Info</p></div>
+                        <lightning:input class="slds-m-top_x-large" type="checkBox" name="toggle lookUp" label="Check true to search by Master Number" value="{!v.toggleLookup}" onchange="{!c.toggleLookup}"></lightning:input>
+                        <div style="margin-top : 20px">
+                            <aura:if isTrue="{!v.toggleLookup}">
+                                <div class="slds-grid slds-gutters">
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <Span><P><span style="color : red; font-size: 20px;">*</span>Search Account by Master Number</P></Span>
+                                        <c:LookupAccountSupport lookupIcon="standard:account"
+                                                                objectName="Account"
+                                                                field_API_search="Master_Customer_Number__c"
+                                                                limit="5"
+                                                                placeholder="Search Account by Master"
+                                                                field_API_val="Id,Tier__c,BillingCity,BillingState,BillingCountry,Name,parent.Name,parentid,parent.Tier__c,parent.Master_Customer_Number__c,parent.BillingCity,parent.BillingState,parent.BillingCountry"
+                                                                field_API_text="Master_Customer_Number__c"
+                                                                selectedObject="{!v.selItem}"
+                                                                selItem="{!v.accSelItem}" 
+                                                                sub_fld_text ="Name"/>
+                                        <Span><P style="color : red">{!v.errorText}</P></Span>
+                                    </div>
+                                </div>
+                                <aura:set attribute="else">
+                                    <div class="slds-grid slds-gutters">
+                                        <div class="slds-col slds-size_1-of-2">
+                                            <Span><P><span style="color : red; font-size: 20px;">*</span>Search Account by Name</P></Span>
+                                            <c:LookupAccountSupport lookupIcon="standard:account"
+                                                                    objectName="Account"
+                                                                    field_API_search="Name"
+                                                                    limit="5"
+                                                                    placeholder="Search Account by Name"
+                                                                    field_API_val="Id,Tier__c,Master_Customer_Number__c,BillingCity,BillingState,BillingCountry,parent.Name,parentid,parent.Tier__c,parent.Master_Customer_Number__c,parent.BillingCity,parent.BillingState,parent.BillingCountry"
+                                                                    field_API_text="Name"
+                                                                    selectedObject="{!v.selItem}"
+                                                                    selItem="{!v.accSelItem}"
+                                                                    sub_fld_text ="Master_Customer_Number__c"/>
+                                            <Span><P style="color : red">{!v.errorText}</P></Span>
+                                        </div>
+                                        
+                                    </div>
+                                </aura:set> 
+                                
+                            </aura:if>
+                        </div>
+                        <!--<aura:if isTrue="{!v.selItem != null}">-->
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning:input name="Master" label="Master" value="{!v.selItem.Master_Customer_Number__c}" disabled='true'></lightning:input>
+                                <lightning:input name="ParentAccountName" label="Parent Account Name" value="{!v.selItem.Parent.Name}" disabled='true'></lightning:input>
+                                <lightning:input name="Tier" label="Tier" value="{!v.selItem.Tier__c}" disabled='true'></lightning:input>
+                                <lightning:input name="Country" label="Country" value="{!v.selItem.BillingCountry}" disabled='true'></lightning:input>
+                            </div >  
+                            
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning:input name="ParentMaster" label="Parent Master" value="{!v.selItem.Parent.Master_Customer_Number__c}" disabled='true'></lightning:input>
+                                <lightning:input name="State" label="State" value="{!v.selItem.BillingState}" disabled='true'></lightning:input>
+                                <lightning:input name="City" label="City" value="{!v.selItem.BillingCity}" disabled='true' ></lightning:input>
+                            </div>
+                            
+                        </div>
+
+                </div>
+                
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick="{!c.closeModal}">Cancel</button>
+                    <button class="slds-button slds-button_brand" aura:id="disablebuttonid" onclick="{!c.goNext}" disabled="{!v.isSave}">Next</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+            <aura:set attribute="else">
+                 <c:NewASMReassignModal showModal="{!v.showModal}"
+                                               	currentTab = "{!v.currentTab}" 
+                                               	AccountSupportList = "{!v.AccountSupportList}"
+                                               	ASMHirarchy = "{!v.ASMHirarchy}"
+                                               	parent="{!this}"
+                                               	recordToReassign = "{!v.recordToReassign}" 
+                                               	ManageRoles = "{!v.ManageRoles}"
+                                               	currentPage = "{!v.currentPage}"
+                                        		isStandard = "{!v.isStandard}"
+                                        		fromAPOCCommunity = "{!v.isStandard}"
+                                        		accName ="{!v.accName}"
+                                        		accMaster="{!v.accMaster}"
+                                        		fromNewButton = "false"
+                                               />
+            
+            </aura:set>
+        </aura:if>
+        </aura:if>
+    <!--  modal end here-->  
+</aura:component>

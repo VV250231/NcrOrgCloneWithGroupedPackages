@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cannot_Create_Opp_Beyond_Analyzing_Stage</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+NOT(CATM_Record__c),
+ISNEW(),
+CPQ__c,
+OR( ISPICKVAL(StageName, &quot;Validating&quot;),
+ISPICKVAL(StageName, &quot;Offering&quot;),
+ISPICKVAL(StageName, &quot;Proposing&quot;),
+ISPICKVAL(StageName, &quot;Closing&quot;),
+ISPICKVAL(StageName, &quot;Closed/Lost&quot;),
+ISPICKVAL(StageName, &quot;Closed/Booked&quot;)
+),
+($Profile.Name &lt;&gt; &quot;Soup Integration&quot;),
+($Profile.Name &lt;&gt; &quot;iPaas Administration&quot;)
+)</errorConditionFormula>
+    <errorMessage>You cannot create a CPQ opportunity in a selling stage other than Prospecting or Analyzing.</errorMessage>
+</ValidationRule>

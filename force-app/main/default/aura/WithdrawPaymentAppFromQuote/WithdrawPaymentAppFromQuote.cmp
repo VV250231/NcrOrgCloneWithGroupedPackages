@@ -1,0 +1,42 @@
+<aura:component controller='WithdrawPaymentAppController' implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader" access="global" >
+    <aura:attribute name="inputWithdrawlComment" type="boolean" default="false"/>
+    <aura:attribute name="showCommentBox" type="boolean" default="false"/>
+    <aura:attribute name="showErrorMessage" type="boolean" default="false"/>
+    <aura:attribute name="MultiSiteResponse" type="List" />
+    <aura:attribute name="MultiSiteResponseColumns" type="List" />
+    <aura:attribute name="msg" type="String"/>
+    <aura:attribute name="showSpinner" type="Boolean" Default="false" />
+    
+	<aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    
+    <div style="padding:2rem,padding:0.5rem;background:white" >
+        <center><h1><b><u>Withdraw Payments Application:</u></b></h1></center>
+        <aura:if isTrue="{!v.showSpinner}"><lightning:spinner aura:id="mySpinner" /></aura:if> 
+        <aura:if isTrue="{!v.inputWithdrawlComment}">
+            <aura:if isTrue="{!v.showErrorMessage}">
+                <center><div class="slds-text-heading_large"><b style="color:red">{!v.msg}</b></div></center>
+        	</aura:if>
+            <aura:if  isTrue="{!v.showCommentBox}">
+                <div class="row slds-p-top_medium">
+            		<lightning:textarea aura:id="withdrawalNotes"  label="Payment Application Withdrawal Note" maxlength="2000" />
+        		</div>
+                <center>
+                	<div class="row slds-p-top_medium">
+                    	<lightning:button variant="brand" label="Withdraw" title="Brand action" onclick="{!c.withdrawPaymentApplication }" /> 
+                	</div>
+            	</center>
+    		</aura:if>
+        </aura:if>
+        
+    </div>
+    <aura:if isTrue="{!not(empty(v.MultiSiteResponse))}">
+        <b><Center>Response Status:</Center></b>
+        <div  class="slds-box " >
+            <div class="slds-grid">
+                <div class="slds-col slds-size_1-of-1">
+                    <lightning:datatable keyField="siteNumber" data="{! v.MultiSiteResponse }" columns="{! v.MultiSiteResponseColumns }" hideCheckboxColumn="true"/>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+</aura:component>

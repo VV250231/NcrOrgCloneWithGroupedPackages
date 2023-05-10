@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Update_or_Revision_Validation_1</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(ISPICKVAL(  Update_or_Revision__c ,&quot;No&quot;),OR( 
+ 
+ISBLANK(  Text(Specify_Marketing_Request__c )), 
+ISBLANK(  Title__c ),
+ISBLANK(  Is_this_a_new_project_or_update_existing__c ),
+ISBLANK(  Request_Due_Date__c ), 
+ISBLANK(  Text(What_type_of_collateral_do_you_need__c )),
+ISBLANK(  Text(Where_and_how_will_this_be_used__c )), 
+ISBLANK(  Who_will_use_this__c ),
+ISBLANK(  Who_are_we_talking_to__c ),
+ISBLANK(  What_are_the_specs__c )))</errorConditionFormula>
+    <errorDisplayField>Update_or_Revision__c</errorDisplayField>
+    <errorMessage>Please fill all the fields in the section  &quot;If Update/Revision above is No then the below fields are mandatory&quot;</errorMessage>
+</ValidationRule>

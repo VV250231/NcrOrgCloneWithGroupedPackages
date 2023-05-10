@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Case$CaseNumber</field>
+    </columns>
+    <columns>
+        <field>Case$Status</field>
+    </columns>
+    <columns>
+        <field>Case$Subject</field>
+    </columns>
+    <columns>
+        <field>Case$Support_Queue__c</field>
+    </columns>
+    <columns>
+        <field>Case$Priority</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Case$Case_Age_In_Days__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+        <criteriaItems>
+            <column>Case$Site_Id__c.Site_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>8092045,7429364,7432572,8777998,8816555,8864039,7429447,7432570,7429452,7432618,7432789,7429377,8727010,8726996,7486158,9512144,7486600,7429348,7429463,7650087,7429411,7429587,7429407,8814037,7429461,9657280,7432793,7529769,7429370,7433956,7429355,7429375,7429351,7432563,7432571,7429417,7429353,7427097,7429378,9657281,9802375,10052392,8814031,7886902,7429366,7481599,7429592,7432788,7642278,7429591,8727003,8727005,8726998,8726983,8727002,7429367,7429462,7429400,8139685,7433951,7432623,7432687,9716200,9657284,7427091,8814040,7429450,7429451,7429354,7429414,7429449,7429352,7429588,7429357,7432696,7429455,7432617,7433960,7432693,7429594,7429453,7429446,7432936,7433958,7427101,7427099,7429593,7429360,7429379,9657285,7429456,9094021,7429350,7432729,42571494,7429584,42560710,7429403,42730395,42472367</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case$Site_Id__c.Site_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>7432727,7432937,7429368,8833319,7432624,7432746,7432625,9657279,8727004,7432622,7429410,7429581,7429465,7429585,7429359,7486443,7429457,7429454,7432939,7429406,7429582,7429415,7432940,8727011,8726980,8726988,8726981,8726977,8726956,8726991,8726984,8726952,7429583,9433674,7429369,8727008,7838996,8726989,7486437,7429448,7603944,7649965,9657283,9657282,8823518,9270910,8814036,9716199,9981990,9815755,7429590,8814080,7429404,7429374,7429380,7433953,7429412,7432619,7432569,7429589,8726999,8727009,8335131,7481830,8814038,9657278,7429416,7432626,7429373,7638911,7432935,7432790,7432565,7429346,8092183,7432787,8335133,9351929,8092046,8502979,8335049,8705089,8833317,7432602,7429345,7429362,8726995,7429405,8727007,8726985,8726955,8726992,8727001,8726979,8727006,8727000,7432686,7429372,7432573,7429459,7429409,7432748,7432620,7432694,7429408,7429468,7429363,7429365,7432747,6759049,8441537,7432791,8462766,8620204,7427098,7429356,7432684,7427100,7432692,7432685,7429376,7429358,7432792,7432695,7432683,7429466,7429401,7432564,7429458,7432938,7429413,7432568,7429402,7432621,7429361,7429464,7429467,7429349,9328948,7432697</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case$Status</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>New,Assigned,In_Progress,In Progress,Open,Pending</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Craftworks SPB MA Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Case_With_Lookup_Info__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Case$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

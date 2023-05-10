@@ -1,0 +1,1207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Post_ES_Comment</name>
+        <label>Post ES Comment</label>
+        <locationX>50</locationX>
+        <locationY>575</locationY>
+        <actionName>chatterPost</actionName>
+        <actionType>chatterPost</actionType>
+        <connector>
+            <targetReference>Get_Creation_Category</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>text</name>
+            <value>
+                <elementReference>$Record.Dispatch_Comments_ES__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>subjectNameOrId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>visibility</name>
+            <value>
+                <elementReference>$Record.Note_Type__c</elementReference>
+            </value>
+        </inputParameters>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
+        <name>Send_email_on_active_transit</name>
+        <label>Send email on active transit</label>
+        <locationX>3394</locationX>
+        <locationY>1871</locationY>
+        <actionName>WorkOrder.Email_alert_for_work_order_transit</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>Send_email_on_cancelled</name>
+        <label>Send email on cancelled</label>
+        <locationX>3130</locationX>
+        <locationY>1871</locationY>
+        <actionName>WorkOrder.Email_alert_for_work_order_cancelled</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>send_email_on_completion</name>
+        <label>send email on completion</label>
+        <locationX>1810</locationX>
+        <locationY>2231</locationY>
+        <actionName>WorkOrder.Email_alert_for_work_order_completion</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Email_Address_Null_Check</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>send_email_on_create</name>
+        <label>send email on create</label>
+        <locationX>2250</locationX>
+        <locationY>2231</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>BodyforCreation</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>$Record.Account.email_addresses__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sendRichBody</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <stringValue>ncrhospitality.support@ncr.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>SubjectForCreation</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>send_email_on_create3</name>
+        <label>send email on create3</label>
+        <locationX>2690</locationX>
+        <locationY>2111</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>BodyforCreation</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>$Record.Account.email_addresses__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sendRichBody</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <stringValue>ncrhospitality.support@ncr.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>SubjectForCreation</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>Send_Email_On_Resolved</name>
+        <label>Send Email On Resolved</label>
+        <locationX>1678</locationX>
+        <locationY>2471</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>Loop_Work_Orders_2</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>BodyforResolved</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>$Record.Account.email_addresses__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sendRichBody</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <stringValue>ncrhospitality.support@ncr.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>SubjectForCompletion</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>Send_Email_On_Resolved2</name>
+        <label>Send Email On Resolved2</label>
+        <locationX>2118</locationX>
+        <locationY>2351</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>Loop_Work_Orders_2</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>BodyforResolved</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>$Record.Account.email_addresses__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sendRichBody</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <stringValue>ncrhospitality.support@ncr.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>SubjectForCompletion</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>Send_work_order_creation_email_alert</name>
+        <label>Send work order creation email alert</label>
+        <locationX>2382</locationX>
+        <locationY>1991</locationY>
+        <actionName>WorkOrder.Email_alert_for_work_order_creation</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Email_Address_Null_Check_2</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>55.0</apiVersion>
+    <assignments>
+        <name>Asset_Checkbox_Assignment</name>
+        <label>Asset Checkbox Assignment</label>
+        <locationX>2624</locationX>
+        <locationY>1511</locationY>
+        <assignmentItems>
+            <assignToReference>AssetCheckbox</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Case_1</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Asset_Check</name>
+        <label>Asset Check</label>
+        <locationX>3273</locationX>
+        <locationY>1391</locationY>
+        <defaultConnector>
+            <targetReference>Loop_Work_Orders_1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Asset Null</defaultConnectorLabel>
+        <rules>
+            <name>Asset_Not_Null</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Loop_Work_Orders_1.AssetId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Asset_Checkbox_Assignment</targetReference>
+            </connector>
+            <label>Asset Not Null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Auto_Close_Flag_Check</name>
+        <label>Auto Close Flag Check</label>
+        <locationX>1590</locationX>
+        <locationY>3095</locationY>
+        <defaultConnector>
+            <targetReference>Owner_Check</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Auto Close Flag = False</defaultConnectorLabel>
+        <rules>
+            <name>Auto_Close_Flag_True</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Support_Queue.Auto_Close_Flag__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Creation_Other_reason</targetReference>
+            </connector>
+            <label>Auto Close Flag = True</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Con_Email_is_Null</name>
+        <label>Con Email is Null</label>
+        <locationX>2602</locationX>
+        <locationY>1871</locationY>
+        <defaultConnector>
+            <targetReference>Email_Address_Null_Check_3</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>null</defaultConnectorLabel>
+        <rules>
+            <name>Not_null</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Contact.Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_work_order_creation_email_alert</targetReference>
+            </connector>
+            <label>Not null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Contact_Email_in_not_null</name>
+        <label>Contact Email in not null</label>
+        <locationX>2030</locationX>
+        <locationY>2111</locationY>
+        <defaultConnector>
+            <targetReference>Email_Address_Null_Check_1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>contact_email_not_null</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.ContactId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Contact.Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>send_email_on_completion</targetReference>
+            </connector>
+            <label>contact email not null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Creation_Other_reason</name>
+        <label>Creation Other reason</label>
+        <locationX>1326</locationX>
+        <locationY>3215</locationY>
+        <defaultConnector>
+            <targetReference>Update_Case</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Entered_by_Customer</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Case.Creation_Other__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Entered by Customer</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Case_2</targetReference>
+            </connector>
+            <label>Entered by Customer</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Dispatch_Comment_Change</name>
+        <label>Dispatch Comment Change</label>
+        <locationX>182</locationX>
+        <locationY>455</locationY>
+        <defaultConnector>
+            <targetReference>Get_Creation_Category</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Post_to_Chatter</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Dispatch_Comments_ES__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Dispatch_Comments_ES__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Post_ES_Comment</targetReference>
+            </connector>
+            <label>Post to Chatter</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Email_Address_Null_Check</name>
+        <label>Email Address Null Check</label>
+        <locationX>1810</locationX>
+        <locationY>2351</locationY>
+        <defaultConnector>
+            <targetReference>Loop_Work_Orders_2</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Email_Address_Not_Null</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Account.email_addresses__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Email_On_Resolved</targetReference>
+            </connector>
+            <label>Email Address Not Null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Email_Address_Null_Check_1</name>
+        <label>Email Address Null Check 1</label>
+        <locationX>2250</locationX>
+        <locationY>2231</locationY>
+        <defaultConnector>
+            <targetReference>Loop_Work_Orders_2</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Email_Address_Not_Null_1</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Account.email_addresses__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Email_On_Resolved2</targetReference>
+            </connector>
+            <label>Email Address Not Null 1</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Email_Address_Null_Check_2</name>
+        <label>Email Address Null Check 2</label>
+        <locationX>2382</locationX>
+        <locationY>2111</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Email_Address_Not_Null_2</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Account.email_addresses__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>send_email_on_create</targetReference>
+            </connector>
+            <label>Email Address Not Null 2</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Email_Address_Null_Check_3</name>
+        <label>Email Address Null Check 3</label>
+        <locationX>2822</locationX>
+        <locationY>1991</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Email_Address_Not_Null_3</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Account.email_addresses__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>send_email_on_create3</targetReference>
+            </connector>
+            <label>Email Address Not Null 3</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Loop_Status_Check</name>
+        <label>Loop Status Check</label>
+        <locationX>2294</locationX>
+        <locationY>1991</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>WO_Resolved_Closed</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>Loop_Work_Orders_2.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Resolved</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Loop_Work_Orders_2.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Contact_Email_in_not_null</targetReference>
+            </connector>
+            <label>WO Resolved/Closed</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Owner_Check</name>
+        <label>Owner Check</label>
+        <locationX>1854</locationX>
+        <locationY>3215</locationY>
+        <defaultConnector>
+            <targetReference>Create_Task</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Owner = User</defaultConnectorLabel>
+        <rules>
+            <name>Owner_Queue_OR_Null</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Case.Owner:Group.Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Queue</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Case.OwnerId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Owner = Queue OR Null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Skip_Flow_Check</name>
+        <label>Skip Flow Check</label>
+        <locationX>336</locationX>
+        <locationY>335</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Skip_Flow_False</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Setup.Automation_Setting__c.Skip_Flow__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Dispatch_Comment_Change</targetReference>
+            </connector>
+            <label>Skip Flow = False</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Status_Check</name>
+        <label>Status Check</label>
+        <locationX>2624</locationX>
+        <locationY>1751</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Status_Resolved</name>
+            <conditionLogic>(1 OR 2) AND 3</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Resolved</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Loop_Work_Orders_2</targetReference>
+            </connector>
+            <label>Status = Resolved</label>
+        </rules>
+        <rules>
+            <name>WorkOrder_Created</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Submitted</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Contact.Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.ContactId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Con_Email_is_Null</targetReference>
+            </connector>
+            <label>WorkOrder Created</label>
+        </rules>
+        <rules>
+            <name>WorkOrderCancelled</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Cancelled</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Contact.Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.ContactId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_email_on_cancelled</targetReference>
+            </connector>
+            <label>WorkOrderCancelled</label>
+        </rules>
+        <rules>
+            <name>Active_transit</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Part_On_Site_ETA_Local__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Part_On_Site_ETA_Local__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Contact.Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.ContactId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_email_on_active_transit</targetReference>
+            </connector>
+            <label>Active transit</label>
+        </rules>
+    </decisions>
+    <description>Email alert logic</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>IsNew</name>
+        <dataType>Boolean</dataType>
+        <expression>IsNew()</expression>
+    </formulas>
+    <interviewLabel>Hospitality {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Hospitality Work Order After Flow</label>
+    <loops>
+        <name>Loop_Work_Orders_1</name>
+        <label>Loop Work Orders</label>
+        <locationX>182</locationX>
+        <locationY>1271</locationY>
+        <collectionReference>Get_Work_Orders</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Asset_Check</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Update_Case_1_0</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
+        <name>Loop_Work_Orders_2</name>
+        <label>Loop Work Orders</label>
+        <locationX>1590</locationX>
+        <locationY>1871</locationY>
+        <collectionReference>Get_Work_Orders</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Loop_Status_Check</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Get_Support_Queue</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Create_Task</name>
+        <label>Create Task</label>
+        <locationX>1986</locationX>
+        <locationY>3335</locationY>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <stringValue>The work order(s) associated to this case are closed. Please follow up with customer.</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Get_Case.OwnerId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Follow up with Customer</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>Get_Case.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <name>Get_Case</name>
+        <label>Get Case</label>
+        <locationX>182</locationX>
+        <locationY>1031</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Work_Orders</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.CaseId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Case</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Creation_Category</name>
+        <label>Get Creation Category</label>
+        <locationX>182</locationX>
+        <locationY>791</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Resolution_Category</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Automation Dispatch</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Creation_Category__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Resolution_Category</name>
+        <label>Get Resolution Category</label>
+        <locationX>182</locationX>
+        <locationY>911</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Case</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Automation Dispatch</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Resolution_Category__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Support_Queue</name>
+        <label>Get Support Queue</label>
+        <locationX>1590</locationX>
+        <locationY>2975</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Auto_Close_Flag_Check</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Case.Support_Queue__r.Name</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Support_Queue_Config__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Work_Orders</name>
+        <label>Get Work Orders</label>
+        <locationX>182</locationX>
+        <locationY>1151</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_Work_Orders_1</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>CaseId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Case.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>WorkOrder</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Case</name>
+        <label>Update Case</label>
+        <locationX>1458</locationX>
+        <locationY>3335</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Case.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Hospitality_Validation_Rule_Bypass_flag__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Resolution_Category__c</field>
+            <value>
+                <elementReference>Get_Resolution_Category.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Closed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status_Reason__c</field>
+            <value>
+                <stringValue>Support Implemented Fix</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Case_1</name>
+        <label>Update Case</label>
+        <locationX>2624</locationX>
+        <locationY>1631</locationY>
+        <connector>
+            <targetReference>Status_Check</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Case.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Work_Order_Asset_Lock__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Case_1_0</name>
+        <label>Update Case</label>
+        <locationX>182</locationX>
+        <locationY>4055</locationY>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Status_Check</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Case.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Work_Order_Asset_Lock__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Case_2</name>
+        <label>Update Case 2</label>
+        <locationX>1194</locationX>
+        <locationY>3335</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Case.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Creation_Category__c</field>
+            <value>
+                <elementReference>Get_Creation_Category.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Creation_Other__c</field>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Hospitality_Validation_Rule_Bypass_flag__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Resolution_Category__c</field>
+            <value>
+                <elementReference>Get_Resolution_Category.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Closed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status_Reason__c</field>
+            <value>
+                <stringValue>Support Implemented Fix</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <start>
+        <locationX>210</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Skip_Flow_Check</targetReference>
+        </connector>
+        <object>WorkOrder</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>BodyforCreation</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;https://ncr--cert--c.documentforce.com/servlet/servlet.ImageServer?id=0153I000000ClHa&amp;amp;oid=00D3I0000000exN&amp;amp;lastMod=1671099763000&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Dear {!$Record.Contact.Full_Name__c},&lt;/span&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Thank you for contacting NCR Service Desk, your Work Order has been created with the following details:&lt;/span&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Case Number: {!$Record.Case.CaseNumber}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Work Order Number: {!$Record.WorkOrderNumber}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Serialized Asset: {!$Record.Serialized_Asset_Id__r.Name}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;S/N: {!$Record.Serial_Number__c}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Site Name: {!$Record.Site_Id__r.Name}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Store Number / Branch: {!$Record.Store_Branch_No__c}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Address: {!$Record.Address}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Created Date/Time: {!$Record.CreatedDate}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Dispatch Case Status (ES): {!$Record.Dispatch_Case_Status_ES__c}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Brief Description: {!$Record.Description}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Customer Reference Number: {!$Record.Customer_Ticket_Number__c}&lt;/span&gt;&lt;br&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;If you need additional help or to provide support with an update to your case, feel free to contact the Service Desk.&lt;/span&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Sincerely,&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;NCR Service Desk&lt;/span&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>BodyforResolved</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;https://ncr--cert--c.documentforce.com/servlet/servlet.ImageServer?id=0153I000000ClHa&amp;amp;oid=00D3I0000000exN&amp;amp;lastMod=1671099763000&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;
+&lt;span style=&quot;font-size: medium; font-family: &amp;quot;Times New Roman&amp;quot;; color: rgb(0, 0, 0);&quot;&gt;Dear {!$Record.Contact.Full_Name__c},&lt;/span&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;span style=&quot;font-size: medium; font-family: &amp;quot;Times New Roman&amp;quot;; color: rgb(0, 0, 0);&quot;&gt;Thank you for contacting NCR Service Desk, your Work Order has been completed with the following details:&lt;/span&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;span style=&quot;font-size: medium; font-family: &amp;quot;Times New Roman&amp;quot;; color: rgb(0, 0, 0);&quot;&gt;Case Number: {!$Record.Case.CaseNumber}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;font-size: medium; font-family: &amp;quot;Times New Roman&amp;quot;; color: rgb(0, 0, 0);&quot;&gt;Work Order Number: {!$Record.WorkOrderNumber}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;font-size: medium; font-family: &amp;quot;Times New Roman&amp;quot;; color: rgb(0, 0, 0);&quot;&gt;Serialized Asset: {!$Record.Serialized_Asset_Id__r.Name}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;font-size: medium; font-family: &amp;quot;Times New Roman&amp;quot;; color: rgb(0, 0, 0);&quot;&gt;S/N: {!$Record.Serial_Number__c}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;font-size: medium; font-family: &amp;quot;Times New Roman&amp;quot;; color: rgb(0, 0, 0);&quot;&gt;Site Name: {!$Record.Site_Id__r.Name}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;font-size: medium; font-family: &amp;quot;Times New Roman&amp;quot;; color: rgb(0, 0, 0);&quot;&gt;Store Number / Branch: {!$Record.Store_Branch_No__c}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;font-size: medium; font-family: &amp;quot;Times New Roman&amp;quot;; color: rgb(0, 0, 0);&quot;&gt;Address: {!$Record.Address}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;font-size: medium; font-family: &amp;quot;Times New Roman&amp;quot;; color: rgb(0, 0, 0);&quot;&gt;Created Date/Time: {!$Record.CreatedDate}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;font-size: medium; font-family: &amp;quot;Times New Roman&amp;quot;; color: rgb(0, 0, 0);&quot;&gt;Dispatch Case Status (ES): {!$Record.Dispatch_Case_Status_ES__c}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;font-size: medium; font-family: &amp;quot;Times New Roman&amp;quot;; color: rgb(0, 0, 0);&quot;&gt;Brief Description: {!$Record.Description}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;font-size: medium; font-family: &amp;quot;Times New Roman&amp;quot;; color: rgb(0, 0, 0);&quot;&gt;Customer Reference Number: {!$Record.Customer_Ticket_Number__c}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;font-size: medium; font-family: &amp;quot;Times New Roman&amp;quot;; color: rgb(0, 0, 0);&quot;&gt;Complete Date: {!$Record.Complete_Date__c}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Return Tracking: {!$Record.Return_Tracking_Number__c}&lt;/span&gt;&lt;br&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;span style=&quot;font-size: medium; font-family: &amp;quot;Times New Roman&amp;quot;; color: rgb(0, 0, 0);&quot;&gt;If you need additional help or to provide support with an update to your case, feel free to contact the Service Desk.&lt;/span&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;span style=&quot;font-size: medium; font-family: &amp;quot;Times New Roman&amp;quot;; color: rgb(0, 0, 0);&quot;&gt;Sincerely,&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;font-size: medium; font-family: &amp;quot;Times New Roman&amp;quot;; color: rgb(0, 0, 0);&quot;&gt;NCR Service Desk&lt;/span&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>SubjectForCompletion</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Work Order {!$Record.WorkOrderNumber} has been completed</text>
+    </textTemplates>
+    <textTemplates>
+        <name>SubjectForCreation</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Work Order {!$Record.WorkOrderNumber} has been created</text>
+    </textTemplates>
+    <variables>
+        <name>AssetCheckbox</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>WOCount</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>17</scale>
+    </variables>
+</Flow>

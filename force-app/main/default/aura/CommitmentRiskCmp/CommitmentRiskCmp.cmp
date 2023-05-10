@@ -1,0 +1,49 @@
+<aura:component controller="CommitmentRiskController" implements="force:lightningQuickAction,force:hasRecordId" access="global" >
+	
+      <aura:attribute Name="SectionList" type="List"></aura:attribute>
+      <aura:attribute type="Object" name="myMap" ></aura:attribute>
+      <aura:attribute type="String" name="OppId" default=""></aura:attribute> 
+      <!--<aura:registerEvent name="NotifyComitmntRisk" type="c:NotifyCommitmentRisk"/>-->
+      <aura:handler event="c:NotifyCommitmentRisk" action="{!c.handleApplicationEvent}"/>
+      <aura:attribute name="SumOfAllSectionWeightage" type="Integer"></aura:attribute>
+      <article class="slds-card">
+          <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+              <div class="slds-media__figure">
+                <span class="slds-icon_container slds-icon-standard-account" title="account">
+                  <span class="slds-assistive-text">Commitment Risk</span>
+                </span>
+              </div>
+              <div class="slds-media__body">
+                <h2 class="slds-card__header-title">
+                  <a href="javascript:void(0);" class="slds-card__header-link slds-truncate" title="Accounts">
+                    <span>Commitment Risk</span> 
+                  </a>
+                </h2>
+              </div>
+            </header>
+          </div>
+		<aura:iteration items="{!v.myMap}" var="ele" indexVar="key">
+
+              <div class="slds-card__body slds-card__body_inner"> 
+            
+                <div class="vp_section_header"> 
+                     <h3 class="slds-section__title slds-theme_default">
+                         <span class="slds-truncate" title="Section Title">{!ele.SeactionName}:</span>
+                     </h3>
+                </div> 
+                 <c:CalculateRiskPercentage   RecordId="{#ele.RecordId}" OppId="{#v.OppId}" Result="{#ele.Result}"  value="{#ele.RecordsValue}" WeightagePerSection="{#ele.SectionWeightage}"  DisplaySectionWeightage="{#ele.SectionWeightageIfyes}"></c:CalculateRiskPercentage> 
+              </div>
+              
+          </aura:iteration>
+          
+             <table class="slds-table slds-no-row-hover">
+                 <tbody>
+                    <tr class="quesCell">
+                        <td class="ctrhlt slds-size_5-of-6"><label class="slds-form-element">Commitment Risk Score</label></td> 
+                        <td class="ctrhlt slds-size_1-of-6"><div class="slds-form-element__control">{!v.SumOfAllSectionWeightage}%</div></td>
+                    </tr>
+                </tbody>
+			</table>
+   </article>
+</aura:component>

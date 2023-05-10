@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>End_Date_Required_for_Activity</fullName>
+    <active>true</active>
+    <description>Presales Engineer Activity End Date requirement</description>
+    <errorConditionFormula>ISBLANK ( PSE_End_Date__c )&amp;&amp;  PSE_IsActive__c =False</errorConditionFormula>
+    <errorDisplayField>PSE_End_Date__c</errorDisplayField>
+    <errorMessage>An End Date is required. Please enter an End Date. If this is an ongoing activity please select check the Is Active check box.</errorMessage>
+</ValidationRule>

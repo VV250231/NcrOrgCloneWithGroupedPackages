@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DPV_Interface__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <inlineHelpText>The interface being provided by the core for external integration, such as Symatar or Signature.</inlineHelpText>
+    <label>DPV Interface</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Solution_Provider_Product_Interface__c.Solution_Provider_Product__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.DPV_Software__c</valueField>
+        </filterItems>
+        <filterItems>
+            <field>Solution_Provider_Product_Interface__c.Available__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <isOptional>true</isOptional>
+    </lookupFilter>
+    <referenceTo>Solution_Provider_Product_Interface__c</referenceTo>
+    <relationshipLabel>Accounts</relationshipLabel>
+    <relationshipName>DPV_Interfaces</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Dispute_Case_Close_RootCause_Mandatory</fullName>
+    <active>true</active>
+    <description>Need to field mandatory field if dispute case status=closed or denied</description>
+    <errorConditionFormula>AND( OR(
+ISPICKVAL( Status , &apos;Closed&apos;) ,
+ISPICKVAL( Status, &apos;denied&apos;)
+),
+ISPICKVAL(  Root_Cause__c , &apos;&apos;),
+RecordType.Name = &apos;Dispute&apos;
+
+)</errorConditionFormula>
+    <errorDisplayField>Root_Cause__c</errorDisplayField>
+    <errorMessage>Root Cause is Required Field to Close Dispute</errorMessage>
+</ValidationRule>

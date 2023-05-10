@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Contacts_Survey_Yes</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>FULL_NAME</columns>
+    <columns>Survey_Flag__c</columns>
+    <columns>Active_Contact__c</columns>
+    <columns>Reason__c</columns>
+    <columns>Decision_Maker__c</columns>
+    <columns>CONTACT.TITLE</columns>
+    <columns>Level__c</columns>
+    <columns>CONTACT.EMAIL</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>CONTACT.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Contact.CustomerContact</value>
+    </filters>
+    <filters>
+        <field>Active_Contact__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Survey_Flag__c</field>
+        <operation>equals</operation>
+        <value>Yes</value>
+    </filters>
+    <label>My Contacts_Survey=Yes</label>
+    <sharedTo>
+        <group>Cyndia_Meierdiercks</group>
+    </sharedTo>
+</ListView>

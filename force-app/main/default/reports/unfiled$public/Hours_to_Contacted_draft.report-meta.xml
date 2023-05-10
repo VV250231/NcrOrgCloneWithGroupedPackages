@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>CREATED_DATE:UNIQUE-LEAD_CREATED_DATE:UNIQUE</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>false</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Time to Work</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <columns>
+        <field>COMPANY</field>
+    </columns>
+    <columns>
+        <field>LEAD_SOURCE</field>
+    </columns>
+    <columns>
+        <field>field_key</field>
+    </columns>
+    <columns>
+        <field>OLDVAL</field>
+    </columns>
+    <columns>
+        <field>NEWVAL</field>
+    </columns>
+    <columns>
+        <field>Lead.INQ_Trigger_Date__c</field>
+    </columns>
+    <columns>
+        <field>Lead.MQL_Date__c</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>Lead.SAL_Date__c</field>
+    </columns>
+    <columns>
+        <field>LEAD_CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>LEAD_OWNER_ROLE</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>CDF1</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>60 * ROUND( 10 * (
+( 5 * FLOOR( ( DATEVALUE( Lead.SAL_Date__c ) - DATE( 1900, 1, 8) ) / 7) +
+MIN(5,
+MOD( DATEVALUE( Lead.SAL_Date__c ) - DATE( 1900, 1, 8), 7) +
+MIN( 1, 24 / 10 * ( MOD( IF(HOUR(TIMEVALUE(Lead.SAL_Date__c - 8/24)) &lt; 8, DATETIMEVALUE(TEXT(DATEVALUE(Lead.SAL_Date__c)) &amp; &quot; 16:00:00&quot;),
+IF(HOUR(TIMEVALUE(Lead.SAL_Date__c - 8/24)) &gt; 18, DATETIMEVALUE(TEXT(DATEVALUE(Lead.SAL_Date__c+1)) &amp; &quot; 02:00:00&quot;),
+Lead.SAL_Date__c)) - DATETIMEVALUE( &apos;1900-01-08 16:00:00&apos; ), 1 ) ) )
+)
+)
+-
+( 5 * FLOOR( ( DATEVALUE( LEAD_CREATED_DATE ) - DATE( 1900, 1, 8) ) / 7) +
+MIN( 5,
+MOD( DATEVALUE( LEAD_CREATED_DATE ) - DATE( 1996, 1, 1), 7 ) +
+MIN( 1, 24 / 10 * ( MOD( IF(HOUR(TIMEVALUE(LEAD_CREATED_DATE - 8/24)) &lt; 8, DATETIMEVALUE(TEXT(DATEVALUE(LEAD_CREATED_DATE)) &amp; &quot; 16:00:00&quot;),
+IF(HOUR(TIMEVALUE(LEAD_CREATED_DATE- 8/24)) &gt; 18, DATETIMEVALUE(TEXT(DATEVALUE(LEAD_CREATED_DATE+1)) &amp; &quot; 02:00:00&quot;),
+LEAD_CREATED_DATE)) - DATETIMEVALUE( &apos;1900-01-08 16:00:00&apos; ), 1) ) )
+)
+)
+),
+4 )</calculatedFormula>
+        <dataType>Double</dataType>
+        <developerName>CDF1</developerName>
+        <label>#Minutes till contacted</label>
+        <scale>0</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>field_key</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Lead Status</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>LEAD_OWNER</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>Cam Andrade,Jeremy Disher</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>NEWVAL</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Contacted</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>COMPANY</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Radyan Corporation</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>COMPANY</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>K&amp;K ENTERPRISES OF ALAMANCE LLC,belwood,Carmelitas Kitchen De Mexico</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead.LeadType__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Sales</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead.SDR__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Braxton Richburg,Brody Craft,Dane Grounds,Jackson Hawthorne,Jesse Lopez-Garcia,Braden Hawcroft</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>LEAD_CREATED_DATE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value></value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CDF1</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>0</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Lead.SDR__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Minutes to Contacted draft</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>LeadAuditHistory</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>CREATED_DATE</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>LEAD_CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CURRENT</interval>
+    </timeFrameFilter>
+</Report>

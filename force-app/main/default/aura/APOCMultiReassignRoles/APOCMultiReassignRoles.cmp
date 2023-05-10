@@ -1,0 +1,98 @@
+<aura:component controller = "APOCRolesController" implements="lightning:actionOverride,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:hasRecordId,force:lightningQuickActionWithoutHeader" access="global" >
+    <aura:attribute name="isbulkUpdate" type="boolean" default="false"/>
+    <aura:attribute name="parent" type="Aura.Component"/>
+    <aura:attribute name="showModal" type="boolean" default="false"/> 
+    <aura:attribute name="ManageRoles" type="String[]"/>
+    <aura:attribute name="isNew" type="boolean" default="false"/> 
+     <aura:attribute name="selectedRole" type="String" default=""/>
+     <aura:attribute name="showUserLookup" type="boolean" default="false"/> 
+     <aura:attribute name="selectedUser" type="Object"/> 
+     <aura:attribute name="recordToReassign" type="Object[]"/>
+    <aura:attribute name="rolesInDatabase" type = "Object[]" />
+    <aura:attribute name ="rolesToInsert" type ="Object[]"/>
+  	<!--<aura:attribute name="arrowDirection" type="string" default="arrowdown" />
+    <aura:attribute name="isAsc" type="boolean" default="true" /> 
+    <aura:attribute name ="currentPage" type ="integer"/>
+    <aura:attribute name ="currentTab" type ="string"/>-->
+    <aura:attribute name="spinner" type="boolean" default="false" /> 
+    <!-- Attribute Section End  -->
+    
+    <!-- Event Handler goes here -->
+    <!--<aura:handler event="c:LookUpEvt" action="{!c.handleLookUpEvent}"/>-->
+    
+    <!-- Event Handler End  here -->
+    <!--loading spinner start-->
+    <aura:if isTrue="{!v.spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container" style="position: fixed;">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    <!-- Loading spinner end--> 
+    <!-- modal start here -->
+    <!-- show modal start here -->
+    <div aura:id="NewModal"  class="slds-modal slds-fade-in-open" style="height:640px;">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header" >
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeModal}">
+                        <lightning:icon class="IconColor" iconName="utility:close" size="small"/>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">SELECT ROLE FOR MULTIPLE REASSIGNMENT</h2>
+                </header>
+                
+                
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1" style="height : 500px;"> 
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <div class="slds-col slds-size_12-of-12">
+                            <p><b>Note: All selected accounts and role would be reassigned. The existing assigned users would be deleted from this role permanently.</b></p>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <div class="slds-col slds-size_12-of-12">
+                            
+                            <lightning:select aura:id ="{!role+v.index}" name="colorId" tabindex="{!index}" label="Select a Role to proceed:" value="{!v.selectedRole}" onchange="{!c.clickNext}" >
+                                <aura:iteration items="{!v.ManageRoles}" var="option">
+                                    <p>{!option}</p>
+                                    <option text="{!option}" value="{!option}" selected="{!option.selected}"/>
+                                </aura:iteration>
+                            </lightning:select>
+                        </div>
+                        
+                    </div>
+                    <br/>
+                    <aura:if isTrue="{!v.showUserLookup}">
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <div class="slds-col slds-size_12-of-12">
+                          <p>Select a user to assign this role:</p>  
+                            <c:LookupAccountSupport lookupIcon="standard:user"
+                                                            objectName="User"
+                                                            type = 'Role'
+                                                            field_API_search="Name"
+                                                            limit="5"
+                                                            placeholder="Search User by Name"
+                                                            field_API_val="Id,Quicklook_ID__c,Phone,Email"
+                                                            field_API_text="Name"
+                                                            selItem  ="{!v.selectedUser}"/>
+                        </div>
+                        
+                    </div>
+                    </aura:if>
+                    <!--END New Reassign Modal With Roles -->
+                </div>
+                
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick="{!c.closeModal}">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick="{!c.clickSave}" disabled="{!or(v.selectedRole=='Select Role',empty(v.selectedRole))}">Save</button>
+               </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+    <!-- show modal end here--> 
+</aura:component>

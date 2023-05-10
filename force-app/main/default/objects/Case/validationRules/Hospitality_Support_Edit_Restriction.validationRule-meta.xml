@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hospitality_Support_Edit_Restriction</fullName>
+    <active>true</active>
+    <description>This rule will not allow the user to edit account name, site name, contact name, contact phone , contact email and alternate contact fields if case record type is hospitality support.</description>
+    <errorConditionFormula>AND(
+Hospitality_Validation_Rule_Bypass_flag__c == False,
+OR(
+RecordType.Name =&quot;Hospitality Support&quot;,
+RecordType.Name=&quot;Hospitality Portal Provisioning&quot;
+),
+OR(
+ISCHANGED( AccountId ),
+ISCHANGED( Site_Id__c ),
+ISCHANGED( ContactId ),
+ISCHANGED( Alternate_Contact__c ),
+ISCHANGED(Creation_Category__c),
+ISCHANGED (Resolution_Category__c)
+),
+NOT($Permission.Restrict_Validation_Hospitality_Admin_User) ,
+NOT($Permission.Hospitality_Integration_User) ,
+NOT(ISCHANGED( Skip_Hospitality_Validation_Rule__c ))
+)</errorConditionFormula>
+    <errorMessage>You can not update this field.</errorMessage>
+</ValidationRule>

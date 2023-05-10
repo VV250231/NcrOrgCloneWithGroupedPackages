@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>AMOUNT:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Revenue Won</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_81211087</developerName>
+        <masterLabel>Billing Status</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>STAGE_NAME</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Prospecting</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Analyzing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Validating</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Proposing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Analyzing - NonFunnel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Validating - NonFunnel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Proposing - NonFunnel</sourceValue>
+            </sourceValues>
+            <value>Preparing Billing File</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Offering</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Offering - NonFunnel</sourceValue>
+            </sourceValues>
+            <value>SOM Request sent to BOC</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Closing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Closing - NonFunnel</sourceValue>
+            </sourceValues>
+            <value>Invoice verification with BOC</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Closed/Booked</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Closed/Booked - NonFunnel</sourceValue>
+            </sourceValues>
+            <value>Invoice Paid by the Client</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>ADDRESS1_COUNTRY</field>
+    </columns>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>AMOUNT</field>
+    </columns>
+    <currency>EUR</currency>
+    <customDetailFormulas>
+        <calculatedFormula>SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(LEFT(OPPORTUNITY_NAME,3),&quot;Jan&quot;,&quot;a. Jan&quot;),&quot;Feb&quot;,&quot;b. Feb&quot;),&quot;Mar&quot;,&quot;c. Mar&quot;),&quot;Apr&quot;,&quot;d. Apr&quot;),&quot;May&quot;,&quot;e. May&quot;),&quot;Jun&quot;,&quot;f. Jun&quot;),&quot;Jul&quot;,&quot;g. Jul&quot;),&quot;Aug&quot;,&quot;h. Aug&quot;),&quot;Sep&quot;,&quot;i. Sep&quot;),&quot;Oct&quot;,&quot;j. Oct&quot;),&quot;Nov&quot;,&quot;k. Nov&quot;),&quot;Dec&quot;,&quot;l. Dec&quot;)</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>Billing Month</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <booleanFilter>(1 OR 3) AND 2 AND 4</booleanFilter>
+        <criteriaItems>
+            <column>OPPORTUNITY_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Jan-22 EMEA,Feb-22 EMEA,Mar-22 EMEA,Apr-22 EMEA,May-22 EMEA,Jun-22 EMEA,Jul-22 EMEA,Aug-22 EMEA,Sep-22 EMEA,Oct-22 EMEA,Nov-22 EMEA,Dec-22 EMEA</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FULL_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Bozidar Jeremic,Danijela Cvetkovic,Achraf Rharib</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Master_Customer_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>10003591,10247259,10332339</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OPPORTUNITY_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>Jan-21; EMEA,Feb-21; EMEA,Mar-21; EMEA,Apr-21;EMEA,May-21; EMEA,Jun-21; EMEA,Jul-21; EMEA,Aug-21; EMEA,Sep-21; EMEA,Oct-21; EMEA,Nov-21; EMEA,Dec-21; EMEA</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Month</dateGranularity>
+        <field>CLOSE_DATE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_81211087</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CDF1</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>CLOSED Opps EMEA Monthly Billing 2022</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>closedwon</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <endDate>2023-01-31</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2022-01-01</startDate>
+    </timeFrameFilter>
+</Report>

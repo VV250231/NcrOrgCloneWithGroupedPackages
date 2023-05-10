@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CPQQuoteExpiredValidationFullFill</fullName>
+    <active>true</active>
+    <description>If the user attempts to modify fulfillment data on Expired/Lost quote, CPQ should display the following error message</description>
+    <errorConditionFormula>AND(ISPICKVAL(Order_Interface_Status__c,&apos;Quote Expired&apos;), !ISCHANGED(Order_Interface_Status__c))</errorConditionFormula>
+    <errorMessage>Fulfillment Order changes are not on an Expired/Lost quote In case you want to work on this quote, please contact Sales Ops for un-expiring the quote as well as re-opening the opportunity (if Closed-Lost)</errorMessage>
+</ValidationRule>

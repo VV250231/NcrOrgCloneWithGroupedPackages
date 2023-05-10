@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validate_Account_Name</fullName>
+    <active>true</active>
+    <description>Validates the Account name on Indirect Opportunity</description>
+    <errorConditionFormula>AND( 
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+NOT(CATM_Record__c), 
+($Profile.Name &lt;&gt; &quot;02 NSC Administrator&quot;),
+($Profile.Name &lt;&gt; &quot;04 NSC UI Administrator&quot;),
+($Profile.Name &lt;&gt; &quot;Soup Integration&quot;),
+($Profile.Name &lt;&gt; &quot;iPaas Administration&quot;),
+(  Account.Master_Customer_Number__c   &lt;&gt; &quot;1238587&quot;),
+(  Account.Master_Customer_Number__c   &lt;&gt; &quot;77889900&quot;),
+(  Account.Master_Customer_Number__c   &lt;&gt; &quot;22334455&quot;),
+     OR(
+          $RecordType.Name = &quot;Indirect - Exclude from Funnel&quot;, 
+          $RecordType.Name = &quot;Indirect - Include in Funnel Distributor&quot;, 
+          $RecordType.Name = &quot;Indirect - Include in Funnel Reseller&quot;
+     ),   Account.RecordType.Name !=&apos;Partner&apos;)</errorConditionFormula>
+    <errorDisplayField>AccountId</errorDisplayField>
+    <errorMessage>Please Select a Partner or Distributor account in Account Name</errorMessage>
+</ValidationRule>

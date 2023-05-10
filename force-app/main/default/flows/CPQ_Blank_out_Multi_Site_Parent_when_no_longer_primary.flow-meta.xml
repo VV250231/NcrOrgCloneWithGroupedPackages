@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <assignments>
+        <name>Blank_out_MS_Parent</name>
+        <label>Blank out MS Parent</label>
+        <locationX>214</locationX>
+        <locationY>385</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.qtc_Multi_Site_Parent_Quote__c</assignToReference>
+            <operator>Assign</operator>
+        </assignmentItems>
+    </assignments>
+    <description>When a quote is updated to no longer be primary, the system will blank out the multi-site parent field if it is populated. If the quote is created as non-primary then the multi-site parent link will remain until a user manually breaks the link.</description>
+    <interviewLabel>CPQ - Blank out Multi-Site Parent when no longer primary {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>CPQ - Blank out Multi-Site Parent when no longer primary</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>49</locationX>
+        <locationY>49</locationY>
+        <connector>
+            <targetReference>Blank_out_MS_Parent</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>SBQQ__Primary__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>qtc_Multi_Site_Parent_Quote__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>SBQQ__Quote__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

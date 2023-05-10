@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_Liquadated_Damages_Do_not_Apply_v</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+!$Setup.Automation_Setting__c.Skip_Validation_Rule__c, 
+OR( $Permission.CATM_Retail_Manager = true,
+ $Permission.CATM_Retail_User = true),ISPICKVAL(Owner:User.Geography__c , &quot;UK&quot;),ISPICKVAL( Do_Liquadated_Damages_Apply__c ,&apos;NO&apos;),ISBLANK(  Reason_Liquadated_Damages_Don_t_Apply__c ), RecordType.Name = &apos;Removals&apos; )</errorConditionFormula>
+    <errorDisplayField>Reason_Liquadated_Damages_Don_t_Apply__c</errorDisplayField>
+    <errorMessage>Please fill the Reason Liquidated Damages Don&apos;t Apply</errorMessage>
+</ValidationRule>

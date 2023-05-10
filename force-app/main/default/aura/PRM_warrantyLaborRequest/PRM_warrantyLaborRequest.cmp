@@ -1,0 +1,98 @@
+<aura:component controller="PRM_WarrLaborRequestCon" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader" access="global" >
+    <aura:attribute name="recordId" type="Id"/>
+    <aura:attribute name="equipment" type="Equipment_Declaration__c"/>
+    <aura:attribute name="problemDescription" type="String"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:if isTrue="{!v.equipment.Active_Unit__c}">
+        
+        <div class="demo-only slds-grid">
+            <div class="slds-panel slds-grid slds-grid_vertical slds-nowrap">
+                <div class="slds-form slds-form_stacked">
+                    <div class="slds-panel__section">
+                        <h3 class="slds-section-title_divider">Mail Header</h3>
+                        <div class="slds-form-element slds-border_bottom">
+                            <label class="slds-form-element__label" for="toAddress">Send To</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText aura:id="toAddress" value="America,Partner Programs"/>
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form-element slds-border_bottom">
+                            <label class="slds-form-element__label" for="subject">Subject</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText aura:id="subject" value=" Warranty Labor Reimbursement Request"/>
+                            </div>
+                        </div>
+                        <h3 class="slds-section-title_divider" style="margin-top:5px;">Description</h3>
+                        <div class="slds-form-element slds-border_bottom">
+                            <label class="slds-form-element__label" for="serialNumber">Serial Number</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText aura:id="serialNumber" value="{! v.equipment.Name}"/>
+                            </div>
+                        </div>
+                        <div class="slds-form-element slds-border_bottom">
+                            <label class="slds-form-element__label" for="productId">Product ID</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText aura:id="productId" value="{! v.equipment.Class__c}"/>
+                            </div>
+                        </div>
+                        <div class="slds-form-element slds-border_bottom">
+                            <label class="slds-form-element__label" for="customerName">Customer Name</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText aura:id="customerName" value="{! v.equipment.Customer_Name__c}"/>
+                            </div>
+                        </div>
+                        <div class="slds-form-element slds-border_bottom">
+                            <label class="slds-form-element__label" for="installationDate">Installation Date</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText aura:id="installationDate" value="{! v.equipment.Installation_Date_of_New_Unit__c}"/>
+                            </div>
+                        </div>
+                        <div class="slds-form-element slds-border_bottom">
+                            <label class="slds-form-element__label" for="actName">Account Name</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText aura:id="actName" value="{! v.equipment.Partner_Account__r.Name}"/>
+                            </div>
+                        </div>
+                        <div class="slds-form-element slds-border_bottom">
+                            <label class="slds-form-element__label" for="salesforceId">SalesForce ID</label>
+                            <div class="slds-form-element__control">
+                                <ui:outputText aura:id="salesforceId" value="{! v.equipment.Id}"/>
+                            </div>
+                        </div>
+                        <div class="slds-form-element slds-border_bottom">
+                            <label class="slds-form-element__label" for="dateOfService"><abbr class="slds-required" title="required">*</abbr> Date of Service</label>
+                            <div class="slds-form-element__control">
+                                <ui:inputDate aura:id="dateOfService" value="{! v.equipment.Service_Date__c}" displayDatePicker="true" required="true"/>
+                            </div>
+                        </div>
+                        <h3 class="slds-section-title_divider" style="margin-top:15px;">Service Problem and Repair Description</h3>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="prbDescription"> Description</label>
+                            <div class="slds-form-element__control">
+                                <ui:inputTextArea aura:id="prbDescription" value="{! v.problemDescription}" rows="5"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-float_right">
+                    <lightning:button variant="brand" label="Submit" onclick="{! c.dosubmitWLR }"/>
+                    <lightning:button variant="brand" label="Cancel" onclick="{! c.closeModal}"/>
+                </div>
+            </div>
+        </div>
+        <aura:set attribute="else">
+            <aura:if isTrue="{! v.equipment != null}">
+                <ui:message severity="error" closable="false">
+                    The equipment is in inactive state. No mail can be sent against inactive Equipments.
+                </ui:message>
+                <div class="slds-float_right">
+                    <lightning:button variant="brand" label="Ok" onclick="{! c.closeModal}"/>
+                </div>
+            </aura:if>
+        </aura:set>
+    </aura:if>
+    
+</aura:component>

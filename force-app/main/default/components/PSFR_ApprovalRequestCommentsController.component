@@ -1,0 +1,40 @@
+<apex:component controller="PSFR_ApprovalRequestCommentsController" access="global">
+ <html>
+         <style>
+              p {
+                font-family: Verdana, Helvetica, sans-serif;
+                color: rgb(0,0,0);
+                font-size: 12.5px;
+                font-style: normal;
+                font-variant: normal;
+                font-weight: 400;
+                line-height: 20px;
+              }
+              
+              .inlineText {
+                  display: inline-block;
+                  margin-left: 12px;
+              }
+             
+         </style>
+    <body>
+   
+    <apex:attribute name="PSFR" assignTo="{!PSFRID}" type="String" description="Id of the opportunity"/>  
+   <table cellpadding="3" cellspacing="2" style="border: thin solid #FFFFFF; font-size: 16px; font-family: 'Calibri ';">
+                                   <thead>
+                                        <tr>
+                                             <th style="background-color: #b9c9fe; color: #039; font-weight: bold;text-align:left"><p>Approver's Comment</p></th>
+                                        </tr>
+                                    </thead>
+                                     <tbody>
+                                        <apex:repeat value="{!approvalSteps}" var="step">
+                                        <tr>
+                                            <td style="background-color: #e8edff; color: #669;text-align:left"><p>{!step.Comments}</p></td>
+                                             </tr>
+                                        </apex:repeat>
+                                    </tbody>
+   
+    </table>
+    </body>
+    </html>
+</apex:component>

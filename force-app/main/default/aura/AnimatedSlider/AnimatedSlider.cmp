@@ -1,0 +1,47 @@
+<aura:component >
+    <aura:attribute type="Aura.Component[]" name="slideContents" />
+    <aura:Attribute type="String" name="height" default="150px" />
+    <aura:attribute type="Object[]" name="slidersList" /> 
+    <aura:attribute name="isAutoTimer" type="Boolean" default="false" />
+    <aura:attribute name="delay" type="Integer" default="3" description="Delay for slider change in seconds."/>
+    <aura:attribute name="autoBgColor" type="String" default="false" description="Let application decide if background color should be automatically changed. If this flag is ON then bgColor in slide will not work."/> 
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>  
+	
+<div class="slds" style="{# 'height:'+v.height+';width:100%'}">
+
+<div class="css-slider-wrapper">
+  
+            <aura:iteration items="{!v.slidersList}" var="s" indexVar="i">  
+                 <input data-selected-Index="{!i}" type="radio" name="slider" class="{# 'slide-radio'+(i+1)}" checked="{!s.isFocused}" id="{# 'slider_'+(i+1)}" /> 
+            </aura:iteration>  
+            
+<div class="slider-pagination">   
+                <aura:iteration items="{!v.slidersList}" var="s" indexVar="i">   
+                    <label data-selected-Index="{!i}" for="{# 'slider_'+(i+1)}" class="{# 'page'+(i+1)}" onclick="{!c.changePageNumber}"></label> 
+                </aura:iteration> 
+            </div>
+
+ 
+            <aura:iteration items="{!v.slidersList}" var="s" indexVar="i">     
+                
+<div class="{# 'slider slide'+(i+1)}" style="{# 'background :'+s.bgColor+';left:'+(i*100)+'%'}">
+
+<div class="scroll scrollbarStyle">
+
+<h2 style="{# 'color:'+s.contentColor}"> {# s.title} </h2>
+
+                        <span class="bodyContent" style="{# 'color:'+s.contentColor}">  
+                            <aura:unescapedHtml value="{# s.content}" />
+                        </span> 
+                    </div>
+
+                </div>
+
+ 
+            </aura:iteration>  
+        </div>
+
+ 
+    </div>
+
+</aura:component>

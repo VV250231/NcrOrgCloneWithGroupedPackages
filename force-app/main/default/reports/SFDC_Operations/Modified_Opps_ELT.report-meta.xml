@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Opportunity$Id</field>
+    </columns>
+    <columns>
+        <field>Opportunity$Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity$LastModifiedDate</field>
+    </columns>
+    <columns>
+        <field>Opportunity$LastModifiedBy</field>
+    </columns>
+    <columns>
+        <field>Opportunity$User_Modified_Date__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>ELT - do not delete</description>
+    <filter>
+        <criteriaItems>
+            <column>Opportunity$LastModifiedBy</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>ipaas,soup,Lyric McGhee,Andrew Laird,Kathleen Keegan,Marci Rudolph</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Opportunity$Sales_Org__c.Hierarchy_2__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Opportunity$Sales_Org__c.Hierarchy_3__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Updated_Opps_ELT</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunities_and_Sales_Orgs__c</reportType>
+    <roleHierarchyFilter>ChiefExecutiveOffice</roleHierarchyFilter>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Opportunity$User_Modified_Date__c</dateColumn>
+        <interval>INTERVAL_YESTERDAY</interval>
+    </timeFrameFilter>
+</Report>

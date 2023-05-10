@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hosp_Customer_Status</fullName>
+    <active>false</active>
+    <description>Prevents Customer Users from changing status or owner of a case</description>
+    <errorConditionFormula>AND(
+NOT(ISNEW()),
+OR(
+ISCHANGED(Status),
+ISCHANGED( OwnerId )
+),
+RecordType.DeveloperName = &quot;Hospitality_Support&quot;,
+$Setup.Automation_Setting__c.Skip_Validation_Rule__c == FALSE,
+OR(
+$Profile.Name = &quot;Customer View &amp; Log Cases Login User&quot;,
+$Profile.Name = &quot;Customer View &amp; Log Cases User&quot;,
+$Profile.Name = &quot;Customer View Cases Login User&quot;,
+$Profile.Name = &quot;Customer View Cases User&quot;,
+$Profile.Name = &quot;Customer View Log Cases &amp; Create Dispatches Login User&quot;,
+$Profile.Name = &quot;Customer View Log Cases &amp; Create Dispatches User&quot;,
+$Permission.Hospitality_EC_Create_Dispatches
+)
+)</errorConditionFormula>
+    <errorMessage>You cannot change the status or owner of the case.</errorMessage>
+</ValidationRule>

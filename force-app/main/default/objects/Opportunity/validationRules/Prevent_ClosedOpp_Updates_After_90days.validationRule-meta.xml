@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_ClosedOpp_Updates_After_90days</fullName>
+    <active>true</active>
+    <description>Prevent Users to update CATM Opportunity after 90 days</description>
+    <errorConditionFormula>AND(
+CATM_Record__c,
+NOT(ISNEW()),
+(PRIORVALUE(IsClosed) = TRUE),
+($Profile.Name &lt;&gt; &quot;02 NSC Administrator&quot;), 
+($Profile.Name &lt;&gt; &quot;04 NSC UI Administrator&quot;),
+($Profile.Name &lt;&gt; &quot;Cloned 54 Hosted Solutions Sales Operations for DS Admin&quot;),
+($Profile.Name &lt;&gt; &quot;System Administrator&quot;),
+($Profile.Name &lt;&gt; &quot;Soup Integration&quot;),
+($Profile.Name &lt;&gt; &quot;iPaas Administration&quot;),
+($Profile.Name &lt;&gt; &quot;C9 Administration&quot;),
+($Profile.Name &lt;&gt; &quot;63 DI Sales Operations&quot;),
+($Profile.Name &lt;&gt; &quot;CATM - System Admin&quot;),
+($UserRole.Id &lt;&gt; &quot;00E70000001bmtW&quot;),
+bypass_validation__c&lt;&gt;true,
+IF($Permission.CATM_Cant_Update_Closed_Opportunities_90days,(ISCHANGED(CloseDate)&amp;&amp;NOT(ISCHANGED(StageName)))||today()-PRIORVALUE(CloseDate)&gt;=VALUE($Label.CATM_Opp_Grace_CATM_System_Admin)+1,true)
+)</errorConditionFormula>
+    <errorMessage>CATM closed opportunities cannot be updated after 180 days. Please contact the Administrator if you need to re-open or to make changes to this opportunity.</errorMessage>
+</ValidationRule>

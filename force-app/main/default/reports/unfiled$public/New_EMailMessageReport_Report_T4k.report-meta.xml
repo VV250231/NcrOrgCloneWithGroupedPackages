@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>EmailMessage$CreatedDate</field>
+    </columns>
+    <columns>
+        <field>EmailMessage$FromName</field>
+    </columns>
+    <columns>
+        <field>EmailMessage$MessageDate</field>
+    </columns>
+    <columns>
+        <field>EmailMessage$Status</field>
+    </columns>
+    <columns>
+        <field>EmailMessage$Subject</field>
+    </columns>
+    <columns>
+        <field>EmailMessage$TextBody</field>
+    </columns>
+    <columns>
+        <field>EmailMessage$ToAddress</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>EmailMessage$Subject</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Error during Contract creation</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>New EMailMessageReport Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>EMailMessageReport__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>EmailMessage$CreatedDate</dateColumn>
+        <interval>INTERVAL_YESTERDAY</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,488 @@
+<aura:component controller="GlobalSearchController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="searchKey" type="String" default=""></aura:attribute>
+    <aura:attribute name="ResultData" type="List"></aura:attribute>
+    <aura:attribute name="timer" type="Integer"/>
+    <aura:attribute name="IPTPartnerCommunityUrl" type="String"/>
+    <aura:attribute name="isCommunityUser" type="Boolean" default="false"/>	
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/> 
+    <aura:attribute name="RevenueFilter" type="List" default="['HW','SW','Cloud','HWM','SWM','PS','TS']"/>
+    <aura:attribute name="IndustryFilter" type="List" default="['HW','SW','Cloud','HWM','SWM','PS','TS']"/>
+    <aura:handler name="myComponentEvent" event="c:FilterCmpEvent" action="{!c.handleMyComponentEvent}"/>
+    <aura:attribute name="OpportunityId" Type="String" ></aura:attribute>
+    <aura:attribute name="PillsArray" type="String[]" default="[]"></aura:attribute>
+    <aura:attribute name="IndustryPillsArray" type="String[]" default="[]"></aura:attribute>
+    
+    <aura:attribute name="AllreadyQueryDataSet" type="List"></aura:attribute>
+    <aura:attribute name="closeDialog" type="string" default="slds-show"></aura:attribute>
+    <aura:attribute name="rowIdToRowMap" type="Map" default="{}"/>
+    <aura:attribute name="FilterAssistanceMap" type="Map" default="{}"/> 
+    <aura:attribute name="ScheduleProductList" type="List"></aura:attribute>    
+    <aura:registerEvent name="AddRemoveProduct" type="c:AddRemoveProduct"/>
+    <aura:handler event="c:AddRemoveProduct" action="{!c.handleAddRemoveProduct}"/>
+    <aura:attribute name="NoOfRecord" type="Integer"></aura:attribute>
+    
+    <aura:attribute name="SchFavList" type="List"></aura:attribute>
+    <aura:attribute name="SchFavIdList" type="List"></aura:attribute>
+    <aura:attribute name="TriggerScreenName" type="String"></aura:attribute> 
+    <aura:registerEvent name="InsertScheduleEvent" type="c:InsertScheduleEvent"/>
+    <aura:registerEvent name="appEvent" type="c:ceEvent"/> 
+    <aura:registerEvent name="appfavEvent" type="c:psaddfavEvent_PS"/>
+    <aura:attribute type="String" name="clearSearch"></aura:attribute>
+    <aura:attribute type="Boolean" name="SelectAll"></aura:attribute>
+    <aura:registerEvent name="EverntFromBundleComptoSearchComp" type="c:EverntFromBundleComptoSearchComp"/>
+    <aura:handler event="c:EverntFromBundleComptoSearchComp" action="{!c.refreshBundle}"/>
+    
+    <!--<aura:registerEvent name="BulkSchedule_and_Fav" type="c:BulkSchedule_and_Fav"/>
+    <aura:handler event="c:BulkSchedule_and_Fav" action="{!c.handleBulkSchedule_and_Fav}"/>-->
+    
+    
+    <aura:attribute name="confirmSubscriptionModal" type="Boolean" />
+    <aura:attribute name="selectedSubcrionableProdList" type="List" />
+    <aura:attribute name="selectedNONSubcrionableProdList" type="List" />
+    
+    <!-- Added for Opp Line Item Type -->
+    <aura:attribute name="confirmServTypeSelModal" type="Boolean" />
+    <aura:attribute name="renewablRevnTypes" type="Set" /> 
+    <aura:attribute name="oppLineItemTypeMap" type="Map" />
+    <aura:attribute name="confirmSubModalHeader" type="String" />
+    <!-- Added for Opp Line Item Type -->
+    
+    <aura:attribute type="Integer" name="SeletedProductCount" default="0"></aura:attribute>
+    <aura:attribute type="Boolean" name="DisableBulkProcess" default="false"></aura:attribute>
+    <aura:attribute type="Boolean" name="PrevSelectConfrm" default="false"></aura:attribute>
+    
+    <!-- Added for HWM Maintenance Type -->
+    <aura:attribute name="confirmHWMTypeModal" type="Boolean" />
+    <aura:attribute name="HWMMntcTypes" type="Set" /> 
+    <!-- Added for HWM Maintenance Type -->
+    
+    
+    <!--Sushant-->
+    <aura:attribute name="isSpinner" type="boolean" default="false"/>
+    <aura:handler event="aura:waiting" action="{!c.handleShowSpinner}"/>
+    <aura:handler event="aura:doneWaiting" action="{!c.handleHideSpinner}"/>
+    <!--Sushant Ends	-->
+    
+    <!--ADDED QTY TYPE-->
+    <aura:attribute name="qtyTyp" type="String"></aura:attribute>
+    <aura:attribute name="qtyTypeMap" type="Map"/>
+    <aura:attribute name="confirmQtyTypModal" type="Boolean" />
+    <!--ADDED QTY TYPE-->
+    
+    <!--Added for CATM check by Stuti-->
+    <aura:attribute name="isCatm"  type="boolean"/>
+    
+    <!--EBA_SF-2174 adding check for NCR Payment Processing by Stuti-->
+    <aura:attribute name="subsOnlyProdNames" type="Set" default="{}" />
+    <aura:attribute name="subsOnlyRevenueTypes" type="Set" default="{}" />
+    <!--EBA_SF-2174 ends-->
+    
+    <!--EBA 2467-->
+    <aura:handler name="closeAddBundle" event="c:bundleModalClose" action="{!c.handleBundleClose}"/>
+    <!--2467 ends-->
+
+    
+    <!-- START Change , Divya -->
+ 	<aura:if isTrue="{!(v.confirmSubscriptionModal || v.confirmServTypeSelModal || v.confirmHWMTypeModal || v.confirmQtyTypModal) }">   
+        <div class="{! 'slds-modal slds-fade-in-open ' + if(and(and(and(v.confirmSubscriptionModal,v.confirmServTypeSelModal), v.confirmHWMTypeModal),v.confirmQtyTypModal), 'slds-modal_medium ', '')}" aria-hidden="false" role="dialog" id="Modal" style="width:100;z-index:90001;">
+            
+            <div class="slds-modal__container slds-p-around_large" style="height:600px;width:670px;">
+                <div class="slds-modal__header">
+                    <b style="color:blue;font-size:1.25rem;"> {!v.confirmSubModalHeader}  </b>
+                </div>
+                <div class="slds-modal__content slds-p-around_medium slds-scrollable_y" style="height:350px;" > <!-- font-size:0.95rem; -->
+                    <div>
+                        <table class="slds-table slds-table_bordered slds-max-medium-table_stacked slds-no-row-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="slds-col" > <!--class="slds-col slds-size_8-of-12" style="width:67%;" -->
+                                        Product Name                                        
+                                    </th>
+                                    
+                                    <aura:if isTrue="{!v.confirmSubscriptionModal}">  
+                                        <th scope="col" class="slds-col checkboxHeaderC" > <!--style="padding-bottom:15px;"-->
+                                            <lightning:input type="checkbox"  label="Add to Subscription" name="input1" onchange="{!c.addAllForSubscription}"/> 
+                                        </th>
+                                    </aura:if>
+                                    
+                                    <!--<aura:if isTrue="{!v.isCatm}">
+                                        <th></th>
+                                        <aura:set attribute="else">-->
+                                    	<aura:if isTrue="{!v.confirmServTypeSelModal}">
+                                        	<th scope="col" class="slds-col checkboxHeader">
+                                            	<label>Line Item Type</label> <abbr class="slds-required" title="required">* </abbr>                                            
+                                        	</th>
+                                    	</aura:if>
+                                        <!--</aura:set>
+                                    </aura:if>-->
+                                    
+                                     <aura:if isTrue="{!v.confirmHWMTypeModal}">
+                                        <th scope="col" class="slds-col checkboxHeader">
+                                            <label>Maintenance Type</label> <abbr class="slds-required" title="required">* </abbr>                                            
+                                        </th>
+                                    </aura:if>
+                                    
+                                    <aura:if isTrue="{!v.confirmQtyTypModal}">
+                                    <th scope="col" class="slds-col checkboxHeader">
+                                            <label>Qty Type</label> <abbr class="slds-required" title="required">* </abbr>                                            
+                                        </th>
+                                    </aura:if>
+                                    <br/>
+                                </tr> 
+                            </thead>
+                            <tbody>
+                                <aura:iteration items="{!v.selectedSubcrionableProdList}" var="prodItem" >
+                                    <tr style="height:40px;">
+                                        <td class="slds-col slds-cell-wrap" style="word-wrap:break-word ,overflow-wrap: break-word;"> <!-- slds-size_2-of-12 -->
+                                            {!prodItem.ProductName}
+                                            
+                                        </td>
+                                        <td class="slds-col">
+                                            
+                                            <lightning:input type="checkbox" checked="{!prodItem.checkOLISubcription}" />
+                                            
+                                        </td>
+                                        
+                                        <!--<aura:if isTrue="{!v.isCatm}">
+                                            <th></th>
+                                        <aura:set attribute="else">-->
+                                        <aura:if isTrue="{!v.confirmServTypeSelModal}">   
+                                             <td class="slds-col">
+                                                <aura:if isTrue="{!prodItem.isServiceLineItem}">    
+                                                    <lightning:select value="{!prodItem.selectLineItemType}" variant="label-hidden" class="liTypePick label-hidden">                                   
+                                                        <option value="">--None--</option>
+                                                        <aura:iteration items="{!v.oppLineItemTypeMap}" var="item" indexVar="key">
+                                                            <option text="{!item.value}" value="{!item.key}" />
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                    <aura:set attribute="else">
+                                                        <lightning:helptext content="Not applicable" />
+                                                    </aura:set>
+                                                </aura:if>  
+                                            </td>
+                                        </aura:if> 
+                                            <!--</aura:set>
+                                        </aura:if>-->
+
+							  			<aura:if isTrue="{!v.confirmHWMTypeModal}">  
+                                            <td class="slds-col">          
+                                                <aura:if isTrue="{!prodItem.isAvlAsCnctHWM}"> 
+                                                    <lightning:select value="{!prodItem.selectHWMMntcType}" class="liTypePick label-hidden">                                   
+                                                        <option value="">--None--</option>
+                                                        <aura:iteration items="{!v.HWMMntcTypes}" var="item" >
+                                                            <option text="{!item}" value="{!item}" />
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                    <aura:set attribute="else">
+                                                        <lightning:helptext content="Not applicable" />
+                                                    </aura:set>
+                                                </aura:if> 
+                                            </td> 
+                                        </aura:if> 
+                                        <aura:if isTrue="{!v.confirmQtyTypModal}">
+							<td class="slds-col"> 
+                                    <lightning:select aura:id="qtyType" value="{!prodItem.qtyTyp}" variant="label-hidden" name="qtyTypeName" class="liTypePick label-hidden">
+                                                    <option value="">--None--</option>
+                                                    <aura:iteration items="{!v.qtyTypeMap}" var="i">
+                                                        <option text="{!i.key}" value="{!i.value}"/> 
+                                                    </aura:iteration>
+                                                </lightning:select>
+                                                </td> 
+                                        </aura:if>
+                                                              
+                                    </tr>                                    
+                                </aura:iteration>
+                                
+                                <!-- NONSubcrionableProds for selecting service line item type  -->
+                                <aura:iteration items="{!v.selectedNONSubcrionableProdList}" var="prodItem">
+                                    <aura:if isTrue="{!(prodItem.isServiceLineItem || prodItem.isQtyTypApplicable)}">   
+                                        <tr style="height:40px;">
+                                            <td class="slds-col slds-grow slds-cell-wrap">    <!-- slds-col slds-size_2-of-12 -->
+                                                {!prodItem.ProductName}
+                                                
+                                            </td>
+                                            <aura:if isTrue="{!v.confirmSubscriptionModal}"> 
+                                                <td class="slds-col">
+                                                    <lightning:helptext content="Product is not available for Subscription." />
+                                                </td>
+                                            </aura:if> 
+                                            
+                                            <aura:if isTrue="{!v.confirmServTypeSelModal}"> 
+                                            <td class="slds-col">
+                                                <aura:if isTrue="{!prodItem.isServiceLineItem}">  
+                                                <lightning:select value="{!prodItem.selectLineItemType}" variant="label-hidden" class="liTypePick label-hidden">                                   
+                                                    <option value="">--None--</option>
+                                                    <aura:iteration items="{!v.oppLineItemTypeMap}" var="item" indexVar="key">
+                                                        <option text="{!item.value}" value="{!item.key}" />
+                                                    </aura:iteration>
+                                                </lightning:select> 
+                                                </aura:if>
+                                            </td>
+                                            </aura:if>
+                                                                 
+                                            <aura:if isTrue="{!v.confirmHWMTypeModal}"> 
+                                                <td class="slds-col">   
+                                                    <aura:if isTrue="{!prodItem.isAvlAsCnctHWM}"> 
+                                                        <lightning:select value="{!prodItem.selectHWMMntcType}"  class="liTypePick label-hidden">                                   
+                                                            <option value="">--None--</option>
+                                                            <aura:iteration items="{!v.HWMMntcTypes}" var="item" >
+                                                                <option text="{!item}" value="{!item}" />
+                                                            </aura:iteration>
+                                                        </lightning:select>
+                                                        <aura:set attribute="else">
+                                                            <lightning:helptext content="Not applicable" />
+                                                        </aura:set>
+                                                    </aura:if>
+                                                </td> 
+                                            </aura:if> 
+                                            
+                                            <aura:if isTrue="{!v.confirmQtyTypModal}">
+                                            <td class="slds-col"> 
+                                                <lightning:select aura:id="qtyType" value="{!prodItem.qtyTyp}" name="qtyTypeName" class="liTypePick label-hidden">
+                                                    <option value="">--None--</option>
+                                                    <aura:iteration items="{!v.qtyTypeMap}" var="i" >
+                                                        <option text="{!i.key}" value="{!i.value}" /> <!--selected="{!i==v.qtyTyp}"-->
+                                                    </aura:iteration>
+                                                </lightning:select>
+                                                </td> 
+                                            </aura:if>
+                                        </tr> 
+                                    </aura:if>  
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                        <!-- NONSubcrionableProds for selecting service line item type  -->    
+                    </div>
+                </div>
+                
+                
+                <center>
+                    <div class="slds-modal__footer"> 
+                        
+                        <button class="slds-button slds-button_neutral slds-button_brand"  onclick="{!c.submitSubcriptionProds}" >Submit</button>
+                        
+                        
+                    </div>
+                </center>
+            </div> 
+            
+            
+        </div>     
+        <div class="slds-backdrop slds-backdrop_open" id="greyBackground"  style="z-index:9002;"></div>
+    </aura:if> 
+    <!-- END change , DIvya -->     
+    
+    
+    
+    <div class="{!'demo-only '+v.closeDialog}" style="height: 100%;">
+        <section role="dialog" tabindex="-1" aria-label="Meaningful description of the modal content" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <!--Cross Button -->
+                    <button onclick="{!c.CloseDialogWindow}"  class="slds-button slds-modal__close slds-button_icon-inverse" title="Close" >
+                        <aura:if isTrue="{!v.isCommunityUser}">
+                            <img src="{!v.IPTPartnerCommunityUrl+'/resource/MyIcon/svg/multiply.svg'}" style="width: 1rem;height: 1rem; "/>
+                            <aura:set attribute="else">
+                                <img src="/resource/MyIcon/svg/multiply.svg" style="width: 1rem;height: 1rem; "/>
+                            </aura:set>
+                        </aura:if>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    
+                    <b style="float:left;margin-top: -10px">Product Selection</b>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" style="height:600px;" >
+                    <div class="slds-grid" style="border: 20px solid #005fb2;background-color: #005fb2;height:5rem;">
+                        <div class="slds-col">
+                            <div class="slds-button-group" role="group">
+                                <button  class="slds-button slds-button_neutral" disabled="true" style="color: #0070d2;">ALL</button>
+                                <div class="slds-dropdown-trigger slds-button_last" >
+                                    <span class="slds-button slds-button_icon-border-filled" style="height:2.2rem;">&nbsp;
+                                        <lightning:icon class="slds-m-top_x-small" iconName="utility:down" size="x-small" alternativeText="Revinue Filter" />
+                                        <span class="slds-assistive-text">More Actions</span>
+                                    </span>
+                                    <div  class="slds-dropdown slds-dropdown_left slds-text-heading_label slds-dropdown_menu">
+                                        <div id="objectswitcher-listbox-id-01" class="slds-dropdown slds-dropdown_length-5 slds-dropdown_x-small slds-dropdown_left" role="listbox">
+                                            <ul class="slds-listbox slds-listbox_vertical" role="group" aria-label="Suggested for you">
+                                                <!-- <li role="presentation" class="slds-listbox__item">
+                                                        <div id="object0" class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small" role="presentation">
+                                                            <h3 class="slds-text-title_caps" role="presentation">
+                                                                <lightning:button label="ADD FILTER" title="ADD" onclick="{!c.RenderFilterData }"/>
+                                                            </h3>
+                                                        </div>
+                                                    </li>-->  
+                                                <aura:iteration items="{!v.RevenueFilter}" var="item">
+                                                    <!--<c:FilterComponent FilterName="{#item.Name}" isSelected="{!item.isSelected}"></c:FilterComponent>-->
+                                                    <li role="presentation" class="slds-listbox__item" >
+                                                        <div id="object1" class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small slds-is-selected" role="option">
+                                                            <span class="slds-media__figure">
+                                                                <!--<lightning:buttonIconStateful  size="xx-small" iconName="utility:check" selected="{!v.isSelected }"  alternativeText="Answer"/>-->
+                                                                <ui:inputCheckbox aura:id="chek_Box"  value="{!item.isSelected}" label="{#item.Name}" change="{!c.RealTimeSearch}" ></ui:inputCheckbox>
+                                                                <!--<lightning:input aura:id="chek_Box" onchange="{!c.RealTimeSearch}" type="checkbox" label="{#item.Name}"  name="input1"/>-->
+                                                            </span> 
+                                                        </div>
+                                                    </li>  
+                                                </aura:iteration> 
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+                        
+                        <div  class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left-right" style="margin-left: -27px;">
+                            <ui:inputText click="{!c.DisableToggleFilter}" aura:id="firstName" class="slds-input slds-combobox__input slds-has-focus"  placeholder="Search..." value="{!v.searchKey}" updateOn="keyup"/>
+                            <aura:if isTrue="{!v.clearSearch == 'close'}">
+                                <button class="slds-input__icon slds-input__icon_right slds-button slds-button_icon" onclick="{!c.OnSearchBarClear}">
+                                    <lightning:icon iconName="{!'utility:'+v.clearSearch}" alternativeText="Remove" size="xx-small"/>
+                                </button>
+                            </aura:if>    
+                        </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div  data-row-index="ButtonPress" onclick="{!c.formPress}">
+                            <ui:button class="slds-button slds-button_neutral" label="Search"> 
+                            </ui:button>
+                            
+                        </div>
+                        &nbsp;&nbsp;&nbsp;
+                        <div  onclick="{!c.clearFilter}">
+                            <ui:button class="slds-button slds-button_neutral"   aura:id="clearbutton"   label="Clear Filters"> </ui:button>
+                        </div>
+                    </div>                
+                    <div >
+                        <span>
+                            <p >Filter by: <br/>       
+                                <aura:iteration  items="{!v.PillsArray}"  var="ft" indexVar="key">
+                                    <span class="slds-pill slds-pill_link">
+                                        <a href="javascript:void(0);" class="slds-pill__action" title="Full pill label verbiage mirrored here">
+                                            <span class="slds-pill__label">{!ft}</span>
+                                        </a>
+                                        <button  onclick="{!c.RemoveFilterPills}" data-row-index="{!ft}" class="slds-button slds-button_icon slds-button_icon slds-pill__remove" title="Remove">
+                                            <lightning:icon iconName="utility:close" alternativeText="Remove" size="xx-small"/>
+                                            <span class="slds-assistive-text">Remove</span>
+                                        </button>
+                                    </span>
+                                </aura:iteration>  
+                                <br/>
+                            </p>
+                        </span>    
+                    </div>
+                    
+                    <!--Product List table-->
+                    <table>  
+                        <tr>
+                            <td>
+                                <table >
+                                    <tr class="slds-grid slds-wrap">
+                                        <th disabled="true" class="slds-col slds-size_1-of-12">
+                                            
+                                            <ui:inputCheckbox  value="{!v.SelectAll}" change="{!c.SelectAll}"/> 
+                                               
+                                        </th>
+                                        <th class="slds-col slds-size_1-of-12">   
+                                            
+                                            <!--<aura:if isTrue="{!!v.DisableBulkProcess}">-->
+                                            <button   class="slds-button"  onclick="{!c.BulkFavProcess}">   
+                                                <div class="slds-dropdown-trigger slds-dropdown-trigger_click tooltip">
+                                                    <!--<span class="tooltiptext">msg</span>-->
+                                                <aura:if isTrue="{!v.isCommunityUser}">
+                                                    <img src="{!v.IPTPartnerCommunityUrl+'/resource/MyIcon/svg/like.svg'}" style="width:20px;"/>
+                                                    <aura:set attribute="else">
+                                                        <img src="/resource/MyIcon/svg/like.svg" style="width:20px;"/>
+                                                    </aura:set>
+                                                </aura:if>
+                                                  
+                                                </div>
+                                            </button> 
+                                                 
+                                            <!--</aura:if> -->  
+                                               
+                                        </th>
+                                        <th class="slds-col slds-size_1-of-12"> 
+                                            <!--<aura:if isTrue="{!!v.DisableBulkProcess}">-->
+                                            <button  class="slds-button"  onclick="{!c.BulkschProcess}">   
+                                                <aura:if isTrue="{!v.isCommunityUser}">
+                                                    <img src="{!v.IPTPartnerCommunityUrl+'/resource/MyIcon/svg/interface.svg'}" style="width:25px;"/>
+                                                    <aura:set attribute="else">
+                                                        <img src="/resource/MyIcon/svg/interface.svg" style="width:25px;"/>
+                                                    </aura:set>
+                                                </aura:if>
+                                            </button>
+                                            <!--</aura:if>  -->  
+                                        </th>
+                                        <th class="slds-col slds-size_5-of-12">
+                                            PRODUCT NAME
+                                        </th>
+                                        <th class="slds-col slds-size_1-of-12"></th>
+                                        <th class="slds-col slds-size_3-of-12 slds-p-left_x-large"> 
+                                            REVENUE TYPE
+                                        </th>
+                                        <!--<th class="slds-col slds-size_2-of-12">
+                                       Build Lead Times(wks)  
+                                       </th>
+                                       
+                                       <th class="slds-col slds-size_2-of-12"> 
+                                           REVENUE TYPE
+                                       </th>-->
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr> 
+                        <tr>
+                            <td>   
+                                <div id="_scrollResult" class="scroll scroll4">
+                                    
+                                    <table>
+                                        <aura:iteration items="{!v.ResultData}" var="Prd" indexVar="key">
+                                            <c:ScrollComponent TotalResultSetCount="{!v.ResultData.length}" DisableBulkProcess="{!v.DisableBulkProcess}" SeletedProductCount="{!v.SeletedProductCount}" ServiceOfferCatogery="{#Prd.ServiceOfferCatogery}" sampleObj="{#Prd}" IsCheckBoxSelected="{!Prd.IsCheckBoxSelected}" TriggerScreenName="{#v.TriggerScreenName}" styleClass="{#Prd.styleClass}" ProductName="{#Prd.ProductName}" ProductId="{#Prd.ProductId}"  IsSchedule="{!Prd.IsSchedule}" IsFav="{!Prd.IsFav}" LeadTime_Wks="{#Prd.LeadTime_Wks}" avail_Subscription="{!Prd.avail_Subscription}" renewablRevnTypes="{!v.renewablRevnTypes}" oppLineItemTypeMap="{!v.oppLineItemTypeMap}" HWMMntcTypes="{!v.HWMMntcTypes}" isCommunityUser="{!v.isCommunityUser}" IPTPartnerCommunityUrl="{!v.IPTPartnerCommunityUrl}"  SelectAll="{!v.SelectAll}"  qtyTypeMap="{!v.qtyTypeMap}" isCatm="{!v.isCatm}" ></c:ScrollComponent>
+                                        </aura:iteration> 
+                                    </table>   
+                                </div>
+                            </td>
+                        </tr>
+                    </table>   
+                </div>    
+                <footer class="slds-modal__footer">
+                    <span> 
+                        <div class="slds-float_left">
+   							 <!--<p>{!v.ResultData.length}  =>> {!v.SeletedProductCount}</p>-->
+                            <lightning:badge label="{!v.SeletedProductCount +' products selected out of '+v.ResultData.length}"></lightning:badge>
+ 						</div>
+                        
+                        <!--<ui:button class="slds-button slds-button-=-neutral "  press="{!c.buldHandleAddProductsFirstPhase}">Add</ui:button>-->
+                        <lightning:button class="slds-button slds-button-s-neutral " disabled="{!v.isSpinner}" label="{!v.isSpinner == true ? 'Saving...' : 'Add'}" onclick="{!c.buldHandleAddProductsFirstPhase}" />  
+                        <ui:button class="slds-button slds-button_neutral "  press="{!c.AddToBundle}">Add To Bundle</ui:button>
+                    </span>  
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div> 
+    
+    
+    <aura:if isTrue="{!v.PrevSelectConfrm}">
+    <section  role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open" >
+           <div class="slds-modal__container" style="width:400px;">
+                <header class="slds-modal__header">
+                  <button style="background-color:black;" onclick="{!c.CloseConfirmWindow}"   class="slds-button slds-modal__close slds-button_icon-inverse" title="Close">
+                    <img src="/resource/MyIcon/svg/multiply.svg" style="width: 1rem;height: 1rem; "/>
+                    <span class="slds-assistive-text">Close</span>
+                  </button> 
+                  <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate"  sytle="color: red;">Warning</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                  <p>Please take appropriate action on your selected products before continuing search</p>
+                 
+                </div>
+                <footer class="slds-modal__footer slds-modal__footer_directional">
+                  <!--<button  >Skip This Step</button>-->
+                    <lightning:button class="slds-button slds-button_neutral" variant="brand" label="Add to opportunity" title="Brand action" onclick="{!c.SavePreviousProduct}" />
+                  <lightning:button  class="slds-button slds-button_brand" label="Ignore and Continue" onclick="{!c.CancleSavePreviousProduct}"></lightning:button >
+                </footer>
+              </div>
+            </section>
+	  <div class="slds-backdrop slds-backdrop_open"></div>
+      </aura:if>
+   
+    {!v.body}    
+</aura:component>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Quote_is_req_based_on_Reason_Type</fullName>
+    <active>true</active>
+    <description>Quote is required when based on user select some specified value on Reason Type</description>
+    <errorConditionFormula>AND(RecordType.Name = &apos;SF Global Support&apos;,ISPICKVAL(Reason, &apos;CPQ&apos;),NOT(ISPICKVAL(Origin , &apos;EMAIL&apos;)),OR( AND( ISPICKVAL( Reason_Type__c ,&quot;Document Generation/Signature&quot;) , ISBLANK( cpq_Quote__c )),
+AND( ISPICKVAL( Reason_Type__c ,&quot;NCR Payments&quot;) , ISBLANK( cpq_Quote__c )),
+AND( ISPICKVAL( Reason_Type__c ,&quot;Ops- Contracting&quot;) , ISBLANK( cpq_Quote__c )),
+AND( ISPICKVAL( Reason_Type__c ,&quot;Ops- Ordering&quot;) , ISBLANK( cpq_Quote__c )),
+AND( ISPICKVAL( Reason_Type__c ,&quot;Pricing Approvals&quot;) , ISBLANK( cpq_Quote__c )),
+AND( ISPICKVAL( Reason_Type__c ,&quot;Quote Configuration&quot;) , ISBLANK( cpq_Quote__c ))))</errorConditionFormula>
+    <errorDisplayField>cpq_Quote__c</errorDisplayField>
+    <errorMessage>Quote is mandatory.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,78 @@
+<messaging:emailTemplate subject="New RENTAL Order Booked - Order # {!relatedTo.qtc_ERP_Order_Number__c}" renderUsingSystemContextWithoutSharing="true" recipientType="User" relatedToType="qtc_FulfillmentOrder__c">
+<messaging:htmlEmailBody >
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style type="text/css">
+a {
+    color: #54b948;
+}
+body {
+    font-family: 'Open Sans',  Arial, sans-serif;
+    border:1px solid;
+    }   
+.auto-style1 {
+    font-family: Raleway, Arial, Helvetica, sans-serif;
+    font-weight: 900;
+    font-size: 33px;
+    color: #FFFFFF;
+    text-transform: normal;
+    letter-spacing: 3px;
+}
+.auto-style4 {
+    color: #1D1D1D;
+}
+.auto-style5 {
+    color: #1D1D1D;
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    margin-right: 15px;
+}
+</style>
+</head>
+<body>
+<!--Header SECTION-->
+<table border="0" cellpadding="0" cellspacing="0" align="center" style="width: 665px; height: 149px">
+<tbody>
+<tr>
+<td>
+<apex:image id="theImage" value="https://ncr--c.na147.content.force.com/servlet/servlet.ImageServer?id=0154u00000ATmuX&oid=00D700000008mDk" width="200" height="100"/>
+</td>
+</tr>
+</tbody>
+</table>
+<!--Header SECTION-->
+ <!--<hr style="height:20px;border-width:0;color:LimeGreen;background-color:LimeGreen"/>-->
+ <hr/>
+ <hr/>
+<!--CONTENT SECTION-->
+   <table border="0" align="center" bgcolor="#FFFFFF" style="width: 665px">
+    <tr valign="top">
+        <td>
+           <p style="font-family: 'Open Sans', Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; margin-right: 15px;" class="auto-style4">Order #{!relatedTo.qtc_ERP_Order_Number__c } has been booked.</p>
+                <b>Order #</b>{!relatedTo.qtc_ERP_Order_Number__c }<br/>
+                <b>MCN - </b> {!relatedTo.qtc_Quote__r.SBQQ__Account__r.Master_Customer_Number__c}<br/>
+                <b>Customer Account - </b><apex:outputlink value="{!LEFT($Api.Partner_Server_URL_140,FIND('.com',$Api.Partner_Server_URL_140)+4)+relatedTo.qtc_Quote__r.SBQQ__Account__c}">{!relatedTo.qtc_Quote__r.SBQQ__Account__r.Name} </apex:outputlink><br/>
+        </td>
+        </tr>
+    </table><br/><br/>
+    <table border="0" align="center" bgcolor="#FFFFFF" style="width: 665px">        
+        <tr>     
+            <td> 
+                <p>Please check for any unscheduled -PZ products and update. Let us know if you need any additional information.</p>
+            </td>
+        </tr>
+    </table>
+   <!--END OF SECTION CONTENT-->
+   <hr style="height:20px;border-width:0;color:LimeGreen;background-color:LimeGreen"/>
+<!--FOOTER GRAPHICS AND CONTENT -->
+<div style="text-align:center;">
+<apex:image id="theImage1" value="https://ncr--c.na147.content.force.com/servlet/servlet.ImageServer?id=0154u00000ATmuX&oid=00D700000008mDk" width="200" height="100"/>
+</div> 
+
+  <!--END OF FOOTER GRAPHICS AND CONTENT TABLE -->
+  <hr style="height:20px;border-width:0;color:LimeGreen;background-color:LimeGreen"/>
+</body>
+</html>
+</messaging:htmlEmailBody></messaging:emailTemplate>

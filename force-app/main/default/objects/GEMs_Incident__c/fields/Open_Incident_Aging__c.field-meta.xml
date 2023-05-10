@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Open_Incident_Aging__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( (VALUE(Incident_Open_Duration__c) &lt; VALUE(&apos;1&apos;)),&apos;&lt;1 day&apos;,
+IF( (VALUE(Incident_Open_Duration__c) &gt;=VALUE(&apos;1&apos;) &amp;&amp; VALUE(Incident_Open_Duration__c) &lt;= VALUE(&apos;2&apos;) ), &apos;1-2 days&apos;,
+IF( (VALUE(Incident_Open_Duration__c) &gt;VALUE(&apos;2&apos;) &amp;&amp; VALUE(Incident_Open_Duration__c) &lt; VALUE(&apos;4&apos;) ), &apos;2-3 days&apos;,
+IF( (VALUE(Incident_Open_Duration__c) &gt;VALUE(&apos;3&apos;) &amp;&amp; VALUE(Incident_Open_Duration__c) &lt; VALUE(&apos;7&apos;) ), &apos;3-6 days&apos;,
+IF( (VALUE(Incident_Open_Duration__c) &gt;=VALUE(&apos;7&apos;) &amp;&amp; VALUE(Incident_Open_Duration__c) &lt;VALUE(&apos;30&apos;)) , &apos;7-30 days&apos;,
+IF( (VALUE(Incident_Open_Duration__c) &gt;=VALUE(&apos;30&apos;)), &apos;30+ days&apos;,&apos;&apos;))))))</formula>
+    <label>Open Incident Aging</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

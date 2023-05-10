@@ -1,0 +1,6 @@
+({
+	helpController : function(){
+		
+
+	}
+})

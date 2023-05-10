@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>User$Name</field>
+    </columns>
+    <columns>
+        <field>User$Email</field>
+    </columns>
+    <columns>
+        <field>User$Title</field>
+    </columns>
+    <columns>
+        <field>User*User$Manager_Level_01__c</field>
+    </columns>
+    <columns>
+        <field>User*User$Manager_Level_02__c</field>
+    </columns>
+    <columns>
+        <field>User*User$Manager_Level_03__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>This report provides the user&apos;s full name, title, role, profile and manager detail for the May 2022 training event.</description>
+    <filter>
+        <criteriaItems>
+            <column>User$Email</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>cd185174@ncr.com,de185064@ncr.com,to185070@ncr.com,sc185447@ncr.com,kt185152@ncr.com,da185206@ncr.com,cb185281@ncr.com,jr185384@ncr.com,kl185136@ncr.com,ta185114@ncr.com,mj185202@ncr.com,dg185281@ncr.com,es185220@ncr.com,cs185362@ncr.com,ch185225@ncr.com,jn185155@ncr.com,am185708@ncr.com,ac185450@ncr.com</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>User*User$User_Profile__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>CPQ Training User Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Users_Report_w_Manager_Info__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>User$Name</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>User$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

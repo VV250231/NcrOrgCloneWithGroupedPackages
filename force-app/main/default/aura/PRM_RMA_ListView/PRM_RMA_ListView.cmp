@@ -1,0 +1,104 @@
+<aura:component controller="RmaCon" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+    <!--<ltng:require scripts="/resource/PRM_jQuery, /resource/PRM_jsonQ_min"></ltng:require>-->
+    <aura:attribute name="ObjectData" type="List" />
+    
+    <aura:attribute name="PaginationList" type="List"/>
+    <aura:attribute name="currentPage" type="Integer" default="0"/>
+    <aura:attribute name="start" type="Integer" default="0"/>
+    <aura:attribute name="end" type="Integer" default="0"/>
+    <aura:attribute name="totalPages" type="Integer" default="0"/>
+    <aura:attribute name="paginationTable" type="List" />
+    <aura:attribute name="totalRecords" type="Integer" default="0"/>
+    <aura:attribute name="pageSize" type="Integer" default="10"/>
+    <aura:attribute name="selectedView" type="String" default="Partner Feature Friday"/>
+    <aura:attribute name="SpotLights" type="String[]" 
+                    default="Partner Feature Friday,MDF Success Story,Miscellaneous Business Related Topic,Partner Ambassador Event,Significant Customer Win"/>
+    
+    <aura:attribute name="next" type="boolean" default="true"/>
+    <aura:attribute name="prev" type="boolean" default="true" />
+    
+    <aura:attribute name="isListView" type="boolean" default="true"/>
+    <aura:attribute name="isDetail" type="boolean" default="false" />
+    
+    <!--<aura:attribute name="recordId" type="String" />-->
+    
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <aura:if isTrue="{!v.isListView}">
+        <div class="slds-page-header" role="banner">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-has-flexi-truncate"> 
+                    <div class="slds-media slds-media--center slds-no-space slds-grow">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-account">
+                                <lightning:icon iconName="standard:account" size="large" alternativeText="Indicates approval"/>
+                                <span class="slds-assistive-text slds-text-title--caps">Return Material Authorizations</span>
+                            </span>
+                        </div>
+                        <div class="slds-media__body slds-size_1-of-4 ">
+                            <p class="slds-text-title--caps slds-line-height--reset" title="Demo Program">
+                                <h2 class="slds-text-heading_small">Return Material Authorizations</h2>
+                            </p>
+                        </div>
+                    </div>                    
+                </div>  
+                <!-- ACTION BUTTONS -->
+                <div class="slds-col slds-no-flex slds-grid slds-wrap slds-align-top">
+                    <div class="slds-button-group" role="group">
+                        <lightning:button label="New" title="Neutral action" onclick="{! c.cNewRMA }"/>    
+                    </div>
+                </div>
+                <!-- / ACTION BUTTONS -->               
+            </div>
+        </div>
+        
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+            <thead>
+                <tr class="slds-text-heading--label ">
+                    <th class="" scope="col"><strong>RMA #</strong></th>                    
+                    <th class="slds-is-sortable" scope="col"><strong>Order Number</strong></th> 
+                    <th class="slds-is-sortable" scope="col"><strong>Product ID</strong></th>
+                    <th class="slds-is-sortable" scope="col"><strong>Quantity</strong></th>
+                    <th class="slds-is-sortable" scope="col"><strong>Status</strong></th>
+                    <th class="slds-is-sortable" scope="col"><strong>Request Created Date</strong></th>
+                    <!--<th class="" scope="col"><strong>Request Submitted Date</strong></th>-->
+                    
+                    
+                    
+                </tr>  
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.PaginationList}" var="obj">
+                    <tr>
+                        <td><a data-record="{!obj.Id}" onclick="{!c.onClick}">{!obj.Name}</a></td>
+                        <td>{!obj.Order_Number__c}</td>
+                        <td>{!obj.Product_ID__c}</td>
+                        <td>{!obj.Quantity__c}</td>
+                        <td>{!obj.Status__c}</td>
+                        <td><lightning:formattedDateTime value="{!obj.CreatedDate}"/></td>
+                        <!--<td>{!obj.Request_Submitted_Date__c}</td>-->
+                        
+                        
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+        <br/>
+        
+        <lightning:button label="Previous" disabled="{! 1 >= v.currentPage }" 
+                          class="slds-button slds-button--neutral slds-p-horizontal--xx-small slds-m-right--x-small slds-float--left"  
+                          onclick="{!c.cPrevious}" variant="brand"
+                          iconName='utility:back'/>
+        
+        <lightning:button label="Next" disabled="{!v.currentPage >= v.totalPages}"
+                          class="slds-button slds-button--neutral slds-p-horizontal--xx-small slds-m-right--x-small slds-float--left"
+                          onclick="{!c.cNext}" variant="brand"
+                          iconName='utility:forward' iconPosition='right'/>
+        
+    </aura:if> 
+    
+    <!--  <aura:if isTrue="{!v.isDetail}">
+        <c:PRM_DetailDealRegistration DealRegistrationId="{!v.drId}" />
+    </aura:if> -->
+</aura:component>

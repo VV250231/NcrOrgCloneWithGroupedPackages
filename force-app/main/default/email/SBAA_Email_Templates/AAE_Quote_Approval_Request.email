@@ -1,0 +1,60 @@
+<messaging:emailTemplate subject="Quote Approval - REQUESTED: {!relatedTo.Quote__r.Name} for {!relatedTo.Quote__r.SBQQ__Opportunity2__r.Name}"
+recipientType="User"
+relatedToType="sbaa__Approval__c">
+<messaging:HtmlEmailBody >
+<html>
+<body>
+
+
+
+Hello {!recipient.name},
+
+<p>{!relatedTo.Quote__r.Owner.Name} is requesting your approval for a Quote, please see below.<br/></p>
+
+<p><b>Quote Name: </b>&nbsp;<apex:outputLink value="{!LEFT($Api.Enterprise_Server_URL_300, FIND('/services',$Api.Enterprise_Server_URL_300))}/{!relatedTo.Quote__r.Id}" >{!relatedTo.Quote__r.Name}</apex:outputLink><br/>
+
+<b>Opportunity Name: </b>&nbsp;<apex:outputLink value="{!LEFT($Api.Enterprise_Server_URL_300, FIND('/services',$Api.Enterprise_Server_URL_300))}/{!relatedTo.Quote__r.SBQQ__Opportunity2__r.Id}" >{!relatedTo.Quote__r.SBQQ__Opportunity2__r.Name}</apex:outputLink><br/>
+
+<b>Account Name: </b>{!relatedTo.Quote__r.SBQQ__Account__r.Name}<br/>
+<b>Bill To Site: </b>{!relatedTo.Quote__r.qtc_Bill_To_Site__r.Name}<br/>
+<b>Bill To Site Address: </b>{!relatedTo.Quote__r.qtc_Bill_To_Site__r.BillingStreet}<br/>
+{!relatedTo.Quote__r.qtc_Bill_To_Site__r.BillingCity}, {!relatedTo.Quote__r.qtc_Bill_To_Site__r.BillingState} {!relatedTo.Quote__r.qtc_Bill_To_Site__r.BillingPostalCode}<br/>
+{!relatedTo.Quote__r.qtc_Bill_To_Site__r.BillingCountry}<br/>
+
+<p><b>Initial Term: </b><apex:outputText value="{0, number, ###,###,###,###.##}"><apex:param value="{!relatedTo.Quote__r.SBQQ__SubscriptionTerm__c}" /></apex:outputText><br/>
+<b>Billing Period: </b>{!relatedTo.Quote__r.SBQQ__BillingFrequency__c}<br/>
+<!--<b>Subscription Fee per Billing Period: </b><apex:outputText value="{0, number, $###,###,###,###.00}"><apex:param value="{!relatedTo.Quote__r.qtc_Billing_Period_Subscription_Value__c}" /></apex:outputText><br/></p> 
+-->
+<b>Payments Type: </b>{!relatedTo.Quote__r.qtc_Payments_Type__c}<br/>
+<b>TCV: </b><apex:outputText value="{0, number, $###,###,###,###.00}"><apex:param value="{!relatedTo.Quote__r.qtc_TCV__c}" /></apex:outputText><br/></p>
+
+<p>
+<sbaa:relatedList rendered="{!relatedTo.Quote__c != null}" recordId="{!relatedTo.Quote__c}" relationshipName="DiscountApproval__r" fieldSetName="Approval_Request"/>
+</p>
+
+<p>
+    <apex:outputPanel rendered="{!relatedTo.Quote__r.Sub_Package_Discounts__c}">
+        <b>Sub Package Discounts:</b><br/>
+        <sbaa:relatedList rendered="{!relatedTo.Quote__r.Sub_Package_Discounts__c}" 
+            recordId="{!relatedTo.Quote__c}" 
+            relationshipName="SubPackageDiscount__r" 
+            fieldSetName="Sub_Package_Discounts"/>
+    </apex:outputPanel>
+</p>
+
+<p><b>Approval Notes: </b>{!relatedTo.Quote__r.qtc_Approval_Notes__c}<br/></p>
+
+</p>
+<p><b>Next Step:</b> To approve or reject this request, navigate to the quote in salesforce, or click on one of these links:&nbsp;&nbsp;<apex:outputLink value="{!LEFT($Api.Partner_Server_URL_140,FIND('.com',$Api.Partner_Server_URL_140)+4)+'apex/SBAA__Approve?id='+relatedTo.Id}">Approve</apex:outputLink>&nbsp;&nbsp;&nbsp;<apex:outputLink value="{!LEFT($Api.Partner_Server_URL_140,FIND('.com',$Api.Partner_Server_URL_140)+4)+'apex/SBAA__Reject?id='+relatedTo.Id}">Reject</apex:outputLink><br/></p>
+
+
+<p>
+<b>Approvals:</b><br/>
+<sbaa:relatedList rendered="{!relatedTo.Quote__c != null}" recordId="{!relatedTo.Quote__c}" relationshipName="AAE_Approvals__r" fieldSetName="Approval_Request_Email"/>
+</p>
+
+<p style="color:white"><apex:outputText value="{!relatedTo.Id}"/></p>
+</body>
+</html>
+</messaging:HtmlEmailBody>
+</messaging:emailTemplate>

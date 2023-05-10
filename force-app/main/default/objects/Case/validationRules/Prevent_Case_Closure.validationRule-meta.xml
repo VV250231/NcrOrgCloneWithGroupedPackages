@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_Case_Closure</fullName>
+    <active>true</active>
+    <description>This will prevent a case from being closed unless the contract in CFS is in an Active, signed or hold status.</description>
+    <errorConditionFormula>AND( 
+OR( 
+ISBLANK(TEXT(Contract_in_CFS__c)), 
+ISPICKVAL(Contract_in_CFS__c,&quot;In Review&quot;),
+ISBLANK(Total_Months_on_Contract__c),
+ISBLANK(Months_Remaining_on_Contract__c),
+ISBLANK(Months_Remaining_on_Bill_Cycle__c),
+ISBLANK(Total_Dollars_Submitted_to_BOC__c),
+ISBLANK(HW_Dollars_Submitted_to_BOC__c),
+ISBLANK(SW_Dollars_Submitted_to_BOC__c)       
+), 
+ISCHANGED(Status), 
+(ISPICKVAL(Status, &quot;Closed&quot;)),
+(RecordType.Name  = &quot;PO Review&quot;)
+)</errorConditionFormula>
+    <errorMessage>Contract in CFS must be in an Active, Signed or Hold status and all file value fields must be filled in.</errorMessage>
+</ValidationRule>

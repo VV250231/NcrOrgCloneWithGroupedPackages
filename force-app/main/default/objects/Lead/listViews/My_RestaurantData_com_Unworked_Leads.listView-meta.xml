@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_RestaurantData_com_Unworked_Leads</fullName>
+    <columns>FULL_NAME</columns>
+    <columns>LEAD.COMPANY</columns>
+    <columns>LEAD.STATE</columns>
+    <columns>LEAD.EMAIL</columns>
+    <columns>County__c</columns>
+    <columns>LEAD.CITY</columns>
+    <columns>LEAD.ZIP</columns>
+    <columns>Cuisine__c</columns>
+    <columns>LEAD.ANNUAL_REVENUE</columns>
+    <columns>LEAD.CREATED_DATE</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>LEAD.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Lead.HOSP_Restaurant</value>
+    </filters>
+    <filters>
+        <field>LEAD.STATUS</field>
+        <operation>equals</operation>
+        <value>Disqualified</value>
+    </filters>
+    <filters>
+        <field>Disqualified_Reason__c</field>
+        <operation>equals</operation>
+        <value>Unverified</value>
+    </filters>
+    <label>My RestaurantData.com Unworked Leads</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

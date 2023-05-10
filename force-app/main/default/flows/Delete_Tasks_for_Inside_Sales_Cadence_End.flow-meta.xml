@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <description>This flow deletes the unnecessary tasks created by a process for retail inside sales team in the event the cadence ends.</description>
+    <interviewLabel>Delete Tasks for Inside Sales Cadence End {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Delete Tasks for Inside Sales Cadence End</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordDeletes>
+        <description>This flow deletes tasks for inside sales when a contact status changes. Triggered by the inside sales cadence process.</description>
+        <name>Delete_Future_Tasks_for_Inside_Sales</name>
+        <label>Delete Future Tasks for Inside Sales</label>
+        <locationX>217</locationX>
+        <locationY>66</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Not Started</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Subject</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>DELETE</stringValue>
+            </value>
+        </filters>
+        <object>Task</object>
+    </recordDeletes>
+    <startElementReference>Delete_Future_Tasks_for_Inside_Sales</startElementReference>
+    <status>Active</status>
+</Flow>

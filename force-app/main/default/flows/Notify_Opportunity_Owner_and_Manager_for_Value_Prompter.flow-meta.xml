@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Notify_Opportunity_Owner_and_Owner_Manager_for_Value_Prompter_Completion</name>
+        <label>Notify Opportunity Owner and Owner Manager for Value Prompter Completion</label>
+        <locationX>308</locationX>
+        <locationY>408</locationY>
+        <actionName>Opportunity.Notify_Opportunity_Owner_and_Owner_Manager_for_Value_Prompter_Completion</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>55.0</apiVersion>
+    <environments>Default</environments>
+    <interviewLabel>Notify Opportunity Owner and Manager for Value Prompter {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Notify Opportunity Owner and Manager for Value Prompter</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_Notify_Opp_Owner_Mgr_for_Val_Prmp</name>
+        <label>Update Notify Opp Owner Mgr for Val Prmp</label>
+        <locationX>308</locationX>
+        <locationY>288</locationY>
+        <connector>
+            <targetReference>Notify_Opportunity_Owner_and_Owner_Manager_for_Value_Prompter_Completion</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>NotifyOwnerManagerforValuePrompter__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterFormula>AND( (  AND(NOT(ISNULL({!$Record.OwnerAssignedDate__c})), ( {!$Record.NotifyOwnerforValuePrompter__c} = False), ( {!$Record.Has_Value_Prompter_Completed__c} = False) , ( {!$User.ProfileId} &lt;&gt; &apos;00e70000000xBoNAAU&apos;) , ( {!$User.ProfileId} &lt;&gt; &apos;00e70000000xBoSAAU&apos;)  , ( {!$User.ProfileId} &lt;&gt; &apos;00e70000000xUM9AAM&apos;)  , ( {!$User.ProfileId} &lt;&gt; &apos;00e70000000xUMAAA2&apos;)  ,  ( {!$User.ProfileId} &lt;&gt; &apos;00e70000001NyofAAC&apos;)  , ( {!$User.ProfileId} &lt;&gt; &apos;00e70000000xVKOAA2&apos;) , ( {!$User.ProfileId} &lt;&gt; &apos;00e70000000k66KAAQ&apos;) , ( {!$User.ProfileId} &lt;&gt; &apos;00e4u000001ab8SAAQ&apos;) , ( {!$User.ProfileId} &lt;&gt; &apos;00e0g000001BiuwAAC&apos;) , ( {!$Record.RecordType.Name} = &apos;Include in Funnel&apos;) , ({!$Record.IsClosed} = False )  , ({!$Record.NotifyOwnerManagerforValuePrompter__c} = False ) )  ), (OR(({!$Record.Software_Products__c}    &gt;=   250000) , ( {!$Record.Hardware_Products__c}    &gt;=   1000000))) ,
+NOT({!$Setup.Automation_Setting__c.Skip_Flow__c}), {!$Record.CATM_Record__c} = false )</filterFormula>
+        <object>Opportunity</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <scheduledPaths>
+            <name>Notify_Opportunity_Owner_and_Manager_for_Value_Prompter</name>
+            <connector>
+                <targetReference>Update_Notify_Opp_Owner_Mgr_for_Val_Prmp</targetReference>
+            </connector>
+            <label>Notify Opportunity Owner and Manager for Value Prompter</label>
+            <offsetNumber>2</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <timeSource>RecordTriggerEvent</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

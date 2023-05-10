@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Min_Total_Revenue_to_Platinum__c</fullName>
+    <description>This field contains how much revenue need to achieve Platinum tier.</description>
+    <externalId>false</externalId>
+    <formula>IF( Partner_Account__r.Channel_Program_Revenue_to_Platinum__c &gt;  Total_Solution_Revenue__c , Partner_Account__r.Channel_Program_Revenue_to_Platinum__c -  Total_Solution_Revenue__c, NULL)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Min Total Revenue to Platinum</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

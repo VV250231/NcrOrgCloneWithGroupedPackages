@@ -1,0 +1,462 @@
+<apex:page standardController="SFDC_MDF__c" extensions="MDFViewExt" >
+    
+    <head>
+        <!-- <apex:stylesheet value="{! URLFOR($Resource.NCR_bootStrap,'bootstrap-3.3.4-dist/css/bootstrap.css')}"/>-->
+    
+        <apex:includeScript value="{! $Resource.NCR_jQuery }"/>
+        <style type="text/css">
+             .popup
+            {
+                background-color: white;
+                border-width: 2px;
+                border-style: solid;
+                z-index: 9999;
+                left: 50%;
+                padding:10px;
+                position: absolute;
+                width: 450px;
+                margin-left: -250px;
+                top:80px;
+            }
+    
+            .popupBg
+            {
+                background-color:black;
+                opacity: 0.20;
+                filter: alpha(opacity = 70);
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                z-index: 9998;
+            }
+            
+            .closeButton {
+                float: right;
+            }
+        </style>
+    </head>
+     <div id="dialog2" ><div id="dialogContent2" style="height: 100%;"></div></div>  
+    <apex:outputPanel layout="block" rendered="{! mdfRequest != null}">
+        <apex:form >
+            <apex:pageBlock mode="maindetail" >
+                <apex:pageBlockButtons >
+                    <apex:commandButton value="Edit" action="{! redirectToEditPage}" rendered="{! mdfRequest.Is_Record_Locked__c != true}"/><!--mdfClaim != null-->
+                    <apex:commandButton value="Submit MDF Request" action="{! submitMdfRequest}" onclick="return validateNumOfPreAppDoc();" rendered="{! mdfRequest.status__c != 'Approved' && mdfRequest.Is_Record_Locked__c == false}"/>
+                    <apex:commandButton value="Delete" action="{! deleteMDFRequest}" rendered="{! mdfRequest.status__c != 'Approved'}"/>
+                    <apex:commandButton value="Create Claim" action="{! redirectToClaimPage}" rendered="{! mdfRequest.status__c == 'Approved' && mdfClaim == null}"/>
+                    <apex:commandButton value="Submit Claim" action="{! submitMdfClaim}" onclick="return validateNumOfPOPDoc();" rendered="{! mdfRequest.Status__c == 'Approved' && mdfClaim != null && mdfClaim.Status__c =='Created'}"/>
+                    <apex:commandButton value="Clone" action="{! redirectToClone}"/>
+                    <apex:commandButton value="Activity Results" action="{!showActivityResultsPopup}" rerender="popupActivityResult" 
+                                        status="statusId" />
+                    <apex:commandButton value="Back" action="{! redirectToMDFListPage}"/> 
+                </apex:pageBlockButtons>
+                <apex:actionStatus id="statusId">
+                    <apex:facet name="start">
+                    <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.25; z-index: 1000; background-color: black;">
+                        &nbsp;
+                    </div>
+                    <div style="position: fixed; left: 0; top: 0; bottom: 0; right: 0; z-index: 1001; margin: 20% 40%">
+                        <div style="display: inline-block; padding: 2px; background-color: #fff; width: 125px;">
+                            <img src="/img/loading.gif" style="float: left; margin: 8px;" />
+                            <span style="display: inline-block; padding: 10px 0px;">Please Wait...</span>
+                        </div>
+                    </div>
+                    </apex:facet>
+                </apex:actionStatus>
+                <apex:outputPanel id="popupActivityResult"> 
+                    <apex:outputPanel styleClass="popupBg" layout="block" rendered="{!displayActivityResultsPopup}"/>
+                    <apex:outputPanel id="popInnerOutputPnl" styleClass="popup" layout="block" rendered="{!displayActivityResultsPopup}">
+                        <apex:commandButton value="X" title="Close the popup" action="{!closeActivityResultsPopup}" styleClass="closeButton" rerender="popupActivityResult" status="actStatusId"/>
+                        <apex:outputLabel rendered="{!isDaysNotCompleted}">
+                            <span style="color:red"> <b>Activity Results can only be added on Activities with “Approved” claims.</b></span>
+                        </apex:outputLabel>
+                        <apex:pageblockSection columns="1" rendered="{!!isDaysNotCompleted}" >                         
+                            <apex:pageblockSectionItem > 
+                                <apex:outputLabel value="Revenue Generated" style="white-space: nowrap"></apex:outputLabel>
+                                <apex:inputField value="{!objMDFforActivityResults.Revenue_Generated__c}"/>
+                            </apex:pageblockSectionItem>
+                            <apex:pageblockSectionItem >
+                                <apex:outputLabel value="Number of Open Opportunities" style="white-space: nowrap"></apex:outputLabel>
+                                <apex:inputField value="{!objMDFforActivityResults.Number_of_Open_Opportunities__c}"/>
+                            </apex:pageblockSectionItem>
+                            <apex:pageblockSectionItem >
+                                <apex:outputLabel value="Number of Net New Customers" style="white-space: nowrap"></apex:outputLabel>
+                                <apex:inputField value="{!objMDFforActivityResults.Number_of_Net_New_Customers__c}"/>
+                            </apex:pageblockSectionItem>
+                        </apex:pageblockSection>
+                        <apex:outputPanel styleClass="closeButton">
+                            <apex:commandButton value="Save" action="{!saveActivityResult}"  rerender="popupActivityResult" rendered="{!!isDaysNotCompleted}" status="actStatusId"/>
+                            <apex:actionStatus id="actStatusId" styleClass="closeButton">
+                                <apex:facet name="start" >
+                                    <img src="/img/loading.gif" />                    
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+                
+                <apex:pageBlockSection collapsible="false" columns="1">
+                    <apex:pageMessages id="pageMessages"></apex:pageMessages>
+                </apex:pageBlockSection>
+                
+                <!-- Activity Profile -->
+                <apex:pageBlockSection title="Activity Profile" collapsible="false">
+                    <apex:outputField value="{! mdfRequest.Name}" />                              
+                    <apex:outputField value="{! mdfRequest.Activity_Date__c}"/>                  
+                    <apex:outputField value="{! mdfRequest.Activity_Type__c}" />
+                    <apex:outputField value="{! mdfRequest.End_Date__c}"/>
+                    <apex:outputfield value="{! mdfRequest.Status__c}"/>
+                    <apex:outputField value="{! mdfRequest.Request_Submission_Date__c}"/>
+                    <apex:outputField value="{! mdfRequest.Requester_Name__c}"/>
+                    <apex:outputField value="{! mdfRequest.Approved_Date__c}"/>
+                    <apex:outputField value="{! mdfRequest.Other_Vendors_Represented__c}"/>
+                    <apex:pageblockSectionItem ></apex:pageblockSectionItem>
+                    <apex:outputField value="{! mdfRequest.Activity_Description__c}" style="width:100%"/>
+                    <apex:pageblockSectionItem ></apex:pageblockSectionItem>
+                    <apex:outputField value="{! mdfClaim.Transaction_Reference__c}"/>
+                </apex:pageBlockSection>
+                
+                <!-- Claim Detail -->
+                <apex:pageBlockSection title="Claim Detail" rendered="{! mdfClaim != null}" collapsible="false">
+                    <apex:outputField value="{! mdfClaim.Status__c }"/>
+                    <apex:outputField value="{! mdfClaim.Claim_Submission_Date__c }"/>
+                    <apex:pageblockSectionItem ></apex:pageblockSectionItem>
+                    <apex:outputField value="{! mdfClaim.Approved_Date__c}"/>
+                </apex:pageBlockSection>
+                
+                
+                <!-- Metrics Fields -->
+                <apex:pageBlockSection id="metrics" columns="2" title="Financial Profile" collapsible="false">
+                    <apex:outputField value="{! mdfRequest.Number_of_Copies__c}" rendered="{! mdfRequest.Activity_Type__c == 'Print - Collateral' || mdfRequest.Activity_Type__c == 'Print - Brochure'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Number_of_Copies__c}" rendered="{! (mdfClaim != null) && (mdfRequest.Activity_Type__c == 'Print - Collateral' || mdfRequest.Activity_Type__c == 'Print - Brochure' )}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Circulation__c}" rendered="{! mdfRequest.Activity_Type__c == 'Print - Publication' || mdfRequest.Activity_Type__c == 'Print - White Paper'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Circulation__c}" rendered="{! (mdfClaim != null) && (mdfRequest.activity_type__c == 'Print - Publication' || mdfRequest.activity_type__c == 'Print - White Paper')}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Number_of_Unique_Site_Visitors__c}" rendered="{! mdfRequest.Activity_Type__c == 'E-marketing - Microsite'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Number_of_Unique_Site_Visitors__c}" rendered="{! (mdfClaim != null) && (mdfRequest.activity_type__c == 'E-marketing - Microsite')}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Number_of_Sales__c}" rendered="{! mdfRequest.Activity_Type__c == 'Sales Program - Telesales' || mdfRequest.Activity_Type__c == 'Sales Program - Incentive'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Number_of_Sales__c}" rendered="{! (mdfClaim != null) && (mdfRequest.activity_type__c == 'Sales Program - Telesales' || mdfRequest.activity_type__c == 'Sales Program - Incentive')}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Number_of_Calls__c}" rendered="{! mdfRequest.Activity_Type__c == 'Sales Program - Telesales'|| mdfRequest.Activity_Type__c == 'Sales Program - Telemarketing'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Number_of_Calls__c}" rendered="{! (mdfClaim != null) && (mdfRequest.activity_type__c == 'Sales Program - Telesales' || mdfRequest.activity_type__c == 'Sales Program - Telemarketing')}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Number_of_Leads__c}" rendered="{! mdfRequest.Activity_Type__c == 'Sales Program - Telemarketing' || mdfRequest.Activity_Type__c == 'E-marketing - Social Media' || mdfRequest.Activity_Type__c == 'E-marketing - Endorsed Outsourced Mktg' || mdfRequest.Activity_Type__c == 'E-marketing - Email' || mdfRequest.Activity_Type__c == 'Event - Roadshow' || mdfRequest.Activity_Type__c == 'Event - Tradeshow'}"/>
+                    <apex:outputField value="{! mdfClaim.Numbers_of_Leads__c}" rendered="{! (mdfClaim != null) && (mdfRequest.activity_type__c == 'E-marketing - Microsite' || mdfRequest.activity_type__c == 'Sales Program - Telemarketing' || mdfRequest.activity_type__c == 'E-marketing - Social Media' || mdfRequest.activity_type__c == 'E-marketing - Endorsed Outsourced Mktg' || mdfRequest.activity_type__c == 'E-marketing - Email' || mdfRequest.activity_type__c == 'Event - Roadshow' || mdfRequest.activity_type__c == 'Event - Tradeshow')}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Number_of_Attendees__c}" rendered="{! mdfRequest.Activity_Type__c == 'E-marketing - Webinar' || mdfRequest.Activity_Type__c == 'Event - Seminar' || mdfRequest.Activity_Type__c == 'Sales Program - Sales Training' || mdfRequest.Activity_Type__c == 'Event - EBC Visit'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Number_of_Attendees__c}" rendered="{! (mdfClaim != null) && (mdfRequest.activity_type__c == 'E-marketing - Webinar' || mdfRequest.activity_type__c == 'Event - Seminar' || mdfRequest.activity_type__c == 'Sales Program - Sales Training' || mdfRequest.activity_type__c == 'Event - EBC Visit')}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Number_of_Unique_Views__c}" rendered="{! mdfRequest.Activity_Type__c == 'E-marketing - Video'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Number_of_Unique_Views__c}" rendered="{! (mdfClaim != null) && (mdfRequest.activity_type__c == 'E-marketing - Video')}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Number_of_Emails_Sent__c}" rendered="{! mdfRequest.Activity_Type__c == 'E-marketing - Email'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Number_of_Emails_Sent__c}" rendered="{! (mdfClaim != null) && (mdfRequest.activity_type__c == 'E-marketing - Email')}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Number_of_Contacts__c}" rendered="{! mdfRequest.Activity_Type__c == 'Print - Direct Mail'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Number_of_Contacts__c}" rendered="{! (mdfClaim != null) && (mdfRequest.activity_type__c == 'Print - Direct Mail')}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Estimated_Revenue__c}" rendered="{! mdfRequest.Activity_Type__c == 'Event - EBC Visit'|| mdfRequest.Activity_Type__c == 'Sales Program - Incentive'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Revenue__c}" rendered="{! (mdfClaim != null) && (mdfRequest.activity_type__c == 'Event - EBC Visit' || mdfRequest.activity_type__c == 'Sales Program - Incentive')}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Annual_Sales_Quota__c}" rendered="{! mdfRequest.Activity_Type__c == 'Sales Program - Funded Head Count'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Annual_Sales_Quota__c}" rendered="{! (mdfClaim != null) && (mdfRequest.activity_type__c == 'Sales Program - Funded Head Count')}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Estimated_Open_Emails__c}" rendered="{! mdfRequest.Activity_Type__c == 'E-marketing - Email'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Open_Emails__c}" rendered="{! (mdfClaim != null) && (mdfRequest.activity_type__c == 'E-marketing - Email')}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Estimated_Number_of_Responses__c}" rendered="{! mdfRequest.Activity_Type__c  == 'Print - Direct Mail'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Number_of_Responses__c}" rendered="{! (mdfClaim != null) && (mdfRequest.activity_type__c == 'Print - Direct Mail')}"/>
+                    
+                    <apex:outputField value="{! mdfClaim.Number_of_CTA_Click_through__c}" rendered="{! (mdfClaim != null) && (mdfRequest.activity_type__c == 'E-marketing - Microsite')}"/>
+                    
+                    <apex:outputField value="{! mdfClaim.Actual_Sales__c}" rendered="{! mdfRequest.activity_type__c == 'Sales Program - Funded Head Count'}"/>
+                    
+                    <!-- Metrics Calculated Fields -->
+                    <apex:outputField value="{! mdfRequest.Estimated_Cost_per_Copy__c}" rendered="{! mdfRequest.activity_type__c == 'Print - Collateral' ||  mdfRequest.activity_type__c == 'Print - Brochure'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Cost_per_Copy__c}" rendered="{! (mdfClaim != null) && (mdfRequest.activity_type__c == 'Print - Collateral' ||  mdfRequest.activity_type__c == 'Print - Brochure')}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Estimated_Cost_per_Recipient__c}" rendered="{! mdfRequest.activity_type__c == 'Print - Publication' ||  mdfRequest.activity_type__c == 'Print - White Paper'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Cost_per_Recipient__c}" rendered="{! (mdfClaim != null) && (mdfRequest.activity_type__c == 'Print - Publication' ||  mdfRequest.activity_type__c == 'Print - White Paper')}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Estimated_Cost_per_Visitor__c}" rendered="{! mdfRequest.activity_type__c == 'E-marketing - Microsite'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Cost_per_Visitor__c}" rendered="{! (mdfClaim != null) && (mdfRequest.activity_type__c == 'E-marketing - Microsite')}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Estimated_Cost_per_Sale__c}" rendered="{! mdfRequest.Activity_Type__c == 'Sales Program - Telesales' || mdfRequest.Activity_Type__c == 'Sales Program - Incentive'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Cost_per_Sale__c}" rendered="{! (mdfClaim != null) && (mdfRequest.Activity_Type__c == 'Sales Program - Telesales' || mdfRequest.Activity_Type__c == 'Sales Program - Incentive')}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Estimated_Close_Rate__c}" rendered="{! mdfRequest.Activity_Type__c == 'Sales Program - Telesales'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Close_Rate__c}" rendered="{! (mdfClaim != null) && (mdfRequest.Activity_Type__c == 'Sales Program - Telesales')}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Estimated_Cost_per_Lead__c}" rendered="{! mdfRequest.Activity_Type__c == 'Sales Program - Telemarketing' || mdfRequest.Activity_Type__c == 'E-marketing - Social Media' || mdfRequest.Activity_Type__c == 'E-marketing - Endorsed Outsourced Mktg' || mdfRequest.Activity_Type__c == 'E-marketing - Email' || mdfRequest.Activity_Type__c == 'Event - Roadshow' || mdfRequest.Activity_Type__c == 'Event - Tradeshow'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Cost_per_Lead__c}" rendered="{! (mdfClaim != null) && (mdfRequest.Activity_Type__c == 'Sales Program - Telemarketing' || mdfRequest.Activity_Type__c == 'E-marketing - Social Media' || mdfRequest.Activity_Type__c == 'E-marketing - Endorsed Outsourced Mktg' || mdfRequest.Activity_Type__c == 'E-marketing - Email' || mdfRequest.Activity_Type__c == 'Event - Roadshow' || mdfRequest.Activity_Type__c == 'Event - Tradeshow')}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Estimated_Response_Rate__c}" rendered="{! mdfRequest.Activity_Type__c == 'Sales Program - Telemarketing'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Response_Rate__c}" rendered="{! (mdfClaim != null) && (mdfRequest.Activity_Type__c == 'Sales Program - Telemarketing')}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Estimated_Cost_per_Attendees__c}" rendered="{! mdfRequest.Activity_Type__c == 'E-marketing - Webinar' || mdfRequest.Activity_Type__c == 'Event - Seminar' || mdfRequest.Activity_Type__c == 'Sales Program - Sales Training' || mdfRequest.Activity_Type__c == 'Event - EBC Visit'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Cost_per_Attendees__c}" rendered="{! (mdfClaim != null) && (mdfRequest.Activity_Type__c == 'E-marketing - Webinar' || mdfRequest.Activity_Type__c == 'Event - Seminar' || mdfRequest.Activity_Type__c == 'Sales Program - Sales Training' || mdfRequest.Activity_Type__c == 'Event - EBC Visit')}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Estimated_Cost_per_View__c}" rendered="{! mdfRequest.Activity_Type__c == 'E-marketing - Video'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Cost_per_View__c}" rendered="{! (mdfClaim != null) && (mdfRequest.Activity_Type__c == 'E-marketing - Video')}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Estimated_Email_Open_Rate__c}" rendered="{! mdfRequest.Activity_Type__c == 'E-marketing - Email'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Email_Open_Rate__c}" rendered="{! (mdfClaim != null) && (mdfRequest.Activity_Type__c == 'E-marketing - Email')}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Estimated_Bounce_Back_Success_Rate__c}" rendered="{! mdfRequest.Activity_Type__c == 'Print - Direct Mail'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Bounce_Back_Success_Rate__c}" rendered="{! (mdfClaim != null) && (mdfRequest.Activity_Type__c == 'Print - Direct Mail')}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Estimated_ROI__c}" rendered="{! mdfRequest.Activity_Type__c == 'Event - EBC Visit'|| mdfRequest.Activity_Type__c == 'Sales Program - Incentive'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_ROI__c}" rendered="{! (mdfClaim != null) && (mdfRequest.Activity_Type__c == 'Event - EBC Visit'|| mdfRequest.Activity_Type__c == 'Sales Program - Incentive')}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Estimated_Cost_to_Revenue__c}" rendered="{! mdfRequest.Activity_Type__c == 'Sales Program - Funded Head Count'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Cost_to_Revenue__c}" rendered="{! (mdfClaim != null) && (mdfRequest.Activity_Type__c == 'Sales Program - Funded Head Count')}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Estimated_Sales_Incentive_Rate__c}" rendered="{! mdfRequest.Activity_Type__c == 'Sales Program - Incentive'}"/>
+                    <apex:outputField value="{! mdfClaim.Actual_Sales_Incentive_Rate__c}" rendered="{! (mdfClaim != null) && (mdfRequest.Activity_Type__c == 'Sales Program - Incentive')}"/>
+                    <!--
+                    <apex:outputField value="{! mdfClaim.Actual_Call_to_Action_Conversion_Rate__c}" rendered="{! (mdfClaim != null) && (mdfRequest.Activity_Type__c =='')}"/>
+                    
+                    <apex:outputField value="{! mdfClaim.Actual_Visitor_to_lead_Conversion_Rate__c}" rendered="{! (mdfClaim != null) && (mdfRequest.Activity_Type__c =='')}"/>
+                    -->
+                    <apex:outputField value="{! mdfClaim.Actual_Percentage_of_Quota_Attained__c}" rendered="{! (mdfClaim != null) && (mdfRequest.Activity_Type__c =='Sales Program - Funded Head Count')}"/>
+                    
+                </apex:pageBlockSection>
+                <br/>
+                <br/>
+                <c:CP_Disclaimer />
+                <apex:actionRegion >
+                    <apex:pageBlockSection id="pb" columns="1"  collapsible="false" html-style="padding-top:15px !important;">
+                        
+                        <apex:variable var="rowNumber" value="{!0}"/>
+                        
+                        <apex:pageBlockTable value="{! mdfExepeseList }" var="item" styleClass="table-striped" rules="all">
+                            
+                            <apex:facet name="header">Expense Table</apex:facet>
+                            
+                            <apex:column value="{! item.Actvity__c}">
+                                <apex:facet name="footer">Total:</apex:facet>
+                            </apex:column>
+                            
+                            <apex:column value="{! item.Estimated_Cost__c}">
+                                <apex:facet name="footer"><apex:outputField label="" value="{! mdfRequest.Total_Estimated_Cost__c}"/></apex:facet>
+                            </apex:column>
+                            
+                            <apex:column value="{! item.NCR_Estimated_Participation__c}" rendered="{! mdfRequest.Status__c == 'Approved'}">
+                                <apex:facet name="footer"><apex:outputField value="{! mdfRequest.Total_NCR_Estimated_Participation__c}"/></apex:facet>
+                            </apex:column>
+                            
+                            <apex:column value="{! item.Actual_Cost__c}" rendered="{! mdfRequest.Status__c  == 'Approved' || mdfClaim != null}">
+                                <apex:facet name="footer"><apex:outputField value="{! mdfRequest.Total_Actual_Cost__c}"/></apex:facet>
+                            </apex:column>
+                            
+                            <apex:column value="{! item.NCR_Approved__c}" rendered="{! mdfRequest.Status__c == 'Approved' && mdfClaim.Status__c=='Approved' }">
+                                <apex:facet name="footer"><apex:outputField value="{! mdfRequest.Total_NCR_Approved__c}"/></apex:facet>
+                            </apex:column>
+                           
+                        </apex:pageBlockTable>
+                        <!--<apex:commandButton status="Adding"  value="Add Row" action="{! addExpenseDetail}" reRender="pb"/>-->
+                    </apex:pageBlockSection>
+                </apex:actionRegion>              
+            </apex:pageBlock>
+            
+            <!-- Supporting Documents -->
+            <apex:pageBlock title="Supporting Documentation">
+                <apex:pageBlockButtons >
+                    <apex:commandButton value="Attach Pre-Approval Document" onclick="openPreApprovalPopup();return false;" rendered="{! mdfRequest.Status__c != 'Approved'}"/>
+                    <apex:commandButton value="Attach Claim Document" onclick="openProofOfPerformencePopup();return false;" rendered="{! mdfClaim != null}"/>
+                </apex:pageBlockButtons>
+                
+                <apex:pageBlockSection id="SupportingDocumentationTable" collapsible="false" columns="1">
+                    <apex:pageBlockTable value="{! files}" var="file" rendered="{! files.size >0}">
+                        <apex:column >
+                            <apex:facet name="header">Action</apex:facet>
+                            <apex:commandLink value="Del" action="{! deletePreApprovalDoc}"  onclick="checkAllowtoDel({! IF(file.file.Pre_Approval__c,isPreApprovalDocAllowToDel,IF(file.file.Claim__c,isClaimDocAllowToDel,''))});">
+                                <apex:param name="fileRecId" value="{! file.file.Id}"/>
+                            </apex:commandLink>
+                            &nbsp;|&nbsp;
+                            <apex:commandLink value="Edit" styleClass="actionLink" onclick="openUpdateFilePopup('{! file.file.Id}');return false;"/>
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header">Pre-Approval</apex:facet>
+                            <apex:outputField value="{! file.file.Pre_Approval__c}"/> 
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header">Claim</apex:facet>
+                            <apex:outputField value="{! file.file.Claim__c}"/>
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header">Document</apex:facet>
+                            <apex:outputLink value="{!file.link}" target="_blank">{! file.file.Name}</apex:outputLink>
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header">Document Type</apex:facet>
+                            <apex:outputField value="{! file.file.Pre_Approval_Document_Type__c}" rendered="{! file.file.Pre_Approval__c == true}"/>
+                            <apex:outputField value="{! file.file.Proof_of_Performance_Document_Type__c}" rendered="{! (file.file.Claim__c == true) && (file.file.Pre_Approval__c  == false)}"/> 
+                        </apex:column>                       
+                    </apex:pageBlockTable>
+                    <apex:outputLabel value="No records to display" rendered="{! NOT(files.size > 0)}" styleClass="noRowsHeader"></apex:outputLabel>
+                </apex:pageBlockSection>
+                
+            </apex:pageBlock>
+            
+            <script>
+                      
+                function validateNumOfPreAppDoc() {
+                  var numPreAppDoc = {! numOfPreApprovalDoc} ;
+                  
+                  if (numPreAppDoc < 1) {
+                    alert('Please attach Pre Approval Document with the request');
+                    return false;
+                  }
+                  return true ;
+                }
+                
+                function validateNumOfPOPDoc() {
+                  var numPOPDoc = {! numOfPOPDoc} ;
+                  
+                  if (numPOPDoc < 1) {
+                    alert('Please attach Proof of Performance Document with claim');
+                    return false;
+                  }
+                  return true;
+                }
+            </script>
+        </apex:form>
+    </apex:outputPanel>
+    <apex:includeScript value="{! URLFOR($Resource.NCR_bootStrap,'bootstrap-3.3.4-dist/js/bootstrap.js')}"/> 
+    
+<script type="text/javascript" src="/PartnerCentral/resource/Jquery/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/PartnerCentral/resource/Jquery/js/jquery-ui-1.8.17.custom.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/PartnerCentral/resource/Jquery/css/flick/jquery-ui-1.8.17.custom.css"></link>
+<apex:includeScript value="/soap/ajax/21.0/connection.js"/>
+<apex:includeScript value="/soap/ajax/21.0/apex.js"/>
+
+     <script>
+  
+  function popUp(){
+    
+   OpenDialogAkamaiFixedWidth('0.3','300','The checkboxes should be selected before importing any account using Data.com','Error')
+  
+  }
+ //Jquery Popup
+        $j3 = jQuery.noConflict();
+       $j3(document).ready(function() {
+      $j3("#dialog2").dialog({ autoOpen: false, modal: true ,position: 'center'}); 
+      
+      var r = '{!mdfRequest.status__c}';
+      var claimstatus ='{!mdfClaim.status__c}';
+      var t = '{! files.size}';
+      
+      if(r  == 'Request Created' && t <= 0)
+      OpenDialogAkamaiFixedWidth('0.3','400','You are almost done! Now attach your Pre-approval Documentation and click "Submit" to complete the process.','Information');
+      
+      if(claimstatus  =='Created' && {!numOfPOPDoc} <=0 ){
+           OpenDialogAkamaiFixedWidth('0.3','400','You are almost done! Now attach your Claim Documentation and click "Submit Claim" to complete the process.','Information');
+      }
+     
+   });
+  //Function to open the dialog 
+    function OpenDialogAkamaiFixedWidth(height, width,body,subject){ 
+    
+        $j3("#dialogContent2").html(body); 
+       
+        var wWidth = $j3(window).width(); 
+        var dWidth = width; 
+        var wHeight = $j3(window).height(); 
+        var dHeight = wHeight * height; 
+        
+        $j3('#dialog2').dialog('option', 'position', [wWidth/2-dWidth/2,wHeight/2-dHeight/2]); 
+        $j3("#dialog2").dialog("open"); 
+        $j3('#dialog2').dialog("option" , "title" , subject); 
+        
+        
+        
+        $j3('#dialog2').dialog( "option", "height", dHeight ); 
+        $j3('#dialog2').dialog( "option", "width", dWidth ); 
+        $j3('.ui-widget-overlay').css({'background-color':'#000'}); 
+        $j3('#dialog2').parent().css({'position':'fixed'}); 
+        
+        var position = $j3('#dialog2').dialog('option', 'position'); 
+        $j3('#dialog2').dialog('option', 'position', 'center'); 
+        
+      $j10("#dialog2").dialog({ buttons: [ 
+{ 
+text: "Close", 
+click: function() { 
+
+$j10(this).dialog("close"); 
+$j10("#dialog").dialog().parent('.ui-dialog').find('.ui-dialog-titlebar-close').hide(); 
+} 
+} 
+]}); 
+        
+       
+        
+        $j3("#dialog2").dialog().parent('.ui-dialog').find('.ui-dialog-titlebar-close').hide(); 
+        
+        return false; 
+    } 
+
+  </script>
+    <script>
+        function openPreApprovalPopup()
+        {
+            var pid = '{! mdfRequest.Id}';
+            myWindow = window.open("/PartnerCentral/ncr_pre_approval_doc?pid="+pid+'&fieldAPI=Fund_Request__c', "Attachment", "width=650, height=500");
+            myWindow.focus();
+            return false;
+        }
+        
+        function openProofOfPerformencePopup() {
+           var pid = '{! mdfClaim.Id}'; 
+           myWindow = window.open("/PartnerCentral/ncrProofOfPerformance?pid="+pid+'&fieldAPI=Fund_Claim__c', "Attachment", "width=650, height=500");
+           myWindow.focus();
+           return false;
+        }
+        
+        function openUpdateFilePopup(fileRecId)
+        {
+            myWindow = window.open("/PartnerCentral/ncrUpdateFile?fileId="+fileRecId,"Attachment","width=650, height=500");
+            myWidnow.focus();
+            return null;
+        }
+        
+        function checkAllowtoDel(allowToDel){
+            if(allowToDel){
+                var confirmation = confirm("Are you sure?")
+                if(confirmation){
+                    return true;
+                }else{
+                    return false;
+                }
+            }else{
+                alert('You can not delete approved document.');
+                return false;
+            }
+        }
+        
+        function validateNumOfPreAppDoc() {
+          var numPreAppDoc = {! numOfPreApprovalDoc} ;
+          
+          if (numPreAppDoc < 1) {
+            alert('Please attach Pre Approval Document with the request');
+            return false;
+          }
+          return true ;
+        }
+        
+        function validateNumOfPOPDoc() {
+          var numPOPDoc = {! numOfPOPDoc} ;
+          
+          if (numPOPDoc < 1) {
+            alert('Please attach Proof of Performance Document with claim');
+            return false;
+          }
+          return true;
+        }
+    </script>
+</apex:page>

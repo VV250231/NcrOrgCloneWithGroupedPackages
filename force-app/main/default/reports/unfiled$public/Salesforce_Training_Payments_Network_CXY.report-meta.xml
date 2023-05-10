@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>trailheadapp__Trailmix__c$Name</field>
+    </columns>
+    <columns>
+        <field>trailheadapp__Trailmix__c.trailheadapp__User_Trailmixes__r$trailheadapp__User__c</field>
+    </columns>
+    <columns>
+        <field>trailheadapp__Trailmix__c.trailheadapp__User_Trailmixes__r$trailheadapp__User__c.City</field>
+    </columns>
+    <columns>
+        <field>trailheadapp__Trailmix__c.trailheadapp__User_Trailmixes__r$trailheadapp__User__c.State</field>
+    </columns>
+    <columns>
+        <field>trailheadapp__Trailmix__c.trailheadapp__User_Trailmixes__r$trailheadapp__User__c.Country</field>
+    </columns>
+    <columns>
+        <field>trailheadapp__Trailmix__c.trailheadapp__User_Trailmixes__r$trailheadapp__Assigned_At__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>This report reflects data for Payments &amp; Network users assigned to Salesforce training after they&apos;ve authenticated.</description>
+    <filter>
+        <criteriaItems>
+            <column>trailheadapp__Trailmix__c$Name</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Payments &amp; Network</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>trailheadapp__Trailmix__c.trailheadapp__User_Trailmixes__r$trailheadapp__User__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Bradley Day</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>trailheadapp__Trailmix__c.trailheadapp__User_Trailmixes__r$trailheadapp__User__c.User_Profile__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>trailheadapp__Trailmix__c.trailheadapp__User_Trailmixes__r$trailheadapp__Status__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Salesforce Training Payments &amp; Network</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Trailmix_Report_with_User_Data__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>trailheadapp__Trailmix__c.trailheadapp__User_Trailmixes__r$trailheadapp__Last_Attempted_At__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

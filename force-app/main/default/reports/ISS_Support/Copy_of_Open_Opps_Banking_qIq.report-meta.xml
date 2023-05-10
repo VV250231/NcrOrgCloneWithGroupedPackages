@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>Opportunity.Initial_Renewal_Value__c.CONVERT:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Current Renewal Value</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>AMOUNT.CONVERT:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA2</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Amount</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>Opportunity.Total_Value_Added__c.CONVERT:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA3</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Incremental FV</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>number</bucketType>
+        <developerName>BucketField_1312144</developerName>
+        <masterLabel>Age Range</masterLabel>
+        <nullTreatment>z</nullTreatment>
+        <sourceColumnName>AGE</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <to>-1</to>
+            </sourceValues>
+            <value>no Data</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>-1</from>
+                <to>30</to>
+            </sourceValues>
+            <value>0-30 days</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>30</from>
+                <to>100</to>
+            </sourceValues>
+            <value>31-100 days</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>100</from>
+                <to>200</to>
+            </sourceValues>
+            <value>101-200 days</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>200</from>
+                <to>500</to>
+            </sourceValues>
+            <value>201-500 days</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>500</from>
+            </sourceValues>
+            <value>&gt;500 days</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_28578128</developerName>
+        <masterLabel>Expected Book Quarter</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Opportunity.Book_Quarter__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>2019 Q1</sourceValue>
+            </sourceValues>
+            <value>2019 Q1</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2019 Q2</sourceValue>
+            </sourceValues>
+            <value>2019 Q2</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2019 Q3</sourceValue>
+            </sourceValues>
+            <value>2019 Q3</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2019 Q4</sourceValue>
+            </sourceValues>
+            <value>2019 Q4</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2020 Q1</sourceValue>
+            </sourceValues>
+            <value>2020 Q1</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2020 Q2</sourceValue>
+            </sourceValues>
+            <value>2020 Q2</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2020 Q3</sourceValue>
+            </sourceValues>
+            <value>2020 Q3</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2020 Q4</sourceValue>
+            </sourceValues>
+            <value>2020 Q4</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_68942420</developerName>
+        <masterLabel>Expected Book Year</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Opportunity.Book_Quarter__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>2019 Q1</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2019 Q2</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2019 Q3</sourceValue>
+            </sourceValues>
+            <value>2019</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2020 Q2</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2020 Q1</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2020 Q3</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2020 Q4</sourceValue>
+            </sourceValues>
+            <value>2020</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_25038058</developerName>
+        <masterLabel>Region</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>Account.Account_Region__c</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>CLA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>CLA BRAZIL</sourceValue>
+            </sourceValues>
+            <value>CLA</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>EUROPE EXC RUSSIA</sourceValue>
+            </sourceValues>
+            <value>EUROPE</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>SEA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>SAPAC</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>INDIA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>APAC</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>APJ</sourceValue>
+            </sourceValues>
+            <value>JPKI</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>MEA</sourceValue>
+            </sourceValues>
+            <value>MEA</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>NAMER CFI</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NAMER MAJORS</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NAMER</sourceValue>
+            </sourceValues>
+            <value>NAMER</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>ROLLUP_DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Account_Country_Code__c</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>AGE</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Initial_Renewal_Value__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>AMOUNT.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Total_Value_Added__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Account_LOB__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Book_Quarter__c</field>
+    </columns>
+    <columns>
+        <field>BucketField_68942420</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>Opportunity.Account_LOB__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>FINANCIAL</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>ROLLUP_DESCRIPTION</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Global Services Renewals,Global Services Renewals - APAC</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>ACCOUNT_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Brenka Test Account</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_1312144</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_28578128</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_25038058</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Open Opps Banking AGE</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>open</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <roleHierarchyFilter>ChiefExecutiveOffice</roleHierarchyFilter>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

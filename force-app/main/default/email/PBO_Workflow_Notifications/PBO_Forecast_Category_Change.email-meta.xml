@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>NCRLogoLetterhead</letterhead>
+    <name>PBO Forecast Category Change</name>
+    <style>freeForm</style>
+    <subject>PBO Opportunity Forecast Category Change</subject>
+    <textOnly>Demand Planner,
+
+A Forecast Category Change has been recorded for an opportunity with an associated Pre-Build Order (PBO).  Contact the Opportunity Owner to determine if changes are required for the PBO.
+
+Theater:  {!Account.Region__c}
+Area:  {!Account.Area__c}
+PBO Number:  {!Opportunity.PreBuild_Order_Number__c}
+Account Name:  {!Opportunity.Account}
+Opportunity Owner:  {!Opportunity.OwnerFullName}
+Opportunity Name:  {!Opportunity.Name}
+Opportunity Number:  {!Opportunity.Opportunity_Number__c}
+Opportunity Value:  {!Opportunity.Amount}
+Current Forecast Category:  {!Opportunity.ForecastCategoryName}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

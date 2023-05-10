@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Case$CaseNumber</field>
+    </columns>
+    <columns>
+        <field>Case$Status</field>
+    </columns>
+    <columns>
+        <field>Case$Subject</field>
+    </columns>
+    <columns>
+        <field>Case$Support_Queue__c</field>
+    </columns>
+    <columns>
+        <field>Case$Priority</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Case$Case_Age_In_Days__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+        <criteriaItems>
+            <column>Case$Site_Id__c.Site_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>6800238,6803377,9926684,41154213,41154214,41154215,41154216,41154220,41154205,41154206,41154209,41154230,6800239,9335213,9705949,9943276,9705958,42484157,9611714,42484156,42530893,9649539,10574539,10593980,10046458,6800240,9649516,8801339,8801319,9590732,10641596,42660566,42392848,9649555,9738737,9136613,9649537,9072325,42405373,9262976,9649557,41154247,41154228,41154236,41154246,10533636,10148359,7529333,9162724,8130723,9440606,9959476,9043751,7530756,7535240,10396254,9638322,9725867,8676761,8253827,9868274,10575799,6803375,41154219,41154221,41154222,41154202,41154223,41154234,41154210,41159570,41154203,41154225,41154227,41154229,41154231,41154204,41154238,41154241,10675061,10675057,10675060,10675056,10675059,41154207,41154235,41154232,41154237,41154239,41154240,41154243,10633065,7530997,9636054,10110037,8657976,7530844,8252570,7932733,8674539,10148357,7610373,10148360,9889374,8104168,9756434,9379093,9601378,10533638,6812785,41154226,42660722,8156828,10310479,9979468,10002231,9223587,9300111,9088088,7711551,9086522,8676762,10312478,9039877,7534574,9889414,9561273,8067554,9258701,7602931,6803376,41154217,41154245,42660723,42660720,42358308,9436036,9649554,9649538,10566869,10232007,8763759,10046470,9649595,9649615,9317126,9240636,41154218,41154208,41154211,41154224,41154242,9797695,10574538,42367876,9977404</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case$Site_Id__c.Site_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>6800233,9649598,8992368,8695772,9649559,9649534,42405801,10383364,9517595,41152153</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case$Status</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>New,Assigned,In_Progress,In Progress,Open,Pending</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Snooze MA Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Case_With_Lookup_Info__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Case$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

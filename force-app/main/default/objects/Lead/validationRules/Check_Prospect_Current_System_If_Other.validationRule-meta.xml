@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Check_Prospect_Current_System_If_Other</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+ CATM_Record__c = false,
+ISPICKVAL(Prospect_Current_Systems__c , &quot;Other&quot;),ISBLANK( Prospect_s_Current_System_if_Other__c ))</errorConditionFormula>
+    <errorDisplayField>Prospect_s_Current_System_if_Other__c</errorDisplayField>
+    <errorMessage>If &apos;Other&apos; is selected in &apos;Prospect&apos;s Current Systems&apos; then this field can&apos;t be left empty.</errorMessage>
+</ValidationRule>

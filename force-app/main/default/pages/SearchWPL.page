@@ -1,0 +1,31 @@
+<apex:page controller="SearchWPLController">
+  <apex:form >
+      <apex:pageBlock title=" Search the contact">
+      <p> 1. Enter the WPL of contact you want to give access</p>
+      <p> 2. Click on Search button </p>
+      <p> 2. List will appear. Select the checkbox in front to give access   </p>   <br/> <br/>
+      
+          <apex:inputText value="{!searchString}"/>
+          <apex:commandButton value="Search" action="{!searchContact}"/>
+          
+          <br/> <br/>
+      
+          
+          <apex:outputpanel >
+          <apex:pageblockTable value="{!contactWrapper}" var="conwr">
+              <apex:column >
+                  <apex:inputCheckbox value="{!conwr.checkbox }"/>
+              </apex:column>
+              <apex:column value="{!conwr.con.Name}"/>
+              <apex:column value="{!conwr.con.Web_Portal_Login__c}"/>
+              
+          </apex:pageBlocktable>
+          </apex:outputpanel>
+          
+       <!--   <apex:outputPanel rendered="{!NoRecordFlag}" >
+              <h1> NO record found for selected {!searchString }.  </h1>
+          </apex:outputPanel>-->
+      <apex:commandButton action="{!grantAccessOfIncentives}" value="Grant access of Incentive" oncomplete="alert('You have successfully added contact for Incentive program')"/>
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>

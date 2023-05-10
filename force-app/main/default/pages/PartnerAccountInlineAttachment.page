@@ -1,0 +1,27 @@
+<apex:page standardController="Account" extensions="PartnerAccountInlineAttachmentController" sidebar="false" showheader="false">
+    <apex:form >
+        <apex:pageblock >
+            <apex:pageblocktable value="{!lstNoteAndAttachmentDetail}" var="rec" rendered="{!lstNoteAndAttachmentDetail.size > 0}"> 
+                <apex:column headerValue="Title">
+                    <apex:outputLink value="{!URLFOR($Action.Attachment.Download, rec.recordId)}" target="_blank" rendered="{!rec.valueType == 'Attachment'}">
+                        {!rec.name}
+                    </apex:outputLink>
+                    <apex:outputLink value="../{!rec.recordId}" target="_blank" rendered="{!rec.valueType == 'Note'}">
+                        {!rec.name}
+                    </apex:outputLink> 
+                </apex:column> 
+                
+                <apex:column value="{!rec.valueType}" headerValue="Type" />
+                <apex:column value="{!rec.createdByName}" headerValue="Created By" />
+                
+                <apex:column headerValue="Created Date">
+                    <apex:outputText value="{0,date,MM/dd/yy}"> <apex:param value="{!rec.createdDateTime}" /> </apex:outputText> 
+                </apex:column>   
+            </apex:pageblocktable>
+            
+            <apex:outputPanel rendered="{!lstNoteAndAttachmentDetail.size = 0}">
+                No Records found.
+            </apex:outputPanel>
+        </apex:pageblock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CATMDC_Approval_required_before_proposal</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+CATM_Record__c,NOT(OR($Profile.Name=&apos;Soup Integration&apos;,$Profile.Name=&apos;iPaas Administration&apos;)),
+   OR(
+      ISPICKVAL(StageName,&quot;Offering&quot;),
+      ISPICKVAL(StageName,&quot;Proposing&quot;),
+      ISPICKVAL(StageName,&quot;Closed/Booked&quot;),
+      ISPICKVAL(StageName,&quot;Closing&quot;)),
+  NOT(ISPICKVAL( Deal_Committee_Status__c  ,&quot;Approved&quot;)),
+  NOT( Geography__c =&apos;South Africa&apos;),
+  TEXT(Opportunity_Classification__c) != &quot;CATM - IBG (Core)&quot;,
+  TEXT(Opportunity_Classification__c) != &quot;CATM - iDesign&quot;,
+  TEXT(Opportunity_Classification__c) != &quot;CATM - atmAd&quot;,
+ Region__c &lt;&gt; &quot;NABG&quot;)</errorConditionFormula>
+    <errorDisplayField>Num_of_ATMs__c</errorDisplayField>
+    <errorMessage>ERROR: Opportunity must be approved by Deal Committee, please contact Sales Support.</errorMessage>
+</ValidationRule>

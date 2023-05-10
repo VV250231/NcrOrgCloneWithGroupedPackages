@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_Status_Change_After_72_hours</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(ISCHANGED(Status), 
+OR(ISPICKVAL(PRIORVALUE(Status),&apos;Closed&apos;),ISPICKVAL(PRIORVALUE(Status),&apos;Cancelled&apos;)), Now() &gt; (ResolutionDateTime + 3),NOT( $Permission.Incident_Status_Change_Allowed ))</errorConditionFormula>
+    <errorDisplayField>Status</errorDisplayField>
+    <errorMessage>Status cannot be changed after 72 hours</errorMessage>
+</ValidationRule>

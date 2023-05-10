@@ -1,0 +1,254 @@
+<template>
+<div class="slds-box">
+<div class="entitlement-font">
+    <h3>Entitlements</h3>
+</div> 
+<lightning-tabset variant="scoped"> 
+    <lightning-tab label="Asset Overview">
+        <template if:true={showTable}>
+        <template if:true={isSummeryView}>
+            <table class="slds-table slds-table_cell-buffer slds-cell-focus slds-table_bordered slds-table_fixed-layout slds-border_right slds-border_left">
+                <template if:true={entitlementObjInfo}> 
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th class="" scope="col" colspan="2">                                
+                            <div class="slds-th__action slds-text">
+                                <span class="slds-truncate" title="Product Description">Product Description</span>
+                            </div>
+                        </th>
+                        
+                        <th class="" scope="col">
+                            <div class="slds-th__action slds-text">
+                                <span class="slds-truncate" title={entitlementObjInfo.fields.Active_Count__c.label}>{entitlementObjInfo.fields.Active_Count__c.label}</span>
+                                <span class="slds-p-bottom_xx-small"><lightning-helptext content="Understand there can be multiple contracts to one asset. To edit these, please login to MACC and correct there."></lightning-helptext></span>
+                            </div>
+                        </th>
+                        
+                        <th class="" scope="col">
+                            <div class="slds-th__action slds-text">
+                                <span class="slds-truncate" title={entitlementObjInfo.fields.Hold_Count__c.label}>{entitlementObjInfo.fields.Hold_Count__c.label}</span>
+                                <span class="slds-p-bottom_xx-small"><lightning-helptext content="Hold status means this asset is still being serviced as if it is active, but the customer is not receiving a bill while the contract is in this status. To edit these, please login to MACC and correct there."></lightning-helptext></span>
+                            </div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-th__action slds-text">
+                            <span class="slds-truncate" title={entitlementObjInfo.fields.Expired_Count__c.label}>{entitlementObjInfo.fields.Expired_Count__c.label}</span>
+                            <span class="slds-p-bottom_xx-small"><lightning-helptext content="This means the asset's contract(s) are expired and will default to 'Default' service coverage for any dispatches, not the contract terms. To edit these, please login to MACC and correct there."></lightning-helptext></span>
+                            </div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-th__action slds-text">
+                            <span class="slds-truncate" title={entitlementObjInfo.fields.Expired_Warranty_Count__c.label}>{entitlementObjInfo.fields.Expired_Warranty_Count__c.label}</span>
+                            <span class="slds-p-bottom_xx-small"><lightning-helptext content="Counts of Warranties that have expired and have no other contracts associated to them. These are delivered but may not be installed. If installed, these are missing contracts and don't receive contracted service, all service would be 100% billable until a contract is applied. To edit these, please login to MACC and correct there."></lightning-helptext></span>
+                            </div>
+                        </th>   
+                    </tr>
+                </thead>
+                    </template>
+                <tbody>
+                    <template for:each={accountEntitlementList2} for:item="accountEntitlement">
+                        <tr class="slds-theme_info"  style="pointer-events: none;"  key={accountEntitlement.Id}>
+                            <td class="slds-cell-wrap"  colspan="2">
+                                <div class="slds-truncate" title={accountEntitlement.Primary_Product_Desc__c}>
+                                    <b>{accountEntitlement.prodDes}</b>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="slds-truncate" title="Active Count">
+                                    <b>{accountEntitlement.activeCount}</b>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="slds-truncate" title="Hold Count">
+                                    <b>{accountEntitlement.holdCount}</b>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="slds-truncate" title="Expired Count">
+                                    <b> {accountEntitlement.expCount}</b>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="slds-truncate" title="Expired Warranty Count">
+                                    <b>{accountEntitlement.ExpWarCount}</b>
+                                </div>
+                            </td>
+                        </tr>
+    
+                    </template>
+                    </tbody>
+                </table>
+                <center><a href="javascript:void(0)"><p onclick={handleViewAll} class="slds-p-top_small">View All</p></a></center>
+        </template>
+        
+        <template if:false={isSummeryView}>
+        <table class="slds-table slds-table_cell-buffer slds-cell-focus slds-table_bordered slds-table_fixed-layout slds-border_right slds-border_left">
+            <template if:true={entitlementObjInfo}> 
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col" colspan="2">
+                        <div class="slds-th__action slds-text">
+                            <span class="slds-truncate" title="Product Description" data-aura-rendered-by="81:597;a">Product Description</span>
+                            <template if:true={isProdDesAsc}>
+                            <lightning-icon icon-name="utility:arrowup" alternative-text="arrowup" title="Utility" size="x-small" data-id={entitlementObjInfo.fields.Primary_Product_Desc__c.apiName} data-label={entitlementObjInfo.fields.Primary_Product_Desc__c.label} onclick={handleSort}></lightning-icon> 
+                            </template>
+                            <template if:false={isProdDesAsc}>
+                                <lightning-icon icon-name="utility:arrowdown" alternative-text="arrowdown" title="Utility" size="x-small" data-id={entitlementObjInfo.fields.Primary_Product_Desc__c.apiName} data-label={entitlementObjInfo.fields.Primary_Product_Desc__c.label} onclick={handleSort}></lightning-icon> 
+                            </template>
+                            <!-- <lightning-helptext content={helpTextmgs}></lightning-helptext>-->
+                        </div>
+                    </th>
+                    
+                    <th class="" scope="col">
+                        <div class="slds-th__action slds-text">
+                            <span class="slds-truncate" title={entitlementObjInfo.fields.Active_Count__c.label} data-aura-rendered-by="81:597;a">{entitlementObjInfo.fields.Active_Count__c.label}</span>
+                            <template if:true={isActiveCountAsc}>
+                            <lightning-icon  icon-name="utility:arrowup" alternative-text="arrowup" title="Utility" size="x-small" data-id={entitlementObjInfo.fields.Active_Count__c.apiName} data-label={entitlementObjInfo.fields.Active_Count__c.label} onclick={handleSort}></lightning-icon> 
+                            </template>
+                            <template if:false={isActiveCountAsc}>
+                                <lightning-icon  icon-name="utility:arrowdown" alternative-text="arrowdown" title="Utility" size="x-small" data-id={entitlementObjInfo.fields.Active_Count__c.apiName} data-label={entitlementObjInfo.fields.Active_Count__c.label} onclick={handleSort}></lightning-icon> 
+                            </template>
+                            <lightning-helptext content="Understand there can be multiple contracts to one asset. To edit these, please login to MACC and correct there."></lightning-helptext>
+                        </div>
+                    </th>
+                    
+                    <th class="" scope="col">
+                        <div class="slds-th__action slds-text">
+                            <span class="slds-truncate" title={entitlementObjInfo.fields.Hold_Count__c.label} data-aura-rendered-by="81:597;a">{entitlementObjInfo.fields.Hold_Count__c.label}</span>
+                            <template if:true={isHoldCountAsc}>
+                            <lightning-icon  icon-name="utility:arrowup" alternative-text="arrowup" title="Utility" size="x-small" data-id={entitlementObjInfo.fields.Hold_Count__c.apiName} data-label={entitlementObjInfo.fields.Hold_Count__c.label} onclick={handleSort}></lightning-icon> 
+                            </template>
+                            <template if:false={isHoldCountAsc}>
+                                <lightning-icon  icon-name="utility:arrowdown" alternative-text="arrowdown" title="Utility" size="x-small" data-id={entitlementObjInfo.fields.Hold_Count__c.apiName} data-label={entitlementObjInfo.fields.Hold_Count__c.label} onclick={handleSort}></lightning-icon> 
+                            </template>
+                            <lightning-helptext content="Hold status means this asset is still being serviced as if it is active, but the customer is not receiving a bill while the contract is in this status. To edit these, please login to MACC and correct there."></lightning-helptext>
+                        </div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-th__action slds-text">
+                            <span class="slds-truncate" title={entitlementObjInfo.fields.Expired_Count__c.label} data-aura-rendered-by="81:597;a">{entitlementObjInfo.fields.Expired_Count__c.label}</span>
+                            <template if:true={isExpCountAsc}>
+                            <lightning-icon  icon-name="utility:arrowup" alternative-text="arrowup" title="Utility" size="x-small" data-id={entitlementObjInfo.fields.Expired_Count__c.apiName} data-label={entitlementObjInfo.fields.Expired_Count__c.label} onclick={handleSort}></lightning-icon> 
+                            </template>
+                            <template if:false={isExpCountAsc}>
+                            <lightning-icon  icon-name="utility:arrowdown" alternative-text="arrowdown" title="Utility" size="x-small" data-id={entitlementObjInfo.fields.Expired_Count__c.apiName} data-label={entitlementObjInfo.fields.Expired_Count__c.label} onclick={handleSort}></lightning-icon> 
+                            </template>
+                            <lightning-helptext content="This means the asset's contract(s) are expired and will default to 'Default' service coverage for any dispatches, not the contract terms. To edit these, please login to MACC and correct there."></lightning-helptext>
+                        </div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-th__action slds-text">
+                            <span class="slds-truncate" title={entitlementObjInfo.fields.Expired_Warranty_Count__c.label} data-aura-rendered-by="81:597;a">{entitlementObjInfo.fields.Expired_Warranty_Count__c.label}</span>
+                            <template if:true={isExpWarCountAsc}>
+                            <lightning-icon  icon-name="utility:arrowup" alternative-text="arrowup" title="Utility" size="x-small" data-id={entitlementObjInfo.fields.Expired_Warranty_Count__c.apiName} data-label={entitlementObjInfo.fields.Expired_Warranty_Count__c.label} onclick={handleSort}></lightning-icon> 
+                            </template>
+                            <template if:false={isExpWarCountAsc}>
+                            <lightning-icon  icon-name="utility:arrowdown" alternative-text="arrowdown" title="Utility" size="x-small" data-id={entitlementObjInfo.fields.Expired_Warranty_Count__c.apiName} data-label={entitlementObjInfo.fields.Expired_Warranty_Count__c.label} onclick={handleSort}></lightning-icon> 
+                            </template>
+                            <lightning-helptext content="Counts of Warranties that have expired and have no other contracts associated to them. These are delivered but may not be installed. If installed, these are missing contracts and don't receive contracted service, all service would be 100% billable until a contract is applied. To edit these, please login to MACC and correct there."></lightning-helptext>
+                        </div>
+                        </th>   
+                </tr>
+            </thead>
+                </template>
+            <tbody>
+                <!--<template for:each={accountEntitlementList} for:item="accountEntitlement">
+                    <tr class="slds-hint-parent" key={accountEntitlement.Id}>
+                        <td class="slds-cell-wrap"  colspan="2">
+                            <div class="slds-truncate" title={accountEntitlement.Primary_Product_Desc__c}>
+                                {accountEntitlement.prodDes}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate" title="Active Count">
+                                {accountEntitlement.activeCount}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate" title="Hold Count">
+                                {accountEntitlement.holdCount}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate" title="Expired Count">
+                                {accountEntitlement.expCount}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate" title="Expired Warranty Count">
+                                {accountEntitlement.ExpWarCount}
+                            </div>
+                        </td>
+                    </tr>
+
+                </template>-->
+                <template for:each={accountEntitlementList2} for:item="accountEntitlement">
+                    <tr class="slds-theme_info"  style="pointer-events: none;"  key={accountEntitlement.Id}>
+                        <td class="slds-cell-wrap"  colspan="2">
+                            <div class="slds-truncate slds-p-left_x-small" title={accountEntitlement.Primary_Product_Desc__c}>
+                                <b>{accountEntitlement.prodDes}</b>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate slds-p-left_small" title="Active Count">
+                                <b>{accountEntitlement.activeCount}</b>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate slds-p-left_small" title="Hold Count">
+                                <b>{accountEntitlement.holdCount}</b>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate slds-p-left_small" title="Expired Count">
+                                <b>{accountEntitlement.expCount}</b>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate slds-p-left_small" title="Expired Warranty Count">
+                                <b>{accountEntitlement.ExpWarCount}</b>
+                            </div>
+                        </td>
+                    </tr>
+
+                </template>
+                <template for:each={accountEntitlementList} for:item="accountEntitlement">
+                    <tr class="slds-hint-parent" key={accountEntitlement.Id}>
+                        <td class="slds-cell-wrap"  colspan="2">
+                            <div class="slds-truncate slds-p-left_x-small" title={accountEntitlement.Primary_Product_Desc__c}>
+                                {accountEntitlement.Primary_Product_Desc__c}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate slds-p-left_small" title="Active Count">
+                                {accountEntitlement.Active_Count__c}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate slds-p-left_small" title="Hold Count">
+                                {accountEntitlement.Hold_Count__c}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate slds-p-left_small" title="Expired Count">
+                                {accountEntitlement.Expired_Count__c}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate slds-p-left_small" title="Expired Warranty Count">
+                                {accountEntitlement.Expired_Warranty_Count__c}
+                            </div>
+                        </td>
+                    </tr>
+
+                </template>
+                
+                </tbody>
+                </table> 
+                <center><a href="javascript:void(0)"><p onclick={handleSummaryView} class="slds-p-top_small">View Summary</p></a></center>
+            </template>
+        </template>
+    </lightning-tab> 
+</lightning-tabset>
+</div>
+</template>

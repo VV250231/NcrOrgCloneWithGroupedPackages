@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>qtc_EligibleForERP__c</fullName>
+    <description>Count of Fulfillment Order Products with Quantity greater than 0</description>
+    <externalId>false</externalId>
+    <label>Eligible For ERP</label>
+    <summaryFilterItems>
+        <field>qtc_FulfillmentOrderProduct__c.qtc_Quantity__c</field>
+        <operation>greaterThan</operation>
+        <value>0</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>qtc_FulfillmentOrderProduct__c.qtc_Exclude_from_ERP__c</field>
+        <operation>equals</operation>
+        <value>False</value>
+    </summaryFilterItems>
+    <summaryForeignKey>qtc_FulfillmentOrderProduct__c.qtc_FulfillmentOrder__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

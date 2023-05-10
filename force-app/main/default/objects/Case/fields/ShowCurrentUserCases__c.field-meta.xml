@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ShowCurrentUserCases__c</fullName>
+    <description>Yes, to show current logged In user cases in My Dispute List view on Cases</description>
+    <externalId>false</externalId>
+    <formula>IF( CreatedBy.Id = $User.Id, TRUE, FALSE)</formula>
+    <label>ShowCurrentUserCases</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

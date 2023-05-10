@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reseller_Order_Date_required_for_Won_Opp</fullName>
+    <active>true</active>
+    <description>The Reseller Order Date is required for a Closed Won opportunity</description>
+    <errorConditionFormula>AND( 
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+NOT(CATM_Record__c),
+ IsWon  = TRUE
+,RecordTypeId ==&quot;0120g000000YU9x&quot;
+,($Profile.Name &lt;&gt; &quot;02 NSC Administrator&quot;) 
+,($Profile.Name &lt;&gt; &quot;04 NSC UI Administrator&quot;) 
+,($Profile.Name &lt;&gt; &quot;Soup Integration&quot;) 
+,ISBLANK(TEXT(Reseller_Order_Date__c)
+))</errorConditionFormula>
+    <errorDisplayField>Reseller_Order_Date__c</errorDisplayField>
+    <errorMessage>Please enter the Reseller Order Date</errorMessage>
+</ValidationRule>

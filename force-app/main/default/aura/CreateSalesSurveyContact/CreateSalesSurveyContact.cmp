@@ -1,0 +1,113 @@
+<aura:component controller="CreateSalesSurveyContactsApexController" Implements="lightning:availableForFlowScreens" access="global" >
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:handler name="DeleteRowEvt" event="c:DeleteRowEvt" action="{!c.removeDeletedRow}"/>
+    <aura:handler name="AddRowEvt" event="c:AddNewRowEvt" action="{!c.addNewRow}"/>
+    
+    <aura:attribute name="AccountId" type="String" />
+    <aura:attribute name="SalesSurveyid" type="String" />
+    
+    <aura:attribute name="options" type="List" default="[{'label': 'Existing Contacts', 'value': 'option1'},{'label': 'Add New Contact', 'value': 'option2'}]"/>
+    <aura:attribute name="selectedRows"  type="List"/>
+    <aura:attribute name="value" type="String" default="option1"/>
+    <aura:attribute name="ExistingcontactData" type="List"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="selectedConIdsRows"  type="List"/>
+    
+    <aura:attribute name="NewContactList" type="List"/>
+    
+    <aura:attribute name="FinalListcolumns" type="List"/>
+    <aura:attribute name="FinalSSContactsList"  type="List"/>
+    <aura:attribute name="FinalSSContactsListtoShow"  type="List"/>
+    <aura:attribute name="showErrorMessage" type="boolean" default="false"/>
+    
+    <aura:if isTrue="{!v.showErrorMessage}">
+        <ui:message title="Error!" severity="error" closable="true">
+            Last Name cannot be null.
+        </ui:message>
+    </aura:if>
+    <lightning:radioGroup name="AddContacts" label="Key Players" options="{! v.options }" value="{! v.value }" type="button"/>
+    <aura:if isTrue="{!v.value == 'option1'}">
+        <aura:if isTrue="{!not(empty(v.ExistingcontactData))}">
+            <lightning:datatable
+                                 keyField="Id"
+                                 columns="{! v.columns }"
+                                 selectedRows="{! v.selectedConIdsRows }"
+                                 data="{! v.ExistingcontactData }"
+                                 onrowselection ="{!c.GetSelectedExistingContacts }"/>
+            
+            <aura:set attribute="else">
+                <br/>
+                **Existing Contact not found**
+                <br/>
+            </aura:set>
+        </aura:if>
+    </aura:if>
+    <aura:if isTrue="{!v.value == 'option2'}">
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer"> 
+            <thead>
+                <tr class="slds-text-title_caps">
+                    <th scope="col">
+                        <div class="slds-truncate">S.No</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="First Name">First Name</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Last Name">Last Name</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Phone">Phone</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Add/Remove">Add/Remove</div>
+                    </th>
+                </tr>
+            </thead> 
+            <tbody>
+                <aura:iteration items="{!v.NewContactList}" var="item" indexVar="index">
+                    <c:showNewSSContactRow ConRow="{!item}" rowIndex="{!index}"/>
+                </aura:iteration>
+            </tbody>
+        </table>
+        <br/>
+        <div class="slds-text-align_center">
+        <lightning:buttonGroup>
+        <lightning:button variant="brand-outline" label="Cancel" onclick="{! c.handleCancel }" />
+        <lightning:button label="Add" variant="brand" disabled="false" onclick="{! c.handleAdd }"/>
+        </lightning:buttonGroup>
+        </div>
+    </aura:if>
+    
+    <aura:if isTrue="{!not(empty(v.FinalSSContactsList))}">
+        <div class="slds-p-around_medium">
+            <b>Selected Sales Survey Contacts</b>
+        </div>
+        <lightning:datatable
+                             keyField="Id"
+                             columns="{! v.FinalListcolumns }"
+                             data="{! v.FinalSSContactsList }"
+                             showRowNumberColumn="true"
+        					 onrowaction="{! c.handleRowAction }"
+                             hideCheckboxColumn="true"/>
+        <br/>
+        <div class="slds-text-align_center">
+        <lightning:button label="Save" variant="brand" disabled="false" onclick="{! c.handleSave }"/>
+        </div>
+    </aura:if>
+    
+        <aura:if isTrue="{!not(empty(v.FinalSSContactsListtoShow))}">
+        <div class="slds-p-around_medium">
+            <b>Saved Sales Survey Contacts</b>
+        </div>
+        <lightning:datatable
+                             keyField="Id"
+                             columns="{! v.FinalListcolumns }"
+                             data="{! v.FinalSSContactsListtoShow }"
+                             showRowNumberColumn="true"
+        					 onrowaction="{! c.handleRowAction }"
+                             hideCheckboxColumn="true"/>
+        <br/>
+    </aura:if>
+    
+</aura:component>

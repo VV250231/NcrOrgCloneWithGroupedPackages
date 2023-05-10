@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CATM_AUS_NZ_Contract_Exp_Date_Validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+CATM_Record__c,
+TEXT(Opportunity_Classification__c) = &quot;CATM - IBG (Core)&quot;,
+OR(IsPickVal(  Reporting_Geography__c  , &quot;Australia&quot;),
+IsPickVal(  Reporting_Geography__c  , &quot;New Zealand&quot;)),
+IsPickVal( Type , &quot;Existing Customer - Service Renewal&quot;),
+ISBLANK( Previous_Contract_Expiration_Date__c )
+
+)</errorConditionFormula>
+    <errorDisplayField>Previous_Contract_Expiration_Date__c</errorDisplayField>
+    <errorMessage>Must complete the Previous Contract Expiration Date</errorMessage>
+</ValidationRule>

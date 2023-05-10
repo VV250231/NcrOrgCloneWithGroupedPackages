@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Solution_Provider_Product__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Relationship to the Solution Provider product</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Relationship to the Solution Provider product</inlineHelpText>
+    <label>Solution Provider Product</label>
+    <lookupFilter>
+        <active>true</active>
+        <booleanFilter>6 AND ((4 AND 5 AND 1) OR (4 AND 3 AND 1 AND 2))</booleanFilter>
+        <filterItems>
+            <field>$Source.Required_SPP_Category__c</field>
+            <operation>equals</operation>
+            <valueField>Solution_Provider_Product__c.Solution_Provider_Product_Category__c</valueField>
+        </filterItems>
+        <filterItems>
+            <field>$Source.Required_SPP_Interface__c</field>
+            <operation>equals</operation>
+            <valueField>Solution_Provider_Product__c.Interface_Type__c</valueField>
+        </filterItems>
+        <filterItems>
+            <field>$Source.Required_SPP_Interface__c</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </filterItems>
+        <filterItems>
+            <field>$Source.Required_SPP_Category__c</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </filterItems>
+        <filterItems>
+            <field>$Source.Required_SPP_Interface__c</field>
+            <operation>equals</operation>
+            <value></value>
+        </filterItems>
+        <filterItems>
+            <field>Solution_Provider_Product__c.Internal_Status__c</field>
+            <operation>equals</operation>
+            <value>Available</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Solution_Provider_Product__c</referenceTo>
+    <relationshipLabel>Quote Products</relationshipLabel>
+    <relationshipName>Quote_Products</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sales_Person__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Sales Person</label>
+    <lookupFilter>
+        <active>true</active>
+        <booleanFilter>1 AND (2 OR 3) AND 4</booleanFilter>
+        <filterItems>
+            <field>User.IsActive</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <filterItems>
+            <field>User.Profile.Name</field>
+            <operation>equals</operation>
+            <value>20 Channel/Hybrid Account Director,21 Channel/Distributor Account Manager,22 Channel/Hybrid Sales (TAM&apos;s/TSM&apos;s),30 GS Account Director,30 GS Account Director w/Office Connect,30 GS Specialist,31 GS Account Manager,33 Inside Sales</value>
+        </filterItems>
+        <filterItems>
+            <field>User.Profile.Name</field>
+            <operation>equals</operation>
+            <value>35 CMS Account Director,36 CMS Account Manager,37 CMS Inside Sales</value>
+        </filterItems>
+        <filterItems>
+            <field>User.Incentive_Plan__c</field>
+            <operation>equals</operation>
+            <value>SCP</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Sales_org_Code_Mappings</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

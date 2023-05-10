@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TDS_Closed_Need_Category_Fix_ALL_Agent</fullName>
+    <booleanFilter>1 AND 2 AND 3 AND (4 or 5 or 6 OR 7)</booleanFilter>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>Creation_Category__c</columns>
+    <columns>Resolution_Category__c</columns>
+    <columns>Resolution_Other__c</columns>
+    <columns>Site_Id__c</columns>
+    <columns>CASES.LAST_UPDATE_DATE_ONLY</columns>
+    <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+    <columns>CASES.CLOSED_DATE</columns>
+    <columns>Support_Queue__c</columns>
+    <columns>CASES.SUBJECT</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Support_Queue__c</field>
+        <operation>contains</operation>
+        <value>HOS TDS Dunkin</value>
+    </filters>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>equals</operation>
+        <value>Closed</value>
+    </filters>
+    <filters>
+        <field>CASES.CLOSED_DATE</field>
+        <operation>greaterOrEqual</operation>
+        <value>1/1/2023 12:00 AM</value>
+    </filters>
+    <filters>
+        <field>Creation_Category__c</field>
+        <operation>notContain</operation>
+        <value>Vitalcast</value>
+    </filters>
+    <filters>
+        <field>Resolution_Category__c</field>
+        <operation>notContain</operation>
+        <value>Vitalcast</value>
+    </filters>
+    <filters>
+        <field>Resolution_Category__c</field>
+        <operation>equals</operation>
+        <value>Vitalcast Other</value>
+    </filters>
+    <filters>
+        <field>Creation_Category__c</field>
+        <operation>equals</operation>
+        <value>Vitalcast Other</value>
+    </filters>
+    <label>TDS Closed Need Category Fix (ALL Agent</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Email_to_PS_Engineers</fullName>
+        <description>Email to PS Engineers</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email_ID_1__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Email_ID_2__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Email_ID_3__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Email_ID_4__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Email_ID_5__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Email_ID__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/PSFR_STP_to_Create_Res</template>
+    </alerts>
+    <alerts>
+        <fullName>Notification_to_Opportunity_Owner_Manager</fullName>
+        <description>Notification to Opportunity Owner Manager</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <recipients>
+            <field>Account_Manager__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Opportunity_Owner_Email_ID__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Opportunity_Owner_Manager__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/PSFR_Notification_OOteam_initial_subm_FS</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Notified_complete_PS_Team</fullName>
+        <field>Notified_PS_Team__c</field>
+        <formula>&quot;PS Team :-&quot; &amp; BR() &amp;
+&quot;PS Team User 1 :&quot; &amp;
+Email_ID__c
+&amp; &quot;, &quot; &amp; BR()
+&amp;
+&quot;PS Team User 2 :&quot; &amp;
+Email_ID_1__c 
+&amp; &quot;, &quot; &amp; BR()
+&amp;
+&quot;PS Team User 3 :&quot; &amp;
+Email_ID_2__c 
+&amp; &quot;, &quot; &amp; BR()
+&amp;
+&quot;PS Team User 4 :&quot; &amp;
+Email_ID_3__c 
+&amp; &quot;, &quot; &amp; BR()
+&amp;
+&quot;PS Team User 5 :&quot; &amp;
+Email_ID_4__c 
+&amp; &quot;, &quot; &amp; BR()
+&amp;
+&quot;PS Team User 6 :&quot; &amp;
+Email_ID_5__c</formula>
+        <name>Notified complete PS Team</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Presales_Funding_Request__c</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>PS_Team_User1_c</fullName>
+        <field>PS_Team_User1__c</field>
+        <formula>Email_ID__c</formula>
+        <name>PS_Team_User1__c</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Presales_Funding_Request__c</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>PS_Team_User2_c</fullName>
+        <field>PS_Team_User2__c</field>
+        <formula>Email_ID_1__c</formula>
+        <name>PS_Team_User2__c</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Presales_Funding_Request__c</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>PS_Team_User3_c</fullName>
+        <field>PS_Team_User3__c</field>
+        <formula>Email_ID_2__c</formula>
+        <name>PS_Team_User3__c</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Presales_Funding_Request__c</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>PS_Team_User4_c</fullName>
+        <field>PS_Team_User4__c</field>
+        <formula>Email_ID_3__c</formula>
+        <name>PS_Team_User4__c</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Presales_Funding_Request__c</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>PS_Team_User5_c</fullName>
+        <field>PS_Team_User5__c</field>
+        <formula>Email_ID_4__c</formula>
+        <name>PS_Team_User5__c</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Presales_Funding_Request__c</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>PS_Team_User6_c</fullName>
+        <field>PS_Team_User6__c</field>
+        <formula>Email_ID_5__c</formula>
+        <name>PS_Team_User6__c</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Presales_Funding_Request__c</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Send_to_PS_Updates</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Sent to PS</literalValue>
+        <name>Send to PS Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Presales_Funding_Request__c</targetObject>
+    </fieldUpdates>
+    <rules>
+        <fullName>SENDTOPS-Notifications to PS Engineer</fullName>
+        <actions>
+            <name>Notified_complete_PS_Team</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>PS_Team_User1_c</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>PS_Team_User2_c</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>PS_Team_User3_c</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>PS_Team_User4_c</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>PS_Team_User5_c</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>PS_Team_User6_c</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Send_to_PS_Updates</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Presales_Engineer__c.Email_ID__c</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <description>Notification to PS Team and OO,OWM,AO, after initial submission of Fund Request for Resource creation</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

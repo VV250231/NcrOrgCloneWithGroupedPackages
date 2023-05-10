@@ -1,0 +1,29 @@
+<aura:component controller="tableau_c360_controller" implements="flexipage:availableForRecordHome,force:hasRecordId" access="global">
+    <aura:attribute name="acc" type="Account"/>
+    <aura:attribute name="showDashboard" type="Boolean" default="false"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <div class="header" style="padding:0.5rem;background:#16325c">
+        <div class="slds-text-color_inverse slds-text-align_center">Shipping Dashboard of {!v.acc.Name}                </div>
+    </div>
+    <div  style="padding:2rem">
+        <aura:if isTrue="{! !v.showDashboard}">            
+            <div class="slds-grid"> 
+                <div class="slds-col slds-size_2-of-12">
+                </div> 
+                <div class="slds-col slds-size_8-of-12 ">
+                    Shipping Dashboard opens automatically, If you have closed then reopen by Clicking Button.
+                </div>                
+                <div class="slds-col slds-size_2-of-12" >                  
+                    <lightning:button  name="Open In Full Screen"  label="Open Shipping Dashboard" onclick="{!c.handleShowModal}"/>
+                    <!--lightning:icon iconName="standard:shipment" alternativeText="Utility image" /-->
+                </div>
+            </div>
+        </aura:if>
+    </div>
+    <aura:if isTrue="{!v.showDashboard}">
+        <iframe src="{! 'https://dvp.ncr.com/t/Sales/views/ShippingDashboard_0/Rolling12Months?iframeSizedToWindow=true&amp;customer_nbr='+v.acc.Master_Customer_Number__c+'&amp;:embed=y&amp;:showAppBanner=false&amp;:display_count=no&amp;:showVizHome=no'}" width="100%" height="1000px;" frameBorder="0"/>	
+        <!--iframe src="{! 'https://svcanalytics.corp.ncr.com/t/Sales/views/ShippingSalesforceVersion/ShippingDashboard?iframeSizedToWindow=true&amp;customer_nbr='+v.acc.Master_Customer_Number__c+'&amp;:embed=y&amp;:showAppBanner=false&amp;:display_count=no&amp;:showVizHome=no'}" width="100%" height="1000px;" frameBorder="0"/-->  
+    </aura:if>
+    <lightning:overlayLibrary aura:id="overlayLib"/>    
+    
+</aura:component>

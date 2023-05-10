@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>number</bucketType>
+        <developerName>BucketField_9477041</developerName>
+        <masterLabel>Aged &amp; Stalled Deals</masterLabel>
+        <nullTreatment>z</nullTreatment>
+        <sourceColumnName>STAGE_DURATION</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <to>180</to>
+            </sourceValues>
+            <value>Aged</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>180</from>
+            </sourceValues>
+            <value>Stalled</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>number</bucketType>
+        <developerName>BucketField_13965023</developerName>
+        <masterLabel>Aged &amp; Stalled Deals 2</masterLabel>
+        <nullTreatment>z</nullTreatment>
+        <sourceColumnName>AGE</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <to>540</to>
+            </sourceValues>
+            <value>Stalled</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>540</from>
+            </sourceValues>
+            <value>Aged</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_64039019</developerName>
+        <masterLabel>Manager</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>User.Manager_Level_01__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Alan Walsh</sourceValue>
+            </sourceValues>
+            <value>Alan Walsh</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Brian Pilla</sourceValue>
+            </sourceValues>
+            <value>Brian Pilla</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Ron Furnier</sourceValue>
+            </sourceValues>
+            <value>Ron Furnier</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Ian Kirkpatrick</sourceValue>
+            </sourceValues>
+            <value>Ian Kirkpatrick</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Benjamin Seelos</sourceValue>
+            </sourceValues>
+            <value>Ben Seelos</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>John D Morgan</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>James deSilva</sourceValue>
+            </sourceValues>
+            <value>John Morgan</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>David E Watson</sourceValue>
+            </sourceValues>
+            <value>Dave Watson</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Mark Leinenkugel</sourceValue>
+            </sourceValues>
+            <value>Mark Leinkenkugel</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>Opportunity.OCR_2018_TEAM_H3__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.OCR_2018_TEAM_H4__c</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>AGE</field>
+    </columns>
+    <columns>
+        <field>STAGE_DURATION</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Forecast_Category__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>AMOUNT.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Solution_Value__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>User.Manager_Level_01__c</field>
+    </columns>
+    <columns>
+        <field>ROLLUP_DESCRIPTION</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Greater than 2 years old</description>
+    <filter>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6</booleanFilter>
+        <criteriaItems>
+            <column>STAGE_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Analyzing - NonFunnel,Validating - NonFunnel,Offering - NonFunnel,Proposing - NonFunnel,Closing - NonFunnel,Closed/Booked,Closed/Booked - NonFunnel,Closed/Lost</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>AGE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>greaterThan</operator>
+            <value>730</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User.LOB__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>FINANCIAL</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Industry__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Financial</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Forecast_Category__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Omitted,Closed,Exclude Pipeline,Exclude Upside,Exclude Commit</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.OCR_2018_TEAM_H3__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>GS:FS</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Global Aged Opportunities</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>STAGE_DURATION</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

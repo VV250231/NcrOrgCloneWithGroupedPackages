@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CATM_Require_Unqualified_Reason_Comments</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+ISBLANK( Disqualified_Reason_Comments__c ), 
+CATM_Record__c,
+ISPICKVAL(Disqualified_Reason__c,&apos;Not a viable prospect &apos;)
+)</errorConditionFormula>
+    <errorDisplayField>Disqualified_Reason_Comments__c</errorDisplayField>
+    <errorMessage>Please add your Disqualified Reason Comments</errorMessage>
+</ValidationRule>

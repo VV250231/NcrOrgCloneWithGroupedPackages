@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Post_Office_Mailer_Open_Leads</fullName>
+    <columns>CORE.USERS.FIRST_NAME</columns>
+    <columns>LEAD.ZIP</columns>
+    <columns>LEAD.COMPANY</columns>
+    <columns>LEAD.STATUS</columns>
+    <columns>LEAD.CITY</columns>
+    <columns>FULL_NAME</columns>
+    <columns>LEAD.PHONE</columns>
+    <columns>LEAD.EMAIL</columns>
+    <columns>Age_in_days__c</columns>
+    <columns>LEAD.CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>LEAD.STATUS</field>
+        <operation>equals</operation>
+        <value>New,Contacted,Working</value>
+    </filters>
+    <label>CATM Post Office Mailer_Open Leads</label>
+    <sharedTo>
+        <group>All_CATM</group>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,106 @@
+<template>
+    <div class="slds-box" >
+    <div class="dispatches-font " > 
+        <div class="slds-float_left" style="padding:4px">
+            <lightning-icon icon-name="standard:case" title="OpenDispatches" ></lightning-icon>
+        </div>
+        <div class="slds-float_left" style="padding:5px">
+            <h3>Open Dispatches</h3>
+        </div>
+        <template if:true={summaryView}>
+            <div class="slds-float_right" style="padding:4px;font-size:13px;">
+                <lightning-combobox name="selectRegion"  variant="label-hidden" placeholder="Select Region" onchange={handleRegionChange} options={regionOptions}>
+                </lightning-combobox>
+            </div>
+        </template>
+            
+    </div>
+    
+    <table class="slds-table slds-table_cell-buffer slds-cell-focus slds-table_bordered slds-table_fixed-layout slds-border_right slds-border_left">
+        <thead>
+            <tr class="slds-line-height_reset">
+                <template if:true={summaryView}>
+                    <th class="" scope="col">
+                        <div class="slds-truncate slds-line-clamp" title="Region">Region</div>
+                    </th>
+                </template>
+
+                <th class="" scope="col">
+                    <div class="slds-truncate"><template if:true={summaryView}>Priority Level</template></div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Meets SLA">Meets SLA</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Outside SLA">Outside of SLA</div>
+                </th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <template if:true={getDispatchList}>
+
+                <template if:true={summaryView}>
+                    <template for:each={getDispatchList} for:item="getDispatch">
+                        <tr class="slds-hint-parent" key={getDispatch.Region}>
+                           <td data-label="Region" >
+                                <div title={getDispatch.Region}>{getDispatch.Region}</div>
+                            </td> 
+                            <td data-label="Blank" >
+                                <template if:true={getDispatch.dispatchList}>
+                                    <template for:each={getDispatch.dispatchList} for:item= "item">
+                                        <span title={item.Priority} key={item.Priority}>Priority {item.Priority}<br/></span>
+                                    </template>	
+                                </template>	            
+                            </td> 
+                            <td data-label="Meets SLA" >                                    
+                                <template if:true={getDispatch.dispatchList}>
+                                    <template for:each={getDispatch.dispatchList} for:item= "item">
+                                        <span title={item.MeetSLACount} key={item.Priority}>{item.MeetSLACount}<br/></span>
+                                    </template>	
+                                </template>	 
+                            </td>
+                            <td data-label="Outside SLA" >
+                                <template if:true={getDispatch.dispatchList}>
+                                    <template for:each={getDispatch.dispatchList} for:item= "item">
+                                        <span title={item.OutsideSLACount} key={item.Priority}>{item.OutsideSLACount}<br/></span>
+                                    </template>	
+                                </template>	                                    
+                            </td> 
+                        </tr>
+                    </template>
+               </template>
+
+               <template if:false={summaryView}>
+                    <template for:each={getDispatchList} for:item="getDispatch">
+                        <template if:true={getDispatch.dispatchList}>
+                            <template for:each={getDispatch.dispatchList} for:item="dispatch">
+                                <tr class="slds-hint-parent" key={dispatch.Priority}>
+                                    <td data-label="Blank" >
+                                        <div  title={dispatch.Priority}>Priority {dispatch.Priority}</div>
+                                    </td> 
+                                    <td data-label="Meets SLA" >
+                                        <div  title={dispatch.MeetSLACount}>{dispatch.MeetSLACount}</div>
+                                    </td>
+                                    <td data-label="Outside SLA" >
+                                        <div  title={dispatch.OutsideSLACount}>{dispatch.OutsideSLACount}</div>
+                                    </td>
+                                </tr>
+                            </template>                               
+                        </template>
+                    </template>
+               </template>
+
+            </template>
+        </tbody>    
+    </table>
+
+    <template if:true={summaryView}>
+        <div style="padding: .75rem 1rem;text-align: center;font-size: .8125rem;">
+            <span>To address/view your out of SLA dispatches, please click </span>
+            <a target="_blank" href="https://dvp.ncr.com/#/site/DADI/views/BankingOverviewV2/SetupDashboard">here</a>.
+        </div>	
+    </template>
+
+    </div>
+</template>

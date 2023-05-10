@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>ASM_Role_Hierarchy__c.Account__c</field>
+    </columns>
+    <columns>
+        <field>ASM_Role_Hierarchy__c.Master_Number__c</field>
+    </columns>
+    <columns>
+        <field>ASM_Role_Hierarchy__c.Role_Name__c</field>
+    </columns>
+    <columns>
+        <field>ASM_Role_Hierarchy__c.User_Name__c</field>
+    </columns>
+    <columns>
+        <field>ASM_Role_Hierarchy__c.QuickLook_ID__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>ASM_Role_Hierarchy__c.Role_Name__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Executive Service Manager</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>ASM_Role_Hierarchy__c.Region__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>APJ</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>APJ ASM</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$ASM_Role_Hierarchy__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CUST_CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

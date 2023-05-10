@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lead_ISR_Lead_Conversion_Error</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+ CATM_Record__c = false,
+OR( RecordType.DeveloperName = &apos;Retail_Channel_Partner_Managed&apos;, RecordType.DeveloperName  = &apos;Retail_NCR_Enterprise_Managed&apos;),IsConverted
+    , OR(ISBLANK(TEXT(  Title__c )) ,ISBLANK(Address),ISBLANK(Phone),
+									   ISBLANK(TEXT(Number_of_Locations__c)),
+                                       ISBLANK(TEXT(Average_Number_of_POS_Lanes_Per_Location__c)),
+                                       ISBLANK(TEXT(Prospect_Current_Systems__c)),
+                                       ISBLANK(TEXT(Timing_for_Desired_Solution__c)),
+                                       ISBLANK(TEXT(Company_Annual_Sales__c)),
+                                       ISBLANK(TEXT( Are_They_Specialized__c)),
+                                       ISBLANK(TEXT( CFR_Branded_or_Unbranded__c)),
+ISBLANK(  Prospects_Products_Services_Solutions_of__c )
+))</errorConditionFormula>
+    <errorMessage>Fields identified as Key Fields in the Lead Path must be completed prior to Lead conversion.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,103 @@
+<aura:component controller="PRM_AccountController" implements="forceCommunity:availableForAllPageTypes">
+
+    
+	 <aura:attribute name="ObjectData" type="List" />
+    
+    <aura:attribute name="PaginationList" type="List"/>
+    <aura:attribute name="currentPage" type="Integer" default="0"/>
+    <aura:attribute name="start" type="Integer" default="0"/>
+    <aura:attribute name="end" type="Integer" default="0"/>
+    <aura:attribute name="totalPages" type="Integer" default="0"/>
+    <aura:attribute name="paginationTable" type="List" />
+    <aura:attribute name="totalRecords" type="Integer" default="0"/>
+    <aura:attribute name="pageSize" type="Integer" default="10"/>
+    <aura:attribute name="selectedView" type="String" default="All"/>
+    <aura:attribute name="next" type="boolean" default="true"/>
+    <aura:attribute name="prev" type="boolean" default="true" />
+   
+    
+    <aura:attribute name="getHelpListviews" type="String[]" 
+                    default="All Accounts"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+    
+    <!--loading spinner start... style=Brand Medium (blue dots)-->
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+           <div class="slds-spinner_brand  slds-spinner slds-spinner_large slds-is-relative" role="alert">
+             <span class="slds-assistive-text">Loading</span>
+             <div class="slds-spinner__dot-a"></div>
+             <div class="slds-spinner__dot-b"></div>
+           </div>
+        </div>
+     </aura:if>
+    <!-- Loading spinner end-->
+    
+    <div class="slds-page-header" role="banner">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-has-flexi-truncate"> 
+                <div class="slds-media slds-media_center slds-no-space slds-grow">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-account">
+                            <lightning:icon iconName="standard:account" size="large" alternativeText="Indicates approval"/>
+                            <span class="slds-assistive-text">Account</span>
+                        </span>
+                    </div>
+                    <div class="slds-media__body slds-size_1-of-4 ">
+                       
+                        <lightning:select aura:id="select" name="select" label="Account" value="{!v.selectedView}" onchange="{! c.cViewChange}" >
+                            <aura:iteration items="{!v.getHelpListviews}" var="val">
+                                <option value="{!val}" text="{!val}"></option>
+                            </aura:iteration>
+                        </lightning:select>
+                        
+                        
+                    </div>
+                </div>                    
+            </div>  
+                         
+        </div>
+    </div>
+    
+        
+    <table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal slds-no-row-hover" style="margin-bottom: 10px;"><!--Table must be responsive-->
+        <thead>
+            <tr class="slds-text-heading_label ">
+                <th class="" scope="col"><div class="slds-truncate" title="Account Name">Account Name</div></th> 
+                <th class="slds-is-sortable" scope="col"><div class="slds-truncate" title="Account Record Type">Account Record Type</div></th>
+                <th class="slds-is-sortable" scope="col"><div class="slds-truncate" title="LOB">LOB</div></th>
+                <th class="" scope="col"><div class="slds-truncate" title="Partner Program Level">Partner Program Level</div></th>
+                <th class="slds-is-sortable" scope="col"><div class="slds-truncate" title="Account Owner">Account Owner</div></th>
+                 
+            </tr>  
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.PaginationList}" var="objAcc">
+                <tr class="slds-hint-parent">  
+                    
+                    <td data-label="Account Name" class="slds-cell-wrap">
+                        <a data-record="{!objAcc.Id}" onclick="{!c.redirectToRecord}">{!objAcc.Name}</a>
+                    </td>
+                    <td data-label="Account Record Type"><ui:outputText value="{!objAcc.RecordType.Name}" /></td> 
+                    <td data-label="LOB"><ui:outputText value="{!objAcc.LOB__c}" /></td>
+                    <td data-label="Partner Program Level" class="slds-cell-wrap"><ui:outputText value="{!objAcc.Partner_Program_Level__c}" /></td>
+                    
+                    <td data-label="Account Owner"> <ui:outputText value="{!objAcc.Owner.Name}"/> </td>
+                   
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table>
+    <lightning:button label="Previous" disabled="{! 1 >= v.currentPage }" 
+                      class="slds-button slds-button_neutral slds-p-horizontal_xx-small slds-m-right_x-small slds-float_left"  
+                      onclick="{!c.cPrevious}" variant="brand"
+                      iconName='utility:back'/>
+    
+    <lightning:button label="Next" disabled="{!v.currentPage >= v.totalPages}"
+                      class="slds-button slds-button_neutral slds-p-horizontal_xx-small slds-m-right_x-small slds-float_left"
+                      onclick="{!c.cNext}" variant="brand"
+                      iconName='utility:forward' iconPosition='right'/>
+    
+</aura:component>

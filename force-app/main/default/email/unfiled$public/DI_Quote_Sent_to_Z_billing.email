@@ -1,0 +1,16 @@
+<messaging:emailTemplate subject="Your quote : {!relatedTo.zqu__Number__c} has been sent to Z-billing for {!relatedTo.zqu__Account__r.Name}" recipientType="User" relatedToType="zqu__Quote__c">
+<messaging:plainTextEmailBody >
+  Hi {!relatedTo.Owner.Name},
+
+  Your quote # {!relatedTo.zqu__Number__c} has been sent to Z-billing. 
+  
+  Quote Name: {!relatedTo.Name}  
+  Account Name: {!relatedTo.zqu__Account__r.Name}
+  Account MCN: {!relatedTo.zqu__Account__r.Master_Customer_Number__c}
+  
+  Link: {!LEFT($Api.Partner_Server_URL_150, FIND(".com/",$Api.Partner_Server_URL_150) +3)}/{!relatedTo.Id}
+          
+  Thanks 
+  NSC Administration
+</messaging:plainTextEmailBody>
+</messaging:emailTemplate>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hosp_Site_Required_Prior_To_Close</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName = &quot;Hospitality_Support&quot;,
+$Setup.Automation_Setting__c.Skip_Validation_Rule__c == FALSE,
+ISPICKVAL(Status, &quot;Closed&quot;),
+ISBLANK(Site_Id__c)
+)</errorConditionFormula>
+    <errorMessage>Site Is Required Prior To Close. Please use Quick Update to select the Site.</errorMessage>
+</ValidationRule>

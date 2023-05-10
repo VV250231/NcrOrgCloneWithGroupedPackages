@@ -1,0 +1,106 @@
+<aura:component controller="ExecBriefingController" implements="flexipage:availableForRecordHome,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+    
+    <aura:attribute name="execBrief" type="Executive_Briefing__c"/>
+    <aura:attribute name="NmberOfRelatedRecords" type="String"/>    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/> 
+    <lightning:spinner aura:id="mySpinner"  class="slds-hide"/>
+    <aura:attribute name="spinnerEnabler" type="boolean" default="false"/>
+     <aura:attribute name="ExbFieldLabel" type="Map" />
+    <aura:attribute name="AccessCheck" type="String"/>
+   
+    <aura:if isTrue="{!v.spinnerEnabler}">
+        <lightning:spinner variant="brand" size="large"/>
+    </aura:if>
+    
+    <aura:if isTrue="{!v.AccessCheck == 'HaveNOAccess'}">
+    <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+        <span class="slds-assistive-text">warning</span>
+        <span class="slds-icon_container slds-icon-utility-warning slds-m-right_x-small" >
+            <lightning:icon iconName="utility-sprite:ban"/>
+        </span>
+        <h2>You don't have access to view this section.</h2>
+    </div>
+    </aura:if>
+ 
+    <aura:if isTrue="{!v.AccessCheck == 'HaveAccess'}">
+    <article class="slds-card">
+        <header class="slds-card__header slds-grid">
+            <div class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                <lightning:icon iconName="standard:document" size="medium" alternativeText="Indicates approval"/>
+                </div>
+                <div class="slds-media__body slds-truncate">
+                    <h2><u>
+                        <a class="slds-text-link_reset" onclick="{!c.goToExecBriefingListView}">
+                            <span class="slds-text-heading_small">Executive Briefing({!v.NmberOfRelatedRecords})</span>
+                        </a></u>
+                    </h2>
+                </div>
+            </div>
+            
+            
+            <div class="slds-no-flex">
+                <button class="slds-button slds-button_neutral slds-col_bump-left" onclick="{! c.proceed }">New</button>
+            </div>
+        </header>
+        <div class="slds-card__body">
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                <thead>
+                    <tr class="slds-text-title_caps">
+                        <th scope="col" class="">
+                            <div class="slds-truncate" title=""></div>
+                        </th>
+                        <th scope="col" class="">
+                            <div class="slds-truncate" title="{!v.ExbFieldLabel.name}" style="width: 90px;">{!v.ExbFieldLabel.name}</div>
+                        </th>
+                        <th scope="col" class="">
+                            <div class="slds-truncate" title="{!v.ExbFieldLabel.cloud_revenue_2015__c}" style="width: 90px;">{!v.ExbFieldLabel.cloud_revenue_2015__c}</div>
+                        </th>
+                        <th scope="col" class="">
+                            <div class="slds-truncate" title="{!v.ExbFieldLabel.hw_revenue_2015__c}" style="width: 90px;">{!v.ExbFieldLabel.hw_revenue_2015__c}</div>
+                        </th>
+                        <th scope="col" class="">
+                            <div class="slds-truncate" title="{!v.ExbFieldLabel.cloud_revenue_2016__c}" style="width: 90px;">{!v.ExbFieldLabel.cloud_revenue_2016__c}</div>
+                        </th>
+                        <th scope="col" class="">
+                            <div class="slds-truncate" title="{!v.ExbFieldLabel.hw_revenue_2016__c}" style="width: 90px;">{!v.ExbFieldLabel.hw_revenue_2016__c}</div>
+                        </th>
+                        <th scope="col" class="">
+                            <div class="slds-truncate" title="{!v.ExbFieldLabel.cloud_ytd_actual_2017__c}" style="width: 90px;">{!v.ExbFieldLabel.cloud_ytd_actual_2017__c}</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{!v.execBrief}" var="exb">
+                        <tr>
+                            <td data-label="Account Name" class="">
+                                <lightning:button variant="brand" label="Edit" value="{!exb.Id}" onclick="{! c.editTheRecord}"/>
+                            </td>
+                            <th scope="row" data-label="Opportunity Name" class="">
+                                <div class="slds-truncate" title="{!exb.Name}"><a data-record="{!exb.Id}" onclick="{!c.redirectToExbRecord}">{!exb.Name}</a></div>
+                            </th>
+                            <td data-label="Close Date" class="">
+                                <div class="slds-truncate" title="{!exb.Cloud_Revenue_2015__c}">{!exb.Cloud_Revenue_2015__c}</div>
+                            </td>
+                            <td data-label="Prospecting" class="">
+                                <div class="slds-truncate" title="{!exb.HW_Revenue_2015__c}">{!exb.HW_Revenue_2015__c}</div>
+                            </td>
+                            <td data-label="Confidence" class="">
+                                <div class="slds-truncate" title="{!exb.Cloud_Revenue_2016__c}">{!exb.Cloud_Revenue_2016__c}</div>
+                            </td>
+                            <td data-label="Amount" class="">
+                                <div class="slds-truncate" title="{!exb.HW_Revenue_2016__c}">{!exb.HW_Revenue_2016__c}</div>
+                            </td>
+                            <td data-label="Contact" class="">
+                                <div class="slds-truncate" title="{!exb.HW_Revenue_2016__c}">{!exb.Cloud_YTD_Actual_2017__c}</div>
+                            </td>
+                        </tr>
+                    </aura:iteration>
+                </tbody>
+            </table>
+        </div>
+    </article>
+    </aura:if>
+    
+    
+</aura:component>

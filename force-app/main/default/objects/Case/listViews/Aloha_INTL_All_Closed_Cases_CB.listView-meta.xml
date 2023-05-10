@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Aloha_INTL_All_Closed_Cases_CB</fullName>
+    <columns>Support_Queue__c</columns>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>Site_Id__c</columns>
+    <columns>CreatedDate__c</columns>
+    <columns>CASES.LAST_UPDATE_DATE_ONLY</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>Creation_Category__c</columns>
+    <columns>Case_Age_In_Days__c</columns>
+    <columns>Jira_Number__c</columns>
+    <columns>Status_Reason__c</columns>
+    <columns>Region__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Support_Queue__c</field>
+        <operation>contains</operation>
+        <value>INTL</value>
+    </filters>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>equals</operation>
+        <value>Closed,Resolved,Cancelled</value>
+    </filters>
+    <label>Aloha INTL All Closed Cases _ CB</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

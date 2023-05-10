@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Required_Field_Validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISBLANK(Order_Number__c)  || ISBLANK(Order_Date__c) ||    ISBLANK(Master_Customer_Number__c) || ISBLANK(Customer_Name__c) ||  ISBLANK(Customer_Country_Code__c) ||  ISBLANK( Input_Currency__c 
+) || ISBLANK( Input_Total_Order_Amount__c) || ISBLANK( Source_System__c)</errorConditionFormula>
+    <errorMessage>Order Date, Order Number, Master Customer Number, Customer Name, Customer Country Code, Sales Org Code, Total Order Amount, Currency and Source System are mandatory.</errorMessage>
+</ValidationRule>

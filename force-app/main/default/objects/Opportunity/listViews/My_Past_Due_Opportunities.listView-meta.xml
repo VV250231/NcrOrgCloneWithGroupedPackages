@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Past_Due_Opportunities</fullName>
+    <columns>Key_Opportunity__c</columns>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <columns>OPPORTUNITY.CLOSE_DATE</columns>
+    <columns>Probability_of_Winning_Deal__c</columns>
+    <columns>OPPORTUNITY.LAST_UPDATE</columns>
+    <columns>Annual_Contract_Value__c</columns>
+    <columns>Incremental_ACV__c</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>OPPORTUNITY.STAGE_NAME</field>
+        <operation>equals</operation>
+        <value>Analyzing,Validating,Offering,Proposing,Closing</value>
+    </filters>
+    <filters>
+        <field>OPPORTUNITY.CLOSE_DATE</field>
+        <operation>lessThan</operation>
+        <value>TODAY</value>
+    </filters>
+    <label>CATM My Past Due Opportunities</label>
+</ListView>

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_41438917</developerName>
+        <masterLabel>NAMER</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Opportunity.OCR_TEAM__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Retail - NAMER - Canada-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Retail - NAMER - Channel - OTHER</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Retail - NAMER - Channel - RCS</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Retail - NAMER - Major East - North-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Retail - NAMER - Major East - South-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Retail - NAMER - Major West-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Retail - NAMER - Regionals - Regional Central-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Retail - NAMER - Regionals - Regional West-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Retail - NAMER - Region OFC - Region OFC - NAMER VP</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Retail - NAMER - Region OFC - Region OFC - Other</sourceValue>
+            </sourceValues>
+            <value>NAMER</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Retail - IEMEA - DNLB - DACH - Austria</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Retail - IEMEA - DNLB - DACH - Germany</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Retail - IEMEA - DNLB - DACH - Switzerland</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Retail - IEMEA - ENT - Emerging - Czeck</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Retail - IEMEA - ENT - Emerging - Hungary</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Retail - IEMEA - ENT - Emerging - Poland</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Retail - IEMEA - ENT - Nordics - Denmark</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Retail - IEMEA - ENT - Nordics - Sweden</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Retail - IEMEA - ENT - Turkey-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Retail - IEMEA - MEA and India - MEA Other-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Retail - IEMEA - Russia - Russia and CIS-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Retail - IEMEA - South - Italy-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Retail - IEMEA - UK - UKI-D6</sourceValue>
+            </sourceValues>
+            <value>EMEA</value>
+        </values>
+        <values>
+            <value>APAC</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>Account.Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>AMOUNT.CONVERT</field>
+    </columns>
+    <columns>
+        <field>PROBABILITY</field>
+    </columns>
+    <columns>
+        <field>AGE</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Hardware_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Software_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.HWM__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.SWM__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Managed_Service__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.TS_Product_Total__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Cloud_Products__c.CONVERT</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>TYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Existing Customer - Service Renewal,Existing Customer - Subscription Renewal</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>STAGE_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Prospecting,Analyzing,Validating,Offering,Proposing,Closing,Closed/Booked,Closed/Lost</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FK_$Sales_Org__c.Hierarchy_3__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>GS:RET</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>FK_$Sales_Org__c.Hierarchy_3__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Opportunity.Book_Quarter__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>RETAILRenewals - by Qtr</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity@Opportunity.Sales_Org__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CURNEXT3Q</interval>
+    </timeFrameFilter>
+</Report>

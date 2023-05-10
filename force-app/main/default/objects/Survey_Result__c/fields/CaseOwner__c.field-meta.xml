@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CaseOwner__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(ISPICKVAL(Contact__r.Account.LOB__c, &apos;T&amp;T&apos;),  Contact__r.OwnerId,Contact__r.Account.OwnerId)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>CaseOwner</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

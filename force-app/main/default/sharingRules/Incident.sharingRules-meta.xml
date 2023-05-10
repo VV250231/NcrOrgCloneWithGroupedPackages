@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Incident_Edit_Access</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Incident Edit Access</label>
+        <sharedTo>
+            <group>Incident_Edit_Access</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>IncidentNumber</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

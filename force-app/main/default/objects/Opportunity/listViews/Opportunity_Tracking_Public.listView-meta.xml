@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opportunity_Tracking_Public</fullName>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>OPPORTUNITY.CLOSE_DATE</columns>
+    <columns>Forecast_Category__c</columns>
+    <columns>OPPORTUNITY.AMOUNT</columns>
+    <columns>CORE.USERS.FULL_NAME</columns>
+    <columns>OPPORTUNITY.PROBABILITY</columns>
+    <columns>Risk_Comments__c</columns>
+    <columns>Commitment_Risk__c</columns>
+    <columns>Probability_of_Winning_Deal__c</columns>
+    <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>OPPORTUNITY.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Opportunity.IncludeinFunnel</value>
+    </filters>
+    <filters>
+        <field>OPPORTUNITY.STAGE_NAME</field>
+        <operation>equals</operation>
+        <value>Prospecting,Analyzing,Validating,Offering,Proposing,Closing</value>
+    </filters>
+    <label>Opportunity Tracking Public</label>
+    <sharedTo>
+        <role>GLOBALSALESVP</role>
+        <roleAndSubordinatesInternal>FIN_NAMER_DIG_BANKING_VP</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

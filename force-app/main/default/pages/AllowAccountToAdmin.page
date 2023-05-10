@@ -1,0 +1,59 @@
+<apex:page standardController="Account" extensions="AllowAccountToAdmin">
+<!--<apex:page Controller="AllowAccountToAdmin">-->
+    <apex:outputPanel rendered="{!islightningView}">
+        <apex:outputPanel rendered="{!isAllowedView}">          
+            <script>       
+                redirect();
+                
+                function redirect(){
+                    sforce.one.navigateToURL('/001/o');
+                    setTimeout(createRecord, 2000);
+                }
+                
+                function createRecord(){
+                    sforce.one.createRecord("Account","{!selRecTypeID}");
+                }
+            </script>
+        </apex:outputPanel>
+        
+        <apex:outputPanel rendered="{!NOT(isAllowedView)}">         
+            <center>
+                <apex:stylesheet value="{!URLFOR($Resource.SLDS103, 'assets/styles/salesforce-lightning-design-system.min.css')}" />
+                <div class="slds-notify_container">
+                    <div class="slds-notify slds-notify--alert slds-theme--error slds-theme--alert-texture" role="alert">
+                        <button class="slds-button slds-notify__close slds-button--icon-inverse" onclick="goBack();">
+                            <svg aria-hidden="true" class="slds-button__icon">
+                                <use href="{!URLFOR($Resource.SLDS103, '/assets/icons/utility-sprite/svg/symbols.svg#close')}"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <span class="slds-assistive-text">Error</span>
+                        <h2>
+                            <svg class="slds-icon slds-icon--small slds-m-right--x-small" aria-hidden="true">                               
+                                <use href="{!URLFOR($Resource.SLDS103, '/assets/icons/utility-sprite/svg/symbols.svg#ban')}"></use>
+                            </svg>{!ErrorMsg}
+                        </h2>
+                    </div>
+                </div>              
+            </center>
+            <script>
+                function goBack(){
+                    sforce.one.back( true );
+                }
+            </script>
+        </apex:outputPanel>
+    </apex:outputPanel>
+    
+    <apex:outputPanel rendered="{!NOT(islightningView)}">
+        <apex:outputPanel rendered="{!isAllowedView}">
+            
+            <script>
+                window.location.href = "/001/e?retURL=%2F001%2Fo&nooverride=1&RecordType={!selRecTypeID}";      
+            </script>
+        </apex:outputPanel>
+        
+        <apex:outputPanel rendered="{!NOT(isAllowedView)}">
+            <apex:pageMessage summary="{!ErrorMsg}" severity="error" strength="3" />
+        </apex:outputPanel>
+    </apex:outputPanel>
+</apex:page>

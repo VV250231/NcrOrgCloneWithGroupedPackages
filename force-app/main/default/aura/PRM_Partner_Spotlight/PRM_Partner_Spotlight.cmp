@@ -1,0 +1,48 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightning:actionOverride,force:hasSObjectName" access="global" >
+	<aura:attribute name="selectedSpotLight" type="String" />
+    <aura:attribute name="isSelection" type="Boolean" default="true" />
+    <aura:attribute name="isPFF" type="Boolean" default="false" />
+    <aura:attribute name="isMDF" type="Boolean" default="false" />
+    <aura:attribute name="isPME" type="Boolean" default="false" />
+    <aura:attribute name="isSCW" type="Boolean" default="false" />
+    <aura:attribute name="isMBRT" type="Boolean" default="false" />
+    
+    <aura:handler name="CancelRequestEvt" event="c:CancelMDFRequestEvt" action="{!c.cancelRequest}"/>
+    
+   	<aura:attribute name="SpotLights" type="String[]" 
+                    default="MDF Success Story,Miscellaneous Business Related Topic,Partner Ambassador Event,Significant Customer Win"/>
+    
+    <aura:if isTrue="{!v.isSelection}" >
+    
+        <lightning:select aura:id="select" name="select" label="Partner Spotlight" value="{!v.selectedSpotLight}">
+            <aura:iteration items="{!v.SpotLights}" var="spotLight">
+                <option value="{!spotLight}" text="{!spotLight}"></option>
+            </aura:iteration>
+        </lightning:select>
+        <br/>
+        <br/>
+        <center><lightning:button variant="brand" label="Submit" onclick="{! c.redirectToPage }" /></center>
+    </aura:if>
+    
+    
+    
+    <aura:if isTrue="{!v.isPFF}" >
+        <c:PRM_PartnerFeatureFridayPage />
+    </aura:if>
+    
+    <aura:if isTrue="{!v.isMDF}" >
+        <c:PRM_MDFSuccessStory />
+    </aura:if>
+    
+    <aura:if isTrue="{!v.isPME}" >
+        <c:PRM_PartnerAmbassadorEvent />
+    </aura:if>
+    
+    <aura:if isTrue="{!v.isSCW}" >
+        <c:PRM_SignificantCustomerWin />
+    </aura:if>
+
+    <aura:if isTrue="{!v.isMBRT}" >
+        <c:PRM_MiscellaneousBusinessRelatedTopics />
+    </aura:if>
+</aura:component>

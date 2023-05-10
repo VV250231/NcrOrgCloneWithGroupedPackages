@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>(LAST_STAGE_CHANGE_DATE:UNIQUE)-(LAST_UPDATE:UNIQUE)</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Days between last activity and close</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>CREATED_DATE:UNIQUE - LAST_ACTIVITY:UNIQUE</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA2</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>#days - Created Date to last activity</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_85809223</developerName>
+        <masterLabel>Sales</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>ROLLUP_DESCRIPTION</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - Central</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - Central Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - North East</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - North East - Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - South East</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - South East - Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - Texas</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - Texas Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - West</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - West Sales</sourceValue>
+            </sourceValues>
+            <value>AE</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Business Development Office</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - ATL/CAR</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - ATL/CAR Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - BOS/DC</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - BOS/DC Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - Central</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - Central Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - CHI/DEN/LV Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - Florida</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - Florida Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - N CAL Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - NY1</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - NY1 Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - Texas</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - Texas Sales</sourceValue>
+            </sourceValues>
+            <value>BDR</value>
+        </values>
+    </buckets>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <axisBinding>y</axisBinding>
+            <column>RowCount</column>
+        </chartSummaries>
+        <chartType>HorizontalBarGrouped</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>FULL_NAME</groupingColumn>
+        <legendPosition>Right</legendPosition>
+        <location>CHART_BOTTOM</location>
+        <secondaryGroupingColumn>Opportunity.Primary_Loss_Reason__c</secondaryGroupingColumn>
+        <showAxisLabels>false</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>true</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>ROLLUP_DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Closed_Lost_Comments__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Created_Date__c</field>
+    </columns>
+    <columns>
+        <field>LAST_ACTIVITY</field>
+    </columns>
+    <columns>
+        <field>AGE</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>AMOUNT</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>CAMPAIGN_SOURCE</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>NEXT_STEP</field>
+    </columns>
+    <columns>
+        <field>LEAD_SOURCE</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Risk_Comments__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Channel_Office__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND (5 OR 6 OR 7) AND 8 AND 9</booleanFilter>
+        <criteriaItems>
+            <column>User.LOB__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>HOSPITALITY</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>LAST_STAGE_CHANGE_DATE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>greaterOrEqual</operator>
+            <value>1/1/2021 12:00 AM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>STAGE_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Closed/Lost</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User.Country_Code__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>US</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CAMPAIGN_SOURCE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>2021_Contacted_Nurture_Hospitality,2021_Disqualified_Nurture_Hospitality,2021_Closed/Lost_Nurture_Hospitality,2021_01_FastCasual_SupplierPortal_Campaign_Hospitality,2021_01_FastCasual_GatedContentDownload_Campaign_Hospitality,2021_WinsightLoyaltyWebinar_Hospitality_Campaign,2021_02_OrderPay_Campaign_Hospitality,2021_02_Text2Pay_Hospitality_Campaign,2021_MarketingInboundCalls_Campaign_Hospitality,2021_May_SilverContactUs_HOSP,2021_May_SilverBuyNow_HOSP,2020_11_GuestExperiencesWebinar_Campaign_Hospitality,2021_03_RestaurantSolutions_FacebookInstagram_Hospitality,2021_01_WinsightRoundTable_Campaign_Hospitality,2021_Capterra_ReviewSite_Hospitality,2021_02_OrderPay_Facebook/Instagram_Hospitality,2021_Prospecting_Campaign_Hospitality,2021_2_G2 Reveiw site_Campaign_Hospitality,TRAVirtualEvent2020,Hospitality-Contact-Us,ContactUs-2020-Marketo,2020_06_ContactlessDiningExperience_Campaign_Hospitality,IFBTA_2020,2020_09_RestaurantSolutions_Campaign_Hospitality,2020_09_SmallBusinessPOS_Campaign_Hospitality,2020_09_CompetitivePOS_Campaign_Hospitality,2021_06_Restaurant_Activity_Report_Hospitality,2021_06_RRF_campaign_hospitality,2021_07_Upgrade_Retention_Hospitality,2021_Nurture_Campaign_Hospitality,2020_05_MobilePay_Campaign_Hospitality,HOS External Referral Program,HOS Employee Referral PrograM,2021_Chatbot</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CAMPAIGN_SOURCE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>2022_02_GoogleAdsInstant_Hospitality,2021_Contacted_Nurture_Hospitality,2021_Disqualified_Nurture_Hospitality,2021_Closed/Lost_Nurture_Hospitality,2021_01_FastCasual_SupplierPortal_Campaign_Hospitality,2021_01_FastCasual_GatedContentDownload_Campaign_Hospitality,2021_WinsightLoyaltyWebinar_Hospitality_Campaign,2021_02_OrderPay_Campaign_Hospitality,2021_02_Text2Pay_Hospitality_Campaign,2021_MarketingInboundCalls_Campaign_Hospitality,2021_May_SilverContactUs_HOSP,2021_May_SilverBuyNow_HOSP,2020_11_GuestExperiencesWebinar_Campaign_Hospitality,2021_03_RestaurantSolutions_FacebookInstagram_Hospitality,2021_01_WinsightRoundTable_Campaign_Hospitality,2021_Capterra_ReviewSite_Hospitality,2021_02_OrderPay_Facebook/Instagram_Hospitality,2021_Prospecting_Campaign_Hospitality,2021_2_G2 Reveiw site_Campaign_Hospitality,TRAVirtualEvent2020,Hospitality-Contact-Us,ContactUs-2020-Marketo,2020_06_ContactlessDiningExperience_Campaign_Hospitality,IFBTA_2020,2020_09_RestaurantSolutions_Campaign_Hospitality,2020_09_SmallBusinessPOS_Campaign_Hospitality,2020_09_CompetitivePOS_Campaign_Hospitality,2021_06_Restaurant_Activity_Report_Hospitality,2021_06_RRF_campaign_hospitality,2021_07_Upgrade_Retention_Hospitality,2021_Nurture_Campaign_Hospitality,2020_05_MobilePay_Campaign_Hospitality,2022_03_Request_A_Demo_Hospitality</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CAMPAIGN_SOURCE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>HOS External Referral Program,2021_Chatbot,2022_02_GoogleAdsInstant_Hospitality,2022_Linkedin_Ads_Hospitality,2022_04_New_England_Food_Show_Event_Hospitality,2022_03_CRB_Colorado_Bar_Show_Hospitality2022_03_IRFS_Foodservice_Show_NY_Hospitality,2022_May_NRA_Hospitality</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Primary_Loss_Reason__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Solution Differentiation,Opportunity created in error or Administrative purposes</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Primary_Loss_Reason__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Opportunity created in error or Administrative purposes</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>FULL_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Opportunity.Primary_Loss_Reason__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Month</dateGranularity>
+        <field>LAST_STAGE_CHANGE_DATE</field>
+        <sortOrder>Desc</sortOrder>
+    </groupingsDown>
+    <name>Mktg sourced Closed/Lost (solution diff</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>closed</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

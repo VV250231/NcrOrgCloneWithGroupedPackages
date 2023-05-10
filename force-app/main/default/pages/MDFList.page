@@ -1,0 +1,91 @@
+<apex:page standardController="SFDC_MDF__c" extensions="MDFListControllerExt" recordSetVar="MDFRequests" >
+    <apex:pageMessages />
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockButtons >
+                <apex:commandButton value="New MDF Request" action="{! redirectToNewMDFRequest}"/>
+            </apex:pageBlockButtons>           
+            
+            <apex:pageBlock >
+                <apex:panelGrid columns="2">
+                    <apex:outputLabel value="View:"/>
+                    <!--filterId is the porperty of standardSetController, Returns the ID of the filter that is currently in context-->
+                    <apex:selectList value="{!filterId}" size="1"> 
+                        <apex:actionSupport event="onchange" rerender="MDFRequest_table" >
+                            <apex:param name="NewFilter" value="true" assignTo="{!newFilter}"/>
+                        </apex:actionSupport>
+                        <!--standardSetController Returns a list of the listviews available to the current user -->
+                        <apex:selectOptions value="{!listviewoptions}"/>                       
+                    </apex:selectList>
+                </apex:panelGrid>
+            </apex:pageBlock>
+
+            <apex:pageBlockTable value="{! MdfRequestPagination}" var="request" id="MDFRequest_table">
+                
+                <apex:column width="100">
+                    <apex:facet name="header">
+                        Action
+                    </apex:facet>                                      
+                    <apex:outputPanel rendered="{! request.mdfRequest.status__c != 'Approved'}">
+                        <apex:commandLink value="Del" action="{! deleteMDFRequest}">
+                            <apex:param name="recordID" value="{!request.mdfRequest.Id}"/>
+                        </apex:commandLink>
+                    </apex:outputPanel>                  
+                </apex:column>                                          
+                <apex:column >
+                    <apex:facet name="header">   
+                       <apex:commandLink value="Activity{!IF(sortExpression=='name',IF(sortDirection='ASC','▼','▲'),'')}" reRender="MDFRequest_table">
+                         <apex:param value="name" name="column" assignTo="{!sortExpression}" ></apex:param>
+                       </apex:commandLink>
+                     </apex:facet>
+                    <apex:outputLink value="/apex/mdfRequestView">
+                        {! request.mdfRequest.Name}
+                        <apex:param name="id" value="{! request.mdfRequest.Id}"/>
+                    </apex:outputLink>
+                </apex:column>              
+                <apex:column >
+                    <apex:facet name="header">   
+                       <apex:commandLink value="MDF Request Status{!IF(sortExpression=='Status__c',IF(sortDirection='ASC','▼','▲'),'')}" reRender="MDFRequest_table">
+                         <apex:param value="Status__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                       </apex:commandLink>
+                     </apex:facet>
+                     <apex:outputField value="{! request.mdfRequest.status__c}"/>
+                </apex:column>
+                
+                <apex:column >
+                    <apex:facet name="header">   
+                       <apex:commandLink value="Activity Start Date{!IF(sortExpression=='Activity_Date__c',IF(sortDirection='ASC','▼','▲'),'')}" reRender="MDFRequest_table">
+                         <apex:param value="Activity_Date__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                       </apex:commandLink>
+                     </apex:facet>
+                     <apex:outputField value="{! request.mdfRequest.Activity_Date__c}"/>
+                </apex:column>
+                
+                <apex:column headerValue="Claim Status"> 
+                    <apex:outputText value="{! request.mdfClaim.Status__c}" rendered="{!  request.mdfClaim != null}"></apex:outputText>
+                </apex:column>
+                <apex:column >
+                    <!--
+                    <apex:outputLink value="/apex/mdfRequestView">
+                        {! request.Request_ID__c}
+                        <apex:param name="id" value="{! request.Id}"/>
+                    </apex:outputLink>
+                    -->
+                    <apex:facet name="header">   
+                       <apex:commandLink value="Request No{!IF(sortExpression=='Request_ID__c',IF(sortDirection='ASC','▼','▲'),'')}" reRender="MDFRequest_table">
+                         <apex:param value="Request_ID__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                       </apex:commandLink>
+                     </apex:facet>
+                     <apex:outputField value="{! request.mdfRequest.Request_ID__c}"/>
+                </apex:column>
+                
+            </apex:pageBlockTable>
+            
+            <apex:panelGrid columns="2">
+              <apex:commandLink action="{!doPrevious}" reRender="MDFRequest_table">Previous</apex:commandlink>
+              <apex:commandLink action="{!doNext}" reRender="MDFRequest_table">Next</apex:commandlink>
+            </apex:panelGrid>
+          
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

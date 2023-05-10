@@ -1,0 +1,26 @@
+<aura:component >
+    <aura:attribute name="showSpinner" type="boolean" default="false"/> 
+    <aura:attribute name="message" type="string" default="Loading..."/> 
+	<aura:handler name="change" value="{!v.showSpinner}" action="{!c.changeSpinner}"/>
+    
+	<div class="slds-spinner_container slds-hide cSpinner" aura:id="spinner">
+        
+		<div class="slds-spinner--brand slds-spinner slds-spinner--large" aria-hidden="false" role="status">
+             
+    		
+            <div class="slds-spinner__dot-a"></div>
+    		<div class="slds-spinner__dot-b"></div>
+            <div class="slds-spinner__dot-c"></div> 
+     		
+  		</div>
+        <div class="slds-container--fluid slds-m-top--large ">
+            <div class="slds-grid slds-grid--align-center slds-text-heading--small lodingMessage">
+               <div class = "slds-align_absolute-center"> {!v.message}</div>
+        </div>
+    </div>
+        
+	</div>
+    
+    
+    
+</aura:component>

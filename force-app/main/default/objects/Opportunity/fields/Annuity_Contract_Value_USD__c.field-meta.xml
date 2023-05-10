@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Annuity_Contract_Value_USD__c</fullName>
+    <description>This field is User for sending data to USM and will contain Annuity Contract Value in UDS.</description>
+    <externalId>false</externalId>
+    <formula>IF( ISPICKVAL(CurrencyIsoCode, &quot;USD&quot;), 
+(Annuity_Contract_Value__c ) ,(Annuity_Contract_Value__c / Currency_Conversion_Rate__c))</formula>
+    <label>Recurring Revenue Contract Value(USD)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>3</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

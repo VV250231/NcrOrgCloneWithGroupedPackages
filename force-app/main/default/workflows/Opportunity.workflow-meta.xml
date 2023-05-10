@@ -1,0 +1,2635 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Closed_Opportunity_Alert</fullName>
+        <description>Closed Opportunity Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>jm132576@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Closed_Opportunity_Alert</template>
+    </alerts>
+    <alerts>
+        <fullName>Closed_Opportunity_Alert_For_CFI_and_Channel</fullName>
+        <description>Closed Opportunity Alert For CFI and Channel</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>rf128188@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Closed_Opportunity_Alert</template>
+    </alerts>
+    <alerts>
+        <fullName>Cross_Sell_Notification_when_the_Sales_Program_value_Hospitality_Cross_Selling_t</fullName>
+        <description>Cross Sell Notification when the Sales Program value = Hospitality Cross-Selling, trigger an email notification to opportunity creator is sent.</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Hospitality_Communications/Cross_Sell_Notification</template>
+    </alerts>
+    <alerts>
+        <fullName>DNBI_Credit_Approved</fullName>
+        <description>DNBI: Credit Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>DefaultWorkflowUser</senderType>
+        <template>DNBI__DNBI_email_Templates/DNBI_Credit_Request_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>DNBI_Credit_Declined</fullName>
+        <description>DNBI: Credit Declined</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>DNBI__DNBI_email_Templates/DNBI_Credit_Request_Declined</template>
+    </alerts>
+    <alerts>
+        <fullName>DNBI_Credit_Pending</fullName>
+        <description>DNBI: Credit Pending</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>DNBI__DNBI_email_Templates/DNBI_Credit_Request_Pending</template>
+    </alerts>
+    <alerts>
+        <fullName>DNBI__Send_Credit_Status_Change_Notification_for_Opportunity</fullName>
+        <description>Send Credit Status Change Notification for Opportunity</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>DNBI__DNBI_email_Templates/DNBI__DNBI_Credit_Information_Update_for_Opportunity</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Alert_for_DI_CA_s_when_an_opportunity_is_placed_in_the_Closed_Booked_statu</fullName>
+        <description>Email Alert for DI CA&apos;s when an opportunity is placed in the Closed/Booked status.</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/DI_Opporutnity_Closed_Booked_1</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Germany_Sales_Admin_Opportunity_Approved</fullName>
+        <description>Email IntBG Sales Admin Germany Opportunity Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>Kristina_Zaveckiene</recipient>
+            <type>group</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Opportunity_Templates/Opportunity_IntBG_Opp_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_IntBG_Approved</fullName>
+        <description>Email IntBG Sales Opp Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>IntBG_Sales_Ops</recipient>
+            <type>group</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Opportunity_Templates/Opportunity_Opp_Deal_Committee_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_IntBG_Denied</fullName>
+        <description>Email IntBG Sales Opp Denied</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>IntBG_Sales_Ops</recipient>
+            <type>group</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Opportunity_Templates/Opportunity_Opp_Deal_Committee_Denied</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_IntBG_Finance_Model_Complete</fullName>
+        <description>Email IntBG Sales Opp Finance Model Completed</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Owner_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <recipient>IntBG_Sales_Ops</recipient>
+            <type>group</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Opportunity_Templates/Opportunity_Opp_Finance_Model_Complete</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_IntBG_Finance_UK_ROI_Opportunity_Approved</fullName>
+        <description>Email IntBG IBG Finance UK &amp; ROI Opportunity Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>IntBG_IBG_Finance_UK_ROI</recipient>
+            <type>group</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Opportunity_Templates/Opportunity_IntBG_Opp_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_IntBG_Germany_Sales_Admin_Opportunity_Approved</fullName>
+        <description>Email IntBG Germany Sales Admin Opportunity Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>CATM_Germany_Sales_Admin</recipient>
+            <type>group</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Opportunity_Templates/Opportunity_IntBG_Opp_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_IntBG_IBG_Spain_Sales_Admin</fullName>
+        <description>Email IntBG IBG Spain Sales Admin Opp Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>IntBG_IBG_Sales_Admin_Spain</recipient>
+            <type>group</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Opportunity_Templates/Opportunity_IntBG_Opp_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_IntBG_In_Review_Finance_Australia</fullName>
+        <description>Email IntBG Sales Opp In Review - Finance Australia</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>IntBG_Finance_Australia</recipient>
+            <type>group</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Opportunity_Templates/Opportunity_Opp_ready_for_finance_review</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_IntBG_In_Review_Finance_Germany</fullName>
+        <description>Email IntBG Sales Opp In Review - Finance Germany</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>IntBG_Finance_Germany</recipient>
+            <type>group</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Opportunity_Templates/Opportunity_Opp_ready_for_finance_review</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_IntBG_In_Review_Finance_Spain</fullName>
+        <description>Email IntBG Sales Opp In Review - Finance Spain</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>IntBG_Finance_Spain</recipient>
+            <type>group</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Opportunity_Templates/Opportunity_Opp_ready_for_finance_review</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_IntBG_In_Review_Finance_UK</fullName>
+        <description>Email IntBG Sales Opp In Review - Finance UK &amp; ROI</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>IntBG_Finance_UK_ROI</recipient>
+            <type>group</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Opportunity_Templates/Opportunity_Opp_ready_for_finance_review</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_IntBG_In_Review_Strategy</fullName>
+        <description>Email IntBG Sales Opp In Review - Sales/Strategy</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>IntBG_Sales_Ops</recipient>
+            <type>group</type>
+        </recipients>
+        <recipients>
+            <recipient>IntBG_Stakeholders</recipient>
+            <type>group</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Opportunity_Templates/Opportunity_Opp_ready_for_strategy_review</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_IntBG_Sales_Ops_Opp</fullName>
+        <description>Email IntBG Sales Ops Opportunity Submitted</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>IntBG_Sales_Ops</recipient>
+            <type>group</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Opportunity_Templates/Opportunity_Opp_submitted_for_Deal_Review</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_IntBG_Spain_Finance_Opp_Approved</fullName>
+        <description>Email IntBG Spain Finance Opp Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>IntBG_Finance_Spain</recipient>
+            <type>group</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Opportunity_Templates/Opportunity_IntBG_Opp_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_NABG_Product_of_Managed_Services_CWP_Opportunities</fullName>
+        <ccEmails>Reshma.Seecharan@Cardtronics.com</ccEmails>
+        <ccEmails>sandy.miller@cardtronics.com</ccEmails>
+        <ccEmails>melissa.farrell@cardtronics.com</ccEmails>
+        <description>Email NABG Product of Managed Services CWP Opportunities</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>CATM_NABG_Product</recipient>
+            <type>group</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Opportunity_Templates/Opp_CWP_MS</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_NA_Approved</fullName>
+        <description>Email NA Sales Opp Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>NABG_Sales_Ops</recipient>
+            <type>group</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Opportunity_Templates/Opportunity_Opp_Deal_Committee_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_NA_Denied</fullName>
+        <description>Email NA Sales Opp Denied</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>NABG_Sales_Ops</recipient>
+            <type>group</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Opportunity_Templates/Opportunity_Opp_Deal_Committee_Denied</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_NA_Finance_Model_Complete</fullName>
+        <description>Email NA Sales Opp Finance Model Complete</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>NABG_Sales_Ops</recipient>
+            <type>group</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Opportunity_Templates/Opportunity_Opp_Finance_Model_Complete</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_NA_In_Review_Finance</fullName>
+        <description>Email NA Sales Opp In Review - Finance</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>NABG_Finance</recipient>
+            <type>group</type>
+        </recipients>
+        <recipients>
+            <recipient>NABG_Sales_Ops</recipient>
+            <type>group</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Opportunity_Templates/Opportunity_Opp_ready_for_finance_review</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_NA_In_Review_Strategy</fullName>
+        <description>Email NA Sales Opp In Review - Sales/Strategy</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>NABG_Deal_Committee</recipient>
+            <type>group</type>
+        </recipients>
+        <recipients>
+            <recipient>NABG_Sales_Ops</recipient>
+            <type>group</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Opportunity_Templates/Opportunity_Opp_ready_for_strategy_review</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_NA_Sales_Ops_Opp</fullName>
+        <description>Email NA Sales Ops Opportunity Submitted</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>NABG_Sales_Ops</recipient>
+            <type>group</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Opportunity_Templates/Opportunity_Opp_submitted_for_Deal_Review</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Rep_Opportunity_was_Approved</fullName>
+        <description>Email Rep Opportunity was Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Owner_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Opportunity_Templates/Opportunity_IntBG_Opp_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Rep_Opportunity_was_Approved_IBG_Spain</fullName>
+        <description>Email Rep  &amp; Emilce Opportunity was Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Owner_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Opportunity_Templates/Opportunity_IntBG_Opp_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Rep_Opportunity_was_Rejected</fullName>
+        <description>Email Rep Opportunity was Rejected</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Owner_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Opportunity_Templates/Opportunity_Opp_Rejected</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Sales_Rep_Mgr_when_Opportunity_is_Past_Due</fullName>
+        <description>Email Sales Rep &amp; Manager when Opportunity is 10 Days Past Due</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Owner_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Opportunity_Templates/Email_Opportunity_Past_Due</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Sales_Rep_when_Opportunity_is_5_Days_Past_Due</fullName>
+        <description>Email Sales Rep when Opportunity is 5 Days Past Due</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Opportunity_Templates/Email_Opportunity_Past_Due</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Sales_Rep_when_Opportunity_is_Past_Due</fullName>
+        <description>Email Sales Rep when Opportunity is 5 Days Past Due</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Opportunity_Templates/Email_Opportunity_Past_Due</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_UK_ROI_Sales_Admin_Opportunity_Approved</fullName>
+        <description>Email IntBG Sales Admin UK &amp; ROI Opportunity Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>IntBG_Sales_Admin_UK_ROI</recipient>
+            <type>group</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Opportunity_Templates/Opportunity_IntBG_Opp_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_alert_of_Special_Bid_Reg_conversion_to_Opportunity</fullName>
+        <ccEmails>partner.resourcecenter@ncr.com</ccEmails>
+        <description>Email alert of Special Bid Reg conversion to Opportunity</description>
+        <protected>false</protected>
+        <recipients>
+            <field>CAM__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>USPartnerCommunications/Special_Bid_Reg_Conversion_to_Opp_Ack</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_alert_to_Sales_Admin_team_in_Spain_when_IBG_Opportunity_is_approved_by_Sal</fullName>
+        <description>Email alert to Sales Admin team in Spain when IBG Opportunity is approved by Sales &amp; Finance Directors</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>CATM_Spain_Sales_Admin</recipient>
+            <type>group</type>
+        </recipients>
+        <recipients>
+            <recipient>Kristina_Zaveckiene</recipient>
+            <type>group</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Opportunity_Templates/Opportunity_Sales_Admin_IntBG_Spain_IBG_Opp_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>FIN_NAMER_new_customer_email_alert</fullName>
+        <ccEmails>Nitesh.Patel@ncr.com</ccEmails>
+        <ccEmails>Owen.Wild@ncr.com</ccEmails>
+        <ccEmails>Marnie.Thorp@ncr.com</ccEmails>
+        <ccEmails>Kelsey.Osman@ncr.com</ccEmails>
+        <ccEmails>Fiona.McDade@ncr.com</ccEmails>
+        <description>FIN NAMER new customer email alert</description>
+        <protected>false</protected>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Ring_the_Bell_email_alert</template>
+    </alerts>
+    <alerts>
+        <fullName>Internal_email_alert_sent_to_opportunity_owner_when_opportunity_is_moved_to_clos</fullName>
+        <description>Internal email alert sent to opportunity owner when opportunity is moved to closed won stage</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Contract_Templates/Contract_Opportunity_Closed_Won_and_Contract_Created</template>
+    </alerts>
+    <alerts>
+        <fullName>JP_More_Information_Provided</fullName>
+        <ccEmails>Pricing.Payments@ncr.com.test</ccEmails>
+        <description>JP More Information Provided</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Pricing_Analyst__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>JetPay_Templates/JP_Information_Provided</template>
+    </alerts>
+    <alerts>
+        <fullName>JP_More_Information_Request</fullName>
+        <ccEmails>Pricing.Payments@ncr.com.test</ccEmails>
+        <description>JP More Information Request</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>JetPay_Templates/JP_Information_Request</template>
+    </alerts>
+    <alerts>
+        <fullName>JP_Pricing_Analyst_Assignment_Email</fullName>
+        <ccEmails>Pricing.Payments@ncr.com</ccEmails>
+        <description>JP Pricing Analyst Assignment Email</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Pricing_Analyst__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>JetPay_Templates/JP_Pricing_Analyst_Assigned</template>
+    </alerts>
+    <alerts>
+        <fullName>JP_Pricing_request_raised</fullName>
+        <ccEmails>Pricing.Payments@ncr.com</ccEmails>
+        <description>JP Pricing request raised</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Pricing_Analyst__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>JetPay_Templates/JP_Review_Request</template>
+    </alerts>
+    <alerts>
+        <fullName>JP_Pricing_request_rejected</fullName>
+        <ccEmails>Pricing.Payments@ncr.com.test</ccEmails>
+        <description>JP Pricing request rejected</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>JetPay_Templates/JP_Pricing_Rejected</template>
+    </alerts>
+    <alerts>
+        <fullName>JP_Pricing_request_withdrawn</fullName>
+        <ccEmails>Pricing.Payments@ncr.com.test</ccEmails>
+        <description>JP Pricing request withdrawn</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Pricing_Analyst__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>JetPay_Templates/JP_Pricing_request_Withdrawn</template>
+    </alerts>
+    <alerts>
+        <fullName>JP_Rate_Review_Requested</fullName>
+        <ccEmails>Pricing.Payments@ncr.com.test</ccEmails>
+        <description>JP Rate Review Requested</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Pricing_Analyst__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>JetPay_Templates/JP_Rate_Review_Requested</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_Accounts_Owner_of_new_TESCO_opportunity</fullName>
+        <description>Notify Accounts Owner of new TESCO opportunity</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/TESCO_alert_for_CTS</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_Opportunity_Owner_and_Owner_Manager_for_Value_Prompter_Completion</fullName>
+        <description>Notify Opportunity Owner and Owner Manager for Value Prompter Completion</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Owner_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Value_Prompter_Completion_Manager_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_Opportunity_Owner_for_Value_Prompter_Completion</fullName>
+        <description>Notify Opportunity Owner for Value Prompter Completion</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Value_Prompter_Completion_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Opp_Notify_Payments_Rep_Email_Alert</fullName>
+        <description>Opp_Notify_Payments_Rep_Email_Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Payments_Rep__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Opp_Sales_Rep_Notification_template</template>
+    </alerts>
+    <alerts>
+        <fullName>Opportunity_Expected_Book_Date_about_to_expire</fullName>
+        <description>Opportunity Expected Book Date about to expire</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>tc131438@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/EBD_about_to_expire_Opportunity_Alert</template>
+    </alerts>
+    <alerts>
+        <fullName>Opportunity_Won_Close</fullName>
+        <ccEmails>lmckinney@cardtronics.com</ccEmails>
+        <ccEmails>mlao@cardtronics.com</ccEmails>
+        <description>Opportunity Won/Close</description>
+        <protected>false</protected>
+        <senderType>CurrentUser</senderType>
+        <template>Opportunity_Templates/Opportunity_Won_Close</template>
+    </alerts>
+    <alerts>
+        <fullName>Past_Due_Opportunity_Email_Notification</fullName>
+        <description>Past Due Opportunity Email Notification to Owner</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>DefaultWorkflowUser</senderType>
+        <template>unfiled$public/Opportunity_Past_Due_Notification_Email_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Past_Due_Opportunity_Email_Notification_for_Owner_and_Manager</fullName>
+        <description>Past Due Opportunity Email Notification for Owner and Manager</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Owner_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>DefaultWorkflowUser</senderType>
+        <template>unfiled$public/Opportunity_Past_Due_Notification_Email_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Pricing_Approved</fullName>
+        <ccEmails>Pricing.Payments@ncr.com.test</ccEmails>
+        <description>Pricing Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>JetPay_Templates/JP_Pricing_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Ring_the_Bell_email_alert</fullName>
+        <ccEmails>Robin.Bassen@ncr.com</ccEmails>
+        <ccEmails>Rebecca.Woods@ncr.com</ccEmails>
+        <description>Ring the Bell email alert</description>
+        <protected>false</protected>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Ring_the_Bell_email_alert</template>
+    </alerts>
+    <alerts>
+        <fullName>opportunity_selling_stage_changes</fullName>
+        <description>opportunity selling stage changes</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>ak250921@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>mm185627@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/DI_Demo_related_Oppotunity</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Account_Name_for_PS_Activity</fullName>
+        <field>Account_Name_for_PS_Activity__c</field>
+        <formula>Account.Name</formula>
+        <name>Account Name for PS Activity</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Amount_Zero</fullName>
+        <field>Amount</field>
+        <formula>0.0</formula>
+        <name>Amount Zero</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>CATM_Probability_Update_to_95</fullName>
+        <field>Probability_of_Winning_Deal__c</field>
+        <literalValue>95%</literalValue>
+        <name>Probability Update to 95%</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>CATM_Update_Sales_Probability_to_50</fullName>
+        <field>Probability_of_Winning_Deal__c</field>
+        <literalValue>50%</literalValue>
+        <name>Update Sales Probability to 50%</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>CATM_Update_Total_Contract_Value</fullName>
+        <field>Overall_Contract_Value__c</field>
+        <formula>(( Monthly_Revenue_Amount__c * Contract_Term_Mths__c ) + One_Time_Revenue__c)</formula>
+        <name>Update Total Contract Value</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>CloseDate</fullName>
+        <field>CloseDate</field>
+        <formula>Today()</formula>
+        <name>CloseDate</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Closed_Booked_Comments</fullName>
+        <field>Closed_Booked_Comments__c</field>
+        <formula>&quot;Subscription-Auto Close&quot;</formula>
+        <name>Closed/Booked Comments</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Closed_Booked_Comments_Upd</fullName>
+        <field>Closed_Booked_Comments__c</field>
+        <formula>&quot;Subscription-Auto Close&quot;</formula>
+        <name>Closed/Booked Comments Upd</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Contract_Term_1_month</fullName>
+        <field>Contract_Term_Mths__c</field>
+        <formula>1</formula>
+        <name>Contract Term 1 month</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Contract_Terms_for_I_Design</fullName>
+        <field>Contract_Term_Mths__c</field>
+        <formula>1</formula>
+        <name>Contract Terms(for I-Design)</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Created_date</fullName>
+        <field>Created_Date__c</field>
+        <formula>IF( Created_date_TEAM__c &lt; DATEVALUE(CreatedDate) ,Created_date_TEAM__c ,DATEVALUE(CreatedDate) )</formula>
+        <name>Created date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Created_date_update</fullName>
+        <field>Created_Date__c</field>
+        <formula>CreatedDate</formula>
+        <name>Created date update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Expected_Book_Date_Update</fullName>
+        <field>CloseDate</field>
+        <name>Expected Book Date Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Field_Update_User_Modified_Date</fullName>
+        <field>User_Modified_Date__c</field>
+        <formula>DATETIMEVALUE(LastModifiedDate)</formula>
+        <name>Field Update User Modified Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Fulfilled_by_Partner</fullName>
+        <description>Updates Fulfilled by Partner to TRUE</description>
+        <field>Fulfilled_by_Partner__c</field>
+        <literalValue>1</literalValue>
+        <name>Fulfilled by Partner</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Intl_BG_Update_Forecast_Category_to_Comm</fullName>
+        <description>Update forecast category field to Commit for all opportunities, which are in Pending Contract Signature stage or Contract Submitted &amp; In Negotiation stage</description>
+        <field>Forecast_Update__c</field>
+        <literalValue>Commit</literalValue>
+        <name>Intl BG Update Forecast Category to Comm</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Intl_BG_Update_Forecast_Category_to_Upsi</fullName>
+        <description>Update forecast to Upside if Oppty Stage is Proposal Submitted</description>
+        <field>Forecast_Update__c</field>
+        <literalValue>Upside</literalValue>
+        <name>Intl BG Update Forecast Category to Upsi</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Invoice_Trigger_Update</fullName>
+        <field>Invoice_Trigger__c</field>
+        <literalValue>Other</literalValue>
+        <name>Invoice Trigger Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Invoice_Trigger_Value</fullName>
+        <field>Invoice_Trigger__c</field>
+        <literalValue>Shipment</literalValue>
+        <name>Invoice Trigger Value</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Lead_Source</fullName>
+        <field>LeadSource</field>
+        <literalValue>None</literalValue>
+        <name>Lead Source</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Lead_Source_Update</fullName>
+        <field>LeadSource</field>
+        <literalValue>None</literalValue>
+        <name>Lead Source Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Num_of_ATMs</fullName>
+        <field>Num_of_ATMs__c</field>
+        <formula>Num_of_ATMs_OLI__c</formula>
+        <name>Num of ATMs</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Opportunity_Name_Update</fullName>
+        <field>Name</field>
+        <formula>Account.Name &amp; &quot; &quot; &amp; Region__c</formula>
+        <name>Opportunity Name Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Populate_OCR_TEAM</fullName>
+        <field>OCR_TEAM__c</field>
+        <formula>Sales_Org__r.Hierarchy_6__c</formula>
+        <name>Populate OCR TEAM</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Pricing_Latest_Status_Update_Date</fullName>
+        <field>Pricing_Latest_Status_Update_Date__c</field>
+        <formula>NOW()</formula>
+        <name>Pricing Latest Status Update Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>ProbabilityUpdate</fullName>
+        <field>Probability</field>
+        <formula>50</formula>
+        <name>ProbabilityUpdate</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Probability_Update</fullName>
+        <field>Probability</field>
+        <name>Probability Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Reset_Prevent_Account_Change_Retrigger</fullName>
+        <field>Prevent_Account_Change_Retrigger__c</field>
+        <literalValue>0</literalValue>
+        <name>Reset Prevent Account Change Retrigger</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Selling_Stage_Update</fullName>
+        <field>StageName</field>
+        <literalValue>Analyzing</literalValue>
+        <name>Selling Stage Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Pipeline_Forecast_Category</fullName>
+        <field>Forecast_Category__c</field>
+        <literalValue>Pipeline</literalValue>
+        <name>Set Pipeline Forecast Category</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Prevent_Account_Change_Retrigger</fullName>
+        <field>Prevent_Account_Change_Retrigger__c</field>
+        <literalValue>1</literalValue>
+        <name>Set Prevent_Account_Change_Retrigger</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Probability_to_50</fullName>
+        <field>Probability</field>
+        <formula>(0.5)</formula>
+        <name>Set Probability to 50</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Probability_to_95</fullName>
+        <field>Probability</field>
+        <formula>(0.95)</formula>
+        <name>Set Probability to 95</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Stage_To_be_Closed_Won</fullName>
+        <field>StageName</field>
+        <literalValue>Closed Won</literalValue>
+        <name>Stage To be Closed Won</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Stage_Update</fullName>
+        <field>StageName</field>
+        <literalValue>Analyzing</literalValue>
+        <name>Selling Stage Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Stage_is_Closed_Pending</fullName>
+        <field>stageisclosedpending__c</field>
+        <literalValue>1</literalValue>
+        <name>Stage is Closed Pending</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Store_prior_forecast</fullName>
+        <field>Previous_Forecast_Category__c</field>
+        <formula>TEXT( PRIORVALUE(Forecast_Category__c))</formula>
+        <name>Store prior forecast</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Test_Update</fullName>
+        <field>StageName</field>
+        <literalValue>Offering</literalValue>
+        <name>Test Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Times_Close_Date_has_Changed_Update</fullName>
+        <field>times_closed_date_has_changed__c</field>
+        <formula>times_closed_date_has_changed__c +1</formula>
+        <name># Times Close Date has Changed Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Type_Field_Update</fullName>
+        <field>Type</field>
+        <literalValue>Existing Customer - Subscription Renewal</literalValue>
+        <name>Type Field Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Type_Update</fullName>
+        <field>Type</field>
+        <literalValue>Existing Customer - Subscription Amendment</literalValue>
+        <name>Type Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateActualClose</fullName>
+        <field>Actual_Close_Date__c</field>
+        <formula>Today ()</formula>
+        <name>Update Actual Close</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateEBDwithACD</fullName>
+        <field>CloseDate</field>
+        <formula>Actual_Close_Date__c</formula>
+        <name>Update EBD with ACD</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Account_Name</fullName>
+        <description>Updates Account Name to D&amp;B Field</description>
+        <field>DNBI__DnB_Company_Name__c</field>
+        <formula>Account.Name</formula>
+        <name>Update Account Name</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Annual_Contract_Value</fullName>
+        <field>Annual_Contract_Value__c</field>
+        <formula>If (Contract_Term_Mths__c &gt;= 12,(Reoccurring_Revenue_OLI__c * 12) +  ((One_Time_Revenue_OLI__c/ Contract_Term_Mths__c) *12),(Reoccurring_Revenue_OLI__c * Contract_Term_Mths__c) +  (One_Time_Revenue_OLI__c))</formula>
+        <name>Update Annual Contract Value</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Annual_Contract_Value_Canada</fullName>
+        <field>Annual_Contract_Value__c</field>
+        <formula>If (Contract_Term_Mths__c &gt;= 12,(Reoccurring_Revenue_OLI__c * 12) +  (One_Time_Revenue_OLI__c),(Reoccurring_Revenue_OLI__c * Contract_Term_Mths__c) +  (One_Time_Revenue_OLI__c))</formula>
+        <name>Update Annual Contract Value - Canada</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Business_Unit</fullName>
+        <field>Business_Unit__c</field>
+        <formula>Text(Owner.Business_Unit__c)</formula>
+        <name>Update Business Unit</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Closed_Date</fullName>
+        <field>CloseDate</field>
+        <formula>TODAY()</formula>
+        <name>Update Closed Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Closed_Date2</fullName>
+        <field>CloseDate</field>
+        <formula>Today()</formula>
+        <name>Update Closed Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Commitment_Risk</fullName>
+        <field>Commitment_Risk__c</field>
+        <literalValue>Green</literalValue>
+        <name>Update Commitment Risk</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_DC_Submit_Status</fullName>
+        <field>DC_Submit_Status__c</field>
+        <formula>(2)</formula>
+        <name>Update DC Submit Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Deal_Committee_Status</fullName>
+        <field>Deal_Committee_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Update Deal Committee Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Deal_Committee_Status2</fullName>
+        <field>Deal_Committee_Status__c</field>
+        <literalValue>Pending</literalValue>
+        <name>Update Deal Committee Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Department</fullName>
+        <field>Department__c</field>
+        <formula>Text(Owner.Department__c)</formula>
+        <name>Update Department</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Geography</fullName>
+        <field>Geography__c</field>
+        <formula>Text(Owner.Geography__c)</formula>
+        <name>Update Geography</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_In_Year_Revenue</fullName>
+        <field>In_Year_Revenue__c</field>
+        <formula>IF ((ISPICKVAL(Reporting_Geography__c, &quot;Canada&quot;)) &amp;&amp; Business_Unit__c  == &apos;IBG (Core)&apos; &amp;&amp; Contract_Term_Mths__c &lt;= 12 &amp;&amp; (ISPICKVAL(Type, &quot;New Customer&quot;)), 
+    ((Contract_Term_Mths__c * Reoccurring_Revenue_OLI__c) + One_Time_Revenue_OLI__c) , 
+ 
+IF ((ISPICKVAL(Reporting_Geography__c, &quot;Canada&quot;)) &amp;&amp; Business_Unit__c  == &apos;IBG (Core)&apos; &amp;&amp; Contract_Term_Mths__c &gt;= 12 &amp;&amp; (ISPICKVAL(Type, &quot;New Customer&quot;)), 
+    ((12 - MONTH( Expected_Service_Start_Date__c )) * ( Reoccurring_Revenue_OLI__c)) + One_Time_Revenue_OLI__c,
+
+IF ((ISPICKVAL(Reporting_Geography__c, &quot;Canada&quot;)) &amp;&amp; Business_Unit__c  == &apos;IBG (Core)&apos; &amp;&amp; Contract_Term_Mths__c &lt;= 12 &amp;&amp; (ISPICKVAL(Type, &quot;Existing Customer - Service Renewal&quot;)), 
+     ((( Contract_Term_Mths__c  *  Reoccurring_Revenue_OLI__c ) - (Old_Contract_ACV__c)) +  One_Time_Revenue_OLI__c),
+
+IF ((ISPICKVAL(Reporting_Geography__c, &quot;Canada&quot;)) &amp;&amp; Business_Unit__c  == &apos;IBG (Core)&apos; &amp;&amp; Contract_Term_Mths__c &gt;= 12 &amp;&amp; (ISPICKVAL(Type, &quot;Existing Customer - Service Renewal&quot;)), 
+                      ( ((12 - MONTH( Expected_Service_Start_Date__c )) * ( Reoccurring_Revenue_OLI__c))  - ((12  -  MONTH( Expected_Service_Start_Date__c )) * Old_Contract_ACV__c/12)+ One_Time_Revenue_OLI__c),
+
+
+IF (Contract_Term_Mths__c &gt;= 12 ,
+    ((12 - MONTH( Expected_Service_Start_Date__c )) * (Incremental_ACV__c /12)),
+
+IF (Contract_Term_Mths__c &lt;= (12 - MONTH( Expected_Service_Start_Date__c )), Incremental_ACV__c,
+0))))))</formula>
+        <name>Update In Year Revenue</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Mgr_Forecast_to_Pipeline</fullName>
+        <field>Forecast_Update__c</field>
+        <literalValue>Pipeline</literalValue>
+        <name>Update Mgr Forecast to Pipeline</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Monthly_Revenue_Amount</fullName>
+        <field>Monthly_Revenue_Amount__c</field>
+        <formula>Reoccurring_Revenue_OLI__c</formula>
+        <name>Update Monthly Revenue Amount</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Next_Step_Date</fullName>
+        <field>Next_Steps_Last_Updated__c</field>
+        <formula>LastModifiedDate</formula>
+        <name>Update Next Step Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Notify_Opp_Owner_Mgr_for_Val_Prmp</fullName>
+        <field>NotifyOwnerManagerforValuePrompter__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Notify Opp Owner Mgr for Val Prmp</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Notify_Owner_for_Value_Prompter</fullName>
+        <field>NotifyOwnerforValuePrompter__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Notify Owner for Value Prompter</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_One_Time_Revenue</fullName>
+        <field>One_Time_Revenue__c</field>
+        <formula>One_Time_Revenue_OLI__c</formula>
+        <name>Update One Time Revenue</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Owner_Manager_Email</fullName>
+        <field>Owner_Manager_Email__c</field>
+        <name>Update Owner Manager Email</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Region</fullName>
+        <field>Region__c</field>
+        <formula>Text(Owner.CATM_Region__c)</formula>
+        <name>Update Region</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Spain_Financial_Analyst</fullName>
+        <field>Financial_Analyst__c</field>
+        <lookupValue>kz250077@ncr.com</lookupValue>
+        <lookupValueType>User</lookupValueType>
+        <name>Update Spain Financial Analyst</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Stage</fullName>
+        <field>StageName</field>
+        <literalValue>Closed Won</literalValue>
+        <name>Update Stage</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Stage1</fullName>
+        <field>StageName</field>
+        <literalValue>Closed/Booked</literalValue>
+        <name>Update Stage ClosedBooked</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Stage2</fullName>
+        <field>StageName</field>
+        <literalValue>Closed Won</literalValue>
+        <name>Update Stage</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Stage_Closing</fullName>
+        <field>StageName</field>
+        <literalValue>Closing</literalValue>
+        <name>Update Stage Closing</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Stage_to_Offering</fullName>
+        <field>StageName</field>
+        <literalValue>Offering</literalValue>
+        <name>Update Stage to Offering</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Stage_to_Offering1</fullName>
+        <field>StageName</field>
+        <literalValue>Offering</literalValue>
+        <name>Update Stage to Offering</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_State</fullName>
+        <description>Update Account State for D&amp;B</description>
+        <field>DNBI__D_B_State_Province__c</field>
+        <formula>Account.BillingState</formula>
+        <name>Update State</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Surcharge_Trans</fullName>
+        <field>Total_Surcharged_Transactions_per_Mth__c</field>
+        <formula>Total_Surcharged_Trans_OLI__c</formula>
+        <name>Update Surcharge Trans</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Total_Transactions</fullName>
+        <field>Total_Transactions_per_Mth__c</field>
+        <formula>Total_Transactions_OLI__c</formula>
+        <name>Update Total Transactions</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Total_Withdrawal_Transactions</fullName>
+        <field>Total_Withdrawal_Transactions_per_MTH__c</field>
+        <formula>Total_Withdrawal_Trans_OLI__c</formula>
+        <name>Update Total Withdrawal Transactions</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_the_Probability</fullName>
+        <field>Probability</field>
+        <name>Update the Probability</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Updateprobability</fullName>
+        <field>Probability</field>
+        <formula>95</formula>
+        <name>Updateprobability</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>reset_by_pass_validation_value</fullName>
+        <field>bypass_validation__c</field>
+        <literalValue>0</literalValue>
+        <name>reset by pass validation value</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>stage_is_pending</fullName>
+        <field>stageisclosedpending__c</field>
+        <literalValue>0</literalValue>
+        <name>stage is pending</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Account Name for PS Activity Tracker Object</fullName>
+        <actions>
+            <name>Account_Name_for_PS_Activity</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <field>Opportunity.Account_Name_for_PS_Activity__c</field>
+            <operation>contains</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Account_Name_for_PS_Activity__c</field>
+            <operation>notContain</operation>
+        </criteriaItems>
+        <description>This Workflow will Update Account Name for PS Activity field. This field is used as look up filter in PreSales Engineer Activities Object</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Acknowledge users when Special Bid Reg converted to Opportunity</fullName>
+        <actions>
+            <name>Email_alert_of_Special_Bid_Reg_conversion_to_Opportunity</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <formula>NOT(ISBLANK(Linked_Special_Bid_Registration__c))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Automatically Populate Amendment Opportunity Fields</fullName>
+        <actions>
+            <name>Closed_Booked_Comments</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Invoice_Trigger_Value</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Lead_Source</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Selling_Stage_Update</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Set_Pipeline_Forecast_Category</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Type_Update</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <description>When contract amends some fields will auto populate in the Amended Opportunity</description>
+        <formula>NOT(ISBLANK(SBQQ__AmendedContract__c))</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Automatically Populate Renewal Opportunity Fields</fullName>
+        <actions>
+            <name>Closed_Booked_Comments_Upd</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Expected_Book_Date_Update</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Invoice_Trigger_Update</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Lead_Source_Update</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Set_Pipeline_Forecast_Category</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Stage_Update</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Type_Field_Update</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Opportunity.SBQQ__Renewal__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>When contract is renewed some fields will auto populate in the renewal opportunity</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM_%23 Times Close Date has Changed</fullName>
+        <actions>
+            <name>Times_Close_Date_has_Changed_Update</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c, ISCHANGED( CloseDate ) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM_AUS IBG - Operations ATM Exchange</fullName>
+        <actions>
+            <name>Renewal_w_exchange_please_call_site_to_kick_start_the_deployment_process</name>
+            <type>Task</type>
+        </actions>
+        <active>true</active>
+        <description>Once a renewal with an exchange has been completed a task should open for Operations Team to call site and kick start the deployment process</description>
+        <formula>AND ( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c, ISPICKVAL(StageName, &quot;Closed/Booked&quot;), ISPICKVAL(Type, &quot;Renewal&quot;), ISPICKVAL(Opportunity_Classification__c,&quot;IBG (Core)&quot;), ISPICKVAL(Opportunity_Source__c, &quot;Swap/Exchange&quot;), CONTAINS(Geography__c, &quot;UK&quot;) )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM_AUS IBG - Operations New Business</fullName>
+        <actions>
+            <name>New_Business_please_call_site_to_kick_start_the_deployment_process</name>
+            <type>Task</type>
+        </actions>
+        <active>true</active>
+        <description>Once a sale has been completed a task should open for Operations team to call and kick start the deployment</description>
+        <formula>AND ( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c, ISPICKVAL(StageName, &quot;Closed/Booked&quot;), ISPICKVAL(Type, &quot;New Business&quot;), ISPICKVAL(Opportunity_Classification__c, &quot;IBG (Core)&quot;), CONTAINS(Geography__c,&quot;UK&quot;) )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM_AUS IBG - lost opportunities</fullName>
+        <actions>
+            <name>Please_contact_site_to_determine_why_we_lost_the_customer</name>
+            <type>Task</type>
+        </actions>
+        <active>true</active>
+        <description>Task created for SA to contact site and determine why we lost the site</description>
+        <formula>AND ( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c, ISPICKVAL(StageName,&quot;Closed/Lost&quot;), Geography__c = &quot;UK&quot;, ISPICKVAL(Type, &quot;Renewal&quot;), ISPICKVAL(Opportunity_Classification__c,&quot;IBG (Core)&quot;) )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM_Check Closed Pending Flag</fullName>
+        <actions>
+            <name>Stage_is_Closed_Pending</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND ( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c, ISPICKVAL(StageName,&quot;Closing&quot;), NOT(ISBLANK(TEXT(Win_Loss_Reason__c))) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM_Contract Terms%28for I-Design%29</fullName>
+        <actions>
+            <name>Contract_Terms_for_I_Design</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>contract Term always 1 for I-design record type</description>
+        <formula>AND ( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c, ISPICKVAL(Opportunity_Classification__c,&quot;iDesign/atmAd Opportunity&quot;) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM_Email NABG Product of MS Opp</fullName>
+        <actions>
+            <name>Email_NABG_Product_of_Managed_Services_CWP_Opportunities</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <formula>AND ( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c, Region__c = &quot;NABG&quot;, ISPICKVAL(StageName,&quot;Closing&quot;), CONTAINS(Products__c,&quot;Managed Services&quot;), NOT(     OR(CONTAINS(Business_Unit__c,&quot;IBG&quot;),        CONTAINS(Business_Unit__c,&quot;Retail&quot;)        )     ) )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM_Email Past Due Opportunity Close Date - Intl BG</fullName>
+        <active>false</active>
+        <description>Email Alert to IBG when Opp Closed date is Past</description>
+        <formula>AND ( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c, Not(IsClosed), Region__c = &apos;IBG&apos; )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Email_Sales_Rep_when_Opportunity_is_5_Days_Past_Due</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Opportunity.CloseDate</offsetFromField>
+            <timeLength>5</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>CATM_Email Past Due Opportunity Close Date - NABG</fullName>
+        <active>true</active>
+        <description>Email Alert to NABG when Opp Closed date is Past</description>
+        <formula>AND ( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c, Not(IsClosed), Region__c = &apos;NABG&apos; )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Email_Sales_Rep_when_Opportunity_is_Past_Due</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Opportunity.CloseDate</offsetFromField>
+            <timeLength>5</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Email_Sales_Rep_Mgr_when_Opportunity_is_Past_Due</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Opportunity.CloseDate</offsetFromField>
+            <timeLength>10</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>CATM_Email alert sent to Sales Admin when IBG Opportunity is approved</fullName>
+        <actions>
+            <name>Email_alert_to_Sales_Admin_team_in_Spain_when_IBG_Opportunity_is_approved_by_Sal</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <description>Email alert sent to Spain&apos;s Sales Admin team making them aware that IBG opportunity has been approved by Sales Director and Finance Director</description>
+        <formula>AND( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c, stageisclosedpending__c = True, ISPICKVAL(Admin_Geo__c, &quot;Spain&quot;), Business_Unit__c = &quot;IBG (Core)&quot; )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM_Next Step Updated</fullName>
+        <actions>
+            <name>Update_Next_Step_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c, IsChanged(NextStep) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM_Update Annual Contract Value</fullName>
+        <actions>
+            <name>Update_Annual_Contract_Value</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <formula>AND(  NOT($Setup.Automation_Setting__c.Skip_Flow__c),  CATM_Record__c,  OLI_Count__c &gt;= 1,  Override_Product_Calculations__c = False,  ACV_Update_check_box__c = False, OR( ISCHANGED(Contract_Term_Mths__c), ISCHANGED(Reoccurring_Revenue_OLI__c), ISCHANGED(One_Time_Revenue_OLI__c) ) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM_Update Annual Contract Value - Canada</fullName>
+        <actions>
+            <name>Update_Annual_Contract_Value_Canada</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <formula>AND( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c, OLI_Count__c &gt;= 1, Override_Product_Calculations__c  = false, IsPickVal( Reporting_Geography__c , &quot;Canada&quot;), Business_Unit__c = &quot;IBG (Core)&quot; )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM_Update Contract Term</fullName>
+        <actions>
+            <name>Contract_Term_1_month</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND ( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c, ISPICKVAL(Opportunity_Classification__c,&quot;iDesign/atmAd Opportunity&quot;) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM_Update DC Submit Status</fullName>
+        <actions>
+            <name>Update_DC_Submit_Status</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND ( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c, ISPICKVAL(Deal_Committee_Status__c, &quot;Approved&quot;) )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM_Update Geo Info</fullName>
+        <actions>
+            <name>Update_Business_Unit</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Department</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Geography</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Region</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND ( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c, NOT(     OR(ISPICKVAL(StageName, &quot;Closing&quot;),        ISPICKVAL(StageName, &quot;Closed/Booked&quot;),        ISPICKVAL(StageName, &quot;Closed/Lost&quot;)        )     ) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM_Update Geo Info All</fullName>
+        <actions>
+            <name>Update_Business_Unit</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Department</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Geography</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Region</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM_Update Historical In Year Revenue</fullName>
+        <active>true</active>
+        <formula>AND( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c, ISCHANGED( Override_Product_Calculations__c) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM_Update In Year Revenue</fullName>
+        <actions>
+            <name>Update_In_Year_Revenue</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <field>Opportunity.Override_Product_Calculations__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Override_Product_Calculations__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM_Update Mgr Forecast to Pipeline</fullName>
+        <actions>
+            <name>Update_Mgr_Forecast_to_Pipeline</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND ( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c, ISBLANK(TEXT(Forecast_Update__c)) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM_Update Num of ATMs</fullName>
+        <actions>
+            <name>Num_of_ATMs</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c, Num_of_ATMs_OLI__c &gt;= 1, Override_Product_Calculations__c = False )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM_Update One Time Revenue</fullName>
+        <actions>
+            <name>Update_One_Time_Revenue</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <formula>AND ( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c, OLI_Count__c &gt;= 1, Override_Product_Calculations__c = False )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM_Update Spain Financial Analyst</fullName>
+        <actions>
+            <name>Update_Spain_Financial_Analyst</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c, ISPICKVAL( Reporting_Geography__c , &quot;Spain&quot;) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM_Update Surcharge Trans %28OIL%29</fullName>
+        <actions>
+            <name>Update_Surcharge_Trans</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <formula>AND ( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c, OLI_Count__c &gt;= 1 )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM_Update Total Contract Value with Override</fullName>
+        <actions>
+            <name>CATM_Update_Total_Contract_Value</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Updates Total Contract Value when Override Calc is checked</description>
+        <formula>AND (  NOT($Setup.Automation_Setting__c.Skip_Flow__c),  CATM_Record__c,  Override_Product_Calculations__c = True, ISPICKVAL( Opportunity_Classification__c,&apos;CATM - IBG (Core)&apos;)  )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM_Update Total Transactions</fullName>
+        <actions>
+            <name>Update_Total_Transactions</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <formula>AND ( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c, OLI_Count__c &gt;= 1 )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM_Update Total Withdrawal Transactions</fullName>
+        <actions>
+            <name>Update_Total_Withdrawal_Transactions</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <formula>AND ( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c, OLI_Count__c &gt;= 1 )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>CLONE of%2E%2E%2E CATM_Email Past Due Opportunity Close Date - NABG</fullName>
+        <active>true</active>
+        <description>Email Alert to NABG when Opp Closed date is Past / CATM Past Due Oppty Close Date</description>
+        <formula>AND ( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c, Not(IsClosed), Region__c = &apos;NABG&apos; , NOT(ISPICKVAL(StageName , &apos;Closing&apos;)),ISPICKVAL(Opportunity_Classification__c , &apos;CATM - IBG (Core)&apos;) )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Closed to Open Opportunity Update</fullName>
+        <actions>
+            <name>Reset_Prevent_Account_Change_Retrigger</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <description>This WFR is used to set Prevent Account Change Retrigger field to false.</description>
+        <formula>AND(  ISCHANGED( StageName ), NOT( IsClosed ), PRIORVALUE( IsClosed )  )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Created Date Actual</fullName>
+        <actions>
+            <name>Created_date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <description>This Work Flow will update Created Date Custom field with apropriate value.</description>
+        <formula>ISBLANK( Created_Date__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>DNBI Approved Email</fullName>
+        <actions>
+            <name>DNBI_Credit_Approved</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>Test_Update</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <formula>(DNBI__DnB_Status__c =&quot;Approved&quot;) &amp;&amp; ISCHANGED( DNBI__DnB_Application_Created_Date__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>DNBI Declined Notification</fullName>
+        <actions>
+            <name>DNBI_Credit_Declined</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <formula>(DNBI__DnB_Status__c =&quot;Declined&quot;) &amp;&amp; ISCHANGED( DNBI__DnB_Application_Created_Date__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>DNBI Pending Notification</fullName>
+        <actions>
+            <name>DNBI_Credit_Pending</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <formula>(DNBI__DnB_Status__c =&quot;Further Review Required&quot;) &amp;&amp; ISCHANGED( DNBI__DnB_Application_Created_Date__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>DNBI Update D%26B Fields</fullName>
+        <actions>
+            <name>Update_Account_Name</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_State</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Opportunity.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Include in Funnel</value>
+        </criteriaItems>
+        <description>When Opportunity is created, updates the DNB fields required for Credit Application.</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>DNBI__Opportunity Credit Status Change</fullName>
+        <actions>
+            <name>DNBI__Send_Credit_Status_Change_Notification_for_Opportunity</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <formula>AND(ISCHANGED(DNBI__DnB_Application_Modified_Date__c), $Setup.DNBI__EnableStatusEmailNotification1__c.DNBI__Enable_Email_Notification__c)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Hospitality Update Commitment Risk</fullName>
+        <actions>
+            <name>Update_Commitment_Risk</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <booleanFilter>1 AND 2</booleanFilter>
+        <criteriaItems>
+            <field>Opportunity.ForecastCategoryName</field>
+            <operation>equals</operation>
+            <value>Closed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>User.ProfileId</field>
+            <operation>equals</operation>
+            <value>50 Hospitality Account Director,51 Hospitality Account Manager,52 Hospitality Finance Manager</value>
+        </criteriaItems>
+        <description>For 5X users when opp Forecast Category changes to Closed set the Commitment Risk to Green</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>JP More Info Provided</fullName>
+        <actions>
+            <name>JP_More_Information_Provided</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Opportunity.Pricing_Review_Request_Status__c</field>
+            <operation>equals</operation>
+            <value>More Information Provided</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>JP More Info Request</fullName>
+        <actions>
+            <name>JP_More_Information_Request</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Opportunity.Pricing_Review_Request_Status__c</field>
+            <operation>equals</operation>
+            <value>More Information Requested</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>JP More Info Withdrawn</fullName>
+        <actions>
+            <name>JP_Pricing_request_withdrawn</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Opportunity.Pricing_Review_Request_Status__c</field>
+            <operation>equals</operation>
+            <value>Withdrawn</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>JP Pricing Analyst Assignment</fullName>
+        <actions>
+            <name>JP_Pricing_Analyst_Assignment_Email</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <formula>AND(NOT(ISBLANK(Pricing_Analyst__c ) ),ISCHANGED(Pricing_Analyst__c))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>JP Pricing Latest Status Update Date</fullName>
+        <actions>
+            <name>Pricing_Latest_Status_Update_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <description>Updates the Date/Time field to current data if status changes,</description>
+        <formula>ISCHANGED(Pricing_Review_Request_Status__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>JP Pricing Review Request</fullName>
+        <actions>
+            <name>JP_Pricing_request_raised</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Opportunity.Pricing_Review_Request_Status__c</field>
+            <operation>equals</operation>
+            <value>Pending</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>JP Pricing Status Aprove</fullName>
+        <actions>
+            <name>Pricing_Approved</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Opportunity.Pricing_Review_Request_Status__c</field>
+            <operation>equals</operation>
+            <value>Approve</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>JP Pricing Status Rejected</fullName>
+        <actions>
+            <name>JP_Pricing_request_rejected</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Opportunity.Pricing_Review_Request_Status__c</field>
+            <operation>equals</operation>
+            <value>Reject</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>JP Rate Review Requested</fullName>
+        <actions>
+            <name>JP_Rate_Review_Requested</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Opportunity.Pricing_Review_Request_Status__c</field>
+            <operation>equals</operation>
+            <value>Rate Review Request</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>MS Closed%2FBooked Opportunity</fullName>
+        <active>false</active>
+        <criteriaItems>
+            <field>Account.LOB__c</field>
+            <operation>equals</operation>
+            <value>FINANCIAL</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Managed_Service__c</field>
+            <operation>greaterThan</operation>
+            <value>USD 0</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Closed/Booked</value>
+        </criteriaItems>
+        <description>Recipient receives email when an opportunity with Managed Services revenue has been closed/booked in Salesforce.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Notify Opportunity Owner and Manager for Value Prompter</fullName>
+        <active>false</active>
+        <formula>AND(  NOT($Setup.Automation_Setting__c.Skip_Flow__c),  CATM_Record__c = false,  NOT(ISBLANK(OwnerAssignedDate__c)),  NotifyOwnerforValuePrompter__c = true,  NotifyOwnerManagerforValuePrompter__c = false,  Has_Value_Prompter_Completed__c = FALSE,  $Profile.Name &lt;&gt; &apos;50 Hospitality Account Director&apos;,  $Profile.Name &lt;&gt; &apos;51 Hospitality Account Manager&apos;,  $Profile.Name &lt;&gt; &apos;51 Hospitality Account Manager-Omitted Pilot&apos;,  $Profile.Name &lt;&gt; &apos;52 Hospitality Finance Manager&apos;,  $Profile.Name &lt;&gt; &apos;53 Hospitality Channel Account Manager&apos;,  $Profile.Name &lt;&gt; &apos;54 Hosted Solutions Sales Operations&apos;,  $Profile.Name &lt;&gt; &apos;55 Hosted Solutions Sales&apos;,  $Profile.Name &lt;&gt; &apos;Cloned 54 Hosted Solutions Sales Operations for DS Admin&apos;,  $Profile.Name &lt;&gt; &apos;60 DI Product Managers&apos;,  $Profile.Name &lt;&gt; &apos;62 DI Account Manager&apos;,  $Profile.Name &lt;&gt; &apos;Hosp SMB Sales with Hosted&apos;,  $Profile.Name &lt;&gt; &apos;HOSP SMB Sales&apos;,  RecordType.Name = &apos;Include in Funnel&apos;,  IsClosed = false, OR(  Software_Products__c/CURRENCYRATE(&apos;USD&apos;)&gt;=250000,  Hardware_Products__c/CURRENCYRATE(&apos;USD&apos;) &gt;=1000000 ) )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Notify_Opportunity_Owner_and_Owner_Manager_for_Value_Prompter_Completion</name>
+                <type>Alert</type>
+            </actions>
+            <actions>
+                <name>Update_Notify_Opp_Owner_Mgr_for_Val_Prmp</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>2</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Notify Opportunity Owner for Value Prompter</fullName>
+        <active>false</active>
+        <formula>AND( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c = false, NOT(ISBLANK(OwnerAssignedDate__c)), NotifyOwnerforValuePrompter__c = FALSE, Has_Value_Prompter_Completed__c = FALSE, $Profile.Name &lt;&gt; &apos;50 Hospitality Account Director&apos;, $Profile.Name &lt;&gt; &apos;51 Hospitality Account Manager&apos;, $Profile.Name &lt;&gt; &apos;51 Hospitality Account Manager-Omitted Pilot&apos;, $Profile.Name &lt;&gt; &apos;52 Hospitality Finance Manager&apos;, $Profile.Name &lt;&gt; &apos;53 Hospitality Channel Account Manager&apos;, $Profile.Name &lt;&gt; &apos;54 Hosted Solutions Sales Operations&apos;, $Profile.Name &lt;&gt; &apos;55 Hosted Solutions Sales&apos;, $Profile.Name &lt;&gt; &apos;Cloned 54 Hosted Solutions Sales Operations for DS Admin&apos;, $Profile.Name &lt;&gt; &apos;60 DI Product Managers&apos;, $Profile.Name &lt;&gt; &apos;62 DI Account Manager&apos;, $Profile.Name &lt;&gt; &apos;Hosp SMB Sales with Hosted&apos;, $Profile.Name &lt;&gt; &apos;HOSP SMB Sales&apos;, RecordType.Name = &apos;Include in Funnel&apos;, IsClosed = false, OR( Software_Products__c/CURRENCYRATE(&apos;USD&apos;)&gt;=250000, Hardware_Products__c/CURRENCYRATE(&apos;USD&apos;) &gt;=1000000 ) )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Notify_Opportunity_Owner_for_Value_Prompter_Completion</name>
+                <type>Alert</type>
+            </actions>
+            <actions>
+                <name>Update_Notify_Owner_for_Value_Prompter</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Opportunity.OwnerAssignedDate__c</offsetFromField>
+            <timeLength>2</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Opp_Notify_Payments_Rep</fullName>
+        <actions>
+            <name>Opp_Notify_Payments_Rep_Email_Alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <description>EBA_SF-1254 - Notify Payments Specialist when they are added to an opportunity</description>
+        <formula>OR(ISCHANGED(Payments_Rep__c),ISNEW())&amp;&amp; Payments_Rep__c  &lt;&gt; null &amp;&amp; NOT($Setup.Automation_Setting__c.Skip_Flow__c) &amp;&amp; CATM_Record__c = false</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Opportunity_FulfilledbyPartner</fullName>
+        <actions>
+            <name>Fulfilled_by_Partner</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Account.Partner_Type__c</field>
+            <operation>equals</operation>
+            <value>Premier Solution Provider,Dealer,Authorized Solution Provider,Independent Software Vendor,Managed Services Provider,Distributor,Advanced Solution Provider,Systems Integrator</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Partnership_Status__c</field>
+            <operation>equals</operation>
+            <value>Active</value>
+        </criteriaItems>
+        <description>Create workflow so that the Fulfilled by Partner box is TRUE if the account name is an active partner.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Past Due Notification - Time-Based Workflow</fullName>
+        <active>false</active>
+        <description>This is time-based workflow rule that will automatically search the database daily, and sends email to Opportunity Owner after 1 day and adding Opportunity Owner Manager after 8 days.</description>
+        <formula>AND(  NOT($Setup.Automation_Setting__c.Skip_Flow__c),  CATM_Record__c = false,  IsClosed = false,  NOT(ISPICKVAL( StageName,&apos;IPS Base Business&apos;)),  NOT(ISPICKVAL(  Industry__c,&apos;Retail&apos;)) )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Past_Due_Opportunity_Email_Notification_for_Owner_and_Manager</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Opportunity.EBD__c</offsetFromField>
+            <timeLength>8</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Past_Due_Opportunity_Email_Notification</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Opportunity.EBD__c</offsetFromField>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Populate OCR TEAM Rule</fullName>
+        <actions>
+            <name>Populate_OCR_TEAM</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <formula>NOT(ISBLANK(Sales_Org__c))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Populate Owner Manager Email</fullName>
+        <actions>
+            <name>Update_Owner_Manager_Email</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <formula>true</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Reset bypass validation</fullName>
+        <actions>
+            <name>reset_by_pass_validation_value</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <description>This workflow is the part of the Salespath Component.</description>
+        <formula>AND(  NOT($Setup.Automation_Setting__c.Skip_Flow__c),  CATM_Record__c = false,  bypass_validation__c = true )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Send email to Chad Bruhn when new customer opportunity is Closed%2FBooked</fullName>
+        <actions>
+            <name>FIN_NAMER_new_customer_email_alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Opportunity.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Indirect - Include in Funnel Distributor,Indirect - Include in Funnel Reseller,Include in Funnel</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Closed/Booked</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Type</field>
+            <operation>equals</operation>
+            <value>New Customer</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Owner_Role__c</field>
+            <operation>contains</operation>
+            <value>FIN-NAMER</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Send email to DI CAs when an opportunity is placed in the Closed%2FBooked status%2E</fullName>
+        <actions>
+            <name>Email_Alert_for_DI_CA_s_when_an_opportunity_is_placed_in_the_Closed_Booked_statu</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Account.Subscription_Group__c</field>
+            <operation>equals</operation>
+            <value>Digital Insight,Digital Insight- Billing Hold</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Closed/Booked</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Send email to John Morgan when an opportunity is Closed</fullName>
+        <actions>
+            <name>Closed_Opportunity_Alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Opportunity.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Indirect - Include in Funnel Distributor,Indirect - Include in Funnel Reseller,Include in Funnel,Indirect - Exclude from Funnel,Indirect - Include in Funnel Distributor,Indirect - Include in Funnel Reseller,Exclude from Funnel,Include in Funnel</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Closed/Booked,Closed/Lost</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Owner_Role__c</field>
+            <operation>contains</operation>
+            <value>FIN-NAMER-CFI-MIDWEST</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Send email to Mariana Miranda when Banking opportunity is Closed%2FBooked</fullName>
+        <actions>
+            <name>Ring_the_Bell_email_alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Opportunity.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Indirect - Include in Funnel Distributor,Indirect - Include in Funnel Reseller,Include in Funnel</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Closed/Booked</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Ring_The_Bell_Candidate__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Industry__c</field>
+            <operation>equals</operation>
+            <value>Financial</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Send email to Ron Furnier when an opportunity is Closed</fullName>
+        <actions>
+            <name>Closed_Opportunity_Alert_For_CFI_and_Channel</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <booleanFilter>(1 AND 2) AND(3 or 4)</booleanFilter>
+        <criteriaItems>
+            <field>Opportunity.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Indirect - Exclude from Funnel,Indirect - Include in Funnel Distributor,Indirect - Include in Funnel Reseller,Exclude from Funnel,Include in Funnel</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Closed/Booked - NonFunnel,Closed/Booked</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>User.Manager_Level_01__c</field>
+            <operation>contains</operation>
+            <value>Benjamin Seelos,Brian Pilla,Mark Leinenkugel,John Morgan,Bo Watson,Robert Malik</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>User.Manager_Level_02__c</field>
+            <operation>equals</operation>
+            <value>ron furnier</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Set Previous Forecast On Closing Modal</fullName>
+        <actions>
+            <name>Store_prior_forecast</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <formula>OR( AND(ISCHANGED( Forecast_Category__c ),IsClosed , OR(RecordTypeId =&apos;012700000001PoZ&apos;,RecordTypeId =&apos;0120g000000YU9x&apos;, RecordTypeId =&apos;0120g000000N2y2&apos;) ), AND(IsClosed , OR(RecordTypeId = &apos;012700000001PoU&apos;,RecordTypeId = &apos;0120g000000N2y1&apos; )))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Actual Close Date</fullName>
+        <actions>
+            <name>Set_Prevent_Account_Change_Retrigger</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>UpdateActualClose</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>UpdateEBDwithACD</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <description>Track the closed Date</description>
+        <formula>OR( AND ( CPQ__c, ($Profile.Name &lt;&gt; &quot;02 NSC Administrator&quot;), ($Profile.Name &lt;&gt; &quot;C9 Administration&quot;), ($Profile.Name &lt;&gt; &quot;iPaas Administration&quot;), OR( ISPICKVAL( StageName, &apos;Closed/Booked&apos;), ISPICKVAL( StageName, &apos;Closed/Lost&apos;), ISPICKVAL( StageName, &apos;Closed/Discontinued&apos;), ISPICKVAL( StageName, &apos;Closed/Booked - NonFunnel&apos;)) , (Prevent_Account_Change_Retrigger__c = false)) ,  AND ( NOT(CPQ__c), ($Profile.Name &lt;&gt; &quot;02 NSC Administrator&quot;), ($Profile.Name &lt;&gt; &quot;C9 Administration&quot;), ($Profile.Name &lt;&gt; &quot;iPaas Administration&quot;), ($Profile.Name &lt;&gt; &quot;Soup Integration&quot;), ($Profile.Name &lt;&gt; &quot;04 NSC UI Administrator&quot;), IF($Permission.Update_Closed_Opp_for_7_days,today()-CloseDate&gt;= VALUE($Label.Opp_Grace_Sales_Rep)+1 , IF($Permission.Update_Closed_Opp_for_37_days ,today()-CloseDate&gt;=VALUE($Label.Opp_Grace_Sales_Ops)+1,true) ) , OR( ISPICKVAL( StageName, &apos;Closed/Booked&apos;), ISPICKVAL( StageName, &apos;Closed/Lost&apos;), ISPICKVAL( StageName, &apos;Closed/Discontinued&apos;), ISPICKVAL( StageName, &apos;Closed/Booked - NonFunnel&apos;)) , (Prevent_Account_Change_Retrigger__c = false)) )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update User Modified date on Opportunity</fullName>
+        <actions>
+            <name>Field_Update_User_Modified_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>User.Access_Type__c</field>
+            <operation>notEqual</operation>
+            <value>System</value>
+        </criteriaItems>
+        <description>This workflow updates the User Modified Date field on Opportunity, based on Access Type of Current User.</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>When the Sales Program value %3D Hospitality Cross-Selling%2C trigger an email notification to opportunity creator%2E</fullName>
+        <actions>
+            <name>Cross_Sell_Notification_when_the_Sales_Program_value_Hospitality_Cross_Selling_t</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Opportunity.Marketing_Program__c</field>
+            <operation>equals</operation>
+            <value>Hospitality Cross-Selling</value>
+        </criteriaItems>
+        <description>When the Sales Program value = Hospitality Cross-Selling, trigger an email notification to opportunity creator.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>notify TESCO account owner of CTS</fullName>
+        <actions>
+            <name>Notify_Accounts_Owner_of_new_TESCO_opportunity</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Account.Master_Customer_Number__c</field>
+            <operation>equals</operation>
+            <value>98921462,1010287A2,6880177,74591GB,75150GB,7034683,71974GB,134371GB,9950350</value>
+        </criteriaItems>
+        <description>This workflow rule will send an email alert to the account owner anytime an opportunity is created under one of the TESCO MCN&apos;s.</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <tasks>
+        <fullName>Action_Required_Past_Due_Opportunity</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>You have an opportunity that is 7 days past the Expected Book Date.  Please review this opportunity and update the Expected Book Date, Expected Delivery Date, and the Product Schedule.</description>
+        <dueDateOffset>1</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Action Required: Past Due Opportunity</subject>
+    </tasks>
+    <tasks>
+        <fullName>New_Business_please_call_site_to_kick_start_the_deployment_process</fullName>
+        <assignedTo>kz250077@ncr.com</assignedTo>
+        <assignedToType>user</assignedToType>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Open</status>
+        <subject>New Business - please call site to kick start the deployment process</subject>
+    </tasks>
+    <tasks>
+        <fullName>Please_contact_site_to_determine_why_we_lost_the_customer</fullName>
+        <assignedTo>kz250077@ncr.com</assignedTo>
+        <assignedToType>user</assignedToType>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Open</status>
+        <subject>Please contact site to determine why we lost the customer</subject>
+    </tasks>
+    <tasks>
+        <fullName>Renewal_w_exchange_please_call_site_to_kick_start_the_deployment_process</fullName>
+        <assignedTo>kz250077@ncr.com</assignedTo>
+        <assignedToType>user</assignedToType>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Open</status>
+        <subject>Renewal w/ exchange - please call site to kick start the deployment process</subject>
+    </tasks>
+    <tasks>
+        <fullName>Send_the_merchant_a_thank_you_letter_Once_you_complete_close_this_task</fullName>
+        <assignedToType>owner</assignedToType>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Open</status>
+        <subject>Send the merchant a thank you letter. Once you complete close this task</subject>
+    </tasks>
+    <tasks>
+        <fullName>Send_the_merchant_a_welcome_pack_Once_you_complete_close_this_task</fullName>
+        <assignedToType>owner</assignedToType>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Open</status>
+        <subject>Send the merchant a welcome pack. Once you complete close this task</subject>
+    </tasks>
+</Workflow>

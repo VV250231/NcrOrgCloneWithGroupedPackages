@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_21083744</developerName>
+        <masterLabel>Region</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Opportunity.OCR_2018_TEAM__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:Growth Markets:Turkey-D6</sourceValue>
+            </sourceValues>
+            <value>Turkey</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:Central East:Austria</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:Central East:Czech</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:Central East:Hungary</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:Cyprus-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:DCH:Germany</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:DCH:Switzerland</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:Greece-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:GSL CEE-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:Poland-D6</sourceValue>
+            </sourceValues>
+            <value>North East</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:SouthWest Europe:FRBE:Belgium</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:SouthWest Europe:FRBE:France</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:SouthWest Europe:Iberia-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:SouthWest Europe:Italy-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:SouthWest Europe:NER:Denmark</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:SouthWest Europe:NER:Finland</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:SouthWest Europe:NER:Netherlands</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:SouthWest Europe:NER:Norway</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:SouthWest Europe:NER:Sweden</sourceValue>
+            </sourceValues>
+            <value>South West</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:UK and Ireland-D6</sourceValue>
+            </sourceValues>
+            <value>UK and Ireland</value>
+        </values>
+    </buckets>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Soln_Opp_Amount__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>EXP_PRODUCT_AMOUNT.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Hardware_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.PS_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Software_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.CS_Product_Total__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>OpportunityLineItem.Topline_Product_Lkp__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>ACCOUNT_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>startsWith</operator>
+            <value>ING</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Soln_Opp_Amount__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>greaterThan</operator>
+            <value>USD 0</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.OCR_2018_TEAM__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>EMEA</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>OpportunityLineItem.Product_Category__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>FORECAST_CATEGORY</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_21083744</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>ACCOUNT_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>ING EMEA current and next FY open</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>open</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>0</value>
+    </params>
+    <reportType>OpportunityProduct</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <endDate>2023-05-01</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2023-05-01</startDate>
+    </timeFrameFilter>
+</Report>

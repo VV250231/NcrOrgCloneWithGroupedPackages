@@ -1,0 +1,44 @@
+<apex:component controller="HomePageSearchSectionController">
+    <c:NCR_CustomHead />
+    <!-- Search input and Post New Idea button -->
+    <div class="row panel" style="margin-bottom:25px;">
+         <table width="100%">
+            <tr>
+                <td width="70%">                    
+                         <table width="100%">
+                            <tr>
+                                <td width="88%">
+                                    <apex:inputText value="{!SearchItem}" styleClass="col-lg-7" html-placeholder="Search Ideas" style="width: 100%;color:#333333; padding: 9px !important; border: 1px #e0e0e0 solid !important; float: left !important; max-width:1199px !important;"/>
+                                </td>
+                                <td width="12%">
+                                    <apex:commandButton action="{!doSearch}" image="{!URLFOR($Resource.NCR_cssjsimg, 'img/search-icon.png')}"  styleClass="btn btn-default col-md-2" style="width:48px;margin: 0 5px 0 5px;" reRender="pageForm"/>
+                                </td>
+                            </tr>
+                         </table>
+                </td>
+                <td width="30%">
+                    <apex:commandButton styleClass="btn btn-default col-md-4" value="Post New Idea" action="{!PostNewIdea}" style="width:100% !important;"><!--<img class="plus-icon" src="{!URLFOR($Resource.NCR_cssjsimg, 'img/plus-icon.png')}" style="width:15px; vertical-align:middle; margin-left:-220px" />--> <!--<span class="post-idea">Post New Idea</span>--></apex:commandButton>     
+                </td>
+            </tr>
+         </table>
+    </div>
+    
+    <style>
+    */
+        .navbar-nav>li>a {
+            border-right:1px solid #3488d9;
+            color:#ffffff;
+            text-decoration:none;
+        }
+        .navbar-nav>li>a:hover {
+            background:transparent;
+            border-right:1px solid #3488d9;
+            color:#ffffff;
+            text-decoration:none;
+        }
+        .navbar-collapse {
+            background:#00498f!important;
+            border-color:#00498f;
+        }
+    </style> 
+</apex:component>

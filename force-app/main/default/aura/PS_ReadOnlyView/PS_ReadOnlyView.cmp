@@ -1,0 +1,201 @@
+<aura:component>
+	<aura:attribute name="OppCurr" type="String" /> 
+    <aura:attribute name="anySubscrProd" type="Boolean" />
+    <aura:attribute name="anyNonSubscrProd" type="Boolean" />
+    <aura:attribute name="dataList" type="object[]"/>
+    <aura:attribute name="totalTCV" type="Decimal" ></aura:attribute>
+    
+    <table class="slds-table slds-table_bordered slds-table_col-bordered slds-max-medium-table_stacked slds-no-row-hover" >                                        
+        <aura:if isTrue="{!v.anyNonSubscrProd}"> 
+            <thead>
+                <tr class="slds-text-heading_label TRBGCOLOR">
+                    <th scope="col" class = "slds-size_2-of-12">
+                        <div class="slds-truncate CelltruncateCustom" title="Non-Recurring Product">Non-Recurring Revenue</div>
+                    </th>                                                    
+                    
+                    <th scope="col" class="slds-size_1-of-12">                                                        
+                    </th>   
+                    
+                    <th scope="col" class = "slds-size_2-of-12">
+                        <div class="slds-truncate" title="Unit Price">Unit Price ({!v.OppCurr})</div>
+                    </th>
+                    <th scope="col" class = "slds-size_2-of-12">
+                        <div class="slds-truncate" title="Total Qty">Total Qty</div>
+                    </th>
+                    
+                    <th scope="col" class = "slds-size_1-of-12">
+                    </th> 
+                    
+                    <th scope="col" class = "slds-size_2-of-12">
+                        <div class="slds-truncate" title="ACV">ACV ({!v.OppCurr})</div>
+                    </th>                                            
+                    <th scope="col" class = "slds-size_2-of-12">
+                        <div class="slds-truncate" title="ACV">TCV ({!v.OppCurr})</div>
+                    </th>                                                   
+                    
+
+                </tr>
+            </thead>
+        </aura:if>
+
+        <tbody>  
+            <aura:iteration items="{!v.dataList}" var="productInfo" >                                        
+                <aura:if isTrue="{! ( productInfo.isSubscriptioned == false  &amp;&amp; productInfo.mandateSubscriptioned == false &amp;&amp; productInfo.isCATMProduct == false &amp;&amp; productInfo.isPackage != true &amp;&amp; productInfo.isCompanion != true  ) }" >
+                    <tr class="slds-hint-parent">                      
+                        
+                        <th scope="row" class = "slds-size_3-of-12">
+                            <div class="slds-truncate CelltruncateCustom" title="{!productInfo.Name}">{!productInfo.Name}</div>
+                        </th>
+                        
+                        <td scope="col" class = "slds-size_1-of-12">                                                           
+                        </td>                                                         
+                        
+                        <td class = "slds-size_2-of-12">
+                            <aura:if isTrue="{!v.isCatm}">                                                                
+                                   	<lightning:formattedNumber class="slds-m-left_xx-small" value="{!productInfo.UnitPrice}" minimumFractionDigits="4" maximumFractionDigits="4"/>
+                                <aura:set attribute="else">
+                                    <lightning:formattedNumber class="slds-m-left_xx-small" value="{!productInfo.UnitPrice}" minimumFractionDigits="2" maximumFractionDigits="2" />
+                                </aura:set>
+                            </aura:if>
+                        </td>
+                        <td class = "slds-size_2-of-12">
+							<lightning:formattedNumber class="slds-m-left_xx-small" value="{!productInfo.Quantity}" maximumFractionDigits="0"/>
+                        </td>
+                        
+                        <td scope="col" class="slds-size_1-of-12">                                                           
+                        </td> 
+                        
+                        
+                        <td class = "slds-size_2-of-12">
+                            <div class="slds-truncate" onclick="{!c.CaptureIndex}" data-ids="{!productInfo.Counter}">
+                                <lightning:formattedNumber class="slds-m-left_xx-small TXTBOXWIDTH" value="{!productInfo.TotalACVPrice}" minimumFractionDigits="2" maximumFractionDigits="2" />
+                            </div> 
+                        </td>
+                        
+                        <td class = "slds-size_2-of-12">
+                            <div class="slds-truncate" onclick="{!c.CaptureIndex}" data-ids="{!productInfo.Counter}">                               
+                                <lightning:formattedNumber class="slds-m-left_xx-small TXTBOXWIDTH" value="{!productInfo.TotalTCVPrice}" minimumFractionDigits="2" maximumFractionDigits="2" /> 
+                                <!-- <ui:inputCurrency aura:id="ProductTotal" labelClass="{!productInfo.Counter}" value="{!productInfo.TotalPrice}" change="{!c.OnChangeTotalVal}" class="slds-input TXTBOXWIDTHLARGE" updateOn="change" format="0"/> -->
+                            </div> 
+                        </td>
+                        
+                      
+                    </tr>
+                </aura:if>
+            </aura:iteration>
+        </tbody>  
+        
+        <aura:if isTrue="{!v.anySubscrProd}" >
+            <thead>
+                <tr class="slds-text-heading_label TRBGCOLOR">                   
+                    <th scope="col" class = "slds-size_3-of-12">
+                        <div class="slds-truncate CelltruncateCustom" title="Recurring Revenue Prodducts">Recurring Revenue</div>
+                    </th>
+                    
+                    <th scope="col" class = "slds-size_2-of-12">
+                        <div class="slds-truncate" title="One Time Fee">One Time<br/> Fee ({!v.OppCurr}) </div>
+                    </th>
+                    <th scope="col" class = "slds-size_2-of-12">
+                        <div class="slds-truncate" title="Monthly Fees">Monthly Fee <br/>({!v.OppCurr})</div>
+                    </th>
+                    
+                    <th scope="col" class = "slds-size_2-of-12">
+                        <div class="slds-truncate" title="Unit of Measurement (UoM) is defined using the &quot; Subscription UoM &quot; picklist in the opportunity details section. Site, Lane, VM, Other"># Of UOM
+                        </div>
+                    </th>                                                
+                    
+                    <th scope="col" class = "slds-size_2-of-12">
+                        <div class="slds-truncate" title="Number Of terms"># of Months</div>
+                    </th>
+                    
+                    <th scope="col" class = "slds-size_2-of-12">
+                        <div class="slds-truncate" title="ACV">ACV ({!v.OppCurr})</div>
+                    </th>
+                    <th scope="col" class = "slds-size_2-of-12">
+                        <div class="slds-truncate" title="ACV">TCV ({!v.OppCurr})</div>
+                    </th>
+                    
+                    
+                </tr>
+            </thead>
+        </aura:if>
+        
+        <tbody>  
+            <aura:iteration items="{!v.dataList}" var="productInfo" >                                            
+                <aura:if isTrue="{!or(or( (productInfo.isSubscriptioned == true &amp;&amp; productInfo.isPackage != true &amp;&amp;  productInfo.isCompanion != true),   (productInfo.mandateSubscriptioned &amp;&amp; productInfo.isPackage != true &amp;&amp;  productInfo.isCompanion != true)),
+                                 (productInfo.isCATMProduct &amp;&amp; productInfo.isPackage != true &amp;&amp;  productInfo.isCompanion != true)) }" >
+                    <tr class="slds-hint-parent">                   
+                        <th scope="row">
+                            <div class="slds-truncate CelltruncateCustom" title="{!productInfo.Name}">{!productInfo.Name}</div>
+                        </th>
+                        <td>
+                        	<lightning:formattedNumber class="slds-m-left_xx-small TXTBOXWIDTH" value="{!productInfo.OneTimeFee}" minimumFractionDigits="2" maximumFractionDigits="2" />
+                        </td>
+                        <!--Monthly fee change - inputcurrency to inputNumber-->
+                        <td>
+                            <aura:if isTrue="{!v.isCatm}">                                
+                                  <lightning:formattedNumber class="slds-m-left_xx-small TXTBOXWIDTH" value="{!productInfo.MonthlyFee}" minimumFractionDigits="4" maximumFractionDigits="4" />
+                                <aura:set attribute="else">
+                                	<lightning:formattedNumber class="slds-m-left_xx-small TXTBOXWIDTH" value="{!productInfo.MonthlyFee}" minimumFractionDigits="2" maximumFractionDigits="2" />
+                                </aura:set>
+                            </aura:if>
+                        </td>
+                       
+                            <td>                                
+                                <lightning:formattedNumber class="slds-m-left_xx-small TXTBOXWIDTH" value="{!productInfo.Quantity}" maximumFractionDigits="0" />
+                            </td>
+                       
+                        <td>
+                            <lightning:formattedNumber class="slds-m-left_xx-small TXTBOXWIDTH" value="{!productInfo.NumberOfTerms}" maximumFractionDigits="0" />                           
+                        </td>
+                        <aura:if isTrue="{!v.isCatm}">
+                            <td>
+                                <abbr title="required" class="slds-required" style="vertical-align:top;">*</abbr>
+                                <lightning:select aura:id="qtyType" value="{!productInfo.qtyTyp}" variant="label-hidden" class ="pickSelect" name="qtyTypeName" required="true" onchange="{!c.onQtyTypChange}" > 
+                                    <option value="">None</option>
+                                    <aura:iteration items="{!v.fieldMap}" var="i" indexVar="key">
+                                        <option text="{!i.key}" value="{!i.value}"/>
+                                    </aura:iteration>
+                                </lightning:select>
+                            </td> 
+                        </aura:if>
+                        <td>                            
+                            <lightning:formattedNumber class="slds-m-left_xx-small TXTBOXWIDTH" value="{!productInfo.TotalACVPrice}" minimumFractionDigits="2" maximumFractionDigits="2" /> 
+                        </td>
+                        
+                        <td>
+							<lightning:formattedNumber class="slds-m-left_xx-small TXTBOXWIDTH" value="{!productInfo.TotalTCVPrice}" minimumFractionDigits="2" maximumFractionDigits="2" /> 
+                        </td>
+                        
+                       
+                    </tr>
+                </aura:if>
+            </aura:iteration>
+        </tbody>
+        
+        <aura:if isTrue="{!!empty(v.dataList)}">
+            <tbody>  
+                <tr class="slds-hint-parent">
+                    
+                    <td scope="col">
+                    </td>
+                    <th scope="row" class="slds-size_4-of-12" colspan="2" style="margin-left:-20px;"> 
+                        <div title="Total" style="text-align:right;">Total</div>                                                    	
+                    </th>                                                 
+                    
+                    <td scope="col" colspan="2">
+                    </td>
+
+                    <th scope="row">
+                        <div class="TXTBOXWIDTHLARGE slds-m-right_x-small" style="text-align:right;" title="Total Contract Value">TCV ({!v.OppCurr})</div>                                                    	
+                    </th> 
+                    <th scope="row">
+                        <ui:outputNumber class="slds-m-left_xx-small" value="{!v.totalTCV}" format="0.00"/>                                                 
+                    </th> 
+                    
+                   
+                </tr>
+            </tbody> 
+        </aura:if>        
+    </table>
+</aura:component>

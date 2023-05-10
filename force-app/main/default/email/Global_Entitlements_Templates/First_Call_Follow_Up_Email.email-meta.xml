@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Template for Global Entitlements Analyst following up on first call regarding Entitlement recovery</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Global_Entitlements_Letterhead</letterhead>
+    <name>First Call Follow Up Email</name>
+    <style>freeForm</style>
+    <subject>Follow up message for {!Case.Account} {!Case.Case_Thread_ID__c}</subject>
+    <textOnly>Hello {!Case.Account_Owner_First_Name__c} -
+
+I just left you a message to discuss the {!Case.Potential_Recovery__c} possible Entitlement recovery for {!Case.Account}. I understand that you are busy but I would like to discuss this account with you in detail so we can make sure we take care of our customer.
+
+
+{!Case.OwnerFullName}
+{!User.Department}
+{!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

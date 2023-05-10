@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>CUST_ID</field>
+    </columns>
+    <columns>
+        <field>CUST_CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>trailheadapp__Trailhead_User_Data__c.User_Profile__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>List of users who have completed the SSO authentication in myTrailhead</description>
+    <filter>
+        <criteriaItems>
+            <column>trailheadapp__Trailhead_User_Data__c.User_LOB__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>HOSPITALITY</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>trailheadapp__Trailhead_User_Data__c.User_Profile__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>SMB</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>trailheadapp__Trailhead_User_Data__c.User_LOB__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>myTrailhead SSO HOSP SMB</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$trailheadapp__Trailhead_User_Data__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>CUST_NAME</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CUST_CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

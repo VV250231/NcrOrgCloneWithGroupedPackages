@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Partner_Spotlight_Email_to_Jane_Persephone</fullName>
+        <ccEmails>Channels.Team@ncr.com</ccEmails>
+        <description>Partner Spotlight- Email to Jane/David</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>dr185073@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>jg185133@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Partner_Spotlight/Notification_email_sent_to_Approver</template>
+    </alerts>
+    <alerts>
+        <fullName>Partner_Spotlight_Email_to_Partner</fullName>
+        <description>Partner Spotlight- Email to Partner</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Partner_Spotlight/Notification_to_Partner</template>
+    </alerts>
+    <rules>
+        <fullName>Partner Spotlight Email</fullName>
+        <actions>
+            <name>Partner_Spotlight_Email_to_Jane_Persephone</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>Partner_Spotlight_Email_to_Partner</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Partner_Spotlight__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Created</value>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

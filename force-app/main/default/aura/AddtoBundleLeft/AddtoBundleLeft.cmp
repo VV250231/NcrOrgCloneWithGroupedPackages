@@ -1,0 +1,14 @@
+<aura:component >
+    
+    <aura:attribute name="liked" type="Boolean" />
+    <aura:attribute name="product" type="string" ></aura:attribute>
+    <aura:attribute name="productId" type="string" ></aura:attribute>
+    <aura:attribute name="TriggerSelectAll" type="Boolean"></aura:attribute>
+    <aura:handler name="change" value="{!v.TriggerSelectAll}" action="{!c.TriggerSelectAllMethod}"/>
+    <td>
+       <lightning:input type="checkbox-button" label="Add salami"   checked="{!v.liked}" onchange="{!c.CollectValue}"/>
+    </td>
+    <td>
+       <ui:outputText value="{!v.product}"/> 
+    </td>                                           
+</aura:component>

@@ -1,0 +1,68 @@
+<aura:component controller="IncentiveProgramLtngCon" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="options" type="List" />
+    <aura:attribute name="selectedValue" type="String" default="none"/>
+    <aura:attribute name="incentivePrg" type="IncentiveProgramLtngCon.IncentiveProgramDetail" />
+    <aura:attribute name="message" type="String"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <aura:if isTrue="{! v.options.length}">
+        <lightning:select name="mySelect" label="Select an Incentive Program" aura:id="mySelect" value="{!v.selectedValue}" onchange="{!c.handleChange}">
+            <option value="none">--None--</option>
+            <aura:iteration items="{!v.options}" var="item">
+                <option text="{!item.Name}" value="{!item.Id}" selected="{!item.selected}"/>
+            </aura:iteration>
+        </lightning:select>
+        <aura:set attribute="else">
+            <ui:message severity="info" closable="false">
+                You do not have any Incentive programs available at the moment. Please visit us back.
+            </ui:message>
+        </aura:set>
+    </aura:if>
+    
+    <br/>
+    <br/>
+    
+    <aura:if isTrue="{!v.selectedValue != 'none'}">
+        <lightning:card >
+            <aura:set attribute="title">
+                Incentive Summary
+            </aura:set>
+            <p class="slds-p-horizontal_small">
+                Opt in by: <lightning:formattedDateTime value="{! v.incentivePrg.incentiveProgram.Passed_Date__c}" /><br/><br/>
+                
+                <lightning:formattedRichText value="{! v.incentivePrg.incentiveProgram.Incentive_Summary__c}"/>
+            </p>
+        </lightning:card>
+        
+        <lightning:card >
+            <aura:set attribute="title">
+                Partner Details
+            </aura:set>
+            <p class="slds-p-horizontal_small">
+                <b>Partner Name -</b>&nbsp; <ui:outputText value="{!v.incentivePrg.act.Name}" /> <br/>
+                <b>Channel Account Manager -</b>&nbsp; <ui:outputText value="{!v.incentivePrg.act.Owner.Name}" /><br/>
+                <b>Master Customer number -</b>&nbsp; <ui:outputText value="{!v.incentivePrg.act.Master_Customer_Number__c}" /><br/>
+                <b>Current Date -</b>&nbsp;<lightning:formattedDateTime value="{!v.incentivePrg.currentDate}" />
+            </p>
+        </lightning:card>
+        
+        <lightning:card >
+            <aura:set attribute="title">
+                Terms 	&amp; Conditions:
+            </aura:set>
+            <p class="slds-p-horizontal_small">
+                <lightning:formattedRichText value="{! v.incentivePrg.incentiveProgram.Terms_Conditions__c}"/>
+            </p>
+            <center>
+                <ui:inputCheckbox aura:id="checkbox" class="chkBox"/> I acknowledge and accept these terms and conditions and have the authority to enter {!v.incentivePrg.act.Name} into these sales incentive programs.
+            </center>   
+            <br/>
+            <br/>
+            <center>
+                <lightning:button class="slds-button_brand" label="Submit" onclick="{!c.submitIPRequest}"/>
+                <!--<lightning:button label="Back" onclick="{!c.handleClick}"/>-->
+            </center>
+        </lightning:card>
+    </aura:if>
+</aura:component>

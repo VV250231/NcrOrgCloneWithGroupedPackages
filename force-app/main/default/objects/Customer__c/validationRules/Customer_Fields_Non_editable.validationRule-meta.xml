@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer_Fields_Non_editable</fullName>
+    <active>true</active>
+    <description>Customer Fields will be readonly in salesfoce as per CDM Design</description>
+    <errorConditionFormula>$Profile.Name &lt;&gt; &apos;Soup Integration&apos;</errorConditionFormula>
+    <errorDisplayField>Batch_Number__c</errorDisplayField>
+    <errorMessage>CDM related Customer Details Are Non Editable in Salesforce.If you want to make any update on it then it must be updated in CDM portal</errorMessage>
+</ValidationRule>

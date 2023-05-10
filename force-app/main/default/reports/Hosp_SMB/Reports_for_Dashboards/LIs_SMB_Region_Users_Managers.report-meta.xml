@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>User$UserRole</field>
+    </columns>
+    <columns>
+        <field>User*User$Manager_Level_01__c</field>
+    </columns>
+    <columns>
+        <field>User*User$Manager_Level_02__c</field>
+    </columns>
+    <columns>
+        <field>User*User$Manager_Level_03__c</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>UPPER(IF(CONTAINS(User.UserRole.Name,&quot;SMB&quot;),
+IF(CONTAINS(User.UserRole.Name,&quot;Channel&quot;),
+IF(CONTAINS(User.UserRole.Name,&quot;Central&quot;),&quot;Channel Central&quot;,
+IF(CONTAINS(User.UserRole.Name,&quot;North&quot;),&quot;Channel North&quot;,
+IF(CONTAINS(User.UserRole.Name,&quot;South&quot;),&quot;Channel South&quot;,
+IF(CONTAINS(User.UserRole.Name,&quot;West&quot;),&quot;Channel West&quot;, &quot;Channel &quot; &amp; User.UserRole.Name)))), 
+IF(CONTAINS(User.UserRole.Name,&quot;Northeast&quot;),&quot;North&quot;,
+IF(CONTAINS(User.UserRole.Name,&quot;Southeast&quot;),&quot;Southeast&quot;,
+IF(CONTAINS(User.UserRole.Name,&quot;Central&quot;),&quot;North&quot;,
+IF(CONTAINS(User.UserRole.Name,&quot;Florida&quot;),&quot;Southeast&quot;,
+IF(CONTAINS(User.UserRole.Name,&quot;Texas&quot;),&quot;West-Texas&quot;,
+IF(CONTAINS(User.UserRole.Name,&quot;West&quot;),&quot;West-Texas&quot;, User.UserRole.Name))))))),&quot;NON-SMB OWNED&quot;))</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>SMB Region</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>User*User$Active_Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Active</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User$UserRole</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>HOSP SMB</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User$UserRole</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>Channel,VP,ISR,Sales Ops,Sales Support</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>User$Name</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CDF1</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>LIs - SMB Region Users &amp; Managers</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>User_Custom__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>User$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

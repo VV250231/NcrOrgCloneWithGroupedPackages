@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>Account.No_of_ATM_s__c:SUM-Account.NCR_ATMs__c:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel># of Competitor ATMs</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_9106364</developerName>
+        <masterLabel>Area</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>User.Manager_Level_01__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Alan Walsh</sourceValue>
+            </sourceValues>
+            <value>Enterprise</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>David E Watson</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>David Watson</sourceValue>
+            </sourceValues>
+            <value>Nationals</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Benjamin Seelos</sourceValue>
+            </sourceValues>
+            <value>West</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Brian Pilla</sourceValue>
+            </sourceValues>
+            <value>Northeast</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>John Morgan</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>James deSilva</sourceValue>
+            </sourceValues>
+            <value>Southeast</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Ron Furnier</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ronald Furnier</sourceValue>
+            </sourceValues>
+            <value>Midwest</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Mark Leinenkugel</sourceValue>
+            </sourceValues>
+            <value>Central</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Ian Kirkpatrick</sourceValue>
+            </sourceValues>
+            <value>Canada</value>
+        </values>
+    </buckets>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <axisBinding>y</axisBinding>
+            <column>FORMULA1</column>
+        </chartSummaries>
+        <chartType>HorizontalBar</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>BucketField_9106364</groupingColumn>
+        <location>CHART_BOTTOM</location>
+        <showAxisLabels>true</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>true</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>User.Manager_Level_01__c</field>
+    </columns>
+    <columns>
+        <field>USERS.NAME</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>ADDRESS1_STATE</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.No_of_ATM_s__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.NCR_ATMs__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Average</aggregateTypes>
+        <field>CDF1</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>Account.NCR_ATMs__c/Account.No_of_ATM_s__c</calculatedFormula>
+        <dataType>Double</dataType>
+        <developerName>CDF1</developerName>
+        <label>ATM Market share</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>User.Region_VP__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Chad Bruhn</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User.Manager_Level_01__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>William Thornton</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CDF1</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>greaterOrEqual</operator>
+            <value>0.9</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CDF1</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>lessThan</operator>
+            <value>1</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_9106364</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>NAMER Banking Majority ATM Share Targets</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

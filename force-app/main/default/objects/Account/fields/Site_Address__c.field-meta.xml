@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Site_Address__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( 
+RecordType.Name == &quot;Site&quot;,   
+BillingStreet +&quot; &quot;+
+BillingCity +&quot;, &quot;+
+BillingState +&quot; &quot;+
+BillingPostalCode 
+,
+Null)</formula>
+    <label>Site Address</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

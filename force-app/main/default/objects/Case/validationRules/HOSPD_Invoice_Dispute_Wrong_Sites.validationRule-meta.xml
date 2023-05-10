@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOSPD_Invoice_Dispute_Wrong_Sites</fullName>
+    <active>true</active>
+    <description>This will prevent a case from being closed when Invoice Dispute Description is Wrong Sites and required fields not completed.</description>
+    <errorConditionFormula>(
+ISBLANK( Total_of_sites_on_the_new_invoice__c)
+||
+ISBLANK(Total_of_sites_on_the_original_invoice__c)
+||
+ISBLANK(Number_of_sites_that_were_wrong__c)
+||
+ISBLANK(Total_of_Sites_after_Review_Research__c)
+||
+ISBLANK(Wrong_address_site_Name__c)
+||
+ISBLANK(Sites_Billed_but_should_not_have_been__c)
+||
+ISBLANK(Sites_Not_billed_but_should_have_been__c)
+)
+&amp;&amp; 
+ISCHANGED(Status)
+&amp;&amp;
+ISPICKVAL( Invoice_Dispute_Description__c,&quot;Wrong Sites&quot;)
+&amp;&amp; 
+ISPICKVAL(Status, &quot;Closed&quot;)</errorConditionFormula>
+    <errorMessage>Must complete fields in Invoice Dispute Sites section to Close Case</errorMessage>
+</ValidationRule>

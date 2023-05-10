@@ -1,0 +1,238 @@
+<aura:component controller ="UserInvoiceAuthanticationCCAD" implements="lightning:availableForFlowScreens,lightning:availableForFlowActions" access="global">
+    <!-- When the component renders, call the init handler. -->
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <!-- Attribute to store the validation logic in. -->
+    <aura:attribute name="validate" type="Aura.Action" description="Custom validation function to run when the flow is navigated to the next screen. The function must evaluate the component and return values for isValid and errorMessage."/>
+    <aura:attribute name="textAttribute" type="String" access="global"/>
+    <aura:attribute name="action" type="String" access="global"/>
+    <aura:attribute name="CommaSepratedInvoice" type="List"/>
+    <aura:attribute name="options" type="List"/> 
+    <aura:attribute name="InvoiceDisplayMap" type="Map"/>
+    <aura:attribute name="MCN" type="List"/>   
+    <aura:attribute name="SelectedCountryCode" type="String"></aura:attribute>
+    <aura:attribute name="UserSelctedReasonForNextScreen" type="String"></aura:attribute>
+    <aura:attribute name="InvoiceRORSystem" type="String"></aura:attribute>
+   <!-- Determine which actions are available -->
+   <aura:attribute name="canPause" type="Boolean" />
+   <aura:attribute name="canBack" type="Boolean" />
+   <aura:attribute name="canNext" type="Boolean" />
+   <aura:attribute name="canFinish" type="Boolean"/>
+   <aura:attribute name="ifInvalidMsg" type="String" default="This is a confirmation message."></aura:attribute> 
+   <aura:attribute name="isValidated" type="Boolean" default="true"/>
+   <aura:attribute name="severity" type="String"></aura:attribute> 
+   <aura:attribute name="title" type="String"></aura:attribute>  
+   <aura:attribute name="overlayPanel" type="Aura.Component[]" /> 
+   <aura:attribute name="TableDate" type="String"/>
+   <aura:attribute name="isModalOpen" type="boolean" default="false"/> 
+    
+   <aura:attribute name="DisputeDetailtoDisplay" type="Object"></aura:attribute>
+   <aura:attribute name="InvoiceMCN" type="String"/>
+   <aura:attribute name="InvoiceCountryCode" type="String"/>
+   <aura:attribute name="InvoiceCurrencyCode" type="String"/>
+   <aura:attribute name="toggleSpinner" type="boolean"></aura:attribute>
+   <aura:attribute name="CountryCodeOption" type="String"></aura:attribute>
+   <aura:attribute name="toggleLookup" type="boolean" default="false"/>
+     <aura:attribute Name="selItem" type="object" access="public"/> 
+     <aura:attribute Name="accSelItem" type="object" access="public"/> 
+    <aura:attribute Name="IsERPCloud" type="boolean" default="false"/> 
+     <aura:attribute Name="accMCN" type="string"/>
+    <aura:attribute Name="accId" type="string"/>
+    <aura:attribute Name="accName" type="string"/>
+     <aura:attribute Name="nextdisabled" type="boolean" default="false"/>
+    <aura:handler name="change" value="{!v.selItem}" action="{!c.handleValueChange}"/>
+    <aura:handler name="change" value="{!v.textAttribute}" action="{!c.handleValueChange}"/>
+        <aura:if isTrue="{!!v.isValidated}">
+            <ui:message title="Error" severity="{!v.severity}" closable="false">
+                {!v.ifInvalidMsg}.&nbsp;
+                <aura:if isTrue="{!v.ifInvalidMsg !='Please complete a require fields'}">
+                <lightning:button variant="base" label="View In Detail" title="View In Detail" onclick="{! c.openDetailComponent}"/>
+                </aura:if>
+            </ui:message>
+        </aura:if> 
+     <lightning:layout multipleRows="true">
+         
+         <aura:if isTrue="{!v.toggleSpinner}">
+         <lightning:spinner aura:id="mySpinner" />
+         </aura:if>   
+         
+         <lightning:layoutItem padding="around-small" size="12">
+             <aura:if isTrue="{!!v.IsERPCloud}">
+             <lightning:combobox name="code" value="{!v.SelectedCountryCode}" required="true" label="Country"  placeholder="Select Country Code" options="{! v.options }" onchange="{! c.handleChange }"/>
+             <!--<c:lookup lookupIcon ="standard:account" objectName="Account" field_API_search="Name" field_API_val="Master_Customer_Number__c" field_API_text="Name" selItem="{!v.SelectedCountryCode}"/>  -->  
+             <aura:set attribute="else">
+             <!--<lightning:input class="slds-m-top_x-large" type="checkBox" name="toggle lookUp" label="Check true to search by Master Number" value="{!v.toggleLookup}" onchange="{!c.toggleLookup}"></lightning:input>-->
+            <!-- <aura:if isTrue="{!v.toggleLookup}">-->
+                 
+                 <label for="masLookup" class="slds-form-element__label"><abbr title="required" class="slds-required">*</abbr>Search Account by Name OR MCN</label>
+                 <c:LookupAccountSupport lookupIcon="standard:account"
+                                             objectName="Account"
+                                             limit="5"
+                                             placeholder="Search Account by Name Or MCN"
+                                             field_API_val="Master_Customer_Number__c"
+                                             field_API_text="Name"
+                                             selectedObject="{!v.selItem}"
+                                             selItem="{!v.accSelItem}"
+                                             sub_fld_text ="Master_Customer_Number__c"
+                                             aura:id="accLookup"
+                                       />
+                 <!--<c:LookupAccountSupport lookupIcon="standard:account"
+                                         objectName="Account"
+                                         field_API_search="Master_Customer_Number__c"
+                                         limit="5"
+                                         placeholder="Search Account by Master"
+                                         field_API_val="Id,Name"
+                                         field_API_text="Master_Customer_Number__c"
+                                         selectedObject="{!v.selItem}"
+                                         selItem="{!v.accSelItem}" 
+                                         sub_fld_text ="Name"
+                                         aura:id="masLookup"/>-->
+                 
+                <!-- <aura:set attribute="else">
+                     <label for="accLookup" class="slds-form-element__label"><abbr title="required" class="slds-required">*</abbr>Search Account by Name</label>
+                     <c:LookupAccountSupport lookupIcon="standard:account"
+                                             objectName="Account"
+                                             field_API_search="Name"
+                                             limit="5"
+                                             placeholder="Search Account by Name"
+                                             field_API_val="Id,Tier__c,Master_Customer_Number__c,BillingCity,BillingState,BillingCountry,parent.Name,parentid,parent.Tier__c,parent.Master_Customer_Number__c,parent.BillingCity,parent.BillingState,parent.BillingCountry"
+                                             field_API_text="Name"
+                                             selectedObject="{!v.selItem}"
+                                             selItem="{!v.accSelItem}"
+                                             sub_fld_text ="Master_Customer_Number__c"
+                                             aura:id="accLookup"/>
+                     
+                 </aura:set> 
+                 
+             </aura:if>-->
+                 </aura:set>
+             </aura:if>
+         </lightning:layoutItem>
+         <lightning:layoutItem padding="around-small" size="12" >
+             <lightning:textarea style="height:200px;" name="input7" aura:id="invoiceInput" required="true" value="{!v.textAttribute}" placeholder="Provide list of invoices separated by comma/space/new line" label="Provide list of invoices separated by comma/space/new line" messageWhenTooLong="A maximum of 140 characters are allowed in a tweet." messageWhenValueMissing="Invoice List is a mandatory field. Please enter invoice(s) before clicking on next. " />
+         </lightning:layoutItem>     
+    
+     </lightning:layout>     
+    
+    <aura:if isTrue="{!v.isModalOpen}">
+    <div class="slds-m-around_xx-large">
+        <!--Use aura:if tag to display/hide popup based on isModalOpen value-->  
+       
+             
+            <!-- Modal/Popup Box starts here-->
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_small">
+                
+                <div class="slds-modal__container">
+                    <!-- Modal/Popup Box Header Starts here--> 
+                    <header class="slds-modal__header">
+                        <lightning:buttonIcon iconName="utility:close"
+                                              onclick="{! c.closeModel }"
+                                              alternativeText="close"
+                                              variant="bare-inverse"
+                                              class="slds-modal__close"/>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Entered Invoice Details</h2>
+                    </header>
+                    <!--Modal/Popup Box Body Starts here-->
+                    <div class="slds-modal__content slds-p-around_large" id="modal-content-id-1" >
+                           <lightning:layout multipleRows="true">
+                            <lightning:layoutItem padding="around-small" size="12">
+                                <div class="page-section page-header">
+                                   <ui:message title="Entered Invoice Detail" severity="{!v.severity}" closable="false">{!v.DisputeDetailtoDisplay.displayMsg}</ui:message>
+                                </div>
+                            </lightning:layoutItem>
+                               
+                            </lightning:layout>
+                    <lightning:layout horizontalAlign="space" verticalAlign="center" multipleRows="true">
+               
+                       <aura:iteration items="{!v.DisputeDetailtoDisplay.DisputeDetails}" var="cus" indexVar="key">
+                            <lightning:layoutItem padding="around-small" flexibility="auto" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6">
+                            <ul class="slds-has-dividers_around-space">
+                            <li class="slds-item">
+                            <article class="slds-tile slds-tile_board">
+                            <h3 class="slds-tile__title slds-truncate" title="Invoice No.">
+                            <a href="javascript:void(0);">Invoice No:</a>
+                            </h3>
+                            <div class="slds-tile__detail">
+                            <p class="slds-text-heading_medium">{!cus.Invoice_Number__c}</p>
+                            <p class="slds-truncate" title="Dispute #">
+                            <a href="javascript:void(0);">Dispute #:</a>
+                            </p>
+                            <p class="slds-truncate slds-has-alert" title="Case Number">{!cus.Dispute__r.CaseNumber}</p>
+                            <span class="slds-icon_container slds-tile_board__icon" title="description of icon when needed">
+                            <!--<svg class="slds-icon slds-icon-text-warning slds-icon_x-small" aria-hidden="true">
+                            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#warning"></use>
+                            </svg>-->
+                                
+                            <span class="slds-assistive-text">Warning Icon</span>
+                            </span>
+                            </div>
+                            </article>
+                            </li>
+                            </ul>
+                            </lightning:layoutItem>
+                        </aura:iteration>
+                         <aura:iteration items="{!v.DisputeDetailtoDisplay.InvoiceDetail}" var="cus" indexVar="key">
+                            <lightning:layoutItem padding="around-small" flexibility="auto" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6">
+                            <ul class="slds-has-dividers_around-space">
+                            <li class="slds-item">
+                            <article class="slds-tile slds-tile_board">
+                            <h3 class="slds-tile__title slds-truncate" title="MCN">
+                            <a href="javascript:void(0);">MCN:</a>
+                            </h3>
+                            <div class="slds-tile__detail">
+                            <p class="slds-text-heading_medium"> {!cus.MCN}</p>
+                            <p class="slds-truncate" title="Country Code">
+                            <a href="javascript:void(0);">Country Code:</a>
+                            </p>
+                            <p class="slds-truncate slds-has-alert" title="Country Code">{!cus.CountryCode}</p>
+                            <p title="Invoice Status">
+                              <a href="javascript:void(0);">Invoice Status:</a>
+                            </p>    
+                            <p class="slds-truncate slds-has-alert" >
+                                {!cus.InvoiceStatus}
+                            </p>    
+                            <span class="slds-icon_container slds-tile_board__icon" title="description of icon when needed">
+                            <lightning:icon iconName="utility:connected_apps" alternativeText="Connected" variant="inverse" size="xx-small" title="" />
+                            <span class="slds-assistive-text">Warning Icon</span>
+                            </span>
+                            </div>
+                            </article>
+                            </li>
+                            </ul>
+                            </lightning:layoutItem>
+                        </aura:iteration>
+                    		</lightning:layout>
+                        </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+    	</div>
+        </aura:if>
+         <lightning:layout>
+           <lightning:layoutItem padding="around-small" size="12">
+                  <div aura:id="actionButtonBar" class="slds-clearfix slds-p-top_medium">
+                      <!-- If Previous is available, display to the left -->
+                      <div class="slds-float_left">
+                         <aura:if isTrue="{!v.canBack}">
+                            <lightning:button aura:id="BACK" label="Previous"
+                               variant="neutral" onclick="{!c.onButtonPressed}"/>
+                         </aura:if>
+                      </div>
+                      <div class="slds-float_right">
+                         <!-- If Pause, Next, or Finish are available, display to the right -->
+                         <aura:if isTrue="{!v.canPause}">
+                            <lightning:button aura:id="PAUSE" label="Pause"
+                               variant="neutral" onclick="{!c.onButtonPressed}"/>
+                         </aura:if>
+                         <aura:if  isTrue="{!v.canNext}">
+                            <lightning:button   aura:id="NEXT" label="Next" 
+                               variant="brand" onclick="{!c.validateInvoice}" disabled="{!v.nextdisabled}"/>
+                         </aura:if>
+                         <aura:if isTrue="{!v.canFinish}">
+                            <lightning:button  aura:id="FINISH" label="Done"
+                               variant="brand" onclick="{!c.onButtonPressed}"/>
+                         </aura:if>          
+                      </div>
+                   </div>
+           </lightning:layoutItem>
+        </lightning:layout>       
+</aura:component>

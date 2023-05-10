@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reseller_Address_Required</fullName>
+    <active>true</active>
+    <description>Reseller Address is Required if NSS-Ship Firewall is equal to Reseller.</description>
+    <errorConditionFormula>AND(ISPICKVAL(NSS_Ship_Firewall_To__c, &quot;Reseller&quot;),
+ISBLANK(Reseller_Address_for_Firewall_Shipment__c))</errorConditionFormula>
+    <errorDisplayField>Reseller_Address_for_Firewall_Shipment__c</errorDisplayField>
+    <errorMessage>Reseller firewall shipment address is required if firewall is shipping to reseller.</errorMessage>
+</ValidationRule>

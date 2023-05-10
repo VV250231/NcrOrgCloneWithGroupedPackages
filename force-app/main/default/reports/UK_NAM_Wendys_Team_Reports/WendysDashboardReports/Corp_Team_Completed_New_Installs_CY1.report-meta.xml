@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Opportunity$Account.Owner</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Assets__r$Name</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Assets__r$Terminal_ID__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Assets__r$Surcharge_Proposition__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Assets__r$Status</field>
+    </columns>
+    <currency>GBP</currency>
+    <description>All Corporate Team new installations completed in Q4 2019</description>
+    <filter>
+        <criteriaItems>
+            <column>Opportunity$Account.Owner</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>contains</operator>
+            <value>Ian Harper,Tom Smith,Julie Davison,Corinne Orgar,Emma Redmond,Charlene Dyer,Matthew Sneade,Wendy Dawson,Gavin Young</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Assets__r$Status</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>In Service</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>Opportunity.Assets__r$ATM_Type__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Month</dateGranularity>
+        <field>Opportunity.Assets__r$InstallDate</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Opportunity.Assets__r$Account</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Corp Team - Completed Installs - Q4 2019</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunities_w_Assets__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Opportunity.Assets__r$InstallDate</dateColumn>
+        <endDate>2019-12-31</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2019-10-01</startDate>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,121 @@
+<aura:component controller="PRM_PartnerSpotlightListviewController" 
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <!--<ltng:require scripts="/resource/PRM_jQuery, /resource/PRM_jsonQ_min"></ltng:require>-->
+    <aura:attribute name="ObjectData" type="List" />
+    
+    <aura:attribute name="PaginationList" type="List"/>
+    <aura:attribute name="currentPage" type="Integer" default="0"/>
+    <aura:attribute name="start" type="Integer" default="0"/>
+    <aura:attribute name="end" type="Integer" default="0"/>
+    <aura:attribute name="totalPages" type="Integer" default="0"/>
+    <aura:attribute name="paginationTable" type="List" />
+    <aura:attribute name="totalRecords" type="Integer" default="0"/>
+    <aura:attribute name="pageSize" type="Integer" default="10"/>
+    <aura:attribute name="selectedView" type="String" default="Partner Feature Friday"/>
+    <aura:attribute name="SpotLights" type="String[]" 
+                    default="MDF Success Story,Miscellaneous Business Related Topic,Partner Ambassador Event,Significant Customer Win"/>
+
+    <aura:attribute name="next" type="boolean" default="true"/>
+    <aura:attribute name="prev" type="boolean" default="true" />
+    <aura:attribute name="isListView" type="boolean" default="true"/>
+    
+    <aura:attribute name="isPFF" type="Boolean" default="false" />
+    <aura:attribute name="isMDF" type="Boolean" default="false" />
+    <aura:attribute name="isPME" type="Boolean" default="false" />
+    <aura:attribute name="isSCW" type="Boolean" default="false" />
+    <aura:attribute name="isMBRT" type="Boolean" default="false" />
+    <aura:attribute name="partnerFeatureId" type="String" />
+    
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+      
+   <aura:if isTrue="{!v.isListView}">
+    <div class="slds-page-header" role="banner">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-has-flexi-truncate"> 
+                <div class="slds-media slds-media--center slds-no-space slds-grow">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-account">
+                            <lightning:icon iconName="standard:account" size="large" alternativeText="Indicates approval"/>
+                            <span class="slds-assistive-text slds-text-title--caps">Partner Spotlight</span>
+                        </span>
+                    </div>
+                    <div class="slds-media__body slds-size_1-of-4 ">
+                        <lightning:select aura:id="select" name="select" label="Partner Spotlight" value="{!v.selectedView}" onchange="{! c.cViewChange}" >
+                            <aura:iteration items="{!v.SpotLights}" var="spotLight">
+                                <option value="{!spotLight}" text="{!spotLight}"></option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>
+                </div>                    
+            </div>  
+            <!-- ACTION BUTTONS -->
+            <div class="slds-col slds-no-flex slds-grid slds-wrap slds-align-top">
+                <div class="slds-button-group" role="group">
+                    <button class="slds-button slds-button--neutral" onclick="{!c.cNewSpotlight}">
+                        New Partner Spotlight
+                    </button>
+                </div>
+            </div>
+            <!-- / ACTION BUTTONS -->               
+        </div>
+    </div>
+    
+    <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+        <thead>
+            <tr class="slds-text-heading--label ">
+                <th class="" scope="col">Partner Spotlight #</th>                    
+                <th class="" scope="col">Type</th>                    
+                <th class="slds-is-sortable" scope="col">First Name</th>
+                <th class="slds-is-sortable" scope="col">Last Name</th>
+                <th class="slds-is-sortable" scope="col">Partner Name</th>    
+            </tr>  
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.PaginationList}" var="obj">
+                <tr>
+                    <td><a data-record="{!obj.Id + '--' + obj.Partner_Spotlight_Type__c}" onclick="{!c.onClick}">{! obj.Name}</a></td>
+                    <td>{! obj.Partner_Spotlight_Type__c}</td>
+                    <td>{! obj.First_Name__c}</td>
+                    <td>{! obj.Last_Name__c}</td>
+                    <td>{! obj.Partner_Name__r.Name}</td>
+                   
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table>
+    <br/>
+ 
+    <lightning:button label="Previous" disabled="{! 1 >= v.currentPage }" 
+                      class="slds-button slds-button--neutral slds-p-horizontal--xx-small slds-m-right--x-small slds-float--left"  
+                      onclick="{!c.cPrevious}" variant="brand"
+                      iconName='utility:back'/>
+    
+    <lightning:button label="Next" disabled="{!v.currentPage >= v.totalPages}"
+                      class="slds-button slds-button--neutral slds-p-horizontal--xx-small slds-m-right--x-small slds-float--left"
+                      onclick="{!c.cNext}" variant="brand"
+                      iconName='utility:forward' iconPosition='right'/>
+        
+    </aura:if> 
+       
+    <aura:if isTrue="{!v.isPFF}">
+        <c:PRM_DetailPartnerFeatureFriday partnerSpotlightId="{!v.partnerFeatureId}" />
+    </aura:if>
+    
+    <aura:if isTrue="{!v.isMDF}">
+        <c:PRM_DetailMDFSuccessStory partnerSpotlightId="{!v.partnerFeatureId}" />
+    </aura:if>
+    
+    <aura:if isTrue="{!v.isPME}">
+        <c:PRM_DetailPartnerAmbassadorEvent partnerSpotlightId="{!v.partnerFeatureId}" />
+    </aura:if>
+    
+    <aura:if isTrue="{!v.isSCW}">
+        <c:PRM_DetailSignificantCustomerWin partnerSpotlightId="{!v.partnerFeatureId}" />
+    </aura:if>
+    
+    <aura:if isTrue="{!v.isMBRT}">
+        <c:PRM_DetailMiscellaneousBusinessRelatedTopics partnerSpotlightId="{!v.partnerFeatureId}" />
+    </aura:if>
+</aura:component>

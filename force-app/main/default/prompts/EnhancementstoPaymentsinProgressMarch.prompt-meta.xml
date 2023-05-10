@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prompt xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>Enhancements to Payments in Progress - March</masterLabel>
+    <promptVersions>
+        <body>Please be aware that maintenance to Payments Opportunity management is being updated on Friday, March 19, staring at 6pm CST through Saturday afternoon. If you encounter errors during this time, please email the Salesforce Admin team.</body>
+        <delayDays>1</delayDays>
+        <dismissButtonLabel>I understand</dismissButtonLabel>
+        <displayPosition>TopCenter</displayPosition>
+        <displayType>FloatingPanel</displayType>
+        <endDate>2021-03-21</endDate>
+        <isPublished>false</isPublished>
+        <masterLabel>Enhancements to Payments in Progress - March</masterLabel>
+        <shouldDisplayActionButton>false</shouldDisplayActionButton>
+        <shouldIgnoreGlobalDelay>true</shouldIgnoreGlobalDelay>
+        <startDate>2021-03-19</startDate>
+        <themeColor>Theme1</themeColor>
+        <themeSaturation>Dark</themeSaturation>
+        <timesToDisplay>1</timesToDisplay>
+        <title>Enhancements to Payments in Progress</title>
+        <uiFormulaRule>
+            <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
+            <criteria>
+                <leftValue>{!$User.Profile.Key}</leftValue>
+                <operator>EQUAL</operator>
+                <rightValue>custom_hosp smb sales</rightValue>
+            </criteria>
+            <criteria>
+                <leftValue>{!$User.Profile.Key}</leftValue>
+                <operator>EQUAL</operator>
+                <rightValue>custom_hosp smb sales with hosted</rightValue>
+            </criteria>
+            <criteria>
+                <leftValue>{!$User.Profile.Key}</leftValue>
+                <operator>EQUAL</operator>
+                <rightValue>custom_hospitality smb partner user</rightValue>
+            </criteria>
+            <criteria>
+                <leftValue>{!$User.Profile.Key}</leftValue>
+                <operator>EQUAL</operator>
+                <rightValue>custom_hosp inside sales</rightValue>
+            </criteria>
+        </uiFormulaRule>
+        <userAccess>Everyone</userAccess>
+        <userProfileAccess>SpecificProfiles</userProfileAccess>
+        <versionNumber>1</versionNumber>
+    </promptVersions>
+</Prompt>

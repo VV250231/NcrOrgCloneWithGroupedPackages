@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CATM_Require_Sub_Industry</fullName>
+    <active>true</active>
+    <description>Require the Sub-Industry for CATM users</description>
+    <errorConditionFormula>AND(
+ NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+ NOT(OR(ISPICKVAL(Status,&apos;Open&apos;),(ISPICKVAL(Status,&apos;Researching&apos;)),(ISPICKVAL(Status,&apos;Marketing Qualified&apos;)))),
+ $Permission.CATM_User = true,
+ ISPICKVAL(SubIndustry__c,&apos;&apos;)
+)</errorConditionFormula>
+    <errorMessage>Please populate the Sub Industry.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Verify_NON_CMS_Type</fullName>
+    <active>true</active>
+    <description>This rule is created to validate opportunities.  It checks if offer portfolio is not equal to &quot;IPS&quot; and type is equal to &apos;IPS Base Business&apos;, then it displays an error message.</description>
+    <errorConditionFormula>AND(
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+NOT(CATM_Record__c),
+If(NOT(ISPICKVAL(Solution_Portfolio__c,&apos;IPS&apos;)),ISPICKVAL(Type,&apos;IPS Base Business&apos;),false),
+($Profile.Name &lt;&gt; &quot;Soup Integration&quot;),($Profile.Name &lt;&gt; &quot;iPaas Administration&quot;), ($Profile.Name &lt;&gt; &quot;C9 Administration&quot;))</errorConditionFormula>
+    <errorDisplayField>Type</errorDisplayField>
+    <errorMessage>Please select other than &quot;IPS Base Business&quot; Type.  Only IPS opportunities have &quot;IPS Base Business&quot; Type.</errorMessage>
+</ValidationRule>

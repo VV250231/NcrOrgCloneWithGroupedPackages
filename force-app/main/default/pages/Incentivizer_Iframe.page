@@ -1,0 +1,16 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false"  Controller="UserActivityLogger" action="{!updateCount}" >
+    <apex:iframe src="{!$Label.ICM_URL}" id="theFrame" /> 
+    <script>document.getElementById('theFrame').height = window.innerHeight;
+    </script> 
+    <style>table#bodyTable {border-collapse: collapse;} table#bodyTable td {padding: 0;}
+    </style>
+    <script>
+        (function() { //this wrapper prevents pollution of the global scope
+            var windowOnresize = window.onresize;
+            window.onresize = function() {
+                if (windowOnresize) windowOnresize(); //don't trample the handler; intercept it
+                document.getElementById('theFrame').height = window.innerHeight;
+            };
+        }());
+    </script>
+</apex:page>

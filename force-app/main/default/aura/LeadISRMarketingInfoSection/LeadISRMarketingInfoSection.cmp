@@ -1,0 +1,49 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,force:hasRecordId" access="global" >
+    <aura:attribute name='test' type='String' default="mkto71_Lead_Score__c"/>
+    <lightning:recordViewForm recordId="{!v.recordId}" objectApiName="Lead">
+        <!-- Using lightning:card tag with a title -->
+        <lightning:card title="">
+            <!-- lightning:card body section starts -->
+            <p class="slds-p-horizontal_small">
+                <!-- Forming a grid of two equal columns -->
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_1-of-2">
+                        <!-- 
+                            Using lightning:outputField Tag with fieldName = Api name of field,
+                            if you are using a custom field, do check you have __c in the api name
+                         -->
+                        <lightning:outputField fieldName="mkto71_Lead_Score__c" />    
+                        <lightning:outputField fieldName="LeadType__c" />    
+                        <lightning:outputField fieldName="LeadSource__c" />  
+                        <lightning:outputField fieldName="Sub_Lead_Source__c" />    
+                        <lightning:outputField fieldName="mkto71_Acquisition_Date__c" />    
+                        <lightning:outputField fieldName="mkto71_Acquisition_Program__c" />   
+                        <lightning:outputField fieldName="mkto71_Original_Referrer__c" />    
+                        <lightning:outputField fieldName="mkto71_Original_Search_Engine__c" />    
+                        <lightning:outputField fieldName="mkto71_Original_Search_Phrase__c" />    
+                        <lightning:outputField fieldName="mkto71_Original_Source_Info__c" />    
+                        <lightning:outputField fieldName="mkto71_Original_Source_Type__c" />    
+                        <lightning:outputField fieldName="synctoMarketo__c" />    
+
+
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning:outputField fieldName="mkto71_Inferred_Company__c" />    
+                        <lightning:outputField fieldName="mkto71_Inferred_City__c" />    
+                        <lightning:outputField fieldName="mkto71_Inferred_State_Region__c" /> 
+                        <lightning:outputField fieldName="mkto71_Inferred_Country__c" />    
+                        <lightning:outputField fieldName="mkto71_Inferred_Phone_Area_Code__c" />    
+                        <lightning:outputField fieldName="mkto71_Inferred_Postal_Code__c" /> 
+                        <lightning:outputField fieldName="Email_Domain__c" />    
+                        <lightning:outputField fieldName="Return_to_Nurture_Reason__c" />    
+                        <lightning:outputField fieldName="Disqualified_Date__c" /> 
+                        <lightning:outputField fieldName="Optin_Lead__c" />    
+                        <lightning:outputField fieldName="OptinDate_Lead__c" />    
+                        <lightning:outputField fieldName="CampaignTrigger__c" />
+                       <lightning:outputField fieldName="Campaign_Trigger_Date__c" />
+                    </div>
+                </div>
+            </p>
+        </lightning:card>        
+    </lightning:recordViewForm>
+</aura:component>

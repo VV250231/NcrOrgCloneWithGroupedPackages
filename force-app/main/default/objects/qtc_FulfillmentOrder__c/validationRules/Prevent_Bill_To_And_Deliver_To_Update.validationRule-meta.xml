@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_Bill_To_And_Deliver_To_Update</fullName>
+    <active>true</active>
+    <description>Non Admin users are not supposed to update Bill To and Deliver to fields.</description>
+    <errorConditionFormula>AND( ISPICKVAL(qtc_Quote__r.SBQQ__Type__c, &quot;Amendment&quot;), OR( ISCHANGED(qtc_Bill_To_Site__c),ISCHANGED(qtc_DeliverToSite__c) ) ,(!Contains($Profile.Name,&quot;System Administrator&quot;)) )</errorConditionFormula>
+    <errorMessage>You cannot update Bill To and Deliver To in Amended FulFillment Order.</errorMessage>
+</ValidationRule>

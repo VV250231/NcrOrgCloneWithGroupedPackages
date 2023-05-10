@@ -1,0 +1,9 @@
+<apex:component controller="VFEmailTemplateClass" access="global">
+    <apex:attribute name="AcctId" type="String" description="Id of the account" assignTo="{!accountId}"/>
+    <apex:attribute name="ResCode" type="String" description="Reason code of record" assignTo="{!ReasonCode}"></apex:attribute>
+    <apex:attribute name="CustNo" type="String" description="MCN  of record" assignTo="{!CustomerNo}"></apex:attribute>
+        <apex:repeat value="{!SmithAccounts}" var="o">
+            {!o}<br/>   
+        </apex:repeat>       
+  
+</apex:component>

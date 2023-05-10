@@ -1,0 +1,656 @@
+
+
+/*****************************/
+/* Locally define components */
+/*****************************/
+/** Helper class, for anchor with icon representation, sentence or heading where we don't want padding or underline  */
+
+a[di-link="sentences"], a[di-link="heading"], a[di-link="icon"] {
+	padding: 0px;
+}
+a[di-link="icon"] {
+	text-decoration: none;
+}
+
+.di-container {
+  background-color: #fff;
+  box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.45);
+    padding: 30px;
+}
+
+.disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.menu-separetor {
+	padding-left:12px;
+	padding-right:12px;
+}
+.menu-badge-holder {
+	
+	display:inline-block;
+	position: relative;
+	top: -5px;
+}
+.menu-badge {
+	background-color:#D9E6F9;
+	font-size: xx-small;
+	color:black;
+}
+.menu-badge-lg {
+	border-radius: 0px;
+  	background-color: red;
+}
+
+/* Table Heading Related Stuff */
+.di-rs-table {
+
+}
+.di-rs-table .heading {
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+    padding: 10px 0px 10px 0px;
+}
+
+.di-rs-table .heading .cell{
+    border-right: 1px solid #cccccc;
+    color: #666666;
+    font-size: 14px;
+    padding-left: 30px;
+    padding-top: 5px;
+    padding-botom: 5px;
+    display: inline-block;
+    width: 100%;
+}
+.di-rs-table .heading a, .di-rs-table .data a {
+    padding: 0px;
+}
+.di-rs-table .heading .cell.text-right {
+    padding-left: 0px;
+    padding-right: 30px;
+}
+.di-rs-table .heading .cell.last.text-right {
+    padding-right: 0px;
+}
+.di-rs-table .heading .cell.first{
+    padding-left: 0px;
+}
+.di-rs-table .heading .cell.last{
+    border-right: 0px solid #cccccc;
+}
+
+/* Table Data Row Related Stuff */
+.di-rs-table .data {
+    padding: 10px 0px 10px 0px;
+    border-bottom: 1px solid #cccccc;
+}
+.di-rs-table .data .cell{
+    color: #666666;
+    padding-left: 30px;
+    display: inline-block;
+    width: 100%;
+}
+
+.di-rs-table .data .cell.text-right {
+    padding-left: 0px;
+    padding-right: 30px;
+}
+.di-rs-table .data .cell.last.text-right {
+    padding-right: 0px;
+}
+.di-rs-table .data .cell.first {
+    padding-left: 0px;
+}
+.di-rs-table .data .cell.last {
+
+}
+
+.di-rs-table .data > div, .di-rs-table .heading > div {
+    padding: 0px;
+}
+.di-rs-table > div {
+    margin-left:0px;
+    margin-right:0px;
+}
+/* Dropdown */
+
+.di.dropdown {
+	font-family: Arial;
+	color: #333333;
+	margin:4px;
+    display: inline-block;
+}
+.di.dropdown button {
+	background-color:#EDEDED;
+	height:42px;
+	text-align:left;
+	border: 0px;
+	box-shadow:1px 1px 1px 0px rgba(0,0,0,0.45);
+	
+}
+.di.dropdown .ddlabel {
+	
+	margin-right: 10px;
+	margin-left: 14px;
+	vertical-align: middle;
+/* 	max-width:75%;
+	white-space: nowrap;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+  	display:inline-block;  */
+  	
+}
+
+.di.dropdown .caret {
+	border-top: 11px dashed;
+	border-right: 8px solid transparent;
+	border-left: 8px solid transparent;
+	float: right;
+	margin-top:5px;
+	margin-right: 14px;
+}
+.di.dropdown ul {
+	/* width:95% */
+	/* margin: 0px; */
+  	padding: 0px;
+  	font-size: 16px;
+  	box-shadow:1px 1px 1px 0px rgba(0,0,0,0.45);
+}
+.di.dropdown ul li {
+	height:60px;
+	padding-top:20px;
+	padding-left:20px;
+	padding-right:20px;
+}
+
+.di.dropdown ul li:hover {
+	background-color:#F5F5F5;
+}
+.di.dropdown ul li.active {
+	background-color:#CCCCCC;
+}
+
+.di.dropdown.inverse button{
+	background-color:#FFF;
+}
+
+.di.dropdown.sm button {
+	height:35px;
+	font-size: 14px;
+}
+ 
+.di.dropdown.sm ul {
+  	font-size: 14px;
+}
+.tag-row-gold, .tag-row-gold-right, .tag-row-green, .tag-row-green-right, 
+.tag-row-red, .tag-row-red-right, .tag-row-blue, .tag-row-blue-right {
+	width: 0;
+	height: 0;
+	display:inline-block;
+	vertical-align: top;
+}
+
+
+/* Toggel switch */
+.di-toggle-switch-container {
+	width: 95px;
+	height: 42px;
+	margin:5px;
+	overflow: hidden;
+	border:1px solid #CCCCCC;
+    display:inline-block;
+    text-align: left;
+}
+.di-toggle-switch {
+	width: 140px;
+	height: 43px;
+	font-family: Arial;
+  	font-weight: bold;
+  	font-size: 16px;
+	color: #666;
+	background-color:#EDEDED;
+	margin-left: -40px;
+}
+
+.di-toggle-switch.active {
+	background-color:#666666;
+	color: #fff;
+	margin-left: 0px;
+}
+
+.di-toggle-switch .label-on, .di-toggle-switch .label-off {
+	margin-top:-20px;
+	width: 40px;
+	display: inline-block;
+	text-align: center;
+  	vertical-align: middle;
+}
+
+.di-toggle-switch .label-silder{
+	margin-top:5px;
+	background-color:#fff;
+	width: 45px;
+	height: 30px;
+	display: inline-block;
+}
+
+.di-toggle-switch .label-silder {
+	box-shadow: 1px 1px 0px 1px #CCCCCC;
+}
+
+.di-toggle-switch.active .label-silder {
+	box-shadow: 0px 0px 0px 0px #CCCCCC;
+}
+
+/*Toggle switch small */
+.di-toggle-switch-container.sm  {
+	width: 85px;
+	height: 35px;
+}
+.sm .di-toggle-switch .label-silder {
+	width: 35px;
+	height: 22px;
+}
+.sm .di-toggle-switch .label-on, .sm .di-toggle-switch .label-off {
+	margin-top:-12px;
+}
+
+
+
+/* Toggle switch Animation*/
+.di-toggle-switch.active, .di-toggle-switch  {
+  	transition:margin-left 0.25s linear;
+}
+
+/* Typography Style */
+
+.text-light {
+    color: #666666;
+}
+
+.text-long {
+    font-size: 14px;
+    color: #666666;
+}
+.text-legal {
+    font-size: 13px;
+    color: #666666;
+}
+
+
+/** Any Thing expect X-Small*/
+@media (min-width: 768px) {
+	.di-container {
+	  border: 1px solid lightgray;
+	}
+	
+	.tag-row-gold{
+		border-top: 15px solid #FEC82A;
+		border-right: 15px solid transparent;
+	}
+	.tag-row-gold-right {
+		border-top: 15px solid #FEC82A;
+		border-left: 15px solid transparent;
+	}
+	
+	.tag-row-green {
+		border-top: 15px solid #2E6F03;
+		border-right: 15px solid transparent;
+	}
+	.tag-row-green-right {
+		border-top: 15px solid #2E6F03;
+		border-left: 15px solid transparent;
+	}
+	
+	.tag-row-red {
+		border-top: 15px solid #C90102;
+		border-right: 15px solid transparent;
+	}
+	.tag-row-red-right {
+		border-top: 15px solid #C90102;
+		border-left: 15px solid transparent;
+	}
+	
+	.tag-row-blue {
+		border-top: 15px solid #004B8D;
+		border-right: 15px solid transparent;
+	}
+	.tag-row-blue-right {
+		border-top: 15px solid #004B8D;
+		border-left: 15px solid transparent;
+	}
+	
+	.tag-row-blue {
+		border-top: 15px solid #004B8D;
+		border-right: 15px solid transparent;
+	}
+	.tag-row-blue-right {
+		border-top: 15px solid #004B8D;
+		border-left: 15px solid transparent;
+	}
+}
+/** Any thing Smaller then Medium */
+@media (max-width: 991px) {
+
+
+}
+/** Larger then Small*/
+@media (min-width: 992px) {
+
+
+}
+/** X-Small Layout Overrides */
+@media (max-width: 767px) {
+
+    .di-container{
+  		padding: 15px;
+  		border-bottom: 1px solid lightgray;
+	}
+
+	.tag-row-gold{
+		border-top: 10px solid gold;
+		border-right: 10px solid transparent;
+	}
+	.tag-row-gold-right {
+		border-top: 10px solid gold;
+		border-left: 10px solid transparent;
+	}
+	
+	.tag-row-green {
+		border-top: 10px solid #2E6F03;
+		border-right: 10px solid transparent;
+	}
+	.tag-row-green-right {
+		border-top: 10px solid #2E6F03;
+		border-left: 10px solid transparent;
+	}
+	
+	.tag-row-red {
+		border-top: 10px solid #C90102;
+		border-right: 10px solid transparent;
+	}
+	.tag-row-red-right {
+		border-top: 10px solid #C90102;
+		border-left: 10px solid transparent;
+	}
+	
+	.tag-row-blue {
+		border-top: 10px solid #004B8D;
+		border-right: 10px solid transparent;
+	}
+	.tag-row-blue-right {
+		border-top: 10px solid #004B8D;
+		border-left: 10px solid transparent;
+	}
+	
+	.tag-row-blue {
+		border-top: 10px solid #004B8D;
+		border-right: 10px solid transparent;
+	}
+	.tag-row-blue-right {
+		border-top: 10px solid #004B8D;
+		border-left: 10px solid transparent;
+	}
+    /** Help classes */
+    .text-center-xs {
+        text-align: center;
+    }
+    .xs-width-100{
+        width:100%;
+    }
+
+    /** di-table Override */
+    .di-rs-table .heading .cell, .di-rs-table .data .cell{
+        padding-left: 15px;
+    }
+
+    .di-rs-table .heading .cell.text-right, .di-rs-table .data .cell.text-right {
+        padding-right: 15px;
+    }
+}
+/** Small Layout Overrides */
+@media (min-width: 768px) and (max-width: 991px) { 
+    .di-container {
+  		padding: 20px;
+	}
+
+    /** Help classes */
+    .text-center-sm {
+        text-align: center;
+    }
+
+    /** di-table Override */
+    .di-rs-table .heading .cell, .di-rs-table .data .cell{
+        padding-left: 20px;
+    }
+
+    .di-rs-table .heading .cell.text-right, .di-rs-table .data .cell.text-right {
+        padding-right: 20px;
+    }
+}
+
+/** Medium Layout Overrides */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+    /** Help classes */
+	.text-center-md {
+        text-align: center;
+    }
+}
+
+/** Large Layout Overrides */
+@media (min-width: 1200px) {
+
+	.text-center-lg {
+        text-align: center;
+    }
+}
+
+
+
+
+.di-payroll-bullet-num {
+	text-align: right;
+  	font-size: 32px;
+  	color: gray;
+}
+.di-pay-roll hr{
+  margin: 5px 0px 10px 0px;
+  border-top: 2px solid #EDE7E7;
+}
+.di-pay-roll input[type=text]{
+    text-align: right;
+}
+.di-data-row {
+	background-color: whitesmoke;
+ 	min-height: 40px;
+  	margin-bottom: 5px;
+  	padding:8px;
+}
+
+.di-data-cell {
+
+}
+
+.di-data-cell label{
+  color: gray;
+  font-weight: normal;
+  font-size: small;
+  padding-left: 5px;
+  padding-right: 15px;
+}
+.di-data-cell span{
+	font-size: medium;
+	text-align: right;
+}
+
+
+
+/* Check box & radio Buttons*/
+
+input[type=checkbox]+.lbl.padding-16::before,input[type=radio]+.lbl.padding-16::before {
+    margin-right: 16px;
+}
+
+input[type=checkbox]+.lbl.padding-12::before,input[type=radio]+.lbl.padding-12::before {
+    margin-right: 12px;
+}
+
+input[type=checkbox]+.lbl.padding-8::before,input[type=radio]+.lbl.padding-8::before {
+    margin-right: 8px;
+}
+
+input[type=checkbox]+.lbl.padding-4::before,input[type=radio]+.lbl.padding-4::before {
+    margin-right: 4px;
+}
+
+input[type=checkbox]+.lbl.padding-0::before,input[type=radio]+.lbl.padding-0::before {
+    margin-right: 0px;
+}
+
+/* Hiding default checkbox and Radio button design */
+input[type=checkbox],input[type=radio] {
+    opacity: 0;
+    position: absolute;
+    z-index: 12;
+    width: 14px;
+    height: 14px;
+}
+
+/* Disable outline when clicked*/
+input[type=checkbox]:checked,input[type=radio]:checked,input[type=checkbox]:focus,input[type=radio]:focus {
+    outline: none !important;
+}
+
+input[type=checkbox]+.lbl,input[type=radio]+.lbl {
+    position: relative;
+    z-index: 11;
+    display: inline-block;
+    margin: 0;
+    line-height: 20px;
+    min-height: 20px;
+    min-width: 20px;
+    font-weight: normal;
+    margin-right: 20px;
+}
+
+/* Basic Checkbox styles */
+input[type=checkbox]+.lbl::before,input[type=radio]+.lbl::before {
+  /* font-family: fontAwesome; */
+  font-weight: normal;
+  font-size: 11px;
+  color: #2091cf;
+  content: "\a0";
+  background-color: #FAFAFA;
+  border: 1px solid #CCC;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 0;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  height: 20px;
+  line-height: 19px;
+  min-width: 20px;
+  margin-right: 1px;
+  margin-top: -1px;
+}
+
+/* Checked state styles */
+input[type=checkbox]:checked+.lbl::before{
+  display: inline-block;
+  content: '\2713';
+  background-color: #F5F8FC;
+  border-color: #adb8c0;
+  font-size: 16px;
+  padding-top:0px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05),inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05),inset 15px 10px -12px rgba(255, 255, 255, 0.1);
+}
+
+/* Hover state styles */
+input[type=checkbox]:hover+.lbl::before,input[type=radio]:hover+.lbl::before,input[type=checkbox]+.lbl:hover::before,input[type=radio]+.lbl:hover::before {
+  border-color: #1c7aad;
+}
+
+/* Shadow when checked or Active */
+input[type=checkbox]:active+.lbl::before,input[type=radio]:active+.lbl::before,input[type=checkbox]:checked:active+.lbl::before,input[type=radio]:checked:active+.lbl::before {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05),inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Disabled state styles */
+input[type=checkbox]:disabled+.lbl::before,input[type=radio]:disabled+.lbl::before,input[type=checkbox][disabled]+.lbl::before,input[type=radio][disabled]+.lbl::before,input[type=checkbox].disabled+.lbl::before,input[type=radio].disabled+.lbl::before {
+  background-color: #DDD !important;
+  border-color: #CCC !important;
+  box-shadow: none !important;
+  color: #BBB;
+}
+
+/* Styles for Radio button */
+input[type=radio]+.lbl::before {
+  border-radius: 9px;
+  font-family: Arial,Helvetica,sans-serif;
+  font-size: 48px;
+
+}
+
+input[type=radio]:checked+.lbl::before {
+  content: "\2022";
+}
+
+ /* Helper classes */
+.bg-gray{
+	background-color:#F2F2F2;
+	border: 1px solid rgb(200, 200, 200);
+  	margin-bottom: 8px;
+}
+
+.di-test ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.di-test li:before { 
+    content: "";
+    border-color: transparent #111;
+    border-style: solid;
+    border-width: 0.35em 0 0.35em 0.45em;
+    display: block;
+    height: 0;
+    width: 0;
+    left: -1em;
+    top: 0.9em;
+    position: relative;
+}
+
+/* ========================================================== */
+/* B O O T S T R A P   E X T E N S I O N S                    */
+/* ========================================================== */
+
+/* ========================================================== */
+/* X L   S C R E E N                                          */
+/* ========================================================== */
+@media (min-width: 1400px) {
+    .container {
+        width: 1370px;
+    }
+}
+
+
+/* ========================================================== */
+/* E X T R A S                                                */
+/* ========================================================== */
+div.callout, p.callout {
+    background-color: #f5f5f5;
+    padding: 10px;
+}
+@media (max-width: 768px) {
+    div.callout, p.callout {
+        padding: 5px;
+    }
+}
+
+

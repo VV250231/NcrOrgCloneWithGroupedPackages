@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>AMOUNT.CONVERT:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Total Amount</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_99852191</developerName>
+        <masterLabel>Non Funnel/Funnel</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>STAGE_NAME</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Prospecting</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Analyzing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Validating</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Offering</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Proposing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Closing</sourceValue>
+            </sourceValues>
+            <value>Funnel Opportunities</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Analyzing - NonFunnel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Validating - NonFunnel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Offering - NonFunnel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Proposing - NonFunnel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Closing - NonFunnel</sourceValue>
+            </sourceValues>
+            <value>Non Funnel Opportunities</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>AMOUNT</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>ROLLUP_DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>OpportunityLineItem.Topline_Product_Lkp__c</field>
+    </columns>
+    <columns>
+        <field>QUANTITY</field>
+    </columns>
+    <columns>
+        <field>UNIT_PRICE</field>
+    </columns>
+    <columns>
+        <field>UNIT_PRICE.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>TOTAL_PRICE</field>
+    </columns>
+    <columns>
+        <field>TOTAL_PRICE.CONVERT</field>
+    </columns>
+    <columns>
+        <field>SERVICE_DATE</field>
+    </columns>
+    <columns>
+        <field>SERVICE_MONTH</field>
+    </columns>
+    <columns>
+        <field>PRODUCT_DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>PRODUCT_PRICE</field>
+    </columns>
+    <columns>
+        <field>PRODUCT_PRICE.CONVERT</field>
+    </columns>
+    <columns>
+        <field>PRODUCT_CUSTOMER_ID</field>
+    </columns>
+    <columns>
+        <field>PRODUCT_ACTIVE</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>AMOUNT.CONVERT</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>IF(CONTAINS(ROLLUP_DESCRIPTION,&quot;Channel&quot;),
+IF(CONTAINS(ROLLUP_DESCRIPTION,&quot;Central&quot;),&quot;Channel Central&quot;,
+IF(CONTAINS(ROLLUP_DESCRIPTION,&quot;North&quot;),&quot;Channel North&quot;,
+IF(CONTAINS(ROLLUP_DESCRIPTION,&quot;South&quot;),&quot;Channel South&quot;,
+IF(CONTAINS(ROLLUP_DESCRIPTION,&quot;West&quot;),&quot;Channel West&quot;, &quot;Other&quot;)))), 
+IF(CONTAINS(ROLLUP_DESCRIPTION,&quot;Northeast&quot;),&quot;Northeast&quot;,
+IF(CONTAINS(ROLLUP_DESCRIPTION,&quot;Southeast&quot;),&quot;Southeast&quot;,
+IF(CONTAINS(ROLLUP_DESCRIPTION,&quot;Central&quot;),&quot;Central&quot;,
+IF(CONTAINS(ROLLUP_DESCRIPTION,&quot;Florida&quot;),&quot;Florida&quot;,
+IF(CONTAINS(ROLLUP_DESCRIPTION,&quot;Texas&quot;),&quot;Texas&quot;,
+IF(CONTAINS(ROLLUP_DESCRIPTION,&quot;West&quot;),&quot;West&quot;, &quot;Other&quot;)))))))</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>SMB Region</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>STAGE_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Closed/Booked,Closed/Booked - NonFunnel,Closed/Lost</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>ROLLUP_DESCRIPTION</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>SMB</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CREATED_DATE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>greaterThan</operator>
+            <value>12/31/2017 12:00 AM</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Year</dateGranularity>
+        <field>CREATED_DATE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CDF1</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_99852191</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>SMB All Open Opportunities Per Year</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>open</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>OpportunityProduct</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,79 @@
+<aura:component controller="MarketProductDetailController" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global">
+	
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInitialization}"/>
+    <aura:attribute name="prdList" type="MarketProductDetailController.TopLineWrap[]"/>
+    <aura:attribute name="ToggleSpinner" type="Boolean" Default="false"></aura:attribute>
+    <aura:attribute name="NoOfRecord" type="string"></aura:attribute>   
+    <aura:attribute name="isCpqOpp" type="boolean"></aura:attribute>
+    <aura:attribute name="renderViewAll" type="boolean" default="false"></aura:attribute>
+    <aura:attribute name="OpportunityName" type="String" default="false"></aura:attribute>
+    <lightning:navigation aura:id="navService"/>
+        <lightning:card title="Market Products" iconName="standard:product">
+           <aura:renderIf isTrue="{!v.renderViewAll}">
+           <div class="c-container slds-p-around_small">
+				<aura:renderIf isTrue="{!v.ToggleSpinner}">
+                  <div class="exampleHolder">
+                	<lightning:spinner alternativeText="Loading" size="medium" />
+    		      </div>
+                </aura:renderIf>	
+           <aura:iteration items="{!v.prdList}" var="con">  
+               <lightning:tile label="{!con.MarketProductId}" href="{!'/'+con.OLI.Topline_Product_Lkp__c}" >
+                    <dl class="slds-dl_horizontal slds-item_label slds-truncate recordCel">
+                        
+                        <aura:if isTrue="{!!con.IsCpq}">
+                            <dt class="slds-dl_horizontal__label slds-item-label slds-truncate recordCel">
+                                <p class="slds-truncate" title="UnitPrice">UnitPrice:</p>
+                            </dt>
+                            <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                <p class="slds-truncate" title="{!con.UnitPrice}">{!con.UnitPrice}</p>
+                            </dd>
+                        </aura:if>   
+                        
+                        <dt class="slds-dl_horizontal__label slds-item_label slds-truncate recordCel">
+                            <p class="slds-truncate" title="Quantity">Quantity:</p>
+                        </dt>
+                        <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                            <p class="slds-truncate" title="{!con.Quantity}">{!con.Quantity}</p>
+                        </dd>
+                        
+                         <aura:if isTrue="{!!con.IsCpq}">
+                            <dt class="slds-dl_horizontal__label ">
+                                <p class="slds-truncate" title="TotalPrice">TotalPrice:</p>
+                            </dt>
+                            <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                <p class="slds-truncate" title="{!con.TotalPrice}">{!con.TotalPrice}</p>
+                            </dd>
+                        </aura:if> 
+                        
+                        <dt class="slds-dl_horizontal__label ">
+                            <p class="slds-truncate" title="TotalPrice">Revenue Type:</p>
+                        </dt>
+                        <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                            <p class="slds-truncate" title="{!con.TotalPrice}">{!con.OLI.Revenue_Type__c}</p>
+                        </dd>
+                        
+                    </dl>
+    			</lightning:tile>
+               </aura:iteration>  
+             
+           </div>
+         </aura:renderIf>  
+            
+            <aura:renderIf isTrue="{!!v.renderViewAll}">
+                <ui:message title="Information" severity="info" closable="false">
+                  No Records to Display.
+                </ui:message>
+            </aura:renderIf>    
+            
+            <aura:set attribute="footer">
+                <aura:renderIf isTrue="{!v.renderViewAll}">
+                    <a href="javascript:void(0)" onclick="{!c.navigateToTable}">
+                        View All
+                    </a>
+                </aura:renderIf>    
+            </aura:set>
+            
+        </lightning:card>
+    
+</aura:component>

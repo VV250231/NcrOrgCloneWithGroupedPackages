@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_31002964</developerName>
+        <masterLabel>Software</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>Opportunity.Advocated_Solution__c</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>APTRA XFS PLATFORM</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>APTRA VISION</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>APTRA ACTIVATE</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>APTRA SOFTWARE SECURITY/COMMS</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>APTRA MOBILE BANKING</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>APTRA OPTICASH</sourceValue>
+            </sourceValues>
+            <value>APTRA</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>FRACTALS</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>AUTHENTIC</sourceValue>
+            </sourceValues>
+            <value>Authentic/Fractals</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>FINANCIAL FIELD BASED DEVELOPMENT (SW)</sourceValue>
+            </sourceValues>
+            <value>SW</value>
+        </values>
+    </buckets>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Software_Products__c.CONVERT</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+        <criteriaItems>
+            <column>Opportunity.Software_Products__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>greaterThan</operator>
+            <value>USD 0</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FORECAST_CATEGORY</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Omitted</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FORECAST_CATEGORY</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Closed</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>FORECAST_CATEGORY</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_31002964</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Europe Software overview 2016-2017</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_PREVCURFY</interval>
+    </timeFrameFilter>
+</Report>

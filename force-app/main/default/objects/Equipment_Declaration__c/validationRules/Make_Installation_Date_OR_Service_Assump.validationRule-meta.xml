@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Make_Installation_Date_OR_Service_Assump</fullName>
+    <active>true</active>
+    <description>If a Partner orders the equipment from an external vendor, then he might not have the Installation date. So we need to make either Installation date or Service Assumption Date as mandatory</description>
+    <errorConditionFormula>OR(AND( NOT(ISBLANK(Service_Assumption_Date__c)),  NOT(ISBLANK( Installation_Date_of_New_Unit__c ))),AND(ISBLANK(Service_Assumption_Date__c), ISBLANK( Installation_Date_of_New_Unit__c ) ))</errorConditionFormula>
+    <errorMessage>Must populate Installation Date of New Unit or Service assumption date.</errorMessage>
+</ValidationRule>

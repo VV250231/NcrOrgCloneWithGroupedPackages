@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hospitality_Resolution_Notes_Mandatory</fullName>
+    <active>true</active>
+    <description>Hospitality Resolution Notes is Mandatory when the status is changed to closed</description>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName = &quot;Hospitality_Support&quot;,
+$Setup.Automation_Setting__c.Skip_Validation_Rule__c == FALSE,
+ Hospitality_Validation_Rule_Bypass_flag__c == False,
+ISPICKVAL(Status, &quot;Closed&quot;),
+ISBLANK(Resolution_Notes__c),
+OR(
+ISCHANGED(Status),
+ISCHANGED(Resolution_Notes__c)
+)
+)</errorConditionFormula>
+    <errorDisplayField>Resolution_Notes__c</errorDisplayField>
+    <errorMessage>Resolution Notes is mandatory to close this Case.</errorMessage>
+</ValidationRule>

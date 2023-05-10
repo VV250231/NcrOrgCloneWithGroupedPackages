@@ -1,0 +1,32 @@
+<apex:page controller="Tool_ReportGeneratorController" contentType="application/vnd.ms-excel#SalesForceExport.xls" cache="true" readOnly="true">
+   <!-- <apex:dataTable value="{!userList}" var="user">
+          <apex:column value="{!user.id}" headerValue="userId"/>
+          <apex:column value="{!user.Name}" headerValue="User Name"/>
+          <apex:column value="{!user.Email}" headerValue="Email"/>
+          <apex:column value="{!user.Contact.AccountId }" headerValue="AccountId"/>
+          <apex:column value="{!user.ContactId}" headervalue="ContactId"/>
+         <apex:column value="{!user.isActive}" headervalue="IsActive"/>
+          <apex:column value="{!user.contact.Account.Master_Customer_Number__c}" headervalue="MCN"/>
+          <apex:column value="{!user.contact.Web_Portal_Login__c}" headervalue="Web portal Login"/>
+          <apex:column value="{!user.Profile.name}" headervalue="Profile Name"/>
+     </apex:dataTable>-->
+     
+         <apex:dataTable value="{!wrapperConAndUser}" var="l">
+          <apex:column value="{!l.u.id}" headerValue="userId"/>
+          <apex:column value="{!l.con.FirstName}" headerValue="FirstName"/>
+            <apex:column value="{!l.con.LastName}" headerValue="LastName"/>
+          <apex:column value="{!l.con.Email}" headerValue="Email"/>
+          <apex:column value="{!l.u.FederationIdentifier}" headerValue="federation Id"/>
+          <apex:column value="{!l.con.id}" headerValue="contactId"/>
+          <apex:column value="{!l.u.isActive}" headervalue="IsActive User"/>
+          <apex:column value="{!l.con.Active_Partner_Contact__c}" headervalue="Active Partner Contact"/>
+          <apex:column value="{!l.con.Account.Master_Customer_Number__c}" headervalue="MCN"/>
+          <apex:column value="{!l.con.Web_Portal_Login__c}" headervalue="Web portal Login"/>
+          
+          
+         
+          
+          
+         
+     </apex:dataTable>
+</apex:page>

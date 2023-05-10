@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>Opportunity.Initial_Renewal_Value__c.CONVERT:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>CRV</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>AMOUNT.CONVERT:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA2</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Total amount</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>Opportunity.Total_Value_Added__c.CONVERT:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA3</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>AFV</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>number</bucketType>
+        <developerName>BucketField_84959147</developerName>
+        <masterLabel>Size</masterLabel>
+        <nullTreatment>z</nullTreatment>
+        <sourceColumnName>Opportunity.Initial_Renewal_Value__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <to>0</to>
+            </sourceValues>
+            <value>New Business</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>0</from>
+                <to>5,000</to>
+            </sourceValues>
+            <value>Very small (1-5,000)</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>5,000</from>
+                <to>50,000</to>
+            </sourceValues>
+            <value>Small (5,000-50,000)</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>50,000</from>
+                <to>100,000</to>
+            </sourceValues>
+            <value>Medium (50,000-100,000)</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>100,000</from>
+                <to>200,000</to>
+            </sourceValues>
+            <value>Large (100,000-200,000)</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>200,000</from>
+                <to>1,000,000</to>
+            </sourceValues>
+            <value>Very Large (200,000-1,000,000)</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>1,000,000</from>
+            </sourceValues>
+            <value>Million</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_24053510</developerName>
+        <masterLabel>Teams</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>FULL_NAME</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Mila Savicevic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Bojan Skara</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Dejana Pesic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ivana Milosevic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ivana Todorovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ksenija Banjanin</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Maja Ilic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Nevena Kalanovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Nikola Jovanovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Tamara Danojlic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Tatjana Jeremic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Vladimir Banjanin</sourceValue>
+            </sourceValues>
+            <value>AFA</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Aleksandar Milovanovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Bogdan Jezdovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ivan Babovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ivana Lakovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Natalija Dragovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Nikola Rajic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Tatjana Aleksandric</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Vladan Milosevic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Marko Djukanovic</sourceValue>
+            </sourceValues>
+            <value>ABA</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Ana Bogdanovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ana Teodorovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Jovan Pavlovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Milos Djokovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Milos Peric</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Zeljko Aksentijevic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ivana Vucinic</sourceValue>
+            </sourceValues>
+            <value>ARH</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Waleed Attia</sourceValue>
+            </sourceValues>
+            <value>MEA</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Abe Aurelius Aquino</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Amador Henry Castillo</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Christine Pearl Ballena</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Efren Mendoza</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Eric John Pahate</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Eva Montecillo</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Jecren Imbo</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Joel Berou</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Nino Arda</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Reginald Bacalso</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Rudelyn Bucio</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Louise Gladys Gaviola</sourceValue>
+            </sourceValues>
+            <value>APJ</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Agata Barabas</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ana Rodic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Dragana Vasic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Marko Skondric</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Milan Ilic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Milan Rudic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Nidia Despot</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Paul Noble</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Srdjan Repic</sourceValue>
+            </sourceValues>
+            <value>EUE</value>
+        </values>
+    </buckets>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <axisBinding>y</axisBinding>
+            <column>RowCount</column>
+        </chartSummaries>
+        <chartType>HorizontalBarGrouped</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>FULL_NAME</groupingColumn>
+        <legendPosition>Right</legendPosition>
+        <location>CHART_BOTTOM</location>
+        <secondaryGroupingColumn>STAGE_NAME</secondaryGroupingColumn>
+        <showAxisLabels>true</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>true</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Annuity_Contract_Term__c</field>
+    </columns>
+    <columns>
+        <field>AGE</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Expected_Service_Start_Date__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Created_Date__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Initial_Renewal_Value__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>AMOUNT.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Total_Value_Added__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>BucketField_84959147</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>ACCOUNT_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Brenka Test Account</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FULL_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Vladan Milosevic,Aleksandar Milovanovic,Marko Djukanovic,Tatjana Aleksandric,Natalija Dragovic,Bogdan Jezdovic,Ivan Babovic,Ivana Lakovic</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>FULL_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>STAGE_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>TYPE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>ABA Total OPEN TYPE</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>open</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>team</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,86 @@
+<apex:page controller="ApprovalHistoryPageController" tabStyle="Engineers__c" >
+   	<apex:form id="frm1">
+      	<apex:pageMessages ></apex:pageMessages> />
+      	<apex:pageBlock title="Approve/Reject Approval Request" rendered="{!!rejectionReason}">
+     		<br/><br/>
+     
+     		<!------- OutPanel for the Engineers ----------->
+     
+     		<apex:outputPanel rendered="{!EngineerFlag}" >
+        		&nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; 
+        		<apex:outputLabel value=" Certified Personel Name:" style="font-weight: bold;" ></apex:outputLabel>   &nbsp;
+      
+	      		<apex:outputField value="{!eng.Name}"/> <br/><br/>
+	       		&nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
+	       		<apex:outputLabel style="font-weight: bold;" >Owner:</apex:outputLabel> 
+	       			&nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
+	         	<apex:outputField value="{!eng.Owner.name }"/> <br/><br/><br/>
+	          
+	            &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
+	            <apex:outputLabel style="font-weight: bold;" rendered="{!DiagnosticFlag}" >Engineer ID:</apex:outputLabel>     
+	            &nbsp;   &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
+	           	<apex:inputField value="{!eng.Engineer_ID__c}" rendered="{!DiagnosticFlag}" />
+	            <br/><br/><br/>
+	            
+	          	&nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
+	          	<apex:outputLabel style="font-weight: bold;" rendered="{!PoratlLoginFlag}" >Web portal Login ID:</apex:outputLabel>    
+	          	&nbsp;   &nbsp;   &nbsp;  &nbsp;  &nbsp;  &nbsp;
+	           
+	           	<apex:inputField value="{!eng.Web_Portal_login_ID__c }" rendered="{!PoratlLoginFlag}"/>
+          	</apex:outputPanel>
+          
+         	<!------- END OF  OutPanel for the Engineers ----------->
+         
+         
+         	<!------- OutPanel for the DealREgistration----------->
+         
+           	<apex:outputPanel rendered="{!DealRegFlag}" >
+         		&nbsp;&nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
+         		<apex:outputLabel value=" Deal Registartion Name:" style="font-weight: bold;" ></apex:outputLabel>   &nbsp;
+      			<apex:outputField value="{!dealreg.Name}"/>
+        		<br/><br/>
+       			&nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
+       			<apex:outputLabel style="font-weight: bold;" >Name of Account/Financial Institution:</apex:outputLabel> 
+       			&nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  
+         		<apex:outputField value="{!dealreg.Name_of_Account_Financial_Institution__c}"/>
+          		<br/><br/><br/>
+			</apex:outputPanel>
+         
+         	<!-------END OF OutPanel for the DealREgistration----------->
+       		<br/><br/><br/>
+       		&nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; 
+       		<apex:outputLabel value=" Comment:" style="font-weight: bold;" ></apex:outputLabel>   
+       		&nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
+       		<apex:inputTextarea id="EmailBody" label="EmailBody" cols="100" ondblclick="false" disabled="false"  value="{!comment}" rows="5"/>
+       		
+       		<apex:pageBlockButtons location="bottom">
+            	<apex:commandButton value="Approve"  action="{!ApproveEngineer}"/>
+             	<apex:commandButton value="Reject"  action="{!rejectEngineer}"/>
+              	<apex:commandButton value="Cancel"  action="{!cancel}"/>
+       		</apex:pageBlockButtons>
+      	</apex:pageBlock>
+      	
+      	<apex:pageBlock title="Choose the rejection reason" rendered="{!rejectionReason}"> 
+      		<apex:outputpanel id="rejectPanel" >
+	        	<apex:actionFunction id="setState" action="{!renderComment}" name="setState" rerender="commentPanel" />
+	     	
+	      		<apex:selectList size="1" value="{!SelectedReason}"  onchange="setState() " >
+	        		<apex:selectOptions value="{!ReasonsforRejection}"  >
+	<!--         			<apex:actionSupport event="onchange" reRender="ajaxrequest"/> -->
+	       			</apex:selectOptions>
+	           	</apex:selectList>
+	           	<apex:outputPanel id="commentPanel" > 
+	         		<apex:outputPanel rendered="{!SelectedReason =='Others'}" id="ajaxrequest">
+		         	 	&nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; 
+		         		<apex:outputLabel value=" Please fill the reason:  " style="font-weight: bold;" ></apex:outputLabel> &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
+		                <apex:inputTextarea id="EmailBody" label="EmailBody" cols="100" ondblclick="false" disabled="false"  value="{!comment}" rows="5" />
+	             	</apex:outputPanel>
+	             </apex:outputPanel>
+            </apex:outputpanel>
+        	<apex:pageBlockButtons location="bottom" >
+        		<apex:commandButton value="Reject"  action="{!rejectEngineerFinal}"/>
+           		<apex:commandButton value="Cancel"  action="{!cancel}"/>
+        	</apex:pageBlockButtons>                    
+      	</apex:pageBlock>
+	</apex:form>
+</apex:page>

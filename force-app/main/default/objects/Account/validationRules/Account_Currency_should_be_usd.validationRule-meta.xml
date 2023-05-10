@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_Currency_should_be_usd</fullName>
+    <active>true</active>
+    <description>Account Currency should be USD</description>
+    <errorConditionFormula>AND( 
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+NOT(ISPICKVAL(CurrencyIsoCode, &apos;&apos;)),NOT(ISPICKVAL(CurrencyIsoCode, &apos;USD&apos;)))</errorConditionFormula>
+    <errorDisplayField>CurrencyIsoCode</errorDisplayField>
+    <errorMessage>Account currency should be USD - U.S. Dollar.</errorMessage>
+</ValidationRule>

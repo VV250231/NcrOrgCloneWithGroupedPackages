@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Make_Good_Billable_to_Client_validation</fullName>
+    <active>true</active>
+    <description>Make Good Billable to Client?</description>
+    <errorConditionFormula>AND(
+!$Setup.Automation_Setting__c.Skip_Validation_Rule__c, 
+OR( $Permission.CATM_IBG_Manager = true,
+ $Permission.CATM_IBG_User = true),
+OR(ISPICKVAL(Owner:User.Geography__c , &quot;Australia&quot;),ISPICKVAL(Owner:User.Geography__c , &quot;New Zealand&quot;)), ISPICKVAL(Make_Good_Billable_to_Client__c,&apos;Yes&apos;),ISBLANK( Make_Good_Amount_Billable_to_Client__c ), RecordType.Name = &apos;Removable&apos;)</errorConditionFormula>
+    <errorDisplayField>Make_Good_Amount_Billable_to_Client__c</errorDisplayField>
+    <errorMessage>Please fill the &quot;Make Good Amount Billable to Client&quot;</errorMessage>
+</ValidationRule>

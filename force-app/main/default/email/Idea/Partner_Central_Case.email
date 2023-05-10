@@ -1,0 +1,27 @@
+<messaging:emailTemplate subject="Case - {! relatedTo.Subject}" recipientType="User" relatedToType="Case">
+
+<messaging:htmlEmailBody >
+    <html>
+        <body>
+            <p>Dear {! relatedTo.Owner.Name},</p>
+            <p>Below is the case related to {! relatedTo.Contact.Name}</p>
+            <table>
+                <tr><td>Case Number - </td><td>{! relatedTo.CaseNumber}</td></tr>
+                <tr><td>Module - </td><td>{! relatedTo.Module__c}</td></tr>
+                <tr><td>Creator Email - </td><td>{! relatedTo.ContactEmail}</td></tr>
+                <tr><td>Case Description - </td><td>{! relatedTo.Description}</td></tr>
+            </table>
+        </body>
+    </html>
+</messaging:htmlEmailBody>
+
+<messaging:plainTextEmailBody >
+    Dear {! recipient.name}
+    Below is the case related to {! relatedTo.Contact}
+    Case Number : {! relatedTo.CaseNumber}
+    Module : {! relatedTo.Module__c}
+    Creator Email : {! relatedTo.ContactEmail}
+    Case Description : {! relatedTo.Description}
+</messaging:plainTextEmailBody>
+
+</messaging:emailTemplate>

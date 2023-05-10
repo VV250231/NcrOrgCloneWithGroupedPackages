@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Created_Date_Actual__c</fullName>
+    <description>Take the Minimum of TEAM Create Date and NSC Create Date</description>
+    <externalId>false</externalId>
+    <formula>if(Created_Date__c != DATEVALUE(CreatedDate), Created_Date__c , DATEVALUE(CreatedDate))</formula>
+    <inlineHelpText>Min of TEAM Create Date and NSC Create Date</inlineHelpText>
+    <label>Created Date (Actual)</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Date</type>
+</CustomField>

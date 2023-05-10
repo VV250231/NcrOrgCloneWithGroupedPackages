@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>validate_products_when_CATM_flag_change</fullName>
+    <active>true</active>
+    <description>works with opp before save flow when Opp owner is changed from CATM owner to Non CATM owner or vice versa, Is Cardtronics record checkbox value will be updated in the flow. there shouldn&apos;t be lineitem in opp where owner catm to non catm &amp; vice versa.</description>
+    <errorConditionFormula>NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c) &amp;&amp; ISCHANGED( CATM_Record__c ) &amp;&amp;  HasOpportunityLineItem</errorConditionFormula>
+    <errorMessage>Products must be removed from the Opportunity to proceed with this ownership change.</errorMessage>
+</ValidationRule>

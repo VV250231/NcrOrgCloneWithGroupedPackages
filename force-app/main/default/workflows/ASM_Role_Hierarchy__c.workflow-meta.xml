@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>APOC_Change_Action_To_Overwrite</fullName>
+        <field>Action__c</field>
+        <literalValue>Create</literalValue>
+        <name>APOC Change Action To Overwrite</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Change_QuicklookId</fullName>
+        <field>QuickLook_ID__c</field>
+        <formula>Role_User_Name__r.Quicklook_ID__c</formula>
+        <name>Change QuicklookId</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>MCN_Field_Change</fullName>
+        <field>Master__c</field>
+        <formula>Account__r.Master_Customer_Number__c</formula>
+        <name>MCN Field Change</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>APOC MCN Populate</fullName>
+        <actions>
+            <name>MCN_Field_Change</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <formula>Master__c !=  Master_Number__c</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>APOC QuicklookID Populate</fullName>
+        <actions>
+            <name>Change_QuicklookId</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <description>To prepopulate text field whenever record changes</description>
+        <formula>AND(QuickLook_ID__c !=  Role_User_Qlook_Id__c , PRIORVALUE(Role_User_Name__c)!=Role_User_Name__c)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>ChangeAPOCActionToCreate</fullName>
+        <actions>
+            <name>APOC_Change_Action_To_Overwrite</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>ASM_Role_Hierarchy__c.Action__c</field>
+            <operation>equals</operation>
+            <value>Overwrite</value>
+        </criteriaItems>
+        <description>It is to make action field on Account Point of Contacts as Create again</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

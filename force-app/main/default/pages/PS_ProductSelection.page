@@ -1,0 +1,17 @@
+<apex:page standardController="Opportunity" >
+    <head>
+        <apex:stylesheet value="{!URLFOR($Resource.SLDS103, '/assets/styles/salesforce-lightning-design-system.min.css')}" />
+        <apex:includeScript value="/lightning/lightning.out.js"/>
+    </head> 
+    <div id="lightning" />    
+    <script>
+    $Lightning.use("c:LightningOutApp", function() {
+        $Lightning.createComponent("c:SelectProductComponent",
+                                   {recordId:"{!Opportunity.Id}", },          
+                                   "lightning",
+                                   function(cmp) {
+                                       // do some stuff
+                                   });
+    }); 
+    </script>    
+</apex:page>

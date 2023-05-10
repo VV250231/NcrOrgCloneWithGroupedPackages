@@ -1,0 +1,594 @@
+<aura:component controller="PRM_DealRegistrationController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <aura:attribute name="ObjDealRegistration" type="Deal_Registration__c"/>
+    <aura:attribute name = "isADisitributor" type="Boolean"/>
+    <aura:attribute name="isEdit" type="Boolean" default="true"/>
+    <aura:attribute name="isDetail" type="Boolean" default="false"/>
+    
+    <aura:attribute name="DealRegistrationId" type="String" />
+    
+    <aura:registerEvent name="DetailRequestEvt" type="c:DetailMDFRequestEvt"/>
+    <aura:registerEvent name="EditCancelRequestEvt" type="c:CancelMDFRequestEvt"/> 
+    
+    <aura:attribute name="dealRegistrationTypes" type="String[]"/>  
+    <aura:attribute name="selectedDealRegType" type="String" default="--None--"/>
+    <aura:attribute name="countries" type="String[]"/> 
+    <aura:attribute name="primarySolutions" type="String[]"/>    
+    <aura:attribute name="secondarySolutions" type="String[]"/> 
+    <aura:attribute name="distributorList" type="String[]"/>
+    <aura:attribute name="contactInCC" type="String[]"/>
+    <aura:attribute name="oppStageProbability" type="String[]"/>
+    <aura:attribute name="selectedOppPro" type="String"/>
+    
+    <aura:attribute name="accountTheater" type="String"/>
+    <aura:attribute name="projectedOpportunityValue" type="Decimal"/>
+    <aura:attribute name="dealWithMonthlyRecurringRev" type="Decimal"/>
+    <aura:attribute name="accountDetail" type="Account"/>
+    
+    <aura:attribute name="partnerIndustryList" type="String[]"/>
+    <aura:attribute name="selectedIndustry" type="String"/>
+    <!--aura:attribute name="extensionPeriod" type="String[]"/-->
+    
+    <aura:attribute name="isFinance" type="Boolean" default="true"/>
+    
+    <!--Adding Servicing Details-->
+    <aura:attribute name="servicingAccounts" type="String[]"/>
+    <aura:attribute name="serviceOptions" type="String[]"/>
+    <aura:attribute name="servicingThisAccounts" type="String[]"/>
+    
+    <aura:attribute name="serviceFieldFalg" type="String" default="--None--"/>
+    <aura:attribute name="competitorFieldFalg" type="Boolean" default="false"/>
+    <!-- Add TAM pickl-->
+    <aura:attribute name="picklistValuesTAM" type="Map" />
+    <aura:attribute name="isTAMAvailable" type="Boolean" default="false"/>
+    <aura:attribute name="isTAMMandatory" type="Boolean" default="false"/>
+    <aura:attribute name="accountRegion" type="String"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:attribute name="depnedentFieldMap" type="map" description="map to store dependent values with controlling value"/>
+    <aura:attribute name="depnedentFieldMap2" type="map" description="map to store dependent values with controlling value"/>
+    
+    <aura:if isTrue="{!v.isEdit}">
+        <div class="slds-page-header" role="banner">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-has-flexi-truncate"> 
+                    <div class="slds-media slds-media_center slds-no-space slds-grow">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-account">
+                                <lightning:icon iconName="standard:account" size="large" alternativeText="Indicates approval"/>
+                                <span class="slds-assistive-text">New Deal Registration</span>
+                            </span>
+                        </div>
+                        <div class="slds-media__body ">
+                            <aura:if isTrue = "{!v.isADisitributor}">
+                                <h1 class="slds-page-header__title slds-truncate slds-align-middle" title="Distributor Deal Registration">Distributor Deal Registration</h1>
+                                <p class="slds-text-body_small slds-line-height_reset">{!v.ObjDealRegistration.Name}</p>
+                                <aura:set attribute="else">
+                                    <h1 class="slds-page-header__title slds-truncate slds-align-middle" title="Deal Registration">Deal Registration</h1>
+                                    <p class="slds-text-body_small slds-line-height_reset">{!v.ObjDealRegistration.Name}</p>
+                                </aura:set>
+                            </aura:if>
+                        </div>
+                    </div>                    
+                </div>  
+                <!-- ACTION BUTTONS -->
+                <div class="slds-col slds-no-flex slds-grid slds-wrap slds-align-top">
+                    
+                    <button class="slds-button slds-button_brand" onclick="{!c.saveDealRegistrationController}">
+                        Save Deal Registration
+                    </button>
+                    
+                    <button class="slds-button slds-button_neutral" onclick="{!c.openDetail}">
+                        Cancel
+                    </button>
+                    
+                </div>
+                <!-- / ACTION BUTTONS -->               
+            </div>
+        </div>
+        
+        <div class="slds">
+            <div class="section">
+                <h2 class="slds-text-heading_small section-heading">Deal Details</h2>
+                <div class="slds-grid slds-wrap section-body">
+                    <!-- / FIRST COLUMN -->
+                    <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                        <div class="slds-form">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Deal Name</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="Deal_Name"  value="{!v.ObjDealRegistration.Deal_Name__c}" required="true"/>
+                                </div>
+                            </div>
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><aura:if isTrue="{!v.distributorList.length > 1}"><abbr class="slds-required" title="required">*</abbr></aura:if>Distributor</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputSelect aura:id="selectDistributor"  class="slds-select_container slds-select">
+                                        <aura:iteration items="{!v.distributorList}" var="distributor">
+                                            <option value="{!distributor}" selected="{! distributor == v.ObjDealRegistration.Distributor__c ? true : false}">{!distributor}</option>
+                                        </aura:iteration>
+                                    </ui:inputSelect>
+                                </div>
+                            </div>
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Partner Industry</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputSelect aura:id="selectPartnerIndustry"  class="slds-select_container slds-select" change="{!c.onControllerFieldChange}" value="{!v.selectedIndustry}">
+                                        <aura:iteration items="{!v.partnerIndustryList}" var="PI">
+                                            <option value="{!PI}" >{!PI}</option>
+                                        </aura:iteration>
+                                    </ui:inputSelect>
+                                </div>
+                            </div>
+                            <aura:if isTrue="{!v.selectedIndustry == 'Hospitality'}">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>County</label>
+                                    <div class="slds-form-element__control">
+                                        <ui:inputText aura:id="county"  class="slds-select_container slds-select" value="{! v.ObjDealRegistration.County__c}"/>
+                                    </div>
+                                </div>
+                            </aura:if>   
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">Is NCR servicing the Account?</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputSelect aura:id="selectServicingAccount" value="{! v.ObjDealRegistration.Is_NCR_servicing_the_Account__c}"  class="slds-select_container slds-select">
+                                        <aura:iteration items="{!v.servicingAccounts}" var="servicingAcc">
+                                            <ui:inputSelectOption label="{! servicingAcc}" text="{!servicingAcc == '--None--'? null : servicingAcc}" value="{! servicingAcc == v.ObjDealRegistration.Is_NCR_servicing_the_Account__c ? true : false}"></ui:inputSelectOption>
+                                        </aura:iteration>
+                                    </ui:inputSelect>
+                                </div>
+                            </div>
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">Are you servicing this Account?</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputSelect aura:id="selectServicingThisAccount" value="{!v.ObjDealRegistration.Are_you_servicing_this_Account__c}" change="{!c.onServicingThisAccountChange}"  class="slds-select_container slds-select"  >
+                                        <aura:iteration items="{!v.servicingThisAccounts}" var="servicingThisAcc">
+                                            <ui:inputSelectOption label="{! servicingThisAcc}" text="{!servicingThisAcc == '--None--'? null : servicingThisAcc}" value="{! servicingThisAcc == v.ObjDealRegistration.Are_you_servicing_this_Account__c ? true : false}"></ui:inputSelectOption>
+                                        </aura:iteration> 
+                                    </ui:inputSelect>
+                                </div>                                
+                            </div>
+                            
+                            <!--aura:if isTrue="{!v.serviceFieldFalg == 'Yes'}"-->
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><!--abbr class="slds-required" title="required">*</abbr-->Yes, how many units are you servicing?</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="units_are_you_servicing" value="{!v.ObjDealRegistration.Yes_how_many_units_are_you_servicing__c}" disabled="{!v.ObjDealRegistration.Are_you_servicing_this_Account__c != 'Yes'? true : false}"/>                                
+                                </div>
+                            </div>
+                            <!--/aura:if-->
+                            
+                            <!--aura:if isTrue="{!v.serviceFieldFalg == 'No'}"-->                           
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><!--abbr class="slds-required" title="required">*</abbr-->No, which Service option?</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputSelect aura:id="selectServiceOption" value="{! v.ObjDealRegistration.No_which_Service_option__c}"  class="slds-select_container slds-select" disabled="{!v.ObjDealRegistration.Are_you_servicing_this_Account__c != 'No'? true : false}" change="{!c.onSelectServiceOptionChange}">
+                                        <aura:iteration items="{!v.serviceOptions}" var="serviceOpt">
+                                            <ui:inputSelectOption label="{! serviceOpt}" text="{!serviceOpt == '--None--'? null : serviceOpt}" value="{! serviceOpt == v.ObjDealRegistration.No_which_Service_option__c ? true : false}"></ui:inputSelectOption>
+                                        </aura:iteration>                                        
+                                    </ui:inputSelect>     
+                                </div>
+                            </div>
+                            <!--/aura:if-->
+                            
+                            <!--aura:if isTrue="{!v.competitorFieldFalg}"-->
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><!--abbr class="slds-required" title="required">*</abbr-->If a competitor, which one?</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="which_competitor"  value="{!v.ObjDealRegistration.If_a_competitor_which_one__c}" disabled="{!v.ObjDealRegistration.No_which_Service_option__c != 'Competitor'? true : false}" required="true"/>
+                                </div>
+                            </div>
+                            <!--/aura:if-->
+                            
+                            
+                        </div>
+                    </div>
+                    <!-- / SECOND COLUMN -->
+                    <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                        <div class="slds-form">  
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Deal Registration Type</label>
+                                <div class="slds-form-element__control">
+                                    <!--ui:inputSelect aura:id="selectDealRegistrationTypes" class="slds-select_container slds-select" value="{! v.selectedDealRegType}">
+                                        <aura:iteration items="{!v.dealRegistrationTypes}" var="DReg">
+                                            <option value="{!DReg}" selected="{! DReg == v.ObjDealRegistration.Special_Bid_Registration_Type__c ? true : false}">{!DReg}</option>
+                                        </aura:iteration>
+                                    </ui:inputSelect-->
+                                    <ui:inputSelect aura:id="selectDealRegistrationTypes" value="{!v.ObjDealRegistration.Special_Bid_Registration_Type__c}" class="slds-select_container slds-select"  >
+                                        <aura:iteration items="{!v.dealRegistrationTypes}" var="dealtype">
+                                            <ui:inputSelectOption label="{! dealtype}" text="{!dealtype == '--None--'? null : dealtype}" value="{! dealtype == v.ObjDealRegistration.Special_Bid_Registration_Type__c ? true : false}"></ui:inputSelectOption>
+                                        </aura:iteration> 
+                                    </ui:inputSelect>
+                                </div>
+                            </div>
+                            <!--aura:if isTrue="{!v.ObjDealRegistration.Status__c =='Approved'}">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Extension Period</label>
+                                    <div class="slds-form-element__control">
+                                        <ui:inputSelect aura:id="selectExtensionPeriod" class="slds-select_container slds-select">
+                                            <aura:iteration items="{!v.extensionPeriod}" var="extPeriod">
+                                                <option value="{!extPeriod}">{!extPeriod}</option>
+                                            </aura:iteration>
+                                        </ui:inputSelect>
+                                    </div>
+                                </div>
+                            </aura:if-->
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">Copy to</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputSelect aura:id="selectCC"  class="slds-select_container slds-select">
+                                        <aura:iteration items="{!v.contactInCC}" var="cc">
+                                            <option value="{!cc}">{!cc}</option>
+                                        </aura:iteration>
+                                    </ui:inputSelect>                                   
+                                </div>
+                            </div>
+                            
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- This new section introduced to add partner section in New Deal Registration form to
+     perform user action to add territory manager to deal  by deeksharth under US-TAM-->
+            <aura:if isTrue="{!v.isTAMMandatory}">
+                <div class="section">
+                    <h2 class="slds-text-heading_small section-heading">Partner Information</h2>
+                    <div class="slds-grid slds-wrap section-body">
+                        <!-- / FIRST COLUMN -->
+                        <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                            <div class="slds-form">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label">
+                                        <abbr  class="slds-required" title="required">*</abbr>
+                                        Territory Account Manager
+                                        <!--<aura:if isTrue="{!empty(v.picklistValuesTAM)}">-->
+                                        &nbsp;{!$Label.c.NotifyMessageToCAM}
+                                        <!--</aura:if>-->
+                                    </label>
+                                    <div class="slds-form-element__control">
+                                        <ui:inputSelect  aura:id="addTAM" value="{!v.ObjDealRegistration.Territory_Account_Manager__c}">
+                                            <option value="">--None--</option>
+                                            <aura:iteration items="{!v.picklistValuesTAM}" var="item" indexVar="key">
+                                                <option value="{!item.key}" selected ="{!item.value == v.ObjDealRegistration.Territory_Account_Manager__r.Name}">{!item.value}</option>
+                                            </aura:iteration>
+                                        </ui:inputSelect> 	
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>            
+            </aura:if>
+            <div class="section">
+                <h2 class="slds-text-heading_small section-heading">End Customer Information</h2>
+                <div class="slds-grid slds-wrap section-body">
+                    <!-- / FIRST COLUMN -->
+                    <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                        <div class="slds-form">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Customer Name</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="End_Customer_Company_Name"  value="{!v.ObjDealRegistration.End_Customer_Company_Name__c}" required="true"/>
+                                </div>
+                            </div>
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Street Address</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="Street_Address"  value="{!v.ObjDealRegistration.Street_Address__c}" required="true"/>
+                                </div>
+                            </div>
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>City</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="City"  value="{!v.ObjDealRegistration.City__c}" required="true"/>
+                                </div>
+                            </div>
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Postal/Zip Code</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="Postal"  value="{!v.ObjDealRegistration.Postal__c}" required="true"/>
+                                </div>
+                            </div>
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Primary Contact Name</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="Primary_Contact_NameText"  value="{!v.ObjDealRegistration.Primary_Contact_NameText__c}" required="true"/>
+                                </div>
+                            </div>
+                            
+                            <!--<div class="slds-form-element">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Budget</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="Budget"  value="{!v.ObjDealRegistration.Budget__c}" required="true"/>
+                                </div>
+                            </div>   -->                         
+                        </div> 
+                    </div>
+                    
+                    <!-- / SECOND COLUMN -->
+                    <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                        <div class="slds-form">
+                            <aura:if isTrue = "{! v.selectedIndustry == 'Financial'}">
+                                <aura:if isTrue = "{! v.accountDetail.Account_Country_Code__c == 'US'}">
+                                    <div class="slds-form-element">
+                                        <label class="slds-form-element__label">FDIC</label>
+                                        <div class="slds-form-element__control">
+                                            <ui:inputText class="slds-input" aura:id="FDIC"  value="{!v.ObjDealRegistration.FDIC__c}" required="true"/>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="slds-form-element">
+                                        <label class="slds-form-element__label">NCUA</label>
+                                        <div class="slds-form-element__control">
+                                            <ui:inputText class="slds-input" aura:id="NCUA"  value="{!v.ObjDealRegistration.NCUA__c}" required="true"/>
+                                        </div>
+                                    </div>
+                                </aura:if>
+                                <aura:if isTrue = "{! v.accountDetail.Account_Country_Code__c != 'US'}">
+                                    <div class="slds-form-element">
+                                        <label class="slds-form-element__label">Swift Code</label>
+                                        <div class="slds-form-element__control">
+                                            <ui:inputText class="slds-input" aura:id="Swift_Code"  value="{!v.ObjDealRegistration.Swift_Code__c}" required="true"/>
+                                        </div>
+                                    </div>
+                                </aura:if>
+                            </aura:if>
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>State/Province/Region</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="State"  value="{!v.ObjDealRegistration.State__c}" required="true"/>
+                                </div>
+                            </div>
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Country</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputSelect aura:id="selectCountries" class="slds-select_container slds-select" value="{!v.ObjDealRegistration.Country__c}">
+                                        <aura:iteration items="{!v.countries}" var="countryVal"> 
+                                            <option value="{!countryVal}" selected ="{!countryVal == v.ObjDealRegistration.Country__c}">{!countryVal}</option>
+                                        </aura:iteration>
+                                    </ui:inputSelect>
+                                    
+                                </div>
+                            </div>                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Key Decision Maker</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="Key_Decision_Maker"  value="{!v.ObjDealRegistration.Key_Decision_Maker__c}" required="true"/>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="slds-text-heading_small section-heading">Opportunity Description</h2>
+                <div class="slds-grid slds-wrap section-body">
+                    <!-- / FIRST COLUMN -->
+                    <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                        <div class="slds-form">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Primary Solution</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputSelect aura:id="selectPrimarySolutions" class="slds-select_container slds-select" value="{!v.ObjDealRegistration.Primary_Solution__c}">
+                                        <aura:iteration items="{!v.primarySolutions}" var="primaryVal">
+                                            <option value="{!primaryVal}" selected ="{!primaryVal == v.ObjDealRegistration.Primary_Solution__c}">{!primaryVal}</option>
+                                        </aura:iteration>
+                                    </ui:inputSelect>
+                                    
+                                </div>
+                            </div>  
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">Additional Information</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputTextArea class="slds-input" aura:id="Primary_Competitor"  
+                                                      value="{!v.ObjDealRegistration.Additional_Information__c}" rows="2"/>
+                                </div>
+                            </div>
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Who is the competition?</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="PrimaryCompetitor"  value="{!v.ObjDealRegistration.Primary_Competitor__c}" />
+                                </div>
+                            </div>
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">What is the current installed system?</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="Current_installed_system"  value="{!v.ObjDealRegistration.Current_installed_system__c}"/>
+                                </div>
+                            </div>
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">How long has it been installed? (In months)</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputNumber class="slds-input" aura:id="How_long_has_it_been_installed"  value="{!v.ObjDealRegistration.How_long_has_it_been_installed__c}" required="true"/>
+                                </div>
+                            </div>
+                            
+                            
+                            
+                        </div>
+                    </div>
+                    <!-- / SECOND COLUMN -->
+                    <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                        <div class="slds-form">
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">Secondary Solution</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputSelect aura:id="selectSecondarySolutions" class="slds-select_container slds-select" value="{! v.ObjDealRegistration.Secondary_Solution__c}">
+                                        <aura:iteration items="{!v.secondarySolutions}" var="secondaryVal">
+                                            <option value="{!secondaryVal}" selected ="{!secondaryVal == v.ObjDealRegistration.Secondary_Solution__c}">{!secondaryVal}</option>
+                                        </aura:iteration>
+                                    </ui:inputSelect>
+                                    
+                                </div>
+                            </div>  
+                            
+                            <!--
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">Partner Opportunity #</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="Partner_Opportunity"  value="{!v.ObjDealRegistration.Partner_Opportunity__c}" required="true"/>
+                                </div>
+                            </div>-->
+                            
+                            <div aura:id="oppValueSection" class="slds-box">
+                                <aura:if isTrue="{!v.selectedIndustry == 'Retail'}">
+                                    <div class="slds-text-body_regular">
+                                        Note:  Entry is required for the Opportunity Value or Recurring revenue. Both fields cannot be blank.
+                                    </div>
+                                </aura:if>
+                                <aura:if isTrue="{!v.selectedIndustry == 'Hospitality'}">
+                                    <div class="slds-text-body_regular">
+                                        For Deal Value, use one of the 4 options below to enter your Deal Registration value
+                                        Note: Entry is required in any one of the 4 Deal Value options below
+                                    </div>
+                                </aura:if>
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label">
+                                        <aura:if isTrue="{!v.selectedIndustry == 'Financial'}">
+                                            <abbr class="slds-required" title="required">*</abbr>
+                                        </aura:if>
+                                             <aura:if isTrue="{!v.selectedIndustry == 'Retail'}">
+                                            <!--<abbr class="slds-required" title="required">*</abbr>-->
+                                        1.</aura:if>
+                                        <aura:if isTrue="{!(v.selectedIndustry == 'Hospitality')}">1. </aura:if>
+                                        Opportunity Value (USD Only)</label>
+                                    <div class="slds-form-element__control">
+                                        <ui:inputText class="slds-input" aura:id="Projected_Opportunity_Value"  value="{!v.ObjDealRegistration.Projected_Opportunity_Value__c}" required="true"/>
+                                    </div>
+                                </div>
+                                
+                                <aura:if isTrue="{!v.selectedIndustry == 'Hospitality'}">
+                                    
+                                    <div class="slds-form-element">
+                                        <label class="slds-form-element__label" for="Deal_with_3_or_more_units_num">2. Deal with 3 or more units</label>
+                                        <div class="slds-form-element__control">
+                                            <ui:inputText class="slds-input" aura:id="Deal_with_3_or_more_units_num"  value="{!v.ObjDealRegistration.Deal_with_3_or_more_units_Num__c}" />
+                                        </div>
+                                    </div>
+                                    <div class="slds-form-element">
+                                        <div class="slds-form-element__control">
+                                            <ui:inputCheckbox aura:id="Deal_with_3_or_more_units" label="CAM Approved Exception" labelClass="slds-form-element__label"  value="{!v.ObjDealRegistration.Deal_with_3_or_more_units__c}" />
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    
+                                </aura:if>
+                                <aura:if isTrue="{! or(v.selectedIndustry == 'Hospitality',v.selectedIndustry == 'Retail')}">
+                                    <div class="slds-form-element">
+                                        <label class="slds-form-element__label"><aura:if isTrue="{! v.selectedIndustry == 'Retail'}">2. </aura:if><aura:if isTrue="{! v.selectedIndustry == 'Hospitality'}">3. </aura:if>Deal with Monthly Recurring Revenue (USD Only)</label>
+                                        <div class="slds-form-element__control">
+                                            <ui:inputText class="slds-input" aura:id="Deal_with_Monthly_Recurring_Rev"  value="{!v.ObjDealRegistration.Deal_with_Monthly_Recurring_Rev__c}" required="true"/>
+                                        </div>
+                                    </div> 
+                                    
+                                </aura:if>
+                                <aura:if isTrue="{!v.selectedIndustry == 'Hospitality'}">
+                                    <div class="slds-form-element">
+                                        <label class="slds-form-element__label" for="strategic_value">4. Deals with a strategic value in the marketplace</label>
+                                        <div class="slds-form-element__control">
+                                            <ui:inputText class="slds-input" aura:id="strategic_value"  value="{!v.ObjDealRegistration.strategic_value_in_marketplace_num__c}" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="slds-form-element">
+                                        <div class="slds-form-element__control">
+                                            <label class="slds-form-element__label">CAM approved exception</label>
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-m-bottom_medium">
+                                                    <ui:inputCheckbox class="slds-checkbox" aura:id="Deals_with_strategic_value_in_marktplce"  value="{!v.ObjDealRegistration.Deals_with_strategic_value_in_marktplce__c}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </aura:if>
+                                          <aura:if isTrue="{! v.selectedIndustry == 'Hospitality'}">
+                                    <p aura:id="oppValueError_MSG" class="oppError slds-hide">The Value you entered is below the minimum threshold. Please review and adjust your deal values.  Or discuss with your CAM or review the Deal Registration Program Guide within Seismic. [ Minimum values: Opportunity Value={!v.projectedOpportunityValue} , Deal with Monthly Recurring Rev= {!v.dealWithMonthlyRecurringRev} ].
+                                        <!--Your Deal Registration does not meet the Minimum Deal Size requirements for Deal Registration. Please consult your CAM.--></p>
+                                    <p aura:id="oppError_MSG" class="oppError slds-hide">Enter the value in at least any one of these fields.</p>
+                                </aura:if>
+                                <aura:if isTrue="{! v.selectedIndustry == 'Retail'}">
+                                    <p aura:id="oppValueError_MSG" class="oppError slds-hide">The Value you entered is below the minimum threshold. Please review and adjust your deal values.  Or discuss with your CAM or review the Deal Registration Program Guide within Seismic. [ Minimum values: Opportunity Value={!v.projectedOpportunityValue} , Deal with Monthly Recurring Rev= {!v.dealWithMonthlyRecurringRev} ].
+                                        <!--Your Deal Registration does not meet the Minimum Deal Size requirements for Deal Registration. Please consult your CAM.--></p>
+                                 <!--   <p aura:id="oppError_MSG" class="oppError slds-hide">Entry is required for the Opportunity Value.</p> -->
+                                </aura:if>
+                            </div>
+                            
+                            <!--
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">Probability Score %</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="Probability_Score"  value="{!v.ObjDealRegistration.Probability_Score__c}" required="true"/>
+                                </div>
+                            </div> -->
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">Probability Score %</label>
+                                <div class="slds-form-element__control">
+                                    <!--<ui:inputSelect aura:id="Probability_Score" class="slds-select_container slds-select">
+                                        <aura:iteration items="{!v.oppStageProbability}" var="prob">
+                                            <option value="{!prob}" selected ="{! v.ObjDealRegistration.Probability_Score__c == prob ? true : false}">{!prob}</option>
+                                        </aura:iteration>
+                                    </ui:inputSelect>-->
+                                    
+                                    <lightning:select aura:id="Probability_Score" value="{!v.selectedOppPro}">
+                                        <aura:iteration items="{!v.oppStageProbability}" var="prob">
+                                            <option text="{! prob}" value="{! prob}" />
+                                        </aura:iteration>
+                                    </lightning:select>
+                                </div>
+                            </div>
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Expected Start Date</label>
+                                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                                    <ui:inputDate aura:id="Expected_Start_Date" displayDatePicker="true" 
+                                                  value="{!v.ObjDealRegistration.Expected_Start_Date__c}"  />
+                                </div>
+                            </div>
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Expected Close Date</label>
+                                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                                    <ui:inputDate aura:id="Estimated_Close_Date" displayDatePicker="true" 
+                                                  value="{!v.ObjDealRegistration.Estimated_Close_Date__c}"  />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="slds-text-heading_small section-heading">Privacy Policy</h2>
+                <div class="slds-grid slds-wrap section-body">
+                    <!-- / FIRST COLUMN -->
+                    <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                        <div class="slds-form">
+                            <h3>Our privacy policy is available at <a href='https://www.ncr.com/privacy' target='_blank'>www.ncr.com/privacy</a></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+</aura:component>

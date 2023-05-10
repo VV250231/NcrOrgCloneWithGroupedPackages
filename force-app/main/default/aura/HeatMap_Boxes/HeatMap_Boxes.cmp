@@ -1,0 +1,32 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <aura:attribute name="boxLabel" type="String" />
+    <aura:attribute name="boxColor" type="String" />
+    <aura:attribute name="boxValue" type="String" />
+    <aura:attribute name="textColor" type="String" default="white" />
+    <aura:attribute name="valueList" type="List" />
+    <aura:attribute name="hoverOnSmallBox" type="Boolean" />
+    <aura:attribute name="hoverOnBigBox" type="Boolean" />
+    <aura:attribute name="isboxBorderYellow" type="Boolean" default="false"/>
+    
+    <aura:handler name="change" value="{!v.boxValue}" action="{!c.doColorAssignment}" />
+    
+    
+    <div class="slds-grid slds-gutters" style="">
+        
+        <div class="slds-col" style="font-size:11px;" > 
+             <div style="{!v.isboxBorderYellow == true ? 'border:3px solid rgb(21, 137, 238)' :  'border:3px solid transparent'}">
+            <div class="sldx-box slds-align_absolute-center" style="{! 'padding:3px;text-align:center;color:white;'+'background-color:'+ v.boxColor + ';color:'+ v.textColor}" >
+                {!v.boxLabel}
+            </div> 
+            <div style="background-color:black;padding:3px;padding-top:6px;color:white;text-align:center;" class="sldx-box overflow_ellipsis">
+                <aura:iteration items="{!v.valueList}" var="item" >
+                    <div>{!item}</div> 
+                </aura:iteration>
+            </div> 
+            </div>
+            
+        </div>
+    </div>
+    
+</aura:component>

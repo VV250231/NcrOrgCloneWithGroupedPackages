@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validate_ProductRecordType_is_Topline</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT(ISBLANK(Topline_Product_Lkp__c)) 
+&amp;&amp;
+(
+  ISPICKVAL(Product_Type__c ,&apos;PID&apos;)|| ISPICKVAL(Product_Type__c , 
+  &apos;SID&apos;)
+)
+&amp;&amp;   
+NOT(ISPICKVAL(Topline_Product_Lkp__r.Product_Type__c, &apos;Topline&apos;))</errorConditionFormula>
+    <errorMessage>Topline Product Lkp: For PID/SID Product, related Product should have Product Record Type as &apos;Topline&apos;</errorMessage>
+</ValidationRule>

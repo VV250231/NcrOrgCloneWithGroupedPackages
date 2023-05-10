@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NoNewRecordsShouldCreateFromIpass</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(ISNEW(),$User.Alias=&apos;ipaasuse&apos;)</errorConditionFormula>
+    <errorMessage>No Full Contract Number in Salesforce</errorMessage>
+</ValidationRule>

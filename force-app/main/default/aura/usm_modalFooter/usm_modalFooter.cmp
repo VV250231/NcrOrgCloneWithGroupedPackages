@@ -1,0 +1,8 @@
+<aura:component controller="USMDetailController">
+    <aura:attribute name="usmOppDetail" type="USM_Opportunity_Detail__c" default="{'sobjectType': 'USM_Opportunity_Detail__c'}"/>
+    <aura:registerEvent name="saveUSMDetails" type="c:saveUSMDetails"/>
+    <aura:handler event="c:closeUSMDetail" action="{!c.handleCloseEvent}"/>
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    <!-- <lightning:button name="save" label="Save" onclick="{!c.saveUSMDetail}"/> -->
+    <lightning:button name="engage" label="Engage Service" variant="brand" onclick="{!c.saveUSMDetail}"/>
+</aura:component>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>number</bucketType>
+        <developerName>BucketField_60430149</developerName>
+        <masterLabel>Age Ranges</masterLabel>
+        <nullTreatment>z</nullTreatment>
+        <sourceColumnName>AGE</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <to>5</to>
+            </sourceValues>
+            <value>0-5 Days</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>5</from>
+                <to>10</to>
+            </sourceValues>
+            <value>5-10 Days</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>10</from>
+                <to>15</to>
+            </sourceValues>
+            <value>10-15 Days</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>15</from>
+                <to>20</to>
+            </sourceValues>
+            <value>15-20 Days</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>20</from>
+            </sourceValues>
+            <value>20+ Days</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>OWNER</field>
+    </columns>
+    <columns>
+        <field>CASE_NUMBER</field>
+    </columns>
+    <columns>
+        <field>Case.Incident_Number__c</field>
+    </columns>
+    <columns>
+        <field>Case.cpq_Quote__c</field>
+    </columns>
+    <columns>
+        <field>SUBJECT</field>
+    </columns>
+    <columns>
+        <field>OPEN</field>
+    </columns>
+    <currency>USD</currency>
+    <description>For dashboard</description>
+    <filter>
+        <booleanFilter>2 AND 3 AND 1</booleanFilter>
+        <criteriaItems>
+            <column>OPEN</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>REASON</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>CPQ</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case.Incident_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>INC</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_60430149</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>ServiceNow_Age Range_Open</name>
+    <params>
+        <name>units</name>
+        <value>d</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CaseList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATEONLY</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

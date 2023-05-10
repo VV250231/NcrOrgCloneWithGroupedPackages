@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>WON:SUM/CLOSED:SUM</calculatedFormula>
+        <datatype>percent</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Win Rate %</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>(CLOSED:SUM - WON:SUM) / CLOSED:SUM</calculatedFormula>
+        <datatype>percent</datatype>
+        <developerName>FORMULA2</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Loss Rate %</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_69417606</developerName>
+        <masterLabel>Trend Product</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Opportunity.Product_Category__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Allpoint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allpoint, Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allpoint, Branding</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allpoint, Managed Services</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allpoint, Managed Services, Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allpoint, Other, Managed Services</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allpoint+, Allpoint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allpoint+, Other, Allpoint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Other, Allpoint</sourceValue>
+            </sourceValues>
+            <value>Allpoint</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Allpoint+, Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allpoint+</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Other, Allpoint+</sourceValue>
+            </sourceValues>
+            <value>Allpoint+</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Branding</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Branding, Allpoint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Branding, Allpoint+, Allpoint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Branding, Managed Services</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Branding, Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Other, Branding</sourceValue>
+            </sourceValues>
+            <value>ATM Branding</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Managed Services</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Managed Services, Allpoint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Managed Services, Allpoint, Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Managed Services, Branding</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Managed Services, Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Managed Services, Other, Allpoint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Managed Services, Surcharge Increase, Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Other, Managed Services</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Other, Allpoint, Managed Services</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Other, Managed Services, Allpoint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Other, Managed Services, Surcharge Increase</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Surcharge Increase, Managed Services, Other</sourceValue>
+            </sourceValues>
+            <value>ATM Managed Services</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Mobile Cash Access</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Mobile Cash Access, Allpoint+</sourceValue>
+            </sourceValues>
+            <value>Mobile API</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Other</sourceValue>
+            </sourceValues>
+            <value>Other</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Surcharge Increase</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Surcharge Increase, Other</sourceValue>
+            </sourceValues>
+            <value>Surcharge Increase</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>VAR</sourceValue>
+            </sourceValues>
+            <value>VAR</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>Opportunity.Historical_Opportunity__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Opportunity_Classification__c</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>ROLLUP_DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>OWNER_DEPARTMENT</field>
+    </columns>
+    <columns>
+        <field>PROBABILITY</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Probability_of_Winning_Deal__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Annual_Contract_Value__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Old_Contract_ACV__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Expected_Service_Start_Date__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Num_of_ATMs__c</field>
+    </columns>
+    <columns>
+        <field>LEAD_SOURCE</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>NEXT_STEP</field>
+    </columns>
+    <columns>
+        <field>FORECAST_CATEGORY</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Incremental_ACV__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.In_Year_Revenue__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Product_Category__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>CLOSED</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Average</aggregateTypes>
+        <field>AGE</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Current FY</description>
+    <filter>
+        <criteriaItems>
+            <column>ROLLUP_DESCRIPTION</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>VAR</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Region__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>NABG</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Opportunity_Classification__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>CATM - FI,CATM - Retail (Corporate)</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Geography__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>US</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FULL_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Donna Keefe,Nikki Davis,Steve Nogalo,Kendrick Partain,Austin Benner</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>TYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>New Customer</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_69417606</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>FI &amp; Retail Win Rate - by Product</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CURY</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Days_between_SGL_and_SQL__c</fullName>
+    <description>Calculate Number of Days Between SGL Trigger Date and SQL Trigger Date</description>
+    <externalId>false</externalId>
+    <formula>IF (ISBLANK(SQL_Date__c) || ISBLANK(SGL_Trigger_Date__c), 
+null,DATEVALUE(SQL_Date__c) - DATEVALUE(SGL_Trigger_Date__c))</formula>
+    <label>Days between SGL and SQL</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

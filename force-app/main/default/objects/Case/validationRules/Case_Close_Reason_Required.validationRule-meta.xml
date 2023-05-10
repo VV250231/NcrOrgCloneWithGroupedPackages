@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case_Close_Reason_Required</fullName>
+    <active>true</active>
+    <description>Case Close Reason Required in case of Close The Loop and Close The Loop Child</description>
+    <errorConditionFormula>AND(ISNEW(),
+OR(RecordType.Name = &quot;Close the Loop&quot;,
+			RecordType.Name = &quot;Close the Loop Child&quot;),
+ISPICKVAL(Status, &quot;Closed&quot;),
+ISPICKVAL(Case_Close_Reason__c,&apos;&apos;))</errorConditionFormula>
+    <errorDisplayField>Case_Close_Reason__c</errorDisplayField>
+    <errorMessage>Please Select Case Close Reason</errorMessage>
+</ValidationRule>

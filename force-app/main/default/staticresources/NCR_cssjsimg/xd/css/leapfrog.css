@@ -1,0 +1,698 @@
+@charset "UTF-8";
+/* CSS Document */
+/* XD Leapfrog (DI Style Guide) Demo */
+/* Demo Code; NOT comprensively checked across devices and browsers */
+
+/* -------=typography and color-------------------------------------------------------- */
+/*
+hierarchy		em/rem (root of 16px)		pixels
+h1				1.8							28px
+h2				1.5							24px
+h3				1.125						18px
+body			1							16px
+long copy		.875						14px
+disclosure		.8							12.8px
+ */
+
+/* #333333		body */
+/* #666666		alternate text and input placeholders */
+
+
+/* #0055CC		link (default if no accessible FI color is specified)*/
+
+
+/* #2e6f03		success (green) */
+/* #c90202		error (red) */
+
+/* #e0ead9 		bg: success (light green) */
+/* #f5fbff		bg:	info (light blue) */ /* This is OK to use for AP. */
+/* #ffe7e5 		bg: error (light red) */
+/* #fff8e5		bg: warning (light yello) */ /* background is 12% opacity of icon color (#fec82a) */
+
+
+/* "=demo only" flags mark rules that apply to documentation only */
+
+/* =demo only */
+.theme-showcase {
+	padding-top: 70px;	
+}
+.navbar-inverse {
+	background-color: #333;	
+}
+.navbar-inverse .navbar-brand {
+	color: #e0ead9;	
+}
+.page-header {
+	padding-top: 50px;
+}
+.watermark {
+	background: #e0ead9 url(../img/leapfrog-jumbotron-bg-screen.jpg) no-repeat center top;
+}
+.bs-example-modal .modal {
+    border-radius: 0;
+	bottom: auto;
+    display: block;
+    left: auto;
+    position: relative;
+    right: auto;
+    top: auto;
+    z-index: 1;
+}
+.navbar-brand {
+	font-size: 18px;	
+}
+.form-control.demo-styled-placeholder {
+   color: #2e6f03;
+}
+.demo-styled-placeholder::-webkit-input-placeholder {
+   color: #2e6f03;
+}
+
+.demo-styled-placeholder:-moz-placeholder { /* Firefox 18- */
+   color: #2e6f03;  
+}
+
+.demo-styled-placeholder::-moz-placeholder {  /* Firefox 19+ */
+   color: #2e6f03;  
+}
+
+.demo-styled-placeholder:-ms-input-placeholder {  
+   color: #2e6f03;  
+}
+
+@media (max-width: 480px) {
+  .watermark {
+	background-image: url(../img/leapfrog-jumbotron-bg-screen-xs.jpg);
+  }
+}
+/* /=demo only */
+
+
+
+body {
+    background-color: #fff;
+    color: #333;
+    font-family: Arial,"Helvetica Neue",Helvetica, sans-serif; 
+    font-size: 16px;
+    line-height: 1.42857;
+}
+
+.page-header {
+	border-bottom: 3px solid #ccc;		
+}
+h1, h2, h3, h4 {
+	font-weight: normal;	
+}
+h1 {
+	font-size: 28px;	
+}
+.modal-title, h2 {
+	font-size: 24px;	
+}
+.panel-title, h3 {
+	font-size: 18px;	
+}
+
+h4 {
+	font-size: 16px;
+}
+h5 {
+	font-size: 14px;	
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 10px;
+  font-size: 16px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #999;
+  border-radius: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+       -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.form-control:focus {
+  border-color: #666;
+  outline: 1px solid #666;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+/* =demo only */
+.focus-demo {
+	border-color: #666;
+	outline: 1px solid #666;	
+}
+/* /=demo only */
+textarea {
+	padding: 5px 0;
+	text-indent: 10px;
+}
+
+input[type="text"] {
+	border: 1px solid #999;
+	box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.3) inset;
+	font-size: 16px;
+	height: 40px;
+	/* text-indent: 10px; *//* handled by .form-control padding */
+	line-height: 14px;
+}
+input[type="text"].danger {
+	border-color: #c90202;
+	outline: 1px solid #c90202;	
+}
+
+
+.container .jumbotron {
+	padding: 40px;	
+}
+.jumbotron h1 {
+	font-size: 28px;
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+	border-bottom: 3px solid #ccc;	
+}
+.jumbotron p {
+	margin-bottom: 0;
+	font-size: 16px;
+	font-weight: normal;	
+}
+/* -------=panel-------------------------------------------------------- */
+.jumbotron {
+	background-color: #ededed;
+}
+
+.panel, .panel-heading {
+	border-radius: 0;	
+}
+.panel {
+	box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.45);		
+}
+.panel-default > .panel-heading {
+	background-image: none;
+	background: none;
+	border-bottom-width: 3px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	margin: 0 15px;
+	padding-right: 0;
+	padding-left: 0;
+}
+.panel.panel-img {
+	padding: 0;	
+}
+
+
+/* -------=feedback =message-------------------------------------------------------- */
+
+.alert {
+	padding: 11px 0;
+	text-indent: 25px;
+	background: none;
+	color: #333;
+	font-size: 14px;
+}
+.alert-success, .alert-info, .alert-warning, .alert-danger, .alert-process {
+	border: none;
+	border-radius: 0;
+	box-shadow: none;
+	background-color: none;
+	background-position: 0 11px;
+	background-repeat: no-repeat;
+}
+
+.alert-success {
+	background-image:url(../img/icon_success.png);
+}
+.alert-info {
+	background-image:url(../img/icon_info_ap.png);
+}
+.alert-warning {
+	background-image:url(../img/icon_warning.png);
+}
+.alert-danger {
+	background-image:url(../img/icon_error.png);
+}
+.alert-process {
+	background-image:url(../img/loader_small.gif);
+		
+}
+.alert-success.no-icon, .alert-info.no-icon, .alert-warning.no-icon, .alert-danger.no-icon {
+	background-image: none;
+}
+.alert-success.alert.alert-full {
+	font-size: 16px;	
+}
+.alert-full.alert-success, .alert-full.alert-callout, .alert-full.alert-info, .alert-full.alert-warning, .alert-full.alert-danger {
+	padding: 15px 20px;
+	background-position: 20px 15px;
+	color: #333;
+	text-indent: 28px;
+}
+.alert-full.alert-success {
+	background-color: #e0ead9;
+}
+.alert-full.alert-callout {
+	background-color: #ededed;	
+}
+.alert-full.alert-info {
+	background-color: #f5fbff;	
+}
+.alert-full.alert-warning {
+	background-color: #fff8e5;
+}
+.alert-full.alert-danger {
+	background-color: #ffe7e5;	
+}
+/* -------=overlays =modal------------------------------------------------ */
+
+.modal {
+	background: rgba(0,0,0,0.50);	
+}
+.modal-content {
+	border-radius: 0;
+	box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.45);	
+}
+.callout {
+	padding: 20px;
+	background-color: #ededed;		
+}
+.modal-header, .modal-body, .modal-footer {
+	padding-left: 40px;
+	padding-right: 40px;
+}
+.modal-header, .modal-footer {
+	border-color: transparent;
+}
+.modal-footer {
+	text-align: left;
+	padding-bottom: 40px;
+}
+.modal-footer .btn + .btn { margin-left: 0; }
+
+/* -------=button-------------------------------------------------------- */
+
+.btn-default, .btn-secondary, .btn-tertiary {
+	border: 1px solid #acacac;	
+}
+.btn-default, .btn-secondary, .btn-primary {
+	border-radius: 2px;	
+}
+.btn-lg.btn-tertiary {
+	padding: 8px 20px;	
+}
+.btn-tertiary {
+	border-radius: 0;
+	background-color: #fff;
+	font-size: 14px;		
+}
+	
+.btn-default, .btn-primary, .btn-tertiary {
+	box-shadow: none;
+	text-shadow: none;
+	margin-right: 10px;
+}
+
+/* Default button state; DI Style Guide's "Secondary" button */
+.btn-default, .btn-secondary {
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNkZGRkZGQiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+background: -moz-linear-gradient(top,  #ffffff 0%, #dddddd 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#dddddd)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #ffffff 0%,#dddddd 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #ffffff 0%,#dddddd 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #ffffff 0%,#dddddd 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #ffffff 0%,#dddddd 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#dddddd',GradientType=0 ); /* IE6-8 */
+
+	border-color: #acacac;
+	border-width: 1px;
+	color: #333333;
+	vertical-align: middle;	
+}
+.btn-default:hover, .btn-default:focus, .btn-secondary:hover, .btn-secondary:focus, .btn-tertiary:hover, .btn-tertiary:focus {
+	background: none;
+	background-position: inherit;
+	background-color: #ccc;
+	color: #000;	
+}
+
+/* Primary button is used only once per page or view, to clearly identify the way to submit, move forward, or other happy path.*/
+.btn-primary {
+	background-image: -webkit-linear-gradient(top, #004b8d 0%, #00386a 100%);
+	background-image:      -o-linear-gradient(top, #004b8d 0%, #00386a 100%);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#004b8d), to(#00386a));
+	background-image:         linear-gradient(to bottom, #004b8d 0%, #00386a 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff004b8d', endColorstr='#ff00386a', GradientType=0);
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+	background-repeat: repeat-x;
+	border-color: #004b8d;
+
+	color: #fff;
+}
+.btn-primary:hover, .btn-primary:focus {
+		border: 1px solid #00386a;
+		background-image: none;
+		background-color: 	#00386a;
+	}
+
+
+/*-------=label-------------------------------------------------------- */
+
+label {
+	display: block;
+	padding: 20px 0 3	px;
+	font-size: 16px;
+	font-weight: normal;
+}
+
+
+/*-------=select-------------------------------------------------------- */
+
+/*
+	• Dropdowns likely need JS to achieve appearance as spec'ed.
+	• • Promotion Suite (using Foundation) accomplished this in most browsers.
+	• when <select> displays the first <option> in the closed menu, it doesn't reliably apply the css for <option>. Neither does <option> displayed in an open menu inherit styles the same way as does the first <option> shown in the closed <select> dropdown.
+	• not sure there's a clever pure CSS answer(padding,text-indent etc.) to makes a cross-browser, spec-matching layout with an accurate outline for :focus.
+*/
+
+.select-appearance {/* an outer wrapper for visual presentation */
+	box-shadow: 1px 1px 1px 0 rgba(0,0,0,0.45);
+	width: 280px;
+	background: #ededed url(../img/input_select_arrow.png) no-repeat 100% 50%;
+	overflow: hidden;
+	height: 40px;
+	margin-bottom: 1.25rem;
+}
+.callout .select-appearance {
+	background-color: #fff;	
+}
+select {
+	min-height: 100%;
+	padding: 0 0 0 20px;
+	border: none;
+	border-radius: 0;
+	background-image: none;
+	background: transparent;
+	width: 300px;
+	-webkit-appearance: none;
+	font-family: arial, helvetica, sans-serif;
+	font-size: 16px;
+
+/*	padding: 12px 0 0 12px; *//* bad in chrome */
+
+}
+option:first-child {
+	}
+option {
+	padding: 10px 20px;
+	/* padding: 22px 0; */
+	/* text-indent: 1.25rem; */
+	font-size: 16px;
+	/* border-bottom: 1px solid #ccc; */
+} 
+option:hover {
+	background: #ccc; /* likely overwritten by OS */	
+}
+
+select:hover {
+    background-color: transparent;
+    }
+select:disabled {
+    background-color: #f5f5f5;
+    cursor: default;
+	opacity: .4; /* this opacity declaration needs to be applied to the parent, ie. when the child (select) is disabled, make the parent (that is only there for visual presentation) appear disabled. */
+	}
+	
+/* if possible the select's dropdown should have Container box-shadow: 1px 1px 1px 0px rgba(0,0,0,0.45); */
+
+/*-------=table-------------------------------------------------------- */
+th, td {
+	padding: 9px 30px;
+	border-bottom: 1px solid #ccc;
+}
+th {
+	
+	border: 1px solid #ccc;
+	background: #ededed;	
+}
+
+/*--------=tooltip----------------------------------------------------- */
+/* 
+<div role="tooltip" class="tooltip fade top" id="tooltip272576" style="top: 4474.18px; left: 272.3px; display: block;">
+	<div class="tooltip-arrow" style="left: 50%;"></div>
+	<div class="tooltip-inner">This is additional help content</div>
+</div>
+
+
+ */
+
+
+.tooltip.top .tooltip-inner {
+	background-color: #ededed;
+	color: #333;
+	padding: 20px;
+	text-align: left;
+	/* box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.45);	 */	
+}
+.tooltip.top .tooltip-arrow {
+	/* box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.45);	 */	
+	border-top-color: #ededed;
+	color: #333;
+	border-width: 20px 20px 0;
+	margin-left: -20px;
+	bottom: -15px;
+}
+#demoTooltip {
+	opacity: 1;
+	display: inline-block;
+	position: relative;
+	top: 0;
+	left: 0;
+	
+}
+/*-------=responsive-------------------------------------------------- */
+
+/* app.css, begin BB Vidya */
+/**  Media Queries for responsive design  **/
+/* Custom, iPhone Retina */
+@media only screen and (min-width : 320px) {
+    button.button-with-icon {
+        height: 35px;
+    }
+    .main-heading-hr {
+        width:99%;
+    }
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width : 480px){
+    button.button-with-icon {
+        height:35px;
+    }
+    .main-heading-hr {
+        width:99%;
+    }
+}
+
+@media only screen and (min-width : 768px){
+    button.button-with-icon {
+        height:42px;
+    }
+    .main-heading-hr {
+        width:99.5%;
+    }
+}
+/* end app.css, BB Vidya */
+
+.svg-icon svg {
+	width: 30px;
+	height: 30px;	
+}
+.svg-icon polygon {
+	fill: #004b8d;	
+}
+@media (max-width: 767px){
+	.panel {
+		padding: 15px;	
+	}
+	body{
+	font-size: 14px;	
+	}
+	h1, h2, h3 {
+	font-weight: normal;	
+	}
+	h1 {
+		font-size: 24px;	
+	}
+	h2 {
+		font-size: 22px;	
+	}
+	.panel-title, h3 {
+		font-size: 16px;	
+	}
+	h4, h5 {
+		font-weight: bold;		
+	}
+	h4 {
+		font-size: 14px;
+	}
+	h5 {
+		font-size: 14px;	
+	}
+}
+@media (max-width: 767px) {
+  .visible-xs {
+    display: block !important;
+  }
+  table.visible-xs {
+    display: table;
+  }
+  tr.visible-xs {
+    display: table-row !important;
+  }
+  th.visible-xs,
+  td.visible-xs {
+    display: table-cell !important;
+  }
+}
+@media (max-width: 767px) {
+  .visible-xs-block {
+    display: block !important;
+  }
+}
+@media (max-width: 767px) {
+  .visible-xs-inline {
+    display: inline !important;
+  }
+}
+@media (max-width: 767px) {
+  .visible-xs-inline-block {
+    display: inline-block !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+	.panel {
+		padding: 20px;	
+	}
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .visible-sm {
+    display: block !important;
+  }
+  table.visible-sm {
+    display: table;
+  }
+  tr.visible-sm {
+    display: table-row !important;
+  }
+  th.visible-sm,
+  td.visible-sm {
+    display: table-cell !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .visible-sm-block {
+    display: block !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .visible-sm-inline {
+    display: inline !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .visible-sm-inline-block {
+    display: inline-block !important;
+  }
+}
+@media (min-width: 992px) {
+	.panel {
+		padding: 30px;	
+	}
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .visible-md {
+    display: block !important;
+  }
+  table.visible-md {
+    display: table;
+  }
+  tr.visible-md {
+    display: table-row !important;
+  }
+  th.visible-md,
+  td.visible-md {
+    display: table-cell !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .visible-md-block {
+    display: block !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .visible-md-inline {
+    display: inline !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .visible-md-inline-block {
+    display: inline-block !important;
+  }
+}
+@media (min-width: 1200px) {
+  .visible-lg {
+    display: block !important;
+  }
+  table.visible-lg {
+    display: table;
+  }
+  tr.visible-lg {
+    display: table-row !important;
+  }
+  th.visible-lg,
+  td.visible-lg {
+    display: table-cell !important;
+  }
+}
+@media (min-width: 1200px) {
+  .visible-lg-block {
+    display: block !important;
+  }
+}
+@media (min-width: 1200px) {
+  .visible-lg-inline {
+    display: inline !important;
+  }
+}
+@media (min-width: 1200px) {
+  .visible-lg-inline-block {
+    display: inline-block !important;
+  }
+}
+@media (max-width: 767px) {
+  .hidden-xs {
+    display: none !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .hidden-sm {
+    display: none !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .hidden-md {
+    display: none !important;
+  }
+}
+@media (min-width: 1200px) {
+  .hidden-lg {
+    display: none !important;
+  }
+}

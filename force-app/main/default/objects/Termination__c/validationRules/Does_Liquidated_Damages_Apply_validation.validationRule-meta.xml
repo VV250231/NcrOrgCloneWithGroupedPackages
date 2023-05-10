@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Does_Liquidated_Damages_Apply_validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+!$Setup.Automation_Setting__c.Skip_Validation_Rule__c, 
+OR(
+ $Permission.CATM_Retail_Manager = true,
+ $Permission.CATM_Retail_User = true
+),
+ISPICKVAL(Owner:User.Geography__c , &quot;UK&quot;),ISPICKVAL( Do_Liquadated_Damages_Apply__c ,&apos;Yes&apos;),ISBLANK( Liquidated_Damages_Amount__c ), RecordType.Name = &quot;Removals&quot; )</errorConditionFormula>
+    <errorDisplayField>Liquidated_Damages_Amount__c</errorDisplayField>
+    <errorMessage>Please fill the Liquidated Damages Amount</errorMessage>
+</ValidationRule>

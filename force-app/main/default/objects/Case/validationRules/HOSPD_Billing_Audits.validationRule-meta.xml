@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOSPD_Billing_Audits</fullName>
+    <active>true</active>
+    <description>This will prevent a case from being closed when Subcategory is Billing Audits Request and required fields not completed.</description>
+    <errorConditionFormula>( 
+Credits_issued__c  = FALSE
+||
+ISBLANK(Total_Amount_of_Credits_Issued__c )
+||
+Additional_billings_adjustments__c = FALSE
+||
+ISBLANK(Net_Positive_Result_per_Month__c)
+||
+ISBLANK(Net_Positive_Result_per_Order__c)
+||
+ISBLANK(Net_Positive_Result_per_Year__c)
+||
+ISBLANK(Processes_to_prevent_future_errors__c)
+||
+Notified_AE__c = FALSE
+)
+&amp;&amp;
+ISCHANGED(Status)
+&amp;&amp; 
+ISPICKVAL(Subcategory__c,&quot;Billing Audits&quot;)
+&amp;&amp;
+ISPICKVAL(Status, &quot;Closed&quot;)</errorConditionFormula>
+    <errorMessage>Must complete fields in Billing Audits section to Close Case</errorMessage>
+</ValidationRule>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_17455212</developerName>
+        <masterLabel>Billing Status</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>STAGE_NAME</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Prospecting</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Analyzing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Validating</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Proposing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Analyzing - NonFunnel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Validating - NonFunnel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Proposing - NonFunnel</sourceValue>
+            </sourceValues>
+            <value>A. Preparing Billing File</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Offering</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Offering - NonFunnel</sourceValue>
+            </sourceValues>
+            <value>B. SOM Request sent to BOC</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Closing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Closing - NonFunnel</sourceValue>
+            </sourceValues>
+            <value>C. Invoice sent to Client</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Closed/Booked</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Closed/Booked - NonFunnel</sourceValue>
+            </sourceValues>
+            <value>D. Invoice paid by the Client</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>Account.Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>CONTACT</field>
+    </columns>
+    <columns>
+        <field>CON.EMAIL</field>
+    </columns>
+    <columns>
+        <field>CON.PHONE</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(LEFT(OPPORTUNITY_NAME,3),&quot;Jan&quot;,&quot;a. Jan&quot;),&quot;Feb&quot;,&quot;b. Feb&quot;),&quot;Mar&quot;,&quot;c. Mar&quot;),&quot;Apr&quot;,&quot;d. Apr&quot;),&quot;May&quot;,&quot;e. May&quot;),&quot;Jun&quot;,&quot;f. Jun&quot;),&quot;Jul&quot;,&quot;g. Jul&quot;),&quot;Aug&quot;,&quot;h. Aug&quot;),&quot;Sep&quot;,&quot;i. Sep&quot;),&quot;Oct&quot;,&quot;j. Oct&quot;),&quot;Nov&quot;,&quot;k. Nov&quot;),&quot;Dec&quot;,&quot;l. Dec&quot;)</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>Billing Month</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <booleanFilter>(1 OR 2 OR 3 OR 4 OR 5 OR 6) AND 7 AND 8</booleanFilter>
+        <criteriaItems>
+            <column>Account.Master_Customer_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>7433917,7436921,41185717,7430286,7425621,7426997,41279405,41278965,41275946,8140429,7431510,41277069,8136610,7426948,7433924,41280400,8139766,8140826,7947599,8538335,8991228,7431778,7427617,8483258,8141098,8140838,7425370,7427594,41312472,7430656,7430218,7435535,41269247,41256954,7433874,10570403,8138229,9190635,7433128,9704414,7433029,8957188,9196951,7426430,9746949,8138080,9459924,10577930,8926743,10577962</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Master_Customer_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>8141202,8809458,41207709,8623833,9634301,40737726,7426494,7426351,7433462,8572637,9070229,8562599,40744665,7430031,8878078,41416841,10573232,7435783,7424060,7427774,7429299,41330469,9520858,9635054,7429228,41277167,41266094,7438462,10054422,8140375,8892372,7427070,9155319,7435097,41279961,7429483,8561972,8699361,8612343,7940146,8799532,8904326,7435797,41265127,7437088,10702781,7424835,8791542,9401494,9028016</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Master_Customer_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>7428175,8743879,40828194,10539251,7430883,9490886,9632366,40745969,7434070,8656713,7435359,9923167,7437329,41278834,9465177,8747295,8139813,7423421,8839143,7425925,41277197,41265216,10561542,9439748,7434439,7436489,7423544,10056323,9956827,7437233,9190337,8263602,41266134,8139538,7432787,10560250,41256969,8139811,41266603,7424495,9121849,9741889,8977125,8733748,9125730,10468999,7424703,7438352,9429095,8853303</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Master_Customer_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>7426338,41277173,40709458,7437324,41265688,9509179,7426204,9073441,8736997,8998947,40894310,10333534,7940179,9847032,10113918,40957459,9940107,7432957,10348999,8141514,7425696,7434208,41279811,41275452,7434016,7437322,8139422,7427808,7426392,8652769,10467116,9646848,8888805,8136785,8137697,8139997,7432594,7428563,9124454,7434024,8498255,7427309,7434312,41269231,9568142,41265224,7432550,7926522,8812762,41279978</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Master_Customer_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>7425317,8843494,41280404,7436991,9627117,8139089,40713689,7430187,7430814,7431504,9151554,8511909,8138272,9009307,7932659,7430816,10291488,7431449,7426457,7424075,8137654,8460266,8483077,8819967,9355864,8138607,9680043,7430822,8615470,8831408,8885882,7434407,8627794,7429809,7434826,9860427,41278801,7428953,7428979,9020084,7432213,7426973,7433867,7429560,7425292,7428537,7434974,7427581,7434008,7429561</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Master_Customer_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>8138881,9564677,7431454,7425118,7435531,7393031,9607560,7432677,40927993,9274813,40927989,9677624,8797647,7434414,9011908,8140484,7429914,8653180,9939667</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OPPORTUNITY_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Renewal</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OWNER_MANAGER</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Nemanja Lisov,Jovana Trifunovic</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>All renewals report SMB</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

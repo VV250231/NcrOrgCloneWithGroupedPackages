@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Valid_Forecast_Date</fullName>
+    <active>false</active>
+    <description>Date must be greater then the current date and greater then or equal to the expected delivery date.</description>
+    <errorConditionFormula>OR (
+   AND (
+             OR (
+                     ISNEW(), ISCHANGED(ServiceDate)),
+             ServiceDate &lt; TODAY()),
+    ServiceDate &lt;  Opportunity.Expected_Delivery_Date__c )</errorConditionFormula>
+    <errorDisplayField>ServiceDate</errorDisplayField>
+    <errorMessage>Your Delivery Date must be a future date that is greater than or equal to the Opportunities Expected Delivery Date</errorMessage>
+</ValidationRule>

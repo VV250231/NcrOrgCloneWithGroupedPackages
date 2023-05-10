@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>AAS Support Case Assigned Template</name>
+    <style>none</style>
+    <subject>Your case {!Case.CaseNumber} has been assigned</subject>
+    <textOnly>Your case has been Assigned to Support Analyst-{!Case.OwnerFullName}.
+
+Case Number: {!Case.CaseNumber}
+Case Reason: {!Case.Reason}
+Reason Type: {!Case.Reason_Type__c}
+Subject : {!Case.Subject}
+
+You can click on the Link to access the case.
+
+Salesforce AAS Support Team
+NCR Corporation
+salesforce.aasq2csupport@ncr.com
+
+
+NCR Confidential. FOR INTERNAL USE ONLY.
+NCR Corporation 864 Spring St. NW, Atlanta, GA 30308-1007
+©2020 NCR Corporation. All rights reserved.  ncr.com
+NCR respects your privacy.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

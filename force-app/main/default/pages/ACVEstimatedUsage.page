@@ -1,0 +1,123 @@
+<apex:page sidebar="false" lightningStylesheets="true" tabStyle="zqu__Quote__c" standardController="zqu__Quote__c" extensions="ACVEstimatedUsageController" action="{!init}" >
+    <style type="text/css">
+        .propertycomponentfooter{
+            position: fixed !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            margin-top:108px !important; 
+            height: 60px !important; 
+            width: 100% !important; 
+            background: #f4f6f9 !important;
+            background-color: rgb(244, 246, 249) !important;
+            background-image: none !important;
+            background-repeat: repeat !important;
+            background-attachment: scroll !important;
+            background-clip: border-box !important;
+            background-origin: padding-box !important;
+            background-position-x: 0% !important;
+            background-position-y: 0% !important;
+            background-size: auto auto !important;
+            background-color:#3A4B5C !important;
+            box-shadow:none !important;
+            padding-left:12px !important;
+            padding-right:12px !important;
+            
+        }
+      
+        .myDataButton
+        {
+            background: no-repeat #6ec5ab !important;
+            float: right !important;
+            margin-top:8px !important;
+            background-position:20% 50% !important;
+            font-size: 12px !important;
+            color: #FFF !important;
+            text-transform: uppercase !important;
+            border: none !important;
+            width: 150px !important;
+            height:45px !important;
+            margin-left:6px !important; 
+        }
+        .myDataButton:hover{
+            background-color: #27ac8b !important;
+        }
+        .mybackButton{
+            background :url('{!$Resource.DIlightningleftchevron}') no-repeat #a9b4bf !important;
+            background-position:20% 50% !important;
+            float: right !important;
+            margin-top:8px !important;
+            font-size: 12px !important;
+            color: #FFF !important;
+            text-transform: uppercase !important;
+            border: none !important;
+            width: 100px !important;
+            height:45px !important;
+            margin-left:6px !important;
+        }
+        .mybackButton:hover{
+            background-color: #79838d !important;
+        }
+        .mydoneButton{
+            
+            float:right !important;
+            margin-top:8px !important;
+            background-position:20% 50% !important;
+            font-size: 12px !important;
+            color: #FFF !important;
+            text-transform: uppercase !important;
+            border: none !important;
+            width: 100px !important;
+            height:45px !important;
+            margin-left:6px !important;"
+        }
+        .mydoneButton:hover{
+            background-color: #50687f !important;
+        }
+       
+    </style>
+  
+  
+  <apex:composition template="zqu__QuoteWizardTemplateNoForm">
+    <apex:define name="PageBody">
+      <script type="text/javascript">function setFocusOnLoad() {}</script>
+      <apex:form >
+        <apex:inputHidden value="{!zqu__Quote__c.zqu__Opportunity__r.Opportunity_Classification__c}"/>
+        <apex:inputHidden value="{!zqu__Quote__c.zqu__Opportunity__r.Solution_Portfolio__c}"/>
+        <apex:inputHidden value="{!zqu__Quote__c.zqu__Opportunity__r.AccountId}"/>
+        <div style="margin: 10px auto; display: {!IF(hasMessages, 'table;', 'none;')}">
+            <div style="border-radius: 8px; border-color: orange; border-style: solid; border-width: 2px; background-color: #ffffcc; 
+                        display: inline-block; padding-left: 10px; padding-right: 10px;">
+                <img src="/img/msg_icons/warning24.gif" alt="WARNING" class="msgIcon" style="position: relative; top: 10px; float: left;" />
+                <span style="font-weight: bold; padding-top: 5px; padding-left: 38px; display: block;">Warning:</span>
+                <apex:messages />
+            </div>
+        </div>
+        <div style="margin-top: 15px;">
+        <apex:pageBlock title="Monthly Estimated Usage">
+            <apex:pageBlockButtons location="bottom" styleClass="propertycomponentfooter" >
+            <div style="margin-right:20px">
+                <!-- <apex:commandButton value="Done" action="{!done}" styleClass="mydoneButton" style="background: no-repeat transparent;border:1px #50687f solid !important"/>  rendered="{!renderDoneButton}"/>-->
+                <apex:commandButton value="Save & Continue" action="{!save}" styleClass="myDataButton"/> 
+                <apex:commandButton value="Back" action="{!back}" styleClass="mybackButton"/>  
+                   </div>
+            </apex:pageBlockButtons>
+            <apex:pageBlockTable value="{!quoteCharges}" var="qc">
+                <apex:column >
+                    <apex:facet name="header">Charge Name</apex:facet>
+                    <apex:outputText value="{!qc.Name}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">UOM</apex:facet>
+                    <apex:outputfield value="{!qc.zqu__UOM__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Monthly Estimated Usage</apex:facet>
+                     <apex:inputField value="{!qc.Monthly_Estimated_Usage__c}"/>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        </div>
+      </apex:form>
+    </apex:define>
+  </apex:composition>   
+</apex:page>

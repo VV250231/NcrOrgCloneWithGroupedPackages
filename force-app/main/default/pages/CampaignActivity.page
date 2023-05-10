@@ -1,0 +1,124 @@
+<apex:page standardController="Campaign_Activity__c" title="New Campaign Activity" extensions="campaignActivityExt">
+    
+    <apex:sectionHeader title="Campaign Activity Edit" subtitle="New Campaign Activity" />
+    
+    <apex:form >
+        <apex:pageBlock title="Campaign Activity Edit">
+            
+            <apex:pageBlockButtons >
+                <!--<apex:commandButton value="Save" onclick="checkStatus()"/>-->
+                <button type="button" onclick="checkStatus()">Save</button>
+                <button type="button" onclick="cancelMethod()">Cancel</button>
+                <!-- <apex:commandButton value="Cancel" action="{!cancel}"/> -->
+                
+            </apex:pageBlockButtons>
+            
+            <apex:pageMessages id="pMessages" />
+            <apex:pageBlockSection columns="2" title="Information" collapsible="false" showHeader="true">
+                <apex:inputField id="campaignName" value="{! Campaign_Activity__c.Campaign_Name__c}"/>
+                <apex:inputField value="{! Campaign_Activity__c.Assign_to__c}"/>
+                
+                <apex:inputField value="{! Campaign_Activity__c.Subject__c}"/>
+                <apex:inputField id="accountName" value="{! Campaign_Activity__c.Account_Name__c}"/>
+                
+                <apex:inputField value="{! Campaign_Activity__c.Due_Date__c}"/>
+                <apex:inputField id="contactName" value="{! Campaign_Activity__c.Contact_Name__c}"/>
+                
+                <apex:inputField id="actStatus"  value="{! Campaign_Activity__c.Status__c}"/>
+                <apex:inputField value="{! Campaign_Activity__c.Campaign_Questions_Campaign_Owner__c}"/>
+                
+                <apex:inputField value="{! Campaign_Activity__c.Disqualified_Reason__c}"/>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                
+                <apex:inputField value="{! Campaign_Activity__c.Notes__c}"/>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                
+                <apex:outputField value="{! Campaign_Activity__c.Product__c}" rendered="{!$Profile.Name != 'System Administrator' && $Profile.Name != 'Eloqua Administration' && ($Profile.Name != '04 NSC UI Administrator' )}"/>
+                <apex:inputField value="{! Campaign_Activity__c.Product__c}" rendered="{!$Profile.Name == 'System Administrator' || $Profile.Name == 'Eloqua Administration' || $Profile.Name == '04 NSC UI Administrator' }"/>
+                
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        
+        <apex:actionFunction name="saveAF" action="{! save}" reRender="pMessages" />
+        <apex:actionFunction name="saveWithOldStatusAF" action="{! saveWithOldStatus}" oncomplete="redirectToNewOppPage()" reRender="pMessages"/>
+        <apex:actionFunction name="cancelMethod" action="{! cancel}"/>
+    </apex:form>
+    
+    <apex:includeScript value="{! $Resource.jquery_1_11_3}"/>
+    
+    <script>
+        
+        //fetch old value status
+        var oldStatus =  $("select[id$='actStatus']").val() ;
+        
+        var parameters = '';
+        
+        if('{! Campaign_Activity__c.Status__c}' != '')
+            oldStatus = '{! Campaign_Activity__c.Status__c}' ;
+                    
+        /*
+         * If user changing status from open or disqualified to qualified than only ask him to create opporutnity else not.
+         * If status is already in open status and user edit the record don't do any thing.
+         */
+         
+        function checkStatus(){
+            
+            var currentStatus = $("select[id$='actStatus']").val() ;
+            
+            if(oldStatus != 'Qualified' && currentStatus == 'Qualified') 
+            {
+                if (confirm("Qualifying this Activity (Changing this Actvity's status to \"Qualified\") will require creating an Opportunity in the next step. Would you like to qualify this Activity and proceed to create an Opportunity now?") == true) {
+                    
+                    //fetch base URL
+                    var host = window.location.host;
+                    
+                    //Add parameters in URL
+                    
+                    
+                    if( $("input[id$='accountName']").val() )
+                        parameters += "&opp4=" + $("input[id$='accountName']").val()+"&opp4_lkid="+$("input[id$='accountName_lkid']").val()
+                    
+                    if( $("input[id$='campaignName']").val() )
+                        parameters += "&opp3=" + $("input[id$='campaignName']").val() ;
+                        
+                    if( "{! Campaign_Activity__c.Product__c}" )    
+                        parameters += "&products="+ "{! Campaign_Activity__c.Product__c}"
+                    
+                    if( "{! Campaign_Activity__c.Id}" )
+                        parameters += "&CF00N19000000I4bi="+ "{! Campaign_Activity__c.Name}" + "&CF00N19000000I4bi_lkid="+ "{! Campaign_Activity__c.Id}"
+                        
+                    if( $("input[id$='campaignName']").val() )  
+                        parameters += "&opp17="+ $("input[id$='campaignName']").val()
+                        
+                    if( $("input[id$='contactName']").val() )
+                        parameters += "&CF00N70000003TddH="+ $("input[id$='contactName']").val() + "&CF00N70000003TddH_lkid="+ $("input[id$='contactName_lkid']").val()
+                        
+                    saveWithOldStatusAF();  
+                        
+                    return ;                   
+                    //return false ;
+                } 
+                else {
+                   
+                   // If user clicks on cancel button of confirm box. Stay on same page don't save the record so return false. and change status back to the previous one.
+                   
+                   $("select[id$='actStatus']").val(oldStatus)
+                   //return false ;
+                   return ;
+                }
+            }
+            
+            //Simply Save campaign record
+            saveAF();
+            
+        }
+        
+        
+        function redirectToNewOppPage()
+        {
+           
+            window.location="/006/e?retURL=%2F006%2Fo&RecordType=012700000001PoZ&ent=Opportunity"+parameters;
+        }
+        
+    </script>
+</apex:page>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>zqu__Quote__c$zqu__Number__c</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c$Name</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c$zqu__Status__c</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c$zqu__StartDate__c</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c$ReportingForecastLiveDate__c</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c.zqu__Quote_Rate_Plans__r$zqu__QuoteProductName__c</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c$Billing_Team__c</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c.zqu__Quote_Rate_Plans__r.zqu__Quote_Rate_Plan_Charges__r$ChannelPartner_Lkp__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Implementation Report - Bookings only</description>
+    <filter>
+        <criteriaItems>
+            <column>zqu__Quote__c$zqu__SubscriptionType__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Cancel Subscription</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>zqu__Quote__c.zqu__Quote_Rate_Plans__r.zqu__Quote_Rate_Plan_Charges__r$Salesperson_Lkp__c</field>
+        <sortOrder>Desc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>zqu__Quote__c.zqu__Quote_Rate_Plans__r.zqu__Quote_Rate_Plan_Charges__r$zqu__ChargeType__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Implementation report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Zuora_Amendment_Quotes__c</reportType>
+    <scope>user</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>zqu__Quote__c$ReportingForecastLiveDate__c</dateColumn>
+        <interval>INTERVAL_THISMONTH</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CATM_Require_Account_for_ETL_User</fullName>
+    <active>true</active>
+    <description>Ensure Account field is populated when loading opportunities</description>
+    <errorConditionFormula>AND(
+ $Permission.ETL_PreventOverwrite = true,
+ CATM_Record__c = true,
+ ISBLANK( AccountId)
+)</errorConditionFormula>
+    <errorMessage>Account is missing, cannot load Opportunity.</errorMessage>
+</ValidationRule>

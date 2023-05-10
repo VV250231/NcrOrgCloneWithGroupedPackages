@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_58900366</developerName>
+        <masterLabel>ATMaaS Offering</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Opportunity.Marketing_Program__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Cardtronics Solutions</sourceValue>
+            </sourceValues>
+            <value>1.0</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2018 Global Winback</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Digital Banking – NCR Direct Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>None</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Channel Managed Service Sales Program</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Diebold Attack - SDM Trade - Indirect Channel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Managed Services</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Managed Services 2014</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Multi-Vendor Service Attack</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Self Service Channel Management (ATMaaS)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Total ATM Services</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NCR Service Winback Program - US Nat. Accts Only</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Consulting Attached</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP – Standard Offer</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>PS - BANK- Advisory - Security Advisory Services</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2020 – Q3 Banking Offers</sourceValue>
+            </sourceValues>
+            <value>Essentials</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_85418389</developerName>
+        <masterLabel>Region</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Account.Account_Region__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>APAC</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>APJ</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>CHINA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>INDIA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>INDIA &amp; SEA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>JAPAN</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NORTH ASIA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NORTH ASIA AND SPA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>SAPAC</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>SEA</sourceValue>
+            </sourceValues>
+            <value>APAC</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>BRAZIL</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>CLA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>CLA BRAZIL</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>LATAM</sourceValue>
+            </sourceValues>
+            <value>LATAM</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>EMEA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>EUROPE</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>EUROPE EXC RUSSIA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>MEA</sourceValue>
+            </sourceValues>
+            <value>EMEA</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>NAMER</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NAMER CFI</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NAMER DIRECT</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NAMER MAJORS</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NAMER SMB</sourceValue>
+            </sourceValues>
+            <value>NAMER</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Forecast_Category__c</field>
+    </columns>
+    <columns>
+        <field>PROBABILITY</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>AMOUNT.CONVERT</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Marketing_Program__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>TYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Existing Customer - ATMaaS,New Customer - ATMaaS</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>STAGE_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Closed/Booked</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Industry__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Payments &amp; Network</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Opportunity.Book_Quarter__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_85418389</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_58900366</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Copy of Global Banking ATMaaS Closed YTD</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>closedwon</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_PREVCURFY</interval>
+    </timeFrameFilter>
+</Report>

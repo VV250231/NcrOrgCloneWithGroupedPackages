@@ -1,0 +1,14 @@
+<apex:page standardController="SFDC_MDF__c" title="Reassign Request">
+  <apex:form >
+      <apex:pageBlock >
+          <apex:pageBlockButtons location="bottom">
+              <apex:commandButton value="Save" action="{!Save}"/>
+              <apex:commandButton Value="Cancel" action="{!Cancel}"/>
+          </apex:pageBlockButtons>
+          <apex:pageBlockSection collapsible="false" title="Change CAM/RCL" columns="1">
+              <apex:inputField value="{!SFDC_MDF__c.CAM__c}"/>
+              <apex:inputField value="{!SFDC_MDF__c.RCL__c}"/>
+          </apex:pageBlockSection>
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>

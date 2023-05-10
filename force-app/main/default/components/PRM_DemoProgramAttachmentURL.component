@@ -1,0 +1,14 @@
+<apex:component controller="PRM_DemoProgramAttachmentURL" access="global">
+    <apex:attribute name="dpId" type="Id" description="Id of the Demo Program" assignTo="{!recordId}"/>
+    
+    <apex:outputPanel rendered="{! docFiles.size > 0}">   
+       
+                    <apex:repeat value="{! docFiles }" var="rec">
+                        
+                       <p> Here is the link to the attachment <a href="{!$Label.Org_Base_URL}/{!rec.Id}" target="__blank"> {!rec.Title}</a> </p>
+                        
+                        
+                    </apex:repeat>
+                
+    </apex:outputPanel> 
+</apex:component>

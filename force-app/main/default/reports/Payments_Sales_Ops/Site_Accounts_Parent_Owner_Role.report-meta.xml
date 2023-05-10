@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Account.NCR_Payments_Sites__r$MID__c</field>
+    </columns>
+    <columns>
+        <field>Account.NCR_Payments_Sites__r$NCR_Payments_Application_Status__c</field>
+    </columns>
+    <columns>
+        <field>Account$Parent</field>
+    </columns>
+    <columns>
+        <field>Account$Name</field>
+    </columns>
+    <columns>
+        <field>Account.NCR_Payments_Sites__r$Site_Number__c</field>
+    </columns>
+    <columns>
+        <field>Account$Site_Address__c</field>
+    </columns>
+    <columns>
+        <field>Account.NCR_Payments_Sites__r$Name</field>
+    </columns>
+    <columns>
+        <field>Account.NCR_Payments_Sites__r$Opportunity__c</field>
+    </columns>
+    <columns>
+        <field>Account.NCR_Payments_Sites__r$Opportunity_Owner_Email__c</field>
+    </columns>
+    <columns>
+        <field>Account.NCR_Payments_Sites__r$Quote__c</field>
+    </columns>
+    <columns>
+        <field>Account.NCR_Payments_Sites__r$NCR_Payment_Processing_Payment_Rep__c</field>
+    </columns>
+    <columns>
+        <field>Account.NCR_Payments_Sites__r$TID__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>report needed by Murray to see DBA names with their parent account name for SMB HOSP channel</description>
+    <format>Tabular</format>
+    <name>Site Accounts Parent Owner Role</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Site_Accounts_that_have_NCR_Payments__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Account$Account_Active_Date__c</dateColumn>
+        <interval>INTERVAL_CURPREV1</interval>
+    </timeFrameFilter>
+</Report>

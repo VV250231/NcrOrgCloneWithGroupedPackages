@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DD_Case_Status_Awaiting_Input_Reason</fullName>
+    <active>true</active>
+    <description>If case Status  = Awaiting Input then Deals Desk Analyst should provide reason as to case is on hold.</description>
+    <errorConditionFormula>AND( 
+RecordType.Name = &quot;Deals Desk&quot;,
+ISPICKVAL( Status , &apos;Awaiting Input&apos;) 
+&amp;&amp; ISBLANK(TEXT (Awaiting_Input_Reason__c))
+)</errorConditionFormula>
+    <errorDisplayField>Awaiting_Input_Reason__c</errorDisplayField>
+    <errorMessage>Please provide reason case is Awaiting Input</errorMessage>
+</ValidationRule>

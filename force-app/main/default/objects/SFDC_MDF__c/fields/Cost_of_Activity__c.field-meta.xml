@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cost_of_Activity__c</fullName>
+    <description>Formula: 
+ if(&quot;FundRequest.Total NCR Approved&quot; &gt;0) then &quot;FundClaim.Approved Amount&quot; otherwise &quot;FundRequest.Total Approved Reimbursement Limit&quot;</description>
+    <externalId>false</externalId>
+    <formula>IF((Total_NCR_Approved__c &gt; 0), Amount__c , Total_NCR_Estimated_Participation__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Cost of Activity</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

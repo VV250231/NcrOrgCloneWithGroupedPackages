@@ -1,0 +1,117 @@
+<apex:page standardStylesheets="false" showHeader="false" standardController="User" extensions="UserUpExtension" action="{!upgrade}">
+  
+    <style>        
+        .myCustomMessage .message { background: none !important; border: none !important; color:red;}
+        .progressBar
+        {
+        width: 0;
+        height : 13px;
+        border : grey;
+        background : green;
+        }
+        .loading{
+        Display: none;
+        position:Absolute;
+        top:-2px;
+        left:-2px;
+        width:100%;
+        height:100%;
+        background:black;
+        opacity: .5;
+        border:0;
+        }
+        
+        .loadingMessage
+        {
+        Display: none;
+        position:fixed;
+        width:100px;
+        height:30px;
+        padding:10px 5px;
+        top:50%;
+        Left:50%;
+        margin-top:-25px;
+        margin-left:-60px;
+        background:#ffffff;
+        border:3px solid #ffba1a;
+        Color:#222222;
+        font-size:12px;
+        font-weight:bold;
+        }
+    </style>
+   
+	<apex:form id="container">
+         <script>
+    var i = 0;
+    var j = 0;
+    function load()
+    {
+        document.getElementById("wholeLoad").style.display="Block";
+        document.getElementById("lodMsg").style.display="Block";
+        return false; 
+    }
+    function color()
+    {
+        if(i<2)
+        {
+            j += 50;
+            document.getElementById("progressBar").style.width = j+'%' ; 
+            i++;
+        }
+    }
+    function createUsrJS()
+    {
+        if(!{!showerr}){
+            load();
+            color();
+            createUsr();
+        }
+    }
+
+    </script>
+        <center>
+            <apex:outputPanel id="show" styleClass="myCustomMessage" rendered="{!showerr}">
+                <apex:pageMessage severity="error" strength="1" summary="{!errorMsg}" />
+            </apex:outputPanel>
+   <apex:pageblock rendered="{!not(showerr)}">
+       
+       <div style="margin-top: 2%;"></div>
+       Please Select a profile to upgrade a user:
+           <apex:selectList size="1" value="{!slctdPrf}"> 
+               <apex:selectOptions value="{!StndrdPrfl}"/>  
+           </apex:selectList>
+       <br/>
+       <div style="padding: 1%;">
+           
+       </div>
+       <div style="margin-top: 2%;"></div>
+       Please Select a role to upgrade a user:
+           <apex:selectList size="1" value="{!slctdRole}"> 
+               <apex:selectOptions value="{!selectedrole}"/>  
+           </apex:selectList>
+       <br/>
+       <div style="padding: 1%;">
+           
+       </div>
+       <apex:pageBlockButtons id="editButtons" location="bottom" rendered="true">
+          <apex:commandButton id="saveBtn" style="right:10%;position:relative;" action="{!save}" onclick="load(); color();" value="Save" reRender="container"  oncomplete="createUsrJS();" />
+          <apex:commandButton id="cancelBtn" value="Cancel" action="{!cancel}" />
+          </apex:pageBlockButtons>
+       </apex:pageblock>
+            
+             <apex:actionFunction action="{!createUsr}" name="createUsr" reRender="container"/>
+            
+            </center>
+        <apex:outputPanel id="statuses" rendered="{!not(showerr)}">
+            <div class="loading" id="wholeLoad"/>
+            <div class="loadingMessage" id="lodMsg">
+                <div class="progressBar" id = "progressBar">
+                    
+                </div>
+                Processing....
+            </div>
+            
+        </apex:outputPanel>
+        
+    </apex:form>
+</apex:page>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>End_Customer_must_equal_to_Opp_Owner</fullName>
+    <active>false</active>
+    <description>The customer record that they populate in this end customer field, must be owned by the opportunity owner. In other words, Account Owner of End Customer must = Opportunity Owner.</description>
+    <errorConditionFormula>AND(
+OR( 
+$RecordType.Name = &quot;Indirect - Include in Funnel Distributor&quot;,
+$RecordType.Name = &quot;Indirect - Include in Funnel Reseller&quot;), 
+OR( ISCHANGED(StageName), 
+ISPICKVAL( StageName, &quot;Offering&quot;)||
+ISPICKVAL( StageName, &quot;Proposing&quot;) ||
+ISPICKVAL( StageName, &quot;Closing&quot;) ||
+ISPICKVAL( StageName, &quot;Closed/Booked&quot;)),
+(End_Customer__r.OwnerId  != OwnerId),
+($Profile.Name &lt;&gt; &quot;02 NSC Administrator&quot;),
+($Profile.Name &lt;&gt; &quot;04 NSC UI Administrator&quot;),
+($Profile.Name &lt;&gt; &quot;Soup Integration&quot;),
+($Profile.Name &lt;&gt; &quot;iPaas Administration&quot;))</errorConditionFormula>
+    <errorMessage>You are not the account owner of this record, please contact sales operations</errorMessage>
+</ValidationRule>

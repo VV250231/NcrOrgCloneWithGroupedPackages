@@ -1,0 +1,28 @@
+<aura:component controller="credit_Activity_Controller" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <aura:attribute name="creditDetail" type="Credit_Detail__c" 
+                    default="{ 'sobjectType': 'Credit_Detail__c' }"/>
+    <aura:attribute name="CID" type="Id"  default="{!v.recordId}"/>
+    <aura:attribute name="fieldnames" type="String[]" default=""/>
+    <aura:attribute name="fieldString" type="String"  default=""/>
+    <aura:attribute name="errorStr" type="String" 
+                    default=""/>
+    <!--############################## UPDATE BELOW ATTRIBUTE ADD TO EXCLUDE FIELDS THAT SHOULD NOT APPEAR IN CUSTOMER DISCUSSIONS SECTION #############-->
+    <aura:attribute name="excludeString" type="String" 
+                    default="Account__c;Average_Days_Late__c;CreatedById;CreatedDate;CurrencyIsoCode;Customer_Balance__c;Id;IsDeleted;LastModifiedById;LastModifiedDate;LastReferencedDate;LastViewedDate;Name;Not_Due_1_360_Days__c;Not_Due_360_Days__c;On_Hold__c;OwnerId;Risk_Level__c;SystemModstamp;Unique_ID__c;X1_30_Days_Late__c;X31_60_Days_Late__c;X61_90_Days_Late__c;X91_180_Days_Late__c;X181_360_Days_Late__c;X361_Days_Late__c"/>
+    <!--##########################################################################################################################################-->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <div class="slds-p-around_medium"> 
+        <aura:if isTrue="{!not(empty(v.errorStr))}">
+            <center><b>{!v.errorStr} </b></center>
+            <aura:set attribute="else">
+                <div class="slds-wrap">
+                    <lightning:recordForm recordId="{!v.creditDetail.Id}"
+                              objectApiName="Credit_Detail__c"
+                              fields="{!v.fieldnames}"
+                              mode="view" columns="2" density="comfy"/>
+                    </div>
+            </aura:set>
+        </aura:if> 
+        
+    </div>
+</aura:component>

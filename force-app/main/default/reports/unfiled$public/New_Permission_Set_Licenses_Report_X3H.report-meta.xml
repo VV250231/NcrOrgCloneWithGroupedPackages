@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>PermissionSetLicenseAssign$Assignee</field>
+    </columns>
+    <columns>
+        <field>PermissionSetLicenseAssign$Id</field>
+    </columns>
+    <columns>
+        <field>PermissionSetLicenseAssign$UserLicense</field>
+    </columns>
+    <columns>
+        <field>PermissionSetLicenseAssign$PermissionSetLicense</field>
+    </columns>
+    <currency>USD</currency>
+    <description>This report is for permission set assignments.</description>
+    <filter>
+        <criteriaItems>
+            <column>PermissionSetLicenseAssign$PermissionSetLicense</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>my</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Permission Set Licenses Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Permission_Set_Licenses__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>PermissionSetLicenseAssign$PermissionSetLicense</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>PermissionSetLicenseAssign$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

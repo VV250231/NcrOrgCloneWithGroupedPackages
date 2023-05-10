@@ -1,0 +1,82 @@
+<messaging:emailTemplate subject="Customer Exception for {!relatedTo.Partner_Account_Name__r.Name} has been Approved " recipientType="User" relatedToType="Account_Exception__c">
+<messaging:plainTextEmailBody >
+Congratulations!
+This is your new Visualforce Email Template.
+</messaging:plainTextEmailBody>
+<messaging:htmlEmailBody >
+        <html>
+        <body bgcolor="#FFFFFF">
+            <style>
+              
+            a {
+                color: #54b948;
+            }
+            
+            p {
+                margin-top: 0px;
+                margin-bottom: 15px;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 12px;
+                line-height: 15px;
+                color: #58585A;
+            }
+            </style>
+                    <table width="660" border="0" align="center" cellpadding="0" cellspacing="0">
+            <tr bgcolor="#ffffff">
+                <td valign="top">
+                    <c:InteractProgramToolHeader />
+                </td>
+            </tr>
+            <tr valign="top" bgcolor="#ffffff">
+                <td valign="top">
+                    <table width="100%" cellpadding="20" cellspacing="0">
+                        <tr>
+                            <td> 
+                                <p>
+                                    Dear {!relatedTo.Owner.Name},
+                                </p>
+                                <p>
+                                    The NCR Global Sales team has approved your Customer Exception Request for {!relatedTo.Partner_Account_Name__r.Name}.
+                                </p>
+                                <p>
+                                    Your actions with this approval: 
+                                </p>
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;color: #58585A;padding: 0;" >
+                                   If anything changes with regards to:
+                                    <ul style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #58585A;padding: 0;margin-bottom:20px;">
+                                      <li style="font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 0;">Primary account contact changes </li>
+                                      <li style="font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 0;">The proposal significantly changes or is canceled related to this customer account activity </li>
+                                      <li style="font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 0;">Additional opportunities evolve beyond the initial scope of this approval</li>
+                                      <li style="font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 0;">If you have any other question regarding this submission</li>
+                                    </ul>
+                                </p><br></br>
+                                <p>
+                                    Please contact your Channel Account Manager immediately. 
+                                </p>
+                                <p>
+                                    Sincerely,
+                                </p>
+                                <b>
+                                    <p>
+                                       NCR Interact Partner Programs Team
+                                    </p>
+                                </b>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="center" valign="middle">
+                    <c:InteractProgramToolFooter />
+                </td>
+
+            </tr>
+        </table>
+        <img height="1" width="1" style="visibility:hidden" src="https://www.cprpt.com/NCREmail/o.aspx?t=50038.10019.19808.19886.0.1.N.295797.1429.0&amp;e=RG250274@ncr.com"/>
+        
+        </body>
+        </html>
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>

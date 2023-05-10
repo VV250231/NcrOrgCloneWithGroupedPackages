@@ -1,0 +1,1149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Approved_Notification_to_CAM</fullName>
+        <description>Approved Notification to CAM</description>
+        <protected>false</protected>
+        <recipients>
+            <field>NCR_Account_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Registration_Templates/Deal_Apprvd_Email_to_CAM</template>
+    </alerts>
+    <alerts>
+        <fullName>Approved_Notification_to_Sales_Op</fullName>
+        <description>Approved Notification to Sales Op</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Sales_Opp_Approver__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Registration_Templates/Deal_Apprvd_Email_to_Sales_Op</template>
+    </alerts>
+    <alerts>
+        <fullName>Channel_Operation_Team_Rejection</fullName>
+        <description>Channel Operation Team Rejection</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Contact_in_CC__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Registration_Templates/Not_a_New_Customer_Deal_Registration</template>
+    </alerts>
+    <alerts>
+        <fullName>DR_Distributor_Acknowledgement</fullName>
+        <description>DR Distributor Acknowledgement</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Registration_Templates/DR_Distributor_Acknowledgement</template>
+    </alerts>
+    <alerts>
+        <fullName>DR_Distributor_Notice_to_Partner</fullName>
+        <description>DR Distributor Notice to Partner</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Partner_Contact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Registration_Templates/DR_Distributor_Notice_to_Partner</template>
+    </alerts>
+    <alerts>
+        <fullName>DR_Status_Notification_Email_Alert</fullName>
+        <description>DR Status Notification Email Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <recipients>
+            <field>NCR_Account_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>NCR_Account_Senior_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Territory_Account_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/DR_Status_Notification_Email_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>DR_reassignment_notification</fullName>
+        <ccEmails>ChannelServices.DealRegistration@ncr.com</ccEmails>
+        <description>DR reassignment notification</description>
+        <protected>false</protected>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Registration_Templates/DR_exception_reassignment_notification</template>
+    </alerts>
+    <alerts>
+        <fullName>Deal_Registration_Acknowledgment</fullName>
+        <description>Deal Registration Acknowledgment</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Contact_in_CC__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Registration_Templates/Deal_Reg_Retail_Submission_Notify_Res_VF</template>
+    </alerts>
+    <alerts>
+        <fullName>Deal_Registration_Review_Reminder</fullName>
+        <description>Deal Registration Review Reminder</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Queue_Mailbox__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Registration_Templates/Deal_Registration_reminder_to_Sales_Ops</template>
+    </alerts>
+    <alerts>
+        <fullName>Deal_Rejected_Notification_to_CAM</fullName>
+        <description>Deal Rejected Notification to CAM</description>
+        <protected>false</protected>
+        <recipients>
+            <field>NCR_Account_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Registration_Templates/Deal_Rejctd_Email_to_CAM</template>
+    </alerts>
+    <alerts>
+        <fullName>Deal_Rejected_Notification_to_Sales_Op</fullName>
+        <description>Deal Rejected Notification to Sales Op</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Queue_Mailbox__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Registration_Templates/Deal_Rejctd_Email_to_Sales_Op</template>
+    </alerts>
+    <alerts>
+        <fullName>Deal_Submission_reminder_to_David_at_5th_day</fullName>
+        <ccEmails>partner.resourcecenter@ncr.com</ccEmails>
+        <description>Deal Submission reminder to David at 5th day</description>
+        <protected>false</protected>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Registration_Templates/Deal_Registration_Email_to_Multiple</template>
+    </alerts>
+    <alerts>
+        <fullName>Deal_Submission_reminder_to_sales_leader_every_day</fullName>
+        <description>Deal Submission reminder to sales leader every day</description>
+        <protected>false</protected>
+        <recipients>
+            <field>NCR_Account_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>NCR_Account_Senior_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Registration_Templates/Deal_Registration_Email_to_Multiple</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_sends_to_CAM</fullName>
+        <description>Email sends to CAM when related partner account submits a deal registration</description>
+        <protected>false</protected>
+        <recipients>
+            <field>NCR_Account_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Registration_Templates/email_to_CAM_after_Submission</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_sends_to_CAM_Robert_Malik</fullName>
+        <description>Email sends to CAM when related partner account submits a deal registration Robert Malik</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>rm185124@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Registration_Templates/email_to_CAM_after_Submission</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_sent_to_Direct_Sales_Rep</fullName>
+        <ccEmails>Ron.Furnier@ncr.com</ccEmails>
+        <description>Email sent to Direct Sales Rep after Sales Operations actions</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Direct_Sales_Rep__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>NCR_Account_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>NCR_Account_Senior_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Registration_Templates/Deal_Registration_to_Direct_Sales_Rep</template>
+    </alerts>
+    <alerts>
+        <fullName>Extension_Request_Approval</fullName>
+        <description>Extension Request Approval</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Partner_Contact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Registration_Templates/Extension_Request_Approval</template>
+    </alerts>
+    <alerts>
+        <fullName>Extension_Request_Submission</fullName>
+        <description>Extension Request Submission</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Partner_Contact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Registration_Templates/Channel_Partner_Ext_Req_Notification</template>
+    </alerts>
+    <alerts>
+        <fullName>Extension_Request_was_not_approved</fullName>
+        <description>Extension Request was not approved</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Partner_Contact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Registration_Templates/Extension_Request_was_not_approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Final_Approval_Email_to_CAM</fullName>
+        <description>Final Approval Email to CAM</description>
+        <protected>false</protected>
+        <recipients>
+            <field>NCR_Account_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>USPartnerCommunications/Deal_Registration_Approval_CAM_Note</template>
+    </alerts>
+    <alerts>
+        <fullName>Final_Approval_Email_to_Deal_Reg_Owner</fullName>
+        <description>Final Approval Email to  Deal Reg Owner</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Contact_in_CC__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Registration_Templates/Deal_Reg_Approval_Responsive_Retail_VF</template>
+    </alerts>
+    <alerts>
+        <fullName>Final_Approval_Email_to_Owner</fullName>
+        <description>Final Approval Email to  Deal Reg Owner And CAM</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <recipients>
+            <field>CAM__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Deal_Registration_Engineering_Approval</template>
+    </alerts>
+    <alerts>
+        <fullName>Final_Rejection_Email_to_Deal_Reg_Owner</fullName>
+        <description>Final Rejection Email to  Deal Reg Owner</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Contact_in_CC__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Registration_Templates/Deal_Registration_Rejection_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Reassign_Approval_to_CAM</fullName>
+        <description>Reassign Approval to CAM</description>
+        <protected>false</protected>
+        <recipients>
+            <field>NCR_Account_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Registration_Templates/DR_Approval_Re_assignment_to_CAM</template>
+    </alerts>
+    <alerts>
+        <fullName>SendExpirationAlertToCAM</fullName>
+        <description>SendExpirationAlertToCAM</description>
+        <protected>false</protected>
+        <recipients>
+            <field>NCR_Account_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Registration_Templates/DR_CAMExpirationTemplate</template>
+    </alerts>
+    <alerts>
+        <fullName>SendExpirationAlertToPartner</fullName>
+        <description>SendExpirationAlertToPartner</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Registration_Templates/DR_PartnerExpirationTemplate</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_email_to_TAM</fullName>
+        <description>Send email to TAM</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Territory_Account_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Registration_Templates/Deal_Apprvd_Email_to_TAM</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Approval_Step_set_to_Null</fullName>
+        <description>This field update set the value of approval step field to null on deal registration.</description>
+        <field>Approval_Step__c</field>
+        <name>Approval Step set to Null</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Change_Status_to_Submitted_to_CAM</fullName>
+        <field>Status_Update__c</field>
+        <literalValue>Submitted to CAM</literalValue>
+        <name>Change Status to Submitted to CAM</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Change_Status_to_Submitted_to_CSL</fullName>
+        <field>Status_Update__c</field>
+        <literalValue>Submitted to CSL</literalValue>
+        <name>Change Status to Submitted to CSL</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Channel_Operation_Review_Update</fullName>
+        <field>Channel_Operation_Review_Request__c</field>
+        <literalValue>1</literalValue>
+        <name>Channel Operation Review Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Check_Sales_Op_Reminder</fullName>
+        <field>Sales_Operation_Reminder__c</field>
+        <literalValue>1</literalValue>
+        <name>Check Sales Op Reminder</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Curr_Approval_Submission_D_T_set_Null</fullName>
+        <description>This field update sets the value of Current Approval Submission date &amp; time field to null on deal registration.</description>
+        <field>Current_Approval_Submission_date_time__c</field>
+        <name>Curr Approval Submission D&amp;T set Null</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>DealRegReqStatusApproved</fullName>
+        <field>Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>DealRegReqStatusApproved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>DealRegReqStatusRejected</fullName>
+        <field>Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>DealRegReqStatusRejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>DealRegReqStatusSubmitted</fullName>
+        <field>Status__c</field>
+        <literalValue>Submitted</literalValue>
+        <name>DealRegReqStatusSubmitted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Deal_Submitted</fullName>
+        <field>Deal_Submitted__c</field>
+        <literalValue>1</literalValue>
+        <name>Deal Submitted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Extension_Decision_Date_Update</fullName>
+        <field>Extension_Decision_Date__c</field>
+        <formula>NOW()</formula>
+        <name>Extension Decision Date Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Extension_Increment_Count_plus_1</fullName>
+        <field>Extension_Increment_Count__c</field>
+        <formula>IF(ISNULL( Extension_Increment_Count__c ), 1,(Extension_Increment_Count__c )+1 )</formula>
+        <name>Extension Increment Count plus 1</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Extension_Status_Submitted</fullName>
+        <field>Extension_Status__c</field>
+        <literalValue>Submitted</literalValue>
+        <name>Extension Status Submitted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Extension_Submission_Date_Update</fullName>
+        <field>Extension_Submission_Date__c</field>
+        <formula>NOW()</formula>
+        <name>Extension Submission Date Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Extension_count_decrease_by_1</fullName>
+        <field>Extension_Increment_Count__c</field>
+        <formula>IF( ISNULL( Extension_Increment_Count__c ) , 0, (Extension_Increment_Count__c )-1)</formula>
+        <name>Extension count decrease by 1</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Increase_Expiration_Date_by_90</fullName>
+        <description>Expiration_Date__c + 90</description>
+        <field>Expiration_Date__c</field>
+        <formula>Expiration_Date__c + 90</formula>
+        <name>Increase Expiration Date by 90</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Increase_Sales_Leader_Counter</fullName>
+        <description>This field update increase the count of Sales Leader Reminder Counter.</description>
+        <field>Sales_Leader_Reminder_Counter__c</field>
+        <formula>IF(NOT(ISBLANK(Sales_Leader_Reminder_Counter__c)), Sales_Leader_Reminder_Counter__c + 1, 1)</formula>
+        <name>Increase Sales Leader Counter</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Increase_colse_date_by_90</fullName>
+        <field>Estimated_Close_Date__c</field>
+        <formula>Estimated_Close_Date__c + 90</formula>
+        <name>Increase colse date by 90</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Populate_Approval_date</fullName>
+        <description>Populate Approval dat</description>
+        <field>Approval_Date__c</field>
+        <formula>Now()</formula>
+        <name>Populate Approval date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Sales_Leader_Reminder_Count_set_to_Null</fullName>
+        <description>This field update set the value of Sales Leader Reminder counter field to Null</description>
+        <field>Sales_Leader_Reminder_Counter__c</field>
+        <name>Sales Leader Reminder Count set to Null</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Sales_Leader_reminder_D_T_set_null</fullName>
+        <description>This field update set the value of Sales Leader reminder Date &amp; Time field to null</description>
+        <field>Sales_Leader_Reminder_date_time__c</field>
+        <name>Sales Leader reminder D&amp;T set null</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Schedule_SL_Reminder_D_T_for_next_day</fullName>
+        <description>This field update is used to add 1 day(24 hours) in Sales Leader reminder date and time field.</description>
+        <field>Sales_Leader_Reminder_date_time__c</field>
+        <formula>IF(ISBLANK(Sales_Leader_Reminder_date_time__c), Current_Approval_Submission_date_time__c + 1, 
+Sales_Leader_Reminder_date_time__c + 1)</formula>
+        <name>Schedule SL Reminder D&amp;T for next day</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SetIsApproved_False</fullName>
+        <field>IsApproved__c</field>
+        <literalValue>0</literalValue>
+        <name>SetIsApproved=False</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SetIsApproved_True</fullName>
+        <description>When the record is Approved, this checkbox is set to TRUE and the trigger sends the Email to Distributor Contacts based on this update.</description>
+        <field>IsApproved__c</field>
+        <literalValue>1</literalValue>
+        <name>SetIsApproved=True</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Is_Workflow_Scheduled_to_True</fullName>
+        <field>Is_Workflow_Scheduled_for_Sales_Leader__c</field>
+        <literalValue>1</literalValue>
+        <name>Set Is Workflow Scheduled to True</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_is_Workflow_Scheduled_to_False</fullName>
+        <description>This field update sets the value of Is Workflow Scheduled for Sales Leader field value to false.</description>
+        <field>Is_Workflow_Scheduled_for_Sales_Leader__c</field>
+        <literalValue>0</literalValue>
+        <name>Set Is Workflow Scheduled to False</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Submission_Date</fullName>
+        <field>Partner_Submission_Date__c</field>
+        <formula>Now()</formula>
+        <name>Submission Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Submitted_to_Sales_Operation</fullName>
+        <field>Status_Update__c</field>
+        <literalValue>Submitted to Sales Operation</literalValue>
+        <name>Submitted to Sales Operation</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Uncheck_Reassignment_Checkbox</fullName>
+        <field>Is_Reassign_Approval_to_CAM__c</field>
+        <literalValue>0</literalValue>
+        <name>Uncheck Reassignment Checkbox</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Approval</fullName>
+        <field>Approved__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Approval</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Approval_Completion_Date_to_NULL</fullName>
+        <field>Approval_Completion_Date__c</field>
+        <name>Update Approval Completion Date to NULL</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_CAM_Date_and_Time</fullName>
+        <description>This field contains the date/time when CAM approved the deal.</description>
+        <field>Approved_by_CAM_Date_and_Time__c</field>
+        <formula>NOW()</formula>
+        <name>Update CAM Date and Time</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Channel_Ops_Date_and_Time</fullName>
+        <description>This field contains the date/time when Channel operation approved the deal.</description>
+        <field>Approved_by_Channel_Ops_Date_and_Time__c</field>
+        <formula>NOW()</formula>
+        <name>Update Channel Ops Date and Time</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Deal_Registration_Approval_Date</fullName>
+        <field>Approval_Completion_Date__c</field>
+        <formula>NOW()</formula>
+        <name>Update Deal Registration Approval Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Expected_Start_date</fullName>
+        <field>Expected_Start_Date__c</field>
+        <formula>now()</formula>
+        <name>Update Expected Start date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Expiration_Date</fullName>
+        <description>Approved date +90 days for all Partner Industries apart from Banking/FIN
+
+For FIN Expiration date = Approved date + 180 days.</description>
+        <field>Expiration_Date__c</field>
+        <formula>IF( Partner_Industry__c == &apos;Financial&apos;,  NOW()+180, NOW()+90)</formula>
+        <name>Update Expiration Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Extension_Status_to_Approved</fullName>
+        <field>Extension_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Update Extension Status to Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Extension_Status_to_Reject</fullName>
+        <field>Extension_Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Update Extension Status to Reject</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Internal_Status_of_DR</fullName>
+        <field>Internal_Status__c</field>
+        <literalValue>Sales Operation Approval</literalValue>
+        <name>Update Internal Status of DR</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Internal_Status_of_DR_to_Approve</fullName>
+        <field>Internal_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Update Internal Status of DR to Approve</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Internal_Status_of_DR_to_CAM_App</fullName>
+        <field>Internal_Status__c</field>
+        <literalValue>CAM Approval</literalValue>
+        <name>Update Internal Status of DR to CAM App</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Internal_Status_of_DR_to_CSL_App</fullName>
+        <field>Internal_Status__c</field>
+        <literalValue>Sales Leader Approval</literalValue>
+        <name>Update Internal Status of DR to CSL App</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Internal_Status_of_DR_to_Reject</fullName>
+        <field>Internal_Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Update Internal Status of DR to Reject</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Next_Approver</fullName>
+        <field>Internal_Status__c</field>
+        <literalValue>2nd Level Approval</literalValue>
+        <name>Update Next Approver</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Reassignment_Approved_Date_Time</fullName>
+        <description>This field contains the date/time when CAM approved the deal after the reassignment.</description>
+        <field>Reassignment_Approved_Date_and_Time__c</field>
+        <formula>IF( Is_Reassign_Approval_to_CAM__c  = TRUE, NOW(), NULL)</formula>
+        <name>Update Reassignment Approved Date/Time</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Rejected_Date_and_Time</fullName>
+        <description>This field contains the date/time when the deal get rejected.</description>
+        <field>Rejected_Date_and_Time__c</field>
+        <formula>NOW()</formula>
+        <name>Update Rejected Date and Time</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Sales_Leaders_Date_and_Time</fullName>
+        <description>This field contains the date/time when Sales Leaders approved the deal.</description>
+        <field>Approved_by_Sales_Leaders_Date_and_Time__c</field>
+        <formula>NOW()</formula>
+        <name>Update Sales Leaders Date and Time</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Sales_Ops_Date_and_Time</fullName>
+        <description>It is used to check when Sales operation approved the deal.</description>
+        <field>Approved_by_Sales_Ops_Date_and_Time__c</field>
+        <formula>IF( Is_Reassign_Approval_to_CAM__c = FALSE, NOW(), NULL)</formula>
+        <name>Update Sales Ops Date and Time</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>DR Approval Steps Field Blank</fullName>
+        <actions>
+            <name>Approval_Step_set_to_Null</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Curr_Approval_Submission_D_T_set_Null</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Sales_Leader_Reminder_Count_set_to_Null</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Sales_Leader_reminder_D_T_set_null</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>This workflow is used to update Approval Step and Submitted date to null for current approval step.</description>
+        <formula>AND(ISCHANGED(Status__c), NOT(ISPICKVAL(Status__c, &quot;Submitted&quot;)))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>DR Reminder to David%27s Mail</fullName>
+        <actions>
+            <name>Deal_Submission_reminder_to_David_at_5th_day</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <description>This workflow sent an email alert to partner.resourcecenter@ncr.com (David Rochatka) when Sales Leader doesn&apos;t take any action till 5 days against submitted deal for approval.</description>
+        <formula>AND(ISPICKVAL(Status__c, &apos;Submitted&apos;),        Approval_Step__c = &apos;Sales Leader Approval&apos;,        Sales_Leader_Reminder_Counter__c = 5)</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>DR Status Email Notification Rule</fullName>
+        <actions>
+            <name>DR_Status_Notification_Email_Alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <description>It sends an email to Partner, CAM, TAM and Sales Leader.</description>
+        <formula>IF( AND(   ISCHANGED(Status__c),   OR(ISPICKVAL(Status__c, &quot;Closed Booked&quot;),ISPICKVAL(Status__c, &quot;Closed Lost&quot;))     ), TRUE, FALSE )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Deal Registration Email to DCAM %26 Partner</fullName>
+        <actions>
+            <name>DR_Distributor_Acknowledgement</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>DR_Distributor_Notice_to_Partner</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Deal_Registration__c.Distributor_Channel_Account_Manager__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Deal_Registration__c.Deal_Submitted__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Deal Registration Emails  CC to Mike</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Deal_Registration__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Submitted</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Deal_Registration__c.Sales_Opp_Approver__c</field>
+            <operation>notEqual</operation>
+            <value>Michael Kozel</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Deal registration email sent to the CAM</fullName>
+        <actions>
+            <name>Email_sends_to_CAM</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Deal_Registration__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Submitted</value>
+        </criteriaItems>
+        <description>Email sends to CAM when related partner account submits a deal registration.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Deal registration email sent to the Robert Malik</fullName>
+        <actions>
+            <name>Email_sends_to_CAM_Robert_Malik</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Deal_Registration__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Submitted</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Deal_Registration__c.Account_LOB__c</field>
+            <operation>equals</operation>
+            <value>FINANCIAL</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Deal_Registration__c.Region__c</field>
+            <operation>equals</operation>
+            <value>NAMER</value>
+        </criteriaItems>
+        <description>Email sends to Robert Malik when related partner account submits a deal registration.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>DealApproved_SendMailToTAM</fullName>
+        <actions>
+            <name>Send_email_to_TAM</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Deal_Registration__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Deal_Registration__c.Territory_Account_Manager__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Send email to tam when deal is approved.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Email sent to Direct Sales Rep after Sales Operations actions</fullName>
+        <actions>
+            <name>Email_sent_to_Direct_Sales_Rep</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <description>Deal Registration: Email sent to Direct Sales Rep after Sales Operations actions</description>
+        <formula>AND(ISPICKVAL(Status__c,&apos;Submitted&apos;), ISCHANGED(End_Customer_Account_name__c))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Extension Submission Request</fullName>
+        <actions>
+            <name>Extension_Request_Submission</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Deal_Registration__c.Extension_Status__c</field>
+            <operation>equals</operation>
+            <value>Submitted</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Is_Workflow_Scheduled_for_Sales_Leader%5F%5Fc</fullName>
+        <actions>
+            <name>Set_Is_Workflow_Scheduled_to_True</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Deal_Registration__c.Approval_Step__c</field>
+            <operation>equals</operation>
+            <value>Sales Leader Approval</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Deal_Registration__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Submitted</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Deal_Registration__c.Is_Workflow_Scheduled_for_Sales_Leader__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Reassignment Notification to CAM</fullName>
+        <actions>
+            <name>DR_reassignment_notification</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>Reassign_Approval_to_CAM</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Deal_Registration__c.Is_Reassign_Approval_to_CAM__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Reminder after 62 hours</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Deal_Registration__c.Sales_Operation_Reminder__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Deal_Registration__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Submitted</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Deal_Registration_Review_Reminder</name>
+                <type>Alert</type>
+            </actions>
+            <actions>
+                <name>Check_Sales_Op_Reminder</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Deal_Registration__c.Sales_Operation_Reminder_Date_Time__c</offsetFromField>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Send DR acknowledgement</fullName>
+        <actions>
+            <name>Deal_Registration_Acknowledgment</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Deal_Registration__c.Deal_Created_By_Distributor__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Deal_Registration__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Submitted</value>
+        </criteriaItems>
+        <description>Send DR acknowledgement</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>SendDealExpirationAlertToPartnerAndCAM</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Deal_Registration__c.Expiration_Date__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Deal_Registration__c.Status__c</field>
+            <operation>notEqual</operation>
+            <value>Closed Booked,Closed Lost,Partner Terminated</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>SendExpirationAlertToCAM</name>
+                <type>Alert</type>
+            </actions>
+            <actions>
+                <name>SendExpirationAlertToPartner</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Deal_Registration__c.Expiration_Date__c</offsetFromField>
+            <timeLength>-3</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+        <workflowTimeTriggers>
+            <actions>
+                <name>SendExpirationAlertToCAM</name>
+                <type>Alert</type>
+            </actions>
+            <actions>
+                <name>SendExpirationAlertToPartner</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Deal_Registration__c.Expiration_Date__c</offsetFromField>
+            <timeLength>-15</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+</Workflow>

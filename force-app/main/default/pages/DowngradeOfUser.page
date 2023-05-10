@@ -1,0 +1,118 @@
+<apex:page standardStylesheets="false" showHeader="false" standardController="User" extensions="UserDownExtension" action="{!downgrade}">
+    
+    <style>        
+        .errMsg{ background: none !important; border: none !important; color:red;}
+        .succMsg{ background: none !important; border: none !important; color:green;}
+        .progressBar
+        {
+        width: 0;
+        height : 13px;
+        border : grey;
+        background : green;
+        }
+        .loading{
+        Display: none;
+        position:Absolute;
+        top:-2px;
+        left:-2px;
+        width:100%;
+        height:100%;
+        background:black;
+        opacity: .5;
+        border:0;
+        }
+        
+        .loadingMessage
+        {
+        Display: none;
+        position:fixed;
+        width:100px;
+        height:30px;
+        padding:10px 5px;
+        top:50%;
+        Left:50%;
+        margin-top:-25px;
+        margin-left:-60px;
+        background:#ffffff;
+        border:3px solid #ffba1a;
+        Color:#222222;
+        font-size:12px;
+        font-weight:bold;
+        }
+    </style>
+    
+    
+    <apex:form id="container">
+        <script>
+        var i = 0;
+        var j = 0;
+        function load()
+        {
+            document.getElementById("wholeLoad").style.display="Block";
+            document.getElementById("lodMsg").style.display="Block";
+            return false; 
+        }
+        function color()
+        {
+            if(i<1)
+            {
+                j += 50;
+                document.getElementById("progressBar").style.width = j+'%' ; 
+                i++;
+            }   
+        }
+        function createChk(){
+            load();
+            color();
+            if(!{!showerr}&&{!isAPOCUsr}){
+            	create();
+            }else{
+                return;
+            }
+            
+        }
+        function wtTime(){
+            load();
+            color();
+            setTimeout(function(){ getUsr(); }, 2000);
+        }
+        </script>
+        <center>
+            <!--<apex:variable var="isErr" value="{!showerr}" />-->
+            
+            <apex:outputPanel id="err" styleClass="errMsg" rendered="{!showerr}">
+                <apex:pageMessage severity="error" strength="1" summary="{!errorMsg}" />
+            </apex:outputPanel>
+            <apex:outputPanel id="succ" styleClass="succMsg" rendered="{!len(succMsg)>0}">
+                <apex:pageMessage severity="success" strength="1" summary="{!succMsg}" />
+            </apex:outputPanel>
+            <apex:pageblock rendered="{!AND(not(showerr),not(len(succMsg)>0))}">
+                <div style="margin-top: 2%;"></div>
+                Are you sure that you want to downgrade this user?
+                <br/>
+                <div style="padding: 1%;">
+                    
+                </div>
+                <apex:pageBlockButtons id="editButtons" location="bottom" rendered="true">
+                    <apex:commandButton style="right:10%;position:relative;" id="saveBtn" value="Confirm" action="{!save}" onclick="load();" oncomplete="createChk();" rerender="container"/>
+                    <apex:commandButton id="cancelBtn" value="Cancel" action="{!cancel}" rerender="container" oncomplete="color();"/>
+                </apex:pageBlockButtons>
+            </apex:pageblock>
+           
+            <apex:actionFunction action="{!createCon}" name="create" oncomplete="wtTime();" rerender="container"/>
+            <apex:actionFunction action="{!getUsr}" name="getUsr" oncomplete="color();" rerender="container"/>
+        </center>
+        <apex:outputPanel id="statuses" rendered="{!not(showerr)}">
+                <div class="loading" id="wholeLoad"/>
+                <div class="loadingMessage" id="lodMsg">
+                    <div class="progressBar" id = "progressBar">
+                        
+                    </div>
+                    Processing....
+                </div>
+                
+            </apex:outputPanel>
+        
+    </apex:form>
+     
+</apex:page>

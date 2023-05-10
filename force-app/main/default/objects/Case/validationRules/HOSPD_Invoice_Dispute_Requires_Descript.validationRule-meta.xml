@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOSPD_Invoice_Dispute_Requires_Descript</fullName>
+    <active>true</active>
+    <description>If Case Subcategory = Invoice Dispute, Invoice Dispute Description must be completed</description>
+    <errorConditionFormula>AND( 
+ISPICKVAL(Subcategory__c, &quot;Invoice Dispute&quot;),
+ISBLANK(TEXT(Invoice_Dispute_Description__c))
+)</errorConditionFormula>
+    <errorMessage>If Case Subcategory = Invoice Dispute, Invoice Dispute Description must be completed</errorMessage>
+</ValidationRule>

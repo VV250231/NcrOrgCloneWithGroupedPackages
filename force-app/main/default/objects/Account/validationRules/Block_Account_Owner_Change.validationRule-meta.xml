@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Block_Account_Owner_Change</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+				 $Setup.Automation_Setting__c.Skip_Validation_Rule__c =false,
+NOT($Permission.Account_Owner_Update), 
+$Profile.Name &lt;&gt; &apos;04 NSC UI Administrator&apos;,
+ISCHANGED(OwnerId),
+NOT($Permission.CATM_Owner_Permission)
+)</errorConditionFormula>
+    <errorMessage>You are not authorized to change the Account Owner. Only System Administrators can transfer records.</errorMessage>
+</ValidationRule>

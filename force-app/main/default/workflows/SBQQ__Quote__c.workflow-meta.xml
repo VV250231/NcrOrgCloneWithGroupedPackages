@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>CPQ_to_QB_Pricebook_Email_Alert</fullName>
+        <ccEmails>ClientInformationForm.CataList@ncr.com</ccEmails>
+        <description>CPQ to QB Pricebook Email Alert</description>
+        <protected>false</protected>
+        <senderAddress>alohaessentials@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/CPQ_Email_Template_QB_PriceBook</template>
+    </alerts>
+    <rules>
+        <fullName>CPQ Trigger Email To QB PriceBook Team</fullName>
+        <actions>
+            <name>CPQ_to_QB_Pricebook_Email_Alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>SBQQ__Quote__c.SBQQ__Status__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </criteriaItems>
+        <description>After a Quote is approved, system should trigger an email to the QB Pricebook team to link the customer to the Aloha_Rental Catalog</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

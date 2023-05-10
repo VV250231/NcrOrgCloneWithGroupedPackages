@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Opportunity$Name</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Assets__r$Name</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Assets__r$Terminal_ID__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>opp with no Asset or TID</description>
+    <filter>
+        <criteriaItems>
+            <column>Opportunity$Owner</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>rina beno,greg bojan,liz hudson,bryan bauer</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity$Region__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>canada</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Assets__r$Terminal_ID__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>p,c,a,l,d,f,m</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>New Opportunities w/wo Assets Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunities_w_wo_Assets__c</reportType>
+    <roleHierarchyFilter>US_IBG</roleHierarchyFilter>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Opportunity$CloseDate</dateColumn>
+        <interval>INTERVAL_CURPREV1</interval>
+    </timeFrameFilter>
+</Report>

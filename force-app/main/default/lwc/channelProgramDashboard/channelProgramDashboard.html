@@ -1,0 +1,255 @@
+<template>
+  <template if:true={loaded}>
+    <div class="slds-container_x-large" style="background-color:white">
+      <div class="slds-grid slds-wrap slds-gutters_direct" style="margin-left:0px;margin-right:0px;">
+        <div class="slds-col slds-p-horizontal_medium">
+          <div class="slds-grid slds-wrap slds-gutters slds-p-vertical_x-small" style="background-color:#f3f2f2;">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12"
+              style="background-color:#f3f2f2;">
+              <c-partner-information ac-id={AccId}></c-partner-information>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_2-of-12"
+              style="background-color:#f3f2f2;">
+              <c-p-r-m_-n-p-s-details ac-id={AccId}></c-p-r-m_-n-p-s-details>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_6-of-12"
+              style="background-color:#f3f2f2;">
+              <c-message-center ac-id={AccId}></c-message-center>
+            </div>
+            <!--div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_1-of-12">
+              <div style="height: 110px;background-color:#f3f2f2;" class=" slds-grid slds-grid_vertical-align-center" >
+                <button class="slds-button slds-button_neutral slds-button_stretch">
+                  Refresh
+                </button>
+              </div>
+            </div-->
+          </div>
+        </div>
+      </div>
+      <div class="slds-grid slds-wrap slds-gutters_direct" style="padding-top:15px;margin-left:0px;margin-right:0px;">
+        <!-- REQUIREMENTS-->
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12">
+          <div class="slds-grid slds-wrap">
+          <template if:false={ShowHideSubsSites}>
+              <div class="slds-col slds-size_1-of-1 slds-text-heading_medium slds-text-align_center prm-green">
+                {label.TIER_ATTAINMENT}
+              </div> 
+              <div if:true={dashboardLoaded} class="slds-col slds-size_1-of-1">
+                <!--Passing Account Id of Current User Account to Component-->
+                <template if:true={Tier_attainment_annual_revenue}>
+                  <c-ipt-doughnut-chart ac-id={AccId}></c-ipt-doughnut-chart>
+                </template>
+                <template if:false={Tier_attainment_annual_revenue}>
+                  <c-prm-Dashboard-Message-Handler dashboard-header-text="2020 Annual Revenue">
+                    <p class="slds-text-body_small slds-text-align_center">
+                      You are currently not authorized to view this report.<br>Please contact your Portal Administrator for access.
+                    </p>
+                  </c-prm-Dashboard-Message-Handler>
+                </template>
+              </div>
+              <div if:false={dashboardLoaded} class="slds-col slds-size_1-of-1">
+                <div class="slds-box">
+                  <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-1 slds-m-bottom_small">
+                       <div class="slds-text-align_center">
+                          <div class="slds-border_bottom slds-border_left">
+                           <h1 class=" slds-text-heading_small slds-p-bottom_small">
+                              <strong>2020 Annual Revenue</strong>
+                           </h1>
+                          </div>
+                        </div>
+                      </div>
+                    <div class="slds-col slds-col slds-size_1-of-1 slds-text-align_center">
+                      Data Not Found!!!
+                    </div>
+                  </div>
+               </div>
+            </div>
+            </template>
+            <template if:true={ShowHideSubsSites}>
+              <div class="slds-col slds-size_1-of-1 slds-text-heading_medium slds-text-align_center prm-green">
+                {currYear}&nbsp;{label.REV_PERFORMANCE}
+              </div> 
+              <div if:true={dashboardLoaded} class="slds-col slds-size_1-of-1">
+                <!--Passing Account Id of Current User Account to Component-->
+                 <c-ipt-quotagraph ac-id={AccId}></c-ipt-quotagraph>
+              </div>
+              <div if:false={dashboardLoaded} class="slds-col slds-size_1-of-1">
+                <div class="slds-box">
+                  <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-1 slds-m-bottom_small">
+                        <div class="slds-text-align_center">
+                          <div class="slds-border_bottom slds-border_left">
+                            <h1 class=" slds-text-heading_small slds-p-bottom_small">
+                              <strong>{currYear}&nbsp;Performance</strong>
+                            </h1>
+                          </div>
+                        </div>
+                    </div>
+                  <div class="slds-col slds-col slds-size_1-of-1 slds-text-align_center">
+                    Data Not Found!!!
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </template>
+  
+  
+            <!--1518 -->
+			  
+            <template if:true={showHidepercenRev}>
+								
+								<!-- EBA_SF-2022 -->
+            <div if:true={dashboardLoaded} class="slds-col slds-size_1-of-1">
+								
+              <template if:true={Percent_revenue_net_new_customers}>
+									   <div class="slds-box">
+                <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size_1-of-1 slds-m-bottom_small">
+                    <div class="slds-text-align_center">
+                      <div class="slds-border_bottom slds-border_left">
+                        <h1 class=" slds-text-heading_small slds-p-bottom_small">
+                          <strong> {label.YYYY_YTD_Solution_Revenue_Details}</strong>
+                          
+                        </h1>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="slds-col slds-col slds-size_1-of-1 slds-text-align_center">
+                    <c-prm-percent-revenue-net-new-customer ac-id={AccId}></c-prm-percent-revenue-net-new-customer>
+                  </div>
+                </div>
+              </div>
+                <!--<c-prm-horizontal-bar-chart></c-prm-horizontal-bar-chart>-->
+									<!-- Commented belwo line due to 2022 -->
+              <!--  <c-prm-percent-revenue-net-new-customer ac-id={AccId}></c-prm-percent-revenue-net-new-customer> -->
+              </template>
+           <!--   <template if:false={Percent_revenue_net_new_customers}>
+                <c-prm-Dashboard-Message-Handler dashboard-header-text="2020 Percent Revenue Net New Customer">
+                  <p  class="slds-text-body_small slds-text-align_center">
+                    You are currently not authorized to view this report.<br>Please contact your Portal Administrator for access.
+                  </p>
+                </c-prm-Dashboard-Message-Handler>
+              </template> -->
+            </div>
+            <div if:false={dashboardLoaded} class="slds-col slds-size_1-of-1">
+              <div class="slds-box">
+                <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size_1-of-1 slds-m-bottom_small">
+                    <div class="slds-text-align_center">
+                      <div class="slds-border_bottom slds-border_left">
+                        <h1 class=" slds-text-heading_small slds-p-bottom_small">
+                          <strong> Under Development </strong>
+                        </h1>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="slds-col slds-col slds-size_1-of-1 slds-text-align_center">
+                    Data Not Available!!!
+                  </div>
+                </div>
+              </div>
+            </div>
+            </template>
+          
+        <!-- 1518-->
+        <template if:true={ShowHideSubsSites}>
+          <div if:true={cmpload} class="slds-col slds-size_1-of-1">
+            
+              <!--<c-prm-horizontal-bar-chart></c-prm-horizontal-bar-chart>-->
+              <c-prm-Sites ac-id={AccId}></c-prm-Sites>
+           
+          </div>
+          <div if:false={cmpload} class="slds-col slds-size_1-of-1">
+            <div class="slds-box">
+              <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-1 slds-m-bottom_small">
+                  <div class="slds-text-align_center">
+                    <div class="slds-border_bottom slds-border_left">
+                      <h1 class=" slds-text-heading_small slds-p-bottom_small">
+                        <strong>Subscription sites</strong>
+                      </h1>
+                    </div>
+                  </div>
+                </div>
+                <div class="slds-col slds-col slds-size_1-of-1 slds-text-align_center">
+										<strong style="color:rgb(84,185,72)" > You do not have data in this section to display results! </strong>
+                </div>
+              </div>
+            </div>
+          </div>
+							</template>
+</div>
+        </div>
+        <!--REWARDS-->
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12">
+          <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_1-of-1 slds-text-heading_medium slds-text-align_center prm-green">
+              {label.REWARD_INCENTIVES}
+            </div>
+            <div if:true={dashboardLoaded} class="slds-col slds-size_1-of-1">
+              <template if:true={Growth_reward_gold_and_platinum_only}>
+                <c-chart-detail ac-id={AccId}></c-chart-detail>
+              </template>
+              <template if:false={Growth_reward_gold_and_platinum_only}>
+                <c-prm-Dashboard-Message-Handler dashboard-header-text="Growth Reward - Gold and Platinum only">
+                  <p  class="slds-text-body_small slds-text-align_center">
+                    You are currently not authorized to view this report.<br>Please contact your Portal Administrator for access.
+                  </p>
+                </c-prm-Dashboard-Message-Handler>
+              </template>
+            </div>
+            <div if:false={dashboardLoaded} class="slds-col slds-size_1-of-1">
+              <div class="slds-box">
+                <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size_1-of-1 slds-m-bottom_small">
+                    <div class="slds-text-align_center">
+                      <div class="slds-border_bottom slds-border_left">
+                        <h1 class=" slds-text-heading_small slds-p-bottom_small">
+                          <strong>Growth Reward - Gold and Platinum only</strong>
+                        </h1>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="slds-col slds-col slds-size_1-of-1 slds-text-align_center">
+                    Data Not Found!!!
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size_1-of-1">
+              <c-prm-market-capture-program></c-prm-market-capture-program>
+            </div>
+            <div class="slds-col slds-size_1-of-1">
+              <template if:true={Market_development_funds_MDF}>
+                <c-prm-market-dev-fund ac-id={AccId}></c-prm-market-dev-fund>
+              </template>
+              <template if:false={Market_development_funds_MDF}>
+                <c-prm-Dashboard-Message-Handler dashboard-header-text="Market Development Funds (MDF)" >
+                  <p  class="slds-text-body_small slds-text-align_center">
+                    You are currently not authorized to view this report.<br>Please contact your Portal Administrator for access.
+                  </p>
+                </c-prm-Dashboard-Message-Handler>
+              </template>
+            </div>
+          </div>
+        </div>
+        <!--BENEFITS-->
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12">
+          <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_1-of-1 slds-text-heading_medium slds-text-align_center prm-green">
+              BENEFITS
+            </div>
+            <div class="slds-col slds-size_1-of-1">
+              <c-prm-benefit-action-packs></c-prm-benefit-action-packs>
+            </div>
+            <div class="slds-col slds-size_1-of-1"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template if:false={loaded}>
+    <lightning-spinner alternative-text="Loading"></lightning-spinner>
+  </template>
+</template>

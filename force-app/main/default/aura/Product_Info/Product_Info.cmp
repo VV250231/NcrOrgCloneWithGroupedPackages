@@ -1,0 +1,278 @@
+<!---Added 8 more fields as a part of story 2090 by Stuti-->
+
+<aura:component controller="OpportunityProductController" implements="flexipage:availableForAllPageTypes,force:hasRecordId">
+    <aura:attribute name="OpportunityId" type="Id"  default="{!v.recordId}"/>    
+    <aura:attribute name="opportunity" type="String[]"/> 
+    <aura:attribute name="opportunity2" type="String[]"/> 
+    <aura:attribute name="UserCurrenDefaultCurrency" type="String"/>
+    <aura:attribute name="fieldInfoMap" type="Map"/> 
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <div class="slds-panel__section">
+     <!--<h3 class="slds-text-heading_small slds-m-bottom_medium">Product Information</h3>-->
+    <div class="slds-grid slds-wrap">
+      
+                <!--<h3 class="slds-text-heading_small slds-m-bottom_medium">OPPORTUNITY</h3>-->  
+        <div class="slds-col slds-size_8-of-12"> 
+         	<div class="slds-form-element slds-hint-parent">
+                    <span class="slds-text-heading_small slds-m-bottom_medium slds-text-title_bold">Product Information</span> 
+                    
+                </div>
+            <div class="slds-form-element slds-hint-parent">
+                    <span class="slds-form-element__label slds-text-heading_small slds-m-bottom_medium slds-text-title_bold">OPPORTUNITY</span> 
+                </div>
+        </div>
+				<!--
+                <div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">Orders Funnel Total</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static"><ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].SolnOppAmount}"/> &nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].SolnOppAmount}"/>)</span>
+                    </div>
+                </div> 
+        
+        		<div class="slds-form-element slds-hint-parent slds-has-divider_bottom"> 
+                    <span class="slds-form-element__label">Recurring Revenue Total</span>
+                    <div class="slds-form-element__control"> 
+                        <span class="slds-form-element__static"> <ui:outputCurrency aura:id="curr" currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].AnnuityOppAmount}" />&nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].AnnuityOppAmount}" />)</span>
+                    </div> 
+                </div> 
+                <div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">SW License Total</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static"><ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].SoftwareProducts}"/>&nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].SoftwareProducts}"/>)</span>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">HW Total</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static"><ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].HardwareProducts}" />&nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].HardwareProducts}" />)</span>
+                    </div>
+                </div>
+               <!-<div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">Services-Products</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static"><ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].ServicesProducts}" />&nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].ServicesProducts}" />)</span>
+                    </div>
+                </div>->
+                <div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">Cloud Total</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static slds-text-longform"><ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].CloudProducts}"/>&nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity[0].CloudProducts}"/>)</span>
+                    </div>
+                </div> 
+                
+                <!-<div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">PS-Products</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static slds-text-longform"><ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].PSProducts}" />&nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].PSProducts}" />)</span>
+                    </div>
+                </div>-> -->
+        		<!-- R and NR changes -->
+        <div class="slds-col slds-size_1-of-2"> 
+         		<div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">{!v.fieldInfoMap.HW_R__c}</span> 
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static slds-text-longform"><ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].HW_R__c}"/>&nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].HW_R__c}"/>)</span>
+                    </div>
+                </div> 
+        	
+        		 <div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">{!v.fieldInfoMap.HW_NR__c}</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static slds-text-longform"><ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].HW_NR__c}"/>&nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].HW_NR__c}"/>)</span>
+                    </div>
+                </div> 
+        
+        		 <div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">{!v.fieldInfoMap.SW_R__c}</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static slds-text-longform"><ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].SW_R__c}"/>&nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].SW_R__c}"/>)</span>
+                    </div>
+                </div> 
+        
+        		 <div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">{!v.fieldInfoMap.SW_NR__c}</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static slds-text-longform"><ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].SW_NR__c}"/>&nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].SW_NR__c}"/>)</span>
+                    </div>
+                </div> 
+        
+        		 <div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">{!v.fieldInfoMap.PS_R__c}</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static slds-text-longform"><ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].PS_R__c}"/>&nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].PS_R__c}"/>)</span>
+                    </div>
+                </div> 
+        
+         		<div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">{!v.fieldInfoMap.PS_NR__c}</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static slds-text-longform"><ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].PS_NR__c}"/>&nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].PS_NR__c}"/>)</span>
+                    </div>
+                </div> 
+        
+         		<div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">{!v.fieldInfoMap.Cloud_R__c}</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static slds-text-longform"><ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].Cloud_R__c}"/>&nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].Cloud_R__c}"/>)</span>
+                    </div>
+                </div>
+            
+            <!--Changes related to 2090 - by Stuti-->
+            
+            <div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">{!v.fieldInfoMap.HWM_R__c}</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static slds-text-longform"><ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].HWM_R__c}"/>&nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].HWM_R__c}"/>)</span>
+                    </div>
+                </div> 
+            
+        </div>
+        
+        <div class="slds-col slds-size_1-of-2"> 
+        
+        <div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">{!v.fieldInfoMap.HWM_NR__c}</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static slds-text-longform"><ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].HWM_NR__c}"/>&nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].HWM_NR__c}"/>)</span>
+                    </div>
+                </div> 
+         <div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">{!v.fieldInfoMap.Managed_Services_R__c}</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static slds-text-longform"><ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].Managed_Services_R__c}"/>&nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].Managed_Services_R__c}"/>)</span>
+                    </div>
+                </div> 
+        <div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">{!v.fieldInfoMap.Managed_Services_NR__c}</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static slds-text-longform"><ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].Managed_Services_NR__c}"/>&nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].Managed_Services_NR__c}"/>)</span>
+                    </div>
+                </div> 
+         <div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">{!v.fieldInfoMap.SWM_R__c}</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static slds-text-longform"><ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].SWM_R__c}"/>&nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].SWM_R__c}"/>)</span>
+                    </div>
+                </div> 
+        <div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">{!v.fieldInfoMap.SWM_NR__c}</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static slds-text-longform"><ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].SWM_NR__c}"/>&nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].SWM_NR__c}"/>)</span>
+                    </div>
+                </div> 
+         <div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">{!v.fieldInfoMap.TS_R__c}</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static slds-text-longform"><ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].TS_R__c}"/>&nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].TS_R__c}"/>)</span>
+                    </div>
+                </div> 
+        <div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">{!v.fieldInfoMap.TS_NR__c}</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static slds-text-longform"><ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].TS_NR__c}"/>&nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].TS_NR__c}"/>)</span>
+                    </div>
+                </div> 
+        
+        
+            </div>
+        	
+          
+        	<!-- CPQ PART--> 
+            <!--
+            <div class="slds-col">
+                <h3 class="slds-text-heading_small slds-m-bottom_medium">Quote</h3>
+				
+				<div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">Orders Funnel Total (Soln Quote Amount)</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static">
+                                 <aura:renderIf isTrue="{!v.opportunity[0].Solution_Quote_Amount_QUBY__c != null}">
+                            	<ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].Solution_Quote_Amount_QUBY__c}" />
+                                &nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].Solution_Quote_Amount_QUBY__c}"/>)
+                                </aura:renderIf>
+                            
+                          
+                        </span>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">Recurring Revenue Total(Annuity Quote Amount)</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static">
+							 <aura:renderIf isTrue="{!v.opportunity[0].Annuity_Quote_Amount_QUBY__c != null}">
+								<ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].Annuity_Quote_Amount_QUBY__c}"/>
+                                
+                                &nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].Annuity_Quote_Amount_QUBY__c}"/>)
+							</aura:renderIf>
+							
+						</span>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">Software-Products</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static">
+							<aura:renderIf isTrue="{!v.opportunity[0].Software_Products_QUBY__c !=null}">
+								<ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].Software_Products_QUBY__c}"/>
+                                &nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].Software_Products_QUBY__c}"/>)
+							</aura:renderIf>
+						
+						</span>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">Hardware-Products</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static">
+								<aura:renderIf isTrue="{!v.opportunity[0].Hardware_Products_QUBY__c !=null}">
+								<ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].Hardware_Products_QUBY__c}" />
+								&nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].Hardware_Products_QUBY__c}" />)
+                               </aura:renderIf>
+							
+						</span>
+                    </div>
+                </div>
+                <!-<div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">Services-Products</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static">
+							    <aura:renderIf isTrue="{!v.opportunity[0].Services_Products_QUBY__c !=null}">
+								<ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].Services_Products_QUBY__c}" />
+                                &nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].Services_Products_QUBY__c}" />)
+							    </aura:renderIf>
+							
+						</span>
+                    </div>
+                </div>->
+                <div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">Cloud-Products</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static slds-text-longform">
+							    <aura:renderIf isTrue="{!v.opportunity[0].Cloud_Products_QUBY__c !=null}">
+								<ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].Cloud_Products_QUBY__c}"/>
+								&nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity2[0].Cloud_Products_QUBY__c}"/>)
+								</aura:renderIf>
+                            </span>
+                    </div>
+                </div>
+                
+               <!- <div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+                    <span class="slds-form-element__label">PS-Products</span>
+                    <div class="slds-form-element__control">
+                        
+                            
+                           
+                                <span class="slds-form-element__static slds-text-longform">
+                                <aura:renderIf isTrue="{!v.opportunity.PS_Products_QUBY__c != null}">
+									<ui:outputCurrency currencyCode="{!v.opportunity[0].CurrencyIsoCode}" value="{!v.opportunity[0].PS_Products_QUBY__c}" />
+								&nbsp;(<ui:outputCurrency currencyCode="{!v.UserCurrenDefaultCurrency}" value="{!v.opportunity[0].PS_Products_QUBY__c}" />)
+                                </aura:renderIf>
+                                    </span>
+                    </div>
+                </div>->
+            </div> --> 
+        	<!--CPQ Ends-->
+    </div>
+    </div>        
+</aura:component>

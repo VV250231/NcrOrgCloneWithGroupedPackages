@@ -1,0 +1,13 @@
+<apex:page standardController="Account" extensions="SpringCMAuthCtlr">
+    <apex:iframe height="300px" src="/apex/SpringCMEos__SpringCM_EOSGrid?id={!Account.Id}&type=Account" id="springFrame" rendered="{!validSpringCMUser}" />
+    <apex:outputPanel rendered="{!NOT(validSpringCMUser)}">
+        <table cellspacing="10">
+        <tbody><tr><td><span style="font-weight: bold; font-size: 12pt;">Insufficient Privileges for SpringCM </span></td></tr>
+        <tr><td>
+        You are not a valid SpringCM user. Please contact your SpringCM administrator if access is necessary.
+        <br /><br />
+        
+        </td></tr>
+        </tbody></table>
+    </apex:outputPanel>
+</apex:page>

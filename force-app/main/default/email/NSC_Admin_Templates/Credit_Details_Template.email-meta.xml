@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Template used to notify Account Owner</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>NCR_Header_2020</letterhead>
+    <name>Credit Details Template</name>
+    <style>freeForm</style>
+    <subject>Attention Needed: Collection needs your support with customer late payment issue</subject>
+    <textOnly>Hello {!Credit_Detail__c.Account_Owner__c},
+
+Account Name: {!Credit_Detail__c.Account__c}
+
+Assigned Collector Name: {!Credit_Detail__c.Assigned_Collector__c}
+
+What action is needed:
+{!Credit_Detail__c.What_action_is_needed__c}
+
+Please click on the link to view the current status of your customer late payments and the information collections is providing. If you have any questions about status, please contact the Collector assigned to this account which can be found in link under Collection Update. When you contact the customer, please fill out the Sales Discussion with Customer section so we can document the discussion.
+
+Link to Credit Detail</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

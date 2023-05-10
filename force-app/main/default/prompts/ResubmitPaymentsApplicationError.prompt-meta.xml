@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prompt xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>Resubmit Payments Application Error</masterLabel>
+    <promptVersions>
+        <body>If you are getting an error submitting your request, please email the Salesforce Admin team with the MCN, Opportunity number, and the error message (picture is ok).  Please send one email per incident.</body>
+        <customApplication>NSC_Lightning</customApplication>
+        <delayDays>1</delayDays>
+        <description>Sales is trying to resubmit applications that have already been sent to customers a while back. In some cases these were sitting out there since November 2019</description>
+        <dismissButtonLabel>I understand</dismissButtonLabel>
+        <displayPosition>TopCenter</displayPosition>
+        <displayType>FloatingPanel</displayType>
+        <isPublished>false</isPublished>
+        <masterLabel>Resubmit Payments Application Error</masterLabel>
+        <shouldDisplayActionButton>false</shouldDisplayActionButton>
+        <shouldIgnoreGlobalDelay>false</shouldIgnoreGlobalDelay>
+        <startDate>2021-01-25</startDate>
+        <targetPageKey1>home</targetPageKey1>
+        <targetPageType>standard__namedPage</targetPageType>
+        <themeColor>Theme1</themeColor>
+        <themeSaturation>Dark</themeSaturation>
+        <timesToDisplay>1</timesToDisplay>
+        <title>ERROR WITH PAYMENTS APPROVAL</title>
+        <uiFormulaRule>
+            <booleanFilter>1 OR 2 OR 3</booleanFilter>
+            <criteria>
+                <leftValue>{!$User.Profile.Key}</leftValue>
+                <operator>EQUAL</operator>
+                <rightValue>custom_hosp smb sales</rightValue>
+            </criteria>
+            <criteria>
+                <leftValue>{!$User.Profile.Key}</leftValue>
+                <operator>EQUAL</operator>
+                <rightValue>custom_hosp smb sales with hosted</rightValue>
+            </criteria>
+            <criteria>
+                <leftValue>{!$User.Profile.Key}</leftValue>
+                <operator>EQUAL</operator>
+                <rightValue>custom_04 nsc ui administrator</rightValue>
+            </criteria>
+        </uiFormulaRule>
+        <userAccess>Everyone</userAccess>
+        <userProfileAccess>SpecificProfiles</userProfileAccess>
+        <versionNumber>1</versionNumber>
+    </promptVersions>
+</Prompt>

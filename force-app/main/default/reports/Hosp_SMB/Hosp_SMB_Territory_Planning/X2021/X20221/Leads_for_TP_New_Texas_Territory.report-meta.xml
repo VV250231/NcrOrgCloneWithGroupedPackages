@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Lead$Id</field>
+    </columns>
+    <columns>
+        <field>Lead$Name</field>
+    </columns>
+    <columns>
+        <field>Lead$Owner.Id</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Lead$Latitude</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Lead$Longitude</field>
+    </columns>
+    <columns>
+        <field>Lead$PostalCode</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>Lead$Source__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Sales-HOS-Restaurant Data,Sales-HOS-CHD Data</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead$PostalCode</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>77414,77419,77437,77440,77455,77456,77457,77458,77465,77483,77901,77904,77905,77951,77957,77962,77963,77968,77971,77974,77979,77982,77983,77990,78102,78119,78141,78151,78336,78338,78340,78343,78362,78363,78368,78370,78373,78374,78377,78379,78380,78382,78383,78385,78387,78389,78390,78391,78393,78401,78402,78404,78405,78406,78407,78408,78409,78410,78411,78412,78413,78414,78415,78416,78417,78418,78419,78580,78590</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Leads for TP - New Texas Territory</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Leads_with_Owners_For_Territory_Planning__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Lead$mkto71_Acquisition_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

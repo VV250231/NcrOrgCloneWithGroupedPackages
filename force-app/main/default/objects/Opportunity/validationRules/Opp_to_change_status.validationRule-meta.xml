@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opp_to_change_status</fullName>
+    <active>true</active>
+    <description>Do not allow an opportunity to progress to another selling stage when the account has an active flag of not true. Exception would be a selling stage of Closed/Discontinued.</description>
+    <errorConditionFormula>AND (
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+NOT(CATM_Record__c),
+( Account.Active_Account__c  &lt;&gt; true)  , 
+(RecordTypeId ==&quot;012700000001PoZ&quot;),
+(RecordTypeId ==&quot;012700000001PoZ&quot;),
+NOT(ISPICKVAL(PRIORVALUE(StageName), &quot;Closed/Discontinued&quot;)),
+ISCHANGED(StageName),
+(Id &lt;&gt; NULL),
+($Profile.Name &lt;&gt; &quot;02 NSC Administrator&quot;)
+,($Profile.Name &lt;&gt; &quot;04 NSC UI Administrator&quot;)
+,($Profile.Name &lt;&gt; &quot;Soup Integration&quot;)
+,($Profile.Name &lt;&gt; &quot;iPaas Administration&quot;)
+,($Profile.Name &lt;&gt; &quot;C9 Administration&quot;)  
+)</errorConditionFormula>
+    <errorMessage>The account for this opportunity is currently in an inactive status. No new opportunities or opportunity advancements can be made on the account at this time. Please contact your local customer database team to discuss the status of this account.</errorMessage>
+</ValidationRule>

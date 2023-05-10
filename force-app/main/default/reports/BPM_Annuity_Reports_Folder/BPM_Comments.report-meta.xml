@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>BPM_Annuity__c.Full_Contract_Nbr_CH__c</field>
+    </columns>
+    <columns>
+        <field>BPM_Annuity__c.CA_Name__c</field>
+    </columns>
+    <columns>
+        <field>BPM_Annuity__c.New_Comments__c</field>
+    </columns>
+    <columns>
+        <field>BPM_Annuity__c.Comments__c</field>
+    </columns>
+    <columns>
+        <field>BPM_Annuity__c.Status_CH__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Report for BPM Comments containing CA name and current (EDW) and old comments.</description>
+    <filter>
+        <criteriaItems>
+            <column>BPM_Annuity__c.Status_CH__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>HOLD</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>BPM Comments</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$BPM_Annuity__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>BPM_Annuity__c.New_Comments__c</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>BPM_Annuity__c.Alert_Next_Date_Time__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

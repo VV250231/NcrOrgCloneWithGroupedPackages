@@ -1,0 +1,37 @@
+<aura:component controller="PartnerAccountInlineAttachmentController" 
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+
+	<aura:attribute name="lstNoteAndAttachmentDetail" type="PartnerAccountInlineAttachmentController.NoteAndAttachmentDetail[]" />
+    <aura:handler name="init" value="{!this}" action="{!c.getDetail}"/>
+    <aura:attribute name="recordId" type="String" />
+    <table class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout">
+        <thead>
+            <tr class="slds-text-heading-label">
+                <th scope="col"><div class="slds-truncate" title="Title">Title</div></th>
+                <th scope="col"><div class="slds-truncate" title="Type">Type</div></th>
+                <th scope="col"><div class="slds-truncate" title="Created By">Created By</div></th>
+                <th scope="col"><div class="slds-truncate" title="Created Date">Created Date</div></th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.lstNoteAndAttachmentDetail}" var="rec">
+                <tr>
+                    <td scope="row"> 
+                    	<div class="slds-truncate">                                     
+                            <a data-ids="{!rec.recordId}" onclick="{!c.openFile}">{!rec.name}</a>
+                        </div>
+                    </td>
+                    <td><div class="slds-truncate" >{!rec.valueType}</div></td>
+                    <td><div class="slds-truncate">{!rec.createdByName}</div></td>
+                    <td>
+                        <div class="slds-truncate" >
+                            <ui:outputDateTime value="{!rec.createdDateTime}" class="slds-form-element__static"/>
+                        </div>
+                    </td>
+                </tr>
+            </aura:iteration>
+        </tbody> 
+    </table> 
+         
+</aura:component>

@@ -1,0 +1,1219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssignmentRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <assignmentRule>
+        <fullName>Case Assignment Rules</fullName>
+        <active>true</active>
+        <ruleEntry>
+            <assignedTo>SFDC_Global_Admin_Team</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>equals</operation>
+                <value>Cardtronics</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Namer_Deal_Desk_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Deals Desk</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Account_Theatre__c</field>
+                <operation>contains</operation>
+                <value>NAMER</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>LATAM_Deal_Desk_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Deals Desk</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Account_Theatre__c</field>
+                <operation>contains</operation>
+                <value>LATAM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>APAC_Deal_Desk_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Deals Desk</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Account_Theatre__c</field>
+                <operation>contains</operation>
+                <value>APAC</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>EMEA_Deal_Desk_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Deals Desk</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Account_Theatre__c</field>
+                <operation>contains</operation>
+                <value>EMEA</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Deals_Desk</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Deals Desk</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Account_Theatre__c</field>
+                <operation>notContain</operation>
+                <value>EMEA,APAC,LATAM,NAMER</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Hosp_SMB_Subscription_Ops</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>equals</operation>
+                <value>CPQ</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason_Type__c</field>
+                <operation>equals</operation>
+                <value>Ops- Ordering</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>AAS_Support_Case_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>equals</operation>
+                <value>CPQ</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Hosp_SMB_Support_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>equals</operation>
+                <value>Account,Lead</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason_Type__c</field>
+                <operation>equals</operation>
+                <value>Ownership Change</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.ProfileId</field>
+                <operation>contains</operation>
+                <value>HOSP SMB</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Hosp_SMB_Support_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>equals</operation>
+                <value>Opportunity</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason_Type__c</field>
+                <operation>equals</operation>
+                <value>Ownership Change,Reopen</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.User_Profile__c</field>
+                <operation>contains</operation>
+                <value>HOSP SMB</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>tb250304@ncr.com</assignedTo>
+            <assignedToType>User</assignedToType>
+            <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6</booleanFilter>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>equals</operation>
+                <value>Account</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason_Type__c</field>
+                <operation>contains</operation>
+                <value>Ownership Change</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.ProfileId</field>
+                <operation>contains</operation>
+                <value>HOSP</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Account_Theatre__c</field>
+                <operation>equals</operation>
+                <value>NAMER</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.ProfileId</field>
+                <operation>notContain</operation>
+                <value>SMB</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>tb250304@ncr.com</assignedTo>
+            <assignedToType>User</assignedToType>
+            <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6</booleanFilter>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>equals</operation>
+                <value>Opportunity</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason_Type__c</field>
+                <operation>equals</operation>
+                <value>Ownership Change,Reopen</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.User_Profile__c</field>
+                <operation>contains</operation>
+                <value>HOSP</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.User_Profile__c</field>
+                <operation>notContain</operation>
+                <value>SMB</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Account_Theatre__c</field>
+                <operation>equals</operation>
+                <value>NAMER</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>mi250069@ncr.com</assignedTo>
+            <assignedToType>User</assignedToType>
+            <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6</booleanFilter>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>equals</operation>
+                <value>Account</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.ProfileId</field>
+                <operation>contains</operation>
+                <value>HOSP</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.ProfileId</field>
+                <operation>notContain</operation>
+                <value>SMB</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Account_Theatre__c</field>
+                <operation>equals</operation>
+                <value>APAC,EMEA,LATAM</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason_Type__c</field>
+                <operation>equals</operation>
+                <value>Ownership Change</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>mi250069@ncr.com</assignedTo>
+            <assignedToType>User</assignedToType>
+            <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6</booleanFilter>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>equals</operation>
+                <value>Opportunity</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason_Type__c</field>
+                <operation>equals</operation>
+                <value>Ownership Change,Reopen</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Account_Theatre__c</field>
+                <operation>equals</operation>
+                <value>APAC,EMEA,LATAM</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.User_Profile__c</field>
+                <operation>contains</operation>
+                <value>HOSP</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.User_Profile__c</field>
+                <operation>notContain</operation>
+                <value>SMB</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>js185702@ncr.com</assignedTo>
+            <assignedToType>User</assignedToType>
+            <booleanFilter>1 AND 2 AND (3 OR 4) AND 5 AND 6</booleanFilter>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>equals</operation>
+                <value>Account</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.ProfileId</field>
+                <operation>contains</operation>
+                <value>Banking</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.ProfileId</field>
+                <operation>contains</operation>
+                <value>Financial</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Account_Theatre__c</field>
+                <operation>equals</operation>
+                <value>NAMER</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason_Type__c</field>
+                <operation>equals</operation>
+                <value>Ownership Change</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>js185702@ncr.com</assignedTo>
+            <assignedToType>User</assignedToType>
+            <booleanFilter>1 AND 2 AND 3 AND 4 AND (5 OR 6)</booleanFilter>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>equals</operation>
+                <value>Opportunity</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Account_Theatre__c</field>
+                <operation>equals</operation>
+                <value>NAMER</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason_Type__c</field>
+                <operation>equals</operation>
+                <value>Ownership Change,Reopen</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.User_Profile__c</field>
+                <operation>contains</operation>
+                <value>Banking</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.User_Profile__c</field>
+                <operation>contains</operation>
+                <value>Financial</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>dh521344@ncr.com</assignedTo>
+            <assignedToType>User</assignedToType>
+            <booleanFilter>1 AND 2 AND (3 OR 4) AND 5 AND 6</booleanFilter>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>equals</operation>
+                <value>Account</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.ProfileId</field>
+                <operation>contains</operation>
+                <value>Banking</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.ProfileId</field>
+                <operation>contains</operation>
+                <value>Financial</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Account_Theatre__c</field>
+                <operation>equals</operation>
+                <value>EMEA</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason_Type__c</field>
+                <operation>equals</operation>
+                <value>Ownership Change</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>dh521344@ncr.com</assignedTo>
+            <assignedToType>User</assignedToType>
+            <booleanFilter>1 AND 2 AND (3 OR 4) AND 5 AND 6</booleanFilter>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>equals</operation>
+                <value>Opportunity</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.User_Profile__c</field>
+                <operation>contains</operation>
+                <value>Banking</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.User_Profile__c</field>
+                <operation>contains</operation>
+                <value>Financial</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Account_Theatre__c</field>
+                <operation>equals</operation>
+                <value>EMEA</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason_Type__c</field>
+                <operation>equals</operation>
+                <value>Ownership Change,Reopen</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>lv250102@ncr.com</assignedTo>
+            <assignedToType>User</assignedToType>
+            <booleanFilter>1 AND 2 AND (3 OR 4) AND 5 AND 6</booleanFilter>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>equals</operation>
+                <value>Account</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.ProfileId</field>
+                <operation>contains</operation>
+                <value>Banking</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.ProfileId</field>
+                <operation>contains</operation>
+                <value>Financial</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Account_Theatre__c</field>
+                <operation>equals</operation>
+                <value>LATAM</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason_Type__c</field>
+                <operation>equals</operation>
+                <value>Ownership Change</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>lv250102@ncr.com</assignedTo>
+            <assignedToType>User</assignedToType>
+            <booleanFilter>1 AND 2 AND (3 OR 4) AND 5 AND 6</booleanFilter>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>equals</operation>
+                <value>Opportunity</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.User_Profile__c</field>
+                <operation>contains</operation>
+                <value>Banking</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.User_Profile__c</field>
+                <operation>contains</operation>
+                <value>Financial</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Account_Theatre__c</field>
+                <operation>equals</operation>
+                <value>LATAM</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason_Type__c</field>
+                <operation>equals</operation>
+                <value>Ownership Change,Reopen</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>sk185543@ncr.com</assignedTo>
+            <assignedToType>User</assignedToType>
+            <booleanFilter>1 AND 2 AND (3 OR 4) AND 5 AND 6</booleanFilter>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>equals</operation>
+                <value>Account</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.ProfileId</field>
+                <operation>contains</operation>
+                <value>Banking</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.ProfileId</field>
+                <operation>contains</operation>
+                <value>Financial</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Account_Theatre__c</field>
+                <operation>equals</operation>
+                <value>APAC</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason_Type__c</field>
+                <operation>equals</operation>
+                <value>Ownership Change</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>sk185543@ncr.com</assignedTo>
+            <assignedToType>User</assignedToType>
+            <booleanFilter>1 AND 2 AND (3 OR 4) AND 5 AND 6</booleanFilter>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>equals</operation>
+                <value>Opportunity</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.User_Profile__c</field>
+                <operation>contains</operation>
+                <value>Banking</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.User_Profile__c</field>
+                <operation>contains</operation>
+                <value>Financial</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Account_Theatre__c</field>
+                <operation>equals</operation>
+                <value>APAC</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason_Type__c</field>
+                <operation>equals</operation>
+                <value>Ownership Change,Reopen</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>dk250287@ncr.com</assignedTo>
+            <assignedToType>User</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>equals</operation>
+                <value>Account</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.ProfileId</field>
+                <operation>contains</operation>
+                <value>Retail</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason_Type__c</field>
+                <operation>equals</operation>
+                <value>Ownership Change</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>dk250287@ncr.com</assignedTo>
+            <assignedToType>User</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>equals</operation>
+                <value>Opportunity</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.User_Profile__c</field>
+                <operation>contains</operation>
+                <value>Retail</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason_Type__c</field>
+                <operation>equals</operation>
+                <value>Ownership Change,Reopen</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>cr185093@ncr.com</assignedTo>
+            <assignedToType>User</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>equals</operation>
+                <value>Account</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.ProfileId</field>
+                <operation>contains</operation>
+                <value>T&amp;T</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason_Type__c</field>
+                <operation>equals</operation>
+                <value>Ownership Change</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>cr185093@ncr.com</assignedTo>
+            <assignedToType>User</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>equals</operation>
+                <value>Opportunity</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.User_Profile__c</field>
+                <operation>contains</operation>
+                <value>T&amp;T</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason_Type__c</field>
+                <operation>equals</operation>
+                <value>Ownership Change,Reopen</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>av185128@ncr.com</assignedTo>
+            <assignedToType>User</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>notEqual</operation>
+                <value>CPQ</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.ProfileId</field>
+                <operation>contains</operation>
+                <value>Retail</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Account_Theatre__c</field>
+                <operation>equals</operation>
+                <value>EMEA</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>tm185200@ncr.com</assignedTo>
+            <assignedToType>User</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>notEqual</operation>
+                <value>CPQ</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.ProfileId</field>
+                <operation>contains</operation>
+                <value>Retail</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Region__c</field>
+                <operation>equals</operation>
+                <value>JAPAN</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>cc185186@ncr.com</assignedTo>
+            <assignedToType>User</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>notEqual</operation>
+                <value>CPQ</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.ProfileId</field>
+                <operation>contains</operation>
+                <value>Retail</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Account_Theatre__c</field>
+                <operation>equals</operation>
+                <value>APAC</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>SFDC_Global_Admin_Team</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>SF Global Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>notEqual</operation>
+                <value>CPQ</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Partner_Assist_Manager</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Partner Assist</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Origin</field>
+                <operation>equals</operation>
+                <value>Email</value>
+            </criteriaItems>
+            <template>Partner_Assist/Case_notification_to_Partner_Assist_Queue_members</template>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>HOSPD_Chick_Fil_A</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>contains</operation>
+                <value>Hospitality Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Account.Master_Customer_Number__c</field>
+                <operation>equals</operation>
+                <value>7392830</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Hospitality Support</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>HOSPD_Chick_Fil_A</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.Response_Email__c</field>
+                <operation>equals</operation>
+                <value>CFAAccountServices@ncr.com</value>
+            </criteriaItems>
+        </ruleEntry>
+    </assignmentRule>
+    <assignmentRule>
+        <fullName>Need Help</fullName>
+        <active>false</active>
+        <ruleEntry>
+            <assignedTo>ic162500@ncr.com</assignedTo>
+            <assignedToType>User</assignedToType>
+            <criteriaItems>
+                <field>Case.Module__c</field>
+                <operation>equals</operation>
+                <value>MDF</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>IPT Partner</value>
+            </criteriaItems>
+            <template>Idea/Partner_Central_Case</template>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>ay250005@ncr.com</assignedTo>
+            <assignedToType>User</assignedToType>
+            <criteriaItems>
+                <field>Case.Module__c</field>
+                <operation>equals</operation>
+                <value>Engineer,Equipment</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>IPT Partner</value>
+            </criteriaItems>
+            <template>Idea/Partner_Central_Case</template>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>dr185073@ncr.com</assignedTo>
+            <assignedToType>User</assignedToType>
+            <criteriaItems>
+                <field>Case.Module__c</field>
+                <operation>equals</operation>
+                <value>Deal Registration</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>IPT Partner</value>
+            </criteriaItems>
+            <template>Idea/Partner_Central_Case</template>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>GE_APJ_C_A</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <formula>RecordType.Name = &quot;PO Review&quot; 
+&amp;&amp; 
+(ISPICKVAL(Account.Account_Region__c, &quot;APJ&quot;)
+||
+ISPICKVAL(Account.Account_Region__c, &quot;INDIA&quot;)
+||
+ISPICKVAL(Account.Account_Region__c, &quot;JAPAN&quot;)
+||
+ISPICKVAL(Account.Account_Region__c, &quot;SEA&quot;)
+||
+ISPICKVAL(Account.Account_Region__c, &quot;CHINA&quot;)
+||
+ISPICKVAL(Account.Account_Region__c, &quot;SPA&quot;)
+||
+ISPICKVAL(Account.Account_Region__c, &quot;SAPAC&quot;)
+||
+ISPICKVAL(Account.Account_Region__c, &quot;APAC&quot;)
+||
+ISPICKVAL(Account.Account_Region__c, &quot;XS&quot;)
+)</formula>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>GE_EMEA_C_A_Financial</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <formula>RecordType.Name = &quot;PO Review&quot; 
+&amp;&amp; 
+(ISPICKVAL( Account.Account_Region__c, &quot;EMEA&quot;)
+||
+ISPICKVAL(Account.Account_Region__c, &quot;EUROPE&quot;)
+||
+ISPICKVAL(Account.Account_Region__c, &quot;MEA&quot;)
+||
+ISPICKVAL(Account.Account_Region__c, &quot;EUROPE EXC RUSSIA&quot;)
+||
+ISPICKVAL(Account.Account_Region__c, &quot;IMEA&quot;)
+) 
+&amp;&amp; 
+ISPICKVAL(Account.LOB__c, &quot;Financial&quot;)</formula>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>GE_EMEA_C_A_RHTT</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <formula>RecordType.Name = &quot;PO Review&quot; 
+&amp;&amp; 
+(ISPICKVAL( Account.Account_Region__c, &quot;EMEA&quot;) 
+|| 
+ISPICKVAL(Account.Account_Region__c, &quot;EUROPE&quot;) 
+|| 
+ISPICKVAL(Account.Account_Region__c, &quot;MEA&quot;) 
+|| 
+ISPICKVAL(Account.Account_Region__c, &quot;EUROPE EXC RUSSIA&quot;)
+||
+ISPICKVAL(Account.Account_Region__c, &quot;IMEA&quot;))
+&amp;&amp; 
+(ISPICKVAL(Account.LOB__c, &quot;Hospitality&quot;) 
+|| 
+ISPICKVAL(Account.LOB__c, &quot;Retail&quot;) 
+|| 
+ISPICKVAL(Account.LOB__c, &quot;T&amp;T&quot;) 
+|| 
+ISPICKVAL(Account.LOB__c, &quot;Travel&quot;))</formula>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>GE_NAMER_C_A_Financial</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <formula>RecordType.Name = &quot;PO Review&quot; 
+&amp;&amp; 
+(ISPICKVAL( Account.Account_Region__c, &quot;Namer&quot;) 
+|| 
+ISPICKVAL( Account.Account_Region__c, &quot;Namer CFI&quot;)
+||
+ISPICKVAL( Account.Account_Region__c, &quot;BRAZIL&quot;)
+||
+ISPICKVAL( Account.Account_Region__c, &quot;CLA&quot;)
+||
+ISPICKVAL( Account.Account_Region__c, &quot;Namer MAJORS&quot;)
+||
+ISPICKVAL( Account.Account_Region__c, &quot;CLA BRAZIL&quot;)
+||
+ISPICKVAL( Account.Account_Region__c, &quot;PUBLIC SECTOR&quot;)
+||
+ISPICKVAL( Account.Account_Region__c, &quot;WALMART&quot;))
+&amp;&amp; 
+ISPICKVAL(Account.LOB__c, &quot;Financial&quot;)</formula>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>GE_NAMER_C_A_RHTT</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <formula>RecordType.Name = &quot;PO Review&quot; 
+&amp;&amp; 
+(ISPICKVAL( Account.Account_Region__c, &quot;Namer&quot;) 
+|| 
+ISPICKVAL( Account.Account_Region__c, &quot;Namer CFI&quot;) 
+|| 
+ISPICKVAL( Account.Account_Region__c, &quot;BRAZIL&quot;) 
+|| 
+ISPICKVAL( Account.Account_Region__c, &quot;CLA&quot;) 
+|| 
+ISPICKVAL( Account.Account_Region__c, &quot;Namer MAJORS&quot;) 
+|| 
+ISPICKVAL( Account.Account_Region__c, &quot;CLA BRAZIL&quot;) 
+|| 
+ISPICKVAL( Account.Account_Region__c, &quot;PUBLIC SECTOR&quot;) 
+|| 
+ISPICKVAL( Account.Account_Region__c, &quot;WALMART&quot;)
+||
+ISPICKVAL( Account.Account_Region__c, &quot;AMERICAS&quot;)
+||
+ISPICKVAL( Account.Account_Region__c, &quot;GLOBAL&quot;))
+&amp;&amp; 
+(ISPICKVAL(Account.LOB__c, &quot;Hospitality&quot;) 
+|| 
+ISPICKVAL(Account.LOB__c, &quot;Retail&quot;) 
+|| 
+ISPICKVAL(Account.LOB__c, &quot;T&amp;T&quot;) 
+|| 
+ISPICKVAL(Account.LOB__c, &quot;Travel&quot;))</formula>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Entitlement_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>PO Review</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Case_Creation_Source__c</field>
+                <operation>equals</operation>
+                <value>CaseEmailService</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Strategic_Account1</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <booleanFilter>(1 or 2 or 4) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Case.ContactEmail</field>
+                <operation>contains</operation>
+                <value>chikfila</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Description</field>
+                <operation>contains</operation>
+                <value>ChickFilA,CFA,Chik-Fil-A</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Hospitality Namer Direct</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Subject</field>
+                <operation>contains</operation>
+                <value>ChickFilA,CFA,Chik-Fil-A</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Strategic_Account2</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <booleanFilter>1 OR 2 OR 3</booleanFilter>
+            <criteriaItems>
+                <field>Case.Subject</field>
+                <operation>contains</operation>
+                <value>darden.com,Buffalowildwings.com,Disney.com</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Description</field>
+                <operation>contains</operation>
+                <value>darden.com,Buffalowildwings.com,Disney.com,BWW,BW3,Bdub,Buffalo Wild Wings,Darden,Disney</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Subject</field>
+                <operation>contains</operation>
+                <value>BWW,BW3,Bdub,Buffalo Wild Wings,Darden,Disney</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Technical</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.Description</field>
+                <operation>contains</operation>
+                <value>terminal,server,12.1,12.3,15.1,RAL,Radiant Auto Loader,Remote Auto Loader,port,BIOS,drivers,driver,version,incident,support,image,solution set,product change,part #,part number,PID,PID #,executable,executeable,error,screen</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Hospitality Namer Direct</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Billing</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Hospitality Namer Direct</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Description</field>
+                <operation>contains</operation>
+                <value>invoice,dispute,credit,debit,wrong,order,purchase order,hardware invoice,entitlements,maintenance,software maintenance,hosted,monthly,URE,wrong price,wrong account,account,aging,invoices,memo,invoice backup,invoice question,invo</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Operations</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <booleanFilter>(1 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 OR 15 OR 16 OR 17 OR 18 OR 19 OR 20 OR 21 OR 22) AND 2</booleanFilter>
+            <criteriaItems>
+                <field>Case.Description</field>
+                <operation>contains</operation>
+                <value>missing,missing part,problem,3PU, WIT,SOW,HLE,High level estimate,T-Shirt,T-shirt size, document,quote,outage</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Hospitality Namer Direct</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Description</field>
+                <operation>contains</operation>
+                <value>products,quality,control,QA,testing,development,solution,down,training,classes,login,Knowledge base,AlohaUpdate,RSIM,MyNCR,Eorder, margin sheet,margin analysis,MA,sales quote,radiantupdate,seed</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Description</field>
+                <operation>contains</operation>
+                <value>Aloha POS,Aloha,RDS,Silver,POS,Terminal,Server,licenses,key,hasp,key number,hasp number,Aloha key,key sheet,key codes,SEC codes</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Description</field>
+                <operation>contains</operation>
+                <value>ATO,Aloha Take Out,ATOD,Take out and delivery,Delivery,CSO Consumer Self ordering,kiosk,AGM,Aloha Guest manager,text paging,floor plan</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Description</field>
+                <operation>contains</operation>
+                <value>P1535,1535,P1532,1532,S500,S4700,S4600,S335,S336,XR7,OCD,Epson,Bixolon,MS,cash drawer,peripheral,cable,HW</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Description</field>
+                <operation>contains</operation>
+                <value>Aloha Loyalty,card system,membership,members,marketing,bonus plans,reward,rewards promotions,promotion,points,cardless,lookup, loyalty</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Description</field>
+                <operation>contains</operation>
+                <value>Aloha Stored Value,gift cards,balance,valutech,paymentech,blackhawk,card marketing services,CMS,card stock,ASV</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Description</field>
+                <operation>contains</operation>
+                <value>Configuration Center,configuring,settings,gratuity,tables,menu,panels,panel,screen,button,buttons,comp,discount,promo,taxes,maintenance,managing,configure,CFC</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Description</field>
+                <operation>contains</operation>
+                <value>Command Center,Deploy,Deploy manager,version,download,schedule,event,scheduled,upgrade,upgraded,downgraded,downgrade,CMC</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Description</field>
+                <operation>contains</operation>
+                <value>Reporting,report,reports,custom,polling,poll,polled,missing sales,missing days,missing,Insight</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Description</field>
+                <operation>contains</operation>
+                <value>Inventory,labor,dashboard,workflow,recipe,food cost,cost,labor cost,COGS,vendor,NBO</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Description</field>
+                <operation>contains</operation>
+                <value>real time,real-time,badge,platform,see sales,Pulse</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Description</field>
+                <operation>contains</operation>
+                <value>loss,prevention,false,fraud,restaurant guard,restaurant guard portal,RestGuard</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Description</field>
+                <operation>contains</operation>
+                <value>Console,mobile,orderman,orderman7,orderman sol,access point,connectivity,handheld,Aloha Mobile,access,AMOB</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Description</field>
+                <operation>contains</operation>
+                <value>Omni Channel Decision Platform, API,restful,ordering essentials,menu,feed,integration,OCDP</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Description</field>
+                <operation>contains</operation>
+                <value>Aloha Online Ordering,Online,ordering,OLO,Monkeymedia,Grubhub,Ubereats,Google,Amazon, AOL</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Description</field>
+                <operation>contains</operation>
+                <value>NCR Security Services,Site Shield,Secure Access,Threat Defender,Antivirus,anti-virus,AV,patch,patching,patch management,PCI,SQS,file monitoring,event logger,FMI,dustin creight, NSS</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Description</field>
+                <operation>contains</operation>
+                <value>CP,processor,verifone,infogenisis,transarmor,Vx820,MX915,MX925,usb powered,forms,art curtis,verifone.com,Connected Payments</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Description</field>
+                <operation>contains</operation>
+                <value>services,consulting,pm,project management,professonal services,TS,PS Standard,digital,marketing,transformation,Ed parker,UI,experience,consumer,PS Digital</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Description</field>
+                <operation>contains</operation>
+                <value>Integration services,PS-Integration,Technical services,installations,cabling,survey,onsite services,field techs,contractors,TS</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Description</field>
+                <operation>contains</operation>
+                <value>Win7,Win10,W10,POSR7,POSR9,POS Ready 2009,POS Ready Win 7,Server 2003,Server 2008,R2,Server 2012,IOS,OS,Customer Voice,survey,satisfaction,net promoter,neutral,detractor,Voice</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Undefined</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Hospitality Namer Direct</value>
+            </criteriaItems>
+        </ruleEntry>
+    </assignmentRule>
+    <assignmentRule>
+        <fullName>Partner Assist</fullName>
+        <active>false</active>
+        <ruleEntry>
+            <assignedTo>Partner_Assist_Manager</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Partner Assist</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Origin</field>
+                <operation>equals</operation>
+                <value>Email</value>
+            </criteriaItems>
+            <template>Partner_Assist/Case_notification_to_Partner_Assist_Queue_members</template>
+        </ruleEntry>
+    </assignmentRule>
+</AssignmentRules>

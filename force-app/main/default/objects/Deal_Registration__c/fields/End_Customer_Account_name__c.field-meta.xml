@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>End_Customer_Account_name__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Lookup to NSC accounts.</description>
+    <externalId>false</externalId>
+    <label>End Customer Account name(SF Reference)</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Account.RecordType.DeveloperName</field>
+            <operation>notEqual</operation>
+            <value>Site</value>
+        </filterItems>
+        <filterItems>
+            <field>Account.RecordType.DeveloperName</field>
+            <operation>notEqual</operation>
+            <value>Enterprise</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Deal Registrations (End Customer Account name(NSC Reference))</relationshipLabel>
+    <relationshipName>Deal_Registrations2</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trueHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

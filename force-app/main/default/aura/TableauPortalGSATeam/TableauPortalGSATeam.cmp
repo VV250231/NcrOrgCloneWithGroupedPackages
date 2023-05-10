@@ -1,0 +1,34 @@
+<aura:component controller="TableauPortalController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction,forceCommunity:availableForAllPageTypes" access="global" >
+    <aura:attribute name="gsateam" type="TableauPortalAdmin_config__c[]"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <div class="slds-grid slds-grid_vertical" >
+        <div class="slds-col" >            
+            <div class="slds-grid">
+               
+                <lightning:layout multipleRows="true" class="slds-grid_horizontal slds-m-around_medium">
+                    <aura:iteration items="{!v.gsateam}" var="rep">
+                        <lightning:layoutItem size="3">
+                            <div>
+                            <center>
+                                <div class="container">
+                                    <img id="imgsource" src="/resource/TableauPortalSupportImages/Tableau_Portal_Images/user_icon_female.jpg"  />
+                                </div>
+                                <div class="slds-text-heading_small slds-text-align_center">{!rep.GSA_Team_Member_Name__c}</div>
+                                <div class="slds-text-longform slds-text-align_center">
+                                    <a href="mailto:" >
+                                        {!rep.Email__c}
+                                    </a>
+                                </div>
+                                <div class="slds-text-longform slds-text-align_center">{!rep.GSA_Team_Role__c}</div>
+                            </center>
+                        </div>
+                        </lightning:layoutItem>
+                    </aura:iteration>
+                </lightning:layout>
+                
+                
+            </div>
+        </div>
+    </div>
+</aura:component>

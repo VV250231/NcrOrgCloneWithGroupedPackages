@@ -1,0 +1,15 @@
+<apex:component >
+    <apex:attribute name="value" description="The value to be converted." type="Double" required="true"/>
+    <apex:attribute name="currency" description="The currency iso code (optional)" type="String" required="false"/>
+    <apex:attribute name="negativeStyle" default="color:red" description="the css to set if negative" type="String" required="false"/>
+    <apex:attribute name="numberFormat" default="###,###.00" description="the number format to apply" type="String" required="false"/>
+
+    <apex:outputText value="{!currency} " rendered="{!AND(NOT(ISBLANK(currency)), NOT(ISBLANK(value)))}"/>
+    <apex:outputText value="$" rendered="{!AND(ISBLANK(currency),NOT(ISBLANK(value)))}"/>
+    <apex:outputText value="{0,number,{!numberFormat}}" rendered="{!AND(NOT(ISBLANK(value)), value>=0)}">
+        <apex:param value="{!value}" />
+    </apex:outputText>
+    <apex:outputText value="({0,number,{!numberFormat}})" style="{!negativeStyle}" rendered="{!AND(NOT(ISBLANK(value)), value<0)}">
+        <apex:param value="{!(0-value)}" />
+    </apex:outputText>
+</apex:component>

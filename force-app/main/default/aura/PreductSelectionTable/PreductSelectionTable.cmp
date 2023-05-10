@@ -1,0 +1,191 @@
+<aura:component controller="ProductSelection" implements="flexipage:availableForAllPageTypes,force:appHostable,force:hasRecordId">
+    <!--<ltng:require styles="/resource/SLDS103/assets/styles/salesforce-lightning-design-system.min.css"/>-->
+    <aura:attribute name="ProductList" type="WrapperProductSelctionController[]"/> 	
+    <!--<aura:attribute name="PackageList" type="WrapperProductSelctionController[]"/> 	
+  		<aura:attribute name="numberOfPackages" type="String" default="0"/> 
+		<aura:attribute name="isShowProduct" type="boolean" default="true"/>     -->
+       <aura:attribute name="SelectAll"  type="boolean" default="false"/> 
+     
+
+    <aura:attribute name="SelectedProductId"  type="String[]"/>
+    <aura:attribute name="ProductIds"  type="String[]"/>
+    <aura:attribute name="ShowHideSpinner"  type="boolean" default="false"/>
+    <lightning:navigation aura:id="navServicePSCall"/>
+    <aura:attribute name="isCommunityUser" type="Boolean" default="false"/> 
+    <aura:attribute name="IPTPartnerCommunityUrl" type="String"/>
+    <aura:attribute name="passId" type="String"/> 
+    <aura:attribute name="isAdminProfile"  type="boolean" default="false"/> 
+    <aura:attribute name="tabLabel" type="String" default="Old Label" />
+    <aura:attribute name="subsOnlyProdNames" type="Set" default="{}" />
+     <aura:attribute name="subsOnlyRevenueTypes" type="Set" default="{}" />
+    <aura:dependency resource="force:navigateToSObject" type="EVENT"/>
+    <aura:handler event="c:PassRecordIdEvent" action="{!c.passRecordId}"/>   
+    <aura:handler event="c:ceEvent" action="{!c.handleApplicationEvent}"/>
+    <aura:handler event="c:ceEventDelete" action="{!c.handleApplicationEventDelete}"/>    
+    <aura:handler event="aura:locationChange" action="{!c.destoryCmp}"/>  
+    <aura:handler name="itemToSchedule"  event="c:AddProductToScheduleEvent" action="{!c.onPlusIconClick}"/>       
+    <aura:registerEvent name="appEvent" type="c:schEvent"/>
+    <aura:registerEvent name="appScheduleEvent" type="c:schedulerEvent"/>
+    <aura:registerEvent name="ConfirmOliInsert" type="c:ConfirmOliInsert"/>
+    <aura:attribute name="isCatm"  type="boolean" default="false"  /> 
+    <!--Added By Vivek-->		
+    <aura:attribute name="screenName" type="String"/>
+    
+    <!--line added by saritha-->
+    <aura:handler event="c:psscheduledEvent_PS" action="{!c.handleschApplicationEvent1}"/> 
+    <!-- Added by Divya for delete operation on Packages -->
+    <aura:attribute name="OppRecdId" type="String" />
+    <aura:handler name="refreshPackageScreen" event="c:PS_AddProduct_refreshPackage" action="{!c.exposeLoadData}"/>
+    <aura:handler event="c:PS_refreshAddedPackage" action="{!c.showProductTabsection}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>  
+    
+    <aura:method name="valiateCATMProducts" action="{!c.validateProductLines}" access="public" />
+    <aura:attribute name="hasError"  type="boolean" default="false"/>
+    <aura:attribute name="isCompLoaded"  type="boolean" default="false"/>
+    <aura:attribute name="errMsgLst"  type="List" />
+    <aura:attribute name="oppMonths" type="Integer" />
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    <aura:attribute name="timerId"  type="Integer" /> 
+	<aura:handler name="change" value="{!v.oppMonths}" action="{!c.oppMonthChange}"/>
+    
+    <html>
+        <!--My Table-->
+        <!--Tabset-->
+        <div class="demo-only">
+            <div class="slds-tabs_default text-align:center">
+                <ul class="slds-tabs_default__nav" role="tablist">
+                    <li class="slds-tabs_default__item slds-is-active}" title="Products" role="presentation">
+                        
+                        <span>
+                            <a class="slds-tabs_default__link" href="javascript:void(0);" name="product" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-4" id="tab-default-4__item">
+                                <lightning:icon iconName="standard:product" alternativeText="Products" />&nbsp;Products</a>
+                        </span>
+                    </li>
+                </ul>
+            </div>	
+        </div> 
+        <!--Tabset Ends-->
+        <br/>
+        
+         <aura:if isTrue="{!v.hasError}">                 
+             <div class="slds-notify slds-notify_alert slds-alert_error slds-m-bottom_small" role="alert">
+                 <span class="slds-assistive-text">error</span>
+                 <span class="slds-icon_container slds-icon-utility-error slds-m-right_x-small" title="Description of icon when needed">
+                     <!-- <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                                    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#error"></use>
+                                    </svg> -->
+                 </span>
+                 <h2></h2> 
+                 <ul style="text-align:left;">
+                     <li>Errors:</li>
+                       <li>&nbsp;</li>
+                     <aura:iteration items="{!v.ProductList}" var="item"> <!--   <aura:if isTrue="{!!empty(item.errorMsg)}"> -->
+                       
+                             <li>{!item.errorMsg}</li>
+                       
+                     </aura:iteration>
+                 </ul>
+             </div>            
+        </aura:if>
+        
+        <div class="backgroundInverse">
+        <!-- opp fields section start -->
+        <aura:if isTrue="{!and(v.isCompLoaded, v.isCatm)}">	
+             <section class="slds-clearfix slds-m-bottom_small"> 
+                 <div class="slds-align_absolute-center" >
+                  <div class="slds-form-element"> 
+                    <label class="slds-form-element__label opplabel">Contract Term (Months)</label>
+                    <lightning:input type="number" name="OppMnths" label="No of Terms" variant="label-hidden" aura:id="NoOfTerms" required="true" class="oppinput" value="{!v.oppMonths}" />
+                  </div> 
+                     </div>
+            </section>
+        </aura:if>
+        <!-- opp fields section end -->
+        
+        
+        
+        <!--<aura:if isTrue="{!v.isShowProduct}">-->	
+            <section class="slds-clearfix  slds-m-bottom_small" > 
+                <span class="slds-badge">Items To Schedule</span>
+                
+                    <aura:if isTrue="{!and(!v.isCatm, v.showSpinner)}"> 
+                        <div class="slds-show_inline-block" style="width:350px;text-align:center;">
+                            <span > Saving...</span>                               
+                                    
+                            <span class=" slds-is-relative" style="margin-left:20px;">
+                                <div class="slds-spinner_container">
+                                    
+                                    <div role="status" class="slds-spinner slds-spinner_x-small slds-spinner_brand">
+                                        <span class="slds-assistive-text">Loading</span>
+                                        <div class="slds-spinner__dot-a"></div>
+                                        <div class="slds-spinner__dot-b"></div>                             
+                                    </div>
+                                </div>
+                            </span>
+                       </div> 
+                    </aura:if>
+                
+                <div class="slds-float_right slds-m-right_large"> 
+                      
+                    <button class="slds-button slds-button_icon-inverse" onclick="{!c.SentForSchedule}" title="Move to Schedule">         
+                         <aura:if isTrue="{!v.isCommunityUser}">
+                       <img src="{!v.IPTPartnerCommunityUrl+'/resource/SchedulerIcon/NCRSchedulerAssets/Scheduler_Icon.svg'}" style="width:25px;margin:right:5px;"/>
+                        <aura:set attribute="else">
+                             <img src="/resource/SchedulerIcon/NCRSchedulerAssets/Scheduler_Icon.svg" style="width:25px;margin:right:5px;"/>
+                             </aura:set>
+                        </aura:if>
+                    </button>
+                    <button class="slds-button slds-button_icon-inverse" onclick="{!c.SelectforFavroute}" title="Add to Favorites"> 
+                        <aura:if isTrue="{!v.isCommunityUser}">
+                            <img src="{!v.IPTPartnerCommunityUrl+'/resource/MyIcon/svg/heart.svg'}" style="width:25px;margin:right:5px;"/>
+                            <aura:set attribute="else">
+                                <img src="/resource/MyIcon/svg/heart.svg" style="width:25px;margin:right:5px;"/>
+                            </aura:set>
+                        </aura:if>
+                    </button>
+                    
+                    <button class="slds-button slds-button_icon-inverse" onclick="{!c.SelectforDelete}" title="Delete"> 
+                        <aura:if isTrue="{!v.isCommunityUser}">
+                            <img src="{!v.IPTPartnerCommunityUrl+'/resource/MyIcon/svg/rubbish-bin.svg'}" style="width:22px;margin:right:5px;"/>
+                            <aura:set attribute="else">
+                                <img src="/resource/MyIcon/svg/rubbish-bin.svg" style="width:22px;margin:right:5px;"/>
+                            </aura:set>
+                        </aura:if>
+                    </button>  
+                </div>
+        </section>
+            <table class="zui-table" width="100%">
+                <thead>
+                    <tr>
+                        <th><ui:inputCheckbox class="slds-m-right_x-small" name="options" value="{!v.SelectAll}"  aura:id="TheCheckBox" ></ui:inputCheckbox></th>
+                        <th width="22%">PRODUCT NAME</th>
+                        <th width="12%"><center>ONE TIME FEE</center></th>
+                        <aura:if isTrue="{!!v.isCatm}">
+                        	<th width="10%"><center> # OF MONTHS</center></th>
+                        </aura:if>
+                        <th width="10%" title="Unit of Measurement (UoM) is defined using the &quot; Subscription UoM &quot; picklist in the opportunity details section. Site, Lane, VM, Other."><center>QUANTITY/# OF UOM</center></th>
+                        <aura:if isTrue="{!v.isCatm}">
+                        	<th width="16%"><center>Qty Type</center></th> 
+                        </aura:if>
+                        <th width="13%"><center>UNIT PRICE/ MONTHLY FEE </center></th>
+                        <th width="13%"><center>ACV</center></th>
+      			 		<th width="14%"><center>TCV</center></th>               
+                    </tr>
+                </thead>    
+                
+                <tbody> 
+                    <aura:if isTrue="{!v.isCompLoaded}">	
+                        <aura:iteration items="{!v.ProductList}" var="opp">
+                           
+                           <c:ProductSelectChild aura:id="prdSelChild" ProductCatogery="{!opp.ProductCatogery}" mandateSubscriptioned="{!opp.MandateSubscriptioned}"  AvailableforSubscription="{!opp.AvailableforSubscription}" IsCheck="{!opp.value}" ChangeInParent="{!v.SelectAll}"  ProductId="{!opp.ProductId}"  LineItemId="{!opp.OliId}" ProductName="{!opp.ProductName}" Quantity="{!opp.quantity}"  UnitPrice="{!opp.unitPrice}" Totalvalue="{!opp.totalValue}" OneTimeFee="{!opp.OneTimeFee}" NoOfTerms="{!opp.NoOfTerms}" masterLineId="{!opp.MasterLineId}" qtyTyp="{!opp.qtyTyp}" isCatm="{!v.isCatm}" isCATMProduct="{!opp.isCATMProduct}" errMsg="{!opp.errorMsg}" timer="{!v.timerId}" showSpinner="{!v.showSpinner}" TotalACVvalue="{!opp.totalACV}" parent="{!this}"></c:ProductSelectChild>
+                        </aura:iteration>
+                    </aura:if>
+                </tbody>
+            </table >
+            <aura:if isTrue="{!and(v.isCatm, v.showSpinner)}">
+                <center><lightning:spinner variant="brand" size="Medium" alternativeText="Need" /></center>
+            </aura:if> 
+        <!--</aura:if>-->
+        </div>
+    </html>    
+</aura:component>

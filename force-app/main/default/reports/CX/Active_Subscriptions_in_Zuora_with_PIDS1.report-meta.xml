@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <block>
+        <blockInfo>
+            <blockId>B0</blockId>
+            <joinTable>x</joinTable>
+        </blockInfo>
+        <columns>
+            <field>Zuora__SubscriptionProductCharge__c.Zuora__Account__c</field>
+        </columns>
+        <columns>
+            <field>FK_$Zuora__Subscription__c.Ship_To_ERP_Site_Number_By_Formula__c</field>
+        </columns>
+        <columns>
+            <field>FK_$Zuora__Subscription__c.ShipToERPSiteNumber__c</field>
+        </columns>
+        <columns>
+            <field>FK_$Zuora__Subscription__c.ShipToAccountName__c</field>
+        </columns>
+        <columns>
+            <field>Zuora__SubscriptionProductCharge__c.Zuora__ProductSKU_Product__c</field>
+        </columns>
+        <columns>
+            <field>Zuora__SubscriptionProductCharge__c.Zuora__ProductDescription__c</field>
+        </columns>
+        <columns>
+            <field>Zuora__SubscriptionProductCharge__c.Zuora__ProductEffectiveEndDate_Product__c</field>
+        </columns>
+        <columns>
+            <field>FK_$Zuora__Subscription__c.Zuora__SubscriptionNumber__c</field>
+        </columns>
+        <columns>
+            <field>FK_$Zuora__Subscription__c.Zuora__QuoteNumber__c</field>
+        </columns>
+        <columns>
+            <field>Zuora__SubscriptionProductCharge__c.Zuora__ChargedThroughDate__c</field>
+        </columns>
+        <columns>
+            <field>FK_$Zuora__Subscription__c.Zuora__NextChargeDate__c</field>
+        </columns>
+        <columns>
+            <field>FK_$Zuora__Subscription__c.Zuora__NextRenewalDate__c</field>
+        </columns>
+        <currency>USD</currency>
+        <filter>
+            <criteriaItems>
+                <column>FK_$Zuora__Subscription__c.Zuora__Status__c</column>
+                <columnToColumn>false</columnToColumn>
+                <isUnlocked>false</isUnlocked>
+                <operator>equals</operator>
+                <value>Active</value>
+            </criteriaItems>
+        </filter>
+        <format>Tabular</format>
+        <name>Subscription Product &amp; Charges w block 1</name>
+        <params>
+            <name>co</name>
+            <value>1</value>
+        </params>
+        <reportType>CustomEntity$Zuora__SubscriptionProductCharge__c@Zuora__SubscriptionProductCharge__c.Zuora__Subscription__c</reportType>
+        <scope>organization</scope>
+        <showGrandTotal>true</showGrandTotal>
+        <showSubTotals>true</showSubTotals>
+        <timeFrameFilter>
+            <dateColumn>FK_$Zuora__Subscription__c.Zuora__SubscriptionStartDate__c</dateColumn>
+            <interval>INTERVAL_CUSTOM</interval>
+        </timeFrameFilter>
+    </block>
+    <blockInfo>
+        <blockId xsi:nil="true"/>
+        <joinTable>x</joinTable>
+    </blockInfo>
+    <description>Includes products and charges</description>
+    <format>MultiBlock</format>
+    <name>Active Subscriptions in Zuora with PIDS</name>
+    <params>
+        <name>lsk</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Zuora__SubscriptionProductCharge__c@Zuora__SubscriptionProductCharge__c.Zuora__Subscription__c</reportType>
+    <showDetails>true</showDetails>
+</Report>

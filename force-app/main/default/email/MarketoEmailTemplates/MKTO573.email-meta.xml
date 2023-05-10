@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>04-05-21 HOS Support Command Center.Command Center Email 1</name>
+    <style>none</style>
+    <subject>Command Center Release Notes</subject>
+    <textOnly>Release Date - April 5, 2021
+Command Center Agent, version 19.2.5
+About this Release
+This release is a maintenance update of the Command Center Agent 19.2 General Release. This update is required for all US Production and Pre-Production sites to successfully migrate to our Azure data center per the February 26th announcement of the upcoming decommissioning of Command Center in the NCR Dallas Data Center.
+Additionally, Gateway Failover functionality is disabled by default in this update, and improvements are included for sites’ reconnection to the servers. 
+This release will be available on April 5, 2021 to all CMC customers for labs and production sites. If you would like to upgrade your Command Center agent 19.2.5, please contact our support team to coordinate the upgrade.
+Enhancements
+Failback to Alternate Data Center
+
+
+Specifically for use by Command Center migration teams to migrate sites to the Azure data centers (such as US-PROD migration from DFW05 to NUA01-SEC).
+NCR will push this CMC Agent version upgrade to all CMC NCR Dallas Data Center company trees as part of the migration process at least a week prior to migration activities.
+Using an additional parameter for the “failback” datacenter in the command arguments for CmcInst, if CmcAgent is unsuccessful in connecting in the new &quot;primary&quot; datacenter, then the connection remains in the &quot;failback&quot; datacenter. This will keep sites from being &quot;orphaned&quot; possibly due to local firewall rules and allow the migration team to identify these sites (through Alerts) for taking corrective actions.
+
+
+Gateway Failover Defaults to Disabled
+Changed Gateway Failover feature to use default setting of &quot;disabled.&quot;
+
+
+	- Any site BOH or node which already contains the &quot;Enabled&quot; flag (true) in the CommandCenter.config will remain enabled.
+	- Any site BOH or node which already contains the &quot;Disabled&quot; flag (false) in the CommandCenter.config will remain disabled.
+	- All other BOH or nodes will be disabled until set specifically as enabled.
+
+
+*To Enable use: cmcinst.exe /GatewayFailoverEnabled
+*To Disable use: cmcinst.exe /GatewayFailoverDisabled
+CmcAgent Installed Directory Environment Variable
+
+
+Includes a new system environment variable (&quot;%CmcAgentDir%&quot;) to use in commands or other operations to resolve to the CMC Agent&apos;s install directory. This can be used in command line, file manager, deployments, run commands, and similar functions to act directly within the CmcAgent directory.
+*Usage example: “%CmcAgentDir%\update\cmcinst.exe” /some arguments
+Fixes
+- Improved CmcAgent reconnection capabilities to alternate connection retry between the two ports, both 80 and 8050, on which the Command Center servers listen for connections from stores
+	- Corrected actions taken after gateway failover recovery, back to the site&apos;s main gateway, to return file transfer and VNC functionality to communicate via the main gateway whereas it had been persisting via the acting gateway
+	- Added support for displaying the Environment variables list in Command Center Client when any of those variable values contain quote characters
+	- Handled environment variables containing quotes and spaces for successful navigation in Command Center File Manager, including shortcut bar below tree view control
+Notes
+To schedule the upgrade of your company’s lab site to 
+CMC Agent version 19.2.5, please send a request to NCR Support at  support@alohaenterprise.com &lt;[[mailto:support@alohaenterprise.com]]&gt; .
+&lt;[[https://www.facebook.com/ncrcorp/?${url-parameter}]]&gt;    &lt;[[https://twitter.com/NCRCorporation?${url-parameter}]]&gt;        &lt;[[https://www.instagram.com/ncrcorporation/?${url-parameter}&quot;&gt;&lt;img alt=]]&gt;
+
+
+ 
+
+
+© 2019 NCR Corporation All rights reserved.
+864 Spring St NW, Atlanta, GA 30308
+https://www.ncr.com/ &lt;[[https://www.ncr.com/?${url-parameter}]]&gt; | 
+Unsubscribe &lt;[[{{system.unsubscribeLink}}]]&gt;</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

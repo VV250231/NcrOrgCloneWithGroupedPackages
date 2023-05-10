@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ReadOnly_ACV_TCV_for_Non_Subscription_Pd</fullName>
+    <active>false</active>
+    <description>Add restriction to prevent users from editing the ACV/TCV fields for Non-Subscription Products</description>
+    <errorConditionFormula>AND( 
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+NOT(Is_Subscriptioned__c),
+NOT(Opportunity.CATM_Record__c),
+OR(
+AND(ISCHANGED( Actual_Contract_Value__c ),(PRIORVALUE(Actual_Contract_Value__c ))&lt;&gt; Actual_Contract_Value__c),
+AND(ISCHANGED( Total_Cost_Value__c ),(PRIORVALUE(Total_Cost_Value__c )) &lt;&gt; Total_Cost_Value__c )
+)
+)</errorConditionFormula>
+    <errorDisplayField>Actual_Contract_Value__c</errorDisplayField>
+    <errorMessage>You cannot change ACV/TCV values for Non-Subscription Products</errorMessage>
+</ValidationRule>

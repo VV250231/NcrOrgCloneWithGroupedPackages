@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AUS_PPC_Leads</fullName>
+    <columns>LEAD.CREATED_DATE</columns>
+    <columns>LEAD.STATUS</columns>
+    <columns>LEAD.CITY</columns>
+    <columns>LEAD.ZIP</columns>
+    <columns>FULL_NAME</columns>
+    <columns>LEAD.EMAIL</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>LEAD.STATUS</field>
+        <operation>equals</operation>
+        <value>New</value>
+    </filters>
+    <filters>
+        <field>CORE.USERS.FIRST_NAME</field>
+        <operation>contains</operation>
+        <value>Nick</value>
+    </filters>
+    <label>CATM AU PPC NEW Leads</label>
+    <sharedTo>
+        <group>All_CATM</group>
+    </sharedTo>
+</ListView>

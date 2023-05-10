@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <assignments>
+        <name>Assign_Submission_Comment</name>
+        <label>Assign Submission Comment</label>
+        <locationX>446</locationX>
+        <locationY>767</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.qtc_Approval_Notes__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.CPQ_Quote_Reference__r.qtc_Approval_Notes__c</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Copy Quote Field to CPQ Quote, so the record can appear under Quote in a single approval-related list. CPQ Quote field doesn&apos;t have any involvement in the approval process for quotes.</description>
+        <name>Copy_Quote_Field_to_CPQ_Quote</name>
+        <label>Copy Quote Field to CPQ Quote</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.CPQ_Quote_Reference__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Quote__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Assign_Submission_Comment</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Copy Quote Filed from Payment Approval Record to Quote Reference field on Approval. So approval record can be visible under quote related list.</description>
+        <name>Copy_Quote_From_Payments_Approval_record_to_Approval_record</name>
+        <label>Copy Quote From Payments Approval record to Approval record</label>
+        <locationX>314</locationX>
+        <locationY>431</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.CPQ_Quote_Reference__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.qtc_PaymentsApproval__r.quoteId__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Assign_Submission_Comment</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Record.Quote = When the user recalls the Quote, Technical Review Approval also should be recalled.
+Record.CPQ_Quote_Refernece = To show Technical Review Approval Record under quote-related list.</description>
+        <name>Technical_Review_Approval_Record_Field_Update</name>
+        <label>Technical Review Approval Record Field Update</label>
+        <locationX>578</locationX>
+        <locationY>431</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Quote__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Technical_Review__r.CPQQuote__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.CPQ_Quote_Reference__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Technical_Review__r.CPQQuote__c</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <name>Is_Quote_Approval</name>
+        <label>Is Quote Approval</label>
+        <locationX>446</locationX>
+        <locationY>311</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Quote_Record_Approval</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Quote__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_Quote_Field_to_CPQ_Quote</targetReference>
+            </connector>
+            <label>Quote Record Approval</label>
+        </rules>
+        <rules>
+            <name>Payments_Approval_Record_Approval</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.sbaa__RecordField__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>qtc_PaymentsApproval__c</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_Quote_From_Payments_Approval_record_to_Approval_record</targetReference>
+            </connector>
+            <label>Payments Approval Record Approval (Interchange Plus Approval)</label>
+        </rules>
+        <rules>
+            <name>Technical_Review</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.sbaa__RecordField__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Technical_Review__c</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Technical_Review_Approval_Record_Field_Update</targetReference>
+            </connector>
+            <label>Technical Review</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <interviewLabel>CPQ Quote Approval Handler {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>CPQ Quote Approval Handler</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>320</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Is_Quote_Approval</targetReference>
+        </connector>
+        <object>sbaa__Approval__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

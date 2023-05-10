@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>Lead.DNBI__DnB_Credit_Limit__c.CONVERT:UNIQUE</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>false</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Lead Record Count</masterLabel>
+        <scale>1</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>RowCount</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA2</developerName>
+        <isActive>false</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Leads</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>COMPANY:UNIQUE</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA3</developerName>
+        <isActive>false</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Unique Leads</masterLabel>
+        <scale>1</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_84766187</developerName>
+        <masterLabel>Inbound vs Outbound</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>Lead.LeadSource__c</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Email</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Event</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Organic Search/SEO</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Paid Search</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Paid Social</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>PPC</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Programmatic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Referral Program</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Webinar</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Web Referral</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>External Referral</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Employee Referral</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Display</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Direct</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Blog</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>PR</sourceValue>
+            </sourceValues>
+            <value>Inbound</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Neos</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Operation AHOD</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Operation Teamwork</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Covid-19</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>CEC Visit</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Sales-Cold Call (SGL)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Sales-Event (SGL)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Sales-HOS-Aloha Base IS Lead</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Sales-HOS-At Risk Customers</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Sales-HOS-Fab Five</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Sales-HOS-Restaurant Data</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Sales-HOS-Restaurant Data-Weekly</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Sales-Other Must Specify (SGL)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Sales–Inside Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Sales-Referral (SGL)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Social</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Strategic Referral</sourceValue>
+            </sourceValues>
+            <value>Outbound</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Phone Inquiry</sourceValue>
+            </sourceValues>
+            <value>Phone Inquiry</value>
+        </values>
+    </buckets>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <aggregate>Sum</aggregate>
+            <axisBinding>y</axisBinding>
+            <column>TASK</column>
+        </chartSummaries>
+        <chartType>HorizontalBarGrouped</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>LEAD_OWNER</groupingColumn>
+        <legendPosition>Right</legendPosition>
+        <location>CHART_BOTTOM</location>
+        <secondaryGroupingColumn>LEAD_ID</secondaryGroupingColumn>
+        <showAxisLabels>false</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>SUBJECT</field>
+    </columns>
+    <columns>
+        <field>FIRST_NAME</field>
+    </columns>
+    <columns>
+        <field>LAST_NAME</field>
+    </columns>
+    <columns>
+        <field>Lead.LeadType__c</field>
+    </columns>
+    <columns>
+        <field>Lead.LeadSource__c</field>
+    </columns>
+    <columns>
+        <field>LEAD_RECORDTYPE</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>TASK</field>
+    </columns>
+    <columns>
+        <field>TASK_SUBTYPE</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>LEAD_OWNER</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Deepti Venkatachalam,Brody Craft,Frances Turner,Dane Grounds,Jeremy Disher,Alana Dorsey,Aubrey Ervin,Jason Fuqua,Jackson Hawthorne,Madeline Kindrick,Miles Riley,Jesse  Lopez-Garcia</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead.LeadType__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Sales</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>SUBJECT</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>Opened Email:,filled out form,clicked link,reply,Other: Clean Data/De-duplicate/Research,inbound,meeting,call</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>LEAD_OWNER</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>LEAD_ID</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>LEAD_STATUS</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>#Automated Sales Touches</name>
+    <params>
+        <name>closed</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>type</name>
+        <value>te</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>LeadActivity</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>LEAD_CREATED_DATE</dateColumn>
+        <interval>INTERVAL_LASTTHISMONTH</interval>
+    </timeFrameFilter>
+</Report>

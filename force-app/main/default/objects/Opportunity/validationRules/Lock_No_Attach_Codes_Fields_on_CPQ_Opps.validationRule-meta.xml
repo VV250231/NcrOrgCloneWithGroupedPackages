@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lock_No_Attach_Codes_Fields_on_CPQ_Opps</fullName>
+    <active>true</active>
+    <description>When a user has created a CPQ opportunity (&quot;Is Subscription/Preferred Offer?&quot; checked), the following two fields should be locked from being edited by the user
+1. Reasons for not selecting NCR Payments
+2. Payments Contract End Date</description>
+    <errorConditionFormula>AND(
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+NOT(CATM_Record__c),
+NOT(bypass_validation__c)
+,($Profile.Name &lt;&gt;&quot;System Administrator&quot;)
+,CPQ__c
+,OR(AND(
+ISNEW(),OR(
+NOT(ISBLANK( Reasons_for_no_Payment_Processing__c )),
+NOT(ISBLANK( Payments_Contract_End_Date__c ))
+)
+)
+,OR(ISCHANGED( Reasons_for_no_Payment_Processing__c ),ISCHANGED( Payments_Contract_End_Date__c ))
+)
+)</errorConditionFormula>
+    <errorMessage>Please navigate to the quote to input a reason for not selecting Payments on your preferred offer opportunity.</errorMessage>
+</ValidationRule>

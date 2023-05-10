@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>LAST_LOGIN</field>
+    </columns>
+    <columns>
+        <field>ACTIVE</field>
+    </columns>
+    <columns>
+        <field>User.Quicklook_ID__c</field>
+    </columns>
+    <columns>
+        <field>USER_ID</field>
+    </columns>
+    <columns>
+        <field>User.LOB__c</field>
+    </columns>
+    <columns>
+        <field>TITLE</field>
+    </columns>
+    <columns>
+        <field>DEPARTMENT</field>
+    </columns>
+    <columns>
+        <field>User.Manager_Level_01__c</field>
+    </columns>
+    <columns>
+        <field>User.Manager_Level_02__c</field>
+    </columns>
+    <columns>
+        <field>User.Manager_Level_03__c</field>
+    </columns>
+    <columns>
+        <field>User.Manager_Level_04__c</field>
+    </columns>
+    <columns>
+        <field>User.Manager_Level_05__c</field>
+    </columns>
+    <columns>
+        <field>ROLE</field>
+    </columns>
+    <currency>USD</currency>
+    <description>report for Doug Jones</description>
+    <filter>
+        <booleanFilter>(1 OR 2 OR 3 OR 4 OR 5) AND 6</booleanFilter>
+        <criteriaItems>
+            <column>User.Manager_Level_01__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Frank Hauck</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User.Manager_Level_02__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Frank Hauck</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User.Manager_Level_03__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Frank Hauck</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User.Manager_Level_04__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Frank Hauck</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User.Manager_Level_05__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Frank Hauck</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>ROLE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>,NCR APOC Community- DO NOT DELETE Partner User</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>PROFILE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Global Entitlements Users Report</name>
+    <params>
+        <name>active</name>
+        <value>active</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>User</reportType>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>LAST_LOGIN</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

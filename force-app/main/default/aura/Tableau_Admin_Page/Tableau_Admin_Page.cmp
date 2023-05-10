@@ -1,0 +1,969 @@
+<aura:component controller="Controller_Tableau_Admin_Page" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    
+    <!-- $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->  
+    
+    <ltng:require scripts="{! $Resource.PSFR_Resource + '/PSFR_Resource/bootstrap/js/jQuery-2.2.0.min.js'}"  afterScriptsLoaded="{!c.SG_Errorpop}" />
+    <aura:attribute type="Boolean" name="toggleerrorfromserver" default="false" />
+    <aura:attribute type="Boolean" name="toggleaccesserror" default="false" />
+    <aura:attribute type="Boolean" name="toggleloader" default="false" />
+    <aura:attribute type="Boolean" name="allowaccess" default="false" />
+    <aura:attribute type="Boolean" name="editmode" default="false" />
+    <aura:attribute type="Boolean" name="createsection" default="false" />
+    <aura:attribute type="Boolean" name="updatesection" default="true" />
+    <aura:attribute type="Boolean" name="togglesearchcriteria" default="false" />
+    <aura:attribute type="Boolean" name="readonlymode" default="true" />
+    <aura:attribute type="Boolean" name="spin" default="true" />
+    <aura:attribute type="String[]" name="checkaccess" />
+    <aura:attribute type="Tableau__c" name="userroleobject" />
+    <aura:attribute type="Tableau_SalesOrg__c" name="tableausalesorg" />
+    <aura:attribute type="TableauUser__c" name="tableauuserobject" />
+    <aura:attribute type="TableauUser__c" name="tableauuserobjectinsert" />
+    <aura:attribute type="TableauUser__c" name="tableauuserobjectupdate" />
+    <aura:attribute type="Tableau_SalesOrg__c" name="salesorobject" />
+    <aura:attribute type="string" name="searchkeytabuser" />
+    <aura:attribute type="string" name="searchkeyvaluesales" />
+    <aura:attribute type="string" name="searchkeyrolename" />
+    <!--																	-->
+    <aura:attribute type="string" name="InteractorPublisher__c" default="Interactor" />
+    <aura:attribute type="string" name="UserName__c" />
+    <aura:attribute type="string" name="UserQlookID__c" />
+    <aura:attribute type="Boolean" name="IfSFDCUser__c" default="false" />
+    <aura:attribute type="Boolean" name="IsActive__c" default="false" />
+    <aura:attribute type="Boolean" name="OwnershipAccess__c" default="false" />
+    <aura:attribute type="Boolean" name="RoleLevelAccess__c" default="false" />
+    <aura:attribute type="Boolean" name="SalesOrgAccess__c" default="false" />
+    <aura:attribute type="Boolean" name="disablecheckboxupdate" default="true" />
+    <aura:attribute type="Boolean" name="disablecheckboxcreate" default="false" />
+    <aura:attribute type="String[]" name="rolesassigned" default="false" />
+    <aura:attribute type="String[]" name="rolesassignedcreate" />
+    <aura:attribute type="Boolean" name="reportpage" default="false" />
+    <aura:attribute type="Integer" name="togglebatchstatus" default="0" />
+    <!--																	-->
+    
+    <!-- $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->  
+    <aura:if isTrue="{!v.spin}">
+        <!--  <lightning:spinner aura:id="spinnnnspinner" variant="brand" size="medium"/> -->
+        <div class="slds-backdrop slds-backdrop_open"></div> 
+    </aura:if>
+    
+    <aura:if isTrue="{!v.toggleaccesserror}">
+        <div class="alert-box--error"> 
+            <div class="slds-box slds-theme--error">
+                <p><strong>Un-Authorised Access</strong>You are not authorised to access this page</p>
+            </div>
+        </div> 
+    </aura:if>
+    
+    <aura:if isTrue="{!v.toggleerrorfromserver}">
+        <div class="alert-box--error"> 
+            <div class="slds-box slds-theme--error">
+                <p>Error occured at server, Please send screenshot to admin</p>
+            </div>
+        </div> 
+        <br></br>
+    </aura:if>
+    
+    <!-- $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ --> 
+    
+    <aura:if isTrue="{!v.allowaccess}">
+        <div style="position: relative; height: 100px;" >
+            <div class="slds-builder-header_container">
+                <header class="slds-builder-header" style="height: 43px;">
+                    <div class="slds-builder-header__item">
+                        <div class="slds-builder-header__item-label slds-media slds-media_center" >
+                            <a href="javascript:void(0);" class="slds-builder-header__item-action slds-media slds-media_center" onclick="{!c.reloadpage}">
+                                <div class="slds-media__figure">
+                                    <span class="slds-icon_container slds-icon-utility-builder slds-current-color">
+                                        <lightning:icon iconName="utility:refresh" size="x-small" />
+                                    </span>
+                                </div>
+                                <div class="slds-media__body">Reload</div>
+                            </a>
+                        </div>
+                    </div>
+                    <nav class="slds-builder-header__item slds-builder-header__nav">
+                        <ul class="slds-builder-header__nav-list">
+                            <li class="slds-builder-header__nav-item">
+                                <button class="slds-button slds-builder-header__item-action slds-media slds-media_center" onclick="{!c.togglereportpage}" title="Click to open menu">
+                                    <span class="slds-media__figure">
+                                        <span class="slds-icon_container slds-icon-utility-page slds-current-color">
+                                            <lightning:icon iconName="utility:page" size="x-small" />
+                                        </span>
+                                    </span>
+                                    <span class="slds-media__body">
+                                        <span class="slds-truncate" title="Reports">Reports</span>
+                                        <span class="slds-icon_container slds-icon-utility-chevrondown slds-current-color slds-m-left_small">
+                                            <lightning:icon iconName="utility:chevrondown" size="x-small" />
+                                        </span>
+                                    </span>
+                                </button>
+                            </li>
+                        </ul>
+                        <aura:if isTrue="{!v.reportpage}">
+                            <div class="slds-dropdown slds-dropdown_inverse slds-dropdown_left"  style="margin-left: 135px;margin-top: 44px;">
+                                <ul class="slds-dropdown__list" role="menu">
+                                    <li class="slds-dropdown__item slds-is-selected" role="presentation">
+                                        <a href="/00O0g000005Mv1n" target="_Blank" role="menuitem" tabindex="0">
+                                            <span class="slds-truncate" title="Completed: Conquer Your Cases">
+                                                <lightning:icon iconName="utility:download" size="xx-small" />
+                                                All Active Tableau Users</span>
+                                        </a>
+                                    </li>
+                                    <li class="slds-has-divider_top-space" role="separator"></li>
+                                    <li class="slds-dropdown__item slds-is-selected" role="presentation">
+                                        <a href="/00O0g000005MxSC" target="_Blank" role="menuitem" tabindex="0">
+                                            <span class="slds-truncate" title="Completed: Conquer Your Cases">
+                                                <lightning:icon iconName="utility:download" size="xx-small" />
+                                                User Adoption</span>
+                                        </a>
+                                    </li>
+                                    <li class="slds-has-divider_top-space" role="separator"></li>
+                                    <li class="slds-dropdown__item" role="presentation" onclick="{!c.showbatchmodal}">
+                                        <a href="javascript:void(0);" role="menuitem" tabindex="-1">
+                                            <span class="slds-truncate" title="Import Contacts and Accounts">
+                                                <lightning:icon iconName="utility:download" size="xx-small" />
+                                                Batch Menu</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </aura:if>
+                    </nav>
+                    
+                    <div class="slds-builder-header__item">
+                        <h1 class="slds-builder-header__item-label">Tableau Admin Screen</h1>
+                    </div>
+                    <div class="slds-builder-header__item slds-builder-header__utilities">
+                        <div class="slds-builder-header__utilities-item">
+                            <a href="javascript:void(0);" class="slds-builder-header__item-action slds-media slds-media_center" onclick="{!c.readonly}">
+                                <div class="slds-media__figure">
+                                    <span class="slds-icon_container slds-icon-utility-back slds-current-color">
+                                        <lightning:icon iconName="utility:mark_all_as_read" size="x-small" />
+                                    </span>
+                                </div>
+                                <div class="slds-media__body">Read Only Screen</div>
+                            </a>
+                        </div>
+                        <div class="slds-builder-header__utilities-item">
+                            <a href="javascript:void(0);" class="slds-builder-header__item-action slds-media slds-media_center" onclick="{!c.editmode}">
+                                <div class="slds-media__figure">
+                                    <span class="slds-icon_container slds-icon-utility-help slds-current-color">
+                                        <lightning:icon iconName="utility:edit_form" size="x-small" />
+                                    </span>
+                                </div>
+                                <div class="slds-media__body">Edit Screen</div>
+                            </a>
+                        </div>
+                    </div>
+                </header>
+            </div>
+            <div class="slds-builder-toolbar" role="toolbar" onclick="{!c.toggleallrefresh}">
+                <!-- $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ --> 
+                <div class="slds-builder-toolbar__item-group" style="width: 50%;">
+                    <div class="slds-box slds-theme--error" id="searchkeyrolename" style="Display:None">
+                        <p> 
+                            <strong>
+                                <c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#warning" category="standard" size="small" name="warning" /> 
+                            </strong> No Results, Please search again with different keyword!
+                        </p>
+                    </div>
+                    <div class="slds-box slds-theme_default" style="border-style: solid;border-color: #e3790c;border-width: thin;padding-right: 8px;padding-bottom: 8px;padding-left: 8px;padding-top: 8px;margin-top:3px;" >  
+                        <center><div class="slds-text-heading_small"><b>Search Users By Name</b></div></center>
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-size_2-of-3">
+                                <div class=" slds-text-align_center slds-m-around_x-small">
+                                    <ui:inputText aura:id="searchkeytabuser" value="{!v.searchkeytabuser}" class="field" />
+                                </div>
+                            </div>
+                            <div class="slds-size_1-of-3">
+                                <div class="slds-text-align_center slds-m-around_x-small">
+                                    <lightning:button value="searchkeyrolename" variant="brand" label="Search" iconPosition="left" iconName="utility:search" onclick="{!c.searchtabusername}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-scrollable" style="max-height: 380.5px;">
+                            <table class="slds-table slds-table_bordered slds-table_cell-buffer" >
+                                <thead>
+                                    <tr class="slds-text-title_caps">
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="UserName">User Name</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="QlookID">Qlook ID</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Active">Active</div>
+                                        </th>
+                                        <th scope="col" style="width: 20px;" >
+                                            <div class="slds-truncate" ></div>
+                                        </th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <aura:iteration items="{!v.tableauuserobject}" var="item">
+                                        <tr>
+                                            <td scope="row" data-label="UserName">
+                                                <div class="slds-truncate" title="{!item.UserName__c}" id="{!item.id}"  >{!item.UserName__c}</div>
+                                            </td>
+                                            <td data-label="UserName">
+                                                <div class="slds-truncate" title="{!item.UserQlookID__c}">{!item.UserQlookID__c}</div>
+                                            </td>
+                                            <td data-label="UserName">
+                                                <div class="slds-truncate" title="{!item.IsActive__c}">{!item.IsActive__c}</div>
+                                            </td>
+                                            <td scope="row" data-label="UserName">
+                                                <div class="slds-truncate" title="Load Info" >
+                                                    <lightning:buttonIcon class="backbuttonbackcolor" iconName="utility:breadcrumbs" value="{!item.Id}" onclick="{!c.updatethisuser }" />
+                                                </div>
+                                            </td>
+                                            
+                                        </tr>
+                                    </aura:iteration>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="slds-box slds-theme_default " style="border-style: solid;border-color: #e3790c;border-width: thin;padding-right: 8px;padding-bottom: 8px;padding-left: 8px;padding-top: 8px;margin-top:3px;" >  
+                        <center><div class="slds-text-heading_small"><b>Search Roles By Names</b></div></center>
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-size_2-of-3">
+                                <div class=" slds-text-align_center slds-m-around_x-small">
+                                    <ui:inputText aura:id="searchkeyrolename" value="{!v.searchkeyrolename}" class="field" /></div>
+                            </div>
+                            <div class="slds-size_1-of-3">
+                                <div class="slds-text-align_center slds-m-around_x-small">
+                                    <lightning:button variant="brand" value="searchkeyrolename" label="Search" iconPosition="left" iconName="utility:search" onclick="{!c.searchkeyrolename}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <br></br>
+                        <div class="slds-scrollable" style="max-height: 380.5px;">
+                            <table class="slds-table slds-table_bordered slds-table_cell-buffer" >
+                                <thead>
+                                    <tr class="slds-text-title_caps">
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="rolename">Role Name</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="roleid">Role ID</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <aura:iteration items="{!v.userroleobject}" var="item">
+                                        <tr>
+                                            <th scope="row" data-label="UserName">
+                                                <div class="slds-truncate" title="{!item.RoleName__c}">{!item.RoleName__c}</div>
+                                            </th>
+                                            <td data-label="UserName">
+                                                <div class="slds-truncate" title="{!item.Id}">{!item.Id}</div>
+                                            </td>
+                                        </tr>
+                                    </aura:iteration>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="slds-box slds-theme_default" style="border-style: solid;border-color: #e3790c;border-width: thin;padding-right: 8px;padding-bottom: 8px;padding-left: 8px;padding-top: 8px;margin-top:3px;" >  
+                        <center><div class="slds-text-heading_small"><b>Search Sales Org By Sales Org-1</b></div></center>
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-size_2-of-3">
+                                <div class=" slds-text-align_center slds-m-around_x-small">
+                                    <ui:inputText aura:id="searchkeysalesorgg" value="{!v.searchkeyvaluesales}" class="field" /> 
+                                </div>
+                            </div>
+                            <div class="slds-size_1-of-3">
+                                <div class="slds-text-align_center slds-m-around_x-small">
+                                    <lightning:button variant="brand"  value="searchkeysalesorgg" label="Search" iconPosition="left" iconName="utility:search" onclick="{!c.searchsaleorg}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <br></br>
+                        <div class="slds-scrollable" style="max-height: 380.5px;">
+                            <table class="slds-table slds-table_bordered slds-table_cell-buffer" >
+                                <thead>
+                                    <tr class="slds-text-title_caps">
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="ROLENAME">SalesOrg-1 Name</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="ROLENAME">SalesOrg-2 Name</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="ROLENAME">SalesOrg-6 Name</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <aura:iteration items="{!v.tableausalesorg}" var="item">
+                                        <tr>
+                                            <th scope="row" data-label="ROLENAME">
+                                                <div class="slds-truncate" title="{!item.SalesOrg1__c}">{!item.SalesOrg1__c}</div>
+                                            </th>
+                                            <td data-label="ROLENAME">
+                                                <div class="slds-truncate" title="{!item.SalesOrg2__c}">{!item.SalesOrg2__c}</div>
+                                            </td>
+                                            <td data-label="ROLENAME">
+                                                <div class="slds-truncate" title="{!item.SalesOrg6__c}">{!item.SalesOrg6__c}</div>
+                                            </td>
+                                        </tr>
+                                    </aura:iteration>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-builder-toolbar__item-group" style="width: 50%;">
+                    <aura:if isTrue="{!v.readonlymode}">
+                        <div class="slds-box slds-theme_default slds-scrollable_y" style="border-style: solid;border-color: #59e174;border-width: thin;padding-right: 8px;padding-bottom: 8px;padding-left: 8px;padding-top: 8px;margin-top:3px;margin-right:3px;" >  
+                            <center><div class="slds-text-heading_small slds-border_bottom "><b>Your Details</b></div></center>
+                            <br></br>
+                            <div class="slds-grid slds-wrap slds-border_bottom">
+                                <div class="slds-size_5-of-7">
+                                    <div class="slds-m-around_x-small slds-text-align_left">
+                                        User Name &nbsp;&nbsp;<lightning:helptext content="Name of User" iconName="utility:info"  />
+                                    </div>
+                                </div>
+                                <div class="slds-size_2-of-7">
+                                    <div class="slds-text-align_center slds-m-around_x-small">
+                                        <span class="slds-badge"><ui:outputText value="{!v.tableauuserobjectupdate.UserName__c}" /></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-wrap slds-border_bottom">
+                                <div class="slds-size_5-of-7">
+                                    <div class="slds-m-around_x-small slds-text-align_left">
+                                        User Qlook ID &nbsp;&nbsp;<lightning:helptext content="Qlook ID of User" iconName="utility:info" />
+                                    </div>
+                                </div>
+                                <div class="slds-size_2-of-7">
+                                    <div class="slds-text-align_center slds-m-around_x-small">
+                                        <span class="slds-badge"><ui:outputText value="{!v.tableauuserobjectupdate.UserQlookID__c}" /></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-wrap slds-border_bottom">
+                                <div class="slds-size_5-of-7">
+                                    <div class="slds-m-around_x-small slds-text-align_left">
+                                        If Salesforce User  &nbsp;&nbsp;<lightning:helptext content="If the User has Salesforce access" iconName="utility:info" />
+                                    </div>
+                                </div>
+                                <div class="slds-size_2-of-7">
+                                    <div class="slds-text-align_center slds-m-around_x-small">
+                                        <span class="slds-badge"><ui:outputCheckbox value="{!v.tableauuserobjectupdate.IfSFDCUser__c}" /></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-wrap slds-border_bottom">
+                                <div class="slds-size_5-of-7">
+                                    <div class="slds-m-around_x-small slds-text-align_left">
+                                        If Active User &nbsp;&nbsp;<lightning:helptext content="If User is Active Tableau User" iconName="utility:info" />
+                                    </div>
+                                </div>
+                                <div class="slds-size_2-of-7">
+                                    <div class="slds-text-align_center slds-m-around_x-small">
+                                        <span class="slds-badge"><ui:outputCheckbox value="{!v.tableauuserobjectupdate.IsActive__c}" /></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-wrap slds-border_bottom">
+                                <div class="slds-size_5-of-7">
+                                    <div class="slds-m-around_x-small slds-text-align_left">
+                                        Interactor / Publisher &nbsp;&nbsp;<lightning:helptext content="If the user is only Interactor OR Publisher access on Tableau Workbooks" iconName="utility:info" />
+                                    </div>
+                                </div>
+                                <div class="slds-size_2-of-7">
+                                    <div class="slds-text-align_center slds-m-around_x-small">
+                                        <span class="slds-badge"><ui:outputText value="{!v.tableauuserobjectupdate.InteractorPublisher__c}" /></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-wrap slds-border_bottom">
+                                <div class="slds-size_5-of-7">
+                                    <div class="slds-m-around_x-small slds-text-align_left">
+                                        Access based on ownership  &nbsp;&nbsp;<lightning:helptext content="If this User should have access to all opportunities, owned by him/her" iconName="utility:info" />
+                                    </div>
+                                </div>
+                                <div class="slds-size_2-of-7">
+                                    <div class="slds-text-align_center slds-m-around_x-small">
+                                        <span class="slds-badge"><ui:outputCheckbox  value="{!v.tableauuserobjectupdate.OwnershipAccess__c}" /></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-wrap slds-border_bottom">
+                                <div class="slds-size_5-of-7">
+                                    <div class="slds-m-around_x-small slds-text-align_left">
+                                        Access based on role hiererchy &nbsp;&nbsp;<lightning:helptext content="If this User should have access based on Role Level Hiererchy in Salesforce" iconName="utility:info" />
+                                    </div>
+                                </div>
+                                <div class="slds-size_2-of-7">
+                                    <div class="slds-text-align_center slds-m-around_x-small">
+                                        <span class="slds-badge"><ui:outputCheckbox value="{!v.tableauuserobjectupdate.RoleLevelAccess__c}"/></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-wrap slds-border_bottom">
+                                <div class="slds-size_5-of-7">
+                                    <div class="slds-m-around_x-small slds-text-align_left">
+                                        Access based on sales org hiererchy &nbsp;&nbsp;<lightning:helptext content="If this User should have access based on Sales Org Hiererchy in Salesforce" iconName="utility:info" />
+                                    </div>
+                                </div>
+                                <div class="slds-size_2-of-7">
+                                    <div class="slds-text-align_center slds-m-around_x-small">
+                                        <span class="slds-badge"><ui:outputCheckbox value="{!v.tableauuserobjectupdate.SalesOrgAccess__c}"/></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <br></br>
+                            
+                            <center>
+                                <aura:iteration var="num" items="{!v.rolesassigned}">
+                                    <span class="slds-pill" role="option" tabindex="0" aria-selected="true" style="background-color:rgb(193, 251, 169);">
+                                        <span class="slds-pill__label" title="">{!num.rolename}</span>&nbsp;&nbsp;
+                                    </span>
+                                </aura:iteration>
+                            </center>
+                        </div>
+                        <!-- <aura:if isTrue="{!v.tableauuserobjectupdate.UserQlookID__c == 'sk25xxxx'}"> -->
+                        <div class="slds-box slds-theme--success" style="Display:None;">
+                            <center>
+                                <lightning:button variant="brand" label="Check for new Roles" title="Brand action" onclick="{!c.scriptroleupdate}" />
+                                <lightning:button variant="brand" label="Create Sales Org Script" title="Brand action" onclick="{!c.scriptrolename }" />
+                                <lightning:button variant="brand" label="Create Role Level Script" title="Brand action" onclick="{!c.updatescript }" />
+                            </center>
+                        </div>
+                        <br></br>
+                        <!--   </aura:if> -->
+                        <article class="slds-card" style="Display:None;border-style: solid;border-color: #e3790c;border-width: thin;padding-right: 8px;padding-bottom: 8px;padding-left: 8px;padding-top: 8px;margin-top:3px;margin-right:3px;">
+                            <div class="slds-grid slds-einstein-header slds-card__header">
+                                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                    <div class="slds-grid slds-grid_vertical-align-center slds-size_3-of-4 slds-medium-size_2-of-3">
+                                        <div class="slds-media__body">
+                                            <h2 class="slds-truncate" title="Einstein (10+)">Schedule Information </h2>
+                                        </div>
+                                    </div>
+                                    <div class="slds-einstein-header__figure slds-size_1-of-4 slds-medium-size_1-of-3"></div>
+                                </header>
+                            </div>
+                            <div class="slds-card__body slds-card__body_inner">
+                                <div class="slds-grid slds-wrap ">
+                                    <div class="slds-size_2-of-3 slds-border_bottom">
+                                        Script Batch Status
+                                    </div>
+                                    <div class="slds-size_1-of-3">
+                                        <span class="slds-pill slds-pill_link" style="background-color:yellow;">
+                                            <span class="slds-pill__label">In Progress</span>
+                                        </span>
+                                    </div>
+                                </div>  
+                                <br></br>
+                                <div class="slds-grid slds-wrap ">
+                                    <div class="slds-size_2-of-3 slds-border_bottom">
+                                        Next EDW Extract
+                                    </div>
+                                    <div class="slds-size_1-of-3">
+                                        <span class="slds-pill slds-pill_link" style="background-color:#58e758;">
+                                            <span class="slds-pill__label">Completed</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <footer class="slds-card__footer">
+                            </footer>
+                        </article>
+                    </aura:if>
+                    <aura:if isTrue="{!v.editmode}">  
+                        <div class="slds-box slds-theme_default slds-scrollable_y" style="border-style: solid;border-color: #59e174;border-width: thin;padding-right: 8px;padding-bottom: 8px;padding-left: 8px;padding-top: 8px;margin-top:3px;margin-right:3px;" >  
+                            <center>
+                                <lightning:button class="biggerwith" variant="brand" disabled="{!v.createsection}" label="Create User" onclick="{!c.createnew }" />
+                                <lightning:button class="biggerwith" variant="brand" disabled="{!v.updatesection}" label="Update Existing" onclick="{!c.updateexist }" />
+                            </center>
+                        </div>
+                        <aura:if isTrue="{!v.createsection}">
+                            <div class="slds-box slds-theme_default slds-scrollable_y" style="border-style: solid;border-color: #59e174;border-width: thin;padding-right: 8px;padding-bottom: 8px;padding-left: 8px;padding-top: 8px;margin-top:3px;margin-right:3px;" >  
+                                <center><div class="slds-text-heading_small"><b>Create new record </b></div></center>
+                                <div class="slds-box slds-theme_default slds-scrollable_y" style="border-style: solid;border-color: #59e174;border-width: thin;padding-right: 8px;padding-bottom: 8px;padding-left: 8px;padding-top: 8px;height:100%;margin-top:3px;margin-right:3px;" >  
+                                    <center><div class="slds-text-heading_small slds-border_bottom "><b></b></div></center>
+                                    <br></br>
+                                    <div class="slds-grid slds-wrap slds-border_bottom">
+                                        <div class="slds-size_5-of-7">
+                                            <div class="slds-m-around_x-small slds-text-align_left">
+                                                User Name &nbsp;&nbsp;<lightning:helptext content="Name of User" iconName="utility:info"  />
+                                            </div>
+                                        </div>
+                                        <div class="slds-size_2-of-7">
+                                            <div class="slds-text-align_center slds-m-around_x-small">
+                                                <ui:inputText class="slds-text-align_center" value="{!v.UserName__c}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-grid slds-wrap slds-border_bottom">
+                                        <div class="slds-size_5-of-7">
+                                            <div class="slds-m-around_x-small slds-text-align_left">
+                                                User Qlook ID &nbsp;&nbsp;<lightning:helptext content="Qlook ID of User" iconName="utility:info" />
+                                            </div>
+                                        </div>
+                                        <div class="slds-size_2-of-7">
+                                            <div class="slds-text-align_center slds-m-around_x-small">
+                                                <ui:inputText class="slds-text-align_center" value="{!v.UserQlookID__c}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-grid slds-wrap slds-border_bottom">
+                                        <div class="slds-size_5-of-7">
+                                            <div class="slds-m-around_x-small slds-text-align_left">
+                                                If Salesforce User  &nbsp;&nbsp;<lightning:helptext content="If the User has Salesforce access" iconName="utility:info" />
+                                            </div>
+                                        </div>
+                                        <div class="slds-size_2-of-7">
+                                            <div class="slds-text-align_center slds-m-around_x-small">
+                                                <center> 
+                                                    <ui:inputCheckbox class="slds-text-align_center" aura:id="createifsfdcuser" value="{!v.IfSFDCUser__c}" />
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-grid slds-wrap slds-border_bottom">
+                                        <div class="slds-size_5-of-7">
+                                            <div class="slds-m-around_x-small slds-text-align_left">
+                                                If Active User &nbsp;&nbsp;<lightning:helptext content="If User is Active Tableau User" iconName="utility:info" />
+                                            </div>
+                                        </div>
+                                        <div class="slds-size_2-of-7">
+                                            <div class="slds-text-align_center slds-m-around_x-small">
+                                                <center> 
+                                                    <ui:inputCheckbox class="slds-text-align_center" aura:id="createifactive" value="{!v.IsActive__c}" />
+                                                </center> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-grid slds-wrap slds-border_bottom">
+                                        <div class="slds-size_5-of-7">
+                                            <div class="slds-m-around_x-small slds-text-align_left">
+                                                Interactor / Publisher &nbsp;&nbsp;<lightning:helptext content="If the user is only Interactor OR Publisher access on Tableau Workbooks" iconName="utility:info" />
+                                            </div>
+                                        </div>
+                                        <div class="slds-size_2-of-7">
+                                            <div class="slds-text-align_center slds-m-around_x-small">
+                                                <ui:inputText class="slds-text-align_center" value="{!v.InteractorPublisher__c}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-grid slds-wrap slds-border_bottom">
+                                        <div class="slds-size_5-of-7">
+                                            <div class="slds-m-around_x-small slds-text-align_left">
+                                                Access based on ownership  &nbsp;&nbsp;<lightning:helptext content="If this User should have access to all opportunities, owned by him/her" iconName="utility:info" />
+                                            </div>
+                                        </div>
+                                        <div class="slds-size_2-of-7">
+                                            <div class="slds-text-align_center slds-m-around_x-small">
+                                                <center>  
+                                                    <ui:inputCheckbox disabled="true" class="slds-text-align_center" aura:id="createowneraccess" value="{!v.OwnershipAccess__c}" />
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-grid slds-wrap slds-border_bottom">
+                                        <div class="slds-size_5-of-7">
+                                            <div class="slds-m-around_x-small slds-text-align_left">
+                                                Access based on role hiererchy &nbsp;&nbsp;<lightning:helptext content="If this User should have access based on Role Level Hiererchy in Salesforce" iconName="utility:info" />
+                                            </div>
+                                        </div>
+                                        <div class="slds-size_2-of-7">
+                                            <div class="slds-text-align_center slds-m-around_x-small">
+                                                <center>
+                                                    <ui:inputCheckbox class="slds-text-align_center" aura:id="createrolelevelaccess"  value="{!v.RoleLevelAccess__c}"/>
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-grid slds-wrap slds-border_bottom">
+                                        <div class="slds-size_5-of-7">
+                                            <div class="slds-m-around_x-small slds-text-align_left">
+                                                Access based on sales org hiererchy &nbsp;&nbsp;<lightning:helptext content="If this User should have access based on Sales Org Hiererchy in Salesforce" iconName="utility:info" />
+                                            </div>
+                                        </div>
+                                        <div class="slds-size_2-of-7">
+                                            <div class="slds-text-align_center slds-m-around_x-small">
+                                                <center>
+                                                    <ui:inputCheckbox class="slds-text-align_center" disabled="{!v.RoleLevelAccess__c}" aura:id="createsalesorgaccess" value="{!v.SalesOrgAccess__c}"/>
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br></br>
+                                    <div class="slds-grid slds-wrap slds-border_bottom">
+                                        <div class="slds-size_9-of-12">
+                                            <div class="slds-m-around_x-small slds-text-align_left">
+                                                <aura:iteration var="num" items="{!v.rolesassignedcreate}">
+                                                    <span class="slds-pill" style="background-color:rgb(243, 212, 144);">
+                                                        <span class="slds-avatar slds-avatar_x-small slds-pill__icon_container">
+                                                            <img src="/assets/images/avatar2.jpg" title="User avatar" style="Display:None;" />
+                                                        </span>
+                                                        <span class="slds-pill__label" title="Full pill label verbiage mirrored here">{!num.rolename}</span>&nbsp;&nbsp;&nbsp;
+                                                        <lightning:button value="{!num.roleid}" class="slds-button slds-button_icon " onclick="{!c.removerolefromcreate}" title="remove">
+                                                            <c:svgIcon class="slds-icon slds-icon_x-small slds-icon-text-default" svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#close" />
+                                                        </lightning:button>
+                                                    </span>
+                                                </aura:iteration>
+                                            </div>
+                                        </div>
+                                        <div class="slds-size_3-of-12">
+                                            <div class="slds-text-align_center slds-m-around_x-small">
+                                                <center> 
+                                                    <lightning:button variant="brand" label="Add/Edit Roles" disabled="{!v.SalesOrgAccess__c}" onclick="{!c.updaterolescreate}" />
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <br></br>
+                                <center>
+                                    <lightning:button class="success12" variant="success" label="Submit" onclick="{!c.validatecreaterecord}" />
+                                </center>
+                            </div>
+                        </aura:if>
+                        <aura:if isTrue="{!v.updatesection}">
+                            <div class="slds-box slds-theme_default slds-scrollable_y" style="border-style: solid;border-color: #59e174;border-width: thin;padding-right: 8px;padding-bottom: 8px;padding-left: 8px;padding-top: 8px;margin-top:3px;margin-right:3px;" >  
+                                <center><div class="slds-text-heading_small"><b>Update record </b></div></center>
+                                <div class="slds-box slds-theme_default slds-scrollable_y" style="border-style: solid;border-color: #59e174;border-width: thin;padding-right: 8px;padding-bottom: 8px;padding-left: 8px;padding-top: 8px;height:100%;margin-top:3px;margin-right:3px;" >  
+                                    <center><div class="slds-text-heading_small slds-border_bottom "><b></b></div></center>
+                                    <br></br>
+                                    <div class="slds-grid slds-wrap slds-border_bottom">
+                                        <div class="slds-size_5-of-7">
+                                            <div class="slds-m-around_x-small slds-text-align_left">
+                                                User Name &nbsp;&nbsp;<lightning:helptext content="Name of User" iconName="utility:info"  />
+                                            </div>
+                                        </div>
+                                        <div class="slds-size_2-of-7">
+                                            <div class="slds-text-align_center slds-m-around_x-small">
+                                                <center> 
+                                                    <ui:inputText class="slds-text-align_center" value="{!v.tableauuserobjectupdate.UserName__c}" />
+                                                </center> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-grid slds-wrap slds-border_bottom">
+                                        <div class="slds-size_5-of-7">
+                                            <div class="slds-m-around_x-small slds-text-align_left">
+                                                User Qlook ID &nbsp;&nbsp;<lightning:helptext content="Qlook ID of User" iconName="utility:info" />
+                                            </div>
+                                        </div>
+                                        <div class="slds-size_2-of-7">
+                                            <div class="slds-text-align_center slds-m-around_x-small">
+                                                <center> 
+                                                    <ui:inputText class="slds-text-align_center" value="{!v.tableauuserobjectupdate.UserQlookID__c}" />
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-grid slds-wrap slds-border_bottom">
+                                        <div class="slds-size_5-of-7">
+                                            <div class="slds-m-around_x-small slds-text-align_left">
+                                                If Salesforce User  &nbsp;&nbsp;<lightning:helptext content="If the User has Salesforce access" iconName="utility:info" />
+                                            </div>
+                                        </div>
+                                        <div class="slds-size_2-of-7">
+                                            <div class="slds-text-align_center slds-m-around_x-small">
+                                                <center> 
+                                                    <ui:inputCheckbox class="slds-text-align_center" aura:id="updateifsfdcuser" value="{!v.tableauuserobjectupdate.IfSFDCUser__c}" />
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-grid slds-wrap slds-border_bottom">
+                                        <div class="slds-size_5-of-7">
+                                            <div class="slds-m-around_x-small slds-text-align_left">
+                                                If Active User &nbsp;&nbsp;<lightning:helptext content="If User is Active Tableau User" iconName="utility:info" />
+                                            </div>
+                                        </div>
+                                        <div class="slds-size_2-of-7">
+                                            <div class="slds-text-align_center slds-m-around_x-small">
+                                                <center> 
+                                                    <ui:inputCheckbox class="slds-text-align_center" aura:id="updateifactive" value="{!v.tableauuserobjectupdate.IsActive__c}" />
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-grid slds-wrap slds-border_bottom">
+                                        <div class="slds-size_5-of-7">
+                                            <div class="slds-m-around_x-small slds-text-align_left">
+                                                Interactor / Publisher &nbsp;&nbsp;<lightning:helptext content="If the user is only Interactor OR Publisher access on Tableau Workbooks" iconName="utility:info" />
+                                            </div>
+                                        </div>
+                                        <div class="slds-size_2-of-7">
+                                            <div class="slds-text-align_center slds-m-around_x-small">
+                                                <center> 
+                                                    <ui:inputText class="slds-text-align_center" value="{!v.tableauuserobjectupdate.InteractorPublisher__c}" />
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-grid slds-wrap slds-border_bottom">
+                                        <div class="slds-size_5-of-7">
+                                            <div class="slds-m-around_x-small slds-text-align_left">
+                                                Access based on ownership  &nbsp;&nbsp;<lightning:helptext content="If this User should have access to all opportunities, owned by him/her" iconName="utility:info" />
+                                            </div>
+                                        </div>
+                                        <div class="slds-size_2-of-7">
+                                            <div class="slds-text-align_center slds-m-around_x-small">
+                                                <center> 
+                                                    <ui:inputCheckbox class="slds-text-align_center" disabled="true" aura:id="updateowneraccess" value="{!v.tableauuserobjectupdate.OwnershipAccess__c}" />
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-grid slds-wrap slds-border_bottom">
+                                        <div class="slds-size_5-of-7">
+                                            <div class="slds-m-around_x-small slds-text-align_left">
+                                                Access based on role hiererchy &nbsp;&nbsp;<lightning:helptext content="If this User should have access based on Role Level Hiererchy in Salesforce" iconName="utility:info" />
+                                            </div>
+                                        </div>
+                                        <div class="slds-size_2-of-7">
+                                            <div class="slds-text-align_center slds-m-around_x-small">
+                                                <center> 
+                                                    <ui:inputCheckbox class="slds-text-align_center" aura:id="updaterolelevelaccess" disabled="{!v.tableauuserobjectupdate.SalesOrgAccess__c}" value="{!v.tableauuserobjectupdate.RoleLevelAccess__c}"/>
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-grid slds-wrap slds-border_bottom">
+                                        <div class="slds-size_5-of-7">
+                                            <div class="slds-m-around_x-small slds-text-align_left">
+                                                Access based on sales org hiererchy &nbsp;&nbsp;<lightning:helptext content="If this User should have access based on Sales Org Hiererchy in Salesforce" iconName="utility:info" />
+                                            </div>
+                                        </div>
+                                        <div class="slds-size_2-of-7">
+                                            <div class="slds-text-align_center slds-m-around_x-small">
+                                                <center> 
+                                                    <ui:inputCheckbox class="slds-text-align_center" aura:id="updatesalesorgaccess" disabled="{!v.tableauuserobjectupdate.RoleLevelAccess__c}" value="{!v.tableauuserobjectupdate.SalesOrgAccess__c}"/>
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br></br>
+                                    <div class="slds-grid slds-wrap slds-border_bottom">
+                                        <div class="slds-size_9-of-12">
+                                            <div class="slds-m-around_x-small slds-text-align_left">
+                                                <aura:iteration var="num" items="{!v.rolesassigned}">
+                                                    <span class="slds-pill" style="background-color:rgb(243, 212, 144);" >
+                                                        <span class="slds-avatar slds-avatar_x-small slds-pill__icon_container">
+                                                            <img src="/assets/images/avatar2.jpg" title="User avatar" style="Display:None;" />
+                                                        </span>
+                                                        <span class="slds-pill__label" title="Full pill label verbiage mirrored here">{!num.rolename}</span>&nbsp;&nbsp;&nbsp;
+                                                        <lightning:button value="{!num.roleid}"  class="slds-button slds-button_icon " onclick="{!c.removerolestringupdate}" title="remove">
+                                                            <c:svgIcon class="slds-icon slds-icon_x-small slds-icon-text-default" svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#close" />
+                                                        </lightning:button>
+                                                    </span>
+                                                </aura:iteration>
+                                            </div>
+                                        </div>
+                                        <div class="slds-size_3-of-12">
+                                            <div class="slds-text-align_center slds-m-around_x-small">
+                                                <center> 
+                                                    <lightning:button variant="brand" label="Add/Edit Roles" disabled="{!v.tableauuserobjectupdate.SalesOrgAccess__c}" onclick="{!c.updaterolesupdate}" />
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br></br>
+                                <center>
+                                    <lightning:button class="success12" variant="success" label="Submit" onclick="{!c.validateupdaterecord }" />
+                                </center>
+                            </div>
+                        </aura:if>
+                    </aura:if>
+                </div>
+                
+                <!-- $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ --> 
+                
+            </div>
+        </div>
+    </aura:if>
+    <div class="loadthismodal" id="searchcreaterole" style="Display:None;">
+        <section role="dialog" class="slds-modal slds-fade-in-open" >
+            <div class="slds-modal__container" stlye="border-style:solid;border-color: #e3790c;border-width: thin;margin-top:85px;height:400px;">
+                <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium slds-hyphenate" style="background-color:#f9f9f9" >Add/Edit Roles</h2>
+                    <div class="slds-box slds-theme--error" id="searchkeyrolenamecreatekey" style="Display:None">
+                        <p> 
+                            <strong>
+                                <c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#warning" category="standard" size="small" name="warning" /> 
+                            </strong> No Results, Please search again with different keyword!
+                        </p>
+                    </div>
+                    <br></br>
+                    <aura:iteration var="num" items="{!v.rolesassignedcreate}">
+                        <span class="slds-pill" style="background-color:rgb(131, 195, 233);">
+                            <span class="slds-avatar slds-avatar_x-small slds-pill__icon_container">
+                                <img src="/assets/images/avatar2.jpg" title="User avatar" style="Display:None;" />
+                            </span>
+                            <span class="slds-pill__label" title="Full pill label verbiage mirrored here">{!num.rolename}</span>&nbsp;&nbsp;&nbsp;
+                            <lightning:button value="{!num.roleid}" class="slds-button slds-button_icon " onclick="{!c.removerolefromcreate}" title="remove">
+                                <c:svgIcon class="slds-icon slds-icon_x-small slds-icon-text-default" svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#close" />
+                            </lightning:button>
+                        </span>
+                    </aura:iteration>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium"	>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-size_2-of-3">
+                            <div class=" slds-text-align_center slds-m-around_x-small">
+                                <ui:inputText aura:id="searchkeyrolenamecreatekey" value="{!v.searchkeyrolename}" class="field" /></div>
+                        </div>
+                        <div class="slds-size_1-of-3">
+                            <div class="slds-text-align_center slds-m-around_x-small">
+                                <lightning:button variant="brand" value="searchkeyrolenamecreatekey" label="Search" iconPosition="left" iconName="utility:search" onclick="{!c.searchkeyrolename}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-box slds-box_small slds-scrollable" style="max-height:250px;">
+                        <table class="slds-table slds-table_bordered slds-table_cell-buffer" >
+                            <thead>
+                                <tr class="slds-text-title_caps">
+                                    <th scope="col">
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate" title="rolename">Role Name</div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate" title="roleid">Role ID</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <aura:iteration items="{!v.userroleobject}" var="item">
+                                    <tr>
+                                        <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                            <label class="slds-checkbox">
+                                                <ui:inputCheckbox aura:id="createcheckboxrole"  disabled="{!v.disablecheckboxcreate}"  name="{!item.RoleDeveloperName__c}"  text="{!item.Id}" value="" change="{!c.checkboxSelectcreate}"/>
+                                                <span class="slds-checkbox--faux"></span>          
+                                            </label>
+                                        </td> 
+                                        <td scope="row" data-label="UserName">
+                                            <div class="slds-truncate" title="{!item.userroleobject}">{!item.RoleName__c}</div>
+                                        </td>
+                                        <td data-label="UserName">
+                                            <div class="slds-truncate" title="{!item.Id}">{!item.Id}</div>
+                                        </td>
+                                    </tr>
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                    </div>
+                </div> 
+                <footer class="slds-modal__footer">
+                    <center>
+                        <button class="slds-button slds-button_brand" onclick="{!c.hideupdaterolescreate}" >Done</button>
+                    </center>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+    <div class="loadthismodal" id="searchupdaterole" style="Display:None">
+        <section role="dialog" class="slds-modal slds-fade-in-open" >
+            <div class="slds-modal__container" stlye="border-style:solid;border-color: #e3790c;border-width: thin;margin-top:85px;height:400px;">
+                <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium slds-hyphenate" style="background-color:#f9f9f9" >Add/Edit Roles</h2>
+                    <div class="slds-box slds-theme--error" id="searchkeyrolenamecreatekey" style="Display:None">
+                        <p> 
+                            <strong>
+                                <c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#warning" category="standard" size="small" name="warning" /> 
+                            </strong> No Results, Please search again with different keyword!
+                        </p>
+                    </div>
+                    <br></br>
+                    <aura:iteration var="num" items="{!v.rolesassigned}">
+                        <span class="slds-pill" style="background-color:rgb(131, 195, 233);">
+                            <span class="slds-avatar slds-avatar_x-small slds-pill__icon_container">
+                                <img src="/assets/images/avatar2.jpg" title="User avatar" style="Display:None;" />
+                            </span>
+                            <span class="slds-pill__label" title="Full pill label verbiage mirrored here">{!num.rolename}</span>&nbsp;&nbsp;&nbsp;
+                            <lightning:button value="{!num.roleid}"  class="slds-button slds-button_icon " onclick="{!c.removerolestringupdate}" title="remove">
+                                <c:svgIcon class="slds-icon slds-icon_x-small slds-icon-text-default" svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#close" />
+                            </lightning:button>
+                        </span>
+                    </aura:iteration>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium"	>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-size_2-of-3">
+                            <div class=" slds-text-align_center slds-m-around_x-small">
+                                <ui:inputText aura:id="searchkeyrolenameupdate" value="{!v.searchkeyrolename}" class="field" /></div>
+                        </div>
+                        <div class="slds-size_1-of-3">
+                            <div class="slds-text-align_center slds-m-around_x-small">
+                                <lightning:button variant="brand" value="searchkeyrolenameupdate" label="Search" iconPosition="left" iconName="utility:search" onclick="{!c.searchkeyrolename}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-box slds-box_small slds-scrollable" style="max-height:250px;">
+                        <table class="slds-table slds-table_bordered slds-table_cell-buffer" >
+                            <thead>
+                                <tr class="slds-text-title_caps">
+                                    <th scope="col">
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate" title="rolename">Role Name</div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate" title="roleid">Role ID</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <aura:iteration items="{!v.userroleobject}" var="item">
+                                    <tr>
+                                        <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                            <label class="slds-checkbox">
+                                                <ui:inputCheckbox aura:id="MainCheckBox"  disabled="{!v.disablecheckboxupdate}"  name="{!item.RoleDeveloperName__c}"  text="{!item.Id}" value="" change="{!c.checkboxSelectupdate}"/>
+                                                <span class="slds-checkbox--faux"></span>          
+                                            </label>
+                                        </td> 
+                                        <td scope="row" data-label="UserName">
+                                            <div class="slds-truncate" title="{!item.RoleName__c}">{!item.RoleName__c}</div>
+                                        </td>
+                                        <td data-label="UserName">
+                                            <div class="slds-truncate" title="{!item.Id}">{!item.Id}</div>
+                                        </td>
+                                    </tr>
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                    </div>
+                </div> 
+                <footer class="slds-modal__footer">
+                    <center>
+                        <button class="slds-button slds-button_brand" onclick="{!c.hideupdaterolesupdate}" >Done</button>
+                    </center>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div> 
+    </div>
+    <div class="batchmoddal" id="batchmodal" style="Display:None">
+        <section role="dialog" class="slds-modal slds-fade-in-open" >
+            <div class="slds-modal__container" stlye="border-style:solid;border-color: #e3790c;border-width: thin;margin-top:85px;height:400px;">
+                <header class="slds-modal__header">
+                    
+                </header>
+                <div class="slds-modal__content slds-p-around_medium"	>
+                    <c:Tableau_Admin_Screen_batch_Status /> 
+                </div> 
+                <footer class="slds-modal__footer">
+                    <center>
+                        <button class="slds-button slds-button_brand" onclick="{!c.hidebatchmodal}" >Close</button>
+                    </center>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div> 
+    </div>
+    <!-- $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ --> 
+    
+    
+</aura:component>

@@ -1,0 +1,374 @@
+<apex:page standardController="Opportunity" extensions="OppQuickEditCtlr" showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0" cache="false">
+    <html>
+        <head> 
+            <meta charset="utf-8" />
+            <apex:slds /> 
+            
+            <style type="text/css" >
+            
+            .slds-scope input, .slds-scope optgroup, .slds-scope select, .slds-scope textarea {
+                font-size: 16px;
+                padding-top: 7px !important;
+                padding-bottom: 7px !important; 
+                line-height: 1.9rem !important;
+            }
+            
+           span.uiOutput  {
+             font-size: initial;
+             padding-left: .2rem;     
+           }
+                
+            .slds-scope ul, label, .slds-scope .slds-button,  .slds-scope input::placeholder {
+                font-size: 16px !important;    
+            }
+            
+              div.errorMsg {
+                color:red;
+              }
+              
+              .slds-input.error {
+                border-color:red;
+              }
+              
+               .message.errorM3 {
+                    border-color: black;
+                    border: 1px solid;
+                    background-color: red;
+               }
+               
+               #spinner{
+                display: none;
+                width:200px;
+                height: 50px;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                text-align:center;
+                padding:10px;
+                font:normal 16px Tahoma, Geneva, sans-serif;
+                margin-left: -100px;
+                margin-top: -100px;
+                z-index:2;
+                overflow: auto;
+                border:1px solid #CCC;
+                background-color:white;
+                z-index:100;
+                padding:5px;
+                line-height:20px;
+             }
+             #opaque {
+                 position: fixed;
+                 top: 0px;
+                 left: 0px;
+                 width: 100%;
+                 height: 100%;
+                 z-index: 1;
+                 display: none;
+                 background-color: gray;
+                 filter: alpha(opacity=30);
+                 opacity: 0.3;
+                 -moz-opacity:0.3;
+                 -khtml-opacity:0.3
+             }
+             * html #opaque {
+                 position: absolute;
+             }
+             
+                
+            </style>
+        </head> 
+        <body class="slds-scope">
+            <apex:outputPanel rendered="{!$User.UIThemeDisplayed == 'Theme4t'}" layout="block">
+                
+                <div data-role="page" id="oppdtlpage" style="margin-top:10px;margin-bottom:10px;"> 
+                        <apex:form id="oppForm"> 
+                            
+                            <apex:pagemessages id="oppErrorBlock"></apex:pagemessages>
+                            <apex:actionFunction name="saveRecord" action="{!saveOppRecord}" oncomplete="alert('record saved');"></apex:actionFunction>
+                            <div class="slds-form slds-form_stacked">
+                            
+                            <c:sf1LookupComp LabelName="Account Name" ObjectApiName="Account" DisplayFieldApiNames="Id,Name,Master_Customer_Number__c" LookupFieldValue="{!oppObj.Account.Name}" LookupFieldId="{!$Component.AccountLookup}"> </c:sf1LookupComp>
+                            <apex:inputHidden id="AccountLookup" value="{!oppObj.AccountId}" />
+                                                        
+                            <div class="slds-form-element">
+                                <label><span>Opportunity Name</span><span class="slds-required">*</span></label>
+                                <div class="slds-form-element__control"> <apex:inputText styleclass="slds-input" value="{!oppObj.Name}" required="true" /></div>
+                            </div>
+                            
+                            <c:sf1LookupComp LabelName="Primary Contact" ObjectApiName="Contact" DisplayFieldApiNames="Id,Name,Account.Name" LookupFieldValue="{!oppObj.Contacts__r.Name}" LookupFieldId="{!$Component.ContactLookup}" > </c:sf1LookupComp>
+                            <apex:inputHidden id="ContactLookup" value="{!oppObj.Contacts__c}" />
+                             
+                            <div class="slds-form-element">
+                                <label><span>Stage</span><span class="slds-required">*</span></label>
+                                <div class="slds-form-element__control">
+                                    <apex:inputField styleclass="slds-input"  value="{!oppObj.StageName}" required="true" />
+                                </div>
+                            </div>
+                            
+                            <div class="slds-form-element">
+                                <label><span>Expectecd Book Date</span><span class="slds-required">*</span></label>
+                                <div class="slds-form-element__control">
+                                    <apex:input type="date" styleClass="slds-input" value="{!expBookDate}" required="true" />
+                                </div>
+                            </div>
+                            
+                            <div class="slds-form-element">
+                                <label>Expected Delivery Start Date</label>
+                                <div class="slds-form-element__control">
+                                    <span class="slds-form-element__static"><span class="uiOutput">{!expDeliveryDate}</span></span>
+                                </div>
+                            </div>
+                            
+                            <div class="slds-form-element">
+                                <label><span>Forecast Category</span><span class="slds-required">*</span></label>
+                                <div class="slds-form-element__control">
+                                    <apex:inputField styleclass="slds-input" value="{!oppObj.Forecast_Category__c}" required="true"/>
+                                </div>
+                            </div>
+                            
+                            <div class="slds-form-element">
+                                <label>Amount</label>
+                                <div class="slds-form-element__control">
+                                    <apex:inputField styleclass="slds-input" value="{!oppObj.Amount}" />
+                                </div>
+                            </div>
+                            
+                            <div class="slds-form-element">
+                                <label>Type</label>
+                                <div class="slds-form-element__control">
+                                    <apex:inputField styleclass="slds-input" value="{!oppObj.Type}" />
+                                </div>
+                            </div>
+                            
+                            
+                            
+                            <div class="slds-form-element">
+                                <label>Industry</label>
+                                <div class="slds-form-element__control">
+                                    <apex:inputField styleclass="slds-input" value="{!oppObj.Industry__c}" />
+                                </div>
+                            </div>
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">Sales Program</label>
+                                <div class="slds-form-element__control">
+                                    <apex:inputField styleclass="slds-input" value="{!oppObj.Marketing_Program__c}" />
+                                </div>
+                            </div>  
+                            
+                            <!-- div>
+                                <div class="slds-text-align--center" style="margin-top:10px;">
+                                   
+                                    <apex:commandButton value="Submit" action="{!saveOppRecord}" onclick="showSpinner();" styleClass="slds-button slds-button--brand slds-size_1-of-2" oncomplete="oppRedirect('{!$Component.oppErrorBlock}');" reRender="oppForm"/>
+                                </div> 
+                            </div --> 
+                                </div>
+                               <apex:actionFunction name="saveRecord" action="{!saveOppRecord}"  oncomplete="oppRedirect('{!$Component.oppErrorBlock}');" reRender="oppForm" /> 
+                        </apex:form>
+                        
+                         
+                     <!-- outer div end -->
+                </div>
+                
+                 <div id="opaque"/>
+                 <div id="spinner">
+                    <p align="center" style='{font-family:"Arial", Helvetica, sans-serif; font-size:20px;}'><apex:image value="/img/loading.gif"/>&nbsp;Saving...</p>
+                 </div>
+                
+                
+                
+                
+                
+                <!-- apex:includeScript value="{!URLFOR($Resource.jqueryResource, 'jquery-1.9.1.min.js')}" / -->
+                <apex:includeScript value="/canvas/sdk/js/publisher.js" />
+                <script>
+                var doneTypingInterval = 500;
+                var typingTimer;
+                var globalCounter = 0;
+                
+                 function docLoadfunc() {
+                       Sfdc.canvas.publisher.publish({
+                    name: "publisher.setValidForSubmit", 
+                    payload:"true"});
+                    
+                    Sfdc.canvas.publisher.subscribe(
+                     { name : "publisher.post", onData:function(e) { saveAndRedirect(); 
+                     } });
+                 }
+                 function saveAndRedirect() {
+                     showSpinner();
+                     saveRecord();
+                 }
+               
+                function removeRecord(componentId) {
+                    
+                    var selector = '#' + componentId;    
+                    var cmbtxtInput = document.querySelector(selector + "combobox-text-input"); 
+                    var hiddenIdField = document.querySelector(selector + "hiddensObjectId"); 
+                    var cbox_container = document.querySelector(selector + "cbox_container");
+                    var cbox_child_container = document.querySelector(selector + "cbox_child_container");
+                    var objecticon = document.querySelector(selector + "objecticon");
+                    var closeicon =  document.querySelector(selector + "closeicon");
+                    var searchicon = document.querySelector(selector + "searchicon");
+                    
+                    cmbtxtInput.value = '';
+                    cmbtxtInput.removeAttribute("readonly");
+                    document.getElementById(hiddenIdField.value).value = '';
+                    cbox_container.classList.remove("slds-has-inline-listbox");
+                    cbox_child_container.classList.remove("slds-input-has-icon_left-right");
+                    cbox_child_container.classList.add("slds-input-has-icon_right");
+                    objecticon.style.display = 'none';
+                    closeicon.style.display = 'none';
+                    searchicon.style.display = 'block';
+                }
+                
+                function keyPressedOnLookup(componentId, lkname, objectName, fieldNames, searchRecordsMethod) {
+                    console.log(document.querySelector('#'+ lkname).value);  
+                    var requestCounter = ++globalCounter;
+                    clearTimeout(typingTimer);
+                    typingTimer = setTimeout(startSearch(requestCounter, componentId, lkname, objectName, fieldNames, searchRecordsMethod), doneTypingInterval);    
+                } 
+                
+                function startSearch(requestCounter, componentId, lkname, objectName, fieldNames, searchRecordsMethod) {
+                     var searchStr = document.querySelector('#'+ lkname).value;  
+                     Visualforce.remoting.Manager.invokeAction (
+                        searchRecordsMethod, searchStr, objectName, fieldNames,
+                        function(result, event) {
+                            if (event.status) {
+                                if(requestCounter < globalCounter) {
+                                } else {
+                                    loadResults(componentId, result, objectName, fieldNames); 
+                                }
+                            } else if (event.type === 'exception') {
+                                alert('Error:' + event.message);    
+                            } else {
+                                alert('Error:' + event.message);      
+                            }
+                        }, 
+                        {escape: false});        
+                }
+                
+                function loadResults(componentId, result,  objectName, fieldNames) {
+                    var selector = '#' + componentId;
+                    var lstbox = document.querySelector(selector + "listbox"); 
+                    lstbox.style.display = 'block'; 
+                    
+                    var recordLst = document.querySelector(selector + "record-list");
+                    recordLst.innerHTML = '';
+                    
+                    for(var i = 0; i < result.length ; i++) {
+                        var record = result[i];
+                        recordLst.appendChild(createRecordLi(componentId,record, objectName, fieldNames));
+                    } 
+                }
+                
+                function createRecordLi(componentId, record, objectName, fieldNames) {
+                    var li = document.createElement("li");
+                    li.setAttribute("class", "slds-listbox__item");
+                    li.setAttribute("role", "presentation");
+                    li.setAttribute("onclick", "listItemClick('" + componentId  + "','" + record.Id + "','" + record.Name + "');");
+                    var sldsurl = "{!URLFOR($Asset.SLDS)}";
+                    
+                    var subfield = fieldNames.split(',')[2]; 
+                    var subvalue='';
+                    if(subfield != 'undefined' && subfield != null) {
+                        if(subfield.indexOf(".") != -1) {
+                            subfield = subfield.split(".");
+                            subvalue = record[subfield[0]][subfield[1]];
+                        } else { subvalue = record[subfield];}
+                    }
+                    
+                    var innerContent = '<div class="slds-media slds-media_center slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" role="option">' 
+                    + '<span class="slds-media__figure">'
+                    + '<span class="slds-icon_container slds-icon-standard-' + objectName.toLowerCase() + '">'   
+                    + '<img src="' +  sldsurl + '//assets//icons//standard//' + objectName.toLowerCase() + '_60.png' + '" class="slds-icon slds-icon_small" />'
+                    + '</span></span>'   
+                    + '<span class="slds-media__body">'      
+                    + '<span class="slds-listbox__option-text slds-listbox__option-text_entity">' + record.Name +  '</span>'
+                    + '<span class="slds-listbox__option-meta slds-listbox__option-meta_entity">' +  ((subvalue != 'undefined' && subvalue != null) ?  subvalue : '')  + '</span>'
+                    + '</span> </div>';
+                    li.innerHTML = innerContent; 
+                    return li;          
+                }
+                
+                function listItemClick(componentId, recordId, recordName) {
+                    var selector = '#' + componentId;    
+                    var cmbtxtInput = document.querySelector(selector + "combobox-text-input"); 
+                    var hiddenIdField = document.querySelector(selector + "hiddensObjectId"); 
+                    var cbox_container = document.querySelector(selector + "cbox_container");
+                    var cbox_child_container = document.querySelector(selector + "cbox_child_container");
+                    var objecticon = document.querySelector(selector + "objecticon");
+                    var closeicon =  document.querySelector(selector + "closeicon");
+                    var searchicon = document.querySelector(selector + "searchicon");
+                    
+                    cmbtxtInput.value = recordName;
+                    cmbtxtInput.setAttribute("readonly","readonly");
+                    document.getElementById(hiddenIdField.value).value = recordId;
+                    cbox_container.classList.add("slds-has-inline-listbox");
+                    cbox_child_container.classList.add("slds-input-has-icon_left-right");
+                    cbox_child_container.classList.remove("slds-input-has-icon_right");
+                    objecticon.style.display = 'block';
+                    closeicon.style.display = 'block';
+                    searchicon.style.display = 'none';
+                    
+                    var lstbox = document.querySelector(selector + "listbox"); 
+                    lstbox.style.display = 'none'; 
+                }  
+                
+                
+                 /** redirect to opp detail page after save complete **/
+                 function oppRedirect(oppErrorBlock) {
+                      hideSpinner();
+                      var errormsg = '';
+                      errormsg = document.getElementById(oppErrorBlock).innerText;
+                     
+                      if((errormsg == null) || (errormsg.trim() == '')) {
+                          sforce.one.navigateToSObject('{!Opportunity.ID}');
+                          Sfdc.canvas.publisher.publish({name: "publisher.close", payload:{refresh:"true"}});
+                      }   
+                     
+                 }
+                 
+                 function showSpinner()
+                {
+                   document.querySelector('#opaque').style.display='block';
+                   var popUp = document.querySelector('#spinner');
+                   popUp.style.display = 'block';
+                } 
+                
+                 function hideSpinner()
+                {
+                   document.querySelector('#opaque').style.display='none';
+                   var popUp = document.querySelector('#spinner');
+                   popUp.style.display = 'none';
+                } 
+                
+                  var oldfunc = window.onload;
+                 if (typeof window.onload != 'function') {
+                    window.onload = docLoadfunc();  
+                 } else {
+                    window.onload = function() {
+                      docLoadfunc();
+                      if (oldfunc) {
+                        oldfunc();
+                      }
+                    }
+                 }
+                
+                </script>  
+            </apex:outputPanel>
+            <apex:outputPanel layout="block" rendered="{!$User.UIThemeDisplayed != 'Theme4t'}" > 
+                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info slds-is-absolute" style="top:40%" role="alert">
+                    <span class="slds-icon_container slds-icon-utility-ban slds-m-right_x-small" title="Description of icon when needed">
+                        <apex:image styleClass="slds-icon slds-icon_small" value="{!URLFOR($Asset.SLDS, '/assets/icons/utility/warning_60.png')}" />
+                    </span>
+                    <h2 class="slds-text-heading_small">Quick Edit is only available for Salesforce1 Mobile app.</h2>
+                    
+                </div>    
+                
+            </apex:outputPanel>
+            <script>
+            </script>
+        </body>
+    </html>
+</apex:page>

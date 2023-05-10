@@ -1,0 +1,126 @@
+<aura:component controller="TableContainerClass" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,forceCommunity:availableForAllPageTypes" access="global" >
+	
+    <aura:attribute name="HeaderValue" type="Map"/> 
+    <aura:attribute name="type" type="String[]"/>
+    <aura:attribute name="OppId" type="String"/>
+    <aura:attribute name="IPTPartnerCommunityUrl" type="String"/>
+    <aura:attribute name="isCommunityUser" type="Boolean" default="false"/>	
+    <aura:attribute name="popUpclass" type="String" default="pop-up"></aura:attribute>
+    <aura:attribute type="String" name="CursorCustom" default="CursorCustom"></aura:attribute>
+    <aura:attribute type="Boolean" name="disabledWithZero_Bundle" default="false"></aura:attribute>
+    <aura:attribute type="String" name="ToggleDelMsg" default="No Bundle Created please Create Bundle"></aura:attribute>
+    <aura:attribute type="String" name="ToggleBundelCreateMsg" default="No Bundle Created please Create Bundle"></aura:attribute>
+    <aura:registerEvent name="RightComponentEvent" type="c:RightComponentEvent"/>
+    <aura:registerEvent name="appEvent" type="c:ceEvent"/>
+    <aura:registerEvent name="InsertScheduleEvent" type="c:InsertScheduleEvent"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+   <aura:attribute name="isCatm"  type="boolean"/> 
+    <aura:handler event="c:CustomAccordianRefreshEvent" action="{!c.RefreshCustomAccordian}"/>
+    <aura:handler event="c:RefreshFavBundle" action="{!c.doInit}"/>
+    <aura:attribute name="NewBundleName" type="String" ></aura:attribute> 
+    <aura:attribute name="toogleBundleCreate" type="Boolean" default="false"></aura:attribute>
+    <aura:attribute name="TriggerScreenName" type="String" default=""></aura:attribute>
+    <div class="Container"> 
+     <article class="slds-card">
+         
+       <aura:if isTrue="{!v.toogleBundleCreate}">
+
+        <div class="{!'slds-popover '+v.popUpclass}" id="NewBundle">
+			
+          <button class="slds-button slds-button_icon slds-button_icon-small slds-float_right slds-popover__close slds-button_icon" title="Close dialog" onclick="{!c.Toggle_Bundle_Create}">
+              <lightning:icon size="x-small" iconName="utility:close" alternativeText="Utility image" />
+            <span class="slds-assistive-text">Save</span>
+          </button>
+         
+           <button class="slds-button slds-button_icon slds-button_icon-small slds-float_right slds-popover__close slds-button_icon" title="Save" onclick="{!c.creatBundle}">
+              <lightning:icon size="x-small" iconName="utility:save" alternativeText="Utility image" />
+            <span class="slds-assistive-text">Close dialog</span>
+          </button>      
+              
+         		<div class="slds-popover__body">
+                    <div class="slds-form-element"> 
+                    
+                       
+                      <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left-right slds-input-has-icon_group-right">
+                        
+                         <lightning:input label="Enter Bundle Name" placeholder="type here..." name="input6" required="true" maxlength="50" value="{!v.NewBundleName}"/>
+                      
+                      </div>
+
+                    </div>
+                </div>
+            
+         </div> 
+        </aura:if>  
+	   <div class="slds-card__header slds-grid">
+                  <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                     <!--<div class="slds-media__figure slds-m-left_xxx-small">
+                        <span class="slds-icon_container slds-icon-utility-account" title="account">
+                           
+                           <lightning:icon iconName="utility:builder" size="small" alternativeText="Bundles"/>
+                           <span class="slds-assistive-text">bundle</span>
+                        </span>
+                     </div>-->
+                     <div class="slds-media__body">
+                        <span class="slds-badge">Bundles</span>
+                     </div>
+                      
+                     <div class="slds-no-flex slds-global-header__item">
+                         
+                     <div class="slds-global-header__item" style="margin-right: -45px">
+                       <ul class="slds-global-actions slds-float_right slds-m-right_xxx-small" >
+                          	  
+                          <li class="slds-global-actions__item">
+                             <div class="slds-dropdown-trigger slds-dropdown-trigger_click tooltip">
+                                  <span class="tooltiptext">Create New Bundle</span>
+                                 <button class="slds-button slds-button_icon slds-button_icon slds-button_icon-container slds-button_icon-medium slds-global-actions__setup slds-global-actions__item-action" aria-haspopup="true" onclick="{!c.Toggle_Bundle_Create}">                                    
+                                    
+                                    <lightning:icon iconName="utility:overflow" size="small" alternativeText="Bundles"/>
+                                    
+                                   <span class="slds-assistive-text">Setup</span>
+                                </button>
+                             </div>
+                          </li>
+                           
+                           <li class="slds-global-actions__item">
+                             <div class="slds-dropdown-trigger slds-dropdown-trigger_click tooltip">
+                                 <span class="tooltiptext">{!v.ToggleBundelCreateMsg}</span>
+                                <button disabled="{!v.disabledWithZero_Bundle}" class="{!'slds-button slds-button_icon slds-button_icon slds-button_icon-container slds-button_icon-medium slds-global-actions__notifications slds-global-actions__item-action '+v.CursorCustom}"  aria-live="assertive" aria-atomic="true" onclick="{!c.AddBundel_to_ItemtoSchedule}">
+                                    <lightning:icon iconName="utility:new" size="small" alternativeText="Bundles"/>
+                                   
+                                   <span class="slds-assistive-text">no new notifications</span>
+                                </button>
+                                <span aria-hidden="true" class="slds-notification-badge">0</span>
+                             </div>
+                          </li> 
+                           
+                           
+                          <li class="slds-global-actions__item ">
+                             <div class="slds-dropdown-trigger slds-dropdown-trigger_click tooltip">
+                                 <span class="tooltiptext">{!v.ToggleDelMsg}</span>
+                                <button disabled="{!v.disabledWithZero_Bundle}" class="{!'slds-button slds-button_icon slds-button_icon slds-button_icon-container slds-button_icon-medium slds-global-actions__notifications slds-global-actions__item-action '+v.CursorCustom}"  aria-live="assertive" aria-atomic="true" onclick="{!c.Delete_Bundel_Selected}">
+                    
+                                    <lightning:icon iconName="utility:delete" size="small" alternativeText="Bundles"/>
+                                   
+                                   <span class="slds-assistive-text">no new notifications</span>
+                                </button>
+                                <span aria-hidden="true" class="slds-notification-badge">0</span>
+                             </div>
+                          </li> 
+                          
+                       </ul>
+                     </div> 
+                     
+                     </div>
+                  </header>
+               </div>
+            </article> 
+            <div class="slds-form slds-section" role="list" onresize="{!c.myFunction}">
+               <!--Accordian-->
+              <aura:iteration items="{!v.HeaderValue}" var="value">
+                <c:AccordianHeader isCommunityUser="{!v.isCommunityUser}" IPTPartnerCommunityUrl="{!v.IPTPartnerCommunityUrl}"  BundleId="{!value.Id}" IsBundleSelected="{!value.IsSelected}" BundleName="{!value.Name}" TableBody="{!value.ProductList}" IsFav = "{!value.isFav}" isCatm="{!v.isCatm}"></c:AccordianHeader>&nbsp;
+              </aura:iteration>  
+              <!--End-->   
+            </div>
+    </div>
+</aura:component>

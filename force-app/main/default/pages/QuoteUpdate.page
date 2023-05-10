@@ -1,0 +1,17 @@
+<apex:page standardController="zqu__Quote__c" extensions="QuoteUpdateController" action="{!initAction}">
+    <apex:pageMessages />
+    <apex:outputPanel rendered="{!NOT(hasError)}">
+        Before Update:<br/>
+        Subscription ID: {!beforeSubscriptionID}<br/>
+        Subscription Version: {!beforeVersion}<br/>
+        <br/><br/>
+        After Update:<br/>
+        Subscription ID: {!afterSubscriptionID}<br/>
+        Subscription Version: {!afterVersion}<br/>
+    </apex:outputPanel>
+    <apex:form >
+        <apex:commandLink action="{!goBack}">Go Back</apex:commandLink>
+    </apex:form>
+
+
+</apex:page>

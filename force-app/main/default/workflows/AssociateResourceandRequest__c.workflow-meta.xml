@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Email_ID_1</fullName>
+        <field>Query_User1__c</field>
+        <formula>Email_ID__c</formula>
+        <name>Email ID (1)</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Presales_Funding_Request__c</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Email_ID_2</fullName>
+        <field>Query_User2__c</field>
+        <formula>CC_1__c</formula>
+        <name>Email ID (2)</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Presales_Funding_Request__c</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Email_ID_3</fullName>
+        <field>Query_User3__c</field>
+        <formula>CC_2__c</formula>
+        <name>Email ID (3)</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Presales_Funding_Request__c</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Fund_Request_on_Hold</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>On Hold</literalValue>
+        <name>Fund Request on Hold</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Presales_Funding_Request__c</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Raise_Objection_Comments</fullName>
+        <field>Raise_Objection_Comments__c</field>
+        <formula>Additional_Commnets__c</formula>
+        <name>Raise_Objection_Comments</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Presales_Funding_Request__c</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Raise_Objection_Status</fullName>
+        <field>Raised_Objection_Status__c</field>
+        <formula>Raised_Objection_Status__c</formula>
+        <name>Raise Objection Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Presales_Funding_Request__c</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_TriggerController_False</fullName>
+        <field>TriggerController__c</field>
+        <literalValue>0</literalValue>
+        <name>Update TriggerController False</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Presales_Funding_Request__c</targetObject>
+    </fieldUpdates>
+    <rules>
+        <fullName>Field Updates</fullName>
+        <actions>
+            <name>Email_ID_1</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Email_ID_2</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Email_ID_3</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Fund_Request_on_Hold</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Raise_Objection_Comments</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Raise_Objection_Status</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_TriggerController_False</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
+        <criteriaItems>
+            <field>AssociateResourceandRequest__c.Raise_Query__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>AssociateResourceandRequest__c.Raise_to_Opportunity_Owner__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>AssociateResourceandRequest__c.Raise_to_Other__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>AssociateResourceandRequest__c.Raise_to_PS_Team__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>This workflow will update fields and trigger notifications</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

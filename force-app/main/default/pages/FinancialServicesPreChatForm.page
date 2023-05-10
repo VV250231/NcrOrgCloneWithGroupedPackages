@@ -1,0 +1,142 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0">
+
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+</head>
+
+<body>
+    <!-- This script takes the endpoint URL parameter passed from the deployment page and makes it the action for the form -->
+    <script type='text/javascript'>
+    (function() {
+    function handlePageLoad() {
+    var endpointMatcher = new RegExp("[\\?\\&]endpoint=([^&#]*)");
+    document.getElementById('prechatForm').setAttribute('action',
+    decodeURIComponent(endpointMatcher.exec(document.location.search)[1]));
+    } if (window.addEventListener) {
+    window.addEventListener('load', handlePageLoad, false);
+    } else { window.attachEvent('onload', handlePageLoad, false);
+    }})();
+    
+    
+    </script>
+    
+  
+
+    <!-- Form that gathers information from the chat visitor and sets the values to Live Agent Custom Details used later in the example -->
+    <div style="padding: 15px 15px 15px;">
+    <form method='post' id='prechatForm'>
+    <!--<img src="https://www.ncr.com/sites/all/themes/custom/ncr/assets/dist/logo_116x116.jpg" alt="NCR Corporation" style="heith:80px; width:80px;" class=" img-responsive img-thumbnail"/>-->
+    
+    <!-- First Name -->
+    <div class="form-group">
+        <label for="firstName">First name </label>
+        <input type='text' class="form-control input-sm" name='liveagent.prechat:FirstName' id='firstName' />
+        <input type="hidden" name="liveagent.prechat.save:FirstName" value="First_Name__c" />
+    </div>
+    <!-- Last Name -->
+    <div class="form-group">
+        <label for="lastName">Last name <span class="glyphicon glyphicon-asterisk" style="color:red; font-size: 8px;" aria-hidden="true"></span></label>
+        <input type='text' class="form-control input-sm" name='liveagent.prechat:LastName' id='lastName' required="required" />
+        <input type="hidden" name="liveagent.prechat.save:LastName" value="Last_Name__c" />
+    </div>
+    
+    <div id ="errors" class="form-group" style="color:red; font-size: 12px;font-weight: bolder" >
+      </div>
+      
+    <!-- Email -->
+    <div class="form-group">
+    <label for="email">Email <span class="glyphicon glyphicon-asterisk" style="color:red; font-size: 8px;" aria-hidden="true"></span></label>
+     <input type="text" class="form-control input-sm" name="liveagent.prechat:Email" id='email' required="required" />
+      <input type="hidden" name="liveagent.prechat.save:Email" value="Customer_Email__c" />
+    </div >
+    <!-- phone -->
+    <div class="form-group">
+        <label for="phone">Phone <span class="glyphicon glyphicon-asterisk" style="color:red; font-size: 8px;" aria-hidden="true"></span></label>
+        <input type='text' class="form-control input-sm" name='liveagent.prechat:Phone' id='phone' required="required" />
+        <input type="hidden" name="liveagent.prechat.save:Phone" value="Phone__c" />
+    </div>
+    <!-- Company -->
+    <div class="form-group">
+         <label for="Company">Company<span class="glyphicon glyphicon-asterisk" style="color:red; font-size: 8px;" aria-hidden="true"></span></label>
+         <input type="text" class="form-control input-sm" name="liveagent.prechat:Company" id='Company' required="required" />
+         <input type="hidden" name="liveagent.prechat.save:Company" value="Company__c" />
+    </div>        
+    
+    <!--
+    <input type="hidden" name="liveagent.prechat.findorcreate.map:Lead" value="FirstName,FirstName;LastName,LastName;Email,Email;Phone,Phone" />
+    <input type="hidden" name="liveagent.prechat.findorcreate.map.doCreate:Lead" value="FirstName,true;LastName,true;Email,true;Phone,true" />-->
+    
+    <input type='hidden' name='liveagent.prechat:Campaign_ID' id='Campaign_ID' value="70170000000vFsG" />
+    <input type='hidden' name='liveagent.prechat:Industry' id='Industry' value="FINANCIAL:OTHER" />
+    
+    <input type="hidden" name="liveagent.prechat.findorcreate.map:Lead" value="LastName,LastName;FirstName,FirstName;Email,Email;Company,Company;Phone,Phone;Sys_Campaign_Id__c,Campaign_ID;Industry__c,Industry"/>
+
+    <input type="hidden" name="liveagent.prechat.findorcreate.map.doFind:Lead" value="Email,true;" />
+
+    <input type="hidden" name="liveagent.prechat.findorcreate.map.isExactMatch:Lead" value="Email,true;" />
+
+    <input type="hidden" name="liveagent.prechat.findorcreate.map.doCreate:Lead" value="Email,true;FirstName,true;LastName,true;Company,true;Phone,true;Sys_Campaign_Id__c,true;Industry__c,true;" />
+
+    <input type="hidden" name="liveagent.prechat.findorcreate.showOnCreate:Lead" value="true"/>
+    
+
+<!--
+    <input type="hidden" name="liveagent.prechat.findorcreate.map.doCreate:Lead" value="Subject,true;Status,true;Origin,true;RecordTypeId,true" />
+    
+    <input type="hidden" name="liveagent.prechat.findorcreate.showOnCreate:Lead" value="true" />-->
+    
+    <!-- Used to set the visitor's name for the agent in the Console -->
+    <input type="hidden" name="liveagent.prechat.name" id="prechat_field_name" />
+    <input type="hidden" name="liveagent.prechat.findorcreate.saveToTranscript:Lead" value="LeadId" />
+
+
+<div class="form-group">
+    <input type='submit' value='Chat Now' id='prechat_submit' class="btn btn-success" onclick="setName();return ValidateEmail()"/>
+</div>
+<!-- Set the visitor's name for the agent in the Console to first and last name provided by the customer -->
+<script type="text/javascript">
+   function setName() {
+    document.getElementById("prechat_field_name").value =  
+        document.getElementById("firstName").value + " " + document.getElementById("lastName").value;
+    };
+    
+    
+     function ValidateEmail()  
+        {  
+       var inputText =  document.getElementById('email').value;
+       
+       
+        var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;  
+        if(inputText.match(mailformat))  
+        {   
+               
+       
+        return true;  
+        }  
+        else  
+        {  
+          document.getElementById('errors').innerHTML="Please enter a valid email address";
+     
+        return false;  
+        }  
+    }  
+
+    
+</script>
+
+<style type="text/css">
+p {font-weight: bolder }
+</style>
+
+</form>
+</div>
+</body>
+</apex:page>

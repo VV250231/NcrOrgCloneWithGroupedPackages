@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <assignments>
+        <name>Assign_Legal_Entity</name>
+        <label>Assign Legal Entity</label>
+        <locationX>429</locationX>
+        <locationY>532</locationY>
+        <assignmentItems>
+            <assignToReference>legalEntityVar</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Legal_Entity.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Check_Dates</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Override_Date</name>
+        <label>Assign Override Date</label>
+        <locationX>428</locationX>
+        <locationY>954</locationY>
+        <assignmentItems>
+            <assignToReference>overrideDateVar</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ONBD</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Set_OP_Field_Assignment</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Set_OP_Field_Assignment</name>
+        <label>Set OP Field Assignment</label>
+        <locationX>660</locationX>
+        <locationY>950</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.blng__OverrideNextBillingDate__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>overrideDateVar</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.blng__LegalEntity__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>legalEntityVar</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <name>Check_Dates</name>
+        <label>Check Dates</label>
+        <locationX>420</locationX>
+        <locationY>668</locationY>
+        <defaultConnector>
+            <targetReference>Set_OP_Field_Assignment</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Override is Populated</defaultConnectorLabel>
+        <rules>
+            <name>Next_Billing_Date_does_not_equal_start_date</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.SBQQ__ChargeType__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Usage</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>isServiceDateFirstOfMonth</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.SBQQ__BillingType__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Advance</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Override_Date</targetReference>
+            </connector>
+            <label>Next Billing Date does not equal start date</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>OP_Status</name>
+        <label>OP Status</label>
+        <locationX>974</locationX>
+        <locationY>205</locationY>
+        <defaultConnectorLabel>Activated Status</defaultConnectorLabel>
+        <rules>
+            <name>Draft_Status</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.SBQQ__Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Draft</stringValue>
+                </rightValue>
+            </conditions>
+            <label>Draft Status</label>
+        </rules>
+    </decisions>
+    <description>ATG - 04- Jan - Update to only update Billng type advance (this will exclude arrears and one-time charge type)
+ATG - 04- Jan - Update ONBD Formula to calculate to last day of the start date month (previously it was setting to 1st of next month)
+ATG - 30- Nov -  Fixed to look at Legal Entity Name instead of auto-number, also active = true
+ATG - 19- Nov -  Updated formula, made only run on Create, and made before save
+SFCPQBLG-317 Set Override Next Billing Date to First of Next month is Next Billing Date is Prior to Start Date
+Set Legal Entity</description>
+    <formulas>
+        <name>isServiceDateFirstOfMonth</name>
+        <dataType>Boolean</dataType>
+        <expression>IF(
+DAY({!$Record.ServiceDate})=1,TRUE,FALSE)</expression>
+    </formulas>
+    <formulas>
+        <name>ONBD</name>
+        <dataType>Date</dataType>
+        <expression>IF(
+  MONTH( {!$Record.ServiceDate} ) = 12,
+  DATE( YEAR( {!$Record.ServiceDate}) , 12, 31 ),
+  DATE( YEAR( {!$Record.ServiceDate} ), MONTH ( {!$Record.ServiceDate} ) + 1, 1 )  -1
+)</expression>
+    </formulas>
+    <interviewLabel>BLG Order Product On Create and Update {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>BLG Order Product On Create and Update</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Legal_Entity</name>
+        <label>Get Legal Entity</label>
+        <locationX>421</locationX>
+        <locationY>350</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Legal_Entity</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>NCR Legal Entity</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>blng__Active__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>blng__LegalEntity__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Set_OP_Field</name>
+        <label>Set OP Field</label>
+        <locationX>99</locationX>
+        <locationY>905</locationY>
+        <inputAssignments>
+            <field>blng__LegalEntity__c</field>
+            <value>
+                <elementReference>legalEntityVar</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>blng__OverrideNextBillingDate__c</field>
+            <value>
+                <elementReference>overrideDateVar</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>298</locationX>
+        <locationY>11</locationY>
+        <connector>
+            <targetReference>Get_Legal_Entity</targetReference>
+        </connector>
+        <object>OrderItem</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>legalEntityVar</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>overrideDateVar</name>
+        <dataType>Date</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

@@ -1,0 +1,10 @@
+<apex:component controller="VFEmailTemplateClassNew"  access="global"> 
+    <apex:attribute name="RecId" type="String" description="Id of the TemLog" assignTo="{!RecordId}"/>
+    <apex:repeat value="{!CustName}" var="o">
+            <ul>
+                <li style='margin-bottom:-1%'>
+                    {!o}
+                </li>
+            </ul>   
+    </apex:repeat>  
+</apex:component>

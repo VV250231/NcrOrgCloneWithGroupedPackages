@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Annuity_Contract_USD__c</fullName>
+    <description>This field converts the value of Annuity_Contract__c field into USD. This field is sent to USM.</description>
+    <externalId>false</externalId>
+    <formula>IF( ISPICKVAL(CurrencyIsoCode, &quot;USD&quot;),
+(Annuity_Contract__c) ,(Annuity_Contract__c / Currency_Conversion_Rate__c))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Recurring Revenue Opp Amount(USD)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>3</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,220 @@
+<aura:component controller="LookupLiteController" implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightning:availableForFlowScreens,force:appHostable">
+
+	<!-- Attributes that can be set while component calling-->
+    <aura:attribute name="objectName" type="string" default="Contact" required="true" />
+    <aura:attribute name="fieldName" type="string" default="Name" required="true" />
+    <aura:attribute name="value" type="String" default="" description="To pre-populate a value" />
+    <aura:attribute name="iconName" type="string" default="standard:User" description="complete icon name eg. standard:account" />
+    <aura:attribute name="label" type="string" default="Please Enter Analyste Name" description="Label will be displayed above input Box" />
+    <aura:attribute name="placeholder" type="string" default="Search..." description="placeholder for input Box" />
+  
+    <!-- Internal Use Attributes -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="uniqueId" type="Integer" default="" description="Uniquely identifies loopup list" />
+    <aura:attribute name="searchString" type="string" default="" description="String to search" />
+    <aura:attribute name="selectedRecord" type="String" default="" description="selected Record Id" access="private" />
+    <aura:attribute name="recordsList" type="List" description="List of Records having data" access="private" />
+    <aura:attribute name="RecordData" type="Contact" default="{ 'sobjectType': 'Contact' }"/>
+    <aura:attribute name="RecordDataAlternetContact" type="Contact" default="{ 'sobjectType': 'Contact' }"/>
+    <aura:handler name="LookUpEvt" event="c:LookUpEvt" action="{!c.handleComponentEvent}"/>
+    <aura:attribute name="HeaderName" type="string" default="User" required="true" />
+    <aura:attribute name="selectedId" type="String" />
+    <!-- Component Markup -->
+ 	<aura:attribute name="contacts" type="Contact" default="{'sobjectType':'Contact'}"/>    
+    
+    <aura:attribute name="DisputeAnalystName"  type="String" default=""/>
+    <aura:attribute name="DisputeAnalystEmail" type="String" default="" />
+    <aura:attribute name="DisputeAnalystPhone" type="String" default="" />
+ 
+    <aura:attribute name="CustomerContactRecordId"  type="String" default=""/>
+    <aura:attribute name="CustomerContactName"  type="String" default="" />
+    <aura:attribute name="CustomerContactEmail" type="String" default=""/>
+    <aura:attribute name="CustomerContactPhone" type="String" default="" />
+
+    <aura:attribute name="AlternateContactRecordId"  type="String" default=""/> 
+    <aura:attribute name="AlternateContactName"  type="String" default="" />
+    <aura:attribute name="AlternateContactEmail" type="String" default=""/>
+    <aura:attribute name="AlternateContactPhone" type="String" default="" />
+    
+    <aura:attribute name="ContactIdS" type="list" default=""></aura:attribute>
+    <aura:attribute name="PhoneList" type="list" default=""></aura:attribute>
+    
+    <aura:attribute name="MCNForFinalScreen" type="String" default=""></aura:attribute> 
+    <aura:attribute name="CountryCodeForFinalScreen" type="String" default=""></aura:attribute> 
+ 
+    
+    <!-- Determine which actions are available -->
+   <aura:attribute name="canPause" type="Boolean" /> 
+   <aura:attribute name="canBack" type="Boolean" /> 
+   <aura:attribute name="canNext" type="Boolean" />
+   <aura:attribute name="canFinish" type="Boolean" />
+   <aura:attribute name="isModalOpen" type="boolean" default="false"/>
+   <aura:attribute name="ConfermationOfApocAndCustContact" type="string" default=""/>
+    
+   <aura:attribute name="RecordTypeId" type="string" default=""/>
+   <aura:attribute name="DisputeDetail" type="string" default=""/>
+   <aura:attribute name="DisputeReason" type="string" default=""/> 
+   <aura:attribute name="FollowUpAns" type="string" default=""/> 
+   <aura:attribute name="MasterCustomerNo" type="string" default=""/>
+   <aura:attribute name="CurrencyCode" type="string" default=""/>
+   <aura:attribute name="CountryCode" type="string" default=""/>
+   <aura:attribute name="DisputedAmount" type="string" default=""/>
+   <aura:attribute name="CaseCurrency" type="string" default=""/>
+   <aura:attribute name="FollowUpQuestion" type="string" default=""/>
+   <aura:attribute name="CommentQuestion" type="string" default=""/> 
+   <aura:attribute name="CountryName" type="string" default=""/> 
+   <aura:attribute name="TableDataJson" type="string" default=""/>  
+   <aura:attribute name="CCADDisputeNo" type="String"></aura:attribute> 
+   <aura:attribute name="ToggleSpinner" type="Boolean" default="false"></aura:attribute>
+   <aura:attribute name="ToggleCCADMsg" type="Boolean" default="false"></aura:attribute> 
+   <aura:attribute name="CCADMsg" type="String" ></aura:attribute>
+   <!-- Dispute ROR System Switch attribute -->
+   <aura:attribute name="DisputeRORSys" type="String" />
+    
+    <aura:if isTrue="{!v.ToggleSpinner}">
+        <div class="exampleHolder">
+            <lightning:spinner alternativeText="Loading" size="medium" />
+        </div>
+    </aura:if> 
+   <aura:handler event="c:DisputeAnalysteName" action="{!c.handleDisputeAnalysteName}"/>
+   <aura:registerEvent name="validationMsg" type="c:DisputeValidationMsg"/>
+    
+    <div class="c-container">
+        <lightning:layout multipleRows="true">
+             <lightning:layoutItem padding="around-small" size="12">
+                <div class="page-section page-header">
+                    <h2>  
+                        <lightning:icon  iconName="standard:avatar" size="large" alternativeText="User Detail"/>
+                        <span class="slds-badge" style=" font-size: 1.5em;">Customer Contact</span>
+                    </h2>
+                </div>
+             </lightning:layoutItem>
+            		
+            		<lightning:layoutItem size="12">
+                        	<lightning:layout>
+                                	<lightning:layoutItem padding="around-large" size="12">                                       
+    									<c:LookUpWithCreateRecord InvoiceAccountMcn="{!v.MCNForFinalScreen}" objectAPIName="contact" IconName="standard:contact" selectedRecord="{!v.selectedLookUpRecord}" label="Search Customer Contact" required="true"/>
+                               		</lightning:layoutItem>  
+                            </lightning:layout>
+            		</lightning:layoutItem>
+            
+                      <lightning:layoutItem size="12">
+            				<lightning:layout >
+                               <lightning:layoutItem   padding="around-small" size="6">
+                                   <div class="page-section page-right">  
+                                       <lightning:input  disabled="true"  name="input1" label="Name"  value="{!v.CustomerContactName}"/>
+                                       <lightning:input   aura:id="field" disabled="false" maxlength="25" messageWhenTooLong="You have exceeded the limit of 25 characters"  messageWhenPatternMismatch="You have exceeded the limit of 7 characters" name="input1" label="Phone"  type="tel"  value="{!v.CustomerContactPhone}"/>
+                                   </div>
+                               </lightning:layoutItem>
+                               <lightning:layoutItem   padding="around-small" size="6">
+                                    <div class="page-section page-right">
+                                      <lightning:input aura:id="field" disabled="true" required="true" type="email" name="input1" label="Email"  value="{!v.CustomerContactEmail}"/>&nbsp;
+                                      <!--<lightning:input messageToggleActive="Yes" messageToggleInactive="No"  type="toggle" label="Did you find a maching Customer Contact" name="input1"/>-->
+                                   </div>
+                               </lightning:layoutItem>
+        					</lightning:layout>
+                      </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+      <aura:attribute name="selectedLookUpRecord" type="sObject" default="{}"/>    
+    
+     <div class="c-container">
+        <lightning:layout multipleRows="true">
+             <lightning:layoutItem padding="around-small" size="12">
+                <div class="page-section page-header">
+                    <h2>  
+                        <lightning:icon  iconName="standard:avatar" size="large" alternativeText="User Detail"/>
+                        <span class="slds-badge" style=" font-size: 1.5em;">Alternate Contact</span>
+                    </h2>
+                </div>
+             </lightning:layoutItem>
+            		
+            		<lightning:layoutItem size="12">
+                        	<lightning:layout>
+                                	<lightning:layoutItem padding="around-large" size="12">
+    									<c:LookUpWithCreateRecord InvoiceAccountMcn="{!v.MCNForFinalScreen}" objectAPIName="contact" IconName="standard:contact" selectedRecord="{!v.selectedLookUpRecordAlternative}" label="Search Alternate Contact"/>
+                               		</lightning:layoutItem>  
+                            </lightning:layout>
+            		</lightning:layoutItem>
+            
+                      <lightning:layoutItem size="12">
+            				<lightning:layout >
+                               <lightning:layoutItem   padding="around-small" size="6">
+                                   <div class="page-section page-right">  
+                                       <lightning:input disabled="true"  name="input1" label="Name"  value="{!v.AlternateContactName}"/>
+                                       <lightning:input  maxlength="25" messageWhenTooLong="You have exceeded the limit of 25 characters"  disabled="false"  name="input1" label="Phone"  type="tel"  value="{!v.AlternateContactPhone}"/>
+                                   </div>
+                               </lightning:layoutItem> 
+                               <lightning:layoutItem   padding="around-small" size="6">
+                                    <div class="page-section page-right">
+                                      <lightning:input disabled="true"  type="email" name="input1" label="Email"  value="{!v.AlternateContactEmail}"/>&nbsp;
+                                      <!--<lightning:input messageToggleActive="Yes" messageToggleInactive="No"  type="toggle" label="Did you find a maching Customer Contact" name="input1"/>-->
+                                   </div>
+                               </lightning:layoutItem>
+        					</lightning:layout>
+                      </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+    <aura:attribute name="selectedLookUpRecordAlternative" type="sObject" default="{}"/> 
+    
+     <aura:if isTrue="{!v.ToggleCCADMsg}">
+               <ui:message title="Error" severity="error" closable="false">
+                    {!v.CCADMsg}
+               </ui:message>
+     </aura:if>    
+ <div aura:id="actionButtonBar" class="slds-clearfix slds-p-top_medium">
+      <!-- If Previous is available, display to the left -->
+      <div class="slds-float_left">
+         <aura:if isTrue="{!v.canBack}">
+            <lightning:button aura:id="BACK" label="Previous"
+               variant="neutral" onclick="{!c.onBackButtonPressed}" />
+         </aura:if>
+      </div>
+      <div class="slds-float_right">
+         <!-- If Pause, Next, or Finish are available, display to the right -->
+         <aura:if isTrue="{!v.canPause}">
+            <lightning:button aura:id="PAUSE" label="Pause"
+               variant="neutral" onclick="{!c.onButtonPressed}" />
+         </aura:if>
+         <aura:if isTrue="{!v.canNext}">
+            <lightning:button aura:id="NEXT" label="Submit" 
+               variant="brand" onclick="{!c.validateButtonPressed}" />
+         </aura:if>
+         <aura:if isTrue="{!v.canFinish}">
+            <lightning:button aura:id="FINISH" label="Done"
+               variant="brand" onclick="{!c.onButtonPressed}" />
+         </aura:if>
+      </div>
+   </div>
+    
+   <div class="slds-m-around_xx-large">
+        <!--Use aura:if tag to display/hide popup based on isModalOpen value-->  
+        <aura:if isTrue="{!v.isModalOpen}">
+            <!-- Modal/Popup Box starts here-->
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_small">
+                
+                <div class="slds-modal__container">
+                    <!-- Modal/Popup Box Header Starts here--> 
+                    <header class="slds-modal__header">
+                       
+                    </header>
+                    <!--Modal/Popup Box Body Starts here-->
+                    <div class="slds-modal__content slds-p-around_large" id="modal-content-id-1">
+                        <!--<lightning:progressindicator/>-->
+                        <ui:message title="Warning" severity="warning" closable="false">
+                           {!v.ConfermationOfApocAndCustContact}
+                        </ui:message>                       
+                    </div>
+                    <footer class="slds-modal__footer">
+                      <button class="slds-button slds-button_neutral" onclick="{!c.CloseWarningPopup}">Cancel</button>
+                      <button class="slds-button slds-button_brand"  
+                       onclick="{!c.ContinueToSubmit}">Continue</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </aura:if>
+      
+     </div>  
+     
+</aura:component>

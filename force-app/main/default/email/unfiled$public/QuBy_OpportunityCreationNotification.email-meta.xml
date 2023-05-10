@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>QuBy_OpportunityCreationNotification</name>
+    <style>none</style>
+    <subject>New Opportunity Created</subject>
+    <textOnly>New Opportunity Created 
+
+Opportunity &quot;{!QuBy_Detail__c.Opportunity__c}&quot; has been created. 
+
+Opportunity &quot;{!QuBy_Detail__c.Opportunity__c}&quot; has been created and Quote &quot;{!QuBy_Detail__c.Quote_Number__c}&quot; has been attached to it. Please view and edit the Opportunity with information pertinent to the Opportunity. 
+
+
+Opportunity Name: {!QuBy_Detail__c.Opportunity__c} 
+Quote Name: {!QuBy_Detail__c.Name} 
+Country: {!QuBy_Detail__c.Country_Code__c} 
+Customer (Name/MCN): {!QuBy_Detail__c.Account__c}/{!QuBy_Detail__c.MCN__c} 
+Access via QuoteBuilder or Salesforce</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

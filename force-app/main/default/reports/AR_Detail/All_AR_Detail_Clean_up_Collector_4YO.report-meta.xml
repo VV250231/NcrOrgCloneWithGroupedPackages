@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_ID</field>
+    </columns>
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <columns>
+        <field>Credit_Detail__c.Account_Owner__c</field>
+    </columns>
+    <columns>
+        <field>Credit_Detail__c.Assigned_Collector__c</field>
+    </columns>
+    <columns>
+        <field>Credit_Detail__c.Secondary_Collector__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>All Accounts with AR Detail with Collector</description>
+    <format>Tabular</format>
+    <name>All AR Detail  - Clean up Collector</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Credit_Detail__c@Credit_Detail__c.Account__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Credit_Detail__c.Date_of_Conversation__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

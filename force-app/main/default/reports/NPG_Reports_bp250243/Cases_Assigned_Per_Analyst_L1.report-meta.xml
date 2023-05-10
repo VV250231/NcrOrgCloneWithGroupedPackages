@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>OWNER</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>SUBJECT</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>AGE</field>
+    </columns>
+    <columns>
+        <field>OPEN</field>
+    </columns>
+    <columns>
+        <field>Case.Support_Queue__c</field>
+    </columns>
+    <columns>
+        <field>STATUS</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Cases assigned per analyst - SMB</description>
+    <filter>
+        <criteriaItems>
+            <column>Case.Support_Queue__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>HOS Payments L1,HOS Payments L2,HOS Payments SORR</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OWNER</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value></value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>STATUS</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>,New,Approved,Assess,Assigned,Assigned to Deals Desk Consultant,Auto Response - No Action,Bid P&amp;L/T&amp;C&apos;s Under Review,CFS Account Review,Compile,Contact Completed,Contact Unresponsive,CSM Assigned,Customer Unresponsive,Escalated,Executing,Follow-up Completed,In_Progress,In Progress,In Progress - With BU Admin,In Progress - With Central Admin,In Progress - With EDL/SF,In Progress - With Gainsight,In Sprint,No Action Reply,On Hold,Open,Pending,Pending Assignment,Pending BOC,Pending Collections,Pending CSM Assignment,Pending Customer,Pending Customer Confirmation,Pending EOJ,Pending LT Approval (Leadership Team),Pending RDS,Pending Response,Pending Review &amp; Approval,Pending Sales Team,Pending SOM,Pending Tax,Reconcile,&quot;Reopen, Hold&quot;,&quot;Reopen, In Progress&quot;,Reopened,Resolution Action Completed,Resolution Action Started,Resolved,Review W.O. in EDW,Run Sprint 2 Report,Submitted,Transferred,Troubleshooting,Under Review,Waiting for Dispute Resolution,Waiting on Response,In Progress - With Gainsight Support</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Cases Assigned Per Analyst - L1</name>
+    <params>
+        <name>units</name>
+        <value>d</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CaseList</reportType>
+    <scope>scopingRule</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>OWNER</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATEONLY</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

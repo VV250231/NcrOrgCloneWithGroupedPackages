@@ -1,0 +1,90 @@
+<aura:component controller="PartnerMaturityController" implements="force:hasRecordId,flexipage:availableForAllPageTypes">
+   <aura:attribute name="levelId" type="Id"  default="{!v.recordId}" />
+   <aura:attribute name="matLvlRecord" type="PartnerMaturityController.MaturityLevelWrapper" />
+    
+   <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+   
+    <div>
+    <lightning:card class="card_border"> 
+        <aura:set attribute="title"> 
+        	<div class="card_header">
+                <h2>
+                  <span class="slds-text-heading_small">{!v.matLvlRecord.currentMatlevel + ' Actions'} </span>
+                </h2>
+    		</div>       
+        </aura:set>
+        <aura:set attribute="footer">
+            
+            <div class="slds-scrollable_x">
+                <table class="slds-table">
+                    <thead>
+                        <tr class="headerrow">
+                            <th scope="col">
+                                <div class="slds-truncate" title="Order">&nbsp;</div>
+                            </th>
+                            <th scope="col">
+                                <div class="" title="Actions">Actions</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Date Completed">Date Completed</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Status">Status</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Owner">Owner</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="EST Complete Date">EST Complete Date</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Comments">Comments</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <aura:iteration items="{!v.matLvlRecord.actionsList}" var="item">
+                            <tr>
+                                <td data-label="Order">
+                                    <div class="slds-truncate" title="A">{!item.actionOrder}</div>
+                                </td>
+                                <td data-label="Action">
+                                    <div class="" >{!item.action}</div>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate">{!item.dateCompleted}</div>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate">{!item.status}</div>
+                                </td>
+                                <td >
+                                    <div class="slds-truncate">{!item.actionOwner}</div>
+                                </td>
+                                <td >
+                                    <div class="slds-truncate">{!item.estCompleteDate}</div>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate">{!item.actionComments}</div>
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                        
+                    </tbody>
+                </table>
+            </div>
+       	</aura:set>     
+    </lightning:card>
+    </div>
+    
+    
+    <!-- Spinner -->
+    <div class="slds-spinner_container" aura:id="spinnerDiv">
+        <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand" >
+            <span class="slds-assistive-text">Loading</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+        </div>
+    </div>
+    <!-- Spinner -->
+</aura:component>

@@ -1,0 +1,215 @@
+<apex:page sidebar="false" id="EditQuoteProducts"  tabStyle="zqu__Quote__c" standardController="zqu__Quote__c" extensions="DISelectProductController" action="{!initAction}">
+<style type="text/css">
+        .propertycomponentfooter{
+            position: fixed !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            margin-top:108px !important; 
+            height: 60px !important; 
+            width: 100% !important; 
+            background: #f4f6f9 !important;
+            background-color: rgb(244, 246, 249) !important;
+            background-image: none !important;
+            background-repeat: repeat !important;
+            background-attachment: scroll !important;
+            background-clip: border-box !important;
+            background-origin: padding-box !important;
+            background-position-x: 0% !important;
+            background-position-y: 0% !important;
+            background-size: auto auto !important;
+            background-color:#3A4B5C !important;
+            box-shadow:none !important;
+            padding-left:12px !important;
+            padding-right:12px !important;
+            
+        }
+      
+       .myDataButton
+        {
+            background: no-repeat #6ec5ab !important;
+            float: right !important;
+            margin-top:8px !important;
+            background-position:20% 50% !important;
+            font-size: 12px !important;
+            color: #FFF !important;
+            text-transform: uppercase !important;
+            border: none !important;
+            width: 100px !important;
+            height:45px !important;
+            margin-right:6px !important; 
+        }
+        .myDataButton:hover{
+            background-color: #27ac8b !important;
+        }
+        
+    </style>
+  <apex:includeScript value="{!$Resource.jquery_1_11_3}"/>
+  <apex:includeScript value="{!URLFOR($Resource.jquery_collapse, 'jquery.collapse.js')}"/>
+  <apex:includeScript value="{!$Resource.zqu__JQueryUI_1_10_2}"/>
+  <script type="text/javascript">
+    
+  //class for filtering
+    var TableFilter = function(table_id) {
+      this.table_id = table_id;
+      var _self = this;
+
+      this.getId = function() {
+        return this.table_id;
+      }
+      
+      this.searchHandler = function(evt) {
+        console.log(evt);
+        $("#bundlesWrapper").trigger("open");
+        var searchString = evt.currentTarget.value;
+        _self.filterTable(searchString);
+      }
+
+      this.filterTable = function(searchString) {
+        //$("#"+this.table_id+" tbody tr").each(function(){
+        $("[id='"+this.table_id+"'] tbody tr").each(function(){  
+          var $this = $(this);
+          $this.children("td").each(function(idx, value) {
+            var $tthis = $(this);
+            $tthis.children("a").each(function(i,v){
+              if(!v.innerHTML.toLowerCase().includes(searchString.toLowerCase())) {
+                $this.hide();
+                $this.next().hide();
+              } else {
+                $this.show();
+                $this.next().show();
+              }
+            });
+          });
+        });
+      }
+      
+      $("#search_input").keyup(this.searchHandler);
+    }
+
+    var table_filters = [];
+    function initTableFilters() {
+      <apex:repeat value="{!bundleCategories}" var="bundleCategory">
+        var table_id = "{!bundleCategory}";
+        //table_id = table_id.replace(new RegExp(' ', 'g'), '_');
+        table_filters.push(new TableFilter(table_id));
+      </apex:repeat>
+    }
+
+  var bundleInitComplete = false;
+  function initCollapsible(){
+    if(!bundleInitComplete) {
+      console.log("bundlesWrapper:");
+      console.log($(".modal-body").html());
+      $("#bundlesWrapper").collapse({});
+      bundleInitComplete = true;
+    }
+  }
+
+ $(document).ready(function(){
+    //myModal.open();initCollapsible();
+   initTableFilters();
+    $(".z-ui-button-bar").append('<div style="display:inline-block; margin-right: 3px; vertical-align: top;" onclick="openDialog();"><table style="height:80px !important" class="MenuPanel  MenuButtonPanel"><tr><td><p style="font-size: 12px !important;margin-top:-11px !important;color: #384B5D !important" class="MenuLabel"> Select Bundle</p><p style="margin-top:-6px !important;background-color: #6d95a0 !important;text-align: center;"  class="MenuButton">Select</p></td></tr></table></div><tr/><div class="propertycomponentfooter"><a href="/apex/diSelectProducts?billingAccountId={!bilingId}&crmAccountId={!crmId}&editQuoteProductsMode=EditProducts&Id={!quoteId}&oppId={!oppId}&quoteType={!editProductOptions.productSelectorOptions.quoteType}&stepNumber=3" style="margin-top:8px !important;background-color: #6ec5ab !important;text-align: center;color:white !important;background-position:20% 50% !important; float:right !important;margin-right:40px !important " class="MenuButton" >Next</a></div>');
+    $( ".jquery-dialog" ).dialog({ 
+      title: "Select a Bundle",
+      closeOnEscape: true,
+      autoOpen: false, 
+      minWidth: 700, 
+      minHeight: 700,
+      position: {
+            my: "center",
+            at: "center"
+        }
+    });
+  });
+ 
+  function openDialog() {
+    $( ".jquery-dialog" ).dialog( "open" );
+    initCollapsible();
+  }
+  </script>
+  <style>
+  table.bundle-table {
+      /*border: 1px solid silver;*/
+      width:100%;
+  }
+  
+  /* collapsible sections styles */
+  .search_input {
+    margin-bottom:10px;
+  }
+
+  h3 {
+    margin:0;
+  }
+  
+  h3 a {
+    background: url("{!URLFOR($Resource.jquery_collapse, '1489513672_arrow-right-01.png')}") 0px 8px no-repeat;
+    background-size: 20px 20px;
+    display: block;
+    padding: 10px;
+    padding-left: 28px;
+    margin: 0;
+    /*color: #639B1B !important;*/
+    color: #000 !important;
+    text-decoration: none !important;
+    font-weight: bold;
+    font-size:1.1em;
+  }
+  h3.open a { 
+    background: url("{!URLFOR($Resource.jquery_collapse, '1489513659_arrow-down-01.png')}") 0px 8px no-repeat;
+    background-size: 20px 20px;
+  }
+
+  h3 a:hover {
+    /* color: #639B1B !important; */
+    color: #666 !important;
+    font-weight: bold !important;
+  }
+  h3 + div { padding: 10px; }
+  </style>
+  <!--<zqu:Modal name="myModal" width="75%">
+      <div class="modal-simple-content"> -->
+         <apex:outputPanel layout="block" rendered="{!NOT(hasAnyBundles)}" styleClass="jquery-dialog" style="display:none">         
+         There are no bundles available for selection.
+         </apex:outputPanel>
+         <apex:outputPanel layout="block" rendered="{!hasAnyBundles}" styleClass="jquery-dialog" style="display:none">         
+        <div class="search_input">
+        Search <input type="text" value="" id="search_input" name="search_input"/>
+        </div>
+         <div id="bundlesWrapper">
+            <apex:repeat value="{!bundleCategories}" var="bundleCategory">
+               <h3 class="closed">{!bundleCategory}</h3>
+               <table class="bundle-table" id="{!bundleCategory}">
+                   <apex:repeat value="{!bundles[bundleCategory]}" var="bundle">
+                   <tr>
+                       <td>
+                           <a href="/apex/diSelectProducts?billingAccountId={!bilingId}&crmAccountId={!crmId}&editQuoteProductsMode=EditProducts&Id={!quoteId}&oppId={!oppId}&quoteType={!editProductOptions.productSelectorOptions.quoteType}&stepNumber=3&bundleId={!bundle.productBundle.Id}">{!bundle.productBundle.Name}</a>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>
+                           <apex:outputText value="- Desc: {!bundle.productBundle.Description__c}" escape="false" rendered="{!AND(NOT(ISBLANK(bundle.productBundle.Description__c)), bundle.productBundle.Description__c != bundleCategory)}"/>
+                       </td>
+                   </tr>
+                   </apex:repeat>
+               </table>
+            </apex:repeat>
+         </div>
+         </apex:outputPanel>
+      <!--</div>
+   </zqu:Modal>-->
+
+  <apex:composition template="zqu__QuoteWizardTemplateNoForm" >
+    <apex:define name="PageBody" >
+      <apex:form >
+        <!--<apex:commandButton value="Select Bundle" action="{!selectBundle}"/>-->
+           <zqu:EditQuoteProduct editQuoteProductOptions="{!editProductOptions}"/>
+        <!--
+        <apex:outputPanel >
+            <c:ZuoraSubscriptionQuoteChangesComponent changes="{!subscriptionRenewalChanges}"/>
+        </apex:outputPanel>
+        -->
+      </apex:form>
+    </apex:define>
+  </apex:composition>   
+</apex:page>

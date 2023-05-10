@@ -1,0 +1,95 @@
+<aura:component controller="Controller_Tableau_Admin_Page_Batch" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    
+    <aura:attribute type="Integer" name="currentStep" default="1" /> 
+    <aura:attribute type="Boolean" name="togglefinalbutton" default="false" />
+    <aura:attribute type="Integer" name="progressbarvalue1"  default="-1" />
+    <aura:attribute type="Integer" name="progressbarvalue2"  default="-1" />
+    <aura:attribute type="String[]" name="resultforcontroller" />
+    <aura:attribute type="String" name="progressbarstatus1"  />
+    <aura:attribute type="String" name="progressinfo1" />
+    <aura:attribute type="String" name="progressbarstatus2"  />
+    <aura:attribute type="String" name="progressinfo2" />
+    <aura:attribute type="Integer" name="sizeofrolelids1" />
+    <aura:attribute type="Integer" name="sizeofrolelids2" />
+    <aura:attribute type="Integer" name="heapsize1"  default="0" />
+    <aura:attribute type="Integer" name="heapsize2" default="0"  />
+    <aura:attribute type="String" name="toastmessage"  />
+    <aura:attribute type="boolean" name="togglesubbutton"  default="false" />
+    <aura:attribute type="boolean" name="toggleallbutton"  default="false" />
+    <aura:attribute type="boolean" name="toggleresult"  default="false" />
+    
+    
+    <!-- ######################################################################################### -->
+    
+    <article class="slds-card" >
+        <div class="slds-grid slds-card__header">
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-float_left">
+                <h2 class="slds-truncate"><b><u>Manual Schedule Configuration</u></b></h2>
+            </div>    
+            <div class="slds-float_right">
+                <lightning:button label="Exeucte" iconName="utility:einstein" iconPosition="left" disabled="{!v.togglefinalbutton}" variant="brand"  onclick="{!c.executestep}" />
+            </div>
+            <br></br>
+            <br></br>
+            
+            <center>
+                <br></br>
+                <aura:if isTrue="{!v.currentStep == '5'}">
+                    <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_success" role="alert">
+                        <h2><a href="javascript:void(0);">Successfully Generated Script</a>
+                        </h2>
+                    </div>
+                    <br></br>
+                </aura:if>
+                <br></br>
+                <lightning:progressIndicator aura:id="processindicatorstep" currentStep="{!v.currentStep}" type="path" variant="base" >
+                    <lightning:progressStep label="Let us start" value="1"/>
+                    <lightning:progressStep label="Check for New Roles" value="2"/>
+                    <lightning:progressStep label="Update New Roles" value="3"/>
+                    <lightning:progressStep label="Update All Roles" value="4"/>
+                    <lightning:progressStep label="success" value="5"/>
+                </lightning:progressIndicator> 
+            </center>
+            
+            
+        </div> 
+        <footer class="slds-card__footer">
+            <aura:if isTrue="{!!v.togglefinalbutton}">
+                <aura:if isTrue="{!v.progressbarvalue1 > '-1'}">
+                    <div class="slds-grid slds-grid_align-spread slds-p-bottom_x-small" id="progress-bar-label-id-1">
+                        <span>{!v.progressinfo1}&nbsp;&nbsp;&nbsp;&nbsp;
+                            <aura:if isTrue="{!v.currentStep == '4'}">
+                                <lightning:buttonIcon disabled="{!v.togglesubbutton}" size="x-small" onclick="{!c.updatesuballroles}" iconName="utility:forward" alternativeText="forward" />
+                            </aura:if></span>
+                        <span aria-hidden="true">
+                            <strong>{!v.progressbarstatus1}  
+                            </strong>
+                        </span>
+                    </div>
+                    <lightning:progressBar value="{!v.progressbarvalue}" size="large" />
+                </aura:if>
+                <aura:if isTrue="{!v.progressbarvalue2 > '-1'}">
+                    <br></br>
+                    <br></br>
+                    <div class="slds-grid slds-grid_align-spread slds-p-bottom_x-small" id="progress-bar-label-id-1">
+                        <span>{!v.progressinfo2}&nbsp;&nbsp;&nbsp;&nbsp;
+                            <aura:if isTrue="{!v.currentStep == '4'}">
+                                <lightning:buttonIcon disabled="{!v.toggleallbutton}" size="x-small" onclick="{!c.updateallroles}" iconName="utility:forward" alternativeText="forward" />
+                            </aura:if>
+                        </span>
+                        <span aria-hidden="true">
+                            <strong>{!v.progressbarstatus2} 
+                            </strong>
+                        </span>
+                    </div>
+                    <lightning:progressBar value="{!v.progressbarvalue2}" size="large" />
+                </aura:if>
+            </aura:if>
+        </footer>
+    </article>
+    
+    <!-- ######################################################################################### -->
+    
+</aura:component>

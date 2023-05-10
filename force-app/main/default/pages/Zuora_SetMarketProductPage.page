@@ -1,0 +1,71 @@
+<apex:page standardController="zqu__Quote__c" extensions="Zuora_SetMarketProductController" lightningStylesheets="true">
+ <!-- Quote Name <apex:outputField value="{!accRec.name}"/><br/>  &nbsp;&nbsp;     MARKET PRODUCT <br/><br/>-->
+ <apex:form id="test">
+ 
+ <apex:actionFunction action="{!Contorlsave}" name="ActionCall" reRender="tabId" >
+ <apex:param name="inpval" value="" /> 
+</apex:actionFunction>
+
+ 
+ <script>
+ 
+    var myMap = new Map();
+    function captureListvalue(val1,val2){
+       //alert('1');
+        if(typeof myMap.get(val1) == "undefined") {
+            myMap.set(val1,val2);
+        }
+        
+        if(typeof myMap.get(val1) !== "undefined"){
+            myMap.set(val1,val2);
+        }
+        
+        //return false;
+        
+    }
+    
+    
+    function CallFromServer(){
+        var val=''
+        //alert(myMap.values().join(',')); console.log(key + ' = ' + value);
+       
+         for (var [key, value] of myMap) {
+              
+              val=val+value+','; 
+        }
+     
+        ActionCall(val);
+        
+    }   
+  </script>
+   <apex:pageBlock title="Set Market Product" id="tabId">
+    
+       <apex:pageBlockTable value="{!mapProductNameandMPOptions}" var="prodZuora"  >
+           
+
+            <apex:column >
+            <apex:facet name="header">QUOTE PRODUCT</apex:facet>    
+            
+
+            {!prodZuora}
+            </apex:column>
+               
+            <apex:column >
+            <apex:facet name="header">MARKET PRODUCT</apex:facet>
+            <apex:selectList id="chooseMarketProduct" value="{!collectPicklistValue}" size="1"  disabled="{!isSaveButtonDisabled}" onclick="captureListvalue('{!prodZuora}',this.value);">
+            <apex:selectOptions value="{!mapProductNameandMPOptions[prodZuora]}"/>  </apex:selectList> 
+            </apex:column>
+            
+            
+            <apex:column >
+            <apex:facet name="header">SELECTED MARKET PRODUCT</apex:facet>   
+                <apex:outputText value="{!mapToDisplaySelectedMarketProductName[prodZuora]}" />
+            </apex:column>
+            
+        </apex:pageBlockTable>
+     
+    <apex:commandButton id="edit1" action="{!edit}" value=" Edit " disabled="{!isEditButtonDisabled}" reRender="tabId"> </apex:commandButton>
+    <apex:commandButton value=" Save" onclick="CallFromServer();" disabled="{!isSaveButtonDisabled}" reRender="tabId"> </apex:commandButton>
+   </apex:pageBlock>
+ </apex:form>
+</apex:page>

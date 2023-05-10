@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>cdm_Account_Relationship__c.Account_Number__c</field>
+    </columns>
+    <columns>
+        <field>cdm_Account_Relationship__c.Related_Account__c</field>
+    </columns>
+    <columns>
+        <field>cdm_Account_Relationship__c.Related_Account_AccountType__c</field>
+    </columns>
+    <columns>
+        <field>cdm_Account_Relationship__c.Related_Account_Number__c</field>
+    </columns>
+    <columns>
+        <field>FK_ACC_ID</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Used to cross-reference to pull contacts for the related accounts</description>
+    <filter>
+        <criteriaItems>
+            <column>CUST_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>end customer</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>cdm_Account_Relationship__c.Account_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>7435998,7424878,7430533</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>FK_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Related Account IDs Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$cdm_Account_Relationship__c@cdm_Account_Relationship__c.Account__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>cdm_Account_Relationship__c.End_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

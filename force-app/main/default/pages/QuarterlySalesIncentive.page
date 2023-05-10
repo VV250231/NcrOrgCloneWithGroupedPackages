@@ -1,0 +1,125 @@
+<apex:page id="incentivPrg" controller="incentiveProgramCon" >
+    <style>
+    
+    li {
+        margin-top:8px;
+    }
+    
+    .hideListButton {
+        background-color:#55B949 !important;
+    }
+    
+    .showListButton {
+        background-color:#55B949 !important;
+    }
+    </style>
+    
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>-->
+    <apex:outputPanel id="incentOP" layout="block" style="margin-left:100px;margin-right:100px;">
+    <apex:form id="incentPrgFrm">
+        <apex:pageMessages ></apex:pageMessages>
+        
+        <apex:pageBlock id="incentPrgPB" title="Quarterly Sales Incentives"   html-style="font-size:13px;">
+            <apex:pageMessage rendered="{! EnrolledPrograms.size > 0}" severity="INFO" strength="2" summary="Per our records, you have already enrolled in the Quarterly Sales Incentive Program. No further action is required." ></apex:pageMessage>
+            <!--<apex:outputLink style="float:left;color:#55B949!important" value="/incentivePrograms">Back</apex:outputLink><br/>-->
+            <apex:pageBlockSection collapsible="true" title="Incentive Summary" columns="1" >
+            <p>
+                 <apex:outputPanel > Opt in by: <apex:outputText value="{0, date, M/d/yyyy}"> <apex:param value="{! enrollExpDate }" /> </apex:outputText> </apex:outputPanel>
+
+                 <ul type="disc" class="ulData">
+                     <li>
+                         <b><span style="color: #4a4a56">Largest Self-Checkout Order</span></b>
+                         <ul class="ulData">
+                             <li>Minimum SCO order value of $500,000</li>
+                             <li>Winner’s choice of award, valued at up to $1,000</li>
+                         </ul>
+
+                     </li>
+                     <li>
+                         <b><span style="color: #4a4a56">Largest Software Order</span></b>
+                         <ul class="ulData">
+                             <li>Minimum GEMS or Store Pro order value of $50,000</li>
+                             <li>Winner’s choice of award, valued at up to $1,000</li>
+                         </ul>
+
+                     </li>
+                     <li>
+                         <b><span style="color: #4a4a56">Largest Hardware Revenue Order</span></b>
+                         <ul class="ulData">
+                             <li>Minimum hardware revenue order value of $200,000</li>
+                             <li>Winner’s choice of award, valued at up to $500</li>
+                         </ul>
+
+                     </li>
+                     <li>
+                         <b><span style="color: #4a4a56">Quarterly Training Incentive</span></b>
+                         <ul class="ulData">
+                             <li>
+                                 Each quarter,1-2 NCR University courses will be
+                                 promoted to encourage solution knowledge and
+                                 sales training. The first FOUR people to complete     
+                                 this training will win a banner associated with the 
+                                 training they took.
+                             </li>
+                         </ul>
+
+                     </li>
+                     <li>
+                         <b><span style="color: #4a4a56">Partner of the Quarter</span></b>
+                         <ul class="ulData">
+                             <li>Team Event valued up to $1,500</li>
+                         </ul>
+
+                     </li>
+                     
+                 </ul>
+            </p>
+            
+            </apex:pageBlockSection>
+            <apex:pageBlockSection collapsible="true" title="Partner Details" rendered="{! partAct != null}" columns="1">
+                <apex:pageBlockSectionItem > Partner Name - <apex:outputText >{! partAct.Name}</apex:outputText></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem > Channel Account Manager  - <apex:outputText >{! partAct.Owner.Name}</apex:outputText></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem > Master Customer Number- <apex:outputText >{! mcn }</apex:outputText></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    Current Date -
+                    <apex:outputText value="{0, date, M/d/yyyy}"> 
+                        <apex:param value="{!NOW()}" />
+                    </apex:outputText>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection collapsible="true" title="Terms & Conditions " columns="1" >
+                <ul type="disc">
+                    <li>Partner must be an Elite, Premier or Advanced Interact Partner. </li>
+                    <li>Partner is responsible for local tax regulations and taxes associated with the incentive prizes. </li>
+                    <li>Partners must “opt-in” to the Quarterly Sales Incentives. By opting in, the Partner grants permission to NCR to share the incentive programs with their employees via verbal, written and digital communication.</li>
+                    <li>The Quarterly Training Incentive banners are limited to one per Partner per quarter. </li>
+                    <li>NCR reserves the right to disqualify orders and revenue if significant discounts have been made above standard pricing.</li>
+                    <li>Must be an active Interact Program Partner in good standing with NCR.</li>
+                </ul>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection id="incentCommBtnPBS" rendered="{! partAct != null && EnrolledPrograms.size < 1}" columns="1">
+                <apex:pageBlockSectionItem id="incentCommBtnPBSI">
+                    <apex:inputCheckbox id="iAgreeChkBox" value="{! isAgree}"/> I acknowledge and accept these terms and conditions and have the authority to enter {! partAct.Name} into these sales incentive programs.
+                    
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom" rendered="{! EnrolledPrograms.size < 1}">
+                <apex:commandButton value="Submit" onclick="return submitIncentiveProEnroll()" action="{! submit}"/> 
+                <apex:commandButton value="Back" action="{! redirectBack}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        
+    </apex:form>
+    </apex:outputPanel>
+    <script>
+        function submitIncentiveProEnroll() {
+            if (document.getElementById("{! $Component.incentivPrg:incentPrgFrm:incentPrgPB:incentCommBtnPBS:incentCommBtnPBSI:iAgreeChkBox}").checked) {
+                return true;
+            } else {
+                alert('You must acknowledge and accept the terms and conditions before you can submit.');
+                return false;
+            }
+        }
+    </script>
+</apex:page>

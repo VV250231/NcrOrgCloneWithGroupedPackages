@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VOC_Resolution_Notes_Required_By_CSM</fullName>
+    <active>true</active>
+    <description>Customer case resolution notes and Waiting Days is mandatory if status is changed to &quot;Pending Customer Confirmation&quot; by users who has CSM Users permission set assigned.</description>
+    <errorConditionFormula>AND($Permission.CSM_Users, RecordType.DeveloperName=&quot;Customer_Success_Team_Case&quot;, 
+ISPICKVAL(Status ,&quot;Pending Customer Confirmation&quot;),
+OR(ISBLANK(Customer_Case_Resolution_Notes__c),ISBLANK( Auto_Closing_Date__c))
+)</errorConditionFormula>
+    <errorDisplayField>Customer_Case_Resolution_Notes__c</errorDisplayField>
+    <errorMessage>&quot;Customer Case Resolution Notes&quot; and &quot;Auto Closing Date&quot; are mandatory if case status is changed to &quot;Pending Customer Confirmation.</errorMessage>
+</ValidationRule>

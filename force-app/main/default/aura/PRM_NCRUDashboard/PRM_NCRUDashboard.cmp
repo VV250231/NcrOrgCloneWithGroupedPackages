@@ -1,0 +1,136 @@
+<aura:component controller="NCRUDashboardController" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+    
+    <aura:attribute name="etNCRUDetails" type="NCRUDashboardController.NCRUDetails[]" /> 
+        
+    <aura:attribute name="etCertifications" type="Certification__c[]" /> 
+    <aura:attribute name="isModal" type="Boolean" default="false" /> 
+    
+    <aura:attribute name="isAccessDashboard" type="Boolean" default="false" /> 
+    
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <!-- Edit Expense Table -->
+     <div class="slds-show" >  
+         <div class="slds-scrollable" >
+             <aura:if isTrue="{!v.isAccessDashboard == false}" >
+                 NCRU Dashboard is not available.
+             </aura:if>
+         	<aura:if isTrue="{!v.isAccessDashboard}" >
+                 <table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal">
+                     <thead>
+                         <tr class="slds-text-heading_label">
+                             <th scope="col">
+                                 <div class="slds-truncate" title="Solution">Solution</div>
+                             </th>
+                             <th scope="col">
+                                 <div class="slds-truncate" title="Profile">Profile</div>
+                             </th>
+                             
+                              <th scope="col">
+                                 <div class="slds-truncate" title="Curriculum Number">Curriculum #</div>
+                             </th>  
+                             
+                             <th scope="col">
+                                 <div class="slds-truncate" title="#Required">Required #</div>
+                             </th>
+                             <th scope="col">
+                                 <div class="slds-truncate" title="#Completed">Completed #</div>
+                             </th>
+                              <th scope="col">
+                                 <div class="slds-truncate" title="%Completed">Completed %</div>
+                             </th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         <aura:iteration items="{!v.etNCRUDetails}" var="et1">
+                             <tr class="slds-hint-parent">
+                                 <td>
+                                     <ui:outputText class="slds-input" value="{!et1.solution}" />
+                                 </td>
+                                 <td>
+                                     <ui:outputText class="slds-input" value="{!et1.profile}" />
+                                 </td>
+                                 <td>
+                                     <ui:outputText class="slds-input" value="{!et1.curriculum}" />
+                                 </td>
+                                 <td>
+                                     <ui:outputText class="slds-input" value="{!et1.required}" />
+                                 </td>
+                                 <td> 
+                                     <aura:if isTrue="{!et1.totalCompleted > 0}" >
+                                         <a data-ids="{!et1.keyCombination}" onclick="{!c.openModel}"> 
+                                             <ui:outputText class="slds-input" value="{!et1.totalCompleted}" />
+                                         </a>
+                                     </aura:if>
+                                     <aura:if isTrue="{!et1.totalCompleted == 0}" >
+                                          <ui:outputText class="slds-input" value="{!et1.totalCompleted}" />
+                                     </aura:if>
+                                     
+                                 </td> 
+                                 <td>
+                                     <ui:outputText class="slds-input" value="{!et1.completedPercentage + '%'}" />
+                                 </td>
+                             </tr>
+                         </aura:iteration>
+                     </tbody>
+                 </table>
+             </aura:if>
+         </div>
+    </div>
+    
+    <!-- start Pre Approval Fund request document -->
+    <aura:if isTrue="{!v.isModal}">
+        <div class="demo-only " style="height: 640px;">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" 
+                     class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeDocModal}">
+                            X<span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Certification Details</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium section-heading" id="modal-content-id-1">
+                        <table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal">
+                            <thead>
+                                <tr class="slds-text-heading_label">
+                                    <th scope="col">
+                                        <div class="slds-truncate" title="Name">Name</div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate" title="Profile">Profile</div>
+                                    </th>
+                                    
+                                    <th scope="col">
+                                        <div class="slds-truncate" title="Cource Number">Curriculum #</div>
+                                    </th>  
+                                    
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <aura:iteration items="{!v.etCertifications}" var="rec">
+                                    <tr class="slds-hint-parent">
+                                        <td>
+                                            <ui:outputText class="slds-input" value="{!rec.Contact__r.Name}" />
+                                        </td>
+                                        <td>
+                                            <ui:outputText class="slds-input" value="{!rec.Profile__c}" />
+                                        </td>
+                                        <td>
+                                            <ui:outputText class="slds-input" value="{!rec.Curriculum_Number__c}" />
+                                        </td>
+                                    </tr>
+                                </aura:iteration>
+                            </tbody>
+                        </table>     
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick="{!c.closeDocModal}">Cancel</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+</aura:component>

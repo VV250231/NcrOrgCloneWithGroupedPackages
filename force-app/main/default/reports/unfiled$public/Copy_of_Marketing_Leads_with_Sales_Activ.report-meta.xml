@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_37384806</developerName>
+        <masterLabel>Region/Manager</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>Lead$Owner</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Nia Mallett</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Christopher Jones</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Talik Pickering</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Steven Faulkner</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Desrick Thornton</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Claudette Konis</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Bob Cohen</sourceValue>
+            </sourceValues>
+            <value>Inside Sales (Donna)</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Holden Jain</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Kenyon Rhinehart</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ryan Tirpack</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>MYLES DURRETT</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Destyne Reyes</sourceValue>
+            </sourceValues>
+            <value>Channel (Jennifer Haines)</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Adam Cosby</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Charles Roffino</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Roni Madden</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Alisa Ottley</sourceValue>
+            </sourceValues>
+            <value>Channel (Chris Scoufos)</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>Lead.Activities$Subject</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Unique</aggregateTypes>
+        <field>Lead.Activities$Id</field>
+    </columns>
+    <columns>
+        <field>Lead$Region_Ecosystem__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Lead$Age_of_Last_Activity__c</field>
+    </columns>
+    <columns>
+        <field>Lead$LastActivityDate</field>
+    </columns>
+    <columns>
+        <field>Lead$LeadSource</field>
+    </columns>
+    <columns>
+        <field>Lead$CreatedBy</field>
+    </columns>
+    <columns>
+        <field>Lead$LeadOwnerManage__c</field>
+    </columns>
+    <columns>
+        <field>Lead$Territory__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>Lead$Industry__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Hospitality</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead$LeadType__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>,Event,Sales,Partner List Import,Prospect</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead.Activities$Subject</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>clicked,opened,nurture</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead$Status</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Partner Managed,Silver Managed,Qualified</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead.Activities$CreatedBy</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Braxton Richburg,Sarah Snyder,Lizzy D&apos;Antoni,Marketo Salesforcesync,Valentina Galvez,Braden Hawcroft,Braden,Braxton,Brody Craft,Alana Dorsey,Aubrey Ervin,Jason Fuqua,Dane Grounds,Jackson Hawthorne,Madeline Kindrick,Jesse Lopez-Garcia,Miles Riley,Frances Turner,Deepti Venkatachalam</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead$SDR__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value></value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead$Owner</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Deepti Venkatachalam,Tommy Lukens,Samaia Hamza,Stacey Klink,Nicholas Vallone,Roj Reed,Raffieu Jalloh,Trenise Brunson,vicente gouvea,Zachary Torrey,Martin Pulido,Mark Pierson,Julio Vescovi,Jerome Starks,Courtney Muehlmeier,Daniel Dubinsky,Corey Staples,Daniel Do Rosario,Christopher Morris,Christopher Stone,Cheryl Miller,Brina Martinez,Anna Grieco,Amy Spytko,Dalton Rice,Alejandro Torres,Alberto Vega,Jesus perez,Lucie Subrova</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead$Region_Ecosystem__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>NAMER</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead$IsConverted</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>0</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Lead$Owner</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Month</dateGranularity>
+        <field>Lead$CreatedDate</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Lead$Company</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Copy of Marketing Leads with Sales Activ</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Leads_with_or_without_Activities__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Lead$CreatedDate</dateColumn>
+        <interval>INTERVAL_LAST90</interval>
+    </timeFrameFilter>
+</Report>

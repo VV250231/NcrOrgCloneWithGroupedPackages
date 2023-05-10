@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Make_Completed_Required</fullName>
+    <active>true</active>
+    <description>Make Completed_Date__c required if ImplementationStatus__c is Complete - Update Billing</description>
+    <errorConditionFormula>AND( ISPICKVAL( ImplementationStatus__c , &apos;Complete - Update Billing&apos;), ISBLANK(Completed_Date__c) )</errorConditionFormula>
+    <errorDisplayField>ImplementationStatus__c</errorDisplayField>
+    <errorMessage>Completed Date is required if Implementation Status is selected as Complete - Update Billing</errorMessage>
+</ValidationRule>

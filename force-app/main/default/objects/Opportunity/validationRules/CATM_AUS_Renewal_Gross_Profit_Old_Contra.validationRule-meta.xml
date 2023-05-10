@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CATM_AUS_Renewal_Gross_Profit_Old_Contra</fullName>
+    <active>true</active>
+    <description>CATM-Mnthly Gross Pofit Amt (old contract) field must be completed for renewal opps when opps are in Pending Contract Signature or Closed Won Pending stages. This is applicable to AUS IBG team only</description>
+    <errorConditionFormula>AND (
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+CATM_Record__c,
+IsPickVal( StageName , &quot;Closing&quot;),
+Business_Unit__c  = &quot;IBG (Core)&quot;,
+IsPickVal(   Type  , &quot;Renewal&quot;),
+AND (
+   OR(
+      IsPickVal(  Reporting_Geography__c  , &quot;Australia&quot;),
+      IsPickVal(  Reporting_Geography__c  , &quot;New Zealand&quot;)
+   ),
+Isblank( Text(   Monthly_Gross_Profit_Amt_Old_Contract__c  ))
+)
+)</errorConditionFormula>
+    <errorMessage>Please update &quot;Monthly Gross Profit Amt (Old Contract)&quot; field</errorMessage>
+</ValidationRule>

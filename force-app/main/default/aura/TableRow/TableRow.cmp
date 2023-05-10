@@ -1,0 +1,56 @@
+<aura:component controller="TableRowController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	<aura:attribute type="String" name="value"></aura:attribute>
+    <aura:attribute type="String" name="class"></aura:attribute>
+    <aura:attribute type="String" name="Style"></aura:attribute>
+    <aura:attribute type="String" name="type" ></aura:attribute>
+    <aura:attribute type="String[]" name="tdbody" ></aura:attribute>
+    <aura:attribute type="Boolean" name="hidden"></aura:attribute>
+    <aura:attribute type="Boolean" name="require"></aura:attribute>
+    <aura:attribute type="Boolean" name="IsSelected"></aura:attribute> 
+    <aura:attribute type="Boolean" name="TempSelectAll"></aura:attribute>
+    <aura:attribute name="isCatm"  type="boolean"/>
+    
+    <aura:handler name="change" value="{!v.TempSelectAll}" action="{!c.onIsSelectedAttributeChange}"/>
+
+    <aura:attribute type="String" name="ProductName" ></aura:attribute>
+    <aura:attribute type="Decimal" name="Quantity" ></aura:attribute>
+    <aura:attribute type="Decimal" name="UnitPrice" ></aura:attribute>
+    <aura:attribute type="String" name="ProductId" ></aura:attribute>
+    <aura:attribute name="timer" type="Integer"/>
+    <aura:attribute name="IsAvailableforSubscription" type="Boolean"></aura:attribute>
+    <td class="Input_Custom inputHeight">
+         <!--<ui:inputCheckbox value="{!v.IsSelected}"></ui:inputCheckbox>--> 
+          <lightning:input type="checkbox" checked="{!v.IsSelected}"/> 
+    </td>
+    <td class="Input_Custom inputHeight">
+        
+        <ui:OutPuttext  value="{!v.ProductName}"></ui:OutPuttext> 
+         
+    </td> 
+    <td class="Input_Custom inputHeight">
+        <!--{!v.IsAvailableforSubscription}-->
+        <aura:if isTrue="{!v.IsAvailableforSubscription}">
+            <div href="#" title="Subscription Product" class="tooltip">
+                <lightning:badge style="font-size: 10px;" label="12x"/>
+            </div>            
+  		</aura:if>
+    </td>  
+   
+    <td class="Input_Custom inputHeight">
+        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left-right">
+         
+        <ui:InputNumber format="Number"  aura:id="Quantity" class="slds-input Input_Custom inputHeight" value="{!v.Quantity}" change="{!c.HandelQuantity}" updateOn="keyup"></ui:InputNumber>
+        <div class="slds-input__icon slds-input__icon_right slds-button slds-button_icon">
+          <lightning:icon iconName="{!'utility:'+v.class}" size="xx-small" alternativeText="Error!" variant="error"/>
+        </div>
+        </div>    
+    </td>
+    <td class="Input_Custom inputHeight">
+        <aura:if isTrue="{!v.isCatm}">
+            <lightning:input type="number" aura:id="UnitPrice"  name="UnitPrice"  value="{!v.UnitPrice}" onchange="{!c.HandelQuantity}" step=".0001"/>
+            <aura:set attribute="else">
+                <ui:InputNumber aura:id="UnitPrice" class="slds-input inputHeight" value="{!v.UnitPrice}" change="{!c.HandelQuantity}" updateOn="keyup"></ui:InputNumber>  <!--EBA_SF-2209-->
+            </aura:set>
+        </aura:if>
+    </td>
+</aura:component>

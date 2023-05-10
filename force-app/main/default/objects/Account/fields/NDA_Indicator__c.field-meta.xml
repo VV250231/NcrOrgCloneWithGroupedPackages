@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NDA_Indicator__c</fullName>
+    <externalId>false</externalId>
+    <formula>IMAGE(
+IF(NDA_Received__c= TRUE,
+&quot;/img/samples/flag_green.gif&quot;,
+&quot;/img/samples/flag_red.gif&quot;
+),&apos;&apos;
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Green = Signed NDA;
+Red = No NDA</inlineHelpText>
+    <label>NDA Indicator</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

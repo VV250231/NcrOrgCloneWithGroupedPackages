@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Template for Global Entitlements Analyst following up on second call regarding Entitlement recovery</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Global_Entitlements_Letterhead</letterhead>
+    <name>Second Call Follow Up Email</name>
+    <style>freeForm</style>
+    <subject>Re: Follow up message for {!Case.Account}</subject>
+    <textOnly>Hello {!Case.Account_Owner_First_Name__c} -
+
+I haven&apos;t been able to reach you to discuss {!Case.Account} and {!Case.Potential_Recovery__c} of possible Entitlement recovery.  I would like for us to discuss the impact this has on the company as well the customer.  If we aren&apos;t able to speak by [insert the day], I will reach out to you and your manager for further assistance. I have added my supervisor to this email. If you would like to reach out to {!User.Team_Lead__c}, my supervisor, for additional assistance please feel free to do so.
+
+
+{!Case.OwnerFullName}
+{!User.Department}
+{!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

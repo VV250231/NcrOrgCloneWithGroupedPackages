@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Protected_validation_IBG_UK</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+!$Setup.Automation_Setting__c.Skip_Validation_Rule__c, 
+OR( $Permission.CATM_IBG_Manager = true,
+ $Permission.CATM_IBG_User = true),ISPICKVAL(Owner:User.Geography__c , &quot;UK&quot;),ISPICKVAL( Protected__c,&quot;&quot;), RecordType.Name =&apos;Removals&apos;)</errorConditionFormula>
+    <errorDisplayField>Protected__c</errorDisplayField>
+    <errorMessage>Please update the &quot;Protected?&quot; field</errorMessage>
+</ValidationRule>

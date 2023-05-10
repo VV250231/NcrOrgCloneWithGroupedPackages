@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <interviewLabel>Already Approved Payments on Quote {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Already Approved Payments on Quote</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_Quote</name>
+        <label>Update Quote</label>
+        <locationX>586</locationX>
+        <locationY>441</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Quote__r.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Payments_Already_Approved__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>SBQQ__Quote__c</object>
+    </recordUpdates>
+    <start>
+        <locationX>458</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>Update_Quote</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>2 AND (1 OR 3)</filterLogic>
+        <filters>
+            <field>QS_Approval_Rule_Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Payments Approval</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>sbaa__Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Approved</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>QS_Approval_Rule_Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Payments Approval - Interchange Plus</stringValue>
+            </value>
+        </filters>
+        <object>sbaa__Approval__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

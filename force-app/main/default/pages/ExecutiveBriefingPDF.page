@@ -1,0 +1,827 @@
+<apex:page cache="false" expires="0"  showHeader="false" applyBodyTag="false"  extensions="ExecutiveBriefingPDFController,SaveHeadMap" standardController="Executive_Briefing__c" standardStylesheets="false" >
+    <apex:messages />
+    <head>
+        <style> 
+            table, td {
+            border: solid 1px #000;
+            border-spacing: 0;
+            border-collapse: collapse;
+            text-align:center;
+            padding: 1px;
+            }
+            img{
+            width: 100%;
+            height: 150px;
+            }  
+            
+            @page{ 
+                size:220mm 320mm;
+                 margin:0.25in;
+            }
+            body { font-size: 1em; }
+            body { font-family: 'Arial', 'Helvetica', sans-serif; }
+            .summTable {
+            border: 1px solid #000;
+            font-size:80%;
+            }
+            .summTable thead th { background-color :#0099BF;}
+            .summTable tfoot td { background-color :#54B648; font-weight: bold;}
+            
+            .summTable thead th, .summTable tbody td, .summTable tfoot td {
+            border: 1px solid #000; 
+            padding: 2px;
+            white-space: pre-line;
+            text-align: center;
+            }        
+            .tableCaption {
+            text-align: left;
+            margin-top : 25px;
+            margin-bottom : 2px;
+            margin-left: 5px;
+            text-decoration: underline;
+            }
+            
+            #AttendeesBiosPic2 .sfdc_richtext img {
+            width: 400px;
+            }
+            
+            .htmlDetailElementTable{
+            width: 100%;
+            }
+            button {
+            border: none;
+            background-color: rgb(91,234,208);
+            color: #333;
+            cursor: pointer;
+            display: inline-block;
+            }
+            body {
+            padding: 40px;
+            }
+            button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            }
+            input {
+            padding: 12px 20px;
+            }
+            img {
+            width: 100%;
+            height: 100%;
+            }
+            
+            #floater{
+                position: absolute;
+                top: 40px;
+                left: 1px;
+                width: auto; 
+                height: auto; 
+                -webkit-transition: all 2s ease-in-out;
+                transition: all 2s ease-in-out;
+                z-index: 1;
+                border-radius: 3px 0 0 3px;
+                padding: 10px;
+                text-align: center;
+                box-sizing: border-box;
+                -moz-box-shadow: 0px 10px 14px -7px #3e7327;
+                -webkit-box-shadow: 0px 10px 14px -7px #3e7327;
+                box-shadow: 0px 10px 14px -7px #3e7327;
+                background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
+                background:-moz-linear-gradient(top, #77b55a 5%, #72b352 100%);
+                background:-webkit-linear-gradient(top, #77b55a 5%, #72b352 100%);
+                background:-o-linear-gradient(top, #77b55a 5%, #72b352 100%);
+                background:-ms-linear-gradient(top, #77b55a 5%, #72b352 100%);
+                background:linear-gradient(to bottom, #77b55a 5%, #72b352 100%);
+                filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#77b55a', endColorstr='#72b352',GradientType=0);
+                background-color:#77b55a;
+                -moz-border-radius:4px;
+                -webkit-border-radius:4px;
+                border-radius:4px;
+                border:1px solid #4b8f29;
+                display:inline-block;
+                cursor:pointer;
+                color:#ffffff;
+                font-family:Arial;
+                font-size:13px;
+                font-weight:bold;
+                padding:6px 12px;
+                text-decoration:none;
+                text-shadow:0px 1px 0px #5b8a3c;
+            }
+            .red{
+                background-color: green;
+                color: white;
+            }              
+            .myButton {
+                -moz-box-shadow: 0px 10px 14px -7px #3e7327;
+                -webkit-box-shadow: 0px 10px 14px -7px #3e7327;
+                box-shadow: 0px 10px 14px -7px #3e7327;
+                background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
+                background:-moz-linear-gradient(top, #77b55a 5%, #72b352 100%);
+                background:-webkit-linear-gradient(top, #77b55a 5%, #72b352 100%);
+                background:-o-linear-gradient(top, #77b55a 5%, #72b352 100%);
+                background:-ms-linear-gradient(top, #77b55a 5%, #72b352 100%);
+                background:linear-gradient(to bottom, #77b55a 5%, #72b352 100%);
+                filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#77b55a', endColorstr='#72b352',GradientType=0);
+                background-color:#77b55a;
+                -moz-border-radius:4px;
+                -webkit-border-radius:4px;
+                border-radius:4px;
+                border:1px solid #4b8f29;
+                display:inline-block;
+                cursor:pointer;
+                color:#ffffff;
+                font-family:Arial;
+                font-size:13px;
+                font-weight:bold;
+                padding:6px 12px;
+                text-decoration:none;
+                text-shadow:0px 1px 0px #5b8a3c;
+            }
+            
+          .myButton:hover {
+            background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #72b352), color-stop(1, #77b55a));
+            background:-moz-linear-gradient(top, #72b352 5%, #77b55a 100%);
+            background:-webkit-linear-gradient(top, #72b352 5%, #77b55a 100%);
+            background:-o-linear-gradient(top, #72b352 5%, #77b55a 100%);
+            background:-ms-linear-gradient(top, #72b352 5%, #77b55a 100%);
+            background:linear-gradient(to bottom, #72b352 5%, #77b55a 100%);
+            filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#72b352', endColorstr='#77b55a',GradientType=0);
+            background-color:#72b352;
+        }  
+        .myButton:active {
+            position:relative;
+            top:1px;
+        }    
+            
+        .Disabled{
+          pointer-events: none;
+          cursor: not-allowed;
+          opacity: 0.65;
+          filter: alpha(opacity=65);
+          -webkit-box-shadow: none;
+          box-shadow: none;
+        }    
+            
+            
+        </style>
+        <!---------------------------------------------------->
+    </head>
+    
+    <body>
+        <apex:form >
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+            <!--<div id="floater">Generate PDF</div>-->
+            <apex:slds />
+            <div id="lightitup">
+             <div id="Btn_Div" title="Please wait Loading Form">
+                  <div id="Btn_Div1" class="Disabled" > 
+                    <div  class="slds-scope">
+                        <ul class="slds-button-group-row"> 
+                          <li class="slds-button-group-item">
+                            <apex:commandButton styleClass="myButton" title="Generate PDF"   value="Generate PDF" id="btnSave"  onclick="GetScreenShotOfHeatMap()" reRender="panel_form"/>
+                          </li>
+                          <li class="slds-button-group-item">
+                            <!--<button class="slds-button slds-button_neutral">Edit</button>-->
+                              <apex:commandButton styleClass="myButton" title="Export HeatMap"  value="Export HeatMap" id="btnExportHeatMap"  onclick="GetExportHeatMap()" reRender="panel_form"/>
+                          </li>
+                          
+                        </ul> 
+                    </div> 
+               </div>
+                 
+             </div>   
+           
+            
+                <!--<div id="Btn_Div" title="Please wait Loading Form"> 
+                     <div id="Btn_Div1" class="Disabled">
+                          <!--<apex:commandButton styleClass="myButton"  value="Generate PDF" id="btnSave"  onclick="GetScreenShotOfHeatMap()" reRender="panel_form"/>
+                         
+                     </div>
+                </div>-->
+                <br />
+                <table style="border-collapse: collapse;width:100%" border="" >
+                    <thead>
+                        <tr>
+                            <td colspan ="4" style="  border-collapse: collapse;border-left: 1px solid black;border-bottom: 1px solid black;border-right:1px solid black;text-align:center;background-color: #88c651;"><b><center>EXECUTIVE CUSTOMER BRIEFING SUMMARY</center></b></td>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan ="5"  width="50%" id = "logoTd">
+                                <div>
+                                    <apex:outputField value="{!objEB.Company_Logo__c}" style="width:444px;position:absolute; width:100%; height:100%" id="logo"/> 
+                                </div>
+                                
+                                
+                            </td>
+                            <td style="font-weight: bold; border-right: 1px solid black; border-bottom: 1px solid black;border-top:1px solid black;">Date</td>
+                            <td style=" border-right: 1px solid black; border-bottom: 1px solid black;border-top:1px solid black;"><apex:outputField value="{!objEB.Date_Time__c}"/></td>
+                            
+                        </tr>
+                        <tr>
+                            
+                            <td style="font-weight: bold; border-right: 1px solid black; border-bottom: 1px solid black;border-top:1px solid black;">Location</td>
+                            <td style=" border-right: 1px solid black; border-bottom: 1px solid black;border-top:1px solid black;"> <apex:outputField value="{!objEB.Location__c}"/></td>
+                            
+                        </tr>
+                        
+                        <tr>
+                            
+                            <td style="font-weight: bold; border-right: 1px solid black; border-bottom: 1px solid black;border-top:1px solid black;">Attire</td>
+                            <td style="border-right: 1px solid black; border-bottom: 1px solid black;border-top:1px solid black;"><apex:outputField value="{!objEB.Attire__c}"/></td>
+                            
+                        </tr>
+                        <tr>
+                            
+                            <td style="font-weight: bold; border-right: 1px solid black; border-bottom: 1px solid black;border-top:1px solid black;">News</td>
+                            <td style="border-right: 1px solid black; border-bottom: 1px solid black;border-top:1px solid black;"><apex:outputField value="{!objEB.News__c}"/></td>
+                            
+                        </tr>
+                        <tr>
+                            <!--<td></td>-->
+                            <td style="font-weight: bold; border-right: 1px solid black; border-bottom: 1px solid black;border-top:1px solid black;">Ownership</td>
+                            <td style="border-right: 1px solid black; border-bottom: 1px solid black;border-top:1px solid black;"><apex:outputText value="{!objEB.Ownership__c}"/></td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+                <table id="attendeeslist" style="border-collapse: collapse;width:100%" border="1px">
+                    <thead>
+                        <tr>
+                            <th colspan ="5" style="background-color: #88c651;"><span><b><center>Attendees</center></b></span></th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background-color: #ddd; text-align: justify;">
+                            
+                            <td style="margin: auto;padding: 15px; font-weight: bold;">Customer Attendee</td>
+                            <td style="margin: auto;padding: 15px; font-weight: bold;">Title</td>
+                            <td style="margin: auto;padding: 15px; font-weight: bold;">Decision Maker or Influencer</td>
+                            <td style="margin: auto;padding: 15px; font-weight: bold;">Friend, Foe, or Neutral?</td>
+                            <td width="20%" style="margin: auto;padding: 15px; font-weight: bold;">Attended a Previous CEC? If yes, date and brief summary.</td>
+                            
+                        </tr>
+                        <tr style="{!if(objEB.Customer_Attendee1__r.Name == '','display:None','')}">
+                            <td><apex:outputField style="text-align: justify;" value="{!objEB.Customer_Attendee1__r.Name}"/></td>
+                            <td><apex:outputField style="text-align: justify;" value="{!objEB.Customer_Attendee1__r.Title}"/></td>
+                            <td><apex:outputField style="text-align: justify;" value="{!objEB.Customer_Attendee1__r.Decision_Maker__c}"/></td>
+                            <td><apex:outputField style="text-align: justify;" value="{!objEB.Friend_Foe_Neutral_1__c}"/></td>
+                            <td><apex:outputField style="text-align: justify;" value="{!objEB.Attended_Previous_CEC_1__c}"/></td>
+                            
+                        </tr>
+                        <tr style="{!if(objEB.Customer_Attendee_2__r.Name == '','display:None','')}">
+                            <td><apex:outputField value="{!objEB.Customer_Attendee_2__r.Name}"/></td>
+                            <td><apex:outputField value="{!objEB.Customer_Attendee_2__r.Title}"/></td>
+                            <td><apex:outputField value="{!objEB.Customer_Attendee_2__r.Decision_Maker__c}"/></td>
+                            <td><apex:outputField value="{!objEB.Friend_Foe_Neutral_2__c}"/></td>
+                            <td><apex:outputField value="{!objEB.Attended_a_Previous_CEC_2__c}"/></td>
+                            
+                        </tr>
+                        
+                        <tr style="{!if(objEB.Customer_Attendee_3__r.Name == '','display:None','')}">
+                            <td><apex:outputField value="{!objEB.Customer_Attendee_3__r.Name}"/></td>
+                            <td><apex:outputField value="{!objEB.Customer_Attendee_3__r.Title}"/></td>
+                            <td><apex:outputField value="{!objEB.Customer_Attendee_3__r.Decision_Maker__c}"/></td>
+                            <td><apex:outputField value="{!objEB.Friend_Foe_Neutral_3__c}"/></td>
+                            <td><apex:outputField value="{!objEB.Attended_a_Previous_CEC_3__c}"/></td>          
+                            
+                        </tr>
+                        
+                        <tr style="{!if(objEB.Customer_Attendee_4__r.Name == '','display:None','')}">
+                            <td><apex:outputField value="{!objEB.Customer_Attendee_4__r.Name}"/></td>
+                            <td><apex:outputField value="{!objEB.Customer_Attendee_4__r.Title}"/></td>
+                            <td><apex:outputField value="{!objEB.Customer_Attendee_4__r.Decision_Maker__c}"/></td>
+                            <td><apex:outputField value="{!objEB.Friend_Foe_Neutral_4__c}"/></td>
+                            <td><apex:outputField value="{!objEB.Attended_a_Previous_CEC_4__c}"/></td>     
+                            
+                        </tr >
+                        
+                        <tr style="{!if(objEB.Customer_Attendee_5__r.Name == '','display:None','')}">
+                            <td><apex:outputField value="{!objEB.Customer_Attendee_5__r.Name}"/></td>
+                            <td><apex:outputField value="{!objEB.Customer_Attendee_5__r.Title}"/></td>
+                            <td><apex:outputField value="{!objEB.Customer_Attendee_5__r.Decision_Maker__c}"/></td>
+                            <td><apex:outputField value="{!objEB.Friend_Foe_Neutral_5__c}"/></td>
+                            <td><apex:outputField value="{!objEB.Attended_a_Previous_CEC_5__c}"/></td>
+                            
+                        </tr>  
+                       
+                        
+                        <!------------------------- Sub Attendee Table---------------------------->
+                        
+                        <tr style="background-color: #ddd;">
+                            
+                            <td style="font-weight: bold;">NCR Attendee</td>
+                            <td style="font-weight: bold;">Title</td>
+                            <td colspan ="3" align="center" style="font-weight: bold;">Meeting Role</td>
+                            
+                            
+                        </tr>
+                        <tr style="{!if(objEB.NCR_Attendee_1__r.Name == '','display:None','')}">
+                            
+                            <td><apex:outputField value="{!objEB.NCR_Attendee_1__r.Name}"/></td>
+                            <td><apex:outputField value="{!objEB.NCR_Attendee_1__r.Title}"/></td>
+                            <td colspan ="3"><apex:outputField value="{!objEB.NCR_Attendee_1_Role__c}"/></td>
+                            
+                            
+                        </tr>
+                        <tr style="{!if(objEB.NCR_Attendee_2__r.Name == '','display:None','')}">
+                            
+                            <td><apex:outputField value="{!objEB.NCR_Attendee_2__r.Name}"/></td>
+                            <td><apex:outputField value="{!objEB.NCR_Attendee_2__r.Title}"/></td>
+                            <td colspan ="3"><apex:outputField value="{!objEB.NCR_Attendee_2_Role__c}"/></td>
+                            
+                            
+                        </tr>
+                        <tr style="{!if(objEB.NCR_Attendee_3__r.Name == '','display:None','')}">
+                            
+                            <td><apex:outputField value="{!objEB.NCR_Attendee_3__r.Name}"/></td>
+                            <td><apex:outputField value="{!objEB.NCR_Attendee_3__r.Title}"/></td>
+                            <td colspan ="3"><apex:outputField value="{!objEB.NCR_Attendee_3_Role__c}"/></td>
+                            
+                            
+                        </tr>
+                        <tr style="{!if(objEB.NCR_Attendee_4__r.Name == '','display:None','')}">
+                            
+                            <td><apex:outputField value="{!objEB.NCR_Attendee_4__r.Name}"/></td>
+                            <td><apex:outputField value="{!objEB.NCR_Attendee_4__r.Title}"/></td>
+                            <td colspan ="3"><apex:outputField value="{!objEB.NCR_Attendee_4_Role__c}"/></td>
+                            
+                            
+                        </tr>
+                        
+                        <!------------------------- End Sub Attendee Table------------------------>
+                        <tr>
+                            <td colspan ="5" style="background-color: #88c651;"><span><b><center>Meeting Agenda</center></b></span></td>
+                            
+                        </tr>
+                        
+                        <tr>
+                            <td colspan ="5" align="left">
+                                <span>
+                                    <!--<apex:outputField value="{!objEB.Meeting_Agenda__c}" style="width:700px;text-align: left;"/>-->
+                                    <div style="width:700px;text-align: left;">
+                                        {!objEB.Meeting_Agenda__c}
+                                    </div>
+                                </span>
+                                
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th colspan ="4" style="background-color: #88c651;"><span><b><center>Meeting Objectives</center></b></span></th>   
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        <tr>  
+                            <td colspan="2" style="background-color: #ddd; font-weight: bold;">Customer Meeting Goals</td>                 
+                        </tr>
+                        <tr> 
+                            <td colspan="2">
+                                <!--<apex:outputField value="{!objEB.Meeting_Objective_1__c}" style="width:700px;"/>-->
+                                <div style="width:700px;text-align: left;">
+                                    {!objEB.Meeting_Objective_1__c}
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        
+                        <tr>
+                            
+                            <td colspan="2" style="background-color: #ddd; font-weight: bold;">NCR Meeting Goals</td>                
+                            
+                        </tr>   
+                        <tr>
+                            
+                            <td colspan="2">
+                                <!--<apex:outputField value="{!objEB.Meeting_Objective_2__c}" style="width:700px;"/>-->
+                                <div style="width:700px;text-align: left;">
+                                    {!objEB.Meeting_Objective_2__c}
+                                </div>    
+                                
+                            </td>
+                            
+                        </tr> 
+                        
+                        <tr>
+                            <td width="25%" style="background-color: #ddd;font-weight: bold;">Key Messages</td>
+                            <td >
+                                <apex:outputField value="{!objEB.Key_Message_1__c}" style="width:700px;"/>   
+                            </td>
+                        </tr>  
+                        <tr>
+                            <td style="background-color: #ddd;font-weight: bold;">Key Questions or Asks</td>
+                            <td>  
+                                <apex:outputField value="{!objEB.Key_Question_1__c}" style="width:700px;"/> 
+                            </td>
+                            
+                        </tr>  
+                        <tr>
+                            <td style="background-color: #ddd;font-weight: bold;">Highlights or Red Flags </td>
+                            <td>
+                                <apex:outputField value="{!objEB.Highlight_Flag_1__c}" style="width:700px;"/>
+                            </td>
+                            
+                        </tr>  
+                    </tbody>
+                </table>
+                
+                <div style="page-break-after:always;"/>
+                <table class="table table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th colspan ="4" style="background-color: #88c651;"><span><b><center>Customer Attendees and Bios</center></b></span></th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="{!if(objEB.Customer_Attendee1__r.Name == '','display:None','')}">
+                            <td width="30%">
+                                {!objEB.Customer_Attendee1__r.Name}<br/>
+                                {!objEB.Customer_Attendee1__r.Title}<br/>
+                                {!objEB.Customer_Attendee1__r.Decision_Maker__c}<br/>
+                                {!objEB.Attended_Previous_CEC_1__c}
+                                
+                            </td>
+                            <td width="55%"> 
+                                <apex:outputField value="{!objEB.Customer_Attendees_Bios_1__c}" style="width:700px;"/>
+                            </td>
+                            <td width="15%">
+                                
+                                <apex:outputField value="{!objEB.Cutsomer_Attendees_Bio_Pic_1__c}" />
+                            </td>
+                            
+                        </tr>
+                        <tr style="{!if(objEB.Customer_Attendee_2__r.Name == '','display:None','')}"> 
+                            <td width="30%">
+                                <div>
+                                    {!objEB.Customer_Attendee_2__r.Name}<br/>
+                                    {!objEB.Customer_Attendee_2__r.Title}<br/>
+                                    {!objEB.Customer_Attendee_2__r.Decision_Maker__c}<br/>
+                                    {!objEB.Attended_a_Previous_CEC_2__c}
+                                </div>      
+                            </td>
+                            <td width="55%"> 
+                                <apex:outputField value="{!objEB.Customer_Attendees_Bios_2__c}" style="width:700px;" />
+                            </td>
+                            <td width="15%">
+                                <apex:outputField value="{!objEB.Customer_Attendees_Bios_Pic_2__c}" style="width: 500px;"/>
+                            </td>
+                        </tr> 
+                        <tr style="{!if(objEB.Customer_Attendee_3__r.Name == '','display:None','')}">
+                            <td width="30%">
+                                {!objEB.Customer_Attendee_3__r.Name}<br/>
+                                {!objEB.Customer_Attendee_3__r.Title}<br/>
+                                {!objEB.Customer_Attendee_3__r.Decision_Maker__c}<br/>
+                                {!objEB.Attended_a_Previous_CEC_3__c}
+                            </td>
+                            <td width="55%"> 
+                                <apex:outputField value="{!objEB.Customer_Attendees_Bios_3__c}" style="width:700px;"/>
+                            </td>
+                            <td width="15%">
+                                <apex:outputField value="{!objEB.Customer_Attendees_Bios_Pic_3__c}" />
+                            </td>
+                        </tr>
+                        <tr style="{!if(objEB.Customer_Attendee_4__r.Name == '','display:None','')}">
+                            <td width="30%">
+                                {!objEB.Customer_Attendee_4__r.Name}<br/>
+                                {!objEB.Customer_Attendee_4__r.Title}<br/>
+                                {!objEB.Customer_Attendee_4__r.Decision_Maker__c}<br/>
+                                {!objEB.Attended_a_Previous_CEC_4__c} 
+                            </td>
+                            <td width="55%"> 
+                                <apex:outputField value="{!objEB.Customer_Attendees_Bios_4__c}" style="width:700px;"/>
+                            </td>
+                            <td width="15%">
+                                <apex:outputField value="{!objEB.Customer_Attendees_Bios_Pic_4__c}" />
+                            </td>
+                        </tr>
+                        
+                        <tr style="{!if(objEB.Customer_Attendee_5__r.Name == '','display:None','')}">
+                            <td width="30%">
+                                {!objEB.Customer_Attendee_5__r.Name}<br/>
+                                {!objEB.Customer_Attendee_5__r.Title}<br/>
+                                {!objEB.Customer_Attendee_5__r.Decision_Maker__c}<br/>
+                                {!objEB.Attended_a_Previous_CEC_5__c}
+                                
+                            </td>
+                            <td width="55%"> 
+                                <apex:outputField value="{!objEB.Customer_Attendees_Bios_5__c}" style="width:700px;"/>
+                            </td>
+                            <td width="15%">
+                                <apex:outputField value="{!objEB.Customer_Attendees_Bios_Pic_5__c}" />
+                            </td>
+                        </tr>        
+                    </tbody>
+                </table>
+                <div style="page-break-after:always;"/>    
+                <table class="table table-bordered"  style="margin-top:2px;border-collapse: collapse;width:100%" border="1px">
+                    <thead>
+                        <tr>
+                            <th colspan="4" style="background-color: #88c651;width:100%"><span><b><center>ACCOUNT SUMMARY</center></b></span></th>  
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr >  
+                            <td >  
+                                <apex:outputField value="{!objEB.Account_Summary_Image__c}" style="width:700px;"/>  
+                            </td> 
+                        </tr>  
+                        <tr>  
+                            <td  style="font-weight: bold;" class="accSummLeft"> 
+                                Who Are They
+                            </td> 
+                            <td > 
+                                <div style="text-align: left;">
+                                    <!--<apex:outputField value="{!objEB.Who_Are_They__c}" style="width:70%;"/>-->
+                                    {!objEB.Who_Are_They__c}
+                                </div>    
+                            </td> 
+                        </tr>
+                        <tr>  
+                            <td  style="font-weight: bold;" class="accSummLeft"> 
+                                Key Metrics
+                            </td> 
+                            <td > 
+                                <!--<apex:outputField value="{!objEB.Key_Metrics__c}"  style="width:70%;" />--> 
+                                <div style="text-align: left;">
+                                    {!objEB.Key_Metrics__c}
+                                </div>    
+                            </td> 
+                        </tr>
+                        <tr>  
+                            <td style="font-weight: bold;" class="accSummLeft"> 
+                                Values and Mission
+                            </td> 
+                            <td > 
+                                <!--<apex:outputField value="{!objEB.Values_and_Mission__c}" style="width:70%;" />--> 
+                                <div style="text-align: left;">
+                                    {!objEB.Values_and_Mission__c}
+                                </div>    
+                            </td> 
+                        </tr>
+                        <tr>  
+                            <td style="font-weight: bold;" class="accSummLeft"> 
+                                Business Environment 
+                            </td> 
+                            <td > 
+                                <!--<apex:outputField value="{!objEB.Business_Environment__c}" style="width:70%;" />--> 
+                                <div style="text-align: left;">
+                                    {!objEB.Business_Environment__c}
+                                </div>    
+                            </td> 
+                        </tr>
+                        
+                    </tbody>
+                </table>
+                <table class="table table-bordered" style="margin-top:2px;border-collapse: collapse;width:100%" border="1px">
+                    <tbody>
+                        <tr>  
+                            <td style="width:50%;"> 
+                                <span style="">
+                                    <label classs="accSummLeft" style="font-weight: bold;">Customer Since:</label> 
+                                </span> 
+                                <span>
+                                    <apex:outputField value="{!objEB.Customer_Since__c}"/>
+                                </span> 
+                                
+                            </td> 
+                        </tr>
+                        <tr>
+                            <td style="width:50%;"> 
+                                <span style="display:inline-block;">
+                                    <label classs="accSummLeft" style="font-weight: bold;">Account Loyalty Score:</label>
+                                </span> 
+                                <span>
+                                    <apex:outputField value="{!objEB.Account_Loyalty_Score__c}" style="height:25px;" />
+                                </span> 
+                            </td> 
+                        </tr>
+                        <tr>  
+                            <td style="width:50%;"> 
+                                <span style="display:inline-block;">
+                                    <label classs="accSummLeft" style="font-weight: bold;">Account Manager/Sales Leader:</label>
+                                </span> 
+                                <span>
+                                    <apex:outputField value="{!objEB.Account_Manager_Sales_Leader__r.Name}" style="height:25px;" />
+                                </span> 
+                            </td> 
+                        </tr>
+                        <tr>
+                            <td style="width:50%;"> 
+                                <span style="display:inline-block; font-weight: bold;">
+                                    <label classs="accSummLeft">Referenceable:</label>
+                                </span> 
+                                <span>
+                                    <apex:outputField value="{!objEB.Referenceable__c}" style="height:25px;" /> </span> 
+                            </td> 
+                        </tr>
+                        <tr>  
+                            <td style="width:100%;padding-top:25px;"> 
+                                <label style="font-weight:bold;text-decoration:underline;">NCR Spend</label><br/>
+                                
+                                <apex:dataTable value="{!NCRSpendWrapperList}" var="c" width="100%"  styleClass="table summTable" captionClass="tableCaption" columnsWidth="25%,25%,25%,25%"> 
+                                    
+                                    
+                                    <apex:column headerValue="Revenue" >
+                                        <apex:outputText value="{!c.revType}" />
+                                        <apex:facet name="footer">Total</apex:facet>
+                                    </apex:column>
+                                    <apex:column footerClass="numFooter">
+                                        <apex:facet name="header">{!(YEAR(TODAY()) -1)}</apex:facet>
+                                        <span style="margin-right:32%"> 
+                                            <apex:outputText value="{0, number, ###,##0}" >
+                                                <apex:param value="{!c.PrevYearAmount}"/>
+                                            </apex:outputText>
+                                        </span>
+                                        <apex:facet name="footer"> 
+                                            <apex:outputText value="${0, number, ###,###,###,##0}" style="margin-right:32%">
+                                                <apex:param value="{!prevYearTtlNCRSpend}" />
+                                            </apex:outputText>
+                                        </apex:facet>
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">{!(YEAR(TODAY()) -1)} Est. % Wallet Share</apex:facet>
+                                        <apex:outputText value="{!c.prevYearWaltShare}"  />
+                                        
+                                    </apex:column>
+                                    <apex:column style="text-align:right;" footerClass="numFooter">
+                                        <apex:facet name="header">{!YEAR(TODAY())} YTD Actual</apex:facet>
+                                        <span style="margin-right:32%"> <apex:outputText value="{0, number, ###,##0}" >
+                                            <apex:param value="{!c.CurrYearAmount}"/>
+                                            </apex:outputText> 
+                                        </span>
+                                        <apex:facet name="footer"> 
+                                            <apex:outputText value="${0, number, ###,###,###,##0}" style="margin-right:32%">
+                                                <apex:param value="{!currYearTtlNCRSpend}" />
+                                            </apex:outputText>
+                                        </apex:facet>
+                                    </apex:column>
+                                </apex:dataTable> 
+                                
+                                <label style="font-weight:bold;text-decoration:underline;">Current Year Opportunities</label><br/>
+                                <apex:dataTable value="{!CurrYearOppLIst}" var="opp" width="100%"  styleClass="table summTable" captionClass="tableCaption" columnsWidth="55%,15%,15%,15%"> 
+                                    
+                                    <apex:column headerValue="Solution" style="text-align:left;">
+                                        <apex:outputField value="{!opp.Name}" />
+                                        <apex:facet name="footer">Total</apex:facet>
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">$ Value ($,000)</apex:facet>
+                                        <apex:outputText value="{!ROUND(opp.Converted_Opportunity_Amount__c/1000, 0)}K" />
+                                        <apex:facet name="footer">$&nbsp;{!currYearTtlAmt}M</apex:facet>
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">Forecast Category</apex:facet>
+                                        <apex:outputField value="{!opp.ForecastCategoryName}" />
+                                        
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">Expected Book Date</apex:facet>
+                                        <apex:outputText value="{0,date,MM/dd}"> <apex:param value="{!opp.CloseDate}" /> </apex:outputText>
+                                    </apex:column>
+                                </apex:dataTable> 
+                                
+                            </td> 
+                            
+                        </tr>
+                        
+                    </tbody>
+                </table>
+                <table class="table table-bordered" style="margin-top:2px;border-collapse: collapse;width:100%"  border="1px">
+                    <tr>
+                        <td > 
+                            
+                            <label style="font-weight:bold;text-decoration:underline;">Customer Strategic Objectives</label><br/>
+                            <!--<apex:outputField label="Customer Strategic Objectives" value="{!objEB.Customer_Strategic_Objectives__c}" style="width:100%"/>-->
+                            <div style="text-align: left;">   
+                                {!objEB.Customer_Strategic_Objectives__c}
+                            </div>     
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <br/><label style="font-weight:bold;text-decoration:underline;">How NCR Aligns</label><br/>
+                            <div style="text-align: left;">
+                                {!objEB.How_NCR_Aligns__c}
+                            </div>    
+                            <!--<apex:outputField label="How NCR Aligns" value="{!objEB.How_NCR_Aligns__c}" style="width:100%"/>-->
+                        </td>
+                    </tr>
+                    
+                </table>
+                <center>
+                    <apex:image url="{!URLFOR($Action.Attachment.Download, AttachmentId_role)}" width="100%" height="200%"/> 
+                </center>
+                
+                <!-- code of Heat Map : sk250817 -->
+                <br />
+                <center><b><u>HeatMap</u></b></center>
+                <br />
+                
+                <center>
+                    <div style="{!hideheatmap}">
+                        <!--<apex:image url="{!URLFOR($Action.Attachment.Download, AttachmentId_heat)}" width="100%" height="100%"/>--> 
+                    </div>
+                </center>
+                  
+                <br />
+                <apex:includeScript value="/lightning/lightning.out.js" />
+                <apex:includeLightning />
+                 
+                <div style="{!showheatmap}" >
+                    <div id="lightning"  style="height:auto;width:auto;"/>
+                </div>
+                <hr/>
+                <apex:slds />
+                <script>
+                $Lightning.use("c:HeatMap_Boxes_App", function() {
+                    $Lightning.createComponent("c:HeatMap_Primary",
+                                               {     recordId : "{!objEB.Name__c}",
+                                               },
+                                               "lightning", 
+                                               function(cmp){
+                                                    setTimeout(function(){ 
+                                                        //alert("{!objEB.Name__c}");
+                                                        $("#Btn_Div").attr('title', 'Generate PDF');
+                                                        $("#Btn_Div1").removeClass('Disabled'); 
+
+                                                    }, 3000); 
+                                               });
+                });
+                </script>
+                  
+                <apex:includeScript value="{!URLFOR($Resource.Html2Canas, '/LibFileHtml2Canvas/jquery.min.js')}"/>  
+                <apex:includeScript value="{!URLFOR($Resource.Html2Canas, '/LibFileHtml2Canvas/html2canvas.js')}"/>
+                <apex:includeScript value="{!URLFOR($Resource.Html2Canas, '/LibFileHtml2Canvas/html2canvas.min.js')}"/>
+                
+                
+                <script> 
+                
+                 function GetScreenShotOfHeatMap(){ 
+                     
+                    html2canvas(document.querySelector("#lightning")).then(canvas => {
+                        
+                        SaveHirarchyAF(canvas.toDataURL('image/png'));
+                        alert('Success');  
+                        
+                    });
+                      
+                 }
+                    
+                  function GetExportHeatMap(){ 
+                     
+                    html2canvas(document.querySelector("#lightning")).then(canvas => {
+                        
+                        //SaveHirarchyAF(canvas.toDataURL('image/png'));
+                        //alert('Success'); 
+                        //console.log(canvas.toDataURL('image/png'));
+                        /// create an "off-screen" anchor tag
+                          var lnk = document.createElement('a'), e;
+                        
+                          /// the key here is to set the download attribute of the a tag
+                          lnk.download = 'HeatMap';
+                        
+                          /// convert canvas content to data-uri for link. When download
+                          /// attribute is set the content pointed to by link will be
+                          /// pushed as "download" in HTML5 capable browsers
+                          lnk.href = canvas.toDataURL("image/png;base64");
+                        
+                          /// create a "fake" click-event to trigger the download
+                          if (document.createEvent) {
+                            e = document.createEvent("MouseEvents");
+                            e.initMouseEvent("click", true, true, window,
+                                             0, 0, 0, 0, 0, false, false, false,
+                                             false, 0, null);
+                        
+                            lnk.dispatchEvent(e);
+                          } else if (lnk.fireEvent) {
+                            lnk.fireEvent("onclick");
+                          }
+                    });
+                      
+                 }
+                        
+                </script>
+                <!-- ###################################################  -->
+            </div> 
+             <apex:actionFunction action="{!SaveHirarchyImage}" status="" name="SaveHirarchyAF"  reRender="panel_form,HeatmapPanel" >
+                  <apex:param assignTo="{!strImageBlob}"  name="imageBlob" value=""/> 
+             </apex:actionFunction> 
+        </apex:form>   
+    </body>
+</apex:page>

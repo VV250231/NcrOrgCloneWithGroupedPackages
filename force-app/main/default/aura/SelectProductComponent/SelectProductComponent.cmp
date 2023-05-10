@@ -1,0 +1,148 @@
+<aura:component controller="fetchOpportunityDetail" implements="lightning:isUrlAddressable,flexipage:availableForAllPageTypes,force:appHostable,force:hasRecordId,force:lightningQuickAction,forceCommunity:availableForAllPageTypes" access="global">
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/> 
+    <aura:attribute name="IPTPartnerCommunityUrl" type="String"/>
+    <aura:attribute name="isCommunityUser" type="Boolean" default="false"/> 
+    <aura:attribute name="ToggleSubmit" type="boolean" default="true"/>
+    <aura:dependency resource="force:navigateToSObject" type="EVENT"/>
+    <aura:dependency resource="force:navigateToURL" type="EVENT"/>
+    <aura:attribute name="showModalA" type="String" />
+    <aura:attribute name="ScreenName" type="String" />
+    <aura:attribute name="passRecordId" type="String"/>
+    <aura:attribute name="OppId" type="String"></aura:attribute>
+    <aura:attribute name="togglehelp" type="Boolean" default="false" />
+    <aura:attribute name="isAdminProfile" type="Boolean" default="false" />
+    <aura:attribute name="ScheduleProducts" type="List"></aura:attribute>
+    <!--added for Greyout-->
+    <aura:attribute name="GreyOutPS" type="String" default=""/>
+    <aura:attribute name="myBool" type="Boolean" default="false"/>  
+    <aura:handler name="change" value="{!v.myBool}" action="{!c.handleValueChange}"/> 
+    <aura:attribute name="showErrorIndicator" type="Boolean" default="false"></aura:attribute>  
+    
+    <!--End-->
+    <!--DeleteBundleEvent : Pankaj-->
+     <aura:registerEvent name="DeleteSelectedProduct" type="c:DeleteSelectedProduct"/>
+     <aura:handler event="c:DeleteSelectedProduct" action="{!c.handlerDeleteSelectedProduct}"/>
+     <aura:registerEvent name="AddBundleProduct_To_ItemToSchedule" type="c:AddBundleProduct_To_ItemToSchedule"/>
+     <aura:handler event="c:AddBundleProduct_To_ItemToSchedule" action="{!c.handlerAddBundleProduct_To_ItemToSchedule}"/>
+    
+     <aura:attribute name="BundleProductsToDelete" type="Map" default="{ Id: '', Status: false }" ></aura:attribute>
+     <aura:attribute name="NewBundleName" type="String" ></aura:attribute>
+     <aura:attribute name="RefreshBundleParentComponent" type="Boolean"  default="false"></aura:attribute>
+     <aura:attribute name="ToggleNewBundle" type="String" default="hide"></aura:attribute>
+     <aura:attribute name="ToggleSpinner" type="String" default="hide"></aura:attribute>
+     <aura:attribute name="BundleProductsToItemToSchedule" type="Map" default="{ Id: '', Status: false }" ></aura:attribute>
+     <aura:attribute name="test" type="Boolean" default="false"></aura:attribute> 
+     <aura:attribute name="togglevideop1" type="Boolean" default="true" />
+     <aura:attribute name="togglevideop2" type="Boolean" default="false" />
+     <aura:attribute name="togglevideop3" type="Boolean" default="false" />
+     <aura:attribute name="togglevideop4" type="Boolean" default="false" />
+     <aura:registerEvent name="ItemToScheduleProductList" type="c:ItemToScheduleProductList"/>    
+     <aura:handler event="c:ItemToScheduleProductList" action="{!c.ItemToSchedulePrds}"></aura:handler>
+     <aura:registerEvent name="FavouriteCmp" type="c:FavouriteCmp"/>
+     <aura:handler event="c:FavouriteCmp" action="{!c.handleMyFavouriteCmpEvent}"/>
+    <!--DeleteBundleEvent : Pankaj-->
+    
+    
+    <aura:attribute name="oppo" type="Opportunity"/> 
+    <aura:attribute type="String" name="Msg" />
+    <aura:attribute type="String" name="Category"  /> 
+    <aura:handler name="change" value="{!v.pageReference}" action="{!c.reInit}" />
+   <!-- <ltng:require styles="/resource/SLDS103/assets/styles/salesforce-lightning-design-system.min.css"/> -->
+   <div class="slds-card">  
+      
+   <div>
+       <div class="imgContainer"> 
+           <section class="slds-clearfix  slds-m-bottom_small" >
+               <div class="slds-float_left slds-m-left_large" style="">
+                   <aura:if isTrue="{!v.isCommunityUser}">
+                       <img src="{!v.IPTPartnerCommunityUrl+'/resource/SchedulerIcon/NCRSchedulerAssets/Dashboard_Icon.svg'}" style="width:67px"/>          
+                       <aura:set attribute="else">
+                           <img src="/resource/SchedulerIcon/NCRSchedulerAssets/Dashboard_Icon.svg" style="width:67px"/> 
+                       </aura:set>
+                   </aura:if>
+               </div>
+               
+      <div class="slds-float_left slds-m-right_large">
+          <div class="slds-m-top_x-small">
+          <ul>
+             <li><b><ui:outputText value="{!v.oppo.Name}"/></b></li>
+              <li>OPPORTUNITY</li>
+              <li>Product Selection</li>
+          </ul></div>
+          </div>
+      <div class="slds-col slds-no-flex slds-grid slds-align-top slds-float_right slds-m-around_small">
+                       
+        <button class="slds-button slds-button_icon slds-button_icon-border slds-m-left_x-small" title="" onclick="{!c.showhelpwindow}" >
+            <lightning:icon iconName="utility:question_mark" size="x-small" alternativeText="Help video"/>
+        </button>
+     </div>
+    </section>
+    <div class="slds-clearfix  slds-m-bottom_small" >
+        <div class="slds-float_left slds-m-left_large" >
+            
+            <div class="slds-p-left_xx-large">
+                <a href="" onclick="{!c.navigatetoopportunity}">
+                   <aura:if isTrue="{!v.isCommunityUser}">
+                       <img src="{!v.IPTPartnerCommunityUrl+'/resource/MyIcon/svg/left-arrow.svg'}" style="width:15px;margin:right:5px;"/>
+                    <aura:set attribute="else">
+                        <img src="/resource/MyIcon/svg/left-arrow.svg" style="width:15px;margin:right:5px;"/>
+                       </aura:set>
+                    </aura:if>
+                       Return to Opportunity
+                       
+                </a>
+            </div> 
+        </div>
+        
+ 
+        <div class="slds-float_right slds-m-right_large" style="display: inline-block;">
+            <lightning:button onclick="{!c.CreateDynamicSearch}" label="SEARCH PRODUCTS" iconName="utility:search" iconPosition="left" />     
+        </div>
+        <div class="slds-float_right slds-m-right_large" style="display: inline-block;">
+            <!--   <c:PS_SearchSolutions OppId="{!v.recordId}" ScreenName="{!v.ScreenName}"/>  -->
+            <!-- <c:PS_SearchStandardPackage OppId="{!v.recordId}"  /> -->
+        </div>
+    </div>        
+</div>
+<div class="wrapper" style="position:relative;">  
+    <div class="slds-grid slds-wrap slds-box slds-box_xx-small" style="">
+         <div class="slds-col slds-size_6-of-12 slds-box" style="flex-grow:1;padding-left:10px; padding-right:10px;" >
+            <c:PreductSelectionTable isCommunityUser="{!v.isCommunityUser}" IPTPartnerCommunityUrl="{!v.IPTPartnerCommunityUrl}" OppRecdId="{!v.OppId}" isAdminProfile="{!v.isAdminProfile}" ></c:PreductSelectionTable> 
+         </div>
+        <div class="slds-col slds-box slds-grow-none" style="max-width:16.6666666667%">
+            <aura:if isTrue="{!v.OppId}" >
+                <c:FavoriteComponent isCommunityUser="{!v.isCommunityUser}" IPTPartnerCommunityUrl="{!v.IPTPartnerCommunityUrl}" favOppId="{!v.OppId}"></c:FavoriteComponent>
+            </aura:if>
+        </div> 
+        
+        <!--component for Subscriptioon and NonSubscripition Bundle-->            
+         <div class="slds-col slds-size_4-of-12 slds-box" > 
+         <!--<c:CustomAccordian  OppId="{!v.OppId}"></c:CustomAccordian>-->  
+               
+              <!--<c:BundlePicker OppId="{!v.OppId}"></c:BundlePicker>-->  
+              <lightning:tabset selectedTabId="one">
+                    <lightning:tab  title="Subscription"  iconName="utility:package_org_beta"  label="Custom Bundles" id="one">
+                       <c:CustomAccordian TriggerScreenName="ADD PRODUCT" OppId="{!v.OppId}" isCatm="{!v.oppo.CATM_Record__c}" isCommunityUser="{!v.isCommunityUser}" IPTPartnerCommunityUrl="{!v.IPTPartnerCommunityUrl}" ></c:CustomAccordian>
+                    </lightning:tab>  
+        
+              </lightning:tabset>
+         </div>
+        <!--End-->
+    </div>
+   </div>   
+   </div> 
+    <c:ToastComponent />
+  <!-- EBD EDD validation code-->
+     <c:ValidateEDDEBDComponent />  
+  <!-- EBD EDD validation code Finish-->
+    <!--Added for grey out-->
+     <aura:unescapedHtml value="{!v.GreyOutPS}"/>
+    <!--End-->
+    </div> 
+    <!-- below is help window -->
+    
+    <div class="zoomdiv" aura:id="reconfigDiv"></div>
+    <!-- end of help window -->
+    {!v.body}
+</aura:component>

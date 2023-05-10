@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>Opportunity.Initial_Renewal_Value__c.CONVERT:SUM*1</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Current Renewal Value</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>AMOUNT.CONVERT:SUM*1</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA2</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Future Value</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>AMOUNT.CONVERT:SUM-Opportunity.Initial_Renewal_Value__c.CONVERT:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA3</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Incremental FV</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>Account.Active_Account__c:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA4</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Accounts</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_31247253</developerName>
+        <masterLabel>Manager/Team</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>FULL_NAME</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Marko Djukanovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aleksandar Milovanovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ivan Babovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Bogdan Jezdovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Tatjana Aleksandric</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Natalija Dragovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ivana Lakovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Vladan Milosevic</sourceValue>
+            </sourceValues>
+            <value>Marija Brenka</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Ksenija Banjanin</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Maja Ilic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ivana Milosevic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ivana Todorovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Mila Savicevic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Vladimir Banjanin</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Bojan Skara</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Nikola Jovanovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Nevena Kalanovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Dejana Pesic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Tatjana Jeremic</sourceValue>
+            </sourceValues>
+            <value>Marko Avramovic</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_2531623</developerName>
+        <masterLabel>Selling Stage</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>STAGE_NAME</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Analyzing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Validating</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Analyzing - NonFunnel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Validating - NonFunnel</sourceValue>
+            </sourceValues>
+            <value>Initial Stage</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Offering</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Proposing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Offering - NonFunnel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Proposing - NonFunnel</sourceValue>
+            </sourceValues>
+            <value>IMS Proposals Agreement</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Closing - NonFunnel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Closing</sourceValue>
+            </sourceValues>
+            <value>Agreement Acceptance</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Closed/Booked - NonFunnel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Closed/Booked</sourceValue>
+            </sourceValues>
+            <value>Closed/Won</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>Account.Account_Region__c</field>
+    </columns>
+    <columns>
+        <field>Account.Account_Country_Code__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Account_LOB__c</field>
+    </columns>
+    <columns>
+        <field>CLOSE_MONTH</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>ROLLUP_DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Annuity_Contract_Term__c</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>OpportunityLineItem.Topline_Product_Lkp__c</field>
+    </columns>
+    <columns>
+        <field>Product2.Service_Offer_Category__c</field>
+    </columns>
+    <columns>
+        <field>QUANTITY</field>
+    </columns>
+    <columns>
+        <field>UNIT_PRICE</field>
+    </columns>
+    <columns>
+        <field>TOTAL_PRICE</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Initial_Renewal_Value__c</field>
+    </columns>
+    <columns>
+        <field>AMOUNT</field>
+    </columns>
+    <columns>
+        <field>UNIT_PRICE.CONVERT</field>
+    </columns>
+    <columns>
+        <field>TOTAL_PRICE.CONVERT</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Initial_Renewal_Value__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>AMOUNT.CONVERT</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Notes__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>OpportunityLineItem.Topline_Product_Lkp__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Integrated Managed Solutions for CFI</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>STAGE_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Prospecting,Analyzing,Validating,Offering,Proposing,Closing,Analyzing - NonFunnel,Validating - NonFunnel,Offering - NonFunnel,Proposing - NonFunnel,Closing - NonFunnel,Closed/Booked,Closed/Booked - NonFunnel</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FULL_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>,Ksenija Banjanin,Maja Ilic,Ivana Milosevic,Mila Savicevic,Ivana Todorovic,Bojan Skara,Tatjana Jeremic,Vladimir Banjanin,Tamara Danojlic,Nikola Jovanovic,Dejana Pesic,Nevena Kalanovic,Tatjana Aleksandric,Marko Djukanovic,Natalija Dragovic,Bogdan Jezdovic,Ivana Lakovic,Vladan Milosevic,Nikola Rajic,Aleksandar Milovanovic,Ivan Babovic</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>AMOUNT</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>greaterThan</operator>
+            <value>USD 0</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_2531623</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_31247253</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Quarter</dateGranularity>
+        <field>CLOSE_DATE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>All Bundles - Dash II (Quarters)</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>OpportunityProduct</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>Account.Account_Country_Code__c</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <endDate>2021-12-01</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2017-01-01</startDate>
+    </timeFrameFilter>
+</Report>

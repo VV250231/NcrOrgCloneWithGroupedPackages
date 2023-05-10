@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OISM__Deal_Sheet</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>DealSheet</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>var oppId = &apos;{!CASESAFEID( Opportunity.Id )}&apos;; 
+var redirectUrl = &apos;/apex/OISM__Assessment?opportunityId=&apos;+oppId;
+
+console.log(redirectUrl);
+window.open(encodeURI(redirectUrl));</url>
+</WebLink>

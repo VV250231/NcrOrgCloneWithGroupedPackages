@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Next_Bill_Due__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Billing_Period_Name_CH__c  = &apos;Monthly&apos;  ||  Billing_Period_Name_CH__c  = &apos;MONTHLY&apos; ,
+           IF( MONTH(MinBillFromDate__c) = 1, &apos;JAN&apos;,
+           IF(MONTH(MinBillFromDate__c) = 2, &apos;FEB&apos;,
+           IF(MONTH(MinBillFromDate__c) = 3, &apos;MAR&apos;,
+           IF(MONTH(MinBillFromDate__c) = 4, &apos;APR&apos;,
+           IF(MONTH(MinBillFromDate__c) = 5, &apos;MAY&apos;,
+           IF(MONTH(MinBillFromDate__c) = 6, &apos;JUN&apos;,
+           IF(MONTH(MinBillFromDate__c) = 7, &apos;JUL&apos;,
+           IF(MONTH(MinBillFromDate__c) = 8, &apos;AUG&apos;,
+           IF(MONTH(MinBillFromDate__c) = 9, &apos;SEP&apos;,
+           IF(MONTH(MinBillFromDate__c) = 10, &apos;OCT&apos;,
+           IF(MONTH(MinBillFromDate__c) = 11, &apos;NOV&apos;,
+           &apos;DEC&apos; ) ) ) ) ) ) ) ) ) )  ) ,
+IF(Billing_Period_Name_CH__c  = &apos;Quarterly&apos;  ||  Billing_Period_Name_CH__c  = &apos;QUARTERLY&apos;,
+           IF( MONTH(MinBillFromDate__c) = 1, &apos;JAN-MAR&apos;,
+           IF(MONTH(MinBillFromDate__c) = 2, &apos;FEB-APR&apos;,
+           IF(MONTH(MinBillFromDate__c) = 3, &apos;MAR-MAY&apos;,
+           IF(MONTH(MinBillFromDate__c) = 4, &apos;APR-JUN&apos;,
+           IF(MONTH(MinBillFromDate__c) = 5, &apos;MAY-JUL&apos;,
+           IF(MONTH(MinBillFromDate__c) = 6, &apos;JUN-AUG&apos;,
+           IF(MONTH(MinBillFromDate__c) = 7, &apos;JUL-SEP&apos;,
+           IF(MONTH(MinBillFromDate__c) = 8, &apos;AUG-OCT&apos;,
+           IF(MONTH(MinBillFromDate__c) = 9, &apos;SEP-NOV&apos;,
+           IF(MONTH(MinBillFromDate__c) = 10, &apos;OCT-DEC&apos;,
+           IF(MONTH(MinBillFromDate__c) = 11, &apos;NOV-JAN&apos;,
+           &apos;DEC-FEB&apos; ) ) ) ) ) ) ) ) ) )  ),
+ IF(Billing_Period_Name_CH__c  = &apos;SEMI-ANNUAL&apos;  ||  Billing_Period_Name_CH__c  = &apos;Semi-Annual&apos;,
+           IF( MONTH(MinBillFromDate__c) = 1, &apos;JAN-JUN&apos;,
+           IF(MONTH(MinBillFromDate__c) = 2, &apos;FEB-JUL&apos;,
+           IF(MONTH(MinBillFromDate__c) = 3, &apos;MAR-AUG&apos;,
+           IF(MONTH(MinBillFromDate__c) = 4, &apos;APR-SEP&apos;,
+           IF(MONTH(MinBillFromDate__c) = 5, &apos;MAY-OCT&apos;,
+           IF(MONTH(MinBillFromDate__c) = 6, &apos;JUN-NOV&apos;,
+           IF(MONTH(MinBillFromDate__c) = 7, &apos;JUL-DEC&apos;,
+           IF(MONTH(MinBillFromDate__c) = 8, &apos;AUG-JAN&apos;,
+           IF(MONTH(MinBillFromDate__c) = 9, &apos;SEP-FEB&apos;,
+           IF(MONTH(MinBillFromDate__c) = 10, &apos;OCT-MAR&apos;,
+           IF(MONTH(MinBillFromDate__c) = 11, &apos;NOV-APR&apos;,
+           &apos;DEC-MAY&apos; ) ) ) ) ) ) ) ) ) )  ),
+ IF(Billing_Period_Name_CH__c  = &apos;ANNUAL&apos;  ||  Billing_Period_Name_CH__c  = &apos;Annual&apos;,
+           IF( MONTH(MinBillFromDate__c) = 1, &apos;JAN-DEC&apos;,
+           IF(MONTH(MinBillFromDate__c) = 2, &apos;FEB-JAN&apos;,
+           IF(MONTH(MinBillFromDate__c) = 3, &apos;MAR-FEB&apos;,
+           IF(MONTH(MinBillFromDate__c) = 4, &apos;APR-MAR&apos;,
+           IF(MONTH(MinBillFromDate__c) = 5, &apos;MAY-APR&apos;,
+           IF(MONTH(MinBillFromDate__c) = 6, &apos;JUN-MAY&apos;,
+           IF(MONTH(MinBillFromDate__c) = 7, &apos;JUL-JUN&apos;,
+           IF(MONTH(MinBillFromDate__c) = 8, &apos;AUG-JUL&apos;,
+           IF(MONTH(MinBillFromDate__c) = 9, &apos;SEP-AUG&apos;,
+           IF(MONTH(MinBillFromDate__c) = 10, &apos;OCT-SEP&apos;,
+           IF(MONTH(MinBillFromDate__c) = 11, &apos;NOV-OCT&apos;,
+           &apos;DEC-NOV&apos; ) ) ) ) ) ) ) ) ) )  ),
+ &apos;not listed&apos;) ) ) )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Next Bill Due</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,41 @@
+<messaging:emailTemplate subject="Conditionally Orderable Approval - APPROVED: {!relatedTo.Quote__r.qtc_Quote_Name__c} for {!relatedTo.Quote__r.SBQQ__Opportunity2__r.Name}"
+recipientType="User"
+relatedToType="sbaa__Approval__c">
+<messaging:HtmlEmailBody >
+<html>
+<body>
+
+
+
+<b></b>
+<p></p><br/>
+
+Hello {!recipient.name}, 
+
+<p> Your conditionally orderable line item approval request for customer {!relatedTo.Quote__r.SBQQ__Account__r.Name} has been approved.</p>
+
+<b>Quote Approval Comments:</b> {!relatedTo.sbaa__CommentsLong__c}
+
+<p><b>Quote Number: </b>&nbsp;<apex:outputLink value="{!LEFT($Api.Enterprise_Server_URL_300, FIND('/services',$Api.Enterprise_Server_URL_300))}/{!relatedTo.Quote__r.Id}" 
+>{!relatedTo.Quote__r.Name}</apex:outputLink><br/>
+<b>Quote Name: </b>{!relatedTo.Quote__r.qtc_Quote_Name__c}<br/>
+<b>Opportunity: </b>&nbsp;<apex:outputLink value="{!LEFT($Api.Enterprise_Server_URL_300, FIND('/services',$Api.Enterprise_Server_URL_300))}/{!relatedTo.Quote__r.SBQQ__Opportunity2__r.Id}" 
+>{!relatedTo.Quote__r.SBQQ__Opportunity2__r.Name}</apex:outputLink><br/>
+<b>Account: </b>&nbsp;<apex:outputLink value="{!LEFT($Api.Enterprise_Server_URL_300, FIND('/services',$Api.Enterprise_Server_URL_300))}/{!relatedTo.Quote__r.SBQQ__Account__r.Id}" 
+>{!relatedTo.Quote__r.SBQQ__Account__r.Name}</apex:outputLink><br/>
+<b>Deliver To Site: </b>{!relatedTo.Quote__r.Deliver_To_Site__r.Name}<br/>
+<b>Deliver To Site Address: </b>{!relatedTo.Quote__r.Deliver_To_Site__r.BillingStreet}<br/>
+{!relatedTo.Quote__r.Deliver_To_Site__r.BillingCity}, {!relatedTo.Quote__r.Deliver_To_Site__r.BillingState} {!relatedTo.Quote__r.Deliver_To_Site__r.BillingPostalCode}<br/>
+{!relatedTo.Quote__r.Deliver_To_Site__r.BillingCountry}<br/></p>
+
+<p>
+<sbaa:relatedList rendered="{!relatedTo.Quote__c != null}" recordId="{!relatedTo.Quote__c}" relationshipName="CO_Quote_Lines__r" fieldSetName="qtc_CO_Approval_Email"/>
+</p>
+
+
+<p style="color:white"><apex:outputText value="{!relatedTo.Id}"/></p>
+
+</body>
+</html>
+</messaging:HtmlEmailBody>
+</messaging:emailTemplate>

@@ -1,0 +1,39 @@
+<aura:component controller="fetchOpportunityDetail" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction,forceCommunity:availableForAllPageTypes" access="global" >
+    <!--<ltng:require styles="/resource/SLDS203/assets/styles/salesforce-lightning-design-system.min.css"/> -->
+    <aura:attribute name="Opportuntyid" type="String" default="{!v.recordId}"></aura:attribute>
+    <lightning:navigation aura:id="navService"/>
+    <lightning:navigation aura:id="navServicePS"/>
+    <aura:attribute name="pageReference" type="Object"/>
+    <aura:attribute name="isCPQOpp" type="Boolean"/>
+    <aura:attribute name="isCommunityUser" type="Boolean" default="false"/>
+    <aura:attribute name="IPTPartnerCommunityUrl" type="String"/>
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+
+   <aura:if isTrue="{!!v.isCPQOpp}">    
+    <div class="slds-grid">
+        <div class="slds-col">
+            <button class="slds-button slds-button_neutral slds-not-selected" onclick="{!c.LaunchAddProductScreenByCommunity}" aria-live="assertive" >
+                <aura:if isTrue="{!v.isCommunityUser}">
+                    <img src="{!v.IPTPartnerCommunityUrl+'/resource/SchedulerIcon/NCRSchedulerAssets/Dashboard_Icon.svg'}" class="slds-button__icon slds-button__icon_left"/>           
+                    <aura:set attribute="else">
+                        <img src="/resource/SchedulerIcon/NCRSchedulerAssets/Dashboard_Icon.svg" class="slds-button__icon slds-button__icon_left"/>           
+                    </aura:set>
+                </aura:if>
+                Add Products
+            </button>
+            
+            <button class="slds-button slds-button_neutral slds-not-selected" onclick="{!c.psByCommunity}" aria-live="assertive">
+                <aura:if isTrue="{!v.isCommunityUser}">
+                    <img src="{!v.IPTPartnerCommunityUrl+'/resource/SchedulerIcon/NCRSchedulerAssets/Scheduler_Icon.svg'}" class="slds-button__icon slds-button__icon_left"/>            
+                    <aura:set attribute="else">
+                        <img src="/resource/SchedulerIcon/NCRSchedulerAssets/Scheduler_Icon.svg" class="slds-button__icon slds-button__icon_left"/>            
+                    </aura:set>
+                </aura:if>
+                Product Schedule
+            </button>
+            
+        </div> 
+        
+    </div>
+    </aura:if>
+</aura:component>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_IPS_Opp_Creation_on_GS_Account</fullName>
+    <active>true</active>
+    <description>Restrict IPS users to create Opportunity on GS Owner Accounts</description>
+    <errorConditionFormula>AND( 
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+NOT(CATM_Record__c),
+ISNEW()
+,CONTAINS($Profile.Name, &quot;IPS&quot;)
+,NOT(CONTAINS( Account.Master_Customer_Number__c , &quot;IPS&quot;))
+,($Profile.Name &lt;&gt; &quot;Soup Integration&quot;)
+,($Profile.Name &lt;&gt; &quot;iPaas Administration&quot;)
+)</errorConditionFormula>
+    <errorDisplayField>AccountId</errorDisplayField>
+    <errorMessage>IPS users are not allowed to create Opportunity on Global Sales Accounts. 
+Please select same Account for IPS where MCN contians IPS or request a new account.</errorMessage>
+</ValidationRule>

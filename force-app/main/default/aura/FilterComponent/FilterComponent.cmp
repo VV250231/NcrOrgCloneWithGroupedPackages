@@ -1,0 +1,21 @@
+<aura:component controller="FilerComponentController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="FilterName" type="String"></aura:attribute> 
+     <aura:attribute name="isSelected"  type="Boolean" />
+
+   
+    <aura:registerEvent name="myComponentEvent" type="c:FilterCmpEvent"/>
+    <li role="presentation" class="slds-listbox__item" >
+        <div id="object1" class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small slds-is-selected" role="option">
+            <span class="slds-media__figure">
+                
+                <!--<lightning:buttonIconStateful  size="xx-small" iconName="utility:check" selected="{!v.isSelected }"  alternativeText="Answer"/>-->
+                <ui:inputCheckbox value="{!v.isSelected}"></ui:inputCheckbox>
+                
+            </span> 
+            <span class="slds-media__body">
+                <span class="slds-truncate" title="Accounts">
+                    <span class="slds-assistive-text">Current Selection:</span> {!v.FilterName}</span>
+            </span>
+        </div>
+    </li>                                                           
+</aura:component>

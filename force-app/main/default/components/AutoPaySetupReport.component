@@ -1,0 +1,43 @@
+<apex:component controller="AutoPaySetupReport" access="global">
+    <apex:attribute name="salesrepId" type="Id" description="Id of the salesrep" assignTo="{!salesrepId1}"/>
+    <apex:dataTable value="{!docList}" var="Qt" headerClass="theHead" 
+                    rowClasses="odd,even" styleClass="tableClass">
+        <apex:column >
+            <apex:facet name="header">Quote Number</apex:facet>
+            <apex:outputlink value="{!instanceURL}/{!Qt.id}">{!Qt.Name}</apex:outputlink>
+            <apex:facet name="footer"></apex:facet>
+        </apex:column>
+        <apex:column >
+            <apex:facet name="header">Customer Name</apex:facet>
+            <apex:outputText value="{!Qt.SBQQ__Account__r.Name}"/>
+            <apex:facet name="footer"></apex:facet>
+        </apex:column>
+        <apex:column >
+            <apex:facet name="header">MCN</apex:facet>
+            <apex:outputText value="{!Qt.SBQQ__Account__r.Master_Customer_Number__c}"/>
+            <apex:facet name="footer"></apex:facet>
+        </apex:column>
+        <apex:column >
+            <apex:facet name="header">Bill To Name</apex:facet>
+            <apex:outputText value="{!Qt.qtc_Bill_To_Site__r.Name}"/>
+            <apex:facet name="footer"></apex:facet>
+        </apex:column>
+        <apex:column >
+            <apex:facet name="header">Bill To Number</apex:facet>
+            <apex:outputText value="{!Qt.qtc_Bill_To_Site__r.Site_Number__c}"/>
+            <apex:facet name="footer"></apex:facet>
+        </apex:column>        
+        <apex:column >
+            <apex:facet name="header">Legal Document Status</apex:facet>
+            <apex:outputText value="{!Qt.qtc_Legal_Document_Status__c}"/>
+            <apex:facet name="footer"></apex:facet>
+        </apex:column>
+        <apex:column >
+            <apex:facet name="header">Date Signed</apex:facet>
+            <apex:outputText value="{!If((Qt.Customer_Documents__r.size > 0) ,Qt.Customer_Documents__r[0].Customer_Signature_Date__c,"")}"/>
+            <apex:facet name="footer"></apex:facet>
+        </apex:column>
+          
+    </apex:dataTable>
+    <br/>
+</apex:component>

@@ -1,0 +1,25 @@
+<apex:page controller="FileController" extensions="FileControllerExt"  showHeader="false" sidebar="false">
+    <apex:pageMessages id="pageMessages"/>
+    
+    <apex:outputPanel layout="block" rendered="{! (! error)}">
+        <apex:form >
+            <apex:pageBlock >
+                <apex:pageBlockSection collapsible="false" columns="1">
+                    <apex:inputField value="{! file.Proof_of_Performance_Document_Type__c}"/>
+                    <apex:inputfile fileName="{! fileName}" value="{! fileBody}" required="true"></apex:inputfile>
+                </apex:pageBlockSection>
+                <apex:pageBlockButtons location="bottom">
+                    <apex:commandButton value="Update" action="{! updateFileProcess}"/>
+                </apex:pageBlockButtons>
+            </apex:pageBlock> 
+        </apex:form>     
+    </apex:outputPanel>
+    
+    <script>
+        var isUpdateFileProcessDone = {! isUpdateFileProcessDone} ;
+        if(isUpdateFileProcessDone){
+            window.opener.location.reload();
+            window.close();
+        }
+    </script>
+</apex:page>

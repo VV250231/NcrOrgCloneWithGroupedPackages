@@ -1,0 +1,72 @@
+<aura:component controller="EbdEddController" implements="flexipage:availableForAllPageTypes,force:hasRecordId,force:LightningQuickAction" access="global" > 
+    <!--<ltng:require styles="/resource/SLDS103/assets/styles/salesforce-lightning-design-system-ltng.min.css"/>-->
+    <aura:attribute name="opp" type="Opportunity"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:registerEvent name="EDDEvent" type="c:EDDEvent"/>
+     <aura:registerEvent name="PS_RefreshView" type="c:PS_RefreshView"/>
+    <!--Added to refresh PreviouslyScheduled comp - Nagendra-->
+    <aura:registerEvent name="EventRefreshPreviousScheduledFromValidateDate" type="c:EventRefreshPreviousScheduledFromValidateDate"/>
+    <!--End-->
+    <aura:attribute name="showModalA" type="String" />
+    <aura:attribute name="passId" type="String"/>
+    <aura:handler event="c:PassRecordIdEvent" action="{!c.passRecordId}"/>
+   <aura:attribute name="callFromSelectPage" type="Boolean" />
+
+    <aura:attribute name="dateToday" type="Date" />
+    
+    
+    
+    <!--Spinner -->
+    <div class="slds-spinner_container" id="spinnerdiv" style="display:None">
+        <div class="slds-spinner--brand slds-spinner slds-spinner--large" aria-hidden="false" role="alert">
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+        </div> 
+    </div>
+    
+    
+    
+    <!--Modal Body -->
+    <aura:renderIf isTrue="{!v.showModalA=='Y'}">
+        <div class="slds-modal slds-fade-in-open" aria-hidden="false" role="dialog" id="backGroundSectionId" Style="top:170px;">            
+            <div class="slds-modal__container slds-p-around--large" style="height: 286px;;"> 
+                <div class="slds-modal__header" style="height: 65px;">
+                    <p style="color:red;">* Expected Book Date should be in future.
+                    </p>
+                </div>
+                <div class="slds-modal__content slds-p-around--medium" style="padding-top: 0px;">					
+					<table class="slds-table slds-table--cell-buffer slds-no-row-hover">
+						<tbody>
+							<tr>
+								<th scope="row">
+									<label class="slds-form-element__label" for="input-01">Expected Book Date</label>
+									<ui:inputDate value="{!v.opp.CloseDate}" displayDatePicker="true" />
+								</th>
+                                <!-- @Ajay commenting EDSD-->
+								<!--th scope="row">
+									<label class="slds-form-element__label" for="input-02">Expected Delivery Start Date</label>
+									<ui:inputDate value="{!v.opp.Expected_Delivery_Date__c}" displayDatePicker="true"/>
+								</th-->
+							</tr>
+						</tbody>
+					</table>
+					
+					
+                </div>                
+				<div class="slds-modal__footer">
+					<ui:button class="slds-button slds-button--neutral slds-button--brand"  press="{!c.updateDate}">Save</ui:button>
+				</div>
+            </div>
+        </div>      
+        <div class="slds-backdrop slds-backdrop--open" id="newId" style=""></div>
+    </aura:renderIf>
+       <!-- <aura:set attribute="else">
+            <c:MsgScheduleDateLessThanDeliveryStartDate/>
+    </aura:set> -->
+      
+        
+        
+        
+    
+    
+</aura:component>

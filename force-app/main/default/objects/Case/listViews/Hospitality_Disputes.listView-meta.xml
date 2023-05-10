@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hospitality_Disputes</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CCAD_Dispute_Nbr__c</columns>
+    <columns>CreatedDate__c</columns>
+    <columns>LOB__c</columns>
+    <columns>Industry__c</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>Master_Customer_Nbr__c</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>Dispute_Created_By_Name__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Dispute</value>
+    </filters>
+    <filters>
+        <field>Account_LOB__c</field>
+        <operation>equals</operation>
+        <value>Hospitality</value>
+    </filters>
+    <label>Hospitality Disputes</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

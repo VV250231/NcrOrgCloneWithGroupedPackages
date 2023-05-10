@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CDF1</field>
+    </columns>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>ROLLUP_DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Forecast_Category__c</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>AMOUNT</field>
+    </columns>
+    <columns>
+        <field>AGE</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Payments_Attached__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Created_Date__c</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>UPPER(IF(CONTAINS(Account.Account_Owner_Role__c,&quot;SMB&quot;),
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;Channel&quot;),
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;Central&quot;),&quot;Channel Central&quot;,
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;North&quot;),&quot;Channel North&quot;,
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;South&quot;),&quot;Channel South&quot;,
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;West&quot;),&quot;Channel West&quot;, &quot;Channel &quot; &amp; Account.Account_Owner_Role__c)))), 
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;Northeast&quot;),&quot;North&quot;,
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;Southeast&quot;),&quot;Southeast&quot;,
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;Central&quot;),&quot;North&quot;,
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;Florida&quot;),&quot;Southeast&quot;,
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;Texas&quot;),&quot;West-Texas&quot;,
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;West&quot;),&quot;West-Texas&quot;, Account.Account_Owner_Role__c))))))),&quot;NON-SMB OWNED&quot;))</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>SMB Region</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>OPPORTUNITY_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>amendment</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CREATED</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Nemanja Lisov,Tanja Stojicic,Igor Momic,Nikola Kovacevic,Daria Nisandzic,Milan Marinkovic,Dusan Simic,Maja Peric,Milica Dimitrijevic,Nevena Parlic,Bojan Stevanovic,Gavrilo Boskovic,Lazar Sertic,Sava Matkovic,Milica Vukotic,Srboljub Dragisic,Irena Jevric,Marko Soso,Dusica Pavlovic,Jelena Antic,Milena Lukovic,Filip Dragic,Andjela Kocovic,Jelena Randelovic,Jelena Cacanovic,Milos Djordjevic,Milos Pesic,Nenad Jelic,Sandra Brasnjovic,Sonja Stupar,Svetlana Pasic,Danijela Cankovic,Milos Tomasovic,Dijana Novakovic,Jovana Radovic,Djordje Jovanovic</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CREATED</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>ACCOUNT_OWNER</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Account.Account_Owner_Role__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Inside Sales Opps Created Last Week</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>team</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_LASTWEEK</interval>
+    </timeFrameFilter>
+</Report>

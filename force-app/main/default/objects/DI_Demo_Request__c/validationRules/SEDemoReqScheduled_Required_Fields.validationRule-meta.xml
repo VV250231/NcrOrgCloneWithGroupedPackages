@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SEDemoReqScheduled_Required_Fields</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(ISPICKVAL(Status__c, &quot;Scheduled&quot;), RecordType.DeveloperName ==&apos;SE_Demo_Request&apos;, OR(ISBLANK( Confirmed_Date_Time__c ), ISBLANK( Confirmed_Duration__c),ISBLANK( Assigned_to_SE__c )))</errorConditionFormula>
+    <errorMessage>Status can not be set to Scheduled if Confirmed Date/Time and Confirmed Duration is blank or not Assigned to SE.</errorMessage>
+</ValidationRule>

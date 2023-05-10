@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Offer_Portfolio_and_Type</fullName>
+    <active>true</active>
+    <description>This rule is created to validate opportunities. It checks if offer portfolio=&quot;Consumables&quot; and type is other than &apos;IPS Base Business&apos;, &apos;Existing customer-New Solution/Service&apos;, or &apos;New Customer&apos;, then it displays an error message.</description>
+    <errorConditionFormula>AND (
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+NOT(CATM_Record__c),
+If(ISPICKVAL(Solution_Portfolio__c,&apos;Consumables&apos;),NOT(OR( ISPICKVAL(Type,&apos;IPS Base Business&apos;) ,ISPICKVAL(Type,&apos;Existing Customer - New Solution/Service&apos;),ISPICKVAL(Type,&apos;New Customer&apos;))),false),
+($Profile.Name &lt;&gt; &quot;Soup Integration&quot;),($Profile.Name &lt;&gt; &quot;iPaas Administration&quot;),($Profile.Name &lt;&gt; &quot;C9 Administration&quot;))</errorConditionFormula>
+    <errorDisplayField>Type</errorDisplayField>
+    <errorMessage>Please Select Valid IPS Type: IPS Base Business, Existing Customer - New Solution/Service, or New Customer.</errorMessage>
+</ValidationRule>

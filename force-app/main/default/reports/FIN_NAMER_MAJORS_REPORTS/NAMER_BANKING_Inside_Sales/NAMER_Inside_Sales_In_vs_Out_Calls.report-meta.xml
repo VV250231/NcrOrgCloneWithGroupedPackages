@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_26570332</developerName>
+        <masterLabel>Inbound/Outbound calls</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Lead.Lenos_Campaign__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>COR_ncr.com-contact-us_120214</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ContactUs-2020-Marketo</sourceValue>
+            </sourceValues>
+            <value>Inbound Calls</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2020_04_LifeAfterCOVID_Banking</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Channel Leads_Inside Sales_2019</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Inside Sales - Final Win10 Check-In</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2020_04_Inside Sales_COVID-19_Banking</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>DB_SALES_CAMPAIGN_BILLION_DOLLAR_LIST_08-19</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Direct Leads_Inside Sales_2019</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2020_04_FIS Competitive Attack_Campaign_Digital Banking</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2020_CUNAGAC_Banking</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Delaney_2020_Leads</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Digital Banking TX Meetings_Feb2020_Delaney</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>-</sourceValue>
+            </sourceValues>
+            <value>Outbound Calls</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>SUBJECT</field>
+    </columns>
+    <columns>
+        <field>FIRST_NAME</field>
+    </columns>
+    <columns>
+        <field>LAST_NAME</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>CALLDURATION</field>
+    </columns>
+    <columns>
+        <field>Activity.Call_Topic__c</field>
+    </columns>
+    <columns>
+        <field>Lead.Lenos_Campaign__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>ASSIGNED</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>logan segraves,mike cummings,christian pontalti,hayley alexander,gift ogunwale,ryan schneider,kamal medlock</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>SUBJECT</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>called,left voicemail</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_26570332</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>ASSIGNED</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <field>CREATED_DATE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>NAMER Inside Sales In vs. Out Calls</name>
+    <params>
+        <name>closed</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>type</name>
+        <value>te</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>LeadActivity</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>Lead.Lenos_Campaign__c</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>DUE_DATE</dateColumn>
+        <interval>INTERVAL_CURFY</interval>
+    </timeFrameFilter>
+</Report>

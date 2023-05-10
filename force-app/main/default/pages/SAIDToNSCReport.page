@@ -1,0 +1,1717 @@
+<!--
+##################################################################################################
+# Project Name and Request Num..........: NSC Sales Central
+# File............................: SAIDtoNSCReportController.Apexcontroller
+# Created by................: Saritha karuturi                                                                   
+# Created Date...........: 5/31/2016                                                                              
+# Last Modified by......:  Saritha karuturi
+# Last Modified Date..:    07-01-2016
+# Description...............: This is the page with respect to used for O2C vf tab,it will hold all the report types for 
+Invoices,current orders and revenues which are pulling from EDBI to NSC application using ODATA connection and displaying in this page for reps.
+                               NSCI_AGILE-1461-Logic is constructed for Invoices and Current Orders.
+                               NSCI_AGILE-1436-Added logic to display the Data Filter on Invoices reports.
+################################################################################################
+-->
+<apex:page controller="SAIDtoNSCReportController"  sidebar="false"  standardStylesheets="false" readOnly="True">
+
+<head>
+<script type="text/javascript">
+        function Disablefilter(var1,var2,var3,var4,var5,var6){
+                      
+                 document.getElementById(var1).style.display="None";
+                 document.getElementById(var2).style.display="None";
+                 document.getElementById(var3).style.display="None";
+                 document.getElementById(var4).style.display="None";
+                 document.getElementById(var5).style.display="None";
+                 document.getElementById(var6).style.display="None";
+                 
+       }
+</script>
+
+ <script>
+
+          function agefilterCheck(){
+        if (document.getElementById('ageCheck').checked) {
+             document.getElementById("agepanel").style.display='block';
+            
+          
+       }
+    } 
+
+</script>
+<script>
+function yesnoCheck() {
+    if (document.getElementById('yesCheck').checked) {
+        document.getElementById('monthslistpanel').style.display = 'block';
+        document.getElementById('quarterlistpanel').style.display = 'none';
+      
+    }
+    else
+    {
+     document.getElementById('monthslistpanel').style.display = 'none';
+     
+     }
+
+} 
+</script>     
+ 
+ <script>
+function yesnoCheckvalue() {
+    if (document.getElementById('noCheck').checked) {
+        document.getElementById('quarterlistpanel').style.display = 'block';
+        document.getElementById('monthslistpanel').style.display = 'none';
+         document.getElementById('monthbuttonpanel').style.display = 'none';
+    }
+    else
+    {
+     document.getElementById('quarterlistpanel').style.display = 'none';
+     }
+
+} 
+</script>
+
+<script>
+    function ToGoogle() {
+        window.location.href="https://google.com";
+    }
+    </script>
+
+       <apex:includescript value="//code.jquery.com/jquery-1.11.1.min.js" / >
+       <apex:includescript value="//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js" />
+       <apex:Stylesheet value="//cdn.datatables.net/1.10.4/css/jquery.dataTables.css" />
+       <apex:includescript value="https://cdn.datatables.net/plug-ins/1.10.11/api/sum().js"/>
+       <apex:includescript value="https://code.jquery.com/jquery-1.12.3.js"/>
+       <apex:includescript value="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"/> 
+       <apex:Stylesheet value="https://cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css"/>
+       <apex:includescript value="https://cdn.datatables.net/buttons/1.2.1/js/dataTables.buttons.min.js"/>
+
+        <apex:includescript value="https://cdn.datatables.net/buttons/1.2.1/js/dataTables.buttons.min.js"/>
+        <apex:includescript value="//cdn.datatables.net/buttons/1.2.1/js/buttons.flash.min.js"/>
+        <apex:includescript value="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"/>
+        <apex:includescript value="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"/>
+        <apex:includescript value="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"/>
+        <apex:includescript value="//cdn.datatables.net/buttons/1.2.1/js/buttons.html5.min.js"/>
+       <apex:includescript value="//cdn.datatables.net/buttons/1.2.1/js/buttons.print.min.js"/>
+       <apex:Stylesheet value="//cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css"/>
+       <apex:Stylesheet value="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"/>
+     
+</head>
+
+
+
+<apex:form id="fid">
+ 
+ <apex:sectionHeader title="Order Shipment Invoice" subtitle="O2C" />
+   
+ <apex:pageBlock tabStyle="Account" id="pgBlckId">
+
+<apex:outputPanel rendered="{!if(ARaging.size>0 || BookedOrders.size>0 || ARagingfilter.size>0 || Revenudetails.size>0 || RevenuQuarterdetails.size>0 || RevenuMonthdetails.size>0 || OrdersQuarterFilter.size>0 || OrdersMonthFilter.size>0 || OpenOrders.size>0 || testError=True,True,false)}">
+<marquee behavior="scroll" direction="right">Use Google Chrome Brower To Export Data!! </marquee>
+<div align="left" draggable="false">
+<apex:commandButton value="Back to O2C Home" action="{!Submit}" />
+</div>
+</apex:outputPanel>
+         
+ <apex:pagemessages rendered="{!if(ARaging.size<=0 && BookedOrders.size<=0 && ARagingfilter.size<=0 && Revenudetails.size<=0 && RevenuQuarterdetails.size<=0 && RevenuMonthdetails.size<=0 && OrdersQuarterFilter.size<=0 && OrdersMonthFilter.size<=0 && OpenOrders.size<=0,True,false)}" ></apex:pagemessages>
+<apex:outputpanel >
+<apex:commandLink title="Link To MYNCR"  value="Link to MyNCR"  style="float:right"  onclick="window.open('https://myncrsso.ncr.com'); return false;"/>
+</apex:outputpanel>  
+ <apex:pageBlockSection columns="1" id="pgsec">
+    <apex:pageBlockSectionItem DataStyle="text-align:left; padding: 2px 4px; margin: 4px 2px ;" id="pgsecitem">
+    <apex:panelGrid columns="3" id="pgd">
+        <apex:panelGroup id="pgp">
+        <div id="mainreportpanel">
+            <apex:outputLabel Value="Reports: " for="reportSelList" style="font-weight:600"/>
+            <apex:selectList id="reportSelList" size="1"  title="These are the list of reports availabe in NSC" value="{!selectedreports}" style=" padding: 2px 4px; margin: 4px 2px;"  onchange="Disablefilter('{!$Component.monthfilterhide}','{!$Component.quarterfilterhide}','{!$Component.InvoiceageSelList}','{!$Component.filters2}','{!$Component.filters1}','{!$Component.agefilterpanel}');">
+                <apex:selectOption itemvalue="SAID Detail Reports" itemLabel="Choose a Report" />
+                <apex:selectOption itemvalue="A/R Aging" itemLabel="A/R Aging"/>
+                <apex:selectOption itemvalue="Booked Order MTD" itemLabel="Booked Order MTD" />
+                <apex:selectOption itemvalue="Booked Order QTD" itemLabel="Booked Order QTD"/>
+                <apex:selectOption itemvalue="Booked Order YTD" itemLabel="Booked Order YTD" />
+                 <apex:selectOption itemvalue="Revenue MTD" itemLabel="Revenue MTD" />
+                 <apex:selectOption itemvalue="Revenue QTD" itemLabel="Revenue QTD"/>
+                 <apex:selectOption itemvalue="Revenue YTD" itemLabel="Revenue YTD"/>
+                 <apex:selectOption itemvalue="Open Orders" itemLabel="Open Orders"/>
+                 
+            </apex:selectList>
+            <apex:commandButton action="{!selectreport}" value="Go!"  status="actStatusId" reRender="pgBlckId,panelrender,panelrender1,panelrender14,panelrender15,panelrender24,panelrender23,panelrender12,pb2panel1,panelrender13,panelrender2,panelrender21,panelrender22,panelrender4,pb2"/>
+            <apex:actionStatus id="actStatusId" title="This is the status for loading image" >
+                <apex:facet name="start" >
+                 <img src="/img/loading.gif" width="25" height="25" align="bottom" title="Loading"/>
+                  <h3> Loading..</h3>      
+                </apex:facet>
+            </apex:actionStatus>
+          
+           </div>
+           <br></br> 
+           
+           <apex:outputpanel id="filters1">
+       <apex:outputPanel rendered="{!if((selectedreports =='Booked Order YTD' && agingError=true) || (selectedreports =='Revenue YTD' && disablefilter1=true),True,False)}" >           
+       Choose a Month <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="yesCheck" rendered="{!if((selectedreports =='Booked Order YTD' && agingError=true) || (selectedreports =='Revenue YTD' && disablefilter1=true),True,False)}" /> Choose a Quarter <input type="radio" onclick="javascript:yesnoCheckvalue();" name="yesno" id="noCheck" rendered="{!if((selectedreports =='Booked Order YTD' && agingError=true) || (selectedreports =='Revenue YTD' && disablefilter1=true),True,False)}" />
+       </apex:outputPanel>   
+        </apex:outputpanel>
+        <div id="monthslistpanel" style="display:None;">
+        <apex:outputpanel id="monthfilterhide">
+            <apex:selectList id="MonthSelList" size="1"  title="List of Months in year" value="{!selectedMonth}"  style=" padding: 2px 4px; margin: 4px 2px;"  >
+                <apex:selectOption itemvalue="Months" itemLabel="Select a Month" />
+                <apex:selectOption itemvalue="1" itemLabel="JANUARY"/>
+                <apex:selectOption itemvalue="2" itemLabel="FEBRUARY"/>
+                <apex:selectOption itemvalue="3" itemLabel="MARCH" />
+                <apex:selectOption itemvalue="4" itemLabel="APRIL"/>
+                <apex:selectOption itemvalue="5" itemLabel="MAY"/>
+                <apex:selectOption itemvalue="6" itemLabel="JUNE"/>
+                <apex:selectOption itemvalue="7" itemLabel="JULY"/>
+                <apex:selectOption itemvalue="8" itemLabel="AUGUST"/>
+                <apex:selectOption itemvalue="9" itemLabel="SEPTEMBER"/>
+                <apex:selectOption itemvalue="10" itemLabel="OCTOBER"/>
+                <apex:selectOption itemvalue="11" itemLabel="NOVEMBER"/>
+                <apex:selectOption itemvalue="12" itemLabel="DECEMBER"/>      
+            </apex:selectList>  
+        
+        <apex:commandButton action="{!selectMonth}" value="Go!"   status="actStatusId1" reRender="pgBlckId,panelrender,panelrender1,panelrender12,panelrender13,panelrender2,panelrender21,panelrender22" rendered="{!if((selectedreports =='Booked Order YTD' && agingError=true)|| (selectedreports =='Revenue YTD' && disablefilter1=true),True,False)}" id="button1" />
+            <apex:actionStatus id="actStatusId1" title="This is the status for loading image" >
+                    <apex:facet name="start" >
+                     <img src="/img/loading.gif" width="25" height="25" align="bottom" title="Loading"/>
+                      <h3> Loading..</h3>                  
+                    </apex:facet>
+            </apex:actionStatus>
+            </apex:outputpanel>
+        </div>
+        
+           <div id="quarterlistpanel" style="display:none;" >
+           <apex:outputpanel id="quarterfilterhide">
+       <apex:selectList id="QuarterSelList" size="1"  title="List of Quartersin year" value="{!selectedQuarter}" style=" padding: 2px 4px; margin: 4px 2px;" >
+                <apex:selectOption itemvalue="Quarters" itemLabel="Select a Quarter" />
+                <apex:selectOption itemvalue="Q1" itemLabel="Quarter 1"/>
+                <apex:selectOption itemvalue="Q2" itemLabel="Quarter 2"/>
+                <apex:selectOption itemvalue="Q3" itemLabel="Quarter 3" />
+                <apex:selectOption itemvalue="Q4" itemLabel="Quarter 4"/>       
+            </apex:selectList>
+      
+       
+            <apex:commandButton action="{!selectQuarter}" value="Go!"  status="actStatusId2"   reRender="pgBlckId,panelrender,panelrender1,panelrender14,panelrender15,panelrender24,panelrender23,panelrender12,panelrender13,panelrender2,panelrender21,panelrender22"  id="button2" />               
+        
+           <apex:actionStatus id="actStatusId2" title="This is the status for loading image">
+                    <apex:facet name="start" >
+                     <img src="/img/loading.gif" width="25" height="25" align="bottom" title="Loading"/>
+                      <h3> Loading..</h3>           
+                    </apex:facet>
+            </apex:actionStatus>
+            </apex:outputpanel>
+        </div>    
+        <apex:outputpanel id="filters2">          
+       <apex:outputPanel rendered="{!if(selectedreports =='A/R Aging' && disablefilter=TRUE,True,False)}" style="float:left;"  >           
+       Choose a Age Filter <input type="radio" onclick="javascript:agefilterCheck();" name="age" id="ageCheck" rendered="{!if(selectedreports =='A/R Aging' && disablefilter=TRUE,True,False)}"/>
+       </apex:outputPanel>
+       </apex:outputPanel>  
+           <div id="agepanel" style="display:none;"> 
+           <apex:outputPanel id="agefilterpanel">
+            <apex:selectList id="InvoiceageSelList" size="1"  title="List of Invoice filters" value="{!selectedInvoiceAge}" style=" padding: 2px 4px; margin: 4px 2px; " >
+                <apex:selectOption itemvalue="InvoiceAge" itemLabel="Select a Age" />
+                <apex:selectOption itemvalue="000-030 Days" itemLabel="000-030 Days"/>
+                <apex:selectOption itemvalue="031-060 Days" itemLabel="031-060 Days"/>
+                <apex:selectOption itemvalue="061-090 Days" itemLabel="061-090 Days" />
+                <apex:selectOption itemvalue="091-180 Days" itemLabel="091-180 Days"/>
+                <apex:selectOption itemvalue="181-360 Days" itemLabel="181-360 Days"/>
+                <apex:selectOption itemvalue="360+ Days" itemLabel="360+ Days"/>
+        </apex:selectList>
+                <apex:commandButton action="{!selectinvoiceAge}" value="Go!"  status="actStatusId3" reRender="pgBlckId,panelrender1,panelrender2,panelrender01,panelrender"  id="button3" /> 
+                          
+                <apex:actionStatus id="actStatusId3" title="This is the status for loading image">
+                        <apex:facet name="start" >
+                         <img src="/img/loading.gif" width="25" height="25" align="bottom" title="Loading"/>
+                          <h3> Loading..</h3>                   
+                        </apex:facet>
+                </apex:actionStatus>
+                </apex:outputPanel>
+             </div> 
+         
+        </apex:panelGroup>
+       
+    </apex:panelGrid>
+ </apex:pageblockSectionItem>
+</apex:pageBlockSection>
+
+<!--This is the table for ARaging and InvoiceAge Filter-->
+    <apex:outputPanel id="panelrender" rendered="{!if(selectedreports =='A/R Aging',true,false)}">
+    <apex:outputPanel rendered="{!if(ARaging.size>0,True,false)}" >
+    <script>
+                
+     j$ = jQuery.noConflict();
+            j$(document).ready( function () {
+         j$('[id$="aragingtable"]').DataTable({ 
+           
+                 dom: '<"clear">lfBrtip',
+                 
+       buttons: [
+            {
+                extend: 'excelHtml5',
+                title: 'Open Invoices'
+            }
+            ],
+              "order": [ 4, 'desc' ],
+                         "aoColumnDefs": [ {
+           
+                      "aTargets": [ 5,6 ],
+                    "mRender": function (data, type, full) {
+                     var formmatedvalue=data.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                      return formmatedvalue;
+                       }
+              }]
+     }); 
+     }); 
+    </script>
+<body>
+
+   <table id="aragingtable" class="detailList">
+            <thead> 
+                   <tr>
+                        <th>Customer Name</th>
+                        <th>MCN</th>
+                        <th>Invoice Number</th>
+                        <th>Invoice Date</th>
+                        <th>Invoice Age</th>
+                        <th>Original Amount Due</th>
+                        <th>Amount Remaining</th> 
+                                                                                        
+                    </tr>
+                </thead>
+            <tbody>
+                    <apex:repeat value="{!ARaging}" var="ar" >
+                                    <tr>
+                                        <td>{!ar.customer_name__c}</td>
+                                        <td align="right">{!ar.customer_nbr__c}</td>
+                                        
+                                        <td align="right">{!ar.invoice_nbr__c}</td>
+                                         <td align="right"> 
+                                         <apex:outputText value="{0, date, M/d/yyyy}">
+                                            <apex:param value="{!ar.invoice_date__c}" />
+                                         </apex:outputText>
+                                         </td> 
+                                         <td align="right">{!ar.invoice_age__c} </td>
+                                       <td align="right">
+                                       <apex:outputText value="{0, number, ###.00}">
+                                            <apex:param value="{!ar.amt_due_orig_us__c}" />
+                                        </apex:outputText>
+                                        </td>
+                                       <td align="right">{!ar.amt_due_remain_us__c} </td>
+                                      
+                                    </tr>
+                    </apex:repeat>        
+          </tbody>
+   </table>
+</body>
+ </apex:outputPanel>
+ </apex:outputPanel>  
+ 
+ 
+  <apex:outputPanel id="panelrender01" rendered="{!if(selectedreports =='A/R Aging',true,false)}">
+    <apex:outputPanel rendered="{!if(ARagingfilter.size>0,True,false)}" >
+    <script>
+                
+     j$ = jQuery.noConflict();
+            j$(document).ready( function () {
+         j$('[id$="aragingtable1"]').DataTable({ 
+                 dom: '<"clear">lfBrtip',
+       buttons: [
+            {
+                extend: 'excelHtml5',
+                title: 'Open Invoices'
+            }
+            ],
+              "order": [ 4, 'desc' ],
+                         "aoColumnDefs": [ {
+           
+                      "aTargets": [ 5,6 ],
+                    "mRender": function (data, type, full) {
+                     var formmatedvalue=data.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                      return formmatedvalue;
+                       }
+              }]
+     }); 
+     }); 
+    </script>
+<body>
+
+   <table id="aragingtable1" class="detailList">
+            <thead> 
+                   <tr>
+                        <th>Customer Name</th>
+                        <th>MCN</th>
+                        <th>Invoice Number</th>
+                        <th>Invoice Date</th>
+                        <th>Invoice Age</th>
+                        <th>Original Amount Due</th>
+                        <th>Amount Remaining</th> 
+                                                                                        
+                    </tr>
+                </thead>
+            <tbody>
+                    <apex:repeat value="{!ARagingfilter}" var="ar1" >
+                                    <tr>
+                                        <td>{!ar1.customer_name__c}</td>
+                                        <td align="right">{!ar1.customer_nbr__c}</td>
+                                        
+                                        <td align="right">{!ar1.invoice_nbr__c}</td>
+                                         <td align="right"> 
+                                         <apex:outputText value="{0, date, M/d/yyyy}">
+                                            <apex:param value="{!ar1.invoice_date__c}" />
+                                         </apex:outputText>
+                                         </td> 
+                                         <td align="right">{!ar1.invoice_age__c} </td>
+                                       <td align="right">
+                                       <apex:outputText value="{0, number, ###.00}">
+                                            <apex:param value="{!ar1.amt_due_orig_us__c}" />
+                                        </apex:outputText>
+                                        </td>
+                                       <td align="right">{!ar1.amt_due_remain_us__c} </td>
+                                      
+                                    </tr>
+                    </apex:repeat>        
+          </tbody>
+   </table>
+</body>
+ </apex:outputPanel>
+ </apex:outputPanel>  
+<!--This is the table for Booked Orders,Monthly && Quarter Filters -->
+<apex:outputPanel id="panelrender1"  rendered="{!if(selectedreports =='Booked Order MTD',true,false)}">
+    <apex:outputPanel rendered="{!if(BookedOrders.size>0,True,false)}" >
+    <script>
+            j$ = jQuery.noConflict();
+            j$(document).ready( function () {
+              j$('[id$="ordertable"]').DataTable({
+                        dom: '<"clear">lfBrtip',
+         buttons: [
+            {
+                extend: 'excelHtml5',
+                
+                title: 'MTD Booked Orders'
+                
+            }
+            ],
+             "aoColumnDefs": [ {
+           
+                      "aTargets": [ 6 ],
+                    "mRender": function (data, type, full) {
+                     var formmatedvalue=data.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                      return formmatedvalue;
+                       }
+              }],
+
+                    
+        "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+         var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+              // Total over all pages
+                        total = api
+                            .column( 6 )
+                            .data()
+                            .reduce( function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0 );
+           
+            // Total over this page
+            pageTotal = api
+                .column( 6, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Update footer
+            $( api.column(6).footer() ).html('$'+total) ; 
+          } 
+    
+        } );
+            
+        } );                         
+    </script>
+<body> 
+    <table id="ordertable" class="detailList">
+            <thead>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>MCN</th>
+                        <th>PO#</th>
+                        <th>Quote#</th>
+                        <th>Order#</th>
+                        <th>Booked Order Date</th>
+                        <th>Order Value</th>                               
+                    </tr>                   
+            </thead>            
+         <tfoot>
+            <tr>
+                <th colspan="6" style="text-align:right">Total Order Value:</th>
+                <th></th>
+            </tr>
+        </tfoot>       
+            <tbody>         
+                    <apex:repeat value="{!BookedOrders}" var="odmtd" >
+                                    <tr>
+                                        <td>{!odmtd.customer_name__c}</td>
+                                        <td align="right">{!odmtd.master_customer_nbr__c}</td>
+                                        <td align="right">{!odmtd.customer_po_nbr__c}</td>
+                                        <td align="right">{!odmtd.quote_nbr__c}</td>
+                                        <td align="right">{!odmtd.order_nbr__c}</td>
+                                        <td align="right"><apex:outputText value="{0, date, M/d/yyyy}">
+                                            <apex:param value="{!odmtd.order_booked_date__c}" />
+                                            </apex:outputText>
+                                        </td>
+                                        <td align="right">{!odmtd.mth_net_line_order_value_us__c} </td>                                 
+                                    </tr>
+                    </apex:repeat>   
+        </tbody>
+    </table>  
+</body>
+    </apex:outputPanel>
+ </apex:outputPanel>
+ 
+ <apex:outputPanel id="panelrender12"  rendered="{!if(selectedreports =='Booked Order QTD' ,true,false)}">
+    <apex:outputPanel rendered="{!if(BookedOrders.size>0,True,false)}" >
+    <script>
+            j$ = jQuery.noConflict();
+            j$(document).ready( function () {
+              j$('[id$="ordertable1"]').DataTable({
+                        dom: '<"clear">lfBrtip',
+         buttons: [
+            {
+                extend: 'excelHtml5',
+                
+                title: 'QTD Booked Orders'
+                
+            }
+            ],
+             "aoColumnDefs": [ {
+           
+                      "aTargets": [ 6 ],
+                    "mRender": function (data, type, full) {
+                     var formmatedvalue=data.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                      return formmatedvalue;
+                       }
+              }],
+
+                    
+        "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+         var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+              // Total over all pages
+                        total = api
+                            .column( 6 )
+                            .data()
+                            .reduce( function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0 );
+           
+            // Total over this page
+            pageTotal = api
+                .column( 6, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Update footer
+            $( api.column(6).footer() ).html('$'+total) ; 
+          } 
+    
+        } );
+            
+        } );                         
+    </script>
+<body> 
+    <table id="ordertable1" class="detailList">
+            <thead>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>MCN</th>
+                        <th>PO#</th>
+                        <th>Quote#</th>
+                        <th>Order#</th>
+                        <th>Booked Order Date</th>
+                        <th>Order Value</th>                               
+                    </tr>                   
+            </thead>            
+         <tfoot>
+            <tr>
+                <th colspan="6" style="text-align:right">Total Order Value:</th>
+                <th></th>
+            </tr>
+        </tfoot>       
+            <tbody>         
+                    <apex:repeat value="{!BookedOrders}" var="odmtd1" >
+                                    <tr>
+                                        <td>{!odmtd1.customer_name__c}</td>
+                                        <td align="right">{!odmtd1.master_customer_nbr__c}</td>
+                                        <td align="right">{!odmtd1.customer_po_nbr__c}</td>
+                                        <td align="right">{!odmtd1.quote_nbr__c}</td>
+                                        <td align="right">{!odmtd1.order_nbr__c}</td>
+                                        <td align="right"><apex:outputText value="{0, date, M/d/yyyy}">
+                                            <apex:param value="{!odmtd1.order_booked_date__c}" />
+                                            </apex:outputText>
+                                        </td>
+                                        <td align="right">{!odmtd1.mth_net_line_order_value_us__c} </td>                                 
+                                    </tr>
+                    </apex:repeat>   
+        </tbody>
+    </table>  
+</body>
+    </apex:outputPanel>
+ </apex:outputPanel>
+ <apex:outputPanel id="panelrender13"  rendered="{!if(selectedreports =='Booked Order YTD',true,false)}">
+    <apex:outputPanel rendered="{!if(BookedOrders.size>0,True,false)}" >
+    <script>
+            j$ = jQuery.noConflict();
+            j$(document).ready( function () {
+              j$('[id$="ordertable2"]').DataTable({
+                        dom: '<"clear">lfBrtip',
+         buttons: [
+            {
+                extend: 'excelHtml5',
+                
+                title: 'YTD Booked Orders'
+                
+            }
+            ],
+             "aoColumnDefs": [ {
+           
+                      "aTargets": [ 6 ],
+                    "mRender": function (data, type, full) {
+                     var formmatedvalue=data.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                      return formmatedvalue;
+                       }
+              }],
+
+                    
+        "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+         var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+              // Total over all pages
+                        total = api
+                            .column( 6 )
+                            .data()
+                            .reduce( function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0 );
+           
+            // Total over this page
+            pageTotal = api
+                .column( 6, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Update footer
+            $( api.column(6).footer() ).html('$'+total) ; 
+          } 
+    
+        } );
+            
+        } );                         
+    </script>
+<body> 
+    <table id="ordertable2" class="detailList">
+            <thead>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>MCN</th>
+                        <th>PO#</th>
+                        <th>Quote#</th>
+                        <th>Order#</th>
+                        <th>Booked Order Date</th>
+                        <th>Order Value</th>                               
+                    </tr>                   
+            </thead>            
+         <tfoot>
+            <tr>
+                <th colspan="6" style="text-align:right">Total Order Value:</th>
+                <th></th>
+            </tr>
+        </tfoot>       
+            <tbody>         
+                    <apex:repeat value="{!BookedOrders}" var="odmtd2" >
+                                    <tr>
+                                        <td>{!odmtd2.customer_name__c}</td>
+                                        <td align="right">{!odmtd2.master_customer_nbr__c}</td>
+                                        <td align="right">{!odmtd2.customer_po_nbr__c}</td>
+                                        <td align="right">{!odmtd2.quote_nbr__c}</td>
+                                        <td align="right">{!odmtd2.order_nbr__c}</td>
+                                        <td align="right"><apex:outputText value="{0, date, M/d/yyyy}">
+                                            <apex:param value="{!odmtd2.order_booked_date__c}" />
+                                            </apex:outputText>
+                                        </td>
+                                        <td align="right">{!odmtd2.mth_net_line_order_value_us__c} </td>                                 
+                                    </tr>
+                    </apex:repeat>   
+        </tbody>
+    </table>  
+</body>
+    </apex:outputPanel>
+ </apex:outputPanel>
+ 
+ <apex:outputPanel id="panelrender14"  rendered="{!if(selectedreports =='Booked Order YTD',true,false)}">
+    <apex:outputPanel rendered="{!if(OrdersMonthFilter.size>0,True,false)}" >
+    <script>
+            j$ = jQuery.noConflict();
+            j$(document).ready( function () {
+              j$('[id$="ordertable3"]').DataTable({
+                        dom: '<"clear">lfBrtip',
+         buttons: [
+            {
+                extend: 'excelHtml5',
+                
+                title: 'Monthly Booked Orders'
+                
+            }
+            ],
+             "aoColumnDefs": [ {
+           
+                      "aTargets": [ 6 ],
+                    "mRender": function (data, type, full) {
+                     var formmatedvalue=data.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                      return formmatedvalue;
+                       }
+              }],
+
+                    
+        "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+         var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+              // Total over all pages
+                        total = api
+                            .column( 6 )
+                            .data()
+                            .reduce( function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0 );
+           
+            // Total over this page
+            pageTotal = api
+                .column( 6, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Update footer
+            $( api.column(6).footer() ).html('$'+total) ; 
+          } 
+    
+        } );
+            
+        } );                         
+    </script>
+<body> 
+    <table id="ordertable3" class="detailList">
+            <thead>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>MCN</th>
+                        <th>PO#</th>
+                        <th>Quote#</th>
+                        <th>Order#</th>
+                        <th>Booked Order Date</th>
+                        <th>Order Value</th>                               
+                    </tr>                   
+            </thead>            
+         <tfoot>
+            <tr>
+                <th colspan="6" style="text-align:right">Total Order Value:</th>
+                <th></th>
+            </tr>
+        </tfoot>       
+            <tbody>         
+                    <apex:repeat value="{!OrdersMonthFilter}" var="odmtd3" >
+                                    <tr>
+                                        <td>{!odmtd3.customer_name__c}</td>
+                                        <td align="right">{!odmtd3.master_customer_nbr__c}</td>
+                                        <td align="right">{!odmtd3.customer_po_nbr__c}</td>
+                                        <td align="right">{!odmtd3.quote_nbr__c}</td>
+                                        <td align="right">{!odmtd3.order_nbr__c}</td>
+                                        <td align="right"><apex:outputText value="{0, date, M/d/yyyy}">
+                                            <apex:param value="{!odmtd3.order_booked_date__c}" />
+                                            </apex:outputText>
+                                        </td>
+                                        <td align="right">{!odmtd3.mth_net_line_order_value_us__c} </td>                                 
+                                    </tr>
+                    </apex:repeat>   
+        </tbody>
+    </table>  
+</body>
+    </apex:outputPanel>
+ </apex:outputPanel>
+ 
+  <apex:outputPanel id="panelrender15"  rendered="{!if(selectedreports =='Booked Order YTD',true,false)}">
+    <apex:outputPanel rendered="{!if(OrdersQuarterFilter.size>0,True,false)}" >
+    <script>
+            j$ = jQuery.noConflict();
+            j$(document).ready( function () {
+              j$('[id$="ordertable4"]').DataTable({
+                        dom: '<"clear">lfBrtip',
+         buttons: [
+            {
+                extend: 'excelHtml5',
+                
+                title: 'Quarterly Booked Orders'
+                
+            }
+            ],
+             "aoColumnDefs": [ {
+           
+                      "aTargets": [ 6 ],
+                    "mRender": function (data, type, full) {
+                     var formmatedvalue=data.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                      return formmatedvalue;
+                       }
+              }],
+
+                    
+        "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+         var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+              // Total over all pages
+                        total = api
+                            .column( 6 )
+                            .data()
+                            .reduce( function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0 );
+           
+            // Total over this page
+            pageTotal = api
+                .column( 6, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Update footer
+            $( api.column(6).footer() ).html('$'+total) ; 
+          } 
+    
+        } );
+            
+        } );                         
+    </script>
+<body> 
+    <table id="ordertable4" class="detailList">
+            <thead>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>MCN</th>
+                        <th>PO#</th>
+                        <th>Quote#</th>
+                        <th>Order#</th>
+                        <th>Booked Order Date</th>
+                        <th>Order Value</th>                               
+                    </tr>                   
+            </thead>            
+         <tfoot>
+            <tr>
+                <th colspan="6" style="text-align:right">Total Order Value:</th>
+                <th></th>
+            </tr>
+        </tfoot>       
+            <tbody>         
+                    <apex:repeat value="{!OrdersQuarterFilter}" var="odmtd4" >
+                                    <tr>
+                                        <td>{!odmtd4.customer_name__c}</td>
+                                        <td align="right">{!odmtd4.master_customer_nbr__c}</td>
+                                        <td align="right">{!odmtd4.customer_po_nbr__c}</td>
+                                        <td align="right">{!odmtd4.quote_nbr__c}</td>
+                                        <td align="right">{!odmtd4.order_nbr__c}</td>
+                                        <td align="right"><apex:outputText value="{0, date, M/d/yyyy}">
+                                            <apex:param value="{!odmtd4.order_booked_date__c}" />
+                                            </apex:outputText>
+                                        </td>
+                                        <td align="right">{!odmtd4.mth_net_line_order_value_us__c} </td>                                 
+                                    </tr>
+                    </apex:repeat>   
+        </tbody>
+    </table>  
+</body>
+    </apex:outputPanel>
+ </apex:outputPanel>
+  
+ <apex:outputPanel id="panelrender2"  rendered="{!if(selectedreports =='Revenue MTD',true,false)}">
+  <apex:outputPanel rendered="{!if(Revenudetails.size>0,True,false)}" >   
+
+<script>
+            j$ = jQuery.noConflict();
+            j$(document).ready( function () {
+              j$('[id$="revenuetable"]').DataTable({
+                        dom: '<"clear">lfBrtip',
+         buttons: [
+            {
+                extend: 'excelHtml5',
+
+                title: 'MTD Revenue'
+            }
+            ],
+            
+            "aoColumnDefs": [ {
+           
+                      "aTargets": [ 6 ],
+                    "mRender": function (data, type, full) {
+                     var formmatedvalue=data.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                      return formmatedvalue;
+                       }
+              }],
+
+                    
+        "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+         var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+              // Total over all pages
+                        total = api
+                            .column( 6 )
+                            .data()
+                            .reduce( function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0 );
+           
+            // Total over this page
+            pageTotal = api
+                .column( 6, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Update footer
+            $( api.column(6).footer() ).html('$'+total) ; 
+          } 
+            
+            
+            });
+            
+        } ); 
+                          
+    </script>
+ <body> 
+   <table id="revenuetable" class="detailList">
+            <thead>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>MCN</th>
+                        <th>PO#</th>                 
+                        <th>Order#</th>
+                        <th>Invoice#</th>
+                        <th>Invoice Date</th>
+                        <th>Invoice Value</th>
+                        
+                                                   
+                    </tr>                   
+            </thead>            
+           <tfoot>
+            <tr>
+                <th colspan="6" style="text-align:right">Total Invoice Value:</th>
+                <th></th>
+            </tr>
+         </tfoot>
+            <tbody>         
+                    <apex:repeat value="{!Revenudetails}" var="rev" >
+                                    <tr>
+                                        <td>{!rev.master_customer_name__c}</td>
+                                        <td align="right">{!rev.master_customer_nbr__c}</td>
+                                        <td align="right">{!rev.customer_po_nbr__c}</td>                                     
+                                        <td align="right">{!rev.order_nbr__c}</td>
+                                        <td align="right">{!rev.invoice_nbr__c}</td>
+                                        <td align="right">
+                                        <apex:outputText value="{0, date, M/d/yyyy}">
+                                            <apex:param value="{!rev.invoice_date__c}" />
+                                         </apex:outputText>
+                                        </td>
+                                        <td align="right">{!rev.dist_amt_us__c}</td>
+                                    </tr>
+                    </apex:repeat>   
+        </tbody>
+    </table> 
+    
+</body>
+  </apex:outputPanel> 
+ </apex:outputPanel>
+ <apex:outputPanel id="panelrender21"  rendered="{!if( selectedreports =='Revenue QTD',true,false)}">
+  <apex:outputPanel rendered="{!if(Revenudetails.size>0,True,false)}" >   
+
+<script>
+            j$ = jQuery.noConflict();
+            j$(document).ready( function () {
+              j$('[id$="revenuetable1"]').DataTable({
+                        dom: '<"clear">lfBrtip',
+         buttons: [
+            {
+                extend: 'excelHtml5',
+
+                title: 'QTD Revenue'
+            }
+            ],
+            
+            "aoColumnDefs": [ {
+           
+                      "aTargets": [ 6 ],
+                    "mRender": function (data, type, full) {
+                     var formmatedvalue=data.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                      return formmatedvalue;
+                       }
+              }],
+
+                    
+        "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+         var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+              // Total over all pages
+                        total = api
+                            .column( 6 )
+                            .data()
+                            .reduce( function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0 );
+           
+            // Total over this page
+            pageTotal = api
+                .column( 6, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Update footer
+            $( api.column(6).footer() ).html('$'+total) ; 
+          } 
+            
+            });
+            
+        } ); 
+                          
+    </script>
+ <body> 
+   <table id="revenuetable1" class="detailList">
+            <thead>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>MCN</th>
+                        <th>PO#</th>                 
+                        <th>Order#</th>
+                        <th>Invoice#</th>
+                        <th>Invoice Date</th>
+                        <th>Invoice Value</th>
+                        
+                                                   
+                    </tr>                      
+            </thead>            
+              <tfoot>
+            <tr>
+                <th colspan="6" style="text-align:right">Total Invoice Value:</th>
+                <th></th>
+            </tr>
+         </tfoot>
+            <tbody>         
+                    <apex:repeat value="{!Revenudetails}" var="rev1" >
+                                    <tr>
+                                        <td>{!rev1.master_customer_name__c}</td>
+                                        <td align="right">{!rev1.master_customer_nbr__c}</td> 
+                                        <td align="right">{!rev1.customer_po_nbr__c}</td>                                    
+                                        <td align="right">{!rev1.order_nbr__c}</td>
+                                        <td align="right">{!rev1.invoice_nbr__c}</td>
+                                        <td align="right">
+                                         <apex:outputText value="{0, date, M/d/yyyy}">
+                                            <apex:param value="{!rev1.invoice_date__c}" />
+                                         </apex:outputText>
+                                         </td>
+                                        <td align="right">{!rev1.dist_amt_us__c}</td>
+                             
+                                    </tr>
+                    </apex:repeat>   
+        </tbody>
+    </table> 
+    
+</body>
+  </apex:outputPanel> 
+ </apex:outputPanel>
+ <apex:outputPanel id="panelrender22"  rendered="{!if(selectedreports =='Revenue YTD',true,false)}">
+  <apex:outputPanel rendered="{!if(Revenudetails.size>0,True,false)}" >   
+
+<script>
+            j$ = jQuery.noConflict();
+            j$(document).ready( function () {
+              j$('[id$="revenuetable2"]').DataTable({
+                        dom: '<"clear">lfBrtip',
+         buttons: [
+            {
+                extend: 'excelHtml5',
+
+                title: 'YTD Revenue'
+            }
+            ],
+            "aoColumnDefs": [ {
+           
+                      "aTargets": [ 6 ],
+                    "mRender": function (data, type, full) {
+                     var formmatedvalue=data.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                      return formmatedvalue;
+                       }
+              }],
+
+                    
+        "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+         var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+              // Total over all pages
+                        total = api
+                            .column( 6 )
+                            .data()
+                            .reduce( function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0 );
+           
+            // Total over this page
+            pageTotal = api
+                .column( 6, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Update footer
+            $( api.column(6).footer() ).html('$'+total) ; 
+          } 
+            
+            });
+            
+        } ); 
+                          
+    </script>
+ <body> 
+   <table id="revenuetable2" class="detailList">
+            <thead>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>MCN</th>
+                        <th>PO#</th>                 
+                        <th>Order#</th>
+                        <th>Invoice#</th>
+                        <th>Invoice Date</th>
+                        <th>Invoice Value</th>
+                        
+                                                   
+                    </tr>       
+                                      
+            </thead>            
+             
+           <tfoot>
+            <tr>
+                <th colspan="6" style="text-align:right">Total Invoice Value:</th>
+                <th></th>
+            </tr>
+          </tfoot> 
+            <tbody>         
+                    <apex:repeat value="{!Revenudetails}" var="rev2" >
+                                    <tr>
+                                       <td>{!rev2.master_customer_name__c}</td>
+                                        <td align="right">{!rev2.master_customer_nbr__c}</td> 
+                                        <td align="right"> {!rev2.customer_po_nbr__c}</td>                                     
+                                        <td align="right">{!rev2.order_nbr__c}</td>
+                                        <td align="right">{!rev2.invoice_nbr__c}</td>
+                                        <td align="right">
+                                         <apex:outputText value="{0, date, M/d/yyyy}">
+                                            <apex:param value="{!rev2.invoice_date__c}" />
+                                         </apex:outputText>
+                                        </td>
+                                        <td align="right">{!rev2.dist_amt_us__c}</td>
+                                    </tr>
+                    </apex:repeat>   
+        </tbody>
+    </table> 
+    
+</body>
+  </apex:outputPanel> 
+ </apex:outputPanel>
+ <apex:outputPanel id="panelrender23"  rendered="{!if(selectedreports =='Revenue YTD',true,false)}">
+  <apex:outputPanel rendered="{!if(RevenuMonthdetails.size>0,True,false)}" >   
+
+<script>
+            j$ = jQuery.noConflict();
+            j$(document).ready( function () {
+              j$('[id$="revenuetable3"]').DataTable({
+                        dom: '<"clear">lfBrtip',
+         buttons: [
+            {
+                extend: 'excelHtml5',
+
+                title: 'Monthly Revenue'
+            }
+            ],
+            "aoColumnDefs": [ {
+           
+                      "aTargets": [ 6 ],
+                    "mRender": function (data, type, full) {
+                     var formmatedvalue=data.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                      return formmatedvalue;
+                       }
+              }],
+
+                    
+        "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+         var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+              // Total over all pages
+                        total = api
+                            .column( 6 )
+                            .data()
+                            .reduce( function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0 );
+           
+            // Total over this page
+            pageTotal = api
+                .column( 6, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Update footer
+            $( api.column(6).footer() ).html('$'+total) ; 
+          } 
+            
+            });
+            
+        } ); 
+                          
+    </script>
+ <body> 
+   <table id="revenuetable3" class="detailList">
+            <thead>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>MCN</th>
+                        <th>PO#</th>                 
+                        <th>Order#</th>
+                        <th>Invoice#</th>
+                        <th>Invoice Date</th>
+                        <th>Invoice Value</th>
+                        
+                                                   
+                    </tr>       
+                                      
+            </thead>            
+             
+           <tfoot>
+            <tr>
+                <th colspan="6" style="text-align:right">Total Invoice Value:</th>
+                <th></th>
+            </tr>
+          </tfoot> 
+            <tbody>         
+                    <apex:repeat value="{!RevenuMonthdetails}" var="rev3" >
+                                    <tr>
+                                       <td>{!rev3.master_customer_name__c}</td>
+                                        <td align="right">{!rev3.master_customer_nbr__c}</td> 
+                                        <td align="right"> {!rev3.customer_po_nbr__c}</td>                                     
+                                        <td align="right">{!rev3.order_nbr__c}</td>
+                                        <td align="right">{!rev3.invoice_nbr__c}</td>
+                                        <td align="right">
+                                         <apex:outputText value="{0, date, M/d/yyyy}">
+                                            <apex:param value="{!rev3.invoice_date__c}" />
+                                         </apex:outputText>
+                                        </td>
+                                        <td align="right">{!rev3.dist_amt_us__c}</td>
+                                    </tr>
+                    </apex:repeat>   
+        </tbody>
+    </table> 
+    
+</body>
+  </apex:outputPanel> 
+ </apex:outputPanel>
+ <apex:outputPanel id="panelrender24"  rendered="{!if(selectedreports =='Revenue YTD',true,false)}">
+  <apex:outputPanel rendered="{!if(RevenuQuarterdetails.size>0,True,false)}" >   
+
+<script>
+            j$ = jQuery.noConflict();
+            j$(document).ready( function () {
+              j$('[id$="revenuetable4"]').DataTable({
+                        dom: '<"clear">lfBrtip',
+         buttons: [
+            {
+                extend: 'excelHtml5',
+
+                title: 'Quartely Revenue'
+            }
+            ],
+            "aoColumnDefs": [ {
+           
+                      "aTargets": [ 6 ],
+                    "mRender": function (data, type, full) {
+                     var formmatedvalue=data.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                      return formmatedvalue;
+                       }
+              }],
+
+                    
+        "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+         var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+              // Total over all pages
+                        total = api
+                            .column( 6 )
+                            .data()
+                            .reduce( function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0 );
+           
+            // Total over this page
+            pageTotal = api
+                .column( 6, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Update footer
+            $( api.column(6).footer() ).html('$'+total) ; 
+          } 
+            
+            });
+            
+        } ); 
+                          
+    </script>
+ <body> 
+   <table id="revenuetable4" class="detailList">
+            <thead>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>MCN</th>
+                        <th>PO#</th>                 
+                        <th>Order#</th>
+                        <th>Invoice#</th>
+                        <th>Invoice Date</th>
+                        <th>Invoice Value</th>
+                        
+                                                   
+                    </tr>       
+                                      
+            </thead>            
+             
+           <tfoot>
+            <tr>
+                <th colspan="6" style="text-align:right">Total Invoice Value:</th>
+                <th></th>
+            </tr>
+          </tfoot> 
+            <tbody>         
+                    <apex:repeat value="{!RevenuQuarterdetails}" var="rev4" >
+                                    <tr>
+                                       <td>{!rev4.master_customer_name__c}</td>
+                                        <td align="right">{!rev4.master_customer_nbr__c}</td> 
+                                        <td align="right"> {!rev4.customer_po_nbr__c}</td>                                     
+                                        <td align="right">{!rev4.order_nbr__c}</td>
+                                        <td align="right">{!rev4.invoice_nbr__c}</td>
+                                        <td align="right">
+                                         <apex:outputText value="{0, date, M/d/yyyy}">
+                                            <apex:param value="{!rev4.invoice_date__c}" />
+                                         </apex:outputText>
+                                        </td>
+                                        <td align="right">{!rev4.dist_amt_us__c}</td>
+                                    </tr>
+                    </apex:repeat>   
+        </tbody>
+    </table> 
+    
+</body>
+  </apex:outputPanel> 
+ </apex:outputPanel>
+ <apex:outputPanel id="panelrender4"  rendered="{!if(selectedreports =='Open Orders',true,false)}">
+    <apex:outputPanel rendered="{!if(OpenOrders.size>0,True,false)}" >
+    <script>
+            j$ = jQuery.noConflict();
+            j$(document).ready( function () {
+              j$('[id$="ordertable41"]').DataTable({
+                        dom: '<"clear">lfBrtip',
+         buttons: [
+            {
+                extend: 'excelHtml5',
+                
+                title: 'Open Orders'
+                
+                
+            }
+            ],
+            
+            "aoColumnDefs": [ {
+           
+                      "aTargets": [ 11 ],
+                    "mRender": function (data, type, full) {
+                     var formmatedvalue=data.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                      return formmatedvalue;
+                       }
+              }], 
+   
+        } );
+            
+        } );                         
+    </script>
+<body> 
+    <table id="ordertable41" class="detailList">
+            <thead >
+                      <tr >
+                        <th >Customer Name</th>
+                        <th>MCN</th>
+                        <th>PO#</th>
+                        <th>Quote#</th>
+                        <th>Order#</th>
+                        <th>Requested Date</th>
+                        <th>Booked Date</th>
+                        <th>Scheduled Arrival Date</th> 
+                        <th>Promised Date </th>  
+                        <th>Scheduled Ship Date </th>  
+                        <th>Ship Confirm Date  </th>   
+                        <th>Order Value </th>                 
+                    </tr>                   
+            </thead>            
+               
+            <tbody>         
+                    <apex:repeat value="{!OpenOrders}" var="odmtd5" >
+                                    <tr>
+                                        <td width="500px">{!odmtd5.customer_name__c}</td>
+                                        <td align="right">{!odmtd5.master_customer_nbr__c}</td>
+                                        <td align="right">{!odmtd5.customer_po_nbr__c}</td>
+                                        <td align="right">{!odmtd5.quote_nbr__c}</td>
+                                        <td align="right">{!odmtd5.order_nbr__c}</td>
+                                        <td align="right">
+                                        <apex:outputText value="{0, date, M/d/yyyy}">
+                                            <apex:param value="{!odmtd5.current_requested_date__c}" />
+                                         </apex:outputText>
+                                        </td>
+                                        <td align="right">
+                                        <apex:outputText value="{0, date, M/d/yyyy}">
+                                            <apex:param value="{!odmtd5.order_booked_date__c}" />
+                                            </apex:outputText>
+                                        </td>
+                                        <td align="right"><apex:outputText value="{0, date, M/d/yyyy}">
+                                            <apex:param value="{!odmtd5.sched_arrival_date_time__c}" />
+                                            </apex:outputText>
+                                         
+                                        </td>
+                                        
+                                        <td align="right">
+                                         <apex:outputText value="{0, date, M/d/yyyy}">
+                                            <apex:param value="{!odmtd5.committed_ship_date__c}" />
+                                          </apex:outputText>
+                                         
+                                        </td>
+                                        
+                                        <td align="right">
+                                           <apex:outputText value="{0, date, M/d/yyyy}">
+                                            <apex:param value="{!odmtd5.sched_ship_date_time__c}" />
+                                           </apex:outputText>                                         
+                                        </td>
+                                         <td align="right">
+                                            <apex:outputText value="{0, date, M/d/yyyy}">
+                                             <apex:param value="{!odmtd5.ship_confirm_date__c}" />
+                                            </apex:outputText>
+                                        </td>  
+                                        <td align="right">{!odmtd5.mth_net_line_order_value_us__c} </td>
+                                                                     
+                                    </tr>
+                    </apex:repeat>   
+        </tbody>
+    </table>  
+</body>
+    </apex:outputPanel>
+ </apex:outputPanel>
+
+<apex:outputpanel rendered="{!if((ARaging.size<=0 && BookedOrders.size<=0 && ARagingfilter.size<=0 && Revenudetails.size<=0 && RevenuQuarterdetails.size<=0 && RevenuMonthdetails.size<=0 && OrdersQuarterFilter.size<=0 && OrdersMonthFilter.size<=0 &&  OpenOrders.size<=0) && testError=False,True,false)}"  >
+
+<apex:pageblock id="pb2panel1" tabStyle="Account">
+
+ <apex:outputLabel Value="Days: " for="daysfilter" style="font-weight:600"/>
+<apex:selectList id="daysfilter" size="1"   value="{!selecteddays}" style=" padding: 2px 4px; margin: 4px 2px;" >
+                <apex:selectOption itemvalue="No of Days"  itemLabel="Choose Timeline" />
+                <apex:selectOption itemvalue="07 Days"  itemLabel="Past 7  Days"/>
+                <apex:selectOption itemvalue="14 Days" itemLabel="Past 14 Days" />
+                <apex:selectOption itemvalue="30 Days" itemLabel="Past 30 Days"/>
+  
+            </apex:selectList>
+            <apex:commandButton id="daysbutton" action="{!selectdaysforsections}" value="Go!"  status="actStatusId5" reRender="pgBlckId,panelrender,panelrender1,panelrender14,panelrender15,panelrender24,panelrender23,panelrender12,panelrender13,panelrender2,panelrender21,panelrender22,panelrender4" />
+            <apex:actionStatus id="actStatusId5" title="This is the status for loading image" >
+                <apex:facet name="start" >
+                 <img src="/img/loading.gif" width="25" height="25" align="bottom" title="Loading"/>
+                  <h3> Loading..</h3>      
+                </apex:facet>
+            </apex:actionStatus>
+            
+<apex:pageblockSection title="Order Status" columns="1" >
+
+ <apex:outputpanel >
+    <script>
+                
+     j$ = jQuery.noConflict();
+            j$(document).ready( function () {
+         j$('[id$="ordersection1"]').DataTable({ 
+                  "lengthMenu": [ 10, 25, 50, 75, 100 ],
+                   "aoColumnDefs": [ {
+           
+                      "aTargets": [ 5 ],
+                    "mRender": function (data, type, full) {
+                     var formmatedvalue=data.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                      return formmatedvalue;
+                       }
+              }],
+                  
+                  "processing": true,
+                  "searching": false,
+                  paging: false,
+                  scrollY: 90,
+                  scrollCollapse: true
+    
+     }); 
+     }); 
+    </script>
+
+<body>
+
+   <table id="ordersection1" class="compact" cellspacing="0" width="100%">
+            <thead> 
+                   <tr>
+                        <th>Customer Name</th>
+                        <th>MCN</th>
+                        <th>Order#</th>
+                        <th>PO#</th>
+                        <th>FUA City</th>
+                        <th>Order Value</th>
+                        <th>Ship Date</th>
+                        <th>Full/Part</th>
+                         
+                                                                                        
+                    </tr>
+                </thead>
+            <tbody>
+                    <apex:repeat value="{!OrderSectionDetails}" var="ar1" >
+                                    <tr>
+                                        <td width="30%">{!ar1.customer_name__c}</td>
+                                        <td align="left" width="10%">{!ar1.master_customer_nbr__c}</td>
+                                        <td align="left" width="10%">{!ar1.order_nbr__c} </td>
+                                        <td align="left" width="15%">{!ar1.customer_po_nbr__c}</td>
+                                         <td align="left" width="15%">{!ar1.city_name__c}</td> 
+                                         <td align="left" width="10%">{!ar1.order_value_amt_us__c}</td>          
+                                         <td align="left" width="10%"> 
+                                         <apex:outputText value="{0, date, M/d/yyyy}">
+                                            <apex:param value="{!ar1.actual_ship_date_time__c}" />
+                                         </apex:outputText>
+                                         </td> 
+                                          <td align="left" width="10%">{!ar1.partial_full_code__c} </td>
+                                       
+                                      
+                                      
+                                    </tr>
+                    </apex:repeat>        
+          </tbody>
+   </table>
+</body>
+</apex:outputpanel>
+
+</apex:pageblockSection>  
+<apex:pageblockSection title="Shipment Status" columns="1" >
+
+ <apex:outputpanel >
+    <script>
+                
+     j$ = jQuery.noConflict();
+            j$(document).ready( function () {
+         j$('[id$="shipmentsection1"]').DataTable({ 
+                  "lengthMenu": [ 10, 25, 50, 75, 100 ],
+                  "order": [ 6, 'desc' ],
+                   "aoColumnDefs": [ {
+           
+                      "aTargets": [ 5 ],                      
+                    "mRender": function (data, type, full) {
+                     var formmatedvalue=data.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                      return formmatedvalue;
+                       }
+              }],
+                  
+                  "processing": true,
+                  "searching": false,
+                  paging: false,
+                  scrollY: 90,
+                  scrollCollapse: true
+    
+     }); 
+     }); 
+    </script>
+
+<body>
+
+   <table id="shipmentsection1" class="compact" cellspacing="0" width="100%">
+            <thead> 
+                   <tr>
+                        <th>Customer Name</th>
+                        <th>MCN</th>
+                        <th>Order#</th>
+                        <th>PO#</th>
+                        <th>FUA City</th>
+                        <th>Order Value</th>
+                        <th>Ship Date</th>
+                        <th>Full/Part</th>
+                         
+                                                                                        
+                    </tr>
+                </thead>
+            <tbody>
+                    <apex:repeat value="{!ShipmentSectionDetails}" var="ar1" >
+                                    <tr>
+                                        <td width="30%">{!ar1.customer_name__c}</td>
+                                        <td align="left" width="10%">{!ar1.master_customer_nbr__c}</td>
+                                        <td align="left" width="10%">{!ar1.order_nbr__c} </td>
+                                        <td align="left" width="15%">{!ar1.customer_po_nbr__c}</td>
+                                        <td align="left" width="15%">{!ar1.city_name__c}</td> 
+                                        <td align="left" width="10%">{!ar1.order_value_amt_us__c}</td>          
+                                        <td align="left" width="10%"> 
+                                         <apex:outputText value="{0, date, M/d/yyyy}">
+                                            <apex:param value="{!ar1.actual_ship_date_time__c}" />
+                                         </apex:outputText>
+                                         </td> 
+                                         <td align="left" width="10%">{!ar1.partial_full_code__c} </td>
+                                       
+                                      
+                                      
+                                    </tr>
+                    </apex:repeat>        
+          </tbody>
+   </table>
+</body>
+</apex:outputpanel>
+
+</apex:pageblockSection>
+ <apex:pageblockSection title="Invoice Status" columns="1" >
+
+ <apex:outputpanel >
+    <script>
+                
+     j$ = jQuery.noConflict();
+            j$(document).ready( function () {
+         j$('[id$="Invoicesection1"]').DataTable({ 
+                  "lengthMenu": [ 10, 25, 50, 75, 100 ],
+                  "order": [ 6, 'desc' ],
+                  "processing": true,
+                  "searching": false,
+                  paging: false,
+                  scrollY: 90,
+                  scrollCollapse: true
+    
+     }); 
+     }); 
+    </script>
+
+<body>
+
+   <table id="Invoicesection1" class="compact" cellspacing="0" width="100%">
+            <thead> 
+                   <tr>
+                        <th>Customer Name</th>
+                        <th>MCN</th>
+                        <th>Invoice Number</th>
+                        <th>PO#</th>
+                        <th>FUA City</th>
+                        <th>Invoice Value</th>
+                        <th>Invoice Date</th>
+                        <th>Full/Part</th>
+                         
+                                                                                        
+                    </tr>
+                </thead>
+            <tbody>
+                    <apex:repeat value="{!InvoiceSectionDetails}" var="ar1" >
+                                    <tr>
+                                       
+                                        <td align="left" width="30%">{!ar1.customer_name__c} </td>                                        
+                                        <td align="left" width="10%">{!ar1.master_customer_nbr__c} </td>
+                                        <td align="left" width="10%">{!ar1.invoice_nbr__c} </td>
+                                        <td align="left" width="15%">{!ar1.customer_po_nbr__c}</td>
+                                         <td align="right" width="15%">{!ar1.city_name__c}</td> 
+                                         <td align="left" width="10%">{!ar1.invoice_value_amt_us__c}</td>                                                 
+                                         <td align="left" width="10%"> 
+                                         <apex:outputText value="{0, date, M/d/yyyy}">
+                                            <apex:param value="{!ar1.invoice_date__c}" />
+                                         </apex:outputText>
+                                         </td> 
+                                          <td align="left" width="10%">{!ar1.partial_full_code__c} </td>
+    
+                                      
+                                    </tr>
+                    </apex:repeat>        
+          </tbody>
+   </table>
+</body>
+</apex:outputpanel>
+
+</apex:pageblockSection>  
+ </apex:pageBlock>
+ </apex:outputpanel>
+</apex:pageblock> 
+ 
+ </apex:form>
+</apex:page>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsQuoteCreatedInOtherSystem__c</fullName>
+    <description>This field tracks if Quotes are created in Other system when there are no QuBy Quotes and allows close/booked the opportunity of answer is yes, else doesn&apos;t allows closing.</description>
+    <externalId>false</externalId>
+    <label>Is Quote Created In Other System</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>StageName</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>YES</fullName>
+                <default>false</default>
+                <label>YES</label>
+            </value>
+            <value>
+                <fullName>NO</fullName>
+                <default>false</default>
+                <label>NO</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Closed/Booked</controllingFieldValue>
+            <valueName>YES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed/Booked</controllingFieldValue>
+            <valueName>NO</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

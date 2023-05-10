@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<Html>
+   <body>
+      <head>
+         <style>
+            table{
+            border: 2px Solid black;
+
+ 
+
+           }
+           p { margin-top: -10px;
+               margin-left: 10px;
+             }
+         </style>
+      </head>
+      <table>
+    <tr>
+      <td colspan="4" style="padding-bottom: 10px; margin-left: 2px">
+      <p></p>
+      <p>
+    Your Personal Attention Is Required To Ensure Timely Cash Flow. Contract on hold since {!BPM_Annuity__c.MaxLastUpdate__c}. Contract Can Not Invoice Until Hold is Removed.Notification Attempt # {!BPM_Annuity__c.Notification_Attempt__c}. <br/><br/>
+
+ 
+
+<b>Instructions for Customer Advocate: </b><br></br>
+All contract updates must occur in Oracle ERP to dismiss the alert. Do not reply to this email. If updates were just made within the past 1 to 2 days, then alert will be dismissed
+ on the next extract.Contract Status is on Hold in Oracle ERP with Hold Reason Description listed below. Validate Hold Reason is correct and update in  Oracle ERP if necessary. Status should be updated to a billable status as soon as possible to allow timely invoicing. <br></br>
+
+ 
+
+<b>See Below For Contract Details.</b> 
+      </p>
+       
+     </td></tr>
+
+ 
+
+            <tr style="background-color: #D9E1F2; text-align: center; ">
+            <th>Total Unbilled Amount</th>
+            <th>HW/ Other Unbilled Amount</th>
+            <th>SW Unbilled Amount</th>
+             <th>Total Billed Amount</th>
+             
+         </tr>
+         <tr style="text-align: center;">
+            <td> {!BPM_Annuity__c.Unbilled_Amt__c} </td>
+           <td> {!BPM_Annuity__c.HW_Other_Unbilled_Amount__c} </td>
+            <td> {!BPM_Annuity__c.SW_Unbilled_Amount__c} </td>
+            <td> {!BPM_Annuity__c.Billed_Amt_US_CH_BPM__c} </td>
+        </tr>
+         <tr>
+            <td colspan="4" style="background-color: #A6A6A6;" ></td>
+         </tr>
+         <tr style="text-align: left;background-color: #D9E1F2; text-align: center;">
+            <th>Customer</th>
+            <th>Country</th>
+            <th>Customer Number</th>
+            <th>Full Contract Number</th>
+           
+         </tr>
+         <tr style="text-align: center;">
+            <td>{!BPM_Annuity__c.Cust_Name_CH_BPM__c}</td>
+            <td>{!BPM_Annuity__c.Country_Code_C_BPM__c}</td>
+            <td>{!BPM_Annuity__c.Cust_Nbr_CH__c} </td>
+            <td>{!BPM_Annuity__c.Full_Contract_Nbr_CH__c} </td>
+            
+         </tr>
+         <tr>
+            <td colspan="4" style="background-color: #A6A6A6;"  height="20"></td>
+            
+         </tr>
+         <tr style="background-color: #D9E1F2;text-align: center;">
+             <th >Customer Purchase Order</th>
+            <th>Status</th>
+            <th>ETB Invoice Date (Interface Date)</th>
+            <th>Billing Frequency</th>
+            
+         </tr>
+         <tr style="text-align: center;">
+            <td>{!BPM_Annuity__c.Purchase_Order_Nbr_CH__c}</td>
+            <td>{!BPM_Annuity__c.Status_CH__c}</td>
+            <td>{!BPM_Annuity__c.MinInterfaceDate__c}</td>
+            <td>{!BPM_Annuity__c.Billing_Period_Name_CH__c}</td>
+            
+         </tr>
+         <tr>
+            <td colspan="4" style="background-color: #A6A6A6;"  height="20"></td>
+         </tr>
+         <tr style="background-color: #D9E1F2;text-align: center;">
+           
+            <th>CA</th>
+            <th>CA Manager 1</th>
+            <th>Billing Period </th>
+            
+         </tr>
+         <tr style="text-align: center;">
+            
+            <td>{!BPM_Annuity__c.CA_Name__c}</td>
+            <td>{!BPM_Annuity__c.CA_Mgr_1__c}</td>
+            <td>{!BPM_Annuity__c.Next_Bill_Due__c}</td>
+         </tr >
+
+ 
+
+          <tr>
+            <td colspan="4" style="background-color: #A6A6A6;"  height="20"></td>
+         </tr>
+         <tr style="background-color: #D9E1F2;text-align: center;">
+            <th>ASM</th>
+            <th>ASM Manager 1</th>
+            <th>Region</th>
+             <th>Invoice Rule Name (CH)</th>
+         </tr>
+         <tr style="text-align: center;">
+             <td>{!BPM_Annuity__c.ASM_Name__c}</td>
+             <td>{!BPM_Annuity__c.ASM_Mgr_1__c}</td>
+             <td>{!BPM_Annuity__c.Region__c}</td>
+             <td>{!BPM_Annuity__c.Invoice_Rule_Name_CH__c}</td>            
+         </tr >
+
+ 
+
+          <td colspan="4" style="background-color: #A6A6A6;"  height="20"></td>
+
+ 
+
+         <tr style="background-color: #D9E1F2;text-align: center;">
+            <td colspan="4"><b>Hold Reason Description</b></td>
+         </tr>
+         <tr>
+            <td colspan="4" style="text-align: center;">{!BPM_Annuity__c.Hold_Reason_Description_CH__c}</td>
+         </tr>
+	<td colspan="4" style="background-color: #A6A6A6;"  height="20"></td>
+         <tr style="background-color: #D9E1F2;text-align: center;">
+            <td colspan="4"><b>Tableau Dashboard Link</b></td>
+         </tr>
+         <tr>
+            <td colspan="4" style="text-align: center;"> 
+                <a href ='https://svcanalytics.corp.ncr.com/#/site/Finance/views/BPMExecutiveDashboard/BPMExecutiveDashboard?:iid=1'>Tableau Dashboard Link</a></td>
+         </tr>       
+
+ 
+
+         <td colspan="4" style="background-color: #A6A6A6;"  height="20"></td>
+         <tr style="background-color: #D9E1F2;text-align: center;">
+            <td colspan="4"><b>Follow this link for account re-assignment</b></td>
+         </tr>
+         <tr>
+            <td colspan="4" style="text-align: center;"> 
+                <a href ='https://ncr.force.com/BPMEmployeeCommunity
+'>APOC Community</a></td>
+         </tr>
+         <td colspan="4" style="background-color: #A6A6A6;"  height="20"></td>
+         <tr>
+            <th style="text-align: center;" >COMMENTS:</th>
+           <td colspan="3" style="max-width: 15px;word-break:break-all;">{!BPM_Annuity__c.Comments__c}</td>
+         </tr>
+      </table>
+   </body>
+</html>

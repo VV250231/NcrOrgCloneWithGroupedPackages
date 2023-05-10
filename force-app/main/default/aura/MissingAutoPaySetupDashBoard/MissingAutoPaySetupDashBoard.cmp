@@ -1,0 +1,80 @@
+<aura:component controller="MissingAutoPaySetupDashBoardController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <aura:attribute name="QuoteList" type="Object[]" />
+    <aura:attribute name="spinner" type="boolean" default="FALSE"/>
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/>
+    
+    <!--loading spinner start-->
+    <aura:if isTrue="{!v.spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    <!-- Loading spinner end-->
+
+    <div class="slds-page-header">
+        <div class="slds-media__body">
+            <h3 class="slds-page-header__title slds-truncate slds-align-middle" title="My Pending Approvals">Missing Autopay Setup</h3>
+        </div>
+    </div>
+    <table class="slds-table slds-table_bordered">
+        <thead>
+            <tr class="slds-text-title_caps" style="height:70px">
+                <th scope="col">
+                    <a class="toggle slds-th__action slds-text-link--reset slds-cell-wrap" title="Approval Name" href="javascript:void(0);" >Quote Number</a>
+                </th>
+                <th scope="col">
+                    <a class="toggle slds-th__action slds-text-link--reset slds-cell-wrap" title="Date Assigned" href="javascript:void(0);" >Customer Name</a>
+                </th>
+                 <th scope="col">
+                    <a class="toggle slds-th__action slds-text-link--reset " title="Assigned To" href="javascript:void(0);" >MCN</a>
+                </th>
+                <th scope="col">
+                    <a class="toggle slds-th__action slds-text-link--reset slds-cell-wrap" title="Date Assigned" href="javascript:void(0);" >Bill To Name</a>
+                </th>
+                <th scope="col">
+                    <a class="toggle slds-th__action slds-text-link--reset slds-cell-wrap" title="Date Assigned" href="javascript:void(0);" >Bill To Number</a>
+                </th>               
+                <th scope="col">
+                    <a class="toggle slds-th__action slds-text-link--reset slds-cell-wrap" title="Rule Name" href="javascript:void(0);" >Legal Document Status</a>
+                </th>                
+                <th scope="col">
+                    <a class="toggle slds-th__action slds-text-link--reset slds-cell-wrap" title="Requested By" href="javascript:void(0);" >Signature Date</a>
+                </th>                
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.QuoteList}" var="qts">
+                <tr>
+                    <th scope="row" data-label="Quote Name">
+                        <div class="slds-truncate" title="{!qts.Name}"><a href="{!'/' + qts.Id}">{!qts.Name}</a></div>
+                    </th>
+                    <td data-label="Customer Name">
+                        <div class="slds-truncate slds-cell-wrap" title="{!qts.SBQQ__Account__r.Name}">{!qts.SBQQ__Account__r.Name}</div>
+                    </td>
+                    <td data-label="MCN">
+                        <div class="slds-truncate" title="{!qts.SBQQ__Account__r.Master_Customer_Number__c}">{!qts.SBQQ__Account__r.Master_Customer_Number__c}</div>
+                    </td>
+                      <td data-label="Bill To Name">
+                        <div class="slds-truncate slds-cell-wrap" title="{!qts.qtc_Bill_To_Site__r.name}">{!qts.qtc_Bill_To_Site__r.Name}</div>
+                    </td>
+                    <td data-label="Bill To Number">
+                        <div class="slds-truncate" title="{!qts.qtc_Bill_To_Site__r.Site_Number__c}">{!qts.qtc_Bill_To_Site__r.Site_Number__c}</div>
+                    </td>
+                    
+                    <td data-label="Legal Document Status">
+                        <div class="slds-truncate  slds-cell-wrap" title="{!qts.qtc_Legal_Document_Status__c}">{!qts.qtc_Legal_Document_Status__c}</div>
+                    </td>                                       
+                    <td data-label="Signature Date">
+                        <div class="slds-truncate  slds-cell-wrap" title="{!qts.Customer_Documents__r[0].Customer_Signature_Date__c}">{!qts.Customer_Documents__r[0].Customer_Signature_Date__c}</div>
+                    </td>                    
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table>
+</aura:component>

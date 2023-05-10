@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Previous_Service_Provider_If_Other</fullName>
+    <active>true</active>
+    <description>&quot;Previous Service Provider(if other)&quot; becomes mandatory if &quot;other&quot; is selected in &quot;Previous Service Provider&quot;  picklist.</description>
+    <errorConditionFormula>ISPICKVAL(Previous_Service_Provider__c,&apos;Other&apos;) &amp;&amp;  ISBLANK(Previous_Service_Provider_If_Other__c)</errorConditionFormula>
+    <errorDisplayField>Previous_Service_Provider_If_Other__c</errorDisplayField>
+    <errorMessage>Required if selected &quot;Other&quot; above</errorMessage>
+</ValidationRule>

@@ -1,0 +1,2036 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Qualtrics_Hospitality_Survey_Action</name>
+        <label>Qualtrics Hospitality Survey Action</label>
+        <locationX>50</locationX>
+        <locationY>3863</locationY>
+        <actionName>Case.Invoke_Qualtrics_Hospitality_Survey</actionName>
+        <actionType>outboundMessage</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+    </actionCalls>
+    <actionCalls>
+        <name>Send_Case_Cancelled_Email_Alert</name>
+        <label>Send Case Cancelled Email Alert</label>
+        <locationX>1238</locationX>
+        <locationY>3287</locationY>
+        <actionName>Case.Case_Cancelled_Email_Alert</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Email_Addresses_Null_Check_2</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>Send_Case_Created_Email_Alert</name>
+        <label>Send Case Created Email Alert</label>
+        <locationX>2294</locationX>
+        <locationY>3287</locationY>
+        <actionName>Case.Case_Created_Email_Alert</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Email_Addresses_Null_Check_4</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>Send_Case_Resolved_Email_Alert</name>
+        <label>Send Case Resolved Email Alert</label>
+        <locationX>182</locationX>
+        <locationY>3287</locationY>
+        <actionName>Case.Case_Resolved_Email_Alert</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Email_Addresses_Null_Check</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>send_Email_on_Cancell</name>
+        <label>send Email on Cancell</label>
+        <locationX>1106</locationX>
+        <locationY>3527</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>BodyForCancellation</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>$Record.Account.email_addresses__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sendRichBody</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <stringValue>ncrhospitality.support@ncr.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>SubForcancelled</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>send_Email_on_Cancell2</name>
+        <label>send Email on Cancell2</label>
+        <locationX>1634</locationX>
+        <locationY>3407</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>BodyForCancellation</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>$Record.Account.email_addresses__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sendRichBody</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <stringValue>ncrhospitality.support@ncr.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>SubForcancelled</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>send_Email_on_Creation</name>
+        <label>send Email on Creation</label>
+        <locationX>2162</locationX>
+        <locationY>3527</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>Status_Check_2</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>BodyForCreation</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>$Record.Account.email_addresses__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sendRichBody</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <stringValue>ncrhospitality.support@ncr.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>SubForcreation</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>Send_Email_on_Creation3</name>
+        <label>Send Email on Creation3</label>
+        <locationX>2602</locationX>
+        <locationY>3407</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>Status_Check_2</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>BodyForCreation</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>$Record.Account.email_addresses__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sendRichBody</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <stringValue>ncrhospitality.support@ncr.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>SubForcreation</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>send_Email_on_Resolve</name>
+        <label>send Email on Resolve</label>
+        <locationX>50</locationX>
+        <locationY>3527</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>Send_Qualtrics_Survey</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>BodyForCompletion</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>$Record.Account.email_addresses__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sendRichBody</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <stringValue>ncrhospitality.support@ncr.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>SubForResolved</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>send_Email_on_Resolve2</name>
+        <label>send Email on Resolve2</label>
+        <locationX>578</locationX>
+        <locationY>3407</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>BodyForCompletion</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>$Record.Account.email_addresses__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sendRichBody</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <stringValue>ncrhospitality.support@ncr.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>SubForResolved</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>Send_Login_Provisioning_Issue_Email_Alert</name>
+        <label>Send Login/Provisioning Issue Email Alert</label>
+        <locationX>765</locationX>
+        <locationY>1943</locationY>
+        <actionName>Case.Login_Provisioning_Issue_Email_Alert</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>55.0</apiVersion>
+    <assignments>
+        <name>Add_One_Group_Member_Count</name>
+        <label>Add One Group Member Count</label>
+        <locationX>2217</locationX>
+        <locationY>1823</locationY>
+        <assignmentItems>
+            <assignToReference>GroupMemberCount</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_Group_Members</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Case_Support_Queue_Group_Changed</name>
+        <label>Case Support Queue Group Changed</label>
+        <locationX>1601</locationX>
+        <locationY>1703</locationY>
+        <defaultConnectorLabel>Same Support Queue Group</defaultConnectorLabel>
+        <rules>
+            <name>Different_Support_Queue_Group</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Support_Queue__r.Queue_Group__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior.Support_Queue__r.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Support_Queue__r.Queue_Group__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>New</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Checkbox_on_Case</targetReference>
+            </connector>
+            <label>Different Support Queue Group</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Closed_Time_Check</name>
+        <label>Closed Time Check</label>
+        <locationX>435</locationX>
+        <locationY>1583</locationY>
+        <defaultConnector>
+            <targetReference>If_Case_is_Closed_and_Support_Queue_updates</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Closed_Within_2_Hours</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.CreatedDate</leftValueReference>
+                <operator>GreaterThanOrEqualTo</operator>
+                <rightValue>
+                    <elementReference>ClosedDateMinusTwoHours</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Case</targetReference>
+            </connector>
+            <label>Closed Within 2 Hours</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Contact_Email_is_Null_on_cancel</name>
+        <label>Contact Email is Null on cancel</label>
+        <locationX>1502</locationX>
+        <locationY>3167</locationY>
+        <defaultConnector>
+            <targetReference>Email_Addresses_Null_Check_3</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Send Mail to Account Emails</defaultConnectorLabel>
+        <rules>
+            <name>Send_all_Notifications2</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Contact.Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Case_Cancelled_Email_Alert</targetReference>
+            </connector>
+            <label>Send all Notifications2</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Contact_Email_is_Null_on_create</name>
+        <label>Contact Email is Null on create</label>
+        <locationX>2514</locationX>
+        <locationY>3167</locationY>
+        <defaultConnector>
+            <targetReference>Email_Addresses_Null_Check_5</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Send Mail to Account Emails</defaultConnectorLabel>
+        <rules>
+            <name>Send_all_Notifications3</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Contact.Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Case_Created_Email_Alert</targetReference>
+            </connector>
+            <label>Send all Notifications3</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Contact_Email_is_Null_on_resolve</name>
+        <label>Contact Email is Null on resolve</label>
+        <locationX>446</locationX>
+        <locationY>3167</locationY>
+        <defaultConnector>
+            <targetReference>Email_Addresses_Null_Check_1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Send Mail to Account Emails</defaultConnectorLabel>
+        <rules>
+            <name>send_all_notifications</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Contact.Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Case_Resolved_Email_Alert</targetReference>
+            </connector>
+            <label>Send all Notifications</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Email_Addresses_Null_Check</name>
+        <label>Email Addresses Null Check</label>
+        <locationX>182</locationX>
+        <locationY>3407</locationY>
+        <defaultConnector>
+            <targetReference>Send_Qualtrics_Survey</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Not_NULL</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Account.email_addresses__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>send_Email_on_Resolve</targetReference>
+            </connector>
+            <label>Not NULL</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Email_Addresses_Null_Check_1</name>
+        <label>Email Addresses Null Check 1</label>
+        <locationX>710</locationX>
+        <locationY>3287</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Not_Null_1</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Account.email_addresses__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>send_Email_on_Resolve2</targetReference>
+            </connector>
+            <label>Not Null 1</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Email_Addresses_Null_Check_2</name>
+        <label>Email Addresses Null Check 2</label>
+        <locationX>1238</locationX>
+        <locationY>3407</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Not_Null_2</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Account.email_addresses__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>send_Email_on_Cancell</targetReference>
+            </connector>
+            <label>Not Null 2</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Email_Addresses_Null_Check_3</name>
+        <label>Email Addresses Null Check 3</label>
+        <locationX>1766</locationX>
+        <locationY>3287</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Not_Null_3</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Account.email_addresses__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>send_Email_on_Cancell2</targetReference>
+            </connector>
+            <label>Not Null 3</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Email_Addresses_Null_Check_4</name>
+        <label>Email Addresses Null Check 4</label>
+        <locationX>2294</locationX>
+        <locationY>3407</locationY>
+        <defaultConnector>
+            <targetReference>Status_Check_2</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Not_Null_4</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Account.email_addresses__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>send_Email_on_Creation</targetReference>
+            </connector>
+            <label>Not Null 4</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Email_Addresses_Null_Check_5</name>
+        <label>Email Addresses Null Check 5</label>
+        <locationX>2734</locationX>
+        <locationY>3287</locationY>
+        <defaultConnector>
+            <targetReference>Status_Check_2</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Not_Null_5</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Account.email_addresses__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Email_on_Creation3</targetReference>
+            </connector>
+            <label>Not Null 5</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Group_Member_Count_Check</name>
+        <label>Group Member Count Check</label>
+        <locationX>2129</locationX>
+        <locationY>2039</locationY>
+        <defaultConnector>
+            <targetReference>Get_Contact</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Group_Member_Count_1</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>GroupMemberCount</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>1.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_1_Group_Member</targetReference>
+            </connector>
+            <label>Group Member Count = 1</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>If_Case_is_Closed_and_Support_Queue_updates</name>
+        <label>If Case is Closed and Support Queue updates</label>
+        <locationX>435</locationX>
+        <locationY>1919</locationY>
+        <defaultConnector>
+            <targetReference>Update_case_closed_by</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Support Queue is not changed</defaultConnectorLabel>
+        <rules>
+            <name>Support_Queue_is_Changed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Support_Queue__r.Queue_Group__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Support_Detail_on_Case_0</targetReference>
+            </connector>
+            <label>Support Queue is Changed</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_New_Case_Without_Category_Group</name>
+        <label>Is New Case Without Category Group</label>
+        <locationX>1832</locationX>
+        <locationY>791</locationY>
+        <defaultConnector>
+            <targetReference>Was_CMC_ID_Updated</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Case_is_New</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Is_New_Case</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Category_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+            </conditions>
+            <connector>
+                <targetReference>Update_Category_Group</targetReference>
+            </connector>
+            <label>Case is New</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Owner_Changed_and_Queue_Check</name>
+        <label>Owner Changed and Queue Check</label>
+        <locationX>1832</locationX>
+        <locationY>1463</locationY>
+        <defaultConnector>
+            <targetReference>Get_Contact</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Hosp_Support_Case_Closed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Hospitality Support</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Closed_Time_Check</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>Hosp Support Case Closed</label>
+        </rules>
+        <rules>
+            <name>Hospitality_Portal_Provisioning_Case</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Hospitality Portal Provisioning</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Portal_Provisioning_Queue</targetReference>
+            </connector>
+            <label>Hospitality Portal Provisioning Case</label>
+        </rules>
+        <rules>
+            <name>Owner_Changed_Group_Queue</name>
+            <conditionLogic>1 AND (2 OR 4) AND 3</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Owner:Group.Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Queue</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Hospitality Support</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>IsNew</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Support_Queue</targetReference>
+            </connector>
+            <label>Owner Changed &amp; Group = Queue</label>
+        </rules>
+        <rules>
+            <name>Support_Queue_Changed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Hospitality Support</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Support_Queue__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Support_Detail_on_Case</targetReference>
+            </connector>
+            <label>Support Queue Changed</label>
+        </rules>
+        <rules>
+            <name>Owner_Changed_User_Owner</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Owner:User.IsActive</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Hospitality Support</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Group_Member</targetReference>
+            </connector>
+            <label>Owner Changed &amp; User Owner</label>
+        </rules>
+        <rules>
+            <name>New_Case_with_User_Owner</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>IsNew</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Owner:Group.Type</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Queue</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Hospitality Support</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <isGoTo>true</isGoTo>
+                <targetReference>Get_Group_Member</targetReference>
+            </connector>
+            <label>New Case with User Owner</label>
+        </rules>
+        <rules>
+            <name>Creation_Category_updated</name>
+            <conditionLogic>(NOT(2)) AND (1)</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Creation_Category__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Creation_Category__r.Name</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Other</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_creation_category_other_reason</targetReference>
+            </connector>
+            <label>Creation Category updated</label>
+        </rules>
+        <rules>
+            <name>Resolution_category_updated</name>
+            <conditionLogic>(NOT(2)) AND (1)</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Resolution_Category__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Resolution_Category__r.Name</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Other</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_resolution_category_other_reason</targetReference>
+            </connector>
+            <label>Resolution category updated</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Send_Qualtrics_Survey</name>
+        <label>Send Qualtrics Survey</label>
+        <locationX>182</locationX>
+        <locationY>3743</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Qualtrics_Survey_Outcome</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Contact.HasOptedOutOfEmail</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Contact.Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Origin</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Pulse Streaming</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Qualtrics_Hospitality_Survey_Action</targetReference>
+            </connector>
+            <label>Qualtrics Survey Outcome</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Skip_Flow_Check</name>
+        <label>Skip Flow Check</label>
+        <locationX>2657</locationX>
+        <locationY>335</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Skip_Flow_False</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Setup.Automation_Setting__c.Skip_Flow__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Status_Reason_Check</targetReference>
+            </connector>
+            <label>Skip Flow = False</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Status_Check</name>
+        <label>Status Check</label>
+        <locationX>1832</locationX>
+        <locationY>3047</locationY>
+        <defaultConnectorLabel>Other Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Changed_Status_Closed</name>
+            <conditionLogic>1 AND 2 AND ((3 AND 5) OR (4 AND 6))</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.ContactId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Alternate_Contact__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Contact.Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Alternate_Contact.Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Contact_Email_is_Null_on_resolve</targetReference>
+            </connector>
+            <label>Changed &amp; Status = Closed</label>
+        </rules>
+        <rules>
+            <name>Changed_Status_Cancelled</name>
+            <conditionLogic>1 AND 2 AND ((3 AND 5) OR (4 AND 6))</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Cancelled</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.ContactId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Alternate_Contact__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Contact.Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Alternate_Contact.Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Contact_Email_is_Null_on_cancel</targetReference>
+            </connector>
+            <label>Changed &amp; Status = Cancelled</label>
+        </rules>
+        <rules>
+            <name>Is_New_Case</name>
+            <conditionLogic>1 AND 2 AND ((3 AND 5) OR (4 AND 6))</conditionLogic>
+            <conditions>
+                <leftValueReference>IsNew</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>New</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.ContactId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Alternate_Contact__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Contact.Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Alternate_Contact.Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Contact_Email_is_Null_on_create</targetReference>
+            </connector>
+            <label>Is New Case</label>
+        </rules>
+        <rules>
+            <name>Status_New_Owner_Changed_Not_Queue</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>New</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Owner:Group.Type</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Queue</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior.Owner:Group.Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Queue</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Case_Reopened_Flag__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Case_Status_Assigned</targetReference>
+            </connector>
+            <label>Status = New &amp; Owner Changed &amp; Not Queue</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Status_Check_2</name>
+        <label>Status Check 2</label>
+        <locationX>2514</locationX>
+        <locationY>3839</locationY>
+        <defaultConnectorLabel>Other Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Status_New_Owner_Changed_Not_Queue_2</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>New</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Owner:Group.Type</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Queue</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior.Owner:Group.Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Queue</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Case_Reopened_Flag__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Case_Status_Assigned</targetReference>
+            </connector>
+            <label>Status = New &amp; Owner Changed &amp; Not Queue</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Status_Reason_Check</name>
+        <label>Status Reason Check</label>
+        <locationX>1832</locationX>
+        <locationY>455</locationY>
+        <defaultConnector>
+            <targetReference>Is_New_Case_Without_Category_Group</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>New_Assigned_In_Progress_Status_Reason_Null</name>
+            <conditionLogic>(1 OR 2 OR 3) AND 4</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>New</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Assigned</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>In_Progress</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status_Reason__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Case_0</targetReference>
+            </connector>
+            <label>New,Assigned,In Progress &amp; Status Reason &lt;&gt; Null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Support_Queue_group_Change</name>
+        <label>Support Queue group Change</label>
+        <locationX>1161</locationX>
+        <locationY>1823</locationY>
+        <defaultConnector>
+            <targetReference>Get_Contact</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>If Not Changed</defaultConnectorLabel>
+        <rules>
+            <name>If_Changed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Support_Queue__r.Queue_Group__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior.Support_Queue__r.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Support_Queue__r.Queue_Group__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>New</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Flag_on_Case</targetReference>
+            </connector>
+            <label>If Changed</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Support_Queue_group_Change_0</name>
+        <label>Support Queue group Change</label>
+        <locationX>281</locationX>
+        <locationY>2159</locationY>
+        <defaultConnector>
+            <targetReference>Update_case_closed_by</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>If Not Changed</defaultConnectorLabel>
+        <rules>
+            <name>If_Changed_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Support_Queue__r.Queue_Group__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior.Support_Queue__r.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Support_Queue__r.Queue_Group__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Checkbox_on_Case_0</targetReference>
+            </connector>
+            <label>If Changed</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Was_CMC_ID_Updated</name>
+        <label>Was CMC ID Updated?</label>
+        <locationX>1832</locationX>
+        <locationY>1127</locationY>
+        <defaultConnector>
+            <targetReference>Owner_Changed_and_Queue_Check</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>CMC_ID_Was_Updated</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.CMC_ID__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record__Prior.CMC_ID__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Site_CMC_ID</targetReference>
+            </connector>
+            <label>CMC ID Was Updated</label>
+        </rules>
+    </decisions>
+    <description>Populate category group on cases where it is blank</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>CaseCGFormula</name>
+        <dataType>String</dataType>
+        <expression>/* If the Account&apos;s category is blank,*/
+IF(ISBLANK(TEXT({!$Record.Account.Category_Group__c})), 
+/* use the value &quot;Hospitality Shared&quot; */
+&quot;Hospitality Shared&quot;,
+/* IF the account&apos;s category group was not blank, use it*/
+TEXT({!$Record.Account.Category_Group__c}))</expression>
+    </formulas>
+    <formulas>
+        <name>ClosedDateMinusTwoHours</name>
+        <dataType>DateTime</dataType>
+        <expression>({!$Record.ClosedDate} - ((2 * 60)/1440) )</expression>
+    </formulas>
+    <formulas>
+        <name>IsNew</name>
+        <dataType>Boolean</dataType>
+        <expression>IsNew()</expression>
+    </formulas>
+    <interviewLabel>Hospitality Case After Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Hospitality Case After Flow</label>
+    <loops>
+        <name>Loop_Group_Members</name>
+        <label>Loop Group Members</label>
+        <locationX>2129</locationX>
+        <locationY>1703</locationY>
+        <collectionReference>Get_Group_Member</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Add_One_Group_Member_Count</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Group_Member_Count_Check</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_1_Group_Member</name>
+        <label>Get 1 Group Member</label>
+        <locationX>1997</locationX>
+        <locationY>2159</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_User_Support_Queue</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>UserOrGroupId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.OwnerId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>GroupMember</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Alternate_Contact</name>
+        <label>Get Alternate Contact</label>
+        <locationX>1832</locationX>
+        <locationY>2927</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Status_Check</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Alternate_Contact__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Contact</name>
+        <label>Get Contact</label>
+        <locationX>1832</locationX>
+        <locationY>2807</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Alternate_Contact</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.ContactId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Group_Member</name>
+        <label>Get Group Member</label>
+        <locationX>2129</locationX>
+        <locationY>1583</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_Group_Members</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>UserOrGroupId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.OwnerId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>GroupMember</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Portal_Provisioning_Queue</name>
+        <label>Get Portal Provisioning Queue</label>
+        <locationX>765</locationX>
+        <locationY>1583</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Support_Group_pp</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Portal_Provisioning</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Group</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Support_Group_pp</name>
+        <label>Get Support Group pp</label>
+        <locationX>765</locationX>
+        <locationY>1703</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Update_Case_Owner_PP</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Portal Provisioning</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Support_Queue_Config__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Support_Queue</name>
+        <label>Get Support Queue</label>
+        <locationX>1161</locationX>
+        <locationY>1583</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Update_Queue_Support_Group_Case</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Owner:Group.Name</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Support_Queue_Config__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_User_Support_Queue</name>
+        <label>Get User Support Queue</label>
+        <locationX>1997</locationX>
+        <locationY>2279</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Contact</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_1_Group_Member.Group.Name</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Support_Queue_Config__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Case</name>
+        <label>Update Case</label>
+        <locationX>303</locationX>
+        <locationY>1703</locationY>
+        <connector>
+            <targetReference>If_Case_is_Closed_and_Support_Queue_updates</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>FCR_Flag__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Case_0</name>
+        <label>Update Case</label>
+        <locationX>1700</locationX>
+        <locationY>575</locationY>
+        <connector>
+            <targetReference>Is_New_Case_Without_Category_Group</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Status_Reason__c</field>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_case_closed_by</name>
+        <label>Update case closed by</label>
+        <locationX>435</locationX>
+        <locationY>2591</locationY>
+        <connector>
+            <targetReference>Get_Contact</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Case_Closed_by__c</field>
+            <value>
+                <elementReference>$User.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Support_Queue_Name_Text__c</field>
+            <value>
+                <elementReference>$Record.Support_Queue__r.Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Case_Owner_PP</name>
+        <label>Update Case Owner PP</label>
+        <locationX>765</locationX>
+        <locationY>1823</locationY>
+        <connector>
+            <targetReference>Send_Login_Provisioning_Issue_Email_Alert</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Get_Portal_Provisioning_Queue.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Support_Email__c</field>
+            <value>
+                <elementReference>Get_Support_Group_pp.Support_Email__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Support_Phone__c</field>
+            <value>
+                <elementReference>Get_Support_Group_pp.Support_Phone_Number__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Support_Queue__c</field>
+            <value>
+                <elementReference>Get_Support_Group_pp.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Case_Status_Assigned</name>
+        <label>Update Case Status Assigned</label>
+        <locationX>1832</locationX>
+        <locationY>4391</locationY>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Assigned</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Category_Group</name>
+        <label>Update Category Group</label>
+        <locationX>1700</locationX>
+        <locationY>911</locationY>
+        <connector>
+            <targetReference>Was_CMC_ID_Updated</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Category_Group__c</field>
+            <value>
+                <elementReference>CaseCGFormula</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Case transferred between queue groups checkbox</description>
+        <name>Update_Checkbox_on_Case</name>
+        <label>Update Checkbox on Case</label>
+        <locationX>1469</locationX>
+        <locationY>1823</locationY>
+        <inputAssignments>
+            <field>Case_Transferred_Between_Queue_Groups__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Case transferred between queue groups checkbox</description>
+        <name>Update_Checkbox_on_Case_0</name>
+        <label>Update Checkbox on Case</label>
+        <locationX>149</locationX>
+        <locationY>2279</locationY>
+        <connector>
+            <targetReference>Update_case_closed_by</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Case_Transferred_Between_Queue_Groups__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_creation_category_other_reason</name>
+        <label>Update creation category other reason</label>
+        <locationX>2701</locationX>
+        <locationY>1583</locationY>
+        <inputAssignments>
+            <field>Creation_Other__c</field>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Flag = case transferred between queue group checkbox</description>
+        <name>Update_Flag_on_Case</name>
+        <label>Update Flag on Case</label>
+        <locationX>1029</locationX>
+        <locationY>1943</locationY>
+        <connector>
+            <targetReference>Get_Contact</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Case_Transferred_Between_Queue_Groups__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Queue_Support_Group_Case</name>
+        <label>Update Queue Support Group Case</label>
+        <locationX>1161</locationX>
+        <locationY>1703</locationY>
+        <connector>
+            <targetReference>Support_Queue_group_Change</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Support_Email__c</field>
+            <value>
+                <elementReference>Get_Support_Queue.Support_Email__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Support_Phone__c</field>
+            <value>
+                <elementReference>Get_Support_Queue.Support_Phone_Number__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Support_Queue__c</field>
+            <value>
+                <elementReference>Get_Support_Queue.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_resolution_category_other_reason</name>
+        <label>Update resolution category other reason</label>
+        <locationX>2965</locationX>
+        <locationY>1583</locationY>
+        <inputAssignments>
+            <field>Resolution_Other__c</field>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Site_CMC_ID</name>
+        <label>Update Site CMC ID</label>
+        <locationX>1700</locationX>
+        <locationY>1247</locationY>
+        <connector>
+            <targetReference>Owner_Changed_and_Queue_Check</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>CMC_Id__c</field>
+            <value>
+                <elementReference>$Record.CMC_ID__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record.Site_Id__r</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Email and Phone number</description>
+        <name>Update_Support_Detail_on_Case</name>
+        <label>Update Support Detail on Case</label>
+        <locationX>1601</locationX>
+        <locationY>1583</locationY>
+        <connector>
+            <targetReference>Case_Support_Queue_Group_Changed</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Support_Email__c</field>
+            <value>
+                <elementReference>$Record.Support_Queue__r.Support_Email__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Support_Phone__c</field>
+            <value>
+                <elementReference>$Record.Support_Queue__r.Support_Phone_Number__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Email and Phone number</description>
+        <name>Update_Support_Detail_on_Case_0</name>
+        <label>Update Support Detail on Case</label>
+        <locationX>281</locationX>
+        <locationY>2039</locationY>
+        <connector>
+            <targetReference>Support_Queue_group_Change_0</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Support_Email__c</field>
+            <value>
+                <elementReference>$Record.Support_Queue__r.Support_Email__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Support_Phone__c</field>
+            <value>
+                <elementReference>$Record.Support_Queue__r.Support_Phone_Number__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>2531</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Skip_Flow_Check</targetReference>
+        </connector>
+        <filterFormula>OR(
+{!$Record.RecordType.Name} = &apos;Hospitality Support&apos;,
+{!$Record.RecordType.Name} = &apos;Hospitality Portal Provisioning&apos;
+)</filterFormula>
+        <object>Case</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>BodyForCancellation</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;https://ncr--cert--c.documentforce.com/servlet/servlet.ImageServer?id=0153I000000ClHa&amp;amp;oid=00D3I0000000exN&amp;amp;lastMod=1671099763000&quot;&gt;&lt;/p&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Dear {!$Record.Contact.Full_Name__c},&lt;/span&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Your reported Case has been cancelled with the following details:&lt;/span&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Case Number: {!$Record.CaseNumber}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Site Name: {!$Record.Site_Id__r.Name}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Store Number/Branch: {!$Record.Store_Branch_No__c}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Address: {!$Record.Address__c}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Created Date/Time: {!$Record.CreatedDate__c}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Priority: {!$Record.Priority}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Software Product: {!$Record.Creation_Category__r.Name} &lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Brief Description: {!$Record.Description}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Customer Reference Number: {!$Record.GUID_Id__c}&lt;/span&gt;&lt;br&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;If you need additional help or to provide support with an update to your case, feel free to contact the Service Desk.&lt;/span&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Sincerely,&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;NCR Service Desk&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;{!$Record.Support_Phone__c}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;{!$Record.Support_Email__c}&lt;/span&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>BodyForCompletion</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;https://ncr--cert--c.documentforce.com/servlet/servlet.ImageServer?id=0153I000000ClHa&amp;amp;oid=00D3I0000000exN&amp;amp;lastMod=1671099763000&quot;&gt;&lt;/p&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Dear {!$Record.Contact.Full_Name__c},&lt;/span&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;We are pleased to inform you that your reported Case has been resolved with the following details:&lt;/span&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Case Number: {!$Record.CaseNumber}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Site Name: {!$Record.Site_Id__r.Name}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Store Number/Branch: {!$Record.Store_Branch_No__c}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Address: {!$Record.Address__c}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Created Date/Time: {!$Record.CreatedDate__c}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Resolved Date/Time: {!$Record.ClosedDate}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Priority: {!$Record.Priority}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Software Product: {!$Record.Creation_Category__r.Name} &lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Brief Description: {!$Record.Description}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Customer Reference Number: {!$Record.GUID_Id__c}&lt;/span&gt;&lt;br&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;If you need additional help or to provide support with an update to your case, feel free to contact the Service Desk.&lt;/span&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Sincerely,&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;NCR Service Desk&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;{!$Record.Support_Phone__c}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;{!$Record.Support_Email__c}&lt;/span&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>BodyForCreation</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;https://ncr--cert--c.documentforce.com/servlet/servlet.ImageServer?id=0153I000000ClHa&amp;amp;oid=00D3I0000000exN&amp;amp;lastMod=1671099763000&quot;&gt;&lt;/p&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Dear {!$Record.Contact.Full_Name__c},&lt;/span&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Thank you for contacting NCR Service Desk, your Case has been created with the following details:&lt;/span&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Case Number: {!$Record.CaseNumber}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Site Name: {!$Record.Site_Id__r.Name}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Store Number/Branch: {!$Record.Store_Branch_No__c}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Address: {!$Record.Address__c}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Created Date/Time: {!$Record.CreatedDate__c}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Priority: {!$Record.Priority}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Software Product: {!$Record.Creation_Category__r.Name} &lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Brief Description: {!$Record.Description}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Customer Reference Number: {!$Record.GUID_Id__c}&lt;/span&gt;&lt;br&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;If you need additional help or to provide support with an update to your case, feel free to contact the Service Desk.&lt;/span&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Sincerely,&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;NCR Service Desk&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;{!$Record.Support_Phone__c}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;{!$Record.Support_Email__c}&lt;/span&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>SubForcancelled</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Case {!$Record.CaseNumber} has been Cancelled</text>
+    </textTemplates>
+    <textTemplates>
+        <name>SubForcreation</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Case {!$Record.CaseNumber} has been Created</text>
+    </textTemplates>
+    <textTemplates>
+        <name>SubForResolved</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Case {!$Record.CaseNumber} has been Resolved</text>
+    </textTemplates>
+    <variables>
+        <name>GroupMemberCount</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+        <value>
+            <numberValue>0.0</numberValue>
+        </value>
+    </variables>
+</Flow>

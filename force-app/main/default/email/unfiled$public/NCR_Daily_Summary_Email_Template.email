@@ -1,0 +1,13 @@
+<messaging:emailTemplate subject="Idea Exchange Daily Digest" recipientType="User" relatedToType="User">
+
+<messaging:htmlEmailBody >
+    <p>Dear {! recipient.Name},</p>
+    <c:NCR_send_daily_idea_summary userRec="{! recipient}"/>
+</messaging:htmlEmailBody>
+
+<messaging:plainTextEmailBody >
+   Dear {! recipient.Name},  
+   <!--<c:NCR_send_daily_idea_summary_plainText userRec="{! recipient}"/>  -->
+</messaging:plainTextEmailBody>
+
+</messaging:emailTemplate>

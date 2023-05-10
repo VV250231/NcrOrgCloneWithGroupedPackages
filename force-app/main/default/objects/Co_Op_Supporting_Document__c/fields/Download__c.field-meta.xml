@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Download__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF($User.ContactId != null, HYPERLINK(&quot;/PartnerCentral/servlet/servlet.FileDownload?file=&quot;+Attachment_Id__c,&apos;view&apos;) , HYPERLINK(&quot;/servlet/servlet.FileDownload?file=&quot;+Attachment_Id__c,&apos;view&apos;) )</formula>
+    <label>Download</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

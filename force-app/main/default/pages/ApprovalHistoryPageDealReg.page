@@ -1,0 +1,163 @@
+<apex:page StandardController="Deal_Registration__c" extensions="ApprovalHistoryPageController" sidebar="false" showHeader="false">
+ 
+    <script src="/soap/ajax/10.0/connection.js" />
+    <script src="/soap/ajax/10.0/apex.js" />
+    <style type = "text/css">
+    .bgHeader {background-color: #D0FFFF;}
+    .bgColour { background-color: #DDB929; color: #FFFFFF !important; }
+    .Stat { background-color: #FFD74B; }
+    .bgColourGreen { background-color: #00FF00; }
+    .bgColourRed { background-color: #FF6633; }
+    .bgColourGrey { background-color: #909090; }
+    </style>
+  
+       
+    <apex:pageBlock rendered="{!!showTable}">
+        <apex:pageBlockSection >
+            No records to display.
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    <apex:pageBlock rendered="{!showTable}">
+        <table cellpadding="5">
+            <th width="60%" class = "bgHeader">Action</th><th class = "bgHeader">Date</th><th class = "bgHeader">Status</th><th class = "bgHeader">Approver</th><th class = "bgHeader">Actual Approver</th><th class = "bgHeader">Comments</th><th class = "bgHeader">Overall Status</th>
+            <apex:repeat value="{!displayList}" var="d" id="display">
+                <tr >    
+                    <apex:outputPanel rendered="{!if(d[0]!=' ' && d[1]==' ',TRUE,FALSE)}">
+                        <td class = "bgColour">
+                            <b>{!d[0]}</b>
+                        </td>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!if(d[0]!=' ' && d[2]== 'Pending',TRUE,FALSE)}">
+                        <td>
+                            <apex:form >
+                            <div id="pageButton">
+                            
+                               <apex:outputPanel rendered="{!isApprover}"><a href="/{!ProcessInstanceWorkitemId}/e?et=REASSIGN&retURL={!recordId}" target="_parent" >Reassign</a></apex:outputPanel>                                
+                                <apex:outputText value=" | " rendered="{!!isApprover }"/>
+                                 &nbsp;
+                                <apex:outputPanel rendered="{!showLink}" ><a href="/apex/ApprovalAndRejectPage?id={!recordId}&piwd={!ProcessInstanceWorkitemId}" target="_parent" >Approve</a> </apex:outputPanel>
+                                <apex:outputText value=" | " rendered="{!showLink }" />
+                            
+                                <apex:outputText value=" | " rendered="{!!showLink}" />
+                                <apex:outputPanel rendered="{!showLink}"><a href="/apex/ApprovalAndRejectPage?id={!recordId}&piwd={!ProcessInstanceWorkitemId}"  target="_parent" >Reject</a> </apex:outputPanel>
+                             </div>
+                            </apex:form>
+                            <div id="loadingimg" style="display:none;"><img src="/changemgmt/img/spinner24.gif"/></div>
+                        </td>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!if(d[0]==' ' ,TRUE,FALSE)}">
+                        <td>
+                            {!d[0]}
+                        </td>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!if(d[0]=='Approve / Reject',TRUE,FALSE)}">
+                        <td>
+                            {!d[1]}
+                        </td>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!if(d[0]==' ' ,TRUE,FALSE)}">
+                        <td>
+                            {!d[1]}
+                        </td>
+                    </apex:outputPanel>    
+                    <apex:outputPanel rendered="{!if(d[0]!=' ' && d[0]!= 'Approve / Reject',TRUE,FALSE)}">
+                        <td class = "bgColour">
+                            {!d[1]}
+                        </td>
+                    </apex:outputPanel>            
+                    <apex:outputPanel rendered="{!if(d[0]!=' ' && d[0]!= 'Approve / Reject',TRUE,FALSE)}">
+                        <td class = "bgColour">
+                            {!d[2]}
+                        </td>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!if(d[0]=='Approve / Reject',TRUE,FALSE)}">
+                        <td>
+                            {!d[2]}
+                        </td>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!if(d[0]==' ',TRUE,FALSE)}">
+                        <td>
+                            {!d[2]}
+                        </td>
+                    </apex:outputPanel>  
+                                 
+                    <apex:outputPanel rendered="{!if(d[0]!=' ' && d[0]!= 'Approve / Reject',TRUE,FALSE)}">
+                        <td class = "bgColour">
+                            <a href="/{!d[7]}" target="_parent">{!d[3]}</a>
+                        </td>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!if(d[0]=='Approve / Reject',TRUE,FALSE)}">
+                        <td>
+                            <a href="/{!d[7]}" target="_parent">{!d[3]}</a>
+                        </td>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!if(d[0]==' ',TRUE,FALSE)}">
+                        <td>
+                            <a href="/{!d[7]}" target="_parent">{!d[3]}</a>
+                        </td>
+                    </apex:outputPanel>                
+                    <apex:outputPanel rendered="{!if(d[0]!=' ' && d[0]!= 'Approve / Reject',TRUE,FALSE)}">
+                        <td class = "bgColour">
+                             <a href="/{!d[8]}" target="_parent">{!d[4]}</a>
+                        </td>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!if(d[0]=='Approve / Reject',TRUE,FALSE)}">
+                        <td>
+                            <a href="/{!d[8]}" target="_parent">{!d[4]}</a>
+                        </td>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!if(d[0]==' ',TRUE,FALSE)}">
+                        <td>
+                            <a href="/{!d[8]}" target="_parent">{!d[4]}</a>
+                        </td>
+                    </apex:outputPanel>                
+                    <apex:outputPanel rendered="{!if(d[0]!=' ' && d[0]!= 'Approve / Reject',TRUE,FALSE)}">
+                        <td class = "bgColour">
+                            {!d[5]}
+                        </td>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!if(d[0]=='Approve / Reject',TRUE,FALSE)}">
+                        <td>
+                            {!d[5]}
+                        </td>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!if(d[0]==' ',TRUE,FALSE)}">
+                        <td>
+                            {!d[5]}
+                        </td>
+                    </apex:outputPanel>                
+                    <apex:outputPanel rendered="{!if(d[0]!=' ' && d[6] == ' ' && d[0] != 'Approve / Reject',TRUE,FALSE)}">
+                        <td class = "bgColour">
+                            {!d[6]}
+                        </td>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!if(d[0]!=' ' && d[6] == 'Pending',TRUE,FALSE)}">
+                        <td class = "Stat">
+                            <img src = "/img/icon/pending12.gif" />{!d[6]}
+                        </td>
+                    </apex:outputPanel>                
+                    <apex:outputPanel rendered="{!if(d[0]==' ',TRUE,FALSE)}">
+                        <td>
+                            {!d[6]}
+                        </td>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!if(d[0]!=' ' && d[6] == 'Approved',TRUE,FALSE)}">
+                        <td class = "bgColourGreen">
+                            <img src = "/img/icon/approve12.gif" />{!d[6]}
+                        </td>
+                    </apex:outputPanel>                                
+                    <apex:outputPanel rendered="{!if(d[0]!=' ' && d[6] == 'Rejected',TRUE,FALSE)}">
+                        <td class = "bgColourRed">
+                            <img src = "/img/icon/reject12.gif" />{!d[6]}
+                        </td>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!if(d[0]!=' ' && d[6] == 'Recalled',TRUE,FALSE)}">
+                        <td class = "bgColourGrey">
+                            <img src = "/img/icon/recall12.gif" />{!d[6]}
+                        </td>
+                    </apex:outputPanel>                                
+                </tr>                
+            </apex:repeat>
+        </table>
+    </apex:pageBlock>
+</apex:page>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notice to User of Completed Support Request</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>NCRLogoLetterhead</letterhead>
+    <name>Support Completion Notice</name>
+    <style>freeForm</style>
+    <subject>Your SalesCentral support request is now {!Support_Desk__c.Request_Status__c}</subject>
+    <textOnly>Date:  {!Today}
+
+From: SalesCentral Support Desk
+
+To: {!Support_Desk__c.OwnerFullName}
+
+
+Your Support Desk request has been {!Support_Desk__c.Request_Status__c}.  The resolution notes are listed below.
+
+Support Request Details:
+Support Desk #: {!Support_Desk__c.Name}
+
+Submitted by: {!Support_Desk__c.OwnerFullName}
+Date created: {!Support_Desk__c.CreatedDate}
+Request Category: {!Support_Desk__c.Request_Category__c}
+Priority: {!Support_Desk__c.Priority__c}
+Master Customer Name: {!Support_Desk__c.Master_Customer_Name__c}
+Master Customer Name 2: {!Support_Desk__c.Account_Name_2__c}
+Master Customer Name 3: {!Support_Desk__c.Account_Name3__c}
+Master Customer Name 4: {!Support_Desk__c.Account_Name_4__c}
+Master Customer Name 5: {!Support_Desk__c.Request_Category__c}
+Master Customer Number: {!Support_Desk__c.Master_Customer_Number__c}
+Master Customer Number2:{!Support_Desk__c.Master_Customer_Number2__c}
+Master Customer Number3: {!Support_Desk__c.Master_Customer_Number3__c}
+Master Customer Number4: {!Support_Desk__c.Master_Customer_Number4__c}
+Master Customer Number5: {!Support_Desk__c.Master_Customer_Number5__c}
+Opportunity Name: {!Support_Desk__c.Opportunity_Name__c}
+Opportunity Number: !Support_Desk__c.Contact_Name__c}
+Contact Name: {!Support_Desk__c.Contact_Name__c}
+Description: {!Support_Desk__c.Description_of_Change__c}
+
+Notes: {!Support_Desk__c.Request_Resolution_Notes__c}
+
+
+CLICK HERE to access the submitted request.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

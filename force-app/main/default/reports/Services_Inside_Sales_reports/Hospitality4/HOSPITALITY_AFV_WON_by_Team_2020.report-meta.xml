@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>Opportunity.Total_Value_Added__c.CONVERT:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>false</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>AFV</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>OpportunityLineItem.Annuity_Test__c.CONVERT:SUM-Opportunity.Initial_Renewal_Value__c.CONVERT:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA2</developerName>
+        <isActive>false</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>AFV 2</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>OpportunityLineItem.Annuity_Test__c.CONVERT:SUM-Opportunity.Initial_Renewal_Value__c.CONVERT:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA3</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>AFV Final</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_233726</developerName>
+        <masterLabel>LOB</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Opportunity.Account_LOB__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>FINANCIAL</sourceValue>
+            </sourceValues>
+            <value>BANKING</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>HOSPITALITY</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>TRAVEL</sourceValue>
+            </sourceValues>
+            <value>HOSPITALITY</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>RETAIL</sourceValue>
+            </sourceValues>
+            <value>RETAIL</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_92783822</developerName>
+        <masterLabel>Region</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Account.Account_Region__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>APJ</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>APAC</sourceValue>
+            </sourceValues>
+            <value>APAC</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>EMEA</sourceValue>
+            </sourceValues>
+            <value>EMEA</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>LATAM</sourceValue>
+            </sourceValues>
+            <value>LATAM</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>MEA</sourceValue>
+            </sourceValues>
+            <value>MEA</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>NAMER DIRECT</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NAMER</sourceValue>
+            </sourceValues>
+            <value>NAMER</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>GLOBAL</sourceValue>
+            </sourceValues>
+            <value>GLOBAL</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_71938366</developerName>
+        <masterLabel>TEAM</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>FULL_NAME</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Srdjan Repic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Paul Noble</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Nidia Despot</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Stefan Mircetic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ksenija Banjanin</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Dragana Vasic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Borivoje Kapetanovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Maja Colic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Bojan Gvozdic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Hani Yossef</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Meital Elcharar</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Jelena Cetkovic</sourceValue>
+            </sourceValues>
+            <value>EUROPE</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Abe Aurelius Aquino</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Amador Henry Castillo</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Summer Song</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Efren Mendoza</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Eric John Pahate</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Eva Merriam Montecillo</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Jecren Imbo</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Joel Berou</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Lingwei Dong</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Takeshi Tanda</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Rudelyn Bucio</sourceValue>
+            </sourceValues>
+            <value>APAC</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Waleed Attia</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Menel Brinsi</sourceValue>
+            </sourceValues>
+            <value>MEA</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Ana Teodorovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ivana Vucinic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Predrag Milinic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Milos Djokovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Jelena Malusev</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Danijela Jevtic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Jovana Vasiljevic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Jovana Randjelovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Jelena Atanackovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Marko Jovanovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Milos Padezanin</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Djordje Mraovic</sourceValue>
+            </sourceValues>
+            <value>NAMER</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>SERVICE_MONTH</field>
+    </columns>
+    <columns>
+        <field>PRODUCT_ACTIVE</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>Product2.Service_Offer_Category__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Initial_Renewal_Value__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>AMOUNT.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Total_Value_Added__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>OpportunityLineItem.Annuity_Test__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Account_LOB__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>ACCOUNT_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Brenka Test Account</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>ROLLUP_DESCRIPTION</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Global Services Renewals</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>TYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Existing Customer - New Solution/Service,Existing Customer - Ongoing Roll-out,Existing Customer - Replacement,Existing Customer - Service Renewal,Existing Customer - Service Winback,Existing Customer - Upgrade,New Customer,Revenue Leakage</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Product2.Service_Offer_Category__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>TS</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Account_LOB__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>HOSPITALITY,TRAVEL</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_92783822</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Opportunity.Opportunity_Number__c</field>
+        <sortOrder>Desc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Month</dateGranularity>
+        <field>Opportunity.Actual_Close_Date__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>HOSPITALITY AFV WON by Team 2020</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>closedwon</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>OpportunityProduct</reportType>
+    <roleHierarchyFilter>ChiefExecutiveOffice</roleHierarchyFilter>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Opportunity.Actual_Close_Date__c</dateColumn>
+        <interval>INTERVAL_CURFY</interval>
+    </timeFrameFilter>
+</Report>

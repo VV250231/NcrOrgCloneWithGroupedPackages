@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DNBI__Submit_for_Credit_Approval</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Submit for Credit Approval</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>var windowWidth = document.documentElement.clientWidth;
+var windowHeight = document.documentElement.clientHeight;
+var width=windowWidth*.5-400;
+var height=windowHeight*.5-250;
+win2 = window.open(&quot;/apex/DNBI__companyMatchPage?id={!Opportunity.Id}&amp;isOpty=true&quot;,&apos;_new&apos;,&apos;width=800,height=500,top=&apos;+height+&apos;,left=&apos;+width+&apos;,scrollbars=yes&apos;);
+win2.focus();</url>
+</WebLink>

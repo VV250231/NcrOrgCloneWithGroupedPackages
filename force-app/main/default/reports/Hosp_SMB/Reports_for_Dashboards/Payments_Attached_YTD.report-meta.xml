@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>(Opportunity.Payments_Attached__c:SUM+Opportunity.Is_Silver_Aloha_Payments_Attached__c:SUM)/RowCount</calculatedFormula>
+        <datatype>percent</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Payments Attach</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_90620314</developerName>
+        <masterLabel>POS</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>PRODUCT_NAME</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Silver</sourceValue>
+            </sourceValues>
+            <value>Silver</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Aloha POS License - QuickService</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha POS License - TableService</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha POS</sourceValue>
+            </sourceValues>
+            <value>Aloha</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_25747054</developerName>
+        <masterLabel>Team</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>ROLLUP_DESCRIPTION</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>HOSP Channel SMB</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP Channel SMB - Mountain/Central</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP Channel SMB - Mountain/Central - Existing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP Channel SMB - North</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP Channel SMB - North - New Logos</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP Channel SMB - South</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP Channel SMB - South - Existing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP Channel SMB - South - New Logos</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP Channel SMB - West - Existing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP Channel SMB - West - New Logos</sourceValue>
+            </sourceValues>
+            <value>Channel</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>HOSP SMB Local Office MN Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Local Office MN</sourceValue>
+            </sourceValues>
+            <value>Acquisitions</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - ATL/CAR Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - BOS/DC Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - Central Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - CHI/DEN/LV Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - Florida Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - N CAL Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - NY1 Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - Texas Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - Central</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - Florida</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - NY1</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - Texas</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - Texas</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - Texas Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - West</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - West Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - North East - Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - Central Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - South East - Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - South East</sourceValue>
+            </sourceValues>
+            <value>Direct</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_11893133</developerName>
+        <masterLabel>Type</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>TYPE</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Existing Customer - Convert to Subscription</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Mixed Service Offerings</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - New Solution/Service</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Ongoing Roll-out</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Pilot</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - PS Custom Work</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Replacement</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Service Renewal</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Service Termination</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Service Winback</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Subscription Renewal</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Upgrade</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Indirect Channel</sourceValue>
+            </sourceValues>
+            <value>Existing</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>New Customer</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>New Customer - Pilot</sourceValue>
+            </sourceValues>
+            <value>New</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>ROLLUP_DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>PRODUCT_CUSTOMER_ID</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>FORECAST_CATEGORY</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Primary_Loss_Reason__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Closed_Lost_Comments__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.CPQ__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Payments_Attached__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Is_Silver_Aloha_Payments_Attached__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>ROLLUP_DESCRIPTION</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>hosp smb new logo,Hosp SMB Existing,Hosp Channel</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>PRODUCT_DESCRIPTION</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Aloha POS,Silver</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OpportunityLineItem.Topline_Product_Lkp__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Aloha POS,Silver</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>TYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>,Collection,Existing Customer - ATMaaS,Existing Customer - Back Billing,Existing Customer - Convert to Subscription,Existing Customer - Mixed Service Offerings,Existing Customer - New Solution/Service,Existing Customer - Ongoing Roll-out,Existing Customer - Pilot,Existing Customer - PS Custom Work,Existing Customer - Replacement,Existing Customer - Service Renewal,Existing Customer - Service Termination,Existing Customer - Service Winback,Existing Customer - Subscription Renewal,Existing Customer - Upgrade,Indirect Channel,New Customer,New Customer - ATMaaS,New Customer - Pilot,One-Time Payment Project,Revenue Leakage</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>BucketField_25747054</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Direct</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Week</dateGranularity>
+        <field>CLOSE_DATE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_90620314</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_11893133</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>DIRECT Payments Attached YTD</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>closedwon</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>OpportunityProduct</reportType>
+    <scope>team</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CURFY</interval>
+    </timeFrameFilter>
+</Report>

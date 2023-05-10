@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_changing_the_Account_and_Contact</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND (
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+NOT(CATM_Record__c),
+($Profile.Name &lt;&gt; &quot;Soup Integration&quot;),
+     ($Profile.Name &lt;&gt; &quot;iPaas Administration&quot;),
+					($Profile.Name &lt;&gt; &quot;04 NSC UI Administrator&quot;),
+     ($Profile.Name &lt;&gt;&quot;System Administrator&quot;),
+				  CPQ__c,
+      Silver_Opportunity_flag__c,
+      OR(ISCHANGED(AccountId),ISCHANGED(Contacts__c))
+   )</errorConditionFormula>
+    <errorMessage>You should not be allowed to change the account and contact on the silver opportunity.</errorMessage>
+</ValidationRule>

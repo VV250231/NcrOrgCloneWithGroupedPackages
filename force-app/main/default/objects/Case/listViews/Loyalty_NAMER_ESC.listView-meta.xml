@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Loyalty_NAMER_ESC</fullName>
+    <columns>Site_Id__c</columns>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CreatedDate__c</columns>
+    <columns>CASES.LAST_UPDATE_DATE_ONLY</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>Support_Queue__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Closed,Cancelled</value>
+    </filters>
+    <filters>
+        <field>Support_Queue__c</field>
+        <operation>contains</operation>
+        <value>Cloud Apps Escalat</value>
+    </filters>
+    <filters>
+        <field>Creation_Category__c</field>
+        <operation>contains</operation>
+        <value>Aloha Loyalty,Consumer Marketing,Memberlink</value>
+    </filters>
+    <label>Loyalty NAMER ESC</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

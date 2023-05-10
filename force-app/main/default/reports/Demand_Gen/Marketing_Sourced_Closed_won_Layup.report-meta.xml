@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>(LAST_STAGE_CHANGE_DATE:UNIQUE)-(LAST_UPDATE:UNIQUE)</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>false</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Days between last activity and close</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_85809223</developerName>
+        <masterLabel>Sales</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>ROLLUP_DESCRIPTION</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - Central</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - Central Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - North East</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - North East - Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - South East</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - South East - Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - Texas</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - Texas Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - West</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB Existing - West Sales</sourceValue>
+            </sourceValues>
+            <value>AE</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Business Development Office</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - ATL/CAR</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - ATL/CAR Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - BOS/DC</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - BOS/DC Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - Central</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - Central Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - CHI/DEN/LV Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - Florida</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - Florida Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - N CAL Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - NY1</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - NY1 Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - Texas</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HOSP SMB New Logos - Texas Sales</sourceValue>
+            </sourceValues>
+            <value>BDR</value>
+        </values>
+    </buckets>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <axisBinding>y</axisBinding>
+            <column>RowCount</column>
+        </chartSummaries>
+        <chartType>HorizontalBar</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>ROLLUP_DESCRIPTION</groupingColumn>
+        <location>CHART_BOTTOM</location>
+        <showAxisLabels>false</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Lead_Marketing_Notes__c</field>
+    </columns>
+    <columns>
+        <field>CAMPAIGN_SOURCE</field>
+    </columns>
+    <columns>
+        <field>LAST_ACTIVITY</field>
+    </columns>
+    <columns>
+        <field>AGE</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>AMOUNT</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>NEXT_STEP</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Risk_Comments__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <booleanFilter>(1 AND 2 AND 3) AND (4 OR 5) AND 6</booleanFilter>
+        <criteriaItems>
+            <column>User.LOB__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>HOSPITALITY</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>STAGE_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Closed/Booked,Closed/Booked - NonFunnel</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User.Country_Code__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>US</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CAMPAIGN_SOURCE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>2021_May_SilverBuyNow_HOSP</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Lead_Marketing_Notes__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>price,demo,talk,speak,rep,sales,switch,layup,lead,score</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Actual_Close_Date__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>greaterOrEqual</operator>
+            <value>1/1/2021</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Quarter</dateGranularity>
+        <field>Opportunity.Actual_Close_Date__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>ROLLUP_DESCRIPTION</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>LEAD_SOURCE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Marketing Sourced Closed/won - Layup</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>closed</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

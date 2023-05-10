@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>CPQGetEmailAlertWhenStatusApprovedAndBoarded</fullName>
+        <description>CPQGetEmailAlertWhenStatusApprovedAndBoarded</description>
+        <protected>false</protected>
+        <recipients>
+            <field>NCR_Payment_Processing_Payment_Rep__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Opportunity_Email_For_Notification__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>JetPay_Templates/CPQ_Multisite_Notifications</template>
+    </alerts>
+    <alerts>
+        <fullName>GetEmailAlertWhenApprovedAndBoarded</fullName>
+        <description>GetEmailAlertWhenApprovedAndBoarded</description>
+        <protected>false</protected>
+        <recipients>
+            <field>NCR_Payment_Processing_Payment_Rep__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Opportunity_Email_For_Notification__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>JetPay_Templates/PaymentsUnderwriting</template>
+    </alerts>
+    <alerts>
+        <fullName>GetEmailAlertWhenStatusNewPend</fullName>
+        <description>GetEmailAlertWhenStatusNewPend</description>
+        <protected>false</protected>
+        <recipients>
+            <field>NCR_Payment_Processing_Payment_Rep__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Opportunity_Email_For_Notification__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>JetPay_Templates/PaymentsUnderwriting</template>
+    </alerts>
+    <alerts>
+        <fullName>GetEmailAlertWhenStatusWithdrawn</fullName>
+        <description>GetEmailAlertWhenStatusWithdrawn</description>
+        <protected>false</protected>
+        <recipients>
+            <field>NCR_Payment_Processing_Payment_Rep__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Opportunity_Email_For_Notification__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>JetPay_Templates/PaymentsUnderwriting</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_Opportunity_Payment_Rep</fullName>
+        <description>Notify Opportunity Payment Rep</description>
+        <protected>false</protected>
+        <recipients>
+            <field>NCR_Payment_Processing_Payment_Rep__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Opportunity_Email_For_Notification__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>JetPay_Templates/PaymentsUnderwriting</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Payments_Underwriting_Update_To_Opp_Owner</fullName>
+        <description>Send Payments Underwriting Update To Opp Owner</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Opportunity_Email_For_Notification__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>JetPay_Templates/Payments_Underwriting_Vf</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>CPQ_UPD_Payment_Processing_Payment_Rep</fullName>
+        <field>NCR_Payment_Processing_Payment_Rep__c</field>
+        <formula>Opportunity__r.Payments_Rep__r.Email</formula>
+        <name>CPQ UPD Payment Processing Payment Rep</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>CPQ_Update_Opportunity_Owner_Email</fullName>
+        <field>Opportunity_Email_For_Notification__c</field>
+        <formula>Opportunity_Owner_Email__c</formula>
+        <name>CPQ Update Opportunity Owner Email</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Populate_Opp_Email</fullName>
+        <field>Opportunity_Email_For_Notification__c</field>
+        <formula>Opportunity_Owner_Email__c</formula>
+        <name>Populate Opp Email</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_NCR_Payment_Rep</fullName>
+        <field>NCR_Payment_Processing_Payment_Rep__c</field>
+        <formula>Opportunity__r.Payments_Rep__r.Email</formula>
+        <name>Update NCR Payment Rep</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_NCR_Payment_Representative</fullName>
+        <field>NCR_Payment_Processing_Payment_Rep__c</field>
+        <formula>Opportunity__r.Payments_Rep__r.Email</formula>
+        <name>Update NCR Payment Representative</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_NCR_Payment_Reps</fullName>
+        <field>NCR_Payment_Processing_Payment_Rep__c</field>
+        <formula>Opportunity__r.Payments_Rep__r.Email</formula>
+        <name>Update NCR Payment Reps</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_NCR_Payment_Reps_1</fullName>
+        <field>NCR_Payment_Processing_Payment_Rep__c</field>
+        <formula>Opportunity__r.Payments_Rep__r.Email</formula>
+        <name>Update NCR Payment Reps-1</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Opportunity_Owner_Email_1</fullName>
+        <field>Opportunity_Email_For_Notification__c</field>
+        <formula>Opportunity_Owner_Email__c</formula>
+        <name>Update Opportunity Owner Email 1</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Opportunity_Owner_Email_2</fullName>
+        <field>Opportunity_Email_For_Notification__c</field>
+        <formula>Opportunity_Owner_Email__c</formula>
+        <name>Update Opportunity Owner Email 2</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Opportunity_Owner_Email_3</fullName>
+        <field>Opportunity_Email_For_Notification__c</field>
+        <formula>Opportunity_Owner_Email__c</formula>
+        <name>Update Opportunity Owner Email 3</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Opportunity_Owner_Email_4</fullName>
+        <field>Opportunity_Email_For_Notification__c</field>
+        <formula>Opportunity_Owner_Email__c</formula>
+        <name>Update Opportunity Owner Email 4</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>2-Payments Processing Underwriting Status Notifications to Payments Rep</fullName>
+        <actions>
+            <name>GetEmailAlertWhenStatusNewPend</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>Update_NCR_Payment_Reps</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Opportunity_Owner_Email_2</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Workflow rule for payment site is NewPend.</description>
+        <formula>ISPICKVAL(NCR_Payments_Application_Status__c, &apos;NewPend&apos;) &amp;&amp; ((NOT( ISBLANK(Quote__c) ) &amp;&amp; qtc_Primary_Site__c = true) || ISBLANK(Quote__c) )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>3-Payments Processing Underwriting Status Notifications to Payments Rep</fullName>
+        <actions>
+            <name>GetEmailAlertWhenApprovedAndBoarded</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>Update_NCR_Payment_Reps_1</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Opportunity_Owner_Email_3</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Workflow rule for payment site is ApprovedAndBoarded.</description>
+        <formula>ISPICKVAL(NCR_Payments_Application_Status__c, &apos;ApprovedAndBoarded&apos;) &amp;&amp; ((NOT( ISBLANK(Quote__c) ) &amp;&amp; qtc_Primary_Site__c = true) || ISBLANK(Quote__c) )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>4-Payments Processing Underwriting Status Notifications to Payments Rep</fullName>
+        <actions>
+            <name>GetEmailAlertWhenStatusWithdrawn</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>Update_NCR_Payment_Representative</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Opportunity_Owner_Email_4</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Workflow rule for payment site is Withdrawn</description>
+        <formula>ISPICKVAL(NCR_Payments_Application_Status__c, &apos;Withdrawn&apos;) &amp;&amp; ((NOT( ISBLANK(Quote__c) ) &amp;&amp; qtc_Primary_Site__c = true) || ISBLANK(Quote__c) )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>CPQ Payments Underwriting Status Update for Multisite to Payment Rep</fullName>
+        <actions>
+            <name>CPQGetEmailAlertWhenStatusApprovedAndBoarded</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>CPQ_UPD_Payment_Processing_Payment_Rep</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>CPQ_Update_Opportunity_Owner_Email</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Application Status Email Sent to payment rep when Status of all applications is ApprovedAndBoarded</description>
+        <formula>(qtc_Multi_Site__c  = true &amp;&amp; ISPICKVAL(Quote__r.qtc_Status_of_all_Applications__c, &apos;ApprovedAndBoarded&apos;))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Payments Processing Underwriting Status Notifications to Payments Rep</fullName>
+        <actions>
+            <name>Notify_Opportunity_Payment_Rep</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>Update_NCR_Payment_Rep</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Opportunity_Owner_Email_1</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Workflow rule for payment site is Submission successful.</description>
+        <formula>ISPICKVAL(NCR_Payments_Application_Status__c, &apos;Submission successful.&apos;) &amp;&amp; ((NOT( ISBLANK(Quote__c) ) &amp;&amp; qtc_Primary_Site__c = true) || ISBLANK(Quote__c)) &amp;&amp;  $User.Id &lt;&gt; &apos;00570000002UuqZ&apos; &amp;&amp; $User.Id &lt;&gt; &apos;00570000002UuqZAAS&apos;</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

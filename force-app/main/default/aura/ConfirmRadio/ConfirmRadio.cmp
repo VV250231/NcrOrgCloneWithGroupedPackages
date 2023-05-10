@@ -1,0 +1,22 @@
+<aura:component >
+    <aura:attribute name="checked" type="Boolean" required="true" />
+    <aura:attribute name="readonly" type="Boolean" default="false" />
+    <aura:attribute name="inlineUpdate" type="Boolean" default="false" />
+    
+    <aura:registerEvent name="selChange" type="c:selectionChange"/> 
+    
+	<div class="slds-form_inline slds-float_right">
+        <div class="slds-form-element">
+            <label class="slds-radio" >
+                <ui:inputRadio aura:id="yeschkbox" name="{!globalId + '_ques'}"  disabled="{!v.readonly}" change="{!c.radioChange}" />
+                <span class="slds-radio_faux"></span>
+                <span class="slds-form-element__label">Yes</span>
+            </label>
+            <label class="slds-radio" >
+                <ui:inputRadio aura:id="nochkbox" name="{!globalId + '_ques'}"  disabled="{!v.readonly}" change="{!c.radioChange}" />
+                <span class="slds-radio_faux"></span>
+                <span class="slds-form-element__label">No</span>
+            </label>
+        </div>
+    </div>
+</aura:component>

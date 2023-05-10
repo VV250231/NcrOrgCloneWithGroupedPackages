@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Email_Alert</name>
+        <label>Email Alert</label>
+        <locationX>1035</locationX>
+        <locationY>183</locationY>
+        <actionName>Lead.Notification_to_the_Lead_Owner_Manager_after_24_hours</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>getLeadRec.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>52.0</apiVersion>
+    <decisions>
+        <name>Is_Last_Modfied_Date_Modified</name>
+        <label>Is Last Modfied Date Modified</label>
+        <locationX>635</locationX>
+        <locationY>260</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>IsQualifiedLeadhasActivity</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>timeDiffVar</leftValueReference>
+                <operator>LessThanOrEqualTo</operator>
+                <rightValue>
+                    <numberValue>5.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Email_Alert</targetReference>
+            </connector>
+            <label>IsQualifiedLeadhasActivity</label>
+        </rules>
+    </decisions>
+    <description>This flow determines if lead is updated or not after 24 hours of lead status is qualified.</description>
+    <formulas>
+        <description>this formula variable helps in calculating time difference in seconds</description>
+        <name>timeDiffVar</name>
+        <dataType>Number</dataType>
+        <expression>({!getLeadRec.LastModifiedDate} - {!getLeadRec.Lead_Qualified_DateTime__c} ) *24 * 60 *60</expression>
+        <scale>2</scale>
+    </formulas>
+    <interviewLabel>Send Custom Notification To Email Owner and Manager {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Send Custom Notification To Lead Owner and Manager</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>getLeadRec</name>
+        <label>getLeadRec</label>
+        <locationX>222</locationX>
+        <locationY>276</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Is_Last_Modfied_Date_Modified</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Qualified</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>LeadID</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Lead</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>30</locationX>
+        <locationY>72</locationY>
+        <connector>
+            <targetReference>getLeadRec</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>LeadID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>TOTAL_PRICE.CONVERT:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>false</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Solution Value</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_11747947</developerName>
+        <masterLabel>New vs Existing Value</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>TYPE</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Existing Customer - New Solution/Service</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Pilot</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>New Customer</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>New Customer - ATMaaS</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>New Customer - Pilot</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>One-Time Payment Project</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Service Winback</sourceValue>
+            </sourceValues>
+            <value>New</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Collection</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - ATMaaS</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Back Billing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Mixed Service Offerings</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Convert to Subscription</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Ongoing Roll-out</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - PS Custom Work</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Replacement</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Service Renewal</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Service Termination</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Subscription Renewal</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Subscription Amendment</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Upgrade</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Indirect Channel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Revenue Leakage</sourceValue>
+            </sourceValues>
+            <value>Existing</value>
+        </values>
+    </buckets>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <aggregate>Sum</aggregate>
+            <axisBinding>y</axisBinding>
+            <column>TOTAL_PRICE.CONVERT</column>
+        </chartSummaries>
+        <chartType>HorizontalBarStacked</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>PRODUCT_NAME</groupingColumn>
+        <legendPosition>Right</legendPosition>
+        <location>CHART_BOTTOM</location>
+        <secondaryGroupingColumn>ACCOUNT_NAME</secondaryGroupingColumn>
+        <showAxisLabels>false</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>FORECAST_CATEGORY</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Commitment_Risk__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Actual_Close_Date__c</field>
+    </columns>
+    <columns>
+        <field>OpportunityLineItem.Topline_Product_Lkp__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>QUANTITY</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>TOTAL_PRICE.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>OpportunityLineItem.Is_Subscriptioned__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>OpportunityLineItem.Actual_Contract_Value__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>Product2.Pmdm_Product_Category__c</field>
+    </columns>
+    <columns>
+        <field>Product2.Pmdm_Product_Family__c</field>
+    </columns>
+    <columns>
+        <field>FK_$Sales_Org__c.Hierarchy_4__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.OCR_TEAM__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Software_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.TS_Product_Total__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Cloud_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Svcs__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Risk_Comments__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>Opportunity.OCR_TEAM__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Retail,RET</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Opportunity.Indirect_Include_in_Funnel_Distributor,Opportunity.Indirect_Include_in_Funnel,Opportunity.IncludeinFunnel</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>INDUSTRY</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>RETAIL:CFR</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>PRODUCT_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Panther,EPC</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>PRODUCT_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>Kits</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>ACCOUNT_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>OpportunityLineItem.Revenue_Type__c</field>
+        <sortOrder>Desc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>PRODUCT_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Global RET:CFR - TY Won EPC &amp; Panther</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>closedwon</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>OpportunityProduct@Opportunity.Sales_Org__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Opportunity.Actual_Close_Date__c</dateColumn>
+        <interval>INTERVAL_CURFY</interval>
+    </timeFrameFilter>
+</Report>

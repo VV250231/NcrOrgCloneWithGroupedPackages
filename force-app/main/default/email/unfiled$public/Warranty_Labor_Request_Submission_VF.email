@@ -1,0 +1,134 @@
+<messaging:emailTemplate subject="Warranty Labor Request Submitted for : {! relatedTo.Account_Name__c}" recipientType="User" relatedToType="Warranty_Labor_Request__c">
+    <messaging:htmlEmailBody >
+        <html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" xmlns="http://www.w3.org/TR/REC-html40">
+            <head>
+            <!--[if !mso]>
+                <style>
+                    v\:* {behavior:url(#default#VML);}
+                    o\:* {behavior:url(#default#VML);}
+                    w\:* {behavior:url(#default#VML);}
+                    .shape {behavior:url(#default#VML);}
+                </style>
+            <![endif]-->
+            <!--[if gte mso 9]>
+                <xml>
+                    <o:OfficeDocumentSettings>
+                    <o:AllowPNG/>
+                    </o:OfficeDocumentSettings>
+                </xml>
+            <![endif]-->
+            <style>
+              
+                a {
+                    color: #54b948;
+                }
+                
+                table,th,tr,td{
+                    padding:0px; 
+                    margin:0px;
+                }
+                
+                td {
+                    mso-table-lspace: 0pt ;
+                    mso-table-rspace: 0pt;
+                }
+                
+            </style>
+            
+            <!--[if gte mso 10]>
+            <style>
+             /* Style Definitions */
+             table.MsoNormalTable
+                {mso-style-name:"Table Normal";
+                mso-tstyle-rowband-size:0;
+                mso-tstyle-colband-size:0;
+                mso-style-noshow:yes;
+                mso-style-priority:99;
+                mso-style-parent:"";
+                mso-padding-alt:0in 5.4pt 0in 5.4pt;
+                mso-para-margin:0in;
+                mso-para-margin-bottom:.0001pt;
+                mso-pagination:widow-orphan;
+                font-size:10.0pt;
+                font-family:"Times New Roman",serif;}
+            </style>
+        <![endif]-->
+                                         
+               
+            </head>
+            <body bgcolor="#FFFFFF">            
+                <table class="MsoNormalTable" width="660" border="0" align="center" cellpadding="0" cellspacing="0" style="mso-cellspacing:0in;mso-yfti-tbllook:1184;mso-padding-alt: 0in 0in 0in 0in">
+                    <tr style="height: 148px; mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes">
+                        <td>    
+                            <c:New_Email_Header HeadTitle="WARRANTY LABOUR REQUEST"/>                 
+                        </td>                       
+                    </tr>                    
+                    
+                    <tr valign="top" bgcolor="#ffffff" style="mso-yfti-irow:0;mso-yfti-firstrow:yes;">
+                        <td valign="top" style="padding:0in 0in 0in 0in">
+                            <table class="MsoNormalTable" width="660" border="0" align="center" cellpadding="0" cellspacing="0" style="mso-cellspacing:0in;mso-yfti-tbllook:1184;mso-padding-alt: 0in 0.1in 0.1in 0.1in;">
+                             
+                             
+ 
+                                <tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;">                        
+                                    <td style="padding:.2in 0in 0in 0in">
+                                    
+                                <p align="left" style="font-family: 'Open Sans', sans-serif; font-size: 12px; line-height: 15px; color: #58585A; padding:0in .1in .1in .1in;"> 
+                                       Dear Approver,                               
+                                </p>
+                                
+                                
+                                
+                                <p align="left" style="font-family: 'Open Sans', sans-serif; font-size: 12px; line-height: 15px; color: #58585A; padding:0in .1in .1in .1in;">
+                                    {! relatedTo.CreatedBy.Name} has submitted a new Warranty Labor Request that requires your approval. 
+                                    Please review and provide your approval/rejection.
+                               </p>
+                               
+                               <p align="left" style="font-family: 'Open Sans', sans-serif; font-size: 12px; line-height: 15px; color: #58585A; padding:0in .1in .1in .1in;">
+                                     Serial Number: &nbsp; {! relatedTo.Serial_Number__c} <br/>
+                                    Product ID: &nbsp; {! relatedTo.Equipment__r.Class__c } <br/>
+                                    Customer Name: &nbsp; {! relatedTo.Equipment__r.Customer_Name__c} <br/>
+                                    <apex:outputPanel rendered="{! relatedTo.Installation_Date__c != null}">
+                                        Installation Date: &nbsp; <apex:outputText value="{0,date,yyyy'-'MM'-'dd}"><apex:Param value="{! relatedTo.Installation_Date__c}" /></apex:outputText>  <br/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel rendered="{! relatedTo.Equipment__r.Service_Assumption_Date__c != null}">
+                                        Service Assumption Date: &nbsp; <apex:outputText value="{0,date,yyyy'-'MM'-'dd}"><apex:Param value="{! relatedTo.Equipment__r.Service_Assumption_Date__c}" /></apex:outputText>  <br/>
+                                    </apex:outputPanel>
+                                    Account Name: &nbsp; {! relatedTo.Account_Name__c} <br/>
+                                    SalesForce ID: &nbsp; {! relatedTo.Equipment__c} <br/>
+                                    Service Date: &nbsp; <apex:outputText value="{0,date,yyyy'-'MM'-'dd}"><apex:Param value="{! relatedTo.Service_Date__c}" /></apex:outputText> <br/>
+                                    Service Problem and Repair Description: &nbsp; {! relatedTo.Service_Problem_Repair_Description__c}
+                               </p>
+                               
+                               <p align="left" style="font-family: 'Open Sans', sans-serif; font-size: 12px; line-height: 15px; color: #58585A; padding:0in .1in .1in .1in;">
+                                    View the request by clicking the &nbsp; <c:RecordLink outputLinkText="Link" recordId="{! relatedTo.Id}"></c:RecordLink>
+
+                               </p>
+                               
+                              <p align="left" style="font-family: 'Open Sans', sans-serif; font-size: 12px; line-height: 15px; color: #58585A; padding:0in .1in .1in .1in;">
+                                  Regards,
+                               </p>
+                                            
+                               <b><p align="left" style="font-family: 'Open Sans', sans-serif; font-size: 12px; line-height: 15px; color: #58585A; padding:0in .1in .1in .1in;">
+                                  Administrator<br/> 
+                                  NCR SalesCentral
+                               </p></b><br></br>
+                            </td>
+                        </tr>
+                         
+                    </table>
+                </td>
+            </tr>
+
+            <tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;">
+                        <td align="center" valign="middle"  style="padding:0in 0in 0in 0in">
+                            <c:InteractProgramToolFooter />
+                        </td>
+                    </tr>
+        </table>
+        <img height="1" width="1" style="visibility:hidden" src="https://www.cprpt.com/NCREmail/o.aspx?t=50038.10019.19808.19886.0.1.N.295797.1429.0&amp;e=RG250274@ncr.com"/>
+        
+        </body>
+        </html>
+    </messaging:htmlEmailBody>
+</messaging:emailTemplate>

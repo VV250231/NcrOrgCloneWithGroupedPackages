@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <assignments>
+        <name>Update_name_field</name>
+        <label>Update name field</label>
+        <locationX>367</locationX>
+        <locationY>479</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Name</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Update_NameFormula</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <name>Check_Name_field_if_null</name>
+        <label>Check Name field if null</label>
+        <locationX>499</locationX>
+        <locationY>359</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>NameisNull</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Name</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue></stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_name_field</targetReference>
+            </connector>
+            <label>NameisNotNull</label>
+        </rules>
+    </decisions>
+    <description>Migrated from the: Update Name Field on Ticket Request workflow rule
+Workflow rule description: &quot;</description>
+    <formulas>
+        <name>Update_NameFormula</name>
+        <dataType>String</dataType>
+        <expression>$Record.Event_Typ__c + &apos; - &apos; + $Record.Event_Name_Date__c</expression>
+    </formulas>
+    <label>Update Name Field on Ticket Request</label>
+    <migratedFromWorkflowRuleName>Update Name Field on Ticket Request</migratedFromWorkflowRuleName>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>373</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>Check_Name_field_if_null</targetReference>
+        </connector>
+        <object>Ticket_Request__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

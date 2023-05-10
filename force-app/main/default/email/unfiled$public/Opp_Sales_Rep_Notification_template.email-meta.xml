@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Opp_Sales_Rep_Notification_template</name>
+    <style>none</style>
+    <subject>Opportunity Payment Update #{!Opportunity.Opportunity_Number__c}</subject>
+    <textOnly>Payments Opportunity Update
+
+Payments Opportunity Update
+
+Hello,
+
+Please note that you have been added as a Payments Sales Representative on the following opportunity.
+
+•   Customer:  {!Case.Description}
+•   Opportunity Name:  {!Case.Description}
+•	Opportunity Number:  {!Case.Description}
+•	Selling Stage:  {!Case.Description}
+
+
+Please visit the salesforce.com opportunity for additional details.
+
+Warmest regards,
+
+NCR Salesforce.com
+
+
+NCR Confidential. FOR INTERNAL USE ONLY.
+NCR Corporation 864 Spring St. NW, Atlanta, GA 30308-1007
+©2020 NCR Corporation. All rights reserved.  ncr.com
+NCR respects your privacy.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

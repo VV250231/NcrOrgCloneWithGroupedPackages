@@ -1,0 +1,89 @@
+<aura:component controller="PramataContractEDWController" implements="force:lightningQuickActionWithoutHeader,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+  	<aura:handler name="init" value="{!this}" action="{!c.doInit}" /> 
+    	    <aura:attribute name="approvalList" type="List"/>
+			<aura:attribute name="recordId" type="Id"/>
+        <div class="container slds-border_left slds-border_bottom slds-border_right slds-border_top">
+        <div class="slds-grid slds-grid_vertical">
+            <article class="slds-card">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate" style="padding-top:1%; padding-right:2%;padding-left:2%;">
+                        <lightning:icon iconName="standard:custom" size="small" />
+                        <div class="slds-media__body" >
+                            <h2 class="slds-card__header-title" style="padding-left:1%">
+                                <a href="javascript:void(0);" class="slds-card__header-link slds-truncate" title="Card Header">
+                                    <span>Pramata Contract EDW</span>
+                                </a>
+                            </h2>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body">
+                    <div class="slds-scrollable" style="height: 200px;">  
+                        <table class="slds-table slds-table_bordered slds-max-medium-table_stacked">  
+                            <thead>  
+                                <tr class="slds-text-title_caps">  
+                                    <th scope="col" >  
+                                        <div class="slds-truncate" title="Pramata Nbr">Pramata Nbr</div>  
+                                    </th>  
+                                    <th scope="col" >  
+                                        <div class="slds-truncate" title="Contract Type">Contract Type</div>  
+                                    </th>  
+                                    <th scope="col" >  
+                                        <div class="slds-truncate" title="Contract status">Contract status</div>  
+                                    </th>  
+                                    <th scope="col" >  
+                                        <div class="slds-truncate" title="Term Type">Term Type</div>  
+                                    </th>  
+                                    <th scope="col" >  
+                                        <div class="slds-truncate" title="Term Start">Term Start</div>  
+                                    </th> 
+                                    <th scope="col" >  
+                                        <div class="slds-truncate" title="Term End">Term End</div>  
+                                    </th> 
+                                    <th scope="col" >  
+                                        <div class="slds-truncate" title="Term Effective">Term Effective</div>  
+                                    </th> 
+                                    <th scope="col" >  
+                                        <div class="slds-truncate" title="Pramata Last Update">Pramata Last Update</div>  
+                                    </th> 
+                                </tr>  
+                            </thead>  
+                            <tbody>  
+                                <!-- aura equivalent of apex:repeat -->  
+                                <aura:iteration items="{!v.approvalList}" var="pramataCon">   
+                                        <tr >  
+                                            <td data-label="Pramata Nbr">  
+                                                <div class="slds-truncate" title="Pramata Nbr">{!pramataCon.Pramata_Nbr__c}</div>  
+                                            </td>  
+                                            <td data-label="Contract Type">  
+                                                <div class="slds-truncate" title="Contract Type">{!pramataCon.Pramata_Document_Type__c}</div>  
+                                            </td>  
+                                            <td data-label="Contract status">  
+                                                <div class="slds-truncate" title="Contract status">{!pramataCon.Pramata_Contract_Status__c}</div>  
+                                            </td>  
+                                            <td data-label="Term Type">  
+                                                <div class="slds-truncate" title="Term Type">{!pramataCon.Pramata_Agg_Term_Type__c}</div>  
+                                            </td>  
+                                            <td data-label="Term Start">  
+                                                <div class="slds-truncate" title="Term Start">{!pramataCon.aggStartDate}</div>  
+                                            </td>  
+                                            <td data-label="Term End">  
+                                                <div class="slds-truncate" title="Term End">{!pramataCon.aggEndDate}</div>  
+                                            </td>  
+                                            <td data-label="Term Effective">  
+                                                <div class="slds-truncate" title="Term Effective">{!pramataCon.aggEffectiveDate}</div>  
+                                            </td> 
+                                            <td data-label="Pramata Last Update">  
+                                                <div class="slds-truncate" title="Pramata Last Update">{!pramataCon.aggLastUpdate}</div>  
+                                            </td>
+                                        </tr>  
+                                </aura:iteration>   
+                            </tbody>  
+                        </table>  
+                    </div></div>
+                <footer class="slds-card__footer"></footer>
+            </article>
+            
+        </div>
+    </div>
+</aura:component>

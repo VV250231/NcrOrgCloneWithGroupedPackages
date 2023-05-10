@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>51.0</apiVersion>
+    <assignments>
+        <name>Assign_Submission_Comments</name>
+        <label>Assign Submission Comments</label>
+        <locationX>137</locationX>
+        <locationY>563</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.qtc_Approval_Notes__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Quote__r.qtc_Approval_Notes__c</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Assign_Submission_Comments_0</name>
+        <label>Assign Quote - Interchange</label>
+        <locationX>453</locationX>
+        <locationY>544</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Quote__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.qtc_PaymentsApproval__r.quoteId__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Assign_Submission_Comments</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Interchange_Approval</name>
+        <label>Interchange Approval?</label>
+        <locationX>306</locationX>
+        <locationY>343</locationY>
+        <defaultConnector>
+            <targetReference>Assign_Submission_Comments</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.sbaa__RecordField__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>qtc_PaymentsApproval__c</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Submission_Comments_0</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>Using approval notes instead</description>
+    <interviewLabel>Populate Submission Comments on Approvals {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Populate Approval Notes on Approvals</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>191</locationX>
+        <locationY>30</locationY>
+        <connector>
+            <targetReference>Interchange_Approval</targetReference>
+        </connector>
+        <object>sbaa__Approval__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Obsolete</status>
+</Flow>

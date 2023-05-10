@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LOCA_Age_Buckets__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(( Age_in_days__c &gt; 7), &apos;7+ days&apos;,
+IF(( Age_in_days__c &gt; 6 &amp;&amp; Age_in_days__c &lt;= 7 ),&apos;6-7 Days&apos;,
+IF(( Age_in_days__c &gt; 5 &amp;&amp; Age_in_days__c &lt;= 6 ),&apos;5-6 Days&apos;,
+IF(( Age_in_days__c &gt; 4 &amp;&amp; Age_in_days__c &lt;= 5 ),&apos;4-5 Days&apos;,
+IF(( Age_in_days__c &gt; 3 &amp;&amp; Age_in_days__c &lt;= 4 ),&apos;3-4 Days&apos;,
+IF(( Age_in_days__c &gt; 2 &amp;&amp; Age_in_days__c &lt;= 3 ),&apos;2-3 Days&apos;,
+IF(( Age_in_days__c &gt; 1 &amp;&amp; Age_in_days__c &lt;= 2 ),&apos;1-2 Days&apos;,
+IF(( Age_in_days__c &gt; 0.5 &amp;&amp; Age_in_days__c &lt;= 1 ),&apos;12-24 Hours&apos;,
+IF(( Age_in_days__c &gt; 0.25 &amp;&amp; Age_in_days__c &lt;= 0.5 ),&apos;6-12 Hours&apos;,
+IF(( Age_in_days__c &lt;= 0.25),&apos;0-6 hours&apos;,&apos;None&apos;
+)))))))))
+)</formula>
+    <label>LOCA Age Buckets</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

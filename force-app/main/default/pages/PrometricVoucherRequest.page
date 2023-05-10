@@ -1,0 +1,54 @@
+<apex:page standardController="Engineers__c" extensions="PrometricVoucherRequest">
+    <apex:form rendered="{!errorcontent}">
+        <apex:commandLink action="{!cancel}" value="Back to the Engineer's Page"/>
+        <br/><br/>
+        <apex:outputText >The Engineer is in inactive state. No mail can be sent against inactive Engineer.</apex:outputText>
+    </apex:form>
+    <apex:form rendered="{!mailcontent}">
+        <apex:pageBlock title="Prometric Voucher Request">
+            <apex:pageBlockSection title="Mail Header" collapsible="false">
+                <table>
+                    <tr>
+                        <td><h1 style="display:inline">Send To </h1></td>
+                        <td><p style="display:inline"> : PA230005@ncr.com</p></td>
+                    </tr>
+                    <tr>
+                        <td><h1 style="display:inline">Subject </h1></td>
+                        <td><p style="display:inline"> : Prometric Voucher Request</p></td>
+                    </tr>
+                </table>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Description" collapsible="false">
+                <table>
+                    <tr>
+                        <th>Engineer Name</th>
+                        <td>: {!engineers.First_Name__c} {!engineers.Last_Name__c}</td>
+                    </tr>
+                    <tr></tr>
+                  <!--  <tr>
+                        <th>Service Partner ID</th>
+                        <td>: {!engineers.Partner_Account__r.Service_Partner__c} </td>
+                    </tr> -->
+                    <!-- Commenting due to EBA_SF-688 -->
+                    <tr></tr>
+                    <tr>
+                        <th>Account Name</th>
+                        <td>: {!engineers.Partner_Account__r.Name}</td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <th>SalesForce ID</th>
+                        <td>: {!engineers.Id}</td>
+                    </tr>        
+                </table>
+            </apex:pageBlockSection>
+            <br/><br/>
+            <apex:pageBlockSection title="Additional Information" collapsible="false">
+                <apex:inputTextarea style="width:200%" rows="12" value="{!mailBody}"/>  
+                <br/>
+            </apex:pageBlockSection>
+            <apex:commandButton action="{!sendMail}" value="Send Mail"/>
+            <apex:commandButton action="{!cancel}" Value="Cancel"/>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

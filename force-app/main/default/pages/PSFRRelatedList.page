@@ -1,0 +1,104 @@
+<apex:page standardcontroller="Presales_Funding_Request__c" extensions="PSFR_RelatedList" showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" language="en-US" applyHTMLTag="false" >
+ <head>
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/bootstrap/css/bootstrap.min.css')}"/>        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"/>   
+
+        <!-- DataTables -->     
+        <link rel="stylesheet" href="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/datatables/dataTables.bootstrap.css')}"/>
+        
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/bootstrap/css/AdminLTE.min.css')}"/>
+        <style>
+            .container-fluid {
+                margin-top: 15px;
+            }
+            
+        </style>
+    </head>
+    <body>
+    <apex:form >
+        <div class="container-fluid">
+            <div class="row">
+
+                
+                
+                
+                <!----------------Related Resources------------------------>
+                    <div class="col-md-12">
+                        <div class="box box-primary box-solid ">
+                            <div class="box-header with-border" style="padding: 12.6px;">
+                                <h3 class="box-title">Related Resources</h3>
+                                <div class="box-tools pull-right">
+                              </div>
+                            </div>
+                            <div class="box-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align:center;">Resource Name</th>
+                                            <th style="text-align:center;">Task Name</th>
+                                            <th style="text-align:center;">BU</th>
+                                            <th style="text-align:center;">Travel Cost (USD)</th>
+                                            <th style="text-align:center;">Hours Not to Exceed</th>
+                                            <th style="text-align:center;">Hourly Rate (USD)</th>
+                                            <th style="text-align:center;">Total Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>-</th>
+                                            <th>-</th>
+                                            <th>-</th>
+                                            <th style="text-align:right;">{!MasterRecord.Total_Travel_Cost_of_Resources__c}</th>
+                                            <th style="text-align:center;">{!MasterRecord.Total_Hours_not_to_exceed__c}</th>
+                                            <th style="text-align:right;">{!MasterRecord.Total_Hourly_Rate__c}</th>
+                                            <th style="text-align:right;">{!MasterRecord.Total_Value_of_Resources__c}</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <apex:repeat value="{!ChildRecords}" var="Resources">
+                                        <tr>
+                                            <td style="text-align:left;">{!Resources.PFR_Resource_Name__c}</td>
+                                            <td style="text-align:left;">{!Resources.PFR_Task__c}</td>
+                                            <td style="text-align:left;">{!Resources.PFR_BU__c}</td>
+                                            <td style="text-align:right;">{!Resources.PFR_Travel_Cost__c}</td>
+                                            <td style="text-align:Center;">{!Resources.PFR_Num_of_days_not_to_exceed__c}</td>
+                                            <td style="text-align:right;">{!Resources.PFR_Daily_Rate_USD__c}</td>
+                                            <td style="text-align:right;">{!Resources.PFR_Total__c}</td>
+                                        </tr>
+                                        </apex:repeat>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                
+                <!----------------Related Resources------------------------>
+            </div>
+        </div>
+    </apex:form>
+    </body>
+    <script src="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/bootstrap/js/jQuery-2.2.0.min.js')}"></script>
+    <script src="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/bootstrap/js/bootstrap.min.js')}"></script>
+    
+    <!-- DataTables --> 
+    <script src="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/datatables/jquery.dataTables.min.js')}"></script>
+    <script src="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/datatables/dataTables.bootstrap.min.js')}"></script>
+    
+    <script src="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/bootstrap/js/app.min.js')}"></script>
+    
+    <script>
+    $(function () {
+        
+        $('#example1').DataTable({
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true
+        });
+        
+    });
+    </script>
+    
+</apex:page>

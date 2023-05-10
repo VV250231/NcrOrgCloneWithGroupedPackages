@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>qtc_CountNegativeProducts__c</fullName>
+    <description>Used to determine if an RMA is needed for this FO</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Count of Fulfillment Order Products with a negative quantity</inlineHelpText>
+    <label>Count Negative Products</label>
+    <summaryFilterItems>
+        <field>qtc_FulfillmentOrderProduct__c.qtc_Quantity__c</field>
+        <operation>lessThan</operation>
+        <value>0</value>
+    </summaryFilterItems>
+    <summaryForeignKey>qtc_FulfillmentOrderProduct__c.qtc_FulfillmentOrder__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

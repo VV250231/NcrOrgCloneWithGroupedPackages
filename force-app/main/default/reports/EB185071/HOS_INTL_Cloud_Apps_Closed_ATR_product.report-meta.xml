@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_5751406</developerName>
+        <masterLabel>Product</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>Case.Creation_Category__c</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Command Center CMC Login Issue</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Command Center CMC Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Command Center CMC Site Offline</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Command Center CMC Devices Offline</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Command Center CMC Site Install</sourceValue>
+            </sourceValues>
+            <value>Command Center</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Insight Polling Missing Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Insight Polling Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Insight Polling Aloha FTP Stopped</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Insight Polling Missing Historical Data</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Insight Polling Missing Labor Data</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Insight Polling Missing Replicated Data</sourceValue>
+            </sourceValues>
+            <value>Insight Polling</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Pulse RT Missing Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Pulse RT Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Pulse RT Wrong Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Pulse RT Add Stores Request</sourceValue>
+            </sourceValues>
+            <value>Pulse</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Aloha Stored Value ASV Other</sourceValue>
+            </sourceValues>
+            <value>ASV</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Aloha Configuration Center/NAM Can&apos;t Refresh</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Configuration Center/NAM Config Change Request</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Configuration Center/NAM Doesn&apos;t Launch</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Configuration Center/NAM Login Issue</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Configuration Center/NAM Menu Issue</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Configuration Center/NAM Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Configuration Center/NAM Reports - BOH</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Configuration Center/NAM Training Request</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Configuration Center/NAM Comp/Promo Issue</sourceValue>
+            </sourceValues>
+            <value>CFC</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>OWNER</field>
+    </columns>
+    <columns>
+        <field>Case.Case_Closed_by__c</field>
+    </columns>
+    <columns>
+        <field>Case.Creation_Category__c</field>
+    </columns>
+    <columns>
+        <field>Case.Resolution_Category__c</field>
+    </columns>
+    <columns>
+        <field>CASE_NUMBER</field>
+    </columns>
+    <columns>
+        <field>STATUS</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>SUBJECT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Case.Case_Age_Hrs__c</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>CLOSED_DATE</field>
+    </columns>
+    <columns>
+        <field>Case.Resolution_Notes__c</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>IF(CONTAINS(Case.Resolution_Category__c,&quot;Insight Polling&quot;), &quot;Insight Polling&quot;,
+
+IF(CONTAINS(Case.Resolution_Category__c,&quot;Aloha Configuration&quot;), &quot;CFC&quot;,
+IF(CONTAINS(Case.Resolution_Category__c,&quot;Command Center&quot;), &quot;Command Center&quot;,
+IF(CONTAINS(Case.Resolution_Category__c,&quot;Insight Reports&quot;), &quot;Insight Reports&quot;,
+IF(CONTAINS(Case.Resolution_Category__c,&quot;Aloha Stored Value&quot;), &quot;ASV&quot;,
+IF(CONTAINS(Case.Resolution_Category__c,&quot;Pulse RT&quot;), &quot;Pulse&quot;,
+IF(CONTAINS(Case.Resolution_Category__c,&quot;Online Ordering&quot;), &quot;AOO&quot;,
+IF(CONTAINS(Case.Resolution_Category__c,&quot;Aloha Loyalty&quot;), &quot;Loyalty&quot;,
+IF(CONTAINS(Case.Resolution_Category__c,&quot;Secure Access&quot;), &quot;Command Center&quot;,
+IF(CONTAINS(Case.Resolution_Category__c,&quot;Aloha Enterprise&quot;), &quot;Aloha Enterprise&quot;,
+IF(CONTAINS(Case.Resolution_Category__c,&quot;Restaurant Guard&quot;), &quot;RG&quot;,
+IF(CONTAINS(Case.Resolution_Category__c,&quot;Customer Voice&quot;), &quot;CV&quot;,
+&quot;Other&quot;)
+)
+)
+)
+)
+)
+)
+)
+)
+)
+)
+)</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>Prod (Resolution)</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>CLOSED_DATEONLY</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>LAST_MONTH</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case.Support_Queue__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>HOS INTL ES-CLA Cloud Apps,HOS INTL EMEA Cloud Apps,HOS INTL APAC Cloud Apps</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>STATUS</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Cancelled</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CLOSED</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case.Jira_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notContain</operator>
+            <value>0,1,2,3,4,5,6,7,8,9</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Case.Support_Queue__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CDF1</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>HOS INTL Cloud Apps - Closed ATR product</name>
+    <params>
+        <name>units</name>
+        <value>h</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CaseList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATEONLY</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

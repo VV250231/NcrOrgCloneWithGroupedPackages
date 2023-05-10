@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Deal Registration submission Customer  Retail</name>
+    <style>none</style>
+    <subject>Deal Registration: Request for approval.</subject>
+    <textOnly>Dear {!Deal_Registration__c.Next_Approver__c},
+
+
+The NCR Interact Deal Registration Program has received a submission from  {!Deal_Registration__c.Partner_Company_Name__c} 
+
+Details :
+
+Channel Partner Company Name: {!Deal_Registration__c.Partner_Company_Name__c}
+Name of Account/Financial Institution: {!Deal_Registration__c.End_Customer_Company_Name__c}
+Projected Opportunity Value: {!Deal_Registration__c.Projected_Opportunity_Value__c}
+
+
+Your approval or rejection is required before this Deal Registration can be moved into an Opportunity within NSC.
+
+A Deal Registration must meet the following criteria:
+
+This was not a previous NCR Account within the past 8 years
+This is not an existing named account.
+Value is sufficient to qualify for Deal Registration.
+Region/country is part of the Deal Registration Program.
+
+If this submission changes, is canceled, or you have any question regarding this submission, please contact the NCR Interact team at team.channels@ncr.com or interact.operations@ncr.com.
+
+Regards,
+
+NCR Interact Partner Program Team
+
+NCR Confidential. FOR INTERNAL USE ONLY
+
+©2016 NCR Corporation. All rights reserved.
+
+3097 Satellite Blvd. Duluth, GA 30096
+
+www.ncr.com</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOS_INTL_ES_CLA_Escalations_Amrest_Case</fullName>
+    <columns>Support_Queue__c</columns>
+    <columns>Site_Id__c</columns>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>NAME</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>CASES.LAST_UPDATE_DATE_ONLY</columns>
+    <columns>Creation_Category__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Support_Queue__c</field>
+        <operation>equals</operation>
+        <value>HOS INTL ES CLA Escalations Amrest</value>
+    </filters>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Closed,Cancelled,Resolved</value>
+    </filters>
+    <label>HOS INTL ES CLA Escalations Amrest</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

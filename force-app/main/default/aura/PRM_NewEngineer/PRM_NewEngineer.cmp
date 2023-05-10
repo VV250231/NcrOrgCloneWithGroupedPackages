@@ -1,0 +1,297 @@
+<aura:component controller="PRM_EngineerController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <aura:attribute name="ObjEngineers" type="Engineers__c" default="{'sobjectType':'Engineers__c'}"/>
+    
+    <aura:attribute name="isNew" type="Boolean" default="true"/>
+    <aura:attribute name="isDetail" type="Boolean" default="false"/>
+    
+    <aura:attribute name="engineerId" type="String" />
+    <!--<aura:registerEvent name="CancelRequestEvt" type="c:CancelMDFRequestEvt"/>-->
+    
+    <aura:attribute name="requestFor" type="String[]"/>
+    <aura:attribute name="portalAccessStatus" type="String[]"/>	
+    
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <!--<aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
+    <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/>-->
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+    
+    <!--loading spinner start... style=Brand Medium (blue dots)-->
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+           <div class="slds-spinner_brand  slds-spinner slds-spinner_large slds-is-relative" role="alert">
+             <span class="slds-assistive-text">Loading</span>
+             <div class="slds-spinner__dot-a"></div>
+             <div class="slds-spinner__dot-b"></div>
+           </div>
+        </div>
+     </aura:if>
+    <!-- Loading spinner end--> 
+    <aura:if isTrue="{!v.isNew}">
+        <div class="slds-page-header" role="banner">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-has-flexi-truncate"> 
+                    <div class="slds-media slds-media_center slds-no-space slds-grow">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-account">
+                                <lightning:icon iconName="standard:account" size="large" alternativeText="Indicates approval"/>
+                                <span class="slds-assistive-text">New Engineer</span>
+                            </span>
+                        </div>
+                        <div class="slds-media__body ">
+                            <p class="slds-text-title_caps slds-line-height_reset" title="Engineer">
+                                <h2 class="slds-text-heading_small">New Engineer</h2></p>
+                        </div>
+                    </div>                    
+                </div>  
+                <!-- ACTION BUTTONS -->
+                <div class="slds-col slds-no-flex slds-grid slds-wrap slds-align-top">
+                    
+                    <button class="slds-button slds-button_brand" onclick="{!c.cSaveEngineer}">
+                        Save Engineer
+                    </button>
+                    
+                    <button class="slds-button slds-button_neutral" onclick="{!c.cancel }">
+                        Cancel
+                    </button>
+                    
+                </div>
+                <!-- / ACTION BUTTONS -->               
+            </div>
+        </div>
+        
+        <div class="slds">
+            <div class="section">
+                <h2 class="slds-text-heading_small section-heading">Engineer Details</h2>
+                <div class="slds-grid slds-wrap section-body">
+                    <!-- / FIRST COLUMN -->
+                    <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                        <div class="slds-form">
+                            
+                            <div class="slds-form-element">
+								<div class="slds-form-element__control" >
+                                	<label class="slds-form-element__label">Request For</label>
+                                   	<div class="slds-form-element__control">
+                                       <ui:outputText class="slds-form-element__static" aura:id="Engineer_Name"  value="Portal Access" />
+                                   	</div>
+                                </div>    
+                            </div> 
+               
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Last Name</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="Last_Name"  value="{!v.ObjEngineers.Last_Name__c}" required="true"/>
+                                </div>
+                            </div>
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>First Name</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="First_Name"  value="{!v.ObjEngineers.First_Name__c}" required="true"/>
+                                </div>
+                            </div>
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Email Address</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="Email_Address"  value="{!v.ObjEngineers.Email_Address__c}" required="true"/>
+                                </div>
+                            </div>
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">Previous Employer</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="Previous_Employer"  value="{!v.ObjEngineers.Previous_Employer__c}" />
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!-- / SECOND COLUMN -->
+                    <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                        <div class="slds-form">  
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>City</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="City"  value="{!v.ObjEngineers.City__c}" required="true"/>
+                                </div>
+                            </div>
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">State/Province</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="State_Province"  value="{!v.ObjEngineers.State_Province__c}" required="true"/>
+                                </div>
+                            </div>
+                      
+
+                            
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <!--<div class="slds-checkbox">
+                                        <input type="checkbox" name="options" id="Active_Engineer" value="{!v.ObjEngineers.Active_Engineer__c}" />
+                                        <label class="slds-checkbox__label" for="Active_Engineer">
+                                            <span class="slds-checkbox_faux"></span>
+                                            <span class="slds-form-element__label">Active Engineer</span>
+                                        </label>
+                                    </div>-->
+                                    
+                                    <label class="slds-form-element__label">Active Engineer</label>
+                                    <div class="slds-form-element__control">
+                                        <ui:inputCheckbox class="slds-checkbox" aura:id="Active_Engineer"  value="{!v.ObjEngineers.Active_Engineer__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="section">
+                <h2 class="slds-text-heading_small section-heading">ATM Diagnostic Function</h2>
+                <div class="slds-grid slds-wrap section-body">
+                    <!-- / FIRST COLUMN -->
+                    <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                        <div class="slds-form">
+                            
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <!--<div class="slds-checkbox">
+                                        <input type="checkbox" name="options" id="Key_Disk" value="{!v.ObjEngineers.Key_Disk__c}" />
+                                        <label class="slds-checkbox__label" for="Key_Disk">
+                                            <span class="slds-checkbox_faux"></span>
+                                            <span class="slds-form-element__label">Key Disk</span>
+                                        </label>
+                                    </div>-->
+                                    <label class="slds-form-element__label">Key Disk</label>
+                                    <div class="slds-form-element__control">
+                                        <ui:inputCheckbox class="slds-checkbox" aura:id="Key_Disk"  value="{!v.ObjEngineers.Key_Disk__c}" />
+                                    </div>
+                                </div>
+                            </div> 
+                            
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <!--<div class="slds-checkbox">
+                                        <input type="checkbox" name="options" id="Plus_DVD" value="{!v.ObjEngineers.Plus_DVD__c}" />
+                                        <label class="slds-checkbox__label" for="Plus_DVD">
+                                            <span class="slds-checkbox_faux"></span>
+                                            <span class="slds-form-element__label">Plus DVD</span>
+                                        </label>
+                                    </div>-->
+                                    <label class="slds-form-element__label">Plus DVD</label>
+                                    <div class="slds-form-element__control">
+                                        <ui:inputCheckbox class="slds-checkbox" aura:id="Plus_DVD"  value="{!v.ObjEngineers.Plus_DVD__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <!-- / SECOND COLUMN -->
+                    <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                        <div class="slds-form">
+                            
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <!--<div class="slds-checkbox">
+                                        <input type="checkbox" name="options" id="ATM_USB_Key" value="{!v.ObjEngineers.ATM_USB_Key__c}" />
+                                        <label class="slds-checkbox__label" for="ATM_USB_Key">
+                                            <span class="slds-checkbox_faux"></span>
+                                            <span class="slds-form-element__label">ATM USB Key</span>
+                                        </label>
+                                       
+                                    </div>-->
+                                    <label class="slds-form-element__label">ATM USB Key</label>
+                                    <div class="slds-form-element__control">
+                                        <ui:inputCheckbox class="slds-checkbox" aura:id="ATM_USB_Key"  value="{!v.ObjEngineers.ATM_USB_Key__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <!--<div class="slds-checkbox">
+                                        <input type="checkbox" name="options" id="TCR_USB_Key" value="{!v.ObjEngineers.TCR_USB_Key__c}" />
+                                        <label class="slds-checkbox__label" for="TCR_USB_Key">
+                                            <span class="slds-checkbox_faux"></span>
+                                            <span class="slds-form-element__label">TCR USB Key</span>
+                                        </label>
+                                    </div>-->
+                                    <label class="slds-form-element__label">TCR USB Key</label>
+                                    <div class="slds-form-element__control">
+                                        <ui:inputCheckbox class="slds-checkbox" aura:id="TCR_USB_Key"  value="{!v.ObjEngineers.TCR_USB_Key__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div> 
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="slds-text-heading_small section-heading">Retail Diagnostic Functions</h2>
+                <div class="slds-grid slds-wrap section-body">
+                    <!-- / FIRST COLUMN -->
+                    <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                        <div class="slds-form">
+                            
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <!--<div class="slds-checkbox">
+                                        <input type="checkbox" name="options" id="SelfServ_Checkout_USB_Key_7350" value="{!v.ObjEngineers.SelfServ_Checkout_USB_Key_7350__c}" />
+                                        <label class="slds-checkbox__label" for="SelfServ_Checkout_USB_Key_7350">
+                                            <span class="slds-checkbox_faux"></span>
+                                            <span class="slds-form-element__label">SelfServ Checkout USB Key 7350</span>
+                                        </label>
+                                        
+                                    </div>-->
+                                    
+                                    <label class="slds-form-element__label">SelfServ Checkout USB Key 7350</label>
+                                    <div class="slds-form-element__control">
+                                        <ui:inputCheckbox class="slds-checkbox" aura:id="SelfServ_Checkout_USB_Key_7350"  value="{!v.ObjEngineers.SelfServ_Checkout_USB_Key_7350__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                    
+                    <!-- / SECOND COLUMN -->
+                    <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                        <div class="slds-form">
+                            
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <!--<div class="slds-checkbox">
+                                        <input type="checkbox" name="options" id="Service_Center_USB_Key_7408" value="{!v.ObjEngineers.Service_Center_USB_Key_7408__c}" />
+                                        <label class="slds-checkbox__label" for="Service_Center_USB_Key_7408">
+                                            <span class="slds-checkbox_faux"></span>
+                                            <span class="slds-form-element__label">Service Center Kiosk USB Key 7408</span>
+                                        </label>
+                                       
+                                    </div>-->
+                                    <label class="slds-form-element__label">Service Center Kiosk USB Key 7408</label>
+                                    <div class="slds-form-element__control">
+                                        <ui:inputCheckbox class="slds-checkbox" aura:id="Service_Center_USB_Key_7408"  value="{!v.ObjEngineers.Service_Center_USB_Key_7408__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+    
+</aura:component>

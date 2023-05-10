@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contracted_Orders</fullName>
+    <columns>ORDERS.ORDER_NUMBER</columns>
+    <columns>SALES.ACCOUNT.NAME</columns>
+    <columns>ORDERS.EFFECTIVE_DATE</columns>
+    <columns>ORDERS.TOTAL_AMOUNT</columns>
+    <columns>ORDERS.STATUS</columns>
+    <columns>ACTIVATEDBY_USER.ALIAS</columns>
+    <columns>ORDERS.TYPE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>SBQQ__Contracted__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>Contracted Orders</label>
+</ListView>

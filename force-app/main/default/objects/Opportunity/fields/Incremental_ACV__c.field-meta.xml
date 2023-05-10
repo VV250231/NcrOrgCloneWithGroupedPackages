@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Incremental_ACV__c</fullName>
+    <description>CATM</description>
+    <externalId>false</externalId>
+    <formula>If(ISPICKVAL(Type, &quot;Existing Customer - Service Renewal&quot;) &amp;&amp; Old_Contract_ACV__c = 0  , 0, Annual_Contract_Value__c -  Old_Contract_ACV__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Incremental ACV</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <type>Currency</type>
+</CustomField>

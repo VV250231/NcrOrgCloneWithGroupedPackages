@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>53.0</apiVersion>
+    <decisions>
+        <name>AutoPayCheck</name>
+        <label>AutoPayCheck</label>
+        <locationX>373</locationX>
+        <locationY>330</locationY>
+        <defaultConnector>
+            <targetReference>Update_Quote_0_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Setup</defaultConnectorLabel>
+        <rules>
+            <name>Setup</name>
+            <conditionLogic>1 OR 2</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.qtc_Bill_To_Site__r.AutoPay_Setup__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>True</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.qtc_Bill_To_Site__r.AutoPay_Setup__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Manual</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Quote_0</targetReference>
+            </connector>
+            <label>Setup</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Quote_Type</name>
+        <label>Quote Type</label>
+        <locationX>173</locationX>
+        <locationY>411</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>New_Quote</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.SBQQ__Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Quote</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Quote</targetReference>
+            </connector>
+            <label>New Quote</label>
+        </rules>
+        <rules>
+            <name>Amendment</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.SBQQ__Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Amendment</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>AutoPayCheck</targetReference>
+            </connector>
+            <label>Amendment</label>
+        </rules>
+    </decisions>
+    <description>SFCPQBLG-627
+12/15/2021 Modified flow the trigger on the Quote object
+12/9: Document status = complete updates sync fulfillment order on Quote
+6/9/2022: Amendment Quote Start Date calculation based on Lega Doc Signing. SFCPQBLG-990</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>f_AmendStartDate</name>
+        <dataType>Date</dataType>
+        <expression>IF(TODAY() &lt; {!$Record.SBQQ__MasterContract__r.SBQQ__Order__r.EffectiveDate} , {!$Record.SBQQ__MasterContract__r.SBQQ__Order__r.EffectiveDate} , 
+DATE( 
+YEAR({!$Flow.CurrentDate}) + IF(MONTH({!$Flow.CurrentDate}) + 1 &gt; 12 , 1 , 0),
+IF(MONTH({!$Flow.CurrentDate}) + 1 &gt; 12, 1 , MONTH({!$Flow.CurrentDate}) + 1),
+1))</expression>
+    </formulas>
+    <interviewLabel>CPQ - Legal Signature create/update fulfillment order {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>CPQ - Legal Signature create/update fulfillment order</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_Quote</name>
+        <label>Update Quote</label>
+        <locationX>181</locationX>
+        <locationY>554</locationY>
+        <inputAssignments>
+            <field>qtc_SyncFulfillmentOrderDateTime__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Quote_0</name>
+        <label>Update Quote</label>
+        <locationX>383</locationX>
+        <locationY>498</locationY>
+        <inputAssignments>
+            <field>SBQQ__StartDate__c</field>
+            <value>
+                <elementReference>f_AmendStartDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>qtc_SyncFulfillmentOrderDateTime__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Quote_0_0</name>
+        <label>Update Quote</label>
+        <locationX>535</locationX>
+        <locationY>338</locationY>
+        <inputAssignments>
+            <field>SBQQ__StartDate__c</field>
+            <value>
+                <elementReference>f_AmendStartDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Quote_Type</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>qtc_Legal_Document_Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </filters>
+        <object>SBQQ__Quote__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

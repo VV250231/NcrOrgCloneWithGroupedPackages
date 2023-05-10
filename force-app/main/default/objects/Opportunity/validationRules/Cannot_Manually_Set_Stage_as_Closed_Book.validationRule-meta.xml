@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cannot_Manually_Set_Stage_as_Closed_Book</fullName>
+    <active>true</active>
+    <description>Cannot manually set stage as Closed Booked for CPQ Opptys</description>
+    <errorConditionFormula>AND (
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+NOT(CATM_Record__c),
+($Profile.Name &lt;&gt; &quot;04 NSC UI Administrator&quot;),
+     ($Profile.Name &lt;&gt;&quot;System Administrator&quot;),
+					CPQ__c,
+					NOT(Silver_Opportunity_flag__c),
+     ISCHANGED(StageName),
+     ISPICKVAL(StageName, &apos;Closed/Booked&apos;),
+     NOT(SBQQ__PrimaryQuote__r.qtc_Ordered_Custom__c),
+     NOT(Is_Manual_Closed_Booked_Allowed__c)
+)</errorConditionFormula>
+    <errorDisplayField>StageName</errorDisplayField>
+    <errorMessage>You cannot manually set CPQ opportunity stage as Closed Booked.</errorMessage>
+</ValidationRule>

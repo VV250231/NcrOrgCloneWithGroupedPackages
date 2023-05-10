@@ -1,0 +1,203 @@
+<aura:component controller="PRM_CaseController"
+    implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes"
+    access="global">
+
+    <aura:attribute name="objCase" type="Case" default="{'sobjectType':'Case'}" />
+    <aura:attribute name="contactId" type="String" />
+
+    <aura:attribute name="caseId" type="String" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="Spinner" type="boolean" default="false" />
+
+
+    <aura:attribute name="isCategoryError" type="boolean" default="false" />
+    <aura:attribute name="category" type="String[]" />
+    <aura:attribute name="status" type="String[]" />
+    <aura:attribute name="priority" type="String[]" />
+
+    <!--loading spinner start... style=Brand Medium (blue dots)-->
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    <!-- Loading spinner end-->
+
+    <div class="slds-page-header" role="banner">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-has-flexi-truncate">
+                <div class="slds-media slds-media--center slds-no-space slds-grow">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-account">
+                            <lightning:icon iconName="standard:account" size="large"
+                                alternativeText="Indicates approval" />
+                            <span class="slds-assistive-text">New Case</span>
+                        </span>
+                    </div>
+                    <div class="slds-media__body ">
+                        <p class="slds-text-title--caps slds-line-height--reset" title="Case">
+                            <h2 class="slds-text-heading_small">New Case</h2>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- ACTION BUTTONS -->
+            <div class="slds-col slds-no-flex slds-grid slds-wrap slds-align-top">
+
+                <button class="slds-button slds-button_brand" onclick="{!c.cSaveCase}">
+                    Save
+                </button>
+
+                <button class="slds-button slds-button_neutral" onclick="{!c.cancel}">
+                    Cancel
+                </button>
+
+            </div>
+            <!-- / ACTION BUTTONS -->
+        </div>
+    </div>
+
+    <div class="slds">
+        <div class="section">
+            <h2 class="slds-text-heading_small section-heading">Case Details</h2>
+            <div class="slds-grid slds-wrap section-body">
+                <!-- / FIRST COLUMN -->
+                <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                    <div class="slds-form">
+
+
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <lightning:select value="{!v.objCase.Category__c}" aura:id="Category" label="Category"
+                                    class="slds-select-bottom_margin" required="true">
+                                    <option value="-- None --">-- None --</option>
+                                    <option value="Deal Registration">Deal Registration</option>
+                                    <option value="Engineer">Engineer</option>
+                                    <option value="Equipment">Equipment</option>
+                                    <option value="General">General</option>
+                                    <option value="MDF">MDF</option>
+                                    <option value="Co-branded Collateral">Co-branded Collateral</option>
+                                    <option value="EULA Submission">EULA Submission</option>
+                                </lightning:select>
+                            </div>
+                            <aura:if isTrue="{!v.isCategoryError}">
+                                <label class="slds-form-element__label form-element__help"
+                                    style="color:rgb(194, 57, 52)"> Please select Category:</label>
+                            </aura:if>
+                        </div>
+
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Subject</label>
+                            <div class="slds-form-element__control">
+                                <ui:inputText class="slds-input" aura:id="Subject" value="{!v.objCase.Subject}" />
+                            </div>
+                        </div>
+
+                        <div class="slds-form-element">
+
+                            <div class="slds-form-element__control">
+                                <lightning:select value="{!v.objCase.Priority}" aura:id="Priority" label="Status"
+                                    class="slds-select-bottom_margin">
+                                    <option value="High">High</option>
+                                    <option value="Medium" selected="true">Medium</option>
+                                    <option value="Low">Low</option>
+                                </lightning:select>
+                            </div>
+                        </div>
+
+                        <!--<div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <lightning:select value="{!v.objCase.Status}" aura:id="Status" label="Status"  class="slds-select-bottom_margin">
+                                    
+                                    <option value="Escalated" >Escalated</option>
+                                    <option value="Closed">Closed</option>
+                                    <option value="On Hold">On Hold</option>
+                                    <option value="New" selected="true">New</option>
+                                    <option value="Submitted">Submitted</option>
+                                    
+                                </lightning:select>
+                            </div>
+                        </div>-->
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <label class="slds-form-element__label">Status</label>
+                                <div class="slds-form-element__control">
+                                    <ui:outputText class="slds-form-element__static" aura:id="Status" value="New" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="slds-text-heading_small section-heading">Case Description</h2>
+            <div class="slds-grid slds-wrap section-body">
+                <!-- / FIRST COLUMN -->
+                <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                    <div class="slds-form">
+
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Description</label>
+                            <div class="slds-form-element__control">
+                                <ui:inputTextArea class="slds-input" aura:id="Description"
+                                    value="{!v.objCase.Description}" />
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="slds-text-heading_small section-heading">Contact Information</h2>
+            <div class="slds-grid slds-wrap section-body">
+                <!-- / FIRST COLUMN -->
+                <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                    <div class="slds-form">
+
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Contact Name</label>
+                            <div class="slds-form-element__control">
+                                <force:inputField class="slds-input" aura:id="ContactName"
+                                    value="{!v.objCase.ContactId}" required="true" />
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <!-- / SECOND COLUMN -->
+                <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                    <div class="slds-form">
+
+
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">CC</label>
+                            <div class="slds-form-element__control">
+                                <force:inputField class="slds-input" aura:id="CC" value="{!v.objCase.CC__c}"
+                                    required="true" />
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</aura:component>

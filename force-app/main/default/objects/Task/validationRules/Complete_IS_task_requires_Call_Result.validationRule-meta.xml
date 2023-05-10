@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Complete_IS_task_requires_Call_Result</fullName>
+    <active>false</active>
+    <description>If an Inside Sales record type is selected and the status of the task is set to be completed, then user must enter a call result.</description>
+    <errorConditionFormula>AND(
+  RecordTypeId=&quot;01270000000Hg85&quot;,
+    ISPICKVAL( Status, &quot;Completed&quot;), 
+   ISPICKVAL(Call_Result__c ,&quot;&quot;))</errorConditionFormula>
+    <errorDisplayField>Call_Result__c</errorDisplayField>
+    <errorMessage>A Call Result must be designated on this task since it is completed. Please enter a call result in order to save this task.</errorMessage>
+</ValidationRule>

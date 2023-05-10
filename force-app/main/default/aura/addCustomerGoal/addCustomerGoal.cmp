@@ -1,0 +1,35 @@
+<aura:component Implements="lightning:availableForFlowScreens">
+	<aura:attribute name="ConRow" type="sObject"/>
+    <aura:attribute name="rowIndex" type="String"/>
+    <aura:registerEvent name="DeleteRowEvt" type="c:DeleteRowEvt"/> 
+    <aura:registerEvent name="AddRowEvt" type="c:AddNewRowEvt"/> 
+    <tr class="slds-text-title_caps">
+        <td> 
+            {!v.rowIndex + 1}
+        </td>
+        <td>
+            <ui:inputText class="slds-input" value="{!v.ConRow.Name}"/>
+        </td>
+        <td>
+            <ui:inputText class="slds-input" value="{!v.ConRow.Details__c}"/>
+        </td>
+        <td>
+            <ui:inputPhone class="slds-input" value="{!v.ConRow.Aligned_Solution__c}"/>
+        </td>
+        <td>
+            <aura:if isTrue="{!v.rowIndex == 0}">
+                <a onclick="{!c.AddNewRow}">
+                  <lightning:icon iconName="utility:add" class="slds-icon slds-icon_small" size="small" alternativeText="add"/>
+                  <span class="slds-assistive-text">Add Icon</span>
+                </a>    
+              <aura:set attribute="else">
+                  <a onclick="{!c.RemoveRow}">
+                   <lightning:icon variant="error" iconName="utility:delete" class="slds-icon slds-icon_small" size="small" alternativeText="icon"/>
+                   <span class="slds-assistive-text">Delete Icon</span>
+                  </a>
+              </aura:set> 
+            </aura:if>
+        </td> 
+    </tr>
+
+</aura:component>

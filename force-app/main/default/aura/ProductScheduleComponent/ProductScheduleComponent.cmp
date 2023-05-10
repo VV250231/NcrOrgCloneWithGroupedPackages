@@ -1,0 +1,383 @@
+<aura:component controller="ProductScheduleController" implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+    
+    <aura:attribute name="scheduleValue" type="WrapperProductScheduleController[]"/>
+    <aura:attribute name="CopyPasteAttribute" type="WrapperProductScheduleController[]"/>
+    <aura:attribute name="CopyPasteAttributePrevious" type="WrapperProductScheduleController[]"/>
+    <aura:attribute name="PreviousSelectAll" type="Boolean"/>
+    <aura:attribute name="SchedulerSelectAll" type="Boolean"/> 
+    <aura:attribute name="EDD" type="Date"/>
+    <!--Added for Profile Name-->
+    <aura:attribute name="ProfileName" type="String"/>
+    <!--ENd of Profile Name-->
+    <aura:handler event="c:EDDEvent" action="{!c.updateDate}"/>
+    <aura:attribute name="IndentifierClint" type="string" default='0'/>
+    <aura:attribute name="IndentifierCopyElementforHide" type="string" default='0'/>
+    <aura:attribute name="ColapseIdentifier" type="boolean" default='false'/>
+    <aura:attribute name="ShowHideCopyModel" type="boolean" default='false'/>
+    <aura:attribute name="abcId" type="String" default="{!v.recordId}"></aura:attribute>
+    <aura:attribute name="ShowHideSchedulerSpinner" type="boolean" default="True"/>
+    <aura:attribute name="ShowCustomDuration" type="boolean" default="False"/>
+    <aura:attribute name="CustomMonth" type="String" default="0"/>
+    <aura:attribute type="String" name="LabelExpandCollapse" />
+    <aura:attribute name="ShowHideBeforeDelete" type="boolean" default='false'/>
+    <aura:attribute name="ProductIdForDelete" type="String" />
+    <aura:registerEvent name="EventToValidateMsg" type="c:EventToValidateMsg"/> 
+    <aura:registerEvent name="SyncEvent" type="c:SyncEvent"/> 
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler event="c:schedulerEvent" action="{!c.handleschApplicationEvent}"/>
+    <aura:handler event="c:RemoveScheduleEvent" action="{!c.handlesInsertSchApplicationEvent}"/>
+    <aura:handler event="c:InsertScheduleEvent" action="{!c.handlesDeleteSchApplicationEvent}"/>
+    <aura:handler event="c:SchedulerSubmitEvent" action="{!c.handleApplicationEvent}"/>
+    <aura:handler event="c:RefreshBothScheduleComp" action="{!c.handleSubmitRefreshComp}"/>
+    <aura:handler event="c:SentPreviousValue" action="{!c.OpenCopyPasteWindo}"/> 
+    <aura:handler event="c:getSchedulerValue" action="{!c.sentDateformScheduler}"/> 
+    <aura:handler event="c:PasteDataToSchedule" action="{!c.HandlerPasteEvent}"/>
+    <aura:registerEvent name="ReloadUI" type="c:ReloadUI"/> 
+    <aura:registerEvent name="CopyPasteEvent" type="c:getPreviousValue"/>
+    <aura:registerEvent name="SendDatatoPrevious" type="c:PasteDataTopreviousSchedule"/>
+    <aura:registerEvent name="CopyPasteEventScheduler" type="c:SentSchedulerValue"/>
+    <!--Added to Pass Profile Name-->
+    <aura:handler event="c:PassProfileNameToBothScheduleComp" action="{!c.getProfileId}"/>
+    <!--End of Pass Profile Name-->
+    <!--Nagendra Code--> 
+   <!-- >>>>>>>>{!v.IndentifierCopyElementforHide}-->
+    <aura:handler event="c:PassRecordIdEvent" action="{!c.passRecordId}"/>
+    <aura:attribute name="collpaseText" type="String" default="/resource/MyIcon/svg/arrows-2.svg"/>
+    <div><div class="containerDiv"></div></div>
+    <section class="slds-clearfix slds-m-bottom_small slds-m-top_small" style="margin-bottom: 0.022rem;
+    margin-top: 0.22rem;">
+        <div class="slds-float_left slds-m-left_large " >
+            <b Style="font-size: 20px;">Scheduler</b>
+        </div>
+        <div class="slds-form-element slds-size_1-of-2" >
+            <label class="slds-form-element__label" for="input-02" style="margin-top: 8px; padding-left: 21px;"><b>(Expected Delivery Start Date:</b></label>
+            <ui:outputDate value="{!v.EDD}" /> )
+        </div>
+        <div class="slds-float_right slds-m-right_xx-large" style="width:25px;margin-top: -20px;">
+                <button class="slds-button " onclick="{!c.URLExpandAll}"  title="Expand/Collapse All"> 
+                    <img src="{!v.LabelExpandCollapse}" style="width:15px;"  />
+                </button>            
+        </div>
+    </section>
+    <div><div class="containerDiv"></div></div>
+    <aura:iteration var="itm" items="{!v.scheduleValue}">    
+        <div style="border-bottom:2px solid #ddd">
+            <section class="slds-clearfix slds-m-bottom_small slds-m-top_small" style="margin-bottom: 0.022rem; margin-top: 0.1rem;">
+                <div class="slds-float_left slds-m-left_large">
+                    <span>
+                    <aura:if isTrue="{!itm.collapse == False}">
+                        
+                        <button class="slds-button " onclick="{!c.ToggleCollapse}" id="{!itm.counter}" style="margin-top: 0.6rem;"> 
+                            <img src="/resource/MyIcon/svg/arrows-2.svg" style="width:20px;" id="{!'img'+itm.counter}" />
+                        </button>
+                        <aura:set attribute="else" >
+                            <button class="slds-button " onclick="{!c.ToggleCollapse}" id="{!itm.counter}"> 
+                                <img src="/resource/MyIcon/svg/arrows-5.svg" style="width:20px;" id="{!'img'+itm.counter}" />
+                            </button>
+                        </aura:set>  
+                    </aura:if> 
+                   </span>     
+                </div>
+                <div class="slds-float_left slds-m-left_large slds-m-top_small" style="width: 200px;">
+                    {!itm.ProductName}  
+                </div>
+                <div class="slds-float_left slds-m-left_large" >
+                    <div class="slds-truncate" >
+                        <div class="slds-form-element__row">
+                            <div class="slds-grid">
+                                <div class="slds-col">
+                                    <div class="slds-box_small  slds-text-align_center">
+                                        <fieldset class="slds-form_compound"> 
+                                            <div class="slds-form-element__row" > 
+                                                <label class="slds-form-element__label" for="name" >Qty</label>
+                                              
+                                                    <div class="slds-form-element__control "  onselect="{!c.CaptureIdentifier}" onclick="{!c.CaptureIdentifier}" data-ids="{!itm.counter}" > 
+                                                     
+                                                        <ui:inputText class="{!if(itm.ValidateQuantity,'FillColor inputHeight','FillColorRemove inputHeight')}" value="{!itm.Quantity}"  maxlength="8" size="8"  change="{!c.ManageQuantitySchedule}" />
+                                                         
+                                                    </div>
+                                               
+                                                <div class="slds-m-left_small"></div>
+                                                <label class="slds-form-element__label" for="name">Unit Price</label>
+                                                <div class="slds-form-element__control" onselect="{!c.CaptureIdentifier}" onclick="{!c.CaptureIdentifier}" data-ids="{!itm.counter}"> 
+                                                    <ui:inputNumber aura:id="amount"  value="{!itm.UnitPrice}" maxlength="6" class="InputSize inputHeight" change="{!c.RecalculateQuantity2}"/>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div class="slds-col">
+                                    <div class="slds-box_small  slds-text-align_center">
+                                        <fieldset class="slds-form_compound">
+                                            <div class="slds-form-element__row">
+                                                <label class="slds-form-element__label" for="name" >Total</label>
+                                                <div class="slds-form-element__control" onclick="{!c.CaptureIdentifier}" data-ids="{!itm.counter}" > 
+                                                    <ui:inputNumber value="{!itm.TotalPrice}"  maxlength="4"  size="4" class="inputHeight" change="{!c.TatalAddjustment}"/>
+                                                    <!--<ui:outputNumber value="{!itm.TotalPrice}" />-->
+                                                </div>
+                                                <div class="slds-m-left_small"></div> 
+                                                 <label class="slds-form-element__label" for="name" style="{!if(itm.UnscheduleFinder,'background-color:rgba(178, 0, 41, 0.32);','margin-left:65px;width:120px')}">Unschedule Quantity</label>
+                                                <div class="slds-form-element__control" style="{!if(itm.UnscheduleFinder,'background-color:rgba(178, 0, 41, 0.32);','margin-left:-5px;width:30px')}">
+                                                    <ui:OutputNumber value="{!itm.UnschldQty}" aura:id="unscqty"/>     
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div class="slds-col">
+                                    <div class="slds-box_small  slds-text-align_center">
+                                        <fieldset class="slds-form_compound">
+                                            <div class="slds-form-element__row">
+                                                <label class="slds-form-element__label" for="name">Duration</label>
+                                                <div class="slds-form-element__control" onclick="{!c.CaptureIdentifier}" data-ids="{!itm.counter}">
+                                                    <ui:outputtext value="{!itm.Duration}" />  
+                                                    <ui:inputSelect change="{!c.ManageSchedule}" class="selectHeight">
+                                                        <aura:iteration items="{!itm.Duration}" var="dur"> 
+                                                            <ui:inputSelectOption text="{!dur.value}" label="{!dur.label}" value="{!dur.selected}" />
+                                                        </aura:iteration>
+                                                    </ui:inputSelect>    
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            </section> 
+            <div class="containerDiv"></div>
+            <div class="{!if(itm.collapse,'container show','container hide')}" aura:id="containerCollapsable" id="{!'container'+itm.Id}" >
+                <ui:message title="" severity="confirm">
+                    <code> 
+                        <div class="slds-col slds-col-rule_right">
+                            <article class="slds-card">
+                                <header> 
+                                                <section class="slds-clearfix" >         
+                                                    <div class="slds-float_right slds-m-right_xx-large"    data-id="{!'btn-group'+itm.counter}"> 
+                                                        <button class="slds-button slds-notify__close slds-button_icon-inverse" onclick="{!c.DeleteProduct}" data-ids="{!itm.counter}" title="Delete Product">         
+                                                            <img src="/resource/MyIcon/svg/rubbish-bin.svg" style="width:15px;margin:right:5px;"/> 
+                                                        </button>
+                                                        <button class="slds-button slds-notify__close slds-button_icon-inverse" onclick="{!c.CopyBreakDown}" data-ids="{!itm.counter}" title="Copy">         
+                                                            <img src="/resource/MyIcon/svg/FileCopy.svg" style="width:15px;margin:right:5px;"/> 
+                                                        </button>
+                                                        <button class="slds-button slds-notify__close" onclick="{!c.AddScheduleItem}" id="{!itm.counter}" title="Add">   
+                                                            <img src="/resource/MyIcon/svg/plus.svg" style="width:15px;margin:right:5px;" ></img>	 
+                                                        </button>
+                                                        <button class="slds-button slds-notify__close" onclick="{!c.SaveSchedule}" onmouseover="{!c.Getfocus}"   onmouseout="{!c.Losefocus}"  id="{!'SaveSchedule_'+itm.counter}" title="Save"> 
+                                                            <img src="/resource/MyIcon/svg/save.svg" style="width:15px;margin:right:5px;"/> 
+                                                         </button>	
+                                                    </div>
+                                                </section>
+                                </header>
+                                <section >
+                                    <div class="containerDiv"></div>
+                                    <div class="slds-grid slds-wrap slds-grid_pull-padded"> 
+                                        <aura:iteration items="{!itm.listofOppSchedule}" var="val"> 
+                                            
+                                            <div class="slds-p-horizontal_small slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3" >
+                                                <div class="slds-form_inline slds-m-bottom_small">
+                                                    <div class="slds-form-element" onclick="{!c.CaptureIdentifier}" data-ids="{!itm.counter}">
+                                                        <label class="slds-form-element__label" for="name">Quantity</label>
+                                                        <div class="slds-form-element__control" >
+                                                            <ui:inputtext value="{!val.Quantity}" maxlength="8" size="8" change="{!c.ManageQuantitySchedule}" class="WidthControll inputHeight"/>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="slds-form-element" style="{!if(val.validate,'background-color:rgba(178, 0, 41, 0.32);','background-color:')}"> 
+                                                        <label class="slds-form-element__label" for="name">Mnth/Yr</label>
+                                                        <div class="slds-form-element__control" >
+                                                            
+                                                           <ui:inputSelect class="WidthControll selectHeight">
+                                                                <aura:iteration items="{!val.Month}" var="Mnth"> 
+                                                                    <ui:inputSelectOption text="{!Mnth.value}" label="{!Mnth.label}" value="{!Mnth.selected}" />
+                                                                </aura:iteration>
+                                                    		</ui:inputSelect>
+															<span>
+                                                            <ui:inputSelect class="WidthControll selectHeight">
+                                                                <aura:iteration items="{!val.Year}" var="yearCounter"> 
+                                                                    <ui:inputSelectOption text="{!yearCounter.value}" label="{!yearCounter.label}" value="{!yearCounter.selected}" />
+                                                                </aura:iteration>
+                                                    		</ui:inputSelect>
+                                                            </span>
+
+                                                         </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </aura:iteration>
+                                    </div>
+                                </section> 
+                            </article> 
+                        </div>
+                    </code>
+                </ui:message>
+            </div> 
+        </div>
+    </aura:iteration>
+    <!--Code Check till here-->
+    <span>
+    	<c:ValidateEDDEBDComponent /> 
+    </span>    
+    <aura:if isTrue="{!v.ShowCustomDuration}">	
+        <span>
+        <div class="slds-modal slds-fade-in-open" aria-hidden="false" role="dialog" id="Modal" style="display:block;width:100;">
+            <div class="slds-modal__container slds-p-around_large" style="height: 600px;width:200px;"> 
+                <div class="slds-modal__header">
+                    <b style="float:left;">Custom Duration of Time </b>
+                </div>
+                <div class="slds-modal__content slds-p-around_small slds-m-right_small" style="height:100px;width:272px;">
+                    <fieldset class="slds-form_compound">
+                        <div class="form-element__group">   
+                            <div class="slds-form-element__row">
+                                <div class="slds-form-element slds-size_1-of-2"> 
+                                    <ui:inputText aura:id="inputCmp" value="" size="3" placeholder="#" maxLength="3" class="custom-dur"/>
+                                </div>
+                                <div class="slds-form-element slds-size_1-of-2"> 
+                                    <ui:inputSelect aura:id="customDuration"> 
+                                        <ui:inputSelectOption text="Months" label="Months" value="true"/>			
+                                        <ui:inputSelectOption text="Years" label="Years"/>                             
+                                    </ui:inputSelect> 
+                                </div>
+                            </div>
+                        </div> 
+                    </fieldset> 
+                </div> 
+                <center>
+                    <div class="slds-modal__footer">  
+                        <ui:button class="slds-button slds-button_neutral slds-button_brand"  press="{!c.cancelDuration}">Cancel</ui:button>
+                        <ui:button class="slds-button slds-button_neutral slds-button_brand"  press="{!c.setDuration}">Done</ui:button>
+                    </div>
+                </center>
+            </div>   
+        </div>      
+        <div class="slds-backdrop slds-backdrop_open" id="greyOutBackground" ></div>   
+        </span>    
+    </aura:if>
+    <span>  
+    <aura:if isTrue="{!v.ShowHideSchedulerSpinner}">	
+        <span>
+        	<center><lightning:spinner variant="brand" size="Medium" /></center>
+        </span>    
+    </aura:if>
+    </span> 
+<div class="slds-modal slds-fade-in-open" aria-hidden="false" role="dialog" id="showModal" style="{!if(v.ShowHideCopyModel,'display:block','display:None')}">
+        <div class="slds-modal__container" style="width:438px;"> 
+            <div class="slds-modal__header">
+                  <button class="slds-button slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.CancelCopyWindow}">
+                    <img src="/resource/MyIcon/svg/multiply.svg" style="width: 1rem;height: 1rem; "/>
+                  
+                    <span class="slds-assistive-text">Close</span> 
+                  </button>
+                
+                <b style="float:left;">Copy Schedule to:</b>&nbsp;
+                
+                <div align="right">
+                    	<button type="button" class="slds-button slds-button_neutral" onclick="{!C.collectCopyPasteIndex}">Done</button>
+                </div> 
+            </div>
+            <div class="slds-modal__content slds-p-around_large" >  
+                <div style="margin:10px;" >
+                    <div class="slds-text-title_caps header" style="background-color: #f0f8fc;">
+                       
+                        <div align="left">
+                            <label class="slds-checkbox">
+							 <ui:inputCheckbox aura:id="SchedulerSection" change="{!C.SelectAllCheckBox}" value="{!v.SchedulerSelectAll}"/>
+							 <span class="slds-checkbox_faux"></span>          
+						    </label> &nbsp;
+                            <span>
+                             <b>Scheduler</b> 
+                            </span>    
+                        </div>  
+                    </div>    
+					<table> 
+                            <tbody>
+							<div>
+								<aura:iteration var="Copyitm" items="{!v.CopyPasteAttribute}">
+								 <span >
+									<aura:renderif isTrue="{!Copyitm.hideIndex == false}">
+									<tr class="slds-hint-parent">
+									  <td  data-label="Select row ">
+										<label class="slds-checkbox">
+										  <ui:inputCheckbox aura:id="TheCheckBox" value="{!Copyitm.copycheckbox}" />
+										  <span class="slds-checkbox_faux"></span>          
+										</label>
+									  </td>   &nbsp;  
+									  <td role="gridcell" data-label="Product Name" >
+                                          <div  class="slds-truncate" title="{!Copyitm.ProductName}" style="min-width: 19.25rem;">
+                                            <ui:outputText title="{!Copyitm.ProductName}" value="{!Copyitm.ProductName}"/>          
+                                          </div>
+                                      </td>     
+									</tr>
+									</aura:renderif>
+								</span>     
+								</aura:iteration>  
+							</div>
+                            </tbody>               
+                    </table>
+				</div>
+                <!--Scheduler-->
+                <div style="margin:10px;">
+                    <div class="slds-text-title_caps header" style="background-color: #f0f8fc;">
+                        <div align="left">
+                            <label class="slds-checkbox">
+							 <ui:inputCheckbox aura:id="PreviousSchedulerSection" change="{!C.SelectAllCheckBox}" value="{!v.PreviousSelectAll}"/>
+							 <span class="slds-checkbox_faux"></span>          
+						    </label>&nbsp;
+                            <span>
+                             <b>Previously Schedule</b> 
+                            </span>    
+                        </div>  
+                    </div>    
+					<table> 
+                            <tbody>
+							<div>
+								<aura:iteration var="Copyitm1" items="{!v.CopyPasteAttributePrevious}">
+								 <span >
+									<aura:renderif isTrue="{!Copyitm1.hideIndex == false}">
+									<tr class="slds-hint-parent">
+									  <td  data-label="Select row ">
+										<label class="slds-checkbox">
+										  <ui:inputCheckbox aura:id="TheCheckBox" value="{!Copyitm1.copycheckbox}" />
+										  <span class="slds-checkbox_faux"></span>          
+										</label>
+									  </td>  &nbsp;   
+									  <td role="gridcell" data-label="Product Name" >
+                                          <div  class="slds-truncate" title="{!Copyitm1.ProductName}" style="min-width: 19.25rem;">
+                                            <ui:outputText title="{!Copyitm1.ProductName}" value="{!Copyitm1.ProductName}"/>          
+                                          </div>
+                                      </td>     
+									</tr>
+									</aura:renderif>
+								</span>     
+								</aura:iteration>  
+							</div>
+                            </tbody>               
+                    </table>
+                </div> 
+            </div> 
+        </div>  
+    </div>
+    <div class="slds-backdrop slds-backdrop_open" id="modalGrayout" style="{!if(v.ShowHideCopyModel,'display : block','display : None')}"></div>
+    <!--Before Delete Modal Body -->
+    <aura:renderIf isTrue="{!v.ShowHideBeforeDelete}">
+        <div class="slds-modal slds-fade-in-open" aria-hidden="false" role="dialog" id="ModalShowBeforeDelete" >            
+            <div class="slds-modal__container slds-p-around_large" style="height: 286px;"> 
+                <div class="slds-modal__header" style="height: 55px;">
+                    <p >Alert!
+                    </p>
+                </div>
+                <div class="slds-modal__content slds-p-around_medium" style="padding-top: 0px;">					
+					<p>Product and all its schedule will be deleted. Please make sure before proceeding.
+                    </p>
+                </div>                
+				<div class="slds-modal__footer">
+					<ui:button class="slds-button slds-button_neutral slds-button_brand"  press="{!c.CancelDelete}">Cancel</ui:button>
+					<ui:button class="slds-button slds-button_neutral slds-button_brand"  press="{!c.ProceedDelete}">Proceed</ui:button>
+				</div>
+            </div>
+        </div>      
+        <div class="slds-backdrop slds-backdrop_open" id="greyOutBackground" style=""></div>
+    </aura:renderIf>
+</aura:component>

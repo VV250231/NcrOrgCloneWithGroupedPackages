@@ -1,0 +1,97 @@
+<aura:component controller="RmaCon" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="rmaObj" type="RMA__c" default="{'sobjectType':'RMA__c'}"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:registerEvent name="cancelEdit" type="c:CancelEdit"/>
+    <aura:registerEvent name="saveEdit" type="c:SaveEdit"/>
+    
+    <div class="slds-page-header slds-page-header_record-home">
+        <div class="slds-page-header__row">
+            <div class="slds-page-header__col-title">
+                <div class="slds-media">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-opportunity">                                
+                            <lightning:icon iconName="custom:custom21" size="large" alternativeText="RMA Request"/>
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <div class="slds-page-header__name">
+                            <div class="slds-page-header__name-title">
+                                <h1>
+                                    <span>Return Material Authorization</span>
+                                    <span class="slds-page-header__title slds-truncate" title="{!Name}">{! v.rmaObj.Name}</span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-page-header__col-actions">
+                <div class="slds-page-header__controls">
+                    <div class="slds-page-header__control">
+                        <button class="slds-button slds-button_neutral slds-button_stateful slds-not-selected" aria-live="assertive">
+                            <span class="slds-text-not-selected">
+                            </span>
+                            <span class="slds-text-selected">
+                            </span>
+                            <span class="slds-text-selected-focus">
+                            </span>
+                        </button>
+                    </div>
+                    <div class="slds-page-header__control"><!--
+                        <ul class="slds-button-group-list">
+                            <li> <aura:if isTrue="{!v.rmaObj.Status__c == 'Draft'}">
+                                <button class="slds-button slds-button_neutral" onclick="{!c.handleEdit}">Save</button>
+                                </aura:if>
+                            </li>
+                            <li>
+                                <button class="slds-button slds-button_neutral" onclick="{!c.handleDelete}">Delete</button>
+                            </li>
+                            <li>
+                                <button class="slds-button slds-button_neutral" onclick="{!c.showFileModal}">Cancel</button>
+                            </li>
+                            
+                        </ul>-->
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+    
+    <div class="section-body">
+        <lightning:messages />                       
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-2">
+                <lightning:input label="Order Number" value="{! v.rmaObj.Order_Number__c}" required="true"/>
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+                <lightning:input label="Product ID" value="{! v.rmaObj.Product_ID__c}" required="true"/>
+            </div>
+            
+        </div>
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-2">
+                <lightning:input label="Quantity" value="{! v.rmaObj.Quantity__c}" required="true"/>
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+                <lightning:textarea label="Reason for Return" value="{! v.rmaObj.Reason_for_Return__c}" required="true"/>
+            </div>
+        </div>
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_2-of-2">
+                <lightning:textarea label="Additional Comments" value="{! v.rmaObj.Additional_Comments__c}" />
+            </div>
+        </div>
+        <br/>
+        <ul class="slds-button-group-row slds-float_right">
+            <li class="slds-button-group-item">
+                <lightning:button variant="brand" name="cancel" label="Cancel" class="slds-button slds-button_neutral" onclick="{! c.handleCancel}"/>
+            </li>
+            <li class="slds-button-group-item">
+                <lightning:button variant="brand" name="save" label="Save" class="slds-button slds-button_neutral" onclick="{! c.chandleRecSave }"/>
+            </li>
+            
+        </ul>
+    </div>
+</aura:component>

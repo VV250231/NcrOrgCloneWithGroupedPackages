@@ -1,0 +1,87 @@
+<aura:component controller="DisputeDetailController" implements="lightning:availableForFlowScreens,lightning:availableForFlowActions" access="global">
+    
+       <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+       <aura:attribute name="Question" type="Map"></aura:attribute>
+       <aura:attribute name="DisputeCommentMap" type="Map"></aura:attribute>
+       <aura:attribute name="DisputeCommentMapForReason" type="Map"></aura:attribute>
+       <aura:attribute name="selectReasonAndIdMap" type="Map"></aura:attribute>
+       <aura:attribute name="FollowUpQusAndAnsIdMap" type="Map"></aura:attribute>
+    
+       <aura:attribute name="options" type="List"></aura:attribute>
+       <aura:attribute name="Reasonoptions" type="List"></aura:attribute>
+       <aura:attribute name="ReasonQuestion" type="String" Default="Follow Up Question"></aura:attribute>
+       <aura:attribute name="DisputeComment" type="String" Default="DisputeComment"></aura:attribute>
+       <aura:attribute name="DisputeCommenValue" type="String" Default=""></aura:attribute>
+       <aura:attribute name="RenderReasonQuestion" type="Boolean" default="false"></aura:attribute>
+       <aura:attribute name="RenderDisputeCommenValue" type="Boolean" default="false"></aura:attribute>
+       <aura:attribute name="toogleSpinner" type="Boolean" default="false"></aura:attribute>
+       <aura:attribute name="DisputeReasonValue" type="String" ></aura:attribute>
+       <aura:attribute name="DisputeFollowUpAnsValue" type="String" Default=""></aura:attribute>
+       <aura:attribute name="UserSelctedReason" type="string" default=""></aura:attribute>
+       <aura:attribute name="UserSelctedFollowUpQues" type="string"></aura:attribute>
+       <aura:attribute name="IsFollowUpQuestionIsRequire" type="boolean" ></aura:attribute> 
+       <aura:attribute name="DisputeFollowUpAns" type="String" ></aura:attribute> 
+    
+       
+       <!-- Determine which actions are available -->
+       <aura:attribute name="canPause" type="Boolean" />
+       <aura:attribute name="canBack" type="Boolean" />
+       <aura:attribute name="canNext" type="Boolean" />
+       <aura:attribute name="canFinish" type="Boolean" />
+    
+     
+    	<div class="c-container" style="height:300px; margin:-14px">
+			  <lightning:layout >  
+                       <lightning:layoutItem padding="around-small" size="12" >
+                           <lightning:combobox aura:id="mycombobox" name="progress" label="Dispute Reason" value="{!v.UserSelctedReason}" placeholder="Select Reason" options="{! v.options }" onchange="{! c.handleChange }" required="true"/>
+                       </lightning:layoutItem> 
+              </lightning:layout>
+            
+              <aura:if isTrue="{!v.RenderReasonQuestion}">
+                     <lightning:layout >  
+                          <lightning:layoutItem padding="around-small" size="12" class="cstClass">     
+                                     <lightning:combobox name="progress" label="{!v.ReasonQuestion}"  value="{!v.DisputeFollowUpAnsValue}" placeholder="Select Follow Up Question" options="{! v.Reasonoptions }" onchange="{! c.FollowUpAnsChange}" required="true"/>
+                         </lightning:layoutItem>   
+                	</lightning:layout>
+              </aura:if>
+            
+             <aura:if isTrue="{!v.RenderDisputeCommenValue}">
+              		<lightning:layout>  
+                      <lightning:layoutItem padding="around-small" size="12" class="cstClass">  
+                                <lightning:textarea name="input7" required="true" value="{!v.DisputeCommenValue}" placeholder="Enter your Comment" label="{!v.DisputeComment}" messageWhenTooLong="A maximum of 140 characters are allowed in a tweet." messageWhenValueMissing="Please enter some valid input. Input is not optional." />                       
+                     </lightning:layoutItem>
+                  </lightning:layout>
+             </aura:if> 
+            
+            <aura:if isTrue="{!v.toogleSpinner}">
+                <div class="exampleHolder">
+                  <lightning:spinner alternativeText="Loading" size="small" />
+                </div>
+            </aura:if> 
+            
+             <div aura:id="actionButtonBar" class="slds-clearfix slds-p-top_medium">
+          <!-- If Previous is available, display to the left -->
+          <div class="slds-float_left">
+             <aura:if isTrue="{!v.canBack}">
+                <lightning:button aura:id="BACK" label="Previous"
+                   variant="neutral" onclick="{!c.validatePrevious}" />
+             </aura:if>
+          </div>
+          <div class="slds-float_right">
+             <!-- If Pause, Next, or Finish are available, display to the right -->
+             <aura:if isTrue="{!v.canPause}">
+                <lightning:button aura:id="PAUSE" label="Pause"
+                   variant="neutral" onclick="{!c.onButtonPressed}" />
+             </aura:if>
+             <aura:if isTrue="{!v.canNext}">
+                <lightning:button aura:id="NEXT" label="Next" 
+                   variant="brand" onclick="{!c.validateNext}" />
+             </aura:if>
+             <aura:if isTrue="{!v.canFinish}">
+                <lightning:button aura:id="FINISH" label="Done"
+                   variant="brand" onclick="{!c.onButtonPressed}" />
+             </aura:if>
+          </div>
+   		</div>
+       </div>
+</aura:component>

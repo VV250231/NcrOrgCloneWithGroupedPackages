@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Breach_Stage_Change</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+   !$Setup.Automation_Setting__c.Skip_Validation_Rule__c, 
+   TEXT(PRIORVALUE(Breach_Stage__c)) = &apos;Sales - Breach Closed&apos;,
+   TEXT(PRIORVALUE(Breach_Stage__c)) = &apos;Legal - Breach Closed&apos;,
+   ISCHANGED(Breach_Stage__c),
+    $Permission.CATM_Sys_Admin = false)</errorConditionFormula>
+    <errorMessage>The breach is locked and can not be changed, please contact your administrator.</errorMessage>
+</ValidationRule>

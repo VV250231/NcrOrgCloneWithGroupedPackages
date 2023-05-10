@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>NCR_Payments_Site__c.Account_Sites__c</field>
+    </columns>
+    <columns>
+        <field>NCR_Payments_Site__c.Billing_Account__c</field>
+    </columns>
+    <columns>
+        <field>NCR_Payments_Site__c.MID__c</field>
+    </columns>
+    <columns>
+        <field>NCR_Payments_Site__c.TID__c</field>
+    </columns>
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <columns>
+        <field>FK_$Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Payment sites (with MID/TID) that are in approved/boarded status broken down Opportunity Only vs CPQ Opportunity.</description>
+    <filter>
+        <criteriaItems>
+            <column>NCR_Payments_Site__c.NCR_Payments_Application_Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>ApprovedAndBoarded</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>FK_$Opportunity.CPQ__c</field>
+        <sortOrder>Desc</sortOrder>
+    </groupingsDown>
+    <name>DF2-NCR Payments Sites w/Opportun</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$NCR_Payments_Site__c@NCR_Payments_Site__c.Opportunity__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CUST_CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

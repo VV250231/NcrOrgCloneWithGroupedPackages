@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_24417602</developerName>
+        <masterLabel>Opportunity Type</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>TYPE</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Existing Customer - New Solution/Service</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Ongoing Roll-out</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Service Winback</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Upgrade</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - PS Custom Work</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Back Billing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Service Termination</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - ATMaaS</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Existing Customer - Pilot</sourceValue>
+            </sourceValues>
+            <value>New Footprint</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>New Customer</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>New Customer - ATMaaS</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>New Customer - Pilot</sourceValue>
+            </sourceValues>
+            <value>New Customer</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Collection</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Indirect Channel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Revenue Leakage</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>One-Time Payment Project</sourceValue>
+            </sourceValues>
+            <value>Other</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Existing Customer - Service Renewal</sourceValue>
+            </sourceValues>
+            <value>Renewal</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Existing Customer - Replacement</sourceValue>
+            </sourceValues>
+            <value>Replacement</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>number</bucketType>
+        <developerName>BucketField_2143968</developerName>
+        <masterLabel>Tied to HW</masterLabel>
+        <nullTreatment>z</nullTreatment>
+        <sourceColumnName>Opportunity.Hardware_Products__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <to>0</to>
+            </sourceValues>
+            <value>N</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>0</from>
+            </sourceValues>
+            <value>Y</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>FK_$Sales_Org__c.Hierarchy_3__c</field>
+    </columns>
+    <columns>
+        <field>FK_$Sales_Org__c.Hierarchy_2__c</field>
+    </columns>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>OWNER_MANAGER</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_OWNER</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>FORECAST_CATEGORY</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>BucketField_24417602</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Offer__c</field>
+    </columns>
+    <columns>
+        <field>BucketField_2143968</field>
+    </columns>
+    <columns>
+        <field>CDF1</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>TOTAL_PRICE.CONVERT</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>if(CLOSE_DATE&lt;TODAY() + 0, &quot;Y&quot;, &quot;N&quot;)</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>Past Due Flag</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>FORECAST_CATEGORY</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Commit</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FK_$Sales_Org__c.Hierarchy_2__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>GS:Retail</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Opportunity.Indirect_Include_in_Funnel_Distributor,Opportunity.Indirect_Include_in_Funnel,Opportunity.IncludeinFunnel</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OpportunityLineItem.Revenue_Type__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>HWM,SWM,Managed Service</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Final Weekly Annuity Order Commit</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>open</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>OpportunityProduct@Opportunity.Sales_Org__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_THISWEEK</interval>
+    </timeFrameFilter>
+</Report>

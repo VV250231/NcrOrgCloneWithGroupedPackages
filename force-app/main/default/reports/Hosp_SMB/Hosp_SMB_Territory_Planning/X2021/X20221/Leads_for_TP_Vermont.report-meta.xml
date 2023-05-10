@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Lead$Id</field>
+    </columns>
+    <columns>
+        <field>Lead$Name</field>
+    </columns>
+    <columns>
+        <field>Lead$Owner.Id</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Lead$Latitude</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Lead$Longitude</field>
+    </columns>
+    <columns>
+        <field>Lead$PostalCode</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <booleanFilter>1 AND 2</booleanFilter>
+        <criteriaItems>
+            <column>Lead$Source__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Sales-HOS-Restaurant Data,Sales-HOS-CHD Data</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead$PostalCode</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>05443,05456,05469,05472,05473,05487,05491,05734,05740,05747,05748,05753,05760,05766,05769,05770,05778,05042,05046,05050,05819,05821,05828,05832,05836,05838,05842,05843,05848,05849,05850,05851,05861,05862,05863,05866,05867,05871,05873,05401,05402,05403,05404,05405,05406,05407,05408,05439,05445,05446,05449,05451,05452,05453,05461,05462,05465,05466,05468,05477,05482,05489,05490,05494,05495,05824,05837,05840,05846,05858,05901,05902,05903,05904,05905,05906,05907,05441,05447,05448,05450,05454,05455,05457,05459,05460,05470,05471,05476,05478,05479,05481,05483,05485,05488,05440,05458,05463,05474,05486,05442,05444,05464,05492,05652,05653,05655,05656,05657,05661,05662,05665,05672,05680,05820,05822,05823,05825,05826,05827,05829,05830,05833,05839,05841,05845,05847,05853,05855,05857,05859,05860,05868,05872,05874,05875,05601,05602,05603,05604,05609,05620,05633,05640,05641,05647,05648,05650,05651,05654,05658,05660,05663,05664,05666,05667,05669,05670,05671,05673,05674,05676,05677,05678,05681,05682</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Leads for TP - Vermont</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Leads_with_Owners_For_Territory_Planning__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Lead$mkto71_Acquisition_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

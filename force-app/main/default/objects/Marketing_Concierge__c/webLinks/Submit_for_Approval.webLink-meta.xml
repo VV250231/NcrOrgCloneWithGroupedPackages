@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Submit_for_Approval</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Submit for Approval</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/10.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/10.0/apex.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/PartnerCentral/resource/Jquery/js/jquery-1.7.1.min.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/PartnerCentral/resource/Jquery/js/jquery-ui-1.8.17.custom.min.js&quot;)}
+
+
+var pathname = window.location.pathname;
+
+
+
+
+
+
+//Appending the Css (Code Change as Bill Board HTml element was moving out) 
+var fileref = document.createElement(&apos;link&apos;); 
+fileref.setAttribute(&apos;rel&apos;, &apos;stylesheet&apos;); 
+fileref.setAttribute(&apos;type&apos;, &apos;text/css&apos;); 
+fileref.setAttribute(&apos;href&apos;, &apos;/PartnerCentral/resource/Jquery/css/flick/jquery-ui-1.8.17.custom.css&apos;); 
+document.getElementsByTagName(&apos;head&apos;)[0].appendChild(fileref); 
+
+
+//Dynamically Creating the Div (Code Change as Bill Board HTml element was moving out ) 
+var iDiv = document.createElement(&apos;div&apos;); 
+iDiv.id = &apos;dialog&apos;; 
+iDiv.className = &apos;dialog&apos;; 
+document.getElementsByTagName(&apos;body&apos;)[0].appendChild(iDiv); 
+
+// Now create and append to iDiv (Code Change as Bill Board HTml element was moving out ) 
+var innerDiv = document.createElement(&apos;div&apos;); 
+innerDiv.id =&apos;dialogContent&apos;; 
+innerDiv.className = &apos;dialogContent&apos;; 
+iDiv.appendChild(innerDiv); 
+
+//Getting the DOM Ready (Code Change as Bill Board HTml element was moving out ) 
+var $j10 = jQuery.noConflict(); 
+
+$j10(document).ready(function() { 
+$j10(&quot;#dialog&quot;).dialog({ autoOpen: false, modal: true ,position: &apos;center&apos;}); 
+}) 
+
+
+
+result = sforce.apex.execute(&quot;MarketingConciergeApproval&quot;,&quot;submitForApproval&quot;, 
+{ 
+recordId:&apos;{!Marketing_Concierge__c.Id}&apos; , 
+userId:&apos;{!$User.Id}&apos; 
+
+}); 
+
+
+
+
+
+
+OpenDialogAkamaiFixedWidth(&apos;0.2&apos;,&apos;400&apos;,&apos;&apos;+result ,&apos;Information&apos;); 
+
+
+
+
+//Function to open the dialog (Code Added as Bill Board HTml element was moving out ) 
+function OpenDialogAkamaiFixedWidth(height, width,body,subject){ 
+
+$j10(&quot;#dialogContent&quot;).html(body); 
+var wWidth = $j10(window).width(); 
+var dWidth = width; 
+var wHeight = $j10(window).height(); 
+var dHeight = wHeight * height; 
+
+$j10(&apos;#dialog&apos;).dialog(&apos;option&apos;, &apos;position&apos;, [wWidth/2-dWidth/2,wHeight/2-dHeight/2]); 
+$j10(&quot;#dialog&quot;).dialog(&quot;open&quot;); 
+$j10(&apos;#dialog&apos;).dialog(&quot;option&quot; , &quot;title&quot; , subject); 
+
+
+$j10(&apos;#dialog&apos;).dialog( &quot;option&quot;, &quot;height&quot;, dHeight ); 
+$j10(&apos;#dialog&apos;).dialog( &quot;option&quot;, &quot;width&quot;, dWidth ); 
+$j10(&apos;.ui-widget-overlay&apos;).css({&apos;background-color&apos;:&apos;#000&apos;}); 
+$j10(&apos;#dialog&apos;).parent().css({&apos;position&apos;:&apos;fixed&apos;}); 
+
+var position = $j10(&apos;#dialog&apos;).dialog(&apos;option&apos;, &apos;position&apos;); 
+$j10(&apos;#dialog&apos;).dialog(&apos;option&apos;, &apos;position&apos;, &apos;center&apos;); 
+
+
+$j10(&quot;#dialog&quot;).dialog({ buttons: [ 
+{ 
+text: &quot;Close&quot;, 
+click: function() { 
+
+$j10(this).dialog(&quot;close&quot;); 
+$j10(&quot;#dialog&quot;).dialog().parent(&apos;.ui-dialog&apos;).find(&apos;.ui-dialog-titlebar-close&apos;).hide();
+var pathname = window.location.pathname;
+window.location = pathname;
+} 
+} 
+]}); 
+
+$j10(&quot;#dialog&quot;).dialog().parent(&apos;.ui-dialog&apos;).find(&apos;.ui-dialog-titlebar-close&apos;).hide(); 
+
+return false; 
+}</url>
+</WebLink>

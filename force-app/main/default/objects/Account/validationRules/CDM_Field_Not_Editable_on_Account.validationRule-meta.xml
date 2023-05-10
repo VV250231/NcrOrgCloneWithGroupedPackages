@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CDM_Field_Not_Editable_on_Account</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+OR(OR(
+ISCHANGED(LOB__c),
+ISCHANGED(Interface_Source__c),
+ISCHANGED(MDM_Customer_Entity_Name__c),
+ISCHANGED(MDM_Customer_Entity_Nbr__c),
+ISCHANGED(MDM_Enterprise_Name__c),
+ISCHANGED(MDM_Enterprise_Nbr__c),
+ISCHANGED(MDM_Industry_Code__c),
+ISCHANGED(MDM_Industry_Name__c),
+ISCHANGED(MDM_Sub_Industry_Code__c),
+ISCHANGED(MDM_Sub_Industry_Name__c),
+ISCHANGED(MDM_Data_Source_Code__c),
+ISCHANGED(MDM_Data_Source_Name__c),
+ISCHANGED(MDM_Sales_Channel_Code__c),
+ISCHANGED(MDM_ERP_Country_Entity_Code__c),
+ISCHANGED(MDM_ERP_Country_Entity_Name__c),
+ISCHANGED(MDM_Billing_Location_Country_Code__c),
+ISCHANGED(MDM_Shipping_Location_Country_Code__c),
+ISCHANGED(MDM_Brand_Code__c),
+ISCHANGED(MDM_Brand_Name__c),
+ISCHANGED(Account_CDM_ID__c),
+ISCHANGED(Master_Customer_Number__c),
+ISCHANGED(CDM_Account_Status__c),
+ISCHANGED(Industry),
+ISCHANGED(CDM_Account_Type__c),
+ISCHANGED(Account_Country_Code__c),
+ISCHANGED(Account_Name_Local__c),
+ISCHANGED(Global_Sales_Org_Code__c),
+ISCHANGED(CDM_Account_Manager__c),
+ISCHANGED(Customer__c),
+ISCHANGED(Billing_Latitude_Geocode__c),
+ISCHANGED(Billing_Longitude_Geocode__c),
+ISCHANGED(Customer_Source__c),
+ISCHANGED(CDM_IsMerged__c),
+ISCHANGED(NAICS_Code__c),
+ISCHANGED(Sic),
+ISCHANGED(Active_Account__c),
+ISCHANGED(CDM_Sub_Account_Type__c),
+ISCHANGED(CDM_Customer_Local_Language__c),
+ISCHANGED(CDM_SMB_Flag__c),
+ISCHANGED(RecordTypeId),
+ISCHANGED(Source_System_Number__c)
+),
+AND(OR(ISCHANGED(BillingStreet),
+ISCHANGED(BillingCity),
+ISCHANGED(BillingState),
+ISCHANGED(BillingPostalCode),
+ISCHANGED(BillingCountry)),
+MDM_Data_Source_Code__c = &apos;CDM&apos;))
+,$Profile.Name &lt;&gt; &apos;Soup Integration&apos;
+,$Profile.Name &lt;&gt; &apos;iPaas Administration&apos;
+,$Profile.Name &lt;&gt; &apos;Data Backup and Recovery Admin&apos;
+,UpdateByLeadConversion__c &lt;&gt; &apos;Y&apos;,
+$User.Id &lt;&gt; &apos;00570000002UuqZ&apos;,
+$User.Id &lt;&gt; &apos;0054u000006YICT&apos;,
+$User.Id &lt;&gt; &apos;00570000001rke3&apos;,
+$User.Id &lt;&gt; &apos;00570000005G7k8&apos;
+,Interface_Source__c &lt;&gt; &apos;Salesforce&apos;)</errorConditionFormula>
+    <errorMessage>CDM related Account Details Are Non Editable in Salesforce.If you want to make any update on it then it must be updated in CDM portal.</errorMessage>
+</ValidationRule>

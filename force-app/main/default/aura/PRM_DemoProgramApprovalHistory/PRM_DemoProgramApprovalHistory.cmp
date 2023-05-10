@@ -1,0 +1,313 @@
+<aura:component controller="PRM_DemoProgramApprovalHistory" 
+                implements="force:lightningQuickActionWithoutHeader,force:hasRecordId,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes">
+    
+    <aura:attribute name="approvalHistory" type="PRM_DemoProgramApprovalHistory.HistoryDetails[]"/>
+    <aura:attribute name="rejectionReasons" type="String[]"/>
+    
+    <aura:attribute name="objDP" type="Demo_Program__c"/>
+    
+    <aura:attribute name="approveLink" type="Boolean" default="false"/>
+    <aura:attribute name="showLink" type="Boolean" default="false"/>
+    
+    <aura:attribute name="isRejection" type="Boolean" default="false"/>
+    <aura:attribute name="strComment" type="String"/>
+    
+    <aura:attribute name="fileName" type="String" default="No File Selected.."/>
+    
+    <aura:attribute name="processInstanceWorkitemId" type="String"/>
+    
+    <aura:attribute name="isApprovalWithoutUpdateRecord" type="Boolean" default="false"/>
+    <aura:attribute name="isApprovalWithUpdateRecord" type="Boolean" default="false"/>
+    
+    <aura:attribute name="showLoadingSpinner" type="Boolean" default="false"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" /><!--Client-side Controller-->
+    <aura:handler event="force:refreshView" action="{!c.isRefreshed}" />
+    
+    <table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal slds-no-row-hover">
+        <thead>
+            <tr class="slds-text-heading_label">
+                <th class = "bgHeader">Action</th>
+                <th class = "bgHeader">Date</th>
+                <th class = "bgHeader">Status</th>
+                <th class = "bgHeader">Approver</th>
+                <th class = "bgHeader">Actual Approver</th>
+                <th class = "bgHeader">Comments</th>
+                <th class = "bgHeader">Overall Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.approvalHistory}" var="d">
+                <tr>   
+                    <aura:if isTrue="{!and(d.lstDetail[0]!=' ', d.lstDetail[1]==' ')}">
+                        
+                        <td class = "bgColour step">
+                            <b>{!d.lstDetail[0]}</b>
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!and(d.lstDetail[0]!=' ' ,d.lstDetail[2]== 'Pending')}">
+                        <td>
+                            <aura:if isTrue="{!v.showLink}">
+                                <a href="{! '/' + v.processInstanceWorkitemId + '/e?et=REASSIGN&#38;retURL=' + v.recordId }" target="_parent" >
+                                    Reassign
+                                </a>
+                            </aura:if>                                
+                            
+                            <aura:if isTrue="{!!v.showLink }"> | </aura:if>
+                            &nbsp;
+                            <aura:if isTrue="{!v.showLink}" >
+                                <a onclick="{!c.openApprovalModal}">
+                                	Approve
+                                </a>
+                            </aura:if>
+                            <aura:if  isTrue="{!v.showLink }"> | </aura:if>
+                            
+                            <aura:if isTrue="{!!v.showLink}"> | </aura:if>
+                            <aura:if isTrue="{!v.showLink}">
+                                <a onclick="{!c.openRejectionModal}">
+                                    Reject
+                                </a>
+                            </aura:if>
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!d.lstDetail[0]==' ' }">
+                        <td>
+                            {!d.lstDetail[0]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!d.lstDetail[0]=='Approve / Reject'}">
+                        <td>
+                            {!d.lstDetail[1]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!d.lstDetail[0]==' ' }">
+                        <td>
+                            {!d.lstDetail[1]}
+                        </td>
+                    </aura:if>    
+                    <aura:if isTrue="{!and(d.lstDetail[0]!=' ' , d.lstDetail[0]!= 'Approve / Reject')}">
+                        <td class = "bgColour">
+                            {!d.lstDetail[1]}
+                        </td>
+                    </aura:if>            
+                    <aura:if isTrue="{!and(d.lstDetail[0]!=' ' , d.lstDetail[0]!= 'Approve / Reject')}">
+                        <td class = "bgColour">
+                            {!d.lstDetail[2]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!d.lstDetail[0]=='Approve / Reject'}">
+                        <td>
+                            {!d.lstDetail[2]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!d.lstDetail[0]==' '}">
+                        <td>
+                            {!d.lstDetail[2]}
+                        </td>
+                    </aura:if>  
+                    
+                    <aura:if isTrue="{!and(d.lstDetail[0]!=' ' ,d.lstDetail[0]!= 'Approve / Reject')}">
+                        <td class = "bgColour">
+                            {!d.lstDetail[3]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!d.lstDetail[0] == 'Approve / Reject'}">
+                        <td>
+                            {!d.lstDetail[3]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!d.lstDetail[0]==' '}">
+                        <td>
+                            {!d.lstDetail[3]}
+                        </td>
+                    </aura:if>                
+                    <aura:if isTrue="{!and(d.lstDetail[0]!=' ' ,d.lstDetail[0]!= 'Approve / Reject')}">
+                        <td class = "bgColour">
+                            {!d.lstDetail[4]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!d.lstDetail[0]=='Approve / Reject'}">
+                        <td>
+                            {!d.lstDetail[4]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!d.lstDetail[0]==' '}">
+                        <td>
+                            {!d.lstDetail[4]}
+                        </td>
+                    </aura:if>                
+                    <aura:if isTrue="{!and(d.lstDetail[0]!=' ', d.lstDetail[0]!= 'Approve / Reject')}">
+                        <td class = "bgColour">
+                            {!d.lstDetail[5]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!d.lstDetail[0]=='Approve / Reject'}">
+                        <td>
+                            {!d.lstDetail[5]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!d.lstDetail[0]==' '}">
+                        <td>
+                            {!d.lstDetail[5]}
+                        </td>
+                    </aura:if>                
+                    <aura:if isTrue="{!and(and(d.lstDetail[0]!=' ', d.lstDetail[6] == ' ' ), d.lstDetail[0] != 'Approve / Reject')}">
+                        <td class = "bgColour">
+                            {!d.lstDetail[6]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!and(d.lstDetail[0]!=' ' , d.lstDetail[6] == 'Pending')}">
+                        <td class = "Pending">
+                            <img src = "/img/icon/pending12.gif" />{!d.lstDetail[6]}
+                        </td>
+                    </aura:if>                
+                    <aura:if isTrue="{!d.lstDetail[0]==' '}">
+                        <td>
+                            {!d.lstDetail[6]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!and(d.lstDetail[0]!=' ', d.lstDetail[6] == 'Approved')}">
+                        <td class = "Approved">
+                            <img src = "/img/icon/approve12.gif" />{!d.lstDetail[6]}
+                        </td>
+                    </aura:if>                                
+                    <aura:if isTrue="{!and(d.lstDetail[0]!=' ', d.lstDetail[6] == 'Rejected')}">
+                        <td class = "Rejected">
+                            <img src = "/img/icon/reject12.gif" />{!d.lstDetail[6]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!and(d.lstDetail[0]!=' ' ,d.lstDetail[6] == 'Recalled')}">
+                        <td class = "bgColourGrey">
+                            <img src = "/img/icon/recall12.gif" />{!d.lstDetail[6]}
+                        </td>
+                    </aura:if>                                
+                </tr>                
+            </aura:iteration>
+        </tbody>
+    </table>
+    
+    <aura:if isTrue="{!v.isRejection}">
+        <div class="demo-only" style="height: 640px;">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" 
+                     class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeDocModal}">
+                            X<span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Reject Demo Program</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium section-heading" id="modal-content-id-1">
+                        
+                        <div class="slds-grid slds-wrap section-body">
+                            <div class="slds-size_1-of-1 slds-medium-size_1-of-1 slds-col_padded">
+                                <div class="slds-form-element slds-hint-parent">
+                                    <span class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Pre-Approval Document Type</span>
+                                    <div class="slds-form-element__control">
+                                        <ui:inputSelect aura:id="SelectRejectionReasons"  class="slds-select_container slds-select">
+                                           
+                                        </ui:inputSelect>
+                                    </div>
+                                </div>
+                                <lightning:textarea name="comment" value="{!v.strComment}" label="Comments" maxlength="500"  aura:id="Rejection_Comment" />
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick="{!c.closeDocModal}">Cancel</button>
+                        <button class="slds-button slds-button_brand" onclick="{!c.doRejectRecord}">Reject</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+    
+    <aura:if isTrue="{!v.isApprovalWithoutUpdateRecord}">
+        <div class="demo-only" style="height: 640px;">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" 
+                     class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeDocModal}">
+                            X<span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Approve Demo Program</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium section-heading" id="modal-content-id-1">
+                        
+                        <div class="slds-grid slds-wrap section-body">
+                            <div class="slds-size_1-of-1 slds-medium-size_1-of-1 slds-col_padded">
+                                
+                                <lightning:textarea name="comment" value="{!v.strComment}" label="Comments" maxlength="500"  aura:id="Rejection_Comment" />
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick="{!c.closeDocModal}">Cancel</button>
+                        <button class="slds-button slds-button_brand" onclick="{!c.doApproveRecrodWithoutUpdate}">Approve</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+    
+    <aura:if isTrue="{!v.isApprovalWithUpdateRecord}">
+        <div class="demo-only" style="height: 640px;">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" 
+                     class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeDocModal}">
+                            X<span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Approve Demo Program</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium section-heading" id="modal-content-id-1">
+                        
+                        <div class="slds-grid slds-wrap section-body">
+                            <div class="slds-size_1-of-1 slds-medium-size_1-of-1 slds-col_padded">
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-size_1-of-1">
+                                        <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                            <div class="slds-form-element__control"> 
+                                                <lightning:input aura:id="fileId" onchange="{!c.handleFilesChange}" type="file" name="file" 
+                                                                 label="Upload Attachment" multiple="false" />
+                                                <div class="slds-text-body_small slds-text-color_error">{!v.fileName} </div>
+                                                
+                                                <!--use aura:if for show-hide the loading spinner image--> 
+                                                <aura:if isTrue="{!v.showLoadingSpinner}">
+                                                    <div class="slds-text-body_small slds-text-color_error">Uploading...
+                                                        <img src="/auraFW/resources/aura/images/spinner.gif" class="spinner-img" alt="Loading"/>
+                                                    </div>
+                                                </aura:if>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                 <div class="slds-form-element">
+                                    <label class="slds-form-element__label">Demo Price</label>
+                                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                                        <ui:inputText class="slds-input" aura:id="Demo_Price" value="{!v.objDP.Demo_Price__c}"/>
+                                    </div>
+                                </div>
+                                
+                                <lightning:textarea name="comment" value="{!v.strComment}" label="Comments" maxlength="500"  aura:id="Rejection_Comment" />
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick="{!c.closeDocModal}">Cancel</button>
+                        <button class="slds-button slds-button_brand" onclick="{!c.doApproveRecrodWitUpdate}">Approve</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+</aura:component>

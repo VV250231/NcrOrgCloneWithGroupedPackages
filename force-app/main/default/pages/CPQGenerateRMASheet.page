@@ -1,0 +1,221 @@
+<!-- ************************************** 
+Author ...............: Suraj Parihar
+Created Date..........: 31-DEC-2021
+Modified Date.........: 31-DEC-2021
+Description...........: This page includes the productId and Quantity for the RMA Quote in the form of excel sheet. 
+*************************************** --> 
+<apex:page controller="CPQRMASheetController" contentType="txt/xml#HSRExcelTemplate - Quote Builder.xls" cache="true">    
+    <apex:outputText value="{!xlsHeader}"/>
+    <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+              xmlns:o="urn:schemas-microsoft-com:office:office"
+              xmlns:x="urn:schemas-microsoft-com:office:excel"
+              xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+              xmlns:html="http://www.w3.org/TR/REC-html40"> 
+        <Styles>            
+            <Style ss:ID="s2">
+                <Alignment/>
+                <Borders/>
+                <Font ss:FontName="Calibri" ss:Size="12" ss:Color="#000000" ss:Bold="1"/>
+                <Interior/>
+                <NumberFormat/>
+                <Protection/>
+            </Style>                       
+            <Style ss:ID="s3">
+                <Alignment/>
+                <Borders/>
+                <Font ss:FontName="Calibri" ss:Size="11" ss:Color="#000000" />
+                <Interior/>
+                <NumberFormat ss:Format="General"/>
+                <Protection/>
+            </Style>
+            <Style ss:ID="s4">
+                <Alignment/>
+                <Borders/>
+                <Font ss:FontName="Calibri" ss:Size="15" ss:Color="#000000" ss:Bold="1"/>
+                <Interior/>
+                <NumberFormat/>
+                <Protection/>
+            </Style> 
+            <Style ss:ID="s5">
+   <Alignment/>
+   <Borders/>
+   <Font ss:FontName="Calibri" ss:Size="11" ss:Color="#FF0000" ss:Bold="1"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+   </Style>
+        </Styles>
+        <Worksheet ss:Name="RMA Request Form">
+            <Table x:FullColumns="1" x:FullRows="1">
+                <Column ss:Width="150"/>
+                <Column ss:Width="100"/>
+                <Column ss:Width="80"/>
+                <Column ss:Width="80"/>
+                <Column ss:Width="80"/>
+                <Column ss:Width="80"/>
+                <Column ss:Width="90"/>
+                <Column ss:Width="80"/>
+                <Column ss:Width="150"/>
+                <Column ss:Width="100"/>
+                <apex:repeat value="{!productDetails}" var="items" rows="1">
+                    <Row> 
+                        <Cell ss:StyleID="s2"><Data ss:Type="String" >From Contact:</Data></Cell>
+                        <Cell ss:MergeAcross="6" ss:StyleID="s3"><Data ss:Type="String" >{!items.Contact}</Data></Cell>
+                        <Cell ss:StyleID="s2"><Data ss:Type="String" >Phone Ext:</Data></Cell>
+                        <Cell ss:StyleID="s3"><Data ss:Type="String" >{!items.Contact}</Data></Cell> 
+                    </Row>
+                </apex:repeat>
+                <apex:repeat value="{!productDetails}" var="items" rows="1">    
+                    <Row> 
+                        <Cell ss:StyleID="s2"><Data ss:Type="String" >Requester:</Data></Cell>
+                        <Cell ss:MergeAcross="6" ss:StyleID="s3"><Data ss:Type="String" >{!items.Requester}</Data></Cell>
+                        <Cell ss:StyleID="s2"><Data ss:Type="String" >Date:</Data></Cell>
+                        <Cell ss:StyleID="s3"><Data ss:Type="String" >{!items.createDate}</Data></Cell> 
+                    </Row> 
+                </apex:repeat>
+                <Row>  </Row> 
+                <apex:repeat value="{!productDetails}" var="items" rows="1">    
+                    
+                    <Row> 
+                        <Cell ss:StyleID="s2"><Data ss:Type="String" >Client Name:</Data></Cell>
+                        <Cell ss:MergeAcross="6" ss:StyleID="s3"><Data ss:Type="String" >{!items.Client}</Data></Cell>
+                        <Cell ss:StyleID="s2"><Data ss:Type="String" >Master Customer Number:</Data></Cell>
+                        <Cell ss:StyleID="s3"><Data ss:Type="String" >{!items.mcn}</Data></Cell> 
+                    </Row> 
+                </apex:repeat>
+                <apex:repeat value="{!productDetails}" var="items" rows="1">    
+                    
+                    <Row> 
+                        <Cell ss:StyleID="s2"><Data ss:Type="String" >Site Name:</Data></Cell>
+                        <Cell ss:MergeAcross="6" ss:StyleID="s3"><Data ss:Type="String" >{!items.site_name}</Data></Cell>
+                        <Cell ss:StyleID="s2"><Data ss:Type="String" >For Use At Number:</Data></Cell>
+                        <Cell ss:StyleID="s3"><Data ss:Type="String" >{!items.use_at}</Data></Cell> 
+                    </Row>
+                </apex:repeat>                             
+                <Row>  </Row> 
+                <apex:repeat value="{!productDetails}" var="items" rows="1">
+                    <Row> 
+                        <Cell ss:StyleID="s2"><Data ss:Type="String" >ERP Order # (required)</Data></Cell>
+                        <Cell ss:MergeAcross="6" ss:StyleID="s3"><Data ss:Type="String" >{!items.ERP_Order}</Data></Cell>
+                        <Cell ss:StyleID="s2"><Data ss:Type="String" >ERP Invoice #</Data></Cell>
+                        <Cell ss:StyleID="s3"><Data ss:Type="String" >{!items.ERP_Invoice}</Data></Cell> 
+                    </Row>  
+                </apex:repeat>
+                <apex:repeat value="{!productDetails}" var="items" rows="1">
+                    <Row> 
+                        <Cell ss:StyleID="s2"><Data ss:Type="String" >Client PO #</Data></Cell>
+                        <Cell ss:MergeAcross="6" ss:StyleID="s3"><Data ss:Type="String" >{!items.Client_PO}</Data></Cell>
+                        <Cell ss:StyleID="s2"><Data ss:Type="String" >Invoice Date</Data></Cell>
+                        <Cell ss:StyleID="s3"><Data ss:Type="String" >{!items.Invoice_Date}</Data></Cell> 
+                    </Row> 
+                </apex:repeat>
+                <Row>  </Row> 
+                <Row> 
+                    <Cell ss:StyleID="s2"><Data ss:Type="String" >Return Reason Code:</Data></Cell>
+                    <Cell ss:MergeAcross="8" ss:StyleID="s3"><Data ss:Type="String" ></Data></Cell>
+                </Row>  
+                <Row> 
+                    <Cell ss:StyleID="s2"><Data ss:Type="String" >Description of Return</Data></Cell>
+                    <Cell ss:MergeAcross="8" ss:StyleID="s3"><Data ss:Type="String" >Subscription Equipment Return</Data></Cell> 
+                </Row> 
+                <Row>  </Row>
+                <Row> 
+                    <Cell ss:MergeAcross="8" ss:StyleID="s2"><Data ss:Type="String" >If inventory is not received within 90 days of receipt of the Special Return number the assigned Special Return number will be cancelled. (required)</Data></Cell>
+                </Row>  
+                <Row> 
+                    <Cell></Cell>
+                    <Cell ss:MergeAcross="3" ss:StyleID="s2"><Data ss:Type="String" >What is the condition of the equipment:</Data></Cell>
+                    <Cell></Cell>
+                    <Cell ss:MergeAcross="3" ss:StyleID="s2"><Data ss:Type="String" >Is this a partial OR full return:</Data></Cell> 
+                </Row> 
+                <Row> 
+                    <Cell></Cell>
+                    <Cell ss:MergeAcross="1" ss:StyleID="s3"><Data ss:Type="String" >NEW</Data></Cell>
+                    <Cell ss:MergeAcross="1" ss:StyleID="s5"><Data ss:Type="String" >USED</Data></Cell>
+                    <Cell></Cell>
+                    <Cell ss:MergeAcross="1" ss:StyleID="s3"><Data ss:Type="String" >FULL</Data></Cell>
+                    <Cell ss:MergeAcross="1" ss:StyleID="s3"><Data ss:Type="String" >PARTIAL</Data></Cell>
+                </Row> 
+                <Row>  </Row>
+                <Row>  </Row>
+                <Row> 
+                    <Cell ss:MergeAcross="4" ss:StyleID="s4"><Data ss:Type="String" > Item Details: (attach separate sheet, if needed) </Data></Cell>
+                </Row>
+                <Row>  </Row>
+                <Row> 
+                    <Cell ss:StyleID="s2"><Data ss:Type="String" >Part #</Data></Cell>
+                    <Cell ss:StyleID="s2"><Data ss:Type="String" >NCR PID</Data></Cell>
+                    <Cell ss:StyleID="s2"><Data ss:Type="String" >Description</Data></Cell>
+                    <Cell ss:StyleID="s2"><Data ss:Type="String" >Qty</Data></Cell> 
+                    <Cell ss:StyleID="s2"><Data ss:Type="String" >Unit Price</Data></Cell> 
+                    <Cell ss:StyleID="s2"><Data ss:Type="String" >$ to Credit</Data></Cell> 
+                </Row>  
+                
+                <apex:repeat value="{!productDetails}" var="items">
+                    <Row>
+                        <Cell ss:StyleID="s3"><Data ss:Type="String" ></Data></Cell> 
+                        <Cell ss:StyleID="s3"><Data ss:Type="String" >{!items.NCR_PID}</Data></Cell> 
+                        <Cell ss:StyleID="s3"><Data ss:Type="String" >{!items.Description}</Data></Cell>
+                        <Cell ss:StyleID="s3"><Data ss:Type="String" >{!items.Qty}</Data></Cell>
+                        <Cell ss:StyleID="s3"><Data ss:Type="String" >{!items.Unit_Price}</Data></Cell>
+                        <Cell ss:StyleID="s3"><Data ss:Type="String" >{!items.to_Credit}</Data></Cell>
+                    </Row>  
+                </apex:repeat>
+                <Row>  </Row>
+                <Row> 
+                    <Cell ss:MergeAcross="4" ss:StyleID="s2"><Data ss:Type="String">A 25% restocking fee will be assessed unless a reason code is selected that will waive the restocking fee.</Data></Cell>
+                    <Cell ss:StyleID="s2"><Data ss:Type="String" >Total Credit Amount: </Data></Cell>
+                    <Cell ss:StyleID="s3"><Data ss:Type="String" ></Data></Cell>  
+                </Row> 
+                <Row> 
+                    <Cell ss:MergeAcross="3" ss:StyleID="s2"><Data ss:Type="String">Approvals</Data></Cell>
+                    <Cell ss:MergeAcross="3" ss:StyleID="s2"><Data ss:Type="String" >Industry Approval</Data></Cell>
+                </Row> 
+                <Row> 
+                    <Cell ss:MergeAcross="3" ss:StyleID="s2"><Data ss:Type="String">up to $500 (retail)</Data></Cell>
+                    <Cell ss:MergeAcross="3" ss:StyleID="s2"><Data ss:Type="String" >Account Manager</Data></Cell>
+                </Row> 
+                <Row> 
+                    <Cell ss:MergeAcross="3" ss:StyleID="s2"><Data ss:Type="String">$501 - $5,000 (retail)</Data></Cell>
+                    <Cell ss:MergeAcross="3" ss:StyleID="s2"><Data ss:Type="String" >Client Director</Data></Cell>
+                </Row> 
+                <Row> 
+                    <Cell ss:MergeAcross="3" ss:StyleID="s2"><Data ss:Type="String">$5,001 - $10,000 (retail)</Data></Cell>
+                    <Cell ss:MergeAcross="3" ss:StyleID="s2"><Data ss:Type="String" >Industry VP</Data></Cell>
+                </Row> 
+                <Row> 
+                    <Cell ss:MergeAcross="3" ss:StyleID="s2"><Data ss:Type="String">$10,001 - $20,000 (retail)</Data></Cell>
+                    <Cell ss:MergeAcross="3" ss:StyleID="s2"><Data ss:Type="String" >Industry VP</Data></Cell>
+                </Row> 
+                <Row> 
+                    <Cell ss:MergeAcross="3" ss:StyleID="s2"><Data ss:Type="String">$20,001 above (retail)</Data></Cell>
+                    <Cell ss:MergeAcross="3" ss:StyleID="s2"><Data ss:Type="String" >E-Team</Data></Cell>
+                </Row> 
+                <Row>  </Row>
+                <Row> 
+                    <Cell ss:StyleID="s2"><Data ss:Type="String">Submit Form to :</Data></Cell>
+                </Row> 
+                <Row> 
+                    <Cell ss:StyleID="s3"><Data ss:Type="String">OrderChanges.hsrboc@ncr.com </Data></Cell>
+                </Row> 
+                <Row>  </Row>
+                <Row> 
+                    <Cell ss:StyleID="s2"><Data ss:Type="String">Return Address:</Data></Cell>
+                </Row> 
+                <Row>  </Row>
+                <Row> 
+                    <Cell ss:StyleID="s2"><Data ss:Type="String">NCR </Data></Cell>
+                </Row> 
+                <Row> 
+                    <Cell ss:StyleID="s2"><Data ss:Type="String">Return # _______ </Data></Cell>
+                </Row> 
+                <Row> 
+                    <Cell ss:StyleID="s2"><Data ss:Type="String">6000 Technology PKWY </Data></Cell>
+                </Row> 
+                <Row> 
+                    <Cell ss:StyleID="s2"><Data ss:Type="String">Midland, GA 31820 </Data></Cell>
+                </Row>     
+            </Table>
+        </Worksheet>
+    </Workbook>
+</apex:page>

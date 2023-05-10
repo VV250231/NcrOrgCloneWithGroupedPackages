@@ -1,0 +1,296 @@
+<template>
+    <div class="slds-grid slds-grid_align-end slds-gutters_xx-small">
+        <div class="slds-col">
+            <span>
+                <template if:true={yearPickList.data}>
+                    <lightning-combobox name="year" value={year} options={yearPickList.data.values}
+                        onchange={handleEvents}>
+                    </lightning-combobox>
+                </template>
+            </span>
+        </div>
+        <div class="slds-col slds-align-bottom">
+            <span>
+                <lightning-button label="New" onclick={openModal} variant="brand"></lightning-button>
+            </span>
+        </div>
+        <template if:true={revenueRecordId}>
+            <div class="slds-col slds-align-bottom">
+                <span>
+                    <lightning-button label="Edit" onclick={openModal} variant="brand"></lightning-button>
+                </span>
+            </div>
+        </template>
+    </div>
+    <template if:true={spinner}>
+        <div>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </div>
+    </template>
+    <article class="slds-card">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span class="slds-p-left_xx-small">YTD Revenue Data : {year}</span>
+                    </h2>
+                </div>
+            </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-p-horizontal_small" if:true={revenueRecordId}>
+                <lightning-record-form record-id={revenueRecordId} object-api-name="Partner_Revenue__c" mode="readonly" columns="2"
+                    fields={revenueDatafields} onsuccess={handleSuccess}>
+                </lightning-record-form>
+            </div>
+            <div class="slds-align_absolute-center slds-m-bottom_medium" if:false={revenueRecordId}>No Revenue Data available for {year}</div>
+        </div>
+    </article>
+    <!-- Net New Customer Data Start -->
+    <article class="slds-card">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span class="slds-p-left_xx-small">Net New Customer Data : {year}</span>
+                    </h2>
+                </div>
+            </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-p-horizontal_small" if:true={revenueRecordId}>
+                <lightning-record-form record-id={revenueRecordId} object-api-name="Partner_Revenue__c" mode="readonly" columns="2"
+                    fields={netNewCustomerDataFields} onsuccess={handleSuccess}>
+                </lightning-record-form>
+            </div>
+            <div class="slds-align_absolute-center slds-m-bottom_medium" if:false={revenueRecordId}>
+                No Net New Customer Data available for {year}
+            </div>
+        </div>
+    </article>
+    <!-- Net New Customer Data End -->
+    <!--MDF Data 2020 Section Start -->
+    <article class="slds-card" if:true={showMdfData}>
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span class="slds-p-left_xx-small">MDF Data : {year}</span>
+                    </h2>
+                </div>
+            </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-p-horizontal_small">
+                <lightning-record-form record-id={recordId} object-api-name="Account" mode="readonly" columns="2"
+                    fields={mdfDatafields} onsuccess={handleSuccess}>
+                </lightning-record-form>
+            </div>
+        </div>
+    </article>
+    <!-- MDF Data 2020 Section Ends-->
+    <!-- Revenues Data Table Start -->
+    <div class="table_header">
+        <h2 class="slds-card__header-title">
+            <span class="slds-p-left_xx-small">Revenues Data Table</span>
+        </h2>
+    </div>
+    <div class="slds">
+        <table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Year">Year</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Total Solution Revenue">Total Solution Revenue</div>
+                    </th>
+                    <th class="" scope="col">
+                         <!-- EBA_SF-1518 Renmaed Total Subscription Revenue to Total Cloud Revenue-->
+                        <div class="slds-truncate" title="Total Cloud Revenue">Total Cloud Revenue</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Total Subscription Revenue">Total Services Revenue</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Total Revenue">Total Revenue</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={revenueList} for:item="record">
+                    <tr class="slds-hint-parent" key={record.Id}>
+                        <td data-label="Year">
+                            <div class="slds-truncate" title="Year">
+                                <a onclick={handleEvents}>
+                                    {record.Year__c}
+                                </a>
+                            </div>
+                        </td>
+                        <td data-label="Total Solution Revenue">
+                            <div class="slds-truncate" title="Total Solution Revenue">
+                                {record.Total_Solution_Revenue__c}
+                            </div>
+                        </td>
+                        <!-- EBA_SF-1518 Renmaed Total Subscription Revenue to Total Cloud Revenue-->
+                        <td data-label="Total Cloud Revenue">
+                            <div class="slds-truncate" title="Total Subscription Revenue">
+                                {record.Total_Subscription_Revenue__c}
+                            </div>
+                        </td>
+                        <td data-label="Total Services Revenue">
+                            <div class="slds-truncate" title="Total Services Revenue">
+                                {record.Total_Services_Revenue__c}
+                            </div>
+                        </td>
+                        <td data-label="Total Revenue">
+                            <div class="slds-truncate" title="Total Revenue">
+                                {record.Total_Revenue__c}
+                            </div>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </div>
+    <!-- Revenues Data Table End -->
+    <!-- modal start -->
+    <template if:true={modalStatus}>
+        <lightning-record-edit-form record-id={currentRevenueRecordId} record-type-id="012000000000000AAA"
+            object-api-name="Partner_Revenue__c" onsuccess={handleSuccess} onerror={handleError}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_small">
+                <div class="slds-modal__container">
+                    <!-- modal header start -->
+                    <header class="slds-modal__header">
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">New Partner Revenue</h2>
+                    </header>
+                    <!-- modal body start -->
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <h3
+                            class="slds-section__title slds-theme--shade primaryPaletteBorder test-id__section-header-container">
+                            <span
+                                class="test-id__section-header-title section-header-title slds-p-horizontal--small slds-truncate">
+                                YTD Revenue Data
+                            </span>
+                        </h3>
+                        <div class="slds-grid slds-wrap slds-p-horizontal_small">
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Direct_Revenue__c"></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Indirect_Revenue__c"></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Hardware__c"></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Software__c"></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Professional_Services__c"></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Recurring_SW__c"></lightning-input-field>
+                            </div>
+
+<div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Recurring_PS__c"></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="TS__c"></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Hosted__c"></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="SaaS__c"></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="POSaaS__c"></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Revenue_to_Target__c"></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Total_Services_Revenue__c"></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Total_Solution_Revenue__c"></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Total_Subscription_Revenue__c"></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Total_Revenue__c"></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="First_Half__c"></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Second_Half__c"></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Year__c" value={year}></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Partner_Account__c"></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Min_Total_Revenue_to_Platinum__c"></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Min_total_revenue_for_next_tier__c">
+                                </lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Quota__c"></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Order_YTD__c"></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Subscription_Sites__c"></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Traditional_Sites__c"></lightning-input-field>
+                            </div>
+                        </div>
+
+                        <h3
+                            class="slds-section__title slds-theme--shade primaryPaletteBorder test-id__section-header-container slds-m-top_large">
+                            <span
+                                class="test-id__section-header-title section-header-title slds-p-horizontal--small slds-truncate">
+                                Net New Customer Data
+                            </span>
+                        </h3>
+                        <div class="slds-grid slds-wrap slds-p-horizontal_small">
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Solution_from_Net_New_Customers__c">
+                                </lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Subscription_from_Net_New_Customers__c">
+                                </lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Net_New_Customer_Revenue__c"></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Percent_of_Total_Rev_Net_New_Cust__c">
+                                </lightning-input-field>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- modal footer start-->
+                    <footer class="slds-modal__footer">
+                        <lightning-button label="Cancel" onclick={closeModal}></lightning-button>
+                        <lightning-button class="slds-m-around_small" type="submit" variant="brand" label="Save"></lightning-button>
+                    </footer>
+                </div>
+            </section>
+        </lightning-record-edit-form>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <!-- modal end -->
+</template>

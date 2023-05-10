@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Populate_Sales_Org_Code</fullName>
+        <field>Sales_Org_Code__c</field>
+        <formula>Anaplan_Sales_Org_Code__c</formula>
+        <name>Populate Sales Org Code</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Populate Sales Org Code field Rule</fullName>
+        <actions>
+            <name>Populate_Sales_Org_Code</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>LEN( Anaplan_Sales_Org_Code__c ) = 9</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

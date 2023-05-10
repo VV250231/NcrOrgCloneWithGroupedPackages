@@ -1,0 +1,24 @@
+<apex:page standardController="Account" extensions="NCRUPartnerCertifications" sidebar="false" showheader="false">
+     <apex:form >
+        <apex:pageblock >
+            
+            <apex:pageblocktable value="{!lstCertification}" var="rec" rendered="{!lstCertification.size > 0}"> 
+                <apex:column headerValue="Certification Name">
+                    <apex:outputLink value="{!URLFOR($Action.Certification__c.View, rec.id)}" target="_blank" >
+                        {!rec.name}
+                    </apex:outputLink>
+                </apex:column> 
+                
+                <apex:column value="{!rec.Contact__r.Name}" headerValue="Contact Name" />
+                <apex:column value="{!rec.Curriculum_Number__c}" headerValue="Curriculum Number" />
+                <apex:column value="{!rec.Transcript_Status__c}" headerValue="Transcript Status" />
+                <apex:column value="{!rec.Transcript_Completion_Date__c}" headerValue="Transcript Completion Date" />
+                <apex:column value="{!rec.Transcript_Registration_Date__c}" headerValue="Transcript Registration Date" />
+            </apex:pageblocktable>
+            
+            <apex:outputPanel rendered="{!lstCertification.size = 0}">
+                No Records found.
+            </apex:outputPanel>
+        </apex:pageblock>
+    </apex:form> 
+</apex:page>

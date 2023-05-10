@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>MDF Cancellation Email Template</name>
+    <style>none</style>
+    <subject>{!SFDC_MDF__c.Name} - Cancellation -  {!SFDC_MDF__c.Request_ID__c}</subject>
+    <textOnly>Dear {!SFDC_MDF__c.OwnerFullName},
+
+Per your request MDF activity associated with {!SFDC_MDF__c.Request_ID__c} has been cancelled. If this is incorrect, please inform us immediately at interact.operations@ncr.com. 
+
+Regards,
+
+NCR Interact Partner Programs Team</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

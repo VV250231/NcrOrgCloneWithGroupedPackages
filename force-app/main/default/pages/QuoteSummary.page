@@ -1,0 +1,121 @@
+<apex:page sidebar="false" tabStyle="zqu__Quote__c" standardController="zqu__Quote__c" extensions="QuoteSummaryController" action="{!initAction}">
+    <head>
+    <apex:includeScript value="{!$Resource.jquery_1_11_3}"/>
+    <script type="text/javascript">
+
+    $(document).ready(function(){
+        $(".tiers-section").hide();
+        //$(".tiers-link").hide();
+        
+        $(".tiers-link").click(function(){
+            console.log("click on tier link:this:"+this);
+            console.log("click on tier link:$(this):"+$(this));
+            $(this).next().toggle();
+            if($(this).next().is(":visible")) $(this).html("Hide Tiers");
+            else $(this).html("Show Tiers")
+        });
+    });
+
+    </script>
+    <style>
+    tr.odd {
+        background-color:#eee;
+    }
+    </style>
+    </head>
+
+    <apex:sectionHeader title="Quote Summary ({!subscriptionType})"
+        subtitle="{!qt.Name}" id="quoteTitle" />
+    <apex:pageMessages />    
+    
+    <apex:pageBlock title="ERROR!" rendered="{!hasInitError}">
+        <apex:pageBlockButtons location="top">
+            <apex:form >
+                <apex:commandButton value="Cancel" action="{!cancel}"/>
+            </apex:form>
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+
+    <apex:pageBlock title="{!pageBlockTitle}" rendered="{!NOT(hasInitError)}">
+        <apex:pageBlockButtons location="top">
+            <apex:form >
+                <apex:commandButton value="Back to Quote" action="{!cancel}"/>
+            </apex:form>
+        </apex:pageBlockButtons>
+        <apex:pageBlockTable value="{!changes}" var="r" width="70%">
+            <apex:column style="width:110px">
+                <apex:facet name="header">Billing Action</apex:facet>
+             {!r.action}
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">Name</apex:facet>
+             {!r.ratePlanName}
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">Product Name</apex:facet>
+             {!r.productName}
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">Ramp</apex:facet>
+                {!r.ramp}
+            </apex:column>
+            <apex:column rendered="{!NOT(isNew)}">
+                <apex:facet name="header">Original Price</apex:facet>
+                <c:Currency value="{!r.price}"/>
+            </apex:column>
+            <apex:column width="190px" >
+                <apex:facet name="header">Quote Price</apex:facet>
+                <c:Currency value="{!r.quotePrice}" rendered="{!NOT(r.hasTiers)}"/>
+                <apex:outputLink value="javascript:void(0);" styleClass="tiers-link" rendered="{!r.hasTiers}">Show Tiers</apex:outputLink>
+                <apex:outputPanel styleClass="tiers-section" rendered="{!r.hasTiers}">
+                <table width="100%">
+                    <tr>
+                        <td>Tier</td>
+                        <td>Starting</td>
+                        <td>Ending</td>
+                        <td>Price</td>
+                    </tr>
+                    <apex:repeat value="{!r.tiers}" var="t">
+                    <tr>
+                        <td>{!t.tier}</td>
+                        <td>{!t.startingUnit}</td>
+                        <td>{!t.endingUnit}</td>
+                        <td><c:Currency value="{!t.effectivePrice}"/></td>
+                    </tr>
+                    </apex:repeat>
+                </table>
+                </apex:outputPanel>
+            </apex:column>
+            <apex:column rendered="{!NOT(isNew)}">
+                <apex:facet name="header">Original Quantity</apex:facet>
+             {!r.quantity}
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">Quote Quantity</apex:facet>
+             {!r.quoteQuantity}
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">Delta MRR</apex:facet>
+                <c:Currency value="{!r.deltaMRR}"/>
+            </apex:column>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+
+    <apex:pageBlock title="Quote Products" rendered="{!NOT(hasInitError)}">
+        <apex:pageBlockTable value="{!quoteProducts}" var="qp">
+            <apex:column >
+                <apex:facet name="header">Provisioning Action</apex:facet>
+                <apex:outputText value="{!qp.action}"/>
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">Product</apex:facet>
+                <apex:outputText value="{!qp.productName}"/>
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">Solution Provider Product</apex:facet>
+                <apex:outputText value="{!qp.solutionProviderProduct}"/>
+            </apex:column>
+
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:page>

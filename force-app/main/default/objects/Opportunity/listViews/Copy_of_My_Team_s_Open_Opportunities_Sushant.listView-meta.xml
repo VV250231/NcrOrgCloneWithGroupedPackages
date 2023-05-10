@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Copy_of_My_Team_s_Open_Opportunities_Sushant</fullName>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>OPPORTUNITY.AMOUNT</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>Forecast_Category__c</columns>
+    <columns>OPPORTUNITY.CLOSE_DATE</columns>
+    <columns>Hardware_Products__c</columns>
+    <columns>Software_Products__c</columns>
+    <columns>PS_Products__c</columns>
+    <columns>TS_Product_Total__c</columns>
+    <columns>Payments_Attached__c</columns>
+    <columns>CORE.USERS.LAST_NAME</columns>
+    <columns>Age_Actual__c</columns>
+    <filterScope>SalesTeam</filterScope>
+    <filters>
+        <field>OPPORTUNITY.STAGE_NAME</field>
+        <operation>notEqual</operation>
+        <value>Closed/Booked,Closed/Booked - NonFunnel,Closed/Lost</value>
+    </filters>
+    <label>Test of My Team&apos;s Open Opportunities</label>
+</ListView>

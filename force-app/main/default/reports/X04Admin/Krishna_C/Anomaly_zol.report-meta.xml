@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>FIRST_NAME</field>
+    </columns>
+    <columns>
+        <field>LAST_NAME</field>
+    </columns>
+    <columns>
+        <field>PROFILE</field>
+    </columns>
+    <columns>
+        <field>USERNAME</field>
+    </columns>
+    <columns>
+        <field>ALIAS</field>
+    </columns>
+    <columns>
+        <field>ACTIVE</field>
+    </columns>
+    <columns>
+        <field>LAST_LOGIN</field>
+    </columns>
+    <columns>
+        <field>ROLE</field>
+    </columns>
+    <currency>USD</currency>
+    <description>This report is on the users whose role is not Partner or Channel.</description>
+    <filter>
+        <criteriaItems>
+            <column>ROLE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>FIN-SEA-SG-TEAM1-MGR,FIN-SEA-DIRECTOR,FIN-SPA-REGION-MGR,FIN-GC-CHINA-TEAM1-SALES,FIN-GC-CHINA-TEAM1-MGR,FIN-NAMER-MAJORS-MID-WEST-MGR,FIN-NAMER-MAJORS-NE,FIN-NAMER-MAJORS-NE-MGR,FIN-NAMER-MAJORS-OVERLAY-MGR,FIN-NAMER-MAJORS-SE,FIN-NAMER-MAJORS-SE-MGR,IPS Sls Account Manager - NZ,IPS Sls Acct Manager - UK Netherlands,Deals Desk,Deals Desk AMEA,Deals Desk Americas,Deals Desk Europe,FIN-GC-CHINA-REGION-MGR,FIN-GC-CHINA-REGION-TEAM1-SALES,FIN-GC-CHINA-TEAM2-MGR,FIN-GC-CHINA-TEAM3-SALES,FIN-GC-CHINA-TEAM3-MGR,FIN-CLABR-CHILE,FIN-GC-CHINA-TEAM2-SALES,FIN-EUR-NORTHERN-GERMANY-DATA CENTER-MGR,FIN-EUR-NORTHERN-GERMANY-DATA-CTR-SALES,FIN-EUR-NORTHERN-GERMANY-LARGE ACCTS-MGR,FIN-EUR-EASTERN-POLAND-MGR,FIN-EUR-EASTERN-SEE-TEAM1-SALES,FIN-EUR-SOUTHERN-BELG-TEAM1-SALES,FIN-EUR-SOUTHERN-NER-NORDICS-TEAM1-SALES,FIN-EUR-OVERLAY-MGR,FIN-EUR-RUSSIA-OVERLAY,FIN-EUR-RUSSIA-UKRAINE,FIN-EUR-UK-NATIONWIDE/DEV,FIN-EUR-UK-SCOTLAND-MGR,FIN-IMEA-AFR-EGY-ZIM,FIN-IMEA-AFR-KEN,FIN-IMEA-AFR-TEAM2-MGR,FIN-IMEA-AFR-TEAM4,FIN-IMEA-AFR-TEAM4-MGR,FIN-NAMER-CFI-NE-CS,FIN-IMEA-PAK-MGR,FIN-IMEA-SERVICE-MGR,FIN-JAPAN-OVERLAY,FIN-NAMER-CFI-CENTRAL-CS,FIN-NAMER-CFI-CONVERSION-MGR,FIN-NAMER-CFI-MIDATLANTIC-CS,FIN-NAMER-CFI-MOUNT,FIN-NAMER-CFI-MOUNT-CS,FIN-NAMER-CFI-MOUNT-MGR,FIN-NAMER-CFI-SC</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Inactive User Roles Anomaly</name>
+    <params>
+        <name>active</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>User</reportType>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>LAST_LOGIN</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>LAST_LOGIN</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

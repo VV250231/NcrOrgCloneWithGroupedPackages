@@ -1,0 +1,188 @@
+<!--
+    Visual force page was created to capture the Annual Incentive  for the Opt in Program/
+    Date of developement - 1/18/2017
+    Developer - rahul Gaira (rg250274@ncr.com)
+
+-->
+
+<apex:page id="thePage" controller="incentiveProgramCon" >
+     <style>
+            li{
+      margin: 10px 0;
+    }
+     .hideListButton {
+        background-color:#55B949 !important;
+    }
+    
+    .showListButton {
+        background-color:#55B949 !important;
+    }
+    
+    table {
+    
+    border-collapse: collapse;
+    width: 100%;
+    }
+    
+    .tg  {border-collapse:collapse;border-spacing:0;margin:0px auto;width:100%; }
+    .tg td{font-family:Arial, sans-serif;font-size:12px;padding:10px 5px;border-style:solid;border-width:4px;overflow:hidden;word-break:normal;}
+    .tg th{font-family:Arial, sans-serif;font-size:12px;font-weight:normal;padding:10px 5px;border-style:solid;text-align:center;border-width:4px;overflow:hidden;word-break:normal;}
+    .tg .tg-jyz8{font-weight:bold;font-size:14px;background-color:#CACBCC;vertical-align:middle;}
+    .tg .tg-le8v{background-color:#E6E9EB;vertical-align:top;text-align:center;}
+    .tg .tg-6qw1{background-color:#E6E9EB;text-align:center;vertical-align:middle;padding:25px 5px;}
+    
+    
+    .tg1  {border-collapse:collapse;border-spacing:0;margin:3px auto;}
+.tg1 td1{font-family:Arial, sans-serif;font-size:12px;padding:10px 5px;border-style:solid;border-width:4px;overflow:hidden;word-break:normal;}
+.tg1 th1{font-family:Arial, sans-serif;font-size:12px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:4px;overflow:hidden;word-break:normal;}
+.tg1 .tg1-h2g2{font-weight:bold;font-size:14px;background-color:#CACBCC;text-align:center;vertical-align:top}
+.tg1 .tg1-0wez{font-weight:bold;font-size:14px;background-color:#CACBCC;text-align:center}
+.tg1 .tg1-62b7{background-color:#E6E9EB;color:#333333;text-align:center}
+.tg1 .tg1-xrgm{background-color:#E6E9EB;color:#333333;text-align:center;vertical-align:top}
+    </style>
+    <apex:outputPanel layout="block" style="margin-left:100px;margin-right:100px;">
+    <apex:form id="theform"  style="font-size:13px;">
+        <apex:pageMessages ></apex:pageMessages>
+        
+        <apex:pageBlock id="theblock" title="Annual Quota Incentive" >
+        <apex:pageMessage rendered="{! EnrolledPrograms.size > 0}" severity="INFO" strength="2" summary="Per our records, you have already enrolled in the Annual Quota Incentive Program. No further action is required." ></apex:pageMessage>
+            <apex:pageBlockSection collapsible="true" title="Incentive Summary" columns="1">
+           
+                <p><apex:outputPanel > Opt in by: <apex:outputText value="{0, date, M/d/yyyy}"> <apex:param value="{! enrollExpDate }" /> </apex:outputText> </apex:outputPanel></p>
+                <br/> 
+               
+                <p>
+                 Partners who exceed their assigned quota (101-120%) will receive a percentage rebate on the overage through the Annual Quota Incentive.</p>
+                <br/> 
+                
+                 <table class="tg">
+                  <tr>
+                       <th class="tg-jyz8">Level</th>
+                       <th class="tg-jyz8">Quota Achievement</th>
+                       <th class="tg-jyz8">Rebate<br/>Percentage</th>
+                       
+                  </tr>
+                  <tr>
+                        <td class="tg-le8v">Premier Partners</td>
+                        <td class="tg-le8v" >
+                        
+                        101 -120%</td>
+                        <td class="tg-le8v">3%</td>
+                  </tr>
+                  <tr>
+                        <td class="tg-le8v">Elite Partners</td>
+                        <td class="tg-le8v" >
+                        
+                        101 -120%</td>
+                        <td class="tg-le8v">5%</td>
+                  </tr>
+                
+            </table>
+            
+              <br/>
+                <br/>
+                
+                <p style="font-weight:bold;">Example:</p>
+                 <br/>
+              <table class="tg1">
+  <tr>
+    <th class="tg1-0wez">Partner</th>
+    <th class="tg1-0wez">Partner Quota</th>
+    <th class="tg1-0wez">Partner Solution<br/>Revenue </th>
+    <th class="tg1-h2g2">Overachievement</th>
+    <th class="tg1-h2g2">Rebate<br/>Percentage</th>
+    <th class="tg1-h2g2">Rebate<br/>Amount</th>
+  </tr>
+  <tr>
+    <td class="tg1-62b7">Premier Partner</td>
+    <td class="tg1-62b7">$2,000,000</td>
+    <td class="tg1-62b7">$2,200,000</td>
+    <td class="tg1-xrgm">$200,000</td>
+    <td class="tg1-xrgm">3%</td>
+    <td class="tg1-xrgm">$6,000</td>
+  </tr>
+  <tr>
+    <td class="tg1-62b7">Premier Partner</td>
+    <td class="tg1-62b7">$2,000,000</td>
+    <td class="tg1-62b7">$2,400,000</td>
+    <td class="tg1-xrgm">$400,000</td>
+    <td class="tg1-xrgm">3%</td>
+    <td class="tg1-xrgm">$12,000</td>
+  </tr>
+  <tr>
+    <td class="tg1-xrgm">Elite Partner</td>
+    <td class="tg1-xrgm">$5,000,000</td>
+    <td class="tg1-xrgm">$5,500,000</td>
+    <td class="tg1-xrgm">$500,000</td>
+    <td class="tg1-xrgm">5%</td>
+    <td class="tg1-xrgm">$25,000</td>
+  </tr>
+  <tr>
+    <td class="tg1-xrgm">Elite Partner</td>
+    <td class="tg1-xrgm">$5,000,000</td>
+    <td class="tg1-xrgm">$6,000,000</td>
+    <td class="tg1-xrgm">$1,000,000</td>
+    <td class="tg1-xrgm">5%</td>
+    <td class="tg1-xrgm">$50,000</td>
+  </tr>
+</table>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection collapsible="true" title="Partner Details" rendered="{! partAct != null}" columns="1">
+                <apex:pageBlockSectionItem > Partner Name - <apex:outputText >{! partAct.Name}</apex:outputText></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem > Channel Account Manager  - <apex:outputText >{! partAct.Owner.Name}</apex:outputText></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem > Master Customer number  - <apex:outputText >{! mcn }</apex:outputText></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    Current Date -
+                    <apex:outputText value="{0, date, M/d/yyyy}"> 
+                        <apex:param value="{!NOW()}" />
+                    </apex:outputText>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection collapsible="true" title="Terms & Conditions: " columns="1">
+                <ul type="disc">
+
+                    <li>Partner must be an Elite or Premier Interact Partner </li>
+                    <li>Partner is responsible for local tax regulations and taxes associated with the incentive prizes </li>
+                    <li>Partner must have accepted their quota letter provided by NCR</li>
+                    <li>Annual Quota Incentives will be evaluated 60 days after the year has ended</li>
+                    <li>Total Solution Revenue is defined as the total of hardware and software revenue, by the Partner within the calendar year (1/1/2017-12/31/2017). Revenue is recognized when the Product has shipped.</li>
+                    <li>Incentive rebates are awarded up to 101-120% of quota achievement only</li>
+                    <li> Partner must be active in the Interact Program as of January 1, 2017 and must be in good standing with NCR</li>
+                    
+                </ul>
+                  </apex:pageBlockSection>
+            <apex:pageBlockSection id="thesection" rendered="{! partAct != null && EnrolledPrograms.size < 1}" columns="1">
+                <apex:pageBlockSectionItem id="thesectionItem">
+                    <apex:inputCheckbox id="ackCheck" value="{! isAgree}"/> I acknowledge and accept these terms and conditions and have the authority to enter {! partAct.Name} into these sales incentive programs.
+                    
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom" rendered="{! EnrolledPrograms.size < 1}">
+                <apex:commandButton value="Submit" onclick="return checkAcknowledge()" action="{! submit}"/> 
+                <apex:commandButton value="Back" action="{! redirectBack}"/>       
+                </apex:pageBlockButtons>
+                </apex:pageBlock>
+                
+                
+                
+                
+       </apex:form>
+    </apex:outputPanel>
+    
+    <script>
+        function checkAcknowledge()
+    {
+        
+        var acknowledgecheck = document.getElementById('thePage:theform:theblock:thesection:thesectionItem:ackCheck');
+       
+         if (acknowledgecheck.checked){
+             return true;
+         }
+         else{
+             alert('You must acknowledge and accept the terms and conditions before you can submit.');
+             return false;
+         }
+    }
+    </script>
+</apex:page>

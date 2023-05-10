@@ -1,0 +1,54 @@
+<messaging:emailTemplate subject="Quote {!relatedTo.CPQ_Quote_Reference__r.qtc_Payments_Solution__c} Approval - REQUESTED: {!relatedTo.CPQ_Quote_Reference__r.Name} for {!relatedTo.CPQ_Quote_Reference__r.SBQQ__Opportunity2__r.Name}"
+recipientType="User"
+relatedToType="sbaa__Approval__c">
+<messaging:HtmlEmailBody >
+<html>
+<body>
+
+Hello {!recipient.name},
+
+<p>{!relatedTo.CPQ_Quote_Reference__r.Owner.Name} is requesting your approval for a Quote, please see below.<br/></p>
+
+<p><b>Quote Name: </b>&nbsp;<apex:outputLink value="{!LEFT($Api.Enterprise_Server_URL_300, FIND('/services',$Api.Enterprise_Server_URL_300))}/{!relatedTo.CPQ_Quote_Reference__r.Id}" >{!relatedTo.CPQ_Quote_Reference__r.Name}</apex:outputLink><br/>
+
+<b>Opportunity Name: </b>&nbsp;<apex:outputLink value="{!LEFT($Api.Enterprise_Server_URL_300, FIND('/services',$Api.Enterprise_Server_URL_300))}/{!relatedTo.CPQ_Quote_Reference__r.SBQQ__Opportunity2__r.Id}" >{!relatedTo.CPQ_Quote_Reference__r.SBQQ__Opportunity2__r.Name}</apex:outputLink><br/>
+
+<b>Site Name: </b>{!relatedTo.CPQ_Quote_Reference__r.qtc_Bill_To_Site__r.Name}<br/>
+<b>Site Address: </b>{!relatedTo.CPQ_Quote_Reference__r.qtc_Bill_To_Site__r.BillingStreet}<br/>
+{!relatedTo.CPQ_Quote_Reference__r.qtc_Bill_To_Site__r.BillingCity}, {!relatedTo.CPQ_Quote_Reference__r.qtc_Bill_To_Site__r.BillingState} {!relatedTo.CPQ_Quote_Reference__r.qtc_Bill_To_Site__r.BillingPostalCode}<br/>
+{!relatedTo.CPQ_Quote_Reference__r.qtc_Bill_To_Site__r.BillingCountry}<br/>
+
+<p><b>Initial Term: </b><apex:outputText value="{0, number, ###,###,###,###.##}"><apex:param value="{!relatedTo.CPQ_Quote_Reference__r.SBQQ__SubscriptionTerm__c}" /></apex:outputText><br/>
+<b>Billing Period: </b>{!relatedTo.CPQ_Quote_Reference__r.SBQQ__BillingFrequency__c}<br/>
+<b>Payments Solution: </b>{!relatedTo.CPQ_Quote_Reference__r.qtc_Payments_Solution__c}<br/>
+<b>Annual Volume: </b><apex:outputText value="{0, number, $###,###,###,###.##}">
+       <apex:param value="{!relatedTo.CPQ_Quote_Reference__r.qtc_Annual_Volume__c}" />
+ </apex:outputText><br/>
+<b>Average Check: </b><apex:outputText value="{0, number, $###,###,###,###.00}">
+       <apex:param value="{!relatedTo.CPQ_Quote_Reference__r.qtc_Average_Check__c}" />
+ </apex:outputText><br/>
+ <b>Existing/Negotiating NCR Payments: </b>{!relatedTo.CPQ_Quote_Reference__r.Payments_Pricing_Established__c}<br/>
+ <b>Owner: </b>{!relatedTo.CPQ_Quote_Reference__r.SBQQ__PrimaryContact__r.Name}<br/>
+ </p>
+ 
+<b>Multi/Single-Site: </b>{!IF(relatedTo.CPQ_Quote_Reference__r.qtc_Multi_Site__c=TRUE, "Multi-Site", "Single-Site")}<br/>
+<b>Number of Sites with Payments: </b><apex:outputText value="{0, number, 0}">
+<apex:param value="{!relatedTo.CPQ_Quote_Reference__r.qtc_Number_of_Sites_with_Payments__c}" /><br/>
+<b>Existing Payments: </b>{!relatedTo.CPQ_Quote_Reference__r.Existing_Payments_Customer__c}<br/>
+
+</apex:outputText><br/><br/>
+
+<p><b>Approval Notes: </b>{!relatedTo.CPQ_Quote_Reference__r.qtc_Approval_Notes__c}<br/></p>
+
+<p><b>Next Step:</b> To approve or reject this request, please navigate to the Quote record in Salesforce to review the Payments Processing details. 
+But first, please follow this link to the approval to reassign it:&nbsp;&nbsp;<apex:outputLink value="{!LEFT($Api.Partner_Server_URL_140,FIND('.com',$Api.Partner_Server_URL_140)+4)+relatedTo.Id}">{!relatedTo.Name}</apex:outputLink>
+<br/></p>
+</p>
+
+
+
+
+</body>
+</html>
+</messaging:HtmlEmailBody>
+</messaging:emailTemplate>

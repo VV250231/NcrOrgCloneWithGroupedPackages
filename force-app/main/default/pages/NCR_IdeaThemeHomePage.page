@@ -1,0 +1,157 @@
+<apex:page controller="NCR_IdeaThemeHomePageCon" showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" language="en" applyHtmlTag="true">
+    <head>
+        <!--<c:NCR_CustomHead /> -->
+        <apex:includeScript value="{! $Resource.NCR_jQuery}"/>
+    </head>
+    <div id="container" layout="block" style="padding:8px;">
+        <apex:form >
+            <!--<c:NCR_HomepageHeader />-->
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-9">
+                    <div class="panel" style="background-color: #54BCEB;">
+                        <div class="media">
+                            <div class="media-body">
+                                <h2 class="media-heading" style="color:white;">Idea Themes</h2>
+                                <p>
+                                    Themes are a way for us start conversation topics 
+                                    and invite your thoughts about the industry, emerging trends, 
+                                    product functionality and design direction. 
+                                </p>
+                                <p>
+                                    Themed Ideas will start their journey in one of these categories: 
+                                    DI Labs, Design, Events, Functionality, and Industry Research. 
+                                    Ideas from themes can be converted into regular ideas within our 
+                                    existing lines of business to be refined and included in our solutions.    
+                                </p>
+                            </div>
+                            <div class="media-right">
+                                <a href="#">
+                                    <!--<img class="media-object" src="..." alt="..."/>-->
+                                    <apex:image value="{! $Resource.lightbulb}"/>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3">
+                    <div class="panel" style="background-color:#C4E8F8;">
+                        <p>
+                            Want to be notified by email when a new theme is added?
+                        </p>
+                        <apex:inputCheckbox value="{! newThemeSubscription.DI_New_Theme_Alert__c}">
+                            <apex:actionSupport event="onchange" action="{! processSubscription}"/>
+                        </apex:inputCheckbox>
+                        <span style="padding-left:20px;">Yes, Notify Me</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <!-- Main Column -->
+                <div class="col-xs-12 col-sm-12 col-md-9">
+                    <div class="panel">
+                        <!-- Filter Row -->
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <div class="form-group">
+                                    Theme Category
+                                    <apex:selectList id="selectedCategorySL" value="{! selectedCategory}" size="1" styleClass="form-control">
+                                        <apex:selectOptions value="{! themeCategory}"></apex:selectOptions>
+                                        <apex:actionSupport event="onchange" rerender="mainDataSection,subscriptionPanle" />
+                                    </apex:selectList>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <div class="form-group">
+                                    Theme Status
+                                    <apex:selectList id="selectedStatusSL" value="{! selectedStatus}" size="1" styleClass="form-control">
+                                        <apex:selectOptions value="{! themeStatus}"></apex:selectOptions>
+                                        <apex:actionSupport event="onchange" rerender="mainDataSection" />
+                                    </apex:selectList> 
+                                </div>
+                            </div>
+                        </div> <!-- Filter row end-->
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-4">
+                                <apex:outputPanel id="subscriptionPanle">
+                                    <apex:outputPanel rendered="{! selectedCategory != 'All'}">
+                                        <!-- Action for subscription-->
+                                        <apex:commandLink style="color:grey; text-decoration:none; background: none; border: none;" rendered="{! subscription == null}" action="{! subscribe}">
+                                            <span class="glyphicon glyphicon-envelope" style="color:grey"></span>&nbsp;&nbsp;Subscribe to this Category
+                                        </apex:commandLink>
+                                        <!-- Action for un-subscription-->
+                                        <apex:commandLink rendered="{! subscription != null}" action="{! unSubscribe}" style="color:#004B8D; text-decoration:none; background: none; border: none;">
+                                            <apex:param name="subscriptionId" value="{! subscription.Id}"/>
+                                            <span class="glyphicon glyphicon-envelope" style="color:#004B8D"></span>&nbsp;&nbsp;Subscribed to this Category
+                                        </apex:commandLink>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+                            </div>
+                        </div>
+                        
+                        <!--Main Data Row-->
+                        <apex:outputPanel id="mainDataSection" layout="block" styleClass="row">
+                            <div class="col-md-12">
+                                <apex:repeat value="{! themeWithIdeaWrappers}" var="rec">
+                                    <div class="row" style="padding-top:15px;">
+                                        <h1 style="display: inline;">
+                                            <!--<a class="" href="">{! rec.theme.themeTitle}</a>-->
+                                            <apex:outputLink styleClass="title-drk-blue"
+                                                             value="{! '/apex/ncr_themeDetail?id='+rec.theme.themeId}">
+                                                {! rec.theme.themeTitle}
+                                            </apex:outputLink>
+                                        </h1>
+                                        <span style="border: 1px solid gray; background-color:white;padding-left:6px !important;">
+                                            <apex:commandLink action="{! changeCategory}" value="{! rec.theme.themeCategory}" style="text-decoration:none;">
+                                                <apex:param name="category" value="{! rec.theme.themeCategory}"/>
+                                            </apex:commandLink>
+                                        </span>
+                                        <span style="padding-left:6px;">{! rec.theme.themeDescription}</span>
+                                        <apex:repeat value="{! rec.ideas}" var="ideaRec">
+                                            <div class="row" style="padding-left:10px;padding-top:15px;">
+                                                <h2>
+                                                    <apex:outputLink styleClass="title-drk-blue" value="{! '/apex/NCR_ViewIdeapage?id='+ideaRec.ideaId}">
+                                                        {! ideaRec.ideaTitle}
+                                                    </apex:outputLink>
+                                                   <!--<a class="title-drk-blue">{! ideaRec.ideaTitle}</a> -->
+                                                </h2>
+                                                {! ideaRec.ideaBody}
+                                            </div>
+                                        </apex:repeat>
+                                        <h3 style="float:right;">
+                                            <apex:outputLink style="text-decoration: none;" value="{! '/ncr_themeDetail?id='+rec.theme.themeId}">
+                                                See all ideas for this theme
+                                               <span class="di-icon-forward / glyphicon-chevron-right" aria-hidden="true"></span>
+                                            </apex:outputLink>
+                                           <!--<a style="text-decoration: none;">
+                                               See all ideas for this theme
+                                               <span class="di-icon-forward / glyphicon-chevron-right" aria-hidden="true"></span>
+                                           </a>-->
+                                        </h3>
+                                        <div style="clear:both;"></div>
+                                        <div class="gray-line" style="margin: 20px 0 0 0 !important;"></div>
+                                    </div>                          
+                                </apex:repeat> <!--Main Data Row end -->
+                            </div>
+                        </apex:outputPanel>
+                        
+                        
+                    </div>
+                </div> <!-- Main Column end -->
+                <!--sideBar column-->    
+                <div class="col-xs-12 col-sm-12 col-md-3" role="complementary">
+                    <nav class=" bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top" >
+                        <c:NCR_HomePageSidebar />      
+                    </nav>
+                </div> <!--sideBar column end-->
+            </div>
+        </apex:form>
+    </div>
+    <script>
+        window.onload=function() {
+            var hgt = $("#container").height();
+            top.postMessage(hgt+80+"px", '*');
+            $(document).scrollTop();
+        }
+    </script>
+</apex:page>

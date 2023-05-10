@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_15681763</developerName>
+        <masterLabel>Back Billing and OTP</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Account.Opportunities$Type</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Existing Customer - Back Billing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Collection</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>One-Time Payment Project</sourceValue>
+            </sourceValues>
+            <value>BB and OTP</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>Account$Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>Account$Name</field>
+    </columns>
+    <columns>
+        <field>Account$Account_Country_Code__c</field>
+    </columns>
+    <columns>
+        <field>Account$LOB__c</field>
+    </columns>
+    <columns>
+        <field>Account.Opportunities$Type</field>
+    </columns>
+    <columns>
+        <field>Account.Opportunities$StageName</field>
+    </columns>
+    <columns>
+        <field>Account.Opportunities$Expected_Service_Start_Date__c</field>
+    </columns>
+    <columns>
+        <field>Account.Opportunities$Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>Account.Opportunities$Annuity_Contract_Term__c</field>
+    </columns>
+    <columns>
+        <field>Account.Opportunities$CreatedDate</field>
+    </columns>
+    <columns>
+        <field>Account.Opportunities$Actual_Close_Date__c</field>
+    </columns>
+    <columns>
+        <field>Account.Opportunities$Owner</field>
+    </columns>
+    <columns>
+        <field>Account.Opportunities$Initial_Renewal_Value__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>Account.Opportunities$Amount.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.Opportunities$TS_Product_Total__c.CONVERT</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>Account.Opportunities$StageName</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Closed/Booked,Closed/Booked - NonFunnel,Closed/Lost,Closed/Discontinued</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account$Name</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Brenka Test Account</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Opportunities$Owner_Role__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Global Services Renewals</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Opportunities$Owner</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Meital Elcharar,Takeshi Tanda,Summer Song,Amador Henry Castillo,Nikola Milosevic,Hani Yossef,Stefan Mircetic,Danijela Cvetkovic,Jovana Randjelovic,Milos Djokovic,Predrag Milinic,Djordje Mraovic</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Opportunities$Owner</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Eva Merriam Montecillo</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Eva Montecillo Closed deals</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Accounts_with_Oppty_and_with_or_without_Quotes__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Account.Opportunities$Actual_Close_Date__c</dateColumn>
+        <interval>INTERVAL_CURFY</interval>
+    </timeFrameFilter>
+</Report>

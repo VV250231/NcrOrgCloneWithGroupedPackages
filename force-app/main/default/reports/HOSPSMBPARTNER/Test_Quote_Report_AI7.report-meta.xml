@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>SBQQ__Quote__c$Name</field>
+    </columns>
+    <columns>
+        <field>SBQQ__Quote__c.SBQQ__Orders__r$OrderNumber</field>
+    </columns>
+    <columns>
+        <field>SBQQ__Quote__c$Owner</field>
+    </columns>
+    <columns>
+        <field>SBQQ__Quote__c$SBQQ__SalesRep__c</field>
+    </columns>
+    <currency>USD</currency>
+    <format>Tabular</format>
+    <name>Test Quote Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CPQ_Quote__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>SBQQ__Quote__c$SBQQ__SalesRep__c</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>SBQQ__Quote__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <accessMappings>
+        <accessLevel>Edit</accessLevel>
+        <object>Account</object>
+        <objectField>Id</objectField>
+        <userField>Contact.RelatedAccount</userField>
+    </accessMappings>
+    <accessMappings>
+        <accessLevel>Read</accessLevel>
+        <object>Account_Entitlements__c</object>
+        <objectField>Account__c</objectField>
+        <userField>Contact.RelatedAccount</userField>
+    </accessMappings>
+    <accessMappings>
+        <accessLevel>Edit</accessLevel>
+        <object>Case</object>
+        <objectField>Account</objectField>
+        <userField>Contact.RelatedAccount</userField>
+    </accessMappings>
+    <accessMappings>
+        <accessLevel>Edit</accessLevel>
+        <object>Equipment_Declaration__c</object>
+        <objectField>Partner_Account__c</objectField>
+        <userField>Account</userField>
+    </accessMappings>
+    <accessMappings>
+        <accessLevel>Edit</accessLevel>
+        <object>Opportunity</object>
+        <objectField>Owner.Account</objectField>
+        <userField>Account</userField>
+    </accessMappings>
+    <accessMappings>
+        <accessLevel>Edit</accessLevel>
+        <object>SBQQ__Quote__c</object>
+        <objectField>Owner.Account</objectField>
+        <userField>Account</userField>
+    </accessMappings>
+    <accessMappings>
+        <accessLevel>Edit</accessLevel>
+        <object>WorkOrder</object>
+        <objectField>Account</objectField>
+        <userField>Contact.RelatedAccount</userField>
+    </accessMappings>
+    <accessMappings>
+        <accessLevel>Edit</accessLevel>
+        <object>cdm_Account_Relationship__c</object>
+        <objectField>Account__c</objectField>
+        <userField>Contact.RelatedAccount</userField>
+    </accessMappings>
+    <name>Related Accounts &amp; Cases</name>
+    <profiles>customer view &amp; log cases login user</profiles>
+    <profiles>customer view cases login user</profiles>
+    <profiles>customer view log cases &amp; create dispatches login user</profiles>
+    <profiles>hospitality smb partner manager</profiles>
+    <profiles>hospitality smb partner user</profiles>
+    <profiles>ipt partner community login user</profiles>
+    <profiles>ipt partner community login user read only</profiles>
+</SharingSet>

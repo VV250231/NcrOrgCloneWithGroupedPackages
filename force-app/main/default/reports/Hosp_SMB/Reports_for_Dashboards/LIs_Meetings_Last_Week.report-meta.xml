@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>SUBJECT</field>
+    </columns>
+    <columns>
+        <field>DUE_DATE</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY</field>
+    </columns>
+    <columns>
+        <field>CONTACT</field>
+    </columns>
+    <columns>
+        <field>LEAD</field>
+    </columns>
+    <columns>
+        <field>PRIORITY</field>
+    </columns>
+    <columns>
+        <field>STATUS</field>
+    </columns>
+    <columns>
+        <field>TASK</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>UPPER(IF(CONTAINS(OWNER_ROLE,&quot;SMB&quot;),
+IF(CONTAINS(OWNER_ROLE,&quot;Channel&quot;),
+IF(CONTAINS(OWNER_ROLE,&quot;Central&quot;),&quot;Channel Central&quot;,
+IF(CONTAINS(OWNER_ROLE,&quot;North&quot;),&quot;Channel North&quot;,
+IF(CONTAINS(OWNER_ROLE,&quot;South&quot;),&quot;Channel South&quot;,
+IF(CONTAINS(OWNER_ROLE,&quot;West&quot;),&quot;Channel West&quot;, &quot;Channel &quot; &amp; OWNER_ROLE)))), 
+IF(CONTAINS(OWNER_ROLE,&quot;Northeast&quot;),&quot;North&quot;,
+IF(CONTAINS(OWNER_ROLE,&quot;Southeast&quot;),&quot;Southeast&quot;,
+IF(CONTAINS(OWNER_ROLE,&quot;Central&quot;),&quot;North&quot;,
+IF(CONTAINS(OWNER_ROLE,&quot;Florida&quot;),&quot;Southeast&quot;,
+IF(CONTAINS(OWNER_ROLE,&quot;Texas&quot;),&quot;West-Texas&quot;,
+IF(CONTAINS(OWNER_ROLE,&quot;West&quot;),&quot;West-Texas&quot;,OWNER_ROLE))))))),&quot;NON-SMB OWNED&quot;))
+&amp;&quot; - &quot;&amp;
+BLANKVALUE(
+IF(OR(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;CHECK IN&quot;),CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;CHECK-IN&quot;)),&quot;CHECK IN&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;DEMO&quot;),&quot;DEMO&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;MEETING&quot;),&quot;MEETING&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;DISCUSSION&quot;),&quot;MEETING&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;BUSINESS REVIEW&quot;),&quot;MEETING&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;DECISION MAKER&quot;),&quot;MEETING&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;ECONOMIC BUYER&quot;),&quot;MEETING&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;DISCOVERY&quot;),&quot;MEETING&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;CALL&quot;),&quot;CALL&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;EMAIL&quot;),&quot;EMAIL&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;TOUCH BASE&quot;),&quot;TOUCH BASE&quot;,
+IF(OR(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;FOLLOW UP&quot;),CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;FOLLOW-UP&quot;)),&quot;FOLLOW UP&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;SUPPORT&quot;),&quot;SUPPORT&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;REPORT&quot;),&quot;REPORTING&quot;,
+IF(OR(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;HIRE&quot;),CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;INTERVIEW&quot;), CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;HIRING&quot;)),&quot;HIRING&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;TEST&quot;),&quot;TESTING&quot;,&quot;&quot;)))))))))))))))),&quot;OTHER&quot;)</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>Activity</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>OWNER_ROLE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Hosp SMB,HOSP SMB</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CDF1</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>MEETING,DEMO</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>ASSIGNED</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CDF1</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>LIs - Meetings Last Week</name>
+    <params>
+        <name>closed</name>
+        <value>closed</value>
+    </params>
+    <params>
+        <name>type</name>
+        <value>te</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Activity</reportType>
+    <scope>team</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>DUE_DATE</dateColumn>
+        <interval>INTERVAL_LASTWEEK</interval>
+    </timeFrameFilter>
+</Report>

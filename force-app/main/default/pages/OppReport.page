@@ -1,0 +1,14 @@
+<apex:page showHeader="false" standardStylesheets="false" lightningStylesheets="false">
+    <div id="ltngdiv" />
+   
+    <apex:includeLightning />
+    <script>
+         $Lightning.use("c:OppListViewApp", function() {
+          $Lightning.createComponent("c:OppListView",
+          {accId :'{!$CurrentPage.parameters.Id}'},
+          "ltngdiv",
+          function(cmp) {});
+        });
+    </script>
+
+</apex:page>

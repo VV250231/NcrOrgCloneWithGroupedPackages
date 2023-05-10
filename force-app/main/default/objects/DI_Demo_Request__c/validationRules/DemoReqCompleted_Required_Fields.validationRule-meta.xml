@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DemoReqCompleted_Required_Fields</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR(
+AND(ISPICKVAL(Status__c,&quot;Completed&quot;),OR(Alt_SE__c == $User.Id,SE_Assigned__c == $User.Id), OR(ISBLANK(What_did_not_resonate_with_the_FI__c),
+ISBLANK( What_resonated_with_the_FI__c )),RecordType.DeveloperName ==&apos;DI_Demo_Request&apos;),
+
+AND(ISPICKVAL(Status__c,&quot;Completed&quot;),OR(alt_add_SE__c == $User.Id,Assigned_to_SE__c == $User.Id), OR(ISBLANK(What_did_not_resonate_with_the_FI__c),
+ISBLANK( What_resonated_with_the_FI__c )),RecordType.DeveloperName ==&apos;SE_Demo_Request&apos;))</errorConditionFormula>
+    <errorMessage>Status cannot be moved to completed until all the fields in Post Demo Info Section are filled.</errorMessage>
+</ValidationRule>

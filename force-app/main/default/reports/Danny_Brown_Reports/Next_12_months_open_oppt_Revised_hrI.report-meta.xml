@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_12656826</developerName>
+        <masterLabel>Month</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Opportunity.Book_Month__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>2019 May</sourceValue>
+            </sourceValues>
+            <value>a-May2019</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2019 Jun</sourceValue>
+            </sourceValues>
+            <value>b-June 2019</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2019 Jul</sourceValue>
+            </sourceValues>
+            <value>c-July 2019</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2019 Aug</sourceValue>
+            </sourceValues>
+            <value>d-Aug 2019</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2019 Sep</sourceValue>
+            </sourceValues>
+            <value>e-Sep 2019</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2019 Oct</sourceValue>
+            </sourceValues>
+            <value>f-Oct 2019</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2019 Nov</sourceValue>
+            </sourceValues>
+            <value>g-Nov 2019</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2019 Dec</sourceValue>
+            </sourceValues>
+            <value>h-Dec 2019</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2020 Jan</sourceValue>
+            </sourceValues>
+            <value>i-Jan 2020</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2020 Feb</sourceValue>
+            </sourceValues>
+            <value>j-Feb 2020</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2020 Mar</sourceValue>
+            </sourceValues>
+            <value>k-Mar 2020</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2020 Apr</sourceValue>
+            </sourceValues>
+            <value>l-Apr 2020</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2020 May</sourceValue>
+            </sourceValues>
+            <value>m-May 2020</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2020 Jun</sourceValue>
+            </sourceValues>
+            <value>n-Jun 2020</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2020 Jul</sourceValue>
+            </sourceValues>
+            <value>o-Jul 2020</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2020 Aug</sourceValue>
+            </sourceValues>
+            <value>p-Aug 2020</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2020 Sep</sourceValue>
+            </sourceValues>
+            <value>q-Sep 2020</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2020 Oct</sourceValue>
+            </sourceValues>
+            <value>r-Oct 2020</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2020 Nov</sourceValue>
+            </sourceValues>
+            <value>s-Nov 2020</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2020 Dec</sourceValue>
+            </sourceValues>
+            <value>t-Dec 2020</value>
+        </values>
+    </buckets>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <aggregate>Sum</aggregate>
+            <axisBinding>y</axisBinding>
+            <column>Opportunity.Soln_Opp_Amount__c</column>
+        </chartSummaries>
+        <chartType>VerticalColumn</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>BucketField_12656826</groupingColumn>
+        <location>CHART_BOTTOM</location>
+        <showAxisLabels>false</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>FORECAST_CATEGORY</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Soln_Opp_Amount__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Opportunity.Indirect_Include_in_Funnel_Distributor,Opportunity.Indirect_Include_in_Funnel,Opportunity.IncludeinFunnel</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Soln_Opp_Amount__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>greaterThan</operator>
+            <value>USD 0</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CLOSE_DATE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>NEXT_N_MONTHS:12</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>STAGE_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Analyzing,Validating,Offering,Proposing,Closing</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_12656826</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Next 12 months open oppt_Revised</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>open</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>team</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>CLOSE_DATE</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

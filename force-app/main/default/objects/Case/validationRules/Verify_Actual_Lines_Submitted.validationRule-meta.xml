@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Verify_Actual_Lines_Submitted</fullName>
+    <active>true</active>
+    <description>This will verify the total lines submitted to the HW and SW Actual Lines.</description>
+    <errorConditionFormula>AND( (RecordType.Name = &quot;PO Review&quot;),
+((  Actual_Hardware_Lines_to_Review__c   +   Actual_Software_Lines_to_Review__c  ) &lt;&gt;  Actual_Lines_to_Review__c ))</errorConditionFormula>
+    <errorMessage>The Software and Hardware Lines to Review do not match the Actual Lines to Review.</errorMessage>
+</ValidationRule>

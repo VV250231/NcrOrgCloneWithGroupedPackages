@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>USERS.NAME</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <column>Account.Master_Customer_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>600551CH,41265526,853AT,40967234,7162176,5145660,40967220,9496141,7510780,904287CH,026484CH,077623CH,6916415,601338CH,701666CH,9645577,610855CH,5284024,41411576,7216AT,600452CH,8786018,612741CH,409855CH,683388CH,042870CH,083402CH,5761660,104604CH,056499CH,581445CH,214892CH,4859AT,41391509,41439975,41385885,7135AT,820318CH,8566068,700239CH,40711702,7180292,10513406,8624308,9059745,10339134,760684CH,601780CH,8056069,601395CH,7365971,7134045,9102683,6692102,6070661,6076984,9573014,575674CH,711934CH,580449CH,702014CH,2570310,013943CH,701927CH,851930CH,4617149,046906CH,556882CH,591297CH,068128CH,513016CH,729612CH,565318CH,794090CH,519871CH,019607CH,9762614,9998429,9737609,9679151,007072CH,101273CH,056677CH,073237CH,062170CH,379441CH,898651CH,9709022,9558041,8603742,373095CH,101257CH,624608CH,5105577,3670901,3194335,074659CH,849669CH,9741429,600761CH,795402CH,695521CH,027812CH,650927CH,783218CH,705896CH,905437CH,451142CH,335371CH,365971CH,544833CH,8782730,9869308,628255CH,9681000,7169AT,855782CH,701579CH,701506CH,9460915,3622952,012491CH,700325CH,3899957,9869307,573574CH,051764CH,347698CH,8986738,8962895,476684CH,119571CH,9985370,9922587,9914587,6359AT,10019AT,6468AT,5590AT,8697521,648094CH,41436029,41442810,865826CH,41436031,105368CH,41436025,701601CH,41412766,048003CH,41436034,10555866,016896CH,570990CH,41413602,391</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Master_Customer_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>41436034,10555866,016896CH,570990CH,41413602,391697CH,41436030,701622CH,41435485,10389157,6968536,402923CH,5470206,41400333,41400304,41348858</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>New Accounts and Customer Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList@Account.Customer__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>DUE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

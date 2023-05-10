@@ -1,0 +1,69 @@
+<aura:component  controller="QuBy_QuoteRelatedList" > 
+    
+<!-- backing data -->
+<aura:attribute name="data" type="List" />    
+<!-- attributes -->
+ <aura:attribute name="filteredData" type="List" />
+<aura:attribute name="columns" type="List"/>
+<aura:attribute name="selectedQuotsId" type="List"/>
+<aura:attribute name="opportunityId" type="Id"/>
+<aura:attribute name="dataList" type="Object[]"/>
+<aura:attribute name="selectedRowsCount" type="Integer" default="0"/>
+<aura:attribute name="maxRowSelection" type="Integer" default="10"/>
+<aura:attribute name="loadMoreStatus" type="String" default=""/>
+<aura:attribute name="initialRows" type="Integer" default="20"/>
+<aura:attribute name="currentCount" type="Integer" default="0"/>
+<aura:attribute name="totalNumberOfRows" type="Integer" default="10"/>
+<aura:attribute name="enableInfiniteLoading" type="boolean" default="true"/>
+
+<aura:attribute name="sortedBy" type="String"/>
+<aura:attribute name="sortedDirection" type="String"/>
+<aura:attribute name="defaultSortDirection" type="String"/>
+
+    
+<!-- filter input -->
+<aura:attribute name="filter" type="String" />
+
+<!-- handlers-->
+<aura:registerEvent name="quoteSelectionEvent" type="c:quoteSelectionEvent"/>
+<aura:registerEvent name="closeQuotsAssociation" type="c:closeQuotsAssociation"/>
+<aura:registerEvent name="showQuotsError" type="c:showQuotsError"/>
+<aura:registerEvent name="QuoteUpdate" type="c:QuoteUpdate"/>
+<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+<aura:handler event="c:AssociteQuotsEvent" action="{!c.handleAssociationEvent}"/>
+
+<!--<aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
+<aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/>-->
+<aura:attribute name='showSpinner' type='Boolean' default='false' />
+      <!--loading spinner start... style=Brand Medium (blue dots)-->
+     <aura:if isTrue="{!v.showSpinner}">
+        <div class="">
+        <lightning:spinner alternativeText="Loading" size="medium" />
+    	</div>
+     </aura:if>
+  <!-- Loading spinner end-->  
+    
+<!-- the container element determine the height of the datatable -->
+    <div style="height:80%;padding-bottom:5px;">
+        <lightning:input type="search" onchange="{!c.filter}" value="{!v.filter}" label="Search" placeholder = "Search By Quote Number" variant = "label-hidden" style = "margin-bottom: 5px;"/>
+        <div style="height:370px;">
+        
+            <lightning:datatable
+                keyField="id"
+                data="{! v.filteredData }"
+                columns="{! v.columns }"
+                enableInfiniteLoading="{!v.enableInfiniteLoading}"
+                onloadmore="{! c.loadMoreData }"
+                onrowselection="{! c.getSelectedRow }"
+                showRowNumberColumn = "true"
+                sortedBy="{! v.sortedBy }"
+                sortedDirection="{! v.sortedDirection }"
+                defaultSortDirection="{! v.defaultSortDirection }"
+                onsort="{! c.updateColumnSorting }"
+                
+          />
+        {! v.loadMoreStatus }
+        </div>
+    </div>
+
+</aura:component>

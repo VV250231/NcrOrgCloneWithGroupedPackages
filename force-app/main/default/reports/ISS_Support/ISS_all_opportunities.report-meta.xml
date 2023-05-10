@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_24053510</developerName>
+        <masterLabel>Teams</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>OWNER_MANAGER</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Marko Avramovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Reta Turner</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Nikola Jovanovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aaron Shoemaker</sourceValue>
+            </sourceValues>
+            <value>AFA</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Marija Brenka</sourceValue>
+            </sourceValues>
+            <value>AFB</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Miodrag Stevanovic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Slobodan Stankovic</sourceValue>
+            </sourceValues>
+            <value>EUE</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Larvin Esguerra</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Larvin John Esguerra</sourceValue>
+            </sourceValues>
+            <value>APJ</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Jovana Trifunovic</sourceValue>
+            </sourceValues>
+            <value>ARH</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Hasan Sarakbi</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ralf Bruggemann</sourceValue>
+            </sourceValues>
+            <value>MEA</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Annuity_Contract_Term__c</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Expected_Service_Start_Date__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Initial_Renewal_Value__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>AMOUNT.CONVERT</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Service_Sales_Consultant__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>ACCOUNT_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Brenka Test Account</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>ROLLUP_DESCRIPTION</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Services Renewals</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OWNER_MANAGER</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Ralf Bruggemann,Marko Avramovic</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FULL_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Hasan Sarakbi,Ksenija Banjanin,Ana Teodorovic</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>ISS all opportunities</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>open</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <roleHierarchyFilter>ChiefExecutiveOffice</roleHierarchyFilter>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

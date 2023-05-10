@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Plan_Ques_Score__c</fullName>
+    <externalId>false</externalId>
+    <formula>((IF(Has_Plan_confirmed_with_customer__c,1,0) + 
+IF(Has_client_agreed_to_a_completion_date__c,1,0) + 
+IF(Has_power_person_agreed_on_mutual_plan__c,1,0) + 
+IF(Is_this_Plan_with_a_sponsor__c,1,0) + 
+IF(Are_checkpnts_for_Decision_Maker_review__c,1,0))*20)/100</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Plan Ques Score</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

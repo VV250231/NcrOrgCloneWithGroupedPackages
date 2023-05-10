@@ -1,0 +1,36 @@
+<template>
+        <lightning-card>
+                <div class="slds-text-heading_medium slds-text-align_center slds-border_bottom"
+                        style="padding-bottom: 10px; margin-bottom:10px;">New Opportunity</div>
+                <div slot="footer" class="inlineFooter" style="float:right; border:none;">
+                        <lightning-button label="Cancel" title="Cancel" onclick={handleCancel}
+                                class="slds-m-left_x-small"></lightning-button>
+                        <lightning-button variant="brand" label="Next" title="Next" onclick={handleNext}
+                                class="slds-m-left_x-small"></lightning-button>
+                </div>
+
+                <template if:true={wireRecordTypes.data}>
+                        <fieldset>
+                                <legend>Select a record type</legend>
+                                <template iterator:item={wireRecordTypes.data}>
+                                        <div key={item.value.Id} style="padding-top: 10px;" if:true={item.first}>
+                                                <input type="radio" id={item.value.Id} name="oppRecordType"
+                                                        value={item.value.Id} onchange={handleChange} checked>
+                                                <label for={item.value.Id}
+                                                        style="padding-left: 10px;">{item.value.Name}<span
+                                                                style="display: block;padding-left: 35px;">{item.value.Description}</span></label>
+                                        </div>
+                                        <div key={item.value.Id} style="padding-top: 10px;" if:false={item.first}>
+                                                <input type="radio" id={item.value.Id} name="oppRecordType"
+                                                        value={item.value.Id} onchange={handleChange}>
+                                                <label for={item.value.Id}
+                                                        style="padding-left: 10px;">{item.value.Name}<span
+                                                                style="display: block;padding-left: 35px;">{item.value.Description}</span></label>
+                                        </div>
+
+                                </template>
+                        </fieldset>
+                </template>
+        </lightning-card>
+
+</template>

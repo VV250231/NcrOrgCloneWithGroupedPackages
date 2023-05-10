@@ -1,0 +1,273 @@
+<aura:component controller="PS_SearchSolutionsController" implements="force:hasRecordId">
+    
+    <aura:attribute name="ControllMainModal" type="String" default="hide"/>
+    <aura:attribute name="ScreenName" type="String" />
+    <aura:attribute required="true" name="options" type="String[]"/>
+    <aura:attribute required="true" name="selectedValue" type="String"/>
+	<aura:attribute name="prodname" type="WrapperFavorite"/>
+     <aura:attribute name="noOfProductCount" type="Integer" default="0"/>
+    <aura:attribute Name="selItem" type="object"  access="public" /> 
+    <aura:attribute Name="OppId" type="String"  access="public" />
+    
+    <aura:attribute Name="ToggleSearch" type="String" Default="hide"></aura:attribute>
+    
+    <aura:attribute name="unScheduleId" type="String"/>
+    <aura:attribute name="unScheduleName" type="String"/>
+    <aura:attribute name="bulkUnScheduleIds" type="String[]"/>
+    
+    <aura:attribute name="ProductCount" type="String"/>
+    <aura:attribute name="MessageDifference" type="Boolean"/>
+    
+    <aura:registerEvent name="appEvent" type="c:ceEvent"/>
+    <aura:registerEvent name="appdeleteEvent" type="c:ceEventDelete"/>
+    <aura:registerEvent name="appfavEvent" type="c:psaddfavEvent_PS"/>
+    <aura:registerEvent name="RemoveScheduleEvent" type="c:RemoveScheduleEvent"/>
+    <aura:registerEvent name="InsertScheduleEvent" type="c:InsertScheduleEvent"/>
+    <aura:registerEvent name="appdeletefavEvent" type="c:psdeletefavEvent_PS"/>
+    
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler event="c:LookUpEvt" action="{!c.onSolutionSelect}"/>
+    <!--Spinner-->
+    <div class="slds-spinner_container" id="spinnerdiv" style="display:None">
+        <div class="slds-spinner_brand slds-spinner slds-spinner_medium" role="alert">
+            <span class="slds-assistive-text">Loading</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+        </div>
+    </div>
+
+    
+    <div>
+
+ 
+        <button class="slds-button slds-button_neutral" onclick="{!c.SearchSolution}">                    
+                <span>       
+                    <img src="/resource/MyIcon/svg/search.svg" style="width: 1rem;height: 1rem; "/>
+                </span>
+                    <b>SEARCH SOLUTIONS</b>
+        </button>  
+    </div>
+    
+    <div class="{!'slds-'+v.ToggleSearch}">
+    <!--All Filter with modal window-->
+    <div class="slds-modal slds-fade-in-open" aria-hidden="false" role="dialog" id="searchsolutionwindow" style="top:135px;">  		
+         
+        <div class="slds-modal__container">   
+            
+            <div class="slds-modal__header" style="height:10px;">
+                
+                <!--Cross Button -->
+                <button class="slds-button slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.CancelSolutionSearch}">
+                    <img src="/resource/MyIcon/svg/multiply.svg" style="width: 1rem;height: 1rem; "/>
+                    
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                
+                <b style="float:left;margin-top: -10px">Solution Selection</b>
+            </div>
+            
+            <div class="slds-modal__content slds-p-around_small" >
+                
+                <div class="slds-grid" style="border: 20px solid #005fb2;background-color: #005fb2;">
+                    <div class="slds-col">
+                     <div class="slds-button-group" role="group">
+                            <div class="slds-dropdown-trigger slds-button_last" >
+                                <div  class="slds-dropdown slds-dropdown_left slds-text-heading--label slds-dropdown--menu">
+                                    
+                                </div>
+                            </div >
+                        </div>  
+                    </div>
+                    <div class="slds-col" style="margin-left: -27px;">
+                        <c:Lookup objectName="Product_Solution__c"
+                          field_API_text="Name"
+                          field_API_val="Id"
+                          limit="10"
+                          field_API_search="Name"
+                          lookupIcon="standard:opportunity" 
+                          selItem="{!v.selItem}" 
+                          placeholder="Enter solution name"
+                          />
+                        <!--<lightning:select name="mySelect" label=" " value="{!v.selectedValue}" onchange="{!c.selectChanged}">
+                            <aura:iteration items="{!v.options}" var="item">
+                                <option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+                            </aura:iteration>
+                        </lightning:select> -->
+                    </div>
+                    <div class="slds-col"></div>
+                    <div class="slds-col"></div>
+                </div>
+
+                <!--Product List table-->
+                <table class="slds-table slds-table_bordered slds-table_fixed-layout" role="grid">
+                    
+                    <thead >  
+                        <tr class="slds-text-title_caps" style="background-color: #f0f8fc;">
+                            <th class="slds-cell-shrink" scope="col">
+                                <label class="slds-checkbox">
+                                    <ui:inputCheckbox aura:id="SelectAllCheckBox" change="{!c.fireCheckAllCheckboxes}" disabled="{!if(v.prodname,false,true)}"/>
+                                    <span class="slds-checkbox_faux"></span>          
+                                </label>
+                            </th>
+                            <th class="slds-cell-shrink" scope="col" style="width: 60px;">
+                                <label class="slds-button">
+                                    <button class="slds-button " onclick="{!c.bulkfavourite}" disabled="{!if(v.prodname,false,true)}"> 
+                                        <img src="/resource/MyIcon/svg/like.svg" style="width:20px;margin:right:5px;"/>
+                                    </button>
+                                </label> 
+                                <label class="slds-button">
+                                    <button class="slds-button" onclick="{!c.bulkSchedule}" disabled="{!if(v.prodname,false,true)}" data-ids="{!v.prodname}" >         
+                                        <img src="/resource/MyIcon/svg/interface.svg" style="width:25px;margin:right:5px;"/>
+                                    </button>                                    
+                                </label>     
+                                
+                            </th>
+                            <th class="slds-cell-shrink" scope="col">
+                                <label class="slds-button">
+                                    <button class="slds-button "  data-ids="{!v.prodname}"> 
+                                        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                                    </button> 
+                                    
+                                    
+                                </label>
+                            </th>
+                            <th class="slds-is-resizable"  aria-label="Product Name">                  
+                                <span class="slds-truncate" title="Product Name">Name</span>          
+                                <span class="slds-assistive-text" aria-live="assertive" aria-atomic="true"></span>               
+                            </th>      
+                        </tr>
+                    </thead>
+                    
+                    <tbody>                        
+                        <aura:iteration items="{!v.prodname}" var="item">
+                            <tr class="slds-hint-parent" style="{!if(item.HasSchedule,'background-color:LightSteelBlue;','background-color:')}">
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <label class="slds-checkbox">
+                                        <ui:inputCheckbox aura:id="TheCheckBox"   text="{!item.prd.Id}"/>
+                                        <span class="slds-checkbox_faux"></span>          
+                                    </label>
+                                    
+                                </td> 
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row "> 
+                                    <span>
+                                        <aura:if isTrue="{!item.favselected == TRUE}">
+                                            <button class="slds-button" onclick="{!c.SingleFavProduct}" data-ids="{!item.prd.Id}">
+                                                <img src="/resource/MyIcon/svg/heart.svg" style="width:20px;margin:right:5px;" title="Make Unfavourite"/>
+                                            </button>
+                                            <aura:set attribute="else" >
+                                                <button class="slds-button" onclick="{!c.SingleUnFavProduct}" data-ids="{!item.prd.Id}" title="Add to favourite">
+                                                    <img src="/resource/MyIcon/svg/like.svg" style="width:20px;margin:right:5px;" name="{!item.prd.Name}"/>
+                                                </button>
+                                            </aura:set>  
+                                            
+                                        </aura:if>
+                                    </span>  
+                                    <span>
+                                        <aura:if isTrue="{!item.HasSchedule == TRUE}">
+                                            <button class="slds-button" onclick="{!c.showAlertMessage}" data-ids="{!item.prd.Id}" title="Make Unschedule">         
+                                                <img src="/resource/MyIcon/svg/calendar_dark.svg" style="width:25px;margin:right:5px;"/>
+                                                
+                                            </button>
+                                            <aura:set attribute="else" >
+                                                <button class="slds-button" onclick="{!c.SingleUnScheduleProduct}" data-ids="{!item.prd.Id}" title="Add to Schedule">         
+                                                    <img src="/resource/MyIcon/svg/interface.svg" style="width:25px;margin:right:5px;"/>								
+                                                </button>
+                                            </aura:set>
+                                        </aura:if>
+                                    </span>    
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">                             
+                                    
+                                    
+                                </td>    
+                                <td role="gridcell" data-label="Product Name">
+                                    <div class="" title="{!item.prd.Name}" style="min-width: 19.25rem;">
+                                        <ui:outputText value="{!item.prd.Name}" aura:id="prdname"/>                        
+                                    </div>
+                                </td>      
+                            </tr>
+                        </aura:iteration>  
+                    </tbody>
+                </table>
+                
+            </div>    
+            
+            
+            <center>
+                <span>
+                    <div class="slds-modal__footer">  
+                        <ui:button class="slds-button slds-button_neutral "  press="{!c.addSchedule}">Add</ui:button>
+                    </div>
+                </span>     
+            </center>
+            
+        </div>  
+    </div>
+    <div class="slds-backdrop slds-backdrop_open" id="grayoutsolutionbackground" style=""></div> 
+</div>
+         
+    <div class="slds-modal slds-fade-in-open" aria-hidden="false" role="dialog" id="SolutionModal" style="display:none;width:100;">    
+        <div class="slds-modal__container slds-p-around_large" style="height: 600px;width:400px;">
+            <div class="slds-modal__header">
+                <b style="color:red;">*Caution </b>
+            </div>
+            <div class="slds-modal__content slds-p-around_large" style="height:150px;">
+                <div>
+                    <b><ui:outputText value="{!v.unScheduleName}"/></b>
+                    <p>This action will remove the Product
+                        and all its schedule.</p>
+                    <p >Do you want to continue?</p>  
+                </div>
+            </div> 
+            <center>
+                <div class="slds-modal__footer"> 
+                    
+                    <button class="slds-button slds-button_neutral slds-button_brand"  onclick="{!c.SingleScheduleProduct}" >Yes</button>
+                    <button class="slds-button slds-button_neutral slds-button_brand"  onclick="{!c.closeAlertWindow}">No</button>
+                    
+                </div>
+            </center>
+        </div> 
+        
+    </div>     
+    <div class="slds-backdrop slds-backdrop_open" id="SolutiongreyBackground" style="display:none;"></div>
+    
+    <div class="slds-modal slds-fade-in-open" aria-hidden="false" role="dialog" id="SolutionBulkModal" style="display:none;width:100;">
+        
+        <div class="slds-modal__container slds-p-around_large" style="height: 600px;width:400px;">
+            <div class="slds-modal__header">
+                <b style="color:red;">*Caution </b>
+            </div>
+            <div class="slds-modal__content slds-p-around_large" style="height:150px;">
+                <div>
+                    
+                    <aura:if isTrue="{!v.MessageDifference}">
+                        <b><ui:outputText value="{!v.ProductCount}"/></b>
+                        <p>This action will remove the  selected Product 
+                            and all its schedule.</p>
+                        
+                        <aura:set attribute="else">
+                            <p>This action will remove the <b><ui:outputText value="{!v.ProductCount}"/></b> selected Products 
+                                and all its schedule.</p>
+                        </aura:set>
+                    </aura:if>
+                    <p >Do you want to continue?</p> 
+                    
+                </div>
+            </div>
+            
+            
+            <center>
+                <div class="slds-modal__footer"> 
+                    
+                    <button class="slds-button slds-button_neutral slds-button_brand"  onclick="{!c.BulkunScheduleProduct}">Yes</button>
+                    <button class="slds-button slds-button_neutral slds-button_brand"  onclick="{!c.closeAlertWindow}">No</button>
+                    
+                </div>
+            </center>
+        </div> 
+        
+    </div>
+   
+</aura:component>

@@ -1,0 +1,45 @@
+<messaging:emailTemplate subject="{!relatedTo.Schedule_External_Report__r.Email_Subject__c}" recipientType="Contact" relatedToType="Email_Recipient__c">
+   
+   <messaging:htmlEmailBody >
+  
+
+   <apex:outputPanel rendered="{!If(relatedTo.Schedule_External_Report__r.Email_Body__c!=null,true,false)}">
+    
+<table>
+<col width="70px" />
+    <col width="70px" />
+    <col width="70px" />
+  <tr>
+    <td>
+      <c:ExternalReport_Header />
+    </td>
+  </tr>
+  <tr>
+    <td >
+      <apex:outputText escape="false" value="{!relatedTo.Schedule_External_Report__r.Email_Body__c}" />
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <c:DemingEmail />
+    </td>
+  </tr>
+</table>
+   </apex:outputpanel>
+   
+     </messaging:htmlEmailBody>
+        <messaging:attachment filename="{!relatedTo.Schedule_External_Report__r.Report_1_Name__c}.csv" rendered="{!If(relatedTo.Schedule_External_Report__r.Report_1_Id__c !=null,true,false)}">
+        <!-- Here we can add multiple Reports -->
+        <c:ReportToEmail contactId="{!relatedTo.Id}" ReportId="{!relatedTo.Schedule_External_Report__r.Report_1_Id__c}"/>
+          </messaging:attachment>
+          
+          <messaging:attachment filename="{!relatedTo.Schedule_External_Report__r.Report_2_Name__c}.csv"  rendered="{!If(relatedTo.Schedule_External_Report__r.Report_2_Id__c !=null,true,false)}">
+         <c:ReportToEmail contactId="{!relatedTo.Id}" ReportId="{!relatedTo.Schedule_External_Report__r.Report_2_Id__c}"/>
+          </messaging:attachment>
+          
+           <messaging:attachment filename="{!relatedTo.Schedule_External_Report__r.Report_3_Name__c}.csv" rendered="{!If(relatedTo.Schedule_External_Report__r.Report_3_Id__c != null,true,false)}">
+         <c:ReportToEmail contactId="{!relatedTo.Id}" ReportId="{!relatedTo.Schedule_External_Report__r.Report_3_Id__c}"/>
+          </messaging:attachment>
+       
+  
+</messaging:emailTemplate>

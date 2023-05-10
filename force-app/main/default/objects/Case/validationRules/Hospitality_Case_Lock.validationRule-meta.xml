@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hospitality_Case_Lock</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName = &quot;Hospitality_Support&quot;,
+$Setup.Automation_Setting__c.Skip_Validation_Rule__c = FALSE,
+NOT($Permission.Case_Reopen_Permission),
+Case_Lock_Window__c = TRUE,
+ISCHANGED(Status)
+)</errorConditionFormula>
+    <errorMessage>Case closed more than 72 hours ago</errorMessage>
+</ValidationRule>

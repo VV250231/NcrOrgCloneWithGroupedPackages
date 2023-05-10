@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cannot_check_CPQ_checkbox</fullName>
+    <active>true</active>
+    <description>User cannot check the CPQ checkBox on Non-CPQ Opportunity.</description>
+    <errorConditionFormula>AND(
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+NOT(CATM_Record__c),
+HasOpportunityLineItem,
+ISCHANGED(CPQ__c),
+($Profile.Name &lt;&gt; &quot;Soup Integration&quot;),
+($Profile.Name &lt;&gt; &quot;iPaas Administration&quot;)
+)</errorConditionFormula>
+    <errorDisplayField>CPQ__c</errorDisplayField>
+    <errorMessage>Cannot convert into CPQ opportunity when products are added.</errorMessage>
+</ValidationRule>

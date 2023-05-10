@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Value_Ques_Score__c</fullName>
+    <externalId>false</externalId>
+    <formula>((IF(Has_the_Business_Value_been_quantified__c,1,0) + 
+IF(Has_a_cost_justification_been_completed__c,1,0) + 
+IF(Do_prospect_agreed_potential_buss_value__c,1,0) + 
+IF(Was_any_personal_value_uncovered__c,1,0) + 
+IF(Understand_personal_value_of_dec_maker__c,1,0))*20)/100</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Value Ques Score</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

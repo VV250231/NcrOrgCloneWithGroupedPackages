@@ -1,0 +1,174 @@
+<messaging:emailTemplate subject="Customer Exception {!relatedTo.Name}: CAM Approval Required" recipientType="User" relatedToType="Account_Exception__c">
+     <messaging:plainTextEmailBody >
+        Congratulations!
+        This is your new Visualforce Email Template.
+    </messaging:plainTextEmailBody>
+    <messaging:htmlEmailBody >
+    
+        <html>
+        <body bgcolor="#FFFFFF">
+            <style>
+              
+            a {
+                color: #54b948;
+            }
+            
+            p {
+                margin-top: 0px;
+                margin-bottom: 15px;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 12px;
+                line-height: 15px;
+                color: #58585A;
+            }
+            </style>
+            <table width="660" border="0" align="center" cellpadding="0" cellspacing="0">
+            <tr bgcolor="#ffffff">
+                <td valign="top">
+                    <c:InteractProgramToolHeader />
+                </td>
+            </tr>
+            <tr valign="top" bgcolor="#ffffff">
+                <td valign="top">
+                    <table width="100%" cellpadding="20" cellspacing="0">
+                        <apex:outputPanel rendered="{! relatedTo.Status__c = 'Submitted to Channel Account Manager'}">
+                        <tr>
+                            <td>
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #58585A;"> 
+                                    Dear {!relatedTo.Channel_Account_Manager__r.Name} , 
+                                </p>
+    
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #58585A;">
+                                   
+                                    {!relatedTo.Owner.Name} has submitted a Customer Exception Request for {!relatedTo.Partner_Account_Name__r.Name}.
+                                </p>
+    
+
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #58585A;">
+                                   Your next step is to review their request and either Accept or Reject the request as an exception.
+                                </p>
+                                
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #58585A;">
+                                   
+                                    1.  If you reject the request in SalesForce, your Solution Provider will receive a message the request was rejected. Please ensure you have a discussion with your Solution Provider on why their request was rejected.
+                                </p>
+                                
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #58585A;">
+                                   
+                                    2.  If you accept the request, the Customer Exception Request will be sent to your Channel Sales Leader and you both should review the request for approval or rejection.
+                                </p>
+                                
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #58585A;">
+                                   
+                                    3.  If you and your Channel Sales Leader decide to reject the request in SalesForce, your Solution Provider will receive a message the request was rejected. Please ensure you have a discussion with your Solution Provider on why their request was rejected. 
+                                </p>
+                                
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #58585A;">
+                                   
+                                    4.  If you and your Channel Sales Leader conclude the request has merit for review and approval from the direct sales team, do not approve the request.  
+                                </p>
+                                
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #58585A;">
+                                   
+                                    5.   Both you and your Channel Sales Leader should review this request with the {!relatedTo.Partner_Account_Name__r.Name} sales team owners.   
+                                </p>
+                                
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #58585A;">
+                                   
+                                    If the joint decision among the sales organizations is to reject the request, then the only required action is to go to SalesForce within your home page under Tasks and click on the rejection button.  This will send a message to the Solution Provider informing them the request was denied. You should be prepared with a response and discussion points for your Solution Provider regarding why the request was denied.   
+                                </p>
+                                
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #58585A;">
+                                   
+                                    If the joint decision among the sales organizations is to accept the request, then the only required action by the Channel Sales Leader is to go to SalesForce within their home page under Tasks and click on the accept button.  This will send a message to the Solution Provider informing them the request was Accepted.   
+                                </p>
+                                 <p>
+                                    Sincerely,
+                                </p>
+
+                                <b> 
+                                    <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #58585A;">
+                                    NCR Interact Partner Program Team
+                                    </p>
+                                </b>
+                            </td>
+                        </tr>
+                        </apex:outputpanel>
+                        
+                        <apex:outputPanel rendered="{! relatedTo.Status__c = 'Submitted to Channel Sales Leader'}">
+                        <tr>
+                            <td>
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #58585A;"> 
+                                    Dear {!relatedTo.Channel_Sales_Leader__r.Name} , 
+                                </p>
+    
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #58585A;">
+                                   
+                                    {!relatedTo.Owner.Name} belonging to {!relatedTo.Channel_Account_Manager__r.Name} has submitted a Customer Exception Request.
+                                </p>
+    
+
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #58585A;">
+                                    An approval or rejection is required before this Exception Request can either be moved into an Opportunity within Sales Force or be rejected.
+                                </p>
+                                
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #58585A;">
+                                   
+                                    Your next step to review their request and either Reject the request or contact the direct sales team who owns the account  
+                                </p>
+                                
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #58585A;">
+                                   
+                                    1.  If you reject the request in SalesForce, the Solution Provider and the CAM will receive a message the request was rejected. Please ensure your CAM is prepared to have a discussion with the Solution Provider on why their request was rejected. 
+                                </p>
+                                
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #58585A;">
+                                   
+                                    2.  Do not yet approve the request.  
+                                </p>
+                                
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #58585A;">
+                                   
+                                    3.  If you and your CAM determine there is merit for their exception request, both you and your CAM should review this request with the {!relatedTo.Partner_Account_Name__r.Name} sales team owners.  
+                                </p>
+                                
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #58585A;">
+                                   
+                                    If the joint decision among the sales organizations is to reject the request, then your only required action is to go to SalesForce within your home page under Tasks and click on the rejection button.  This will send a message to the Solution Provider informing them the request was denied. The Channel Sales Team should be prepared with a response and discussion points for your Solution Provider regarding why the request was denied.  
+                                </p>
+                                
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #58585A;">
+                                   
+                                    If the joint decision among the sales organizations is to accept the request, then the only required action by you, the Channel Sales Leader, is to go to SalesForce within your home page under Tasks and click on the accept button.  This will send a message to the Solution Provider informing them the request was Accepted.   
+                                </p>
+                                
+                                 <p>
+                                    Sincerely,
+                                </p>
+
+                                <b> 
+                                    <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #58585A;">
+                                    NCR Interact Partner Program Team
+                                    </p>
+                                </b>
+                            </td>
+                        </tr>
+                        </apex:outputpanel>
+                        
+                    </table>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="center" valign="middle">
+                    <c:InteractProgramToolFooter />
+                </td>
+
+            </tr>
+        </table>
+        <img height="1" width="1" style="visibility:hidden" src="https://www.cprpt.com/NCREmail/o.aspx?t=50038.10019.19808.19886.0.1.N.295797.1429.0&amp;e=RG250274@ncr.com"/>
+        
+        </body>
+        </html>
+    </messaging:htmlEmailBody>
+</messaging:emailTemplate>

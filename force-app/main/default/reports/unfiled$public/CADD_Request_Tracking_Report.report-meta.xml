@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>Deming__c.Customer_Name__c</field>
+    </columns>
+    <columns>
+        <field>Deming__c.Customer_Industry__c</field>
+    </columns>
+    <columns>
+        <field>Deming__c.SalesPerson_Name__c</field>
+    </columns>
+    <columns>
+        <field>Deming__c.Cadd_Status__c</field>
+    </columns>
+    <columns>
+        <field>Deming__c.Order_number__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Report for CADD created since 10/7/2019</description>
+    <filter>
+        <criteriaItems>
+            <column>Deming__c.Include_In_Process__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Deming__c.Created_By__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>greaterOrEqual</operator>
+            <value>10/7/2019 12:00 AM</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>CADD Request Tracking Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Deming__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Deming__c.Max_Promise_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

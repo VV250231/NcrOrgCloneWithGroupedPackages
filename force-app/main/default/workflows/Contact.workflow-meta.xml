@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>GDPR_Contact_Notify_Suspend_Process</fullName>
+        <description>GDPR_Contact_Notify_Suspend_Process</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>GDPR_Support_Team</recipient>
+            <type>group</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/GDPR_Contact_Suspend_Processing</template>
+    </alerts>
+    <alerts>
+        <fullName>Marketing_A1_Email_Alert</fullName>
+        <description>Marketing A1 Email Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <recipients>
+            <field>Email</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>hospitality.smb@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Hospitality_Case_Emails/Contactless_A1_Introduction_6_71</template>
+    </alerts>
+    <alerts>
+        <fullName>Marketing_B1_Email_Alert</fullName>
+        <description>Marketing B1 Email Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <recipients>
+            <field>Email</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>hospitality.smb@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Hospitality_Case_Emails/Florida_Contactless_B1_Introduction_12_3</template>
+    </alerts>
+    <alerts>
+        <fullName>Marketing_C1_Email_Alert</fullName>
+        <description>Marketing C1 Email Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <recipients>
+            <field>Email</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>hospitality.smb@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Hospitality_Case_Emails/Florida_Contactless_C1_Introduction_12_3_ATO</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_email_to_Lindsey_Collins_when_new_MyNCR_Admin_Contact_is_identified</fullName>
+        <ccEmails>Enable.MyNCR@ncr.com</ccEmails>
+        <description>Send email to Lindsey Collins when new MyNCR Admin Contact is identified</description>
+        <protected>false</protected>
+        <senderType>CurrentUser</senderType>
+        <template>NSC_Admin_Templates/MyNCR_Admin_Contact_Notification</template>
+    </alerts>
+    <alerts>
+        <fullName>testing_grant</fullName>
+        <ccEmails>psantos@salesforce.com</ccEmails>
+        <description>testing_grant</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>adobe.sign@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Testing_Grant</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Update_To_User_Modified_Date</fullName>
+        <field>User_Modified_Date__c</field>
+        <formula>Now()</formula>
+        <name>Update To User Modified Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <outboundMessages>
+        <fullName>Walker_Send_Survey_Mail_OB_Msg</fullName>
+        <apiVersion>19.0</apiVersion>
+        <endpointUrl>https://services.walkerinfo.com/services/salesforce/SalesforceSendSurveyMailService</endpointUrl>
+        <fields>Id</fields>
+        <includeSessionId>true</includeSessionId>
+        <integrationUser>cximplementation@ncr.com</integrationUser>
+        <name>Walker Send Survey Mail OB Msg</name>
+        <protected>false</protected>
+        <useDeadLetterQueue>false</useDeadLetterQueue>
+    </outboundMessages>
+    <rules>
+        <fullName>GDPR_Suspend_Processing_Request</fullName>
+        <actions>
+            <name>GDPR_Contact_Notify_Suspend_Process</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <formula>!$Setup.Automation_Setting__c.Skip_Flow__c &amp;&amp; SuspendProcessing_Contact__c = TRUE</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Marketing Email C1</fullName>
+        <actions>
+            <name>Marketing_C1_Email_Alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <formula>!$Setup.Automation_Setting__c.Skip_Flow__c &amp;&amp; X2009_Americas_Partner_Conf_Attendee__c = TRUE</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Send email to Lindsay Collins when new MyNCR Contact Admin is identified</fullName>
+        <actions>
+            <name>Send_email_to_Lindsey_Collins_when_new_MyNCR_Admin_Contact_is_identified</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <formula>!$Setup.Automation_Setting__c.Skip_Flow__c &amp;&amp; MyNCR__c = TRUE</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update User Modified date</fullName>
+        <actions>
+            <name>Update_To_User_Modified_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>This workflow updates the User Modified Date field based on Access Type of Current User</description>
+        <formula>!$Setup.Automation_Setting__c.Skip_Flow__c &amp;&amp; TEXT($User.Access_Type__c) = &apos;User&apos;</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Walker Send Survey Mail</fullName>
+        <actions>
+            <name>Walker_Send_Survey_Mail_OB_Msg</name>
+            <type>OutboundMessage</type>
+        </actions>
+        <active>true</active>
+        <formula>!$Setup.Automation_Setting__c.Skip_Flow__c &amp;&amp; $Organization.Id = &apos;00D&apos;+&apos;700000008mDk&apos; &amp;&amp; ( Walker_Info__UnprocessedSurveyMail__c &gt; PRIORVALUE(Walker_Info__UnprocessedSurveyMail__c) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

@@ -1,0 +1,50 @@
+<aura:component controller="DisputeAnalystController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,lightning:availableForFlowScreens" access="global">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="objectName" type="string" default="Case"/>
+    <aura:attribute name="parentFieldAPI" type="string" default="Dispute_Analyst_Name__c"/>
+    <aura:attribute name="parentList" type="list" default="[]" description=""/>
+    <aura:attribute name="parentValue" type="string" default=""/>
+    <aura:attribute name="RecordData" type="Object" default=""/>
+    <aura:attribute name="DisputeAnalystUserId" type="String" default=""/>
+    <aura:attribute name="DisputeAnalysteUserName" type="String" default=""/>
+    <aura:attribute name="DisputeAnalystUserPhone" type="String" default=""/>
+    <aura:attribute name="DisputeAnalysteUserEmail" type="String" default=""/>
+    <aura:attribute name="togglephone" type="Boolean" default="true"></aura:attribute>
+    <aura:attribute name="ToggleDisplayMsg" type="Boolean" default="false"></aura:attribute>
+    <aura:attribute name="DisplayMsg" type="String" default=""/>
+    
+    <aura:registerEvent name="AnalysteName" type="c:DisputeAnalysteName"/>
+    <aura:handler event="c:DisputeValidationMsg" action="{!c.handleDisputeDisplayEvent}"/>
+    <aura:if isTrue="{!v.ToggleDisplayMsg}">
+        <ui:message title="Error" severity="error" closable="true">
+                {!v.DisplayMsg}
+        </ui:message>
+    </aura:if>    
+    <div class="slds-box">
+        <lightning:layout  multipleRows="true">
+         <lightning:layoutItem size="12">
+                                <div class="custom-box">
+                                    <lightning:select label="Analyst"  name="parentField" aura:id="parentField"
+                                              value="{!v.parentValue}"
+                                              onchange="{!c.parentFieldChange}">
+                                                <aura:iteration items="{!v.parentList}" var="Obj">
+                                                    <option value="{!Obj.value}" selected="{!Obj.value=='Assigned to Queue'}">{!Obj.Label}</option>
+                                                </aura:iteration>
+                                    </lightning:select>
+                                </div>
+           </lightning:layoutItem>
+                       
+            <lightning:layoutItem  size="12"> 
+                  <lightning:layout>
+                      <lightning:layoutItem padding="around-small" size="6">
+                          <lightning:input  disabled="true"  name="input1" label="Email"  value="{!v.RecordData.Email}"/>
+                      </lightning:layoutItem>
+                      <lightning:layoutItem padding="around-small" size="6">
+                          <lightning:input  disabled="{!v.togglephone}"  name="input1" label="Phone"  maxlength="12" type="tel"  value="{!v.RecordData.Phone}"/>
+                      </lightning:layoutItem>
+                  </lightning:layout>               
+        	</lightning:layoutItem>  
+             
+     </lightning:layout>
+     </div>   
+</aura:component>

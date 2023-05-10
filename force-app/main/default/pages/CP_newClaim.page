@@ -1,0 +1,104 @@
+<apex:page standardController="SFDC_MDF_Claim__c" extensions="CP_ClaimExt">
+    <apex:pageMessages id="pageMessages"></apex:pageMessages>
+    <apex:form >
+        <apex:pageBlock mode="edit" title="Claim Request">
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Create Claim" action="{! processClaimRequest}"/>
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockSection title="Activity Profile">
+                <apex:outputField value="{! mdfRequest.Name}" />                              
+                <apex:outputField value="{! mdfRequest.Activity_Date__c}"/>
+                
+                <apex:outputField value="{! mdfRequest.Activity_Type__c}"/>
+                <apex:outputField value="{! mdfRequest.End_Date__c}"/>
+                <apex:outputField value="{! mdfRequest.Requester_Name__c}"/>
+                <apex:pageblockSectionItem ></apex:pageblockSectionItem>
+                <apex:outputfield value="{! mdfRequest.CAM__c}"/>
+                <apex:pageblockSectionItem ></apex:pageblockSectionItem>
+                <apex:outputField value="{! mdfRequest.Other_Vendors_Represented__c}"/>
+                <apex:pageblockSectionItem ></apex:pageblockSectionItem>
+                <apex:outputField value="{! mdfRequest.Activity_Description__c}" style="width:100%"/>               
+                <apex:pageblockSectionItem ></apex:pageblockSectionItem>
+                <apex:inputField value="{! mdfClaim.Transaction_Reference__c}"/>
+            </apex:pageBlockSection>
+                                    
+            <apex:actionRegion >
+                <apex:pageblockSection title="Financial Profile" collapsible="false">
+                    <apex:outputField value="{! mdfRequest.Number_of_Copies__c}" rendered="{! mdfRequest.Activity_Type__c == 'Print - Collateral' || mdfRequest.Activity_Type__c == 'Print - Brochure'}"/>
+                    <apex:inputField required="true" value="{! mdfClaim.Actual_Number_of_Copies__c}" rendered="{! mdfRequest.Activity_Type__c == 'Print - Collateral' || mdfRequest.Activity_Type__c == 'Print - Brochure' }"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Circulation__c}" rendered="{! mdfRequest.Activity_Type__c == 'Print - Publication' || mdfRequest.Activity_Type__c == 'Print - White Paper'}"/>
+                    <apex:inputField required="true" value="{! mdfClaim.Actual_Circulation__c}" rendered="{! mdfRequest.activity_type__c == 'Print - Publication' || mdfRequest.activity_type__c == 'Print - White Paper'}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Number_of_Unique_Site_Visitors__c}" rendered="{! mdfRequest.Activity_Type__c == 'E-marketing - Microsite'}"/>
+                    <apex:inputField required="true" value="{! mdfClaim.Actual_Number_of_Unique_Site_Visitors__c}" rendered="{! mdfRequest.activity_type__c == 'E-marketing - Microsite'}"/>
+                    
+                    
+                    <apex:inputField required="true" value="{! mdfClaim.Number_of_CTA_Click_through__c}" rendered="{! mdfRequest.activity_type__c == 'E-marketing - Microsite'}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Number_of_Leads__c}" rendered="{! mdfRequest.Activity_Type__c == 'Sales Program - Telemarketing' || mdfRequest.Activity_Type__c == 'E-marketing - Social Media' || mdfRequest.Activity_Type__c == 'E-marketing - Endorsed Outsourced Mktg' || mdfRequest.Activity_Type__c == 'E-marketing - Email' || mdfRequest.Activity_Type__c == 'Event - Roadshow' || mdfRequest.Activity_Type__c == 'Event - Tradeshow'}"/>
+                    <apex:inputField required="true" value="{! mdfClaim.Numbers_of_Leads__c}" rendered="{! mdfRequest.activity_type__c == 'E-marketing - Microsite' || mdfRequest.activity_type__c == 'Sales Program - Telemarketing' || mdfRequest.activity_type__c == 'E-marketing - Social Media' || mdfRequest.activity_type__c == 'E-marketing - Endorsed Outsourced Mktg' || mdfRequest.activity_type__c == 'E-marketing - Email' || mdfRequest.activity_type__c == 'Event - Roadshow' || mdfRequest.activity_type__c == 'Event - Tradeshow'}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Number_of_Sales__c}" rendered="{! mdfRequest.Activity_Type__c == 'Sales Program - Telesales' || mdfRequest.Activity_Type__c == 'Sales Program - Incentive'}"/>
+                    <apex:inputField required="true" value="{! mdfClaim.Actual_Number_of_Sales__c}" rendered="{! mdfRequest.activity_type__c == 'Sales Program - Telesales' || mdfRequest.activity_type__c == 'Sales Program - Incentive'}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Number_of_Calls__c}" rendered="{! mdfRequest.Activity_Type__c == 'Sales Program - Telesales'|| mdfRequest.Activity_Type__c == 'Sales Program - Telemarketing'}"/>
+                    <apex:inputField required="true" value="{! mdfClaim.Actual_Number_of_Calls__c}" rendered="{! mdfRequest.activity_type__c == 'Sales Program - Telesales' || mdfRequest.activity_type__c == 'Sales Program - Telemarketing'}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Number_of_Attendees__c}" rendered="{! mdfRequest.Activity_Type__c == 'E-marketing - Webinar' || mdfRequest.Activity_Type__c == 'Event - Seminar' || mdfRequest.Activity_Type__c == 'Sales Program - Sales Training' || mdfRequest.Activity_Type__c == 'Event - EBC Visit'}"/>
+                    <apex:inputField required="true" value="{! mdfClaim.Actual_Number_of_Attendees__c}" rendered="{! mdfRequest.activity_type__c == 'E-marketing - Webinar' || mdfRequest.activity_type__c == 'Event - Seminar' || mdfRequest.activity_type__c == 'Sales Program - Sales Training' || mdfRequest.activity_type__c == 'Event - EBC Visit'}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Number_of_Unique_Views__c}" rendered="{! mdfRequest.Activity_Type__c == 'E-marketing - Video'}"/>
+                    <apex:inputField required="true" value="{! mdfClaim.Actual_Number_of_Unique_Views__c}" rendered="{! mdfRequest.activity_type__c == 'E-marketing - Video'}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Number_of_Emails_Sent__c}" rendered="{! mdfRequest.Activity_Type__c == 'E-marketing - Email'}"/>
+                    <apex:inputField required="true" value="{! mdfClaim.Actual_Number_of_Emails_Sent__c}" rendered="{! mdfRequest.activity_type__c == 'E-marketing - Email'}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Estimated_Open_Emails__c}" rendered="{! mdfRequest.Activity_Type__c == 'E-marketing - Email'}"/>
+                    <apex:inputField required="true" value="{! mdfClaim.Actual_Open_Emails__c}" rendered="{! mdfRequest.activity_type__c == 'E-marketing - Email'}"/>
+                    
+                    <!--<apex:outputField value="{! mdfRequest.Estimated_Number_of_Responses__c}" rendered="{! mdfRequest.Activity_Type__c  == 'Print - Direct Mail'}"/>-->
+                    <apex:inputField required="true" value="{! mdfClaim.Actual_Number_of_Responses__c}" rendered="{! mdfRequest.activity_type__c == 'Print - Direct Mail'}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Number_of_Contacts__c}" rendered="{! mdfRequest.Activity_Type__c == 'Print - Direct Mail'}"/>
+                    <apex:inputField required="true" value="{! mdfClaim.Actual_Number_of_Contacts__c}" rendered="{! mdfRequest.activity_type__c == 'Print - Direct Mail'}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Estimated_Revenue__c}" rendered="{! mdfRequest.Activity_Type__c == 'Event - EBC Visit'|| mdfRequest.Activity_Type__c == 'Sales Program - Incentive'}"/>
+                    <apex:inputField required="true" value="{! mdfClaim.Actual_Revenue__c}" rendered="{! mdfRequest.activity_type__c == 'Event - EBC Visit' || mdfRequest.activity_type__c == 'Sales Program - Incentive'}"/>
+                    
+                    
+                    <apex:inputField required="true" value="{! mdfClaim.Actual_Sales__c}" rendered="{! mdfRequest.activity_type__c == 'Sales Program - Funded Head Count'}"/>
+                    
+                    <apex:outputField value="{! mdfRequest.Annual_Sales_Quota__c}" rendered="{! mdfRequest.Activity_Type__c == 'Sales Program - Funded Head Count'}"/>
+                    <apex:inputField required="true" value="{! mdfClaim.Actual_Annual_Sales_Quota__c}" rendered="{! mdfRequest.activity_type__c == 'Sales Program - Funded Head Count'}"/>
+                </apex:pageBlockSection>
+                <c:CP_Disclaimer />
+                <apex:pageBlockSection id="pb" columns="1" >
+                    <apex:variable var="rowNumber" value="{!0}"/>
+                    <apex:pageBlockTable value="{! mdfExepeseList }" var="item" styleClass="table-striped" rules="all">
+                        <apex:facet name="header">Expense Table</apex:facet>
+                        
+                        <apex:column value="{! item.Actvity__c}">
+                            <apex:facet name="footer">Total:</apex:facet>
+                        </apex:column>
+                        
+                        <apex:column value="{! item.Estimated_Cost__c}">
+                            <apex:facet name="footer"><apex:outputField label="" value="{! mdfRequest.Total_Estimated_Cost__c}"/></apex:facet>
+                        </apex:column>
+                        
+                        <apex:column value="{! item.NCR_Estimated_Participation__c}">
+                            <apex:facet name="footer"><apex:outputField value="{! mdfRequest.Total_NCR_Estimated_Participation__c}"/></apex:facet>
+                        </apex:column>
+                        
+                        <apex:column headerValue="{! $ObjectType.MDF_Expense_Detail__c.fields.Actual_Cost__c.Label}">
+                            <apex:inputField value="{! item.Actual_Cost__c}" required="true"/>
+                        </apex:column>
+                        
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection>
+            </apex:actionRegion>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

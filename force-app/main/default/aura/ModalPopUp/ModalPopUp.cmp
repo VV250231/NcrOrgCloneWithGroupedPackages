@@ -1,0 +1,116 @@
+<aura:component controller="ModalPopUpApexController" implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,force:hasSObjectName">
+   
+    <aura:dependency resource="force:navigateToSObject" type="EVENT"/> 
+
+    <!-- Id of the Account the page hosting this component is showing -->
+    <aura:attribute name="recordId" type="Id" />
+	<aura:attribute name="edit" type="Boolean" />
+    <aura:attribute name="showModalA" type="String" />
+    <aura:attribute name="showModalB" type="String"/>
+     <aura:attribute name="showModalC" type="String" />
+    <aura:attribute name="showModalD" type="String"/>
+    <aura:attribute name="showModalE" type="String"/>
+    <aura:attribute name="showModalDeal" type="String"/>
+    <aura:attribute name="engineerId" type="String"/>
+    <aura:attribute name="portalLogin" type="String"/>
+    <aura:attribute name="reason" type="String"/>
+    
+   
+    
+    
+     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+<aura:renderIf isTrue="{!v.showModalA == 'Y'}">
+<div role="dialog" tabindex="-1" aria-labelledby="header43" class="slds-modal slds-fade-in-open">
+  <div class="slds-modal__container">
+    <div class="slds-modal__header">
+       <h2 id="header43" class="slds-text-heading_medium">Select Rejection Reason </h2>
+    </div>
+    <div class="slds-modal__content slds-p-around_medium">
+        <ui:inputSelect class="single" aura:id="InputSelectSingle" change="{!c.getOther}" >
+				<ui:inputSelectOption text="User already exists" value="User already exists"/>
+                <ui:inputSelectOption text="User needs to complete certifications" value="User needs to complete certifications"/>
+                <ui:inputSelectOption text="User name mismatch" value="User name mismatch"/>
+               <ui:inputSelectOption text="User email address mismatch" value="User email address mismatch"/>
+            	<ui:inputSelectOption text="Others" value="Others"/>
+    		</ui:inputSelect>
+             <aura:renderIf isTrue="{!v.showModalE == 'Y'}">
+      
+  				<label class="slds-form-element__label" for="SelectReason-01" >Reason for rejection</label>
+ 				 <div class="slds-form-element__control">
+   					 <ui:inputText aura:id="SelectReason-01" class="slds-input"  value="{!v.reason}" />
+  				</div>
+			
+      </aura:renderIf> 
+  </div>
+  
+    <div class="slds-modal__footer">
+        <ui:button class="slds-button slds-button_brand" press="{!c.sendMail}">Send Email With reason</ui:button>
+        
+    </div>
+  </div>
+</div>
+<div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:renderIf>
+    
+    
+    <aura:renderIf isTrue="{!v.showModalB =='Y'}">
+<div role="dialog" tabindex="-1" aria-labelledby="header43" class="slds-modal slds-fade-in-open">
+  <div class="slds-modal__container">
+    <div class="slds-modal__header">
+       <h2 id="header43" class="slds-text-heading_medium">Fill out additional details for Approval </h2>
+    </div>
+    <div class="slds-modal__content slds-p-around_medium">
+     <aura:renderIf isTrue="{!v.showModalC =='Y'}">
+        <div class="slds-form-element">
+  				<label class="slds-form-element__label" for="text-input-01" >WebPortal LoginID</label>
+ 				 <div class="slds-form-element__control">
+   					 <ui:inputText aura:id="text-input-01" class="slds-input"  value="{!v.portalLogin}" />
+  				</div>
+			</div>
+        </aura:renderIf>
+       <aura:renderIf isTrue="{!v.showModalD =='Y'}">
+        <div class="slds-form-element">
+  				<label class="slds-form-element__label" for="text-input-01" >EngineerID</label>
+ 				 <div class="slds-form-element__control">
+   					 <ui:inputText aura:id="text-input-01" class="slds-input"  value="{!v.engineerId}"  />
+  				</div>
+			</div>
+        </aura:renderIf>
+         
+      
+    </div>
+    <div class="slds-modal__footer">
+        <ui:button class="slds-button slds-button_neutral" press="{!c.redirect}" >Cancel</ui:button>
+      <ui:button class="slds-button slds-button_brand" press="{!c.engineerToContactConversion}">Save</ui:button>
+    </div>
+  </div>
+</div>
+<div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:renderIf>
+    
+    <aura:renderIf isTrue="{!v.showModalDeal == 'Y'}">
+<div role="dialog" tabindex="-1" aria-labelledby="header43" class="slds-modal slds-fade-in-open">
+  <div class="slds-modal__container">
+    <div class="slds-modal__header">
+       <h2 id="header43" class="slds-text-heading_medium">Select Rejection Reason </h2>
+    </div>
+    <div class="slds-modal__content slds-p-around_medium">
+        <ui:inputSelect class="single" aura:id="InputSelectSingleDeal"  >
+				<ui:inputSelectOption text="This was a previous NCR Account within the past 8 years, does not qualify" value="This was a previous NCR Account within the past 8 years, does not qualify"/>
+                <ui:inputSelectOption text="his is an existing named account does not qualify" value="his is an existing named account does not qualify"/>
+                <ui:inputSelectOption text="Value is insufficient to qualify for Deal Registration" value="Value is insufficient to qualify for Deal Registration"/>
+               <ui:inputSelectOption text="Region or country is not part of the Deal Registration Program" value="Region or country is not part of the Deal Registration Program"/>
+            	
+    		</ui:inputSelect>
+         
+  </div>
+  
+    <div class="slds-modal__footer">
+        <ui:button class="slds-button slds-button_brand" press="{!c.sendMailDeal}">Send Email With reason</ui:button>
+        
+    </div>
+  </div>
+</div>
+<div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:renderIf>
+</aura:component>

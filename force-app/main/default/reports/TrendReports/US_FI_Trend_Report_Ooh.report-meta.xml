@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_31332318</developerName>
+        <masterLabel>Trend Product</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Opportunity.Product_Category__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Allpoint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allpoint, Branding</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allpoint, Managed Services</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allpoint, Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allpoint, Managed Services, Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allpoint, Other, Managed Services</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allpoint+, Allpoint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allpoint+, Other, Allpoint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Other, Allpoint</sourceValue>
+            </sourceValues>
+            <value>Allpoint</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Other, Allpoint+</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allpoint+, Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allpoint+</sourceValue>
+            </sourceValues>
+            <value>Allpoint+</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Managed Services</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Managed Services, Allpoint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Managed Services, Allpoint, Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Managed Services, Branding</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Managed Services, Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Managed Services, Other, Allpoint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Managed Services, Surcharge Increase, Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Other, Managed Services</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Other, Managed Services, Allpoint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Other, Managed Services, Surcharge Increase</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Other, Allpoint, Managed Services</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Managed Services, Branding, Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Managed Services, Other, Branding</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Surcharge Increase, Other, Managed Services</sourceValue>
+            </sourceValues>
+            <value>ATM Managed Services</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Other</sourceValue>
+            </sourceValues>
+            <value>Other</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Mobile Cash Access</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Mobile Cash Access, Allpoint+</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Other, Mobile Cash Access</sourceValue>
+            </sourceValues>
+            <value>Mobile API</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>VAR</sourceValue>
+            </sourceValues>
+            <value>VAR</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Branding</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Branding, Allpoint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Branding, Allpoint+, Allpoint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Branding, Managed Services</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Branding, Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Other, Branding</sourceValue>
+            </sourceValues>
+            <value>ATM Branding</value>
+        </values>
+    </buckets>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <aggregate>Sum</aggregate>
+            <axisBinding>y</axisBinding>
+            <column>Opportunity.Incremental_ACV__c</column>
+        </chartSummaries>
+        <chartType>VerticalColumn</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>TSTAGE</groupingColumn>
+        <location>CHART_BOTTOM</location>
+        <showAxisLabels>false</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Average</aggregateTypes>
+        <field>STAGE_DURATION</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Incremental_ACV__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>AGE</field>
+    </columns>
+    <currency>USD</currency>
+    <description>US FI Trend Report using Historical Trend</description>
+    <filter>
+        <criteriaItems>
+            <column>INTERVAL_DATE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>LAST_N_DAYS:730</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Opportunity_Classification__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>CATM - FI</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Region__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>NABG</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Reporting_Geography__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>US</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Industry_Type__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Arcade,Bingo Hall,Casino,Gambling Core,Gaming Center,GeWeTe,Spielothek</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FULL_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>Benner</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>ROLLUP_DESCRIPTION</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>VAR</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>TSTAGE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Analyzing,Validating,Offering,Proposing</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>TYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>New Customer</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Quarter</dateGranularity>
+        <field>INTERVAL_DATE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_31332318</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>TSTAGE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>US FI Trend Report</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>0</value>
+    </params>
+    <reportType>OpportunityTrend</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>INTERVAL_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

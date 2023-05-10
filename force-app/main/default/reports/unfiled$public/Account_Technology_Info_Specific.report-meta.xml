@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>USERS.NAME</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Consumer_Deposit_OAO__c</field>
+    </columns>
+    <columns>
+        <field>Account.AO_Consumer_Mortgage_OAO__c</field>
+    </columns>
+    <columns>
+        <field>Account.AO_Consumer_Loans_Auto_HELOC__c</field>
+    </columns>
+    <columns>
+        <field>Account.Commercial_Deposit_OAO__c</field>
+    </columns>
+    <columns>
+        <field>Account.AO_Commercial_Loan_OAO__c</field>
+    </columns>
+    <columns>
+        <field>Account.LSP_Consumer_Mortgage__c</field>
+    </columns>
+    <columns>
+        <field>Account.LSP_Consumer_Loans_Auto_HELOC__c</field>
+    </columns>
+    <columns>
+        <field>Account.LSP_Commercial_Loans__c</field>
+    </columns>
+    <columns>
+        <field>Account.CC_Processor__c</field>
+    </columns>
+    <columns>
+        <field>Account.Debit_Card_Processor__c</field>
+    </columns>
+    <columns>
+        <field>Account.Wires_Platform__c</field>
+    </columns>
+    <columns>
+        <field>Account.CRM__c</field>
+    </columns>
+    <columns>
+        <field>Account.Chat_Video_Solutions__c</field>
+    </columns>
+    <columns>
+        <field>Account.Marketing_Mgmt__c</field>
+    </columns>
+    <columns>
+        <field>Account.Business_Banking_Vendor__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Digital Account Opening
+o	Consumer Deposit 
+o	Consumer Mortgage 
+o	Consumer Auto 
+o	Commercial Deposit
+o	Commercial Loan 
+-	Loan Servicing Platforms
+o	Consumer Mortgage 
+o	Consumer Loans – Autos etc.
+o	Commercial Loans
+-	Payments
+o	Credit Card Processor</description>
+    <filter>
+        <criteriaItems>
+            <column>Account.Active_Account__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Account Technology Info Specific</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList</reportType>
+    <scope>accountteam</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>Account.Consumer_Deposit_OAO__c</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

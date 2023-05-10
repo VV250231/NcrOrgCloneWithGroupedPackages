@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_7849082</developerName>
+        <masterLabel>Preferred Offers vs Other</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>PRODUCT_NAME</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>6623 - SelfServ23 Preferred Offers (US Core)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>6623 - SelfServ 23 Standardize Preferred Offer (Argentina)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2019 - SelfServ 61 Optimize Preferred Offer (India)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2019 - SelfServ 61 Standardize Preferred Offer (India)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2018 - SE Cash Preferred Offers (India)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2018 - SE Cash Catalogue Preferred Offers</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2063 - SelfServ 63 Catalogue Preferred Offers</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>6627 - SelfServ 27 Preferred Offer (Italy)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>6682 - SelfServ 82 Catalogue Preferred Offers</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>6683 - SelfServ 83 Catalogue Preferred Offers</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>6683 - SelfServ 83 Preferred Offer (Russia)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>6684 - SelfServ 84 Catalogue Preferred Offers</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>6684 - SelfServ 84 Preferred Offers - DU Digitize (US Core)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>6684 - SelfServ 84 Preferred Offers - DU Optimize (US Core)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>6684 - SelfServ 84 Preferred Offers - DU Standardize (US Core)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>6684 - SelfServ 84 Preferred Offers - WU Digitize (US Core)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>6684 - SelfServ 84 Preferred Offers - WU Optimize (US Core)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>6684 - SelfServ 84 Preferred Offers - WU Standardize (US Core)</sourceValue>
+            </sourceValues>
+            <value>Preferred Offers</value>
+        </values>
+    </buckets>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <aggregate>Sum</aggregate>
+            <axisBinding>y</axisBinding>
+            <column>TOTAL_PRICE</column>
+        </chartSummaries>
+        <chartType>Donut</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>false</expandOthers>
+        <groupingColumn>PRODUCT_NAME</groupingColumn>
+        <legendPosition>Right</legendPosition>
+        <location>CHART_BOTTOM</location>
+        <showAxisLabels>false</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>true</showTotal>
+        <showValues>false</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>AMOUNT</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>PROBABILITY</field>
+    </columns>
+    <columns>
+        <field>Product2.Service_Offer_Category__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>TOTAL_PRICE</field>
+    </columns>
+    <columns>
+        <field>TOTAL_PRICE.CONVERT</field>
+    </columns>
+    <columns>
+        <field>PRODUCT_DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>Opportunity.OCR_2018_TEAM_H4__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>User.LOB__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>FINANCIAL</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Industry__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Financial</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Product2.Service_Offer_Category__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>HW</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Forecast_Category__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Upside</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>STAGE_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Prospecting,Analyzing,Validating,Offering,Proposing,Closing</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>PRODUCT_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Preferred</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Region__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>EMEA</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>PRODUCT_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>STAGE_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Opportunity.Forecast_Category__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>EMEA Preferred Offers Upside Opts</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>open</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>OpportunityProduct</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

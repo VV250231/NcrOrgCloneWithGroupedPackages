@@ -1,0 +1,18 @@
+<apex:page >
+  <script>
+       window.onload = function(){
+        var dec = decodeURIComponent(window.location.href);
+        if ((dec.indexOf("PartnerCentral/500")!=-1||dec.indexOf("PartnerCentral/apex/GetHelpUploadAttachment")!=-1))
+        {
+            //alert('Hi');
+            console.log(window.parent.document.querySelector('[title="Get Help Tab"]').parentNode);
+            window.parent.document.querySelector('[title="Get Help Tab"]').parentNode.setAttribute("class", "zen-active brandPrimaryBgr");
+            window.parent.document.querySelector('[title="Get Help Tab"]').setAttribute("class", "brandPrimaryFgr");
+        }
+        if ((window.location.href.indexOf("PartnerCentral/500")!=-1))
+        {
+            window.parent.document.querySelector('[class ="overviewHeaderDescription"]').innerHTML = 'Cases are the Get Help requests you raise';
+        }
+}
+</script>
+</apex:page>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Opportunity_Team_Email_Notification</fullName>
+        <description>Opportunity Team Email Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <field>UserId</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Opportunity_Team_Notification</template>
+    </alerts>
+    <rules>
+        <fullName>Opportunity Team Notification</fullName>
+        <actions>
+            <name>Opportunity_Team_Email_Notification</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>OpportunityTeamMember.UserId</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

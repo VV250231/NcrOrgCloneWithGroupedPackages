@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Immediate Followup Email Template</name>
+    <style>none</style>
+    <subject>Immediate Concern / Action Required for {!Case.Contact}</subject>
+    <textOnly>{!Case.Contact} from {!Case.Account} recently completed the NCR Customer Relationship Survey and reported an outstanding concern they would like to discuss immediately.
+
+NOTE: If you are not the Account Manager for this contact, see instructions below to Change Owner and reassign the case.
+
+Please follow-up with this customer as soon as possible to resolve the issue. You can click on the link below to access the case. From there you can click on the customer contact name to view their survey. After following up with the customer, please click on this link: {!Case.Link} and use Edit/Close buttons to update required fields and close the case.
+
+How to Update Follow-Up Case:
+               
+     1. CLICK ALERT LINK in the original alert sent to you, or click link in SUBJECT column of report to open a specific case.
+     2. CLICK CHANGE OWNER BUTTON if necessary to reassign to a different account owner.
+     3. CLICK CONTACT NAME to open contact record and view survey feedback with all responses.
+     4. CLICK BACK in your browser to return to the follow-up case so you can edit and make updates.
+     5. CLICK EDIT BUTTON in the case to update all required fields including any planned actions.
+     6. UPDATE STATUS to reflect your follow-up progress:
+         New – (Default) no action has been taken yet
+         In Progress – follow-up in progress with the customer
+         Follow-up Completed – customer discussion documented in case including key 
+         issues and planned actions
+     7. CLICK SAVE BUTTON to save all changes when completed.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

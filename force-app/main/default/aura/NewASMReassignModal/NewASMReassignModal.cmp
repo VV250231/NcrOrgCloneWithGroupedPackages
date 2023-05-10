@@ -1,0 +1,115 @@
+<aura:component controller = "APOCRolesController" implements="lightning:actionOverride,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:hasRecordId,force:lightningQuickActionWithoutHeader" access="global" >
+    <aura:attribute name="parent" type="Aura.Component"/>
+    <aura:attribute name="ManageRoles" type="String[]"/>
+    <aura:attribute name="showModal" type="boolean" default="true"/>
+    <aura:attribute name="ASMHirarchy" type="Object[]"/>
+    <aura:attribute Name="selItem" type="object" access="public"/> 
+    <aura:attribute name="currentTab" type="String" default="tab-default-1__item"/>
+    <aura:attribute name="spinner" type="boolean" default="FALSE"/>
+    <aura:attribute name ="ShowUSerSection" type="boolean" default ='false'/>
+    <aura:attribute name="AccountSupportList"  type="Object[]"/>
+    <aura:attribute name="recordToReassign" type="Object[]"/>
+    <aura:attribute name="isAsc" type="boolean" default="false"/>
+    <aura:attribute name="selectRole" type="boolean" default="true"/>
+    <aura:attribute name="selectRoledisabled" type="boolean" default="true"/>
+    <aura:attribute name="selectedRole" type="String" default=""/>
+    <aura:attribute name="rolesToDelete"  type="Object[]" default=""/>
+    <aura:attribute name="arrowDirection" type="string" default="arrowdown" />
+    <aura:attribute name ="currentPage" type ="integer"/>
+    <aura:attribute name ="isStandard" type ="boolean" default="false"/>
+    <aura:attribute name ="fromAPOCCommunity" type ="boolean" default="true"/>
+    <aura:attribute name ="fromNewButton" type ="boolean" default="true"/>
+    <aura:attribute name="accName" type="string"/>
+    <aura:attribute name="accId" type="String"/>
+    <aura:attribute name="accMaster" type="String"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <!-- Attribute Section End  -->
+    
+    <!-- Event Handler goes here -->
+    <!--<aura:handler event="c:LookUpEvt" action="{!c.handleLookUpEvent}"/>-->
+    
+    <!-- Event Handler End  here -->
+    <!--loading spinner start-->
+    <aura:if isTrue="{!v.spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container" style="position: fixed;">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    <!-- Loading spinner end--> 
+    <!-- modal start here -->
+    <!-- show modal start here -->
+    <div aura:id="NewModal"  class="slds-modal slds-fade-in-open" style="height:640px;">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header" >
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeModal}">
+                        <lightning:icon class="IconColor" iconName="utility:close" size="small"/>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate"><b>Add/Reassign/Delete Roles for {!v.accName}</b> </h2>
+                </header>
+                
+                
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1" style="height : 500px;"> 
+                    
+                    <!--New Reassign Modal With Roles -->
+                    
+                    <div class="subHeaderColor" ><p class="slds-m-left_x-small whiteFont" style="font-size: 20px;">APOC Roles </p></div>
+                    <aura:iteration items="{!v.ASMHirarchy}" var="asmWrap" indexVar="index">
+                        <div class="slds-grid slds-wrap slds-gutters">
+                            <div class="slds-col slds-size_6-of-12">
+                                
+                                <lightning:select aura:id ="{!role+v.index}" name="colorId" tabindex="{!index}" label="Select a Role:" value="{!asmWrap.RoleName}">
+                                    <aura:iteration items="{!v.ManageRoles}" var="option">
+                                        <p>{!option}</p>
+                                        <option text="{!option}" value="{!option}" selected="{!option.selected}"/>
+                                    </aura:iteration>
+                                </lightning:select>
+                            </div>
+                            <div class="slds-col slds-size_5-of-12">
+                                <div style="margin-top : 22px">
+                                    <!-- changed line number 77,79,82,83 for EBA_SF-1263 to search for NCR Employee table instead of User by Varsha-->
+                                    <c:LookupAccountSupport lookupIcon="standard:user"
+                                                            objectName="NCR_Employee_Detail__c"
+                                                            type = 'Role'
+                                                            field_API_search="User_Name__c"
+                                                            limit="5"
+                                                            placeholder="Search User by Name"
+                                                            field_API_val="Id,Quicklook_ID__c"
+                                                            field_API_text="User_Name__c"
+                                                            selectedObject="{!asmWrap.ObjRecord}"
+                                                            selItem  ="{!asmWrap.selItem}"/>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-12">
+                                <aura:if isTrue="{!v.ASMHirarchy.length > 1}">
+                                    <lightning:buttonIcon variant="bare" iconName="utility:delete" class="slds-p-top red" size="large" tabindex="{!index}" alternativeText="Delete this row." onclick="{! c.removeASMRole }" iconClass="dark" />
+                                </aura:if>
+                            </div>
+                        </div>
+                    </aura:iteration>
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <div class="slds-col slds-size_1-of-2 slds-p-top_medium">
+                            <lightning:button variant="brand" label="Add Roles" title="Add Roles" onclick="{! c.addASMRole}"/>
+                        </div>
+                    </div>
+                    
+                    <!--END New Reassign Modal With Roles -->
+                </div>
+                
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_brand" onclick="{!c.goPrev}" disabled="{!v.fromNewButton}">Prev</button>
+                    <button class="slds-button slds-button_neutral" onclick="{!c.closeModal}">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick="{!c.EditAccRecord}">Save</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+    <!-- show modal end here--> 
+</aura:component>

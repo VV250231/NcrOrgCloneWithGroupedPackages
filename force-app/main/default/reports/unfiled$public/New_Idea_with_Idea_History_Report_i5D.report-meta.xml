@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Idea$Title</field>
+    </columns>
+    <columns>
+        <field>Idea.Idea_History__r$Name</field>
+    </columns>
+    <columns>
+        <field>Idea$Status</field>
+    </columns>
+    <columns>
+        <field>Idea*Idea$Di_Idea_Line_of_Business__c</field>
+    </columns>
+    <columns>
+        <field>Idea*Idea$Di_Idea_Product_Manager_Name__c</field>
+    </columns>
+    <columns>
+        <field>Idea$CreatedBy</field>
+    </columns>
+    <columns>
+        <field>Idea*Idea$Di_Idea_Category__c</field>
+    </columns>
+    <columns>
+        <field>Idea*Idea$Di_Internal_Category_Name__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>Idea$Status</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Future Consideration</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Idea.Idea_History__r$Di_Idea_OLD_Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Future Consideration</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Idea.Idea_History__r$Di_Idea_NEW_Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Future Consideration</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Idea.Idea_History__r$Created_Date__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>lessThan</operator>
+            <value>5/19/2019 2:30 AM</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>New Idea with Idea History Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Idea_with_Idea_History__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Idea$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

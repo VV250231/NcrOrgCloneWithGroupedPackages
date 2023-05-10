@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_45128530</developerName>
+        <masterLabel>New Rev Type</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Product2.Service_Offer_Category__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>PS</sourceValue>
+            </sourceValues>
+            <value>PS</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>SW</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Cloud</sourceValue>
+            </sourceValues>
+            <value>SW+Cloud</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_15543956</developerName>
+        <masterLabel>Product Group</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>PRODUCT_NAME</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>D3 Business Intelligence - Cloud</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NCR Analytics</sourceValue>
+            </sourceValues>
+            <value>Analytics</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Advanced Marketing System</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Advanced Marketing System Cloud</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Loyalty Pro/Connected Loyalty</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Loyalty</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Loyalty SWM</sourceValue>
+            </sourceValues>
+            <value>Loyalty</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Emerald</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Emerald Subscription Service</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Emerald SCO Add-on Subscription Service</sourceValue>
+            </sourceValues>
+            <value>Emerald</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>NCR Freshop</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ecommerce</sourceValue>
+            </sourceValues>
+            <value>Freshop</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>R10 POS</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>R10 Quick Service Restaurant POS</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>R10 Enterprise</sourceValue>
+            </sourceValues>
+            <value>R10</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Digital Receipts Service</sourceValue>
+            </sourceValues>
+            <value>Digital Receipts</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Software Defined Store</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>POS Connect</sourceValue>
+            </sourceValues>
+            <value>SDS</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Commitment_Risk__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.OCR_TEAM__c</field>
+    </columns>
+    <columns>
+        <field>PRODUCT_NAME</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>OpportunityLineItem.Line_TCV__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>OpportunityLineItem.Line_ACV__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>TOTAL_PRICE.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>CDF1</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>case(OpportunityLineItem.Revenue_Type__c,&quot;PS&quot;,1,0)</calculatedFormula>
+        <dataType>Double</dataType>
+        <developerName>CDF1</developerName>
+        <label>RT Check</label>
+        <scale>0</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>Product2.Service_Offer_Category__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>SW,Cloud,PS</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FORECAST_CATEGORY</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Pipeline,Upside,Commit</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.OCR_2018_TEAM__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>GS:Ret</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>PRODUCT_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>SDS,Emerald,Freshop,Software defined store</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_45128530</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_15543956</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>OpportunityLineItem.Is_Subscriptioned__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Andrew NEW</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>open</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>OpportunityProduct</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

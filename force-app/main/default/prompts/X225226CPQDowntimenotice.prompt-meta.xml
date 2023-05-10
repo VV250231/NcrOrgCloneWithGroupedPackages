@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prompt xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>2/25 -2/26 CPQ Downtime notice</masterLabel>
+    <promptVersions>
+        <body>&lt;p&gt;Salesforce CPQ &amp;amp; Billing will be down for deployment&amp;nbsp;&lt;b style=&quot;font-size: 11pt; font-family: &amp;quot;Open Sans&amp;quot;, sans-serif;&quot;&gt;&lt;u&gt;Fri (2/25) 8PM ET – Sat (2/26) 12PM ET.&lt;/u&gt;  &lt;/b&gt;Please DO NOT create or edit quotes or perform any billing-related tasks during this time. Thank you!&lt;/p&gt;</body>
+        <delayDays>1</delayDays>
+        <description>Team- Salesforce CPQ and Billing will be down for deployment Friday (2/25) 8PM ET – Saturday (2/26) 12PM ET.
+
+Marci, please assist with enabling the on-screen warning message for the users. 
+ 
+P.S: Users should not create or edit quotes during this time.</description>
+        <dismissButtonLabel>Dismiss</dismissButtonLabel>
+        <displayPosition>MiddleCenter</displayPosition>
+        <displayType>FloatingPanel</displayType>
+        <endDate>2022-02-26</endDate>
+        <isPublished>false</isPublished>
+        <masterLabel>2/25 -2/26 CPQ Downtime notice</masterLabel>
+        <shouldDisplayActionButton>false</shouldDisplayActionButton>
+        <shouldIgnoreGlobalDelay>false</shouldIgnoreGlobalDelay>
+        <startDate>2022-02-25</startDate>
+        <themeColor>Theme1</themeColor>
+        <themeSaturation>Dark</themeSaturation>
+        <timesToDisplay>1</timesToDisplay>
+        <title>Salesforce CPQ &amp; Billing Downtime</title>
+        <uiFormulaRule>
+            <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9</booleanFilter>
+            <criteria>
+                <leftValue>{!$User.Profile.Key}</leftValue>
+                <operator>EQUAL</operator>
+                <rightValue>custom_04 nsc ui administrator</rightValue>
+            </criteria>
+            <criteria>
+                <leftValue>{!$User.Profile.Key}</leftValue>
+                <operator>EQUAL</operator>
+                <rightValue>custom_hosp smb sales</rightValue>
+            </criteria>
+            <criteria>
+                <leftValue>{!$User.Profile.Key}</leftValue>
+                <operator>EQUAL</operator>
+                <rightValue>custom_hosp smb sales with hosted</rightValue>
+            </criteria>
+            <criteria>
+                <leftValue>{!$User.Profile.Key}</leftValue>
+                <operator>EQUAL</operator>
+                <rightValue>custom_54 hosted solutions sales operations</rightValue>
+            </criteria>
+            <criteria>
+                <leftValue>{!$User.Profile.Key}</leftValue>
+                <operator>EQUAL</operator>
+                <rightValue>custom_hosp inside sales</rightValue>
+            </criteria>
+            <criteria>
+                <leftValue>{!$User.Profile.Key}</leftValue>
+                <operator>EQUAL</operator>
+                <rightValue>custom_50 hospitality account director</rightValue>
+            </criteria>
+            <criteria>
+                <leftValue>{!$User.Profile.Key}</leftValue>
+                <operator>EQUAL</operator>
+                <rightValue>custom_51 hospitality account manager</rightValue>
+            </criteria>
+            <criteria>
+                <leftValue>{!$User.Profile.Key}</leftValue>
+                <operator>EQUAL</operator>
+                <rightValue>custom_pricing analyst</rightValue>
+            </criteria>
+            <criteria>
+                <leftValue>{!$User.Profile.Key}</leftValue>
+                <operator>EQUAL</operator>
+                <rightValue>custom_cloned 54 hosted solutions sales operations for ds admin</rightValue>
+            </criteria>
+        </uiFormulaRule>
+        <userAccess>Everyone</userAccess>
+        <userProfileAccess>SpecificProfiles</userProfileAccess>
+        <versionNumber>1</versionNumber>
+    </promptVersions>
+</Prompt>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_32974073</developerName>
+        <masterLabel>notes type</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>CREATED</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>No Answer/Left V.M</sourceValue>
+            </sourceValues>
+            <value>No Answer/Left V.M</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Incorrect contact information</sourceValue>
+            </sourceValues>
+            <value>Incorrect contact information</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Not interested</sourceValue>
+            </sourceValues>
+            <value>Not interested</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Follow up email</sourceValue>
+            </sourceValues>
+            <value>Follow up email</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Risk_Comments__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>OPPORTUNITY_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Buffalo Wild Wings; AMS;</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Opportunity.Notes__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>BWW control Opps</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>open</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,1698 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>AAS_Support_Case_Assigned_Alert_to_CreatedBy_User</fullName>
+        <description>AAS Support Case Assigned Alert to CreatedBy User</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderAddress>salesforce.aasq2csupport@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/AAS_Support_Case_Assigned_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>AAS_Support_Case_Assigned_Alert_to_WebEmail</fullName>
+        <description>AAS Support Case Assigned Alert to WebEmail</description>
+        <protected>false</protected>
+        <recipients>
+            <field>SuppliedEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>salesforce.aasq2csupport@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/AAS_Support_Case_Assigned_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>AAS_Support_Case_Closed_Alert_to_CreatedBy_User</fullName>
+        <description>AAS Support Case Closed Alert to CreatedBy User</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderAddress>salesforce.aasq2csupport@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>NSC_Admin_Templates/AAS_Support_Case_Closure_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>AAS_Support_Case_Closed_Alert_to_WebEmail</fullName>
+        <description>AAS Support Case Closed Alert to WebEmail</description>
+        <protected>false</protected>
+        <recipients>
+            <field>SuppliedEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>salesforce.aasq2csupport@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>NSC_Admin_Templates/AAS_Support_Case_Closure_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>AAS_Support_New_Case_Creation_Alert</fullName>
+        <description>AAS Support New Case Creation Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderAddress>salesforce.aasq2csupport@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/AAS_Support_Case_Submission_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>CSM_Team_Case_Closing_By_CSM_Alert</fullName>
+        <ccEmails>vp250252@ncr.com.test</ccEmails>
+        <ccEmails>dan.nguyen@ncr.com.test</ccEmails>
+        <ccEmails>Customer.SuccessTeam@ncr.com.test</ccEmails>
+        <description>CSM Team Case Closing By CSM Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactEmail</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <recipients>
+            <recipient>mm185593@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>ms250945@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/CSM_Team_Case_Closing_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>CSM_Team_Case_Closing_By_Customer_Alert</fullName>
+        <ccEmails>vp250252@ncr.com,</ccEmails>
+        <ccEmails>gr185126@ncr.com,</ccEmails>
+        <ccEmails>dan.nguyen@ncr.com</ccEmails>
+        <description>CSM Team Case Closing By Customer Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactEmail</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/CSM_Team_Case_Closing_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Case_Cancelled_Email_Alert</fullName>
+        <description>Case Cancelled Email Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>Customer Contact</recipient>
+            <type>caseTeam</type>
+        </recipients>
+        <recipients>
+            <field>Alternate_Contact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>ncrhospitality.support@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Case_Cancelled_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Case_Created_Email_Alert</fullName>
+        <description>Case Created Email Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>Customer Contact</recipient>
+            <type>caseTeam</type>
+        </recipients>
+        <recipients>
+            <field>Alternate_Contact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>ncrhospitality.support@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Case_Creation_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Case_Escalation_Update_to_Customer_Success_Team</fullName>
+        <description>Case Escalation Update to Customer Success Team</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>az185068@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>jk185295@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>mm185593@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>ms250945@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>nm250386@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>VOC_Email_Templates/customer_success_case_escalation</template>
+    </alerts>
+    <alerts>
+        <fullName>Case_Reopened_Email_Alert</fullName>
+        <description>Case Reopened Email Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Response_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>ncrhospitality.support@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Case_Reopened_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Case_Resolved_Email_Alert</fullName>
+        <description>Case Resolved Email Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>Customer Contact</recipient>
+            <type>caseTeam</type>
+        </recipients>
+        <recipients>
+            <field>Alternate_Contact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>ncrhospitality.support@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Case_Resolved_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Close_the_Loop_Case_Created_Email</fullName>
+        <description>Close the Loop Case Created Email</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>steve.thoma@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Close_the_Loop_Followup_Email_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Deal_Desk_Approved</fullName>
+        <description>Deal Desk Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Deal_Desk_Template_Folder/Deal_Desk_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Deal_Desk_Assigned</fullName>
+        <description>Deal Desk Assigned</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Deal_Desk_Template_Folder/Deal_Desk_Assigned</template>
+    </alerts>
+    <alerts>
+        <fullName>Deal_Desk_Awaiting_Input</fullName>
+        <description>Deal Desk Awaiting Input</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Deal_Desk_Template_Folder/Deal_Desk_Awaiting_Input</template>
+    </alerts>
+    <alerts>
+        <fullName>Deal_Desk_Escalation_Review</fullName>
+        <description>Deal Desk Escalation Review</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Deal_Desk_Template_Folder/Deal_Desk_Escalation_Review</template>
+    </alerts>
+    <alerts>
+        <fullName>Deal_Desk_Pending_Approval</fullName>
+        <description>Deal Desk Pending Approval</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Deal_Desk_Template_Folder/Deal_Desk_Pending_Approval</template>
+    </alerts>
+    <alerts>
+        <fullName>Deal_Desk_Pending_Assignment</fullName>
+        <description>Deal Desk Pending Assignment</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Deal_Desk_Template_Folder/Deal_Desk_Pending_Assignment</template>
+    </alerts>
+    <alerts>
+        <fullName>Dispute_Self_Approve</fullName>
+        <description>Dispute Self Approve</description>
+        <protected>false</protected>
+        <recipients>
+            <field>LastModifiedById</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Dispute_Email_Notifications/Self_Approval</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Alert_To_Case_Owner</fullName>
+        <ccEmails>Customer.SuccessTeam@ncr.com</ccEmails>
+        <description>Email Alert To Case Owner</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <recipients>
+            <recipient>mm185593@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>ms250945@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Hospitality_Case_Emails/SUPPORT_New_assignment_notification_Standard</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Alert_To_Customer_When_CSM</fullName>
+        <ccEmails>Customer.SuccessTeam@ncr.com.test</ccEmails>
+        <description>Email Alert To Customer When CSM Comments On a Case</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactEmail</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <recipient>mm185593@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>ms250945@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>VOC_Email_Templates/VOC_CSM_Case_Comment_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Child_Case_Owner_Quue_Member_and_Account_Member</fullName>
+        <description>Email Child Case Owner/Quue Member and Account Member</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>Customer Success Manager</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>VOC_Email_Templates/case_owner_queue_member_csm_account_team_member_on_child_case_escalated</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_to_Parent_Case_owner_and_CSM_User</fullName>
+        <description>Email to Parent Case owner and CSM User</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>Customer Success Manager</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>VOC_Email_Templates/parent_case_owner_and_account_team_having_csm_role_on_case_status_close</template>
+    </alerts>
+    <alerts>
+        <fullName>Global_Entitlements_Notify_Global_Entitlement_Manager_Accenture_Case_Moved_to_As</fullName>
+        <ccEmails>Tanya.Lebron@ncr.com</ccEmails>
+        <description>Global Entitlements Notify Global Entitlement Manager Accenture Case Moved to Assess</description>
+        <protected>false</protected>
+        <senderAddress>ge230045@7-1us29lhvxpjjcwma9fg0bff8s6z3qo81s3geg9vio232kxawdq.7-8mdkeai.na5.case.salesforce.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Global_Entitlements_Templates/GLOBAL_ENTITLEMENTS_Accenture_Case_moved_to_Assess</template>
+    </alerts>
+    <alerts>
+        <fullName>HOSPD_Case_Escalated</fullName>
+        <description>HOSPD: Case Escalated</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Hospitality_Case_Emails/Support_Escalation</template>
+    </alerts>
+    <alerts>
+        <fullName>HOSPD_New_Case_Created_Auto_Response</fullName>
+        <description>HOSPD: New Case Created Auto Response</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>nsc.administration@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Hospitality_Case_Emails/HOSPD_Email_Received</template>
+    </alerts>
+    <alerts>
+        <fullName>Immediate_Case_Created_Email</fullName>
+        <description>Immediate Case Created Email</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>steve.thoma@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Immediate_Followup_Email_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Login_Provisioning_Issue_Email_Alert</fullName>
+        <description>Login/Provisioning Issue Email Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>ncrhospitality.support@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Login_Provisioning_Issue_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Mail_to_PRM_Support_Team</fullName>
+        <description>Mail to PRM Support Team</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>at250303@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>es185185@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>mm250781@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>sm250665@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>seismic.support@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/IPT_SSO_alert_template</template>
+    </alerts>
+    <alerts>
+        <fullName>New_Case_Creation_Email_Alert</fullName>
+        <description>New Case Creation Email Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Response_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>ncrhospitality.support@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/New_Case_creation_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Notification_to_Case_Owner_and_his_her_manager1</fullName>
+        <description>Notification to Case Owner and his/her manager</description>
+        <protected>false</protected>
+        <recipients>
+            <field>CaseOwnerManagerEmailVoc__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>VOC_Email_Templates/case_owner_and_his_her_manager</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_Account_And_Contact_Owner_For_LOB_Financial_and_Case_Type_Detractor</fullName>
+        <description>Notify Account And Contact Owner For LOB Financial and Case Type Detractor</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <recipients>
+            <type>campaignMemberDerivedOwner</type>
+        </recipients>
+        <recipients>
+            <field>AO_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Contact_Owner_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>VOC_Email_Templates/Detractor_Alert</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_Account_And_Contact_Owner_For_LOB_Financial_and_Case_Type_Immediate</fullName>
+        <description>Notify Account And Contact Owner For LOB Financial and Case Type Immediate</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <recipients>
+            <field>AO_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Contact_Owner_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>VOC_Email_Templates/Immediate_Concern</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_Account_And_Contact_Owner_For_LOB_Financial_and_Case_Type_Immediate_Detra</fullName>
+        <description>Notify Account And Contact Owner For LOB Financial and Case Type Immediate Detractor</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <recipients>
+            <field>AO_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Contact_Owner_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>VOC_Email_Templates/Immediate_Detractor_Concern</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_Account_Owner_For_Detractor_case</fullName>
+        <description>Notify Account Owner For Detractor case</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <recipients>
+            <field>AO_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>VOC_Email_Templates/Detractor_Alert</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_Account_Owner_For_Immediate_Detractor_case</fullName>
+        <description>Notify Account Owner For Immediate Detractor case</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <recipients>
+            <type>campaignMemberDerivedOwner</type>
+        </recipients>
+        <recipients>
+            <field>AO_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>VOC_Email_Templates/Immediate_Detractor_Concern</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_Account_Owner_For_Immediate_case</fullName>
+        <description>Notify Account Owner For Immediate case</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <recipients>
+            <field>AO_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>VOC_Email_Templates/Immediate_Concern</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_Case_Owner_If_new_comment_is_made</fullName>
+        <description>Notify Case Owner If new comment is made</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Case_Comment_Standard_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_Child_Case_owner_and_Account_team_CSM_User</fullName>
+        <description>Notify Child Case owner and Account team CSM User</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>Customer Success Manager</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>VOC_Email_Templates/Child_Case_owner_and_CSM_on_account_team</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_Contact_Owner_On_Case_Creation</fullName>
+        <description>Notify Contact Owner On Case Creation With Type Immediate</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Contact_Owner_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>VOC_Email_Templates/Immediate_Concern</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_Contact_Owner_On_Case_Creation_With_Type_Detractor</fullName>
+        <description>Notify Contact Owner On Case Creation With Type Detractor</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Contact_Owner_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>VOC_Email_Templates/Detractor_Alert</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_Contact_Owner_On_Case_Creation_With_Type_Immediate_Detractor</fullName>
+        <description>Notify Contact Owner On Case Creation With Type Immediate Detractor</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Contact_Owner_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>VOC_Email_Templates/Immediate_Detractor_Concern</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_Parent_Case_Owner_For_Immediate_Case_Assignment_And_Reassignment</fullName>
+        <description>Notify Parent Case Owner For Immediate Case Assignment And Reassignment</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>VOC_Email_Templates/Immediate_Concern</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_Parent_Case_Owner_For_Immediate_Detractor_Case_Assignment_And_Reassignmen</fullName>
+        <description>Notify Parent Case Owner For Immediate Detractor Case Assignment And Reassignment</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>VOC_Email_Templates/Immediate_Detractor_Concern</template>
+    </alerts>
+    <alerts>
+        <fullName>SFDC_Global_Support_Case_Closed</fullName>
+        <description>SFDC Global Support Case Closed</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Business_Requestor__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>salesforce.administration@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>NSC_Admin_Templates/SFDC_Case_Closed</template>
+    </alerts>
+    <alerts>
+        <fullName>SFDC_Global_Support_Case_Closed_Alert_to_Case_CreatedBy_User</fullName>
+        <description>SFDC Global Support Case Closed Alert to CreatedBy User</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderAddress>salesforce.administration@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>NSC_Admin_Templates/SF_Global_Support_Case_Closure_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>SFDC_Global_Support_Case_Closed_Alert_to_WebEmail</fullName>
+        <description>SFDC Global Support Case Closed Alert to WebEmail</description>
+        <protected>false</protected>
+        <recipients>
+            <field>SuppliedEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>salesforce.administration@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>NSC_Admin_Templates/SF_Global_Support_Case_Closure_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>SF_Global_Support_Case_Assigned_Alert_to_CreatedBy_User</fullName>
+        <description>SF Global Support Case Assigned Alert to CreatedBy User</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderAddress>salesforce.administration@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/SF_Global_Support_Case_Assigned_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>SF_Global_Support_Case_Assigned_Alert_to_WebEmail</fullName>
+        <description>SF Global Support Case Assigned Alert to WebEmail</description>
+        <protected>false</protected>
+        <recipients>
+            <field>SuppliedEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>salesforce.administration@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/SF_Global_Support_Case_Assigned_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>SF_Global_Support_New_Case_Creation_Alert</fullName>
+        <description>SF Global Support New Case Creation Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/SF_Global_Support_Case_Submission_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Email_to_Rocco_and_Tanya</fullName>
+        <ccEmails>rocco.marano@ncr.com</ccEmails>
+        <ccEmails>tanya.lebron@ncr.com</ccEmails>
+        <description>Send Email to Rocco and Tanya</description>
+        <protected>false</protected>
+        <senderAddress>ge230045@7-1us29lhvxpjjcwma9fg0bff8s6z3qo81s3geg9vio232kxawdq.7-8mdkeai.na5.case.salesforce.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Global_Entitlements_Templates/GLOBAL_ENTITLEMENTS_Accenture_Case_moved_to_Assess</template>
+    </alerts>
+    <alerts>
+        <fullName>VOC_Email_Alert_To_Customer</fullName>
+        <ccEmails>Customer.SuccessTeam@ncr.com.test</ccEmails>
+        <description>VOC Email Alert To Customer</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactEmail</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <recipients>
+            <recipient>mm185593@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>ms250945@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>VOC_Email_Templates/VOC_CSM_Case_Resolution_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>VOC_Notify_Banking_Customer</fullName>
+        <description>VOC Notify Banking Customer</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>salesforce.administration@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>VOC_Email_Templates/VOC_Case_Creation</template>
+    </alerts>
+    <alerts>
+        <fullName>email_to_Child_Case_Owner_for_Reassignment</fullName>
+        <description>email to Child Case Owner for Reassignment</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>VOC_Email_Templates/child_case_owner_when_user_is_owner_of_child_case</template>
+    </alerts>
+    <alerts>
+        <fullName>member_of_a_queue</fullName>
+        <description>member of a queue</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>VOC_Email_Templates/queue_member_when_queue_is_owner_of_child_case</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Add_AO_Email</fullName>
+        <field>AO_Manager_Email__c</field>
+        <formula>Account.Owner.Manager.Email</formula>
+        <name>Add AO Manager Email</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Calculate_Contract_Billing_Remaining</fullName>
+        <field>Months_Remaining_on_Bill_Cycle__c</field>
+        <formula>(Next_Billing_Date__c - TODAY())/30</formula>
+        <name>Calculate Contract Billing Remaining</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Calculate_Remaining_Months_of_Contract</fullName>
+        <field>Months_Remaining_on_Contract__c</field>
+        <formula>Total_Months_on_Contract__c - (MONTH(Today()) - MONTH(Contract_Begin_Date__c) )</formula>
+        <name>Calculate Remaining Months of Contract</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Contract_Status_in_CFS</fullName>
+        <description>This will update the Contract Status in CFS on the case layout for Entitlements</description>
+        <field>Contract_in_CFS__c</field>
+        <literalValue>In Review</literalValue>
+        <name>Contract Status in CFS</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>CopyCreatedDateToRorCreatedDate</fullName>
+        <field>ROR_Created_Date__c</field>
+        <formula>IF(ISBLANK(ROR_Created_Date__c) , CreatedDate, ROR_Created_Date__c)</formula>
+        <name>CopyCreatedDateToRorCreatedDate</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Detractor_Case_Escalated</fullName>
+        <field>Detractor_Case_Escalated__c</field>
+        <literalValue>1</literalValue>
+        <name>Detractor Case Escalated</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>First_Contact_Field_Update_on_Contact_Co</fullName>
+        <description>First Contact Field Update on Contact Completed</description>
+        <field>First_Contact_Date__c</field>
+        <formula>NOW()</formula>
+        <name>First Contact Field Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Move_to_Entitlement_Queue</fullName>
+        <description>Moves Case from Global Entitlements Accenture Rep to Entitlements Queue for Reassignment</description>
+        <field>OwnerId</field>
+        <lookupValue>Entitlement_Queue</lookupValue>
+        <lookupValueType>Queue</lookupValueType>
+        <name>Move to Entitlement Queue</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Reset_Closing_Date</fullName>
+        <field>Auto_Closing_Date__c</field>
+        <name>Reset Closing Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Case_RT_HOSP_Direct</fullName>
+        <description>Update RT from SF Global Support to  Hospitality Namer Direct</description>
+        <field>RecordTypeId</field>
+        <lookupValue>Hospitality_Namer_Direct</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>Update Case RT -HOSP Direct</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Child_Case_Escalated_Date</fullName>
+        <field>Child_Case_Escalated_Date__c</field>
+        <formula>IF(
+WEEKDAY(DATEVALUE(Now())) = 1,
+(Now()- (1/24)) + 8,
+IF(WEEKDAY(DATEVALUE(Now())) = 7, (Now()- (1/24)) + 9,(Now()- (1/24))+7)
+)</formula>
+        <name>Update Child Case Escalated Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Detractor_Case_Escalated_Date</fullName>
+        <field>Detractor_Case_Escalated_Date__c</field>
+        <formula>IF(
+   WEEKDAY(DATEVALUE(Now())) = 1, 
+   (Now()- (1/24)) + 8,
+   IF(WEEKDAY(DATEVALUE(Now())) = 7, (Now()- (1/24)) + 9,(Now()- (1/24))+7)
+)</formula>
+        <name>Update Detractor Case Escalated Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Immediate_Case_Escalated</fullName>
+        <description>This field will update a field the field, which will be used to send escalation notification to case owner and his/her manager</description>
+        <field>Immediate_Case_Escalated__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Immediate Case Escalated</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Immediate_Case_Escalated_Date</fullName>
+        <field>Immediate_Detractor_Case_Escalated_Date__c</field>
+        <formula>IF(
+OR(WEEKDAY(DATEVALUE(Now())) = 5,WEEKDAY(DATEVALUE(Now())) = 6, WEEKDAY(DATEVALUE(Now())) = 7),
+Now() + 4,
+IF(WEEKDAY(DATEVALUE(Now())) = 1 , Now() + 3, Now()+2)
+)</formula>
+        <name>Update Immediate Case Escalated Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Immediate_Detractor_Case_Escalat</fullName>
+        <description>This will update Immediate Detractor Case Escalated Field which will be used to send notification to case owner for &quot;Immediate&quot; and &quot;Immediate and Detractor&quot; Case type</description>
+        <field>Immediate_Detractor_Case_Escalated__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Immediate Detractor Case Escalate</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Immediate_Detractor_Case_Escalate</fullName>
+        <description>This workflow will update Immediate Detractor Case Escalated date.</description>
+        <field>Immediate_Detractor_Case_Escalated_Date__c</field>
+        <formula>IF(
+OR(WEEKDAY(DATEVALUE((Now()))) = 5,WEEKDAY(DATEVALUE(Now())) = 6, WEEKDAY(DATEVALUE(Now())) = 7),
+(Now()- (1/24)) + 4,
+IF(WEEKDAY(DATEVALUE(Now())) = 1 , (Now()- (1/24)) + 3, (Now()- (1/24))+2)
+)</formula>
+        <name>Update Immediate Detractor Case Escalate</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Is_Child_Case_Escalated_Field</fullName>
+        <field>Is_Child_Case_Escalated__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Is Child Case Escalated Field</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Is_Due_date_Passed_Field</fullName>
+        <field>Is_Due_Date_Passed__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Is Due date Passed Field</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Last_Activity_Date_on_Case</fullName>
+        <description>Updates Last Modified Date on Case by updating Last Activity Date field.</description>
+        <field>Last_Activity_Date__c</field>
+        <formula>NOW()</formula>
+        <name>Update Last Activity Date on Case</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_CSM_Assigned</fullName>
+        <field>Status</field>
+        <literalValue>CSM Assigned</literalValue>
+        <name>Update Status to CSM Assigned</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Close</fullName>
+        <field>Status</field>
+        <literalValue>Closed</literalValue>
+        <name>Update Status to Close</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Submitted</fullName>
+        <field>Status</field>
+        <literalValue>Submitted</literalValue>
+        <name>Update Status to Submitted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>VOC_Assigned_to_Banking_CSM_Queue</fullName>
+        <field>OwnerId</field>
+        <lookupValue>Banking_CSM_Queue</lookupValue>
+        <lookupValueType>Queue</lookupValueType>
+        <name>VOC Assigned to Banking CSM Queue.</name>
+        <notifyAssignee>true</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>VOC_Update_Auto_Subject</fullName>
+        <field>Subject</field>
+        <formula>TEXT(Reason_for_Reaching_CSM_Team__c)+&apos;-&apos;+ CaseNumber</formula>
+        <name>VOC Update Auto Subject</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>maccStatusToOpen</fullName>
+        <field>Status</field>
+        <literalValue>Open</literalValue>
+        <name>maccStatusToOpen</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <outboundMessages>
+        <fullName>Invoke_Qualtrics_Hospitality_Survey</fullName>
+        <apiVersion>55.0</apiVersion>
+        <description>Outbound Message to Qualtrics invoked by a record triggered flow for Hospitality Support Case Record Type. (Added manually)</description>
+        <endpointUrl>https://iad1.qualtrics.com/triggers/api/v1/event?eventType=SalesforceOutboundMessage&amp;s=SV_1XrvkqsqRUGMCWy&amp;u=UR_819HRXViCHE52uh&amp;t=OC_2bPZABIe5UBbPrB&amp;b=ncr</endpointUrl>
+        <fields>Account_Name_Text__c</fields>
+        <fields>CaseNumber</fields>
+        <fields>Close_Date__c</fields>
+        <fields>ContactEmail</fields>
+        <fields>ContactId</fields>
+        <fields>Description</fields>
+        <fields>Id</fields>
+        <fields>LOB__c</fields>
+        <fields>Master_Customer_Number__c</fields>
+        <fields>Open_Date__c</fields>
+        <fields>OwnerId</fields>
+        <fields>Owner_QLID__c</fields>
+        <fields>Resolution_Notes__c</fields>
+        <fields>Site_Country_Code__c</fields>
+        <fields>Site_Id__c</fields>
+        <fields>Site_Name__c</fields>
+        <fields>Site_State__c</fields>
+        <fields>Subject</fields>
+        <fields>Support_Queue_Name_Text__c</fields>
+        <includeSessionId>false</includeSessionId>
+        <integrationUser>sk250842@ncr.com</integrationUser>
+        <name>Invoke Qualtrics Hospitality Survey</name>
+        <protected>false</protected>
+        <useDeadLetterQueue>false</useDeadLetterQueue>
+    </outboundMessages>
+    <outboundMessages>
+        <fullName>Send_Dispute_Case_to_Qualtrics</fullName>
+        <apiVersion>52.0</apiVersion>
+        <description>EBA_SF-1499:CCAD: Create Workflow to trigger Dispute Resolution Survey from Qualtrics</description>
+        <endpointUrl>https://iad1.qualtrics.com/triggers/api/v1/event?eventType=SalesforceOutboundMessage&amp;s=SV_3I47MRmwaTaMmwK&amp;u=UR_819HRXViCHE52uh&amp;t=OC_2BbA95Gy0y3Gl9h&amp;b=ncr</endpointUrl>
+        <fields>Account_Name_Text__c</fields>
+        <fields>CCAD_Dispute_Nbr__c</fields>
+        <fields>CaseNumber</fields>
+        <fields>ContactEmail</fields>
+        <fields>ContactId</fields>
+        <fields>Id</fields>
+        <fields>LOB__c</fields>
+        <fields>Master_Customer_Number__c</fields>
+        <includeSessionId>false</includeSessionId>
+        <integrationUser>vp250252@ncr.com</integrationUser>
+        <name>Send Dispute Case to Qualtrics</name>
+        <protected>false</protected>
+        <useDeadLetterQueue>false</useDeadLetterQueue>
+    </outboundMessages>
+    <rules>
+        <fullName>1%2E1 Notify all queue member when queue is owner of child case</fullName>
+        <actions>
+            <name>member_of_a_queue</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <description>Send email to all queue member of a queue when queue is owner of child case(Follow-up)
+Owner ID starts With(&apos;00G&apos;)</description>
+        <formula>AND ( RecordType.Name = &quot;Follow-up&quot;, OR( ISNEW(), PRIORVALUE(OwnerId)&lt;&gt; OwnerId), OR( ISPICKVAL(Type,&apos;Immediate&apos;),ISPICKVAL(Type,&apos;Detractor&apos;),ISPICKVAL(Type,&apos;Immediate Detractor&apos;)), NOT(ISNULL(ParentId )), BEGINS(OwnerId , &quot;00G&quot;) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>1%2E2 Notify child case owner when user is owner of child case</fullName>
+        <actions>
+            <name>email_to_Child_Case_Owner_for_Reassignment</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <description>Send Email to Owner of Child Case(Follow-up) 
+Owner id  start with  &apos;005&apos;</description>
+        <formula>AND ( RecordType.Name = &quot;Follow-up&quot;, OR( ISNEW(), PRIORVALUE(OwnerId)&lt;&gt; OwnerId), OR( ISPICKVAL(Type,&apos;Immediate&apos;),ISPICKVAL(Type,&apos;Detractor&apos;),ISPICKVAL(Type,&apos;Immediate Detractor&apos;)), NOT(ISNULL(ParentId )), BEGINS(OwnerId , &quot;005&quot;) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>1%2E3 Notify case owner%2Fqueue member%2Fcsm account team member on child case escalated</fullName>
+        <actions>
+            <name>Email_Child_Case_Owner_Quue_Member_and_Account_Member</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <description>Send email to child case owner ,queue member and Account team member having CSM role</description>
+        <formula>AND ( RecordType.Name = &quot;Follow-up&quot;, Child_Case_Escalated_Date__c &lt;  NOW() , PRIORVALUE(Is_Child_Case_Escalated__c) &lt;&gt;Is_Child_Case_Escalated__c, Is_Child_Case_Escalated__c = TRUE )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>CSM Team Case Closing By CSM Workflow</fullName>
+        <actions>
+            <name>CSM_Team_Case_Closing_By_CSM_Alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <description>CSM set the status of the case as &quot;Closed&quot;. A notification will be sent to the Customer and CSM related to closing of the case.</description>
+        <formula>RecordType.DeveloperName =&apos;Customer_Success_Team_Case&apos; &amp;&amp;  ISPICKVAL(Status ,&apos;Closed&apos;) &amp;&amp; $Permission.CSM_Users</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>CSM Team Case Closing By Customer Workflow</fullName>
+        <actions>
+            <name>CSM_Team_Case_Closing_By_Customer_Alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <description>CSM closes the case or customer has manually set the status of the case as &quot;Closed&quot;. A notification will be sent to the Customer and CSM related to closing of the case.</description>
+        <formula>RecordType.DeveloperName =&apos;Customer_Success_Team_Case&apos; &amp;&amp;  ISPICKVAL(Status ,&apos;Closed&apos;) &amp;&amp; $Profile.Name =&apos;Banking Customer&apos;</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Case%3A Dispute Case is Closed</fullName>
+        <actions>
+            <name>Send_Dispute_Case_to_Qualtrics</name>
+            <type>OutboundMessage</type>
+        </actions>
+        <active>false</active>
+        <description>Send details to Qualtrics if dispute case is closed.</description>
+        <formula>RecordType.DeveloperName = &apos;Dispute&apos;  &amp;&amp; Ischanged(Status) &amp;&amp; ISPICKVAL(Status,&apos;Closed&apos;) &amp;&amp;  NOT(ISNULL( ContactId ))&amp;&amp; NOT(ISNULL(Contact.Email)) &amp;&amp; NOT(CONTAINS( Contact.Email, &apos;@ncr.com&apos;))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Change Status to Submitted</fullName>
+        <actions>
+            <name>Update_Status_to_Submitted</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Case.CreatedById</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>IPT Partner</value>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Escalate Case For Detractor Type</fullName>
+        <actions>
+            <name>Update_Detractor_Case_Escalated_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <description>This workflow will be fire when Detractor Case will not have any action within 120 hours.(Parent Case)</description>
+        <formula>AND( RecordType.Name = &quot;Close the Loop&quot;, ISPICKVAL(Type,&apos;Detractor&apos;), ISPICKVAL(Status,&apos;New&apos;) )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Detractor_Case_Escalated</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Case.Detractor_Case_Escalated_Date__c</offsetFromField>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Escalate Case For Immediate Detractor Type</fullName>
+        <actions>
+            <name>Update_Immediate_Detractor_Case_Escalate</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <description>This workflow will be fire when Immediate Detractor Case will not have any action within 48 hours.(Parent Case)</description>
+        <formula>AND( RecordType.Name = &quot;Close the Loop&quot;, ISPICKVAL(Type,&apos;Immediate Detractor&apos;), ISPICKVAL(Status,&apos;New&apos;) )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Update_Immediate_Detractor_Case_Escalat</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Case.Immediate_Detractor_Case_Escalated_Date__c</offsetFromField>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Escalate Case For Immediate Type</fullName>
+        <actions>
+            <name>Update_Immediate_Case_Escalated_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <description>This workflow will be fire when Immediate Case will not have any action within 48 hours.(Parent Case)</description>
+        <formula>AND( RecordType.Name = &quot;Close the Loop&quot;, ISPICKVAL(Type,&apos;Immediate&apos;), ISPICKVAL(Status,&apos;New&apos;) )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Update_Immediate_Case_Escalated_Date</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Case.Immediate_Detractor_Case_Escalated_Date__c</offsetFromField>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>First Contact Field Update on Contact Completed</fullName>
+        <actions>
+            <name>First_Contact_Field_Update_on_Contact_Co</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>Contact Completed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Close the Loop</value>
+        </criteriaItems>
+        <description>First Contact Field Update on Contact Completed</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>GLOBAL ENTITLEMENTS%3A Billing Cycle Remaining</fullName>
+        <actions>
+            <name>Calculate_Contract_Billing_Remaining</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Case.Annual_Billing_Date__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Global Entitlements%3A Calculate Months Remaining on Contract</fullName>
+        <actions>
+            <name>Calculate_Remaining_Months_of_Contract</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Case.Contract_Begin_Date__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.Total_Months_on_Contract__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Updates field with calculation of Months Remaining on Contact</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>HOSPD%3A Support Escalation</fullName>
+        <actions>
+            <name>HOSPD_Case_Escalated</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <description>Sends email to supervisor when Hospitality Namer Direct Subcategory = Support Escalation</description>
+        <formula>ISCHANGED (  Subcategory__c  ) &amp;&amp; ISPICKVAL( Subcategory__c,&quot;Support Escalation&quot;)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Notify Account And Contact Owner For LOB Financial and Case Type Detractor</fullName>
+        <actions>
+            <name>Notify_Account_And_Contact_Owner_For_LOB_Financial_and_Case_Type_Detractor</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <description>This workflow is being use to notify Account owner and Contact owner when Case is being create with Detractor type and Account LOB is Financial</description>
+        <formula>AND(RecordType.Name = &apos;Close the Loop&apos;,Account_LOB__c = &apos;FINANCIAL&apos;,ISPICKVAL(Type, &apos;Detractor&apos;))</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Notify Account And Contact Owner For LOB Financial and Case Type Immediate Detractor</fullName>
+        <actions>
+            <name>Notify_Account_And_Contact_Owner_For_LOB_Financial_and_Case_Type_Immediate_Detra</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <description>This workflow is being use when case is being create with type Immediate Detractor and Account LOB is Financial</description>
+        <formula>AND(RecordType.Name = &apos;Close the Loop&apos;,Account_LOB__c = &apos;FINANCIAL&apos;,ISPICKVAL(Type, &apos;Immediate Detractor&apos;))</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Notify Account Owner For Retail And Hospitality LOB</fullName>
+        <actions>
+            <name>Notify_Account_Owner_For_Immediate_case</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <description>This workflow is being use to notify Account Owner When Immediate case is being create and Account LOB is Retail Or Hospitality.</description>
+        <formula>AND(OR(Account_LOB__c = &apos;RETAIL&apos;,Account_LOB__c = &apos;HOSPITALITY&apos;),ISPICKVAL(Type, &apos;Immediate&apos;), RecordType.Name = &apos;Close the Loop&apos;)</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Notify Account Owner For Retail And Hospitality LOB and Detractor Case Type</fullName>
+        <actions>
+            <name>Notify_Account_Owner_For_Detractor_case</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <description>This workflow is being use to notify Account Owner When Detractor and Detractor case is being create and Account LOB is Retail Or Hospitality.</description>
+        <formula>AND(OR(Account_LOB__c = &apos;RETAIL&apos;,Account_LOB__c = &apos;HOSPITALITY&apos;),ISPICKVAL(Type, &apos;Detractor&apos;),RecordType.Name = &apos;Close the Loop&apos;)</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Notify Account Owner For Retail And Hospitality LOB and Immediate Detractor Case Type</fullName>
+        <actions>
+            <name>Notify_Account_Owner_For_Immediate_Detractor_case</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <description>This workflow is being use when case is being created with type Immediate Detractor and Account LOB id Retail and Hospitality</description>
+        <formula>AND(OR(Account_LOB__c = &apos;RETAIL&apos;,Account_LOB__c = &apos;HOSPITALITY&apos;),ISPICKVAL(Type, &apos;Immediate Detractor&apos;),RecordType.Name = &apos;Close the Loop&apos;)</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Notify Account Owner and Contact Owner For Financial LOB and Immediate Case Type</fullName>
+        <actions>
+            <name>Notify_Account_And_Contact_Owner_For_LOB_Financial_and_Case_Type_Immediate</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <description>This workflow is being use to notify Account Owner and Contact Owner when Case is being create with case Type Immediate and Account LOB is Financial</description>
+        <formula>AND(RecordType.Name = &apos;Close the Loop&apos;,Account_LOB__c = &apos;FINANCIAL&apos;,ISPICKVAL(Type, &apos;Immediate&apos;))</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Notify Case Owner of New Case Comments</fullName>
+        <actions>
+            <name>Notify_Case_Owner_If_new_comment_is_made</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <formula>ISCHANGED(Case_Comment__c)&amp;&amp; Owner:User.Id != $User.Id</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Notify Child Case Owner And CSM</fullName>
+        <actions>
+            <name>Update_Child_Case_Escalated_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <description>This workflow is basically being use to notify Close The Loop Child Case Owner and CSM after 120 hours if case status is still new after 120 hours.</description>
+        <formula>AND( RecordType.Name = &quot;Close the Loop Child&quot;, ISPICKVAL(Status,&apos;New&apos;))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Update_Is_Child_Case_Escalated_Field</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Case.Child_Case_Escalated_Date__c</offsetFromField>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Notify Contact Owner For Detractor case Type</fullName>
+        <actions>
+            <name>Notify_Contact_Owner_On_Case_Creation_With_Type_Detractor</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <description>This Workflow is being use to notify Contact Owner when case is being create with Detractor Type and account LOB is T&amp;T</description>
+        <formula>AND(RecordType.Name = &apos;Close the Loop&apos;,Account_LOB__c = &apos;T&amp;T&apos;,ISPICKVAL(Type, &apos;Detractor&apos;))</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Notify Contact Owner For Immediate Detractor case Type</fullName>
+        <actions>
+            <name>Notify_Contact_Owner_On_Case_Creation_With_Type_Immediate_Detractor</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <description>This Workflow is being use when case is being created with Immediate Detractor Case Type and Account LOB is T&amp;T</description>
+        <formula>AND(RecordType.Name = &apos;Close the Loop&apos;,Account_LOB__c = &apos;T&amp;T&apos;,ISPICKVAL(Type, &apos;Immediate Detractor&apos;))</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Notify Contact Owner For Immediate case Type</fullName>
+        <actions>
+            <name>Notify_Contact_Owner_On_Case_Creation</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <description>This Workflow is being use to notify Contact owner if Account&apos;s LOB is T&amp;T</description>
+        <formula>AND(RecordType.Name = &apos;Close the Loop&apos;,Account_LOB__c = &apos;T&amp;T&apos;,ISPICKVAL(Type, &apos;Immediate&apos;))</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Notify Global Entitlements Managers Accenture Case moved to Assess</fullName>
+        <actions>
+            <name>Global_Entitlements_Notify_Global_Entitlement_Manager_Accenture_Case_Moved_to_As</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Case.Subject</field>
+            <operation>contains</operation>
+            <value>Accenture</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>Assess</value>
+        </criteriaItems>
+        <description>NotifiesTanya Lebron that an Accenture Case has been moved to Assess Status.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Notify On Due Date Passed</fullName>
+        <active>false</active>
+        <description>This workflow is being used to update is_Due_Date_Passed field, which is being use to notify Case owner and CSM.</description>
+        <formula>AND(NOT(ISBLANK(Due_Date__c)), NOT(ISPICKVAL(Status,&quot;Closed&quot;)) )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Update_Is_Due_date_Passed_Field</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Case.Due_Date__c</offsetFromField>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Notify case owner and his%2Fher manager</fullName>
+        <actions>
+            <name>Notification_to_Case_Owner_and_his_her_manager1</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <description>Send Email to Case Owner and His/Her Manager</description>
+        <formula>or (			  AND (  RecordType.Name = &quot;Close the Loop&quot;,   Immediate_Detractor_Case_Escalated_Date__c &lt;NOW(),  ISPICKVAL(Status,&apos;New&apos;),  or( AND ( PRIORVALUE(Immediate_Detractor_Case_Escalated__c) = FALSE,  Immediate_Detractor_Case_Escalated__c=TRUE ), AND(PRIORVALUE(Immediate_Case_Escalated__c) =FALSE, Immediate_Case_Escalated__c = TRUE ) ) ), AND (  RecordType.Name = &quot;Close the Loop&quot;,   Detractor_Case_Escalated_Date__c &lt;NOW(),  ISPICKVAL(Status,&apos;New&apos;),  PRIORVALUE(Detractor_Case_Escalated__c)=FALSE, Detractor_Case_Escalated__c=TRUE ) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Notify child case owner and account team having csm role on case status other than close</fullName>
+        <actions>
+            <name>Notify_Child_Case_owner_and_Account_team_CSM_User</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <description>Send Email to Child Case owner and CSM on Account team</description>
+        <formula>AND( RecordType.Name = &quot;Follow-up&quot;,    NOT(ISNULL(ParentId )),   Due_Date__c &lt;  NOW(),   PRIORVALUE( Is_Due_Date_Passed__c ) &lt;&gt; Is_Due_Date_Passed__c , Is_Due_Date_Passed__c  = TRUE, NOT(ISPICKVAL(Status,&quot;Closed&quot;)))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Notify parent case owner and account team having csm role on case status close</fullName>
+        <actions>
+            <name>Email_to_Parent_Case_owner_and_CSM_User</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <description>Send email to Parent(Close The Loop) Case Owner and CSM on case Close</description>
+        <formula>AND ( RecordType.Name = &quot;Close the Loop&quot;, ISCHANGED(Status), ISPICKVAL(Status ,&apos;Closed&apos;),  OR (  ISPICKVAL(Type,&apos;Immediate&apos;),ISPICKVAL(Type,&apos;Detractor&apos;),ISPICKVAL(Type,&apos;Immediate Detractor&apos;) ) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Notify to Customer When CSM Case updates Case Comment</fullName>
+        <actions>
+            <name>Email_Alert_To_Customer_When_CSM</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <formula>ISCHANGED(Case_Comment__c)&amp;&amp; RecordType.DeveloperName =&apos;Customer_Success_Team_Case&apos; &amp;&amp;  $Permission.CSM_Users</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>PopulateRorCreatedDate</fullName>
+        <actions>
+            <name>CopyCreatedDateToRorCreatedDate</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <formula>RecordType.Name = $Label.RT_Case_Dispute</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>SFDC Case Closed</fullName>
+        <actions>
+            <name>SFDC_Global_Support_Case_Closed</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>SF Global Support</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>Closed</value>
+        </criteriaItems>
+        <description>Workflow rule to send out email that SFDC Global Support Case has been closed.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Status Change CSM Assigned</fullName>
+        <actions>
+            <name>Update_Status_to_CSM_Assigned</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <description>When any of the CSM assigns the case by changing the ownership to themselves or any other CSM member, then the status of case should be changed to CSM Assigned.</description>
+        <formula>AND( RecordType.Name = &quot;Customer Success Team Case&quot;,  BEGINS(OwnerId , &quot;005&quot;), BEGINS(PRIORVALUE(OwnerId) , &quot;00G&quot;)  )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Account Owner Info</fullName>
+        <actions>
+            <name>Add_AO_Email</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Case.Account_Owner__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Contract in CFS for Entitlement Cases</fullName>
+        <actions>
+            <name>Contract_Status_in_CFS</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Case.Is_there_an_install_date__c</field>
+            <operation>equals</operation>
+            <value>Yes,No</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.All_entitled_products_assigned_a_site__c</field>
+            <operation>equals</operation>
+            <value>Yes,No</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>IPT Partner</value>
+        </criteriaItems>
+        <description>This rule will update the contract status in CFS on the Entitlement case page layout.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>VOC Assigned and Notify to Banking CSM Queue%2E</fullName>
+        <actions>
+            <name>Email_Alert_To_Case_Owner</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>VOC_Notify_Banking_Customer</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>VOC_Assigned_to_Banking_CSM_Queue</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>VOC_Update_Auto_Subject</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Success Team Case</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>Pending CSM Assignment</value>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>VOC Case Auto Close</fullName>
+        <active>false</active>
+        <criteriaItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>Pending Customer Confirmation</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Success Team Case</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Update_Status_to_Close</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Case.Auto_Closing_Date__c</offsetFromField>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>VOC Case Resolution By CSM</fullName>
+        <actions>
+            <name>VOC_Email_Alert_To_Customer</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <formula>AND(ISCHANGED(Status),ISPICKVAL(Status,&quot;Pending Customer Confirmation&quot;),Customer_Case_Resolution_Notes__c !=&apos;&apos;, $Permission.CSM_Users )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>VOC Reset Closing Date</fullName>
+        <actions>
+            <name>Reset_Closing_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Closed,Pending Customer Confirmation</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Success Team Case</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>setMaccCaseStatustoOpen</fullName>
+        <actions>
+            <name>maccStatusToOpen</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>MACC Live Chat Cases</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>This worflow will set Case status field to open as default when macc chat case created</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

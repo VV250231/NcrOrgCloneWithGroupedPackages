@@ -1,0 +1,141 @@
+<aura:component controller="Controller_CAP_Approval_Process" implements="lightning:actionOverride,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId">
+    <!-- ################################################################################################################### -->
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <ltng:require scripts="{! $Resource.PSFR_Resource + '/PSFR_Resource/bootstrap/js/jQuery-2.2.0.min.js'}"  afterScriptsLoaded="{!c.SG_Errorpop}" />
+    <!-- #############################################################################@####################################### -->
+    <!-- #################################################################################################################### -->
+    
+    <aura:attribute name="CID" type="Id"  default="{!v.recordId}"/>
+    <aura:attribute name="Retrunfromcontroller" type="String[]" default="false"/>
+    <aura:attribute name="spinner" type="boolean" default="false"/>
+    <aura:attribute name="firststage" type="boolean" default="false"/> 
+    <aura:attribute name="secondstage" type="boolean" default="false"/>
+    <aura:attribute name="thirdstageapproved" type="boolean" default="false"/>
+    <aura:attribute name="thirdstagerejected" type="boolean" default="false"/>
+    <aura:attribute name="recordowner" type="boolean" default="false"/>
+    <aura:attribute name="firststageapprovalbutton" type="boolean" default="false"/>
+    <aura:attribute name="firststagenonrecorduser" type="boolean" default="false"/>
+    <aura:attribute name="secondstagenonapprovers" type="boolean" default="false"/>
+    <aura:attribute name="secondstagebuttons" type="boolean" default="false"/>
+    <aura:attribute name="fourthstageapproved" type="boolean" default="false"/>
+    <aura:attribute name="errormessage" type="boolean" default="false"/>
+    
+    
+    <!-- ################################################################################################################### -->
+    
+    <div class="slds-form-element__row slds-theme_default" id="Mainform" style="Display:Block; max-height:452px">  
+        <aura:if isTrue="{!v.spinner}"> <center>  <div class="loader" style="Display:Block;" id="loader" /></center> </aura:if>
+        <aura:if isTrue="{!v.errormessage}">
+            <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+                <span class="slds-assistive-text">error</span>
+                <lightning:icon iconName="action:ban" variant="warning"  size="x-small" />
+                <h2>Error occured at Server. Please send screenshot to Salesforce Admins <a href="javascript:void(0);"></a></h2>
+            </div>
+        </aura:if>
+        <!-- ################################################################################################################### -->
+        <aura:if isTrue="{!v.firststage}">
+            <div class="slds-grid slds col" style="">
+                <article class="slds-card slds-col">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        </header>
+                    </div>
+                    <aura:if isTrue="{!v.firststageapprovalbutton}">
+                        <div class="slds-card__body slds-card__body_inner" style="Display:Block" >
+                            <center><lightning:button variant="brand" label="Submit for Approval" disabled="false" iconName="action:submit_for_approval" onclick="{!c.submitforapproval}" /></center>
+                        </div>
+                    </aura:if>
+                    <aura:if isTrue="{!v.firststagenonrecorduser}">
+                        <footer class="slds-card__footer"  ><div class="slds-text-heading_default" style="Display:Block" >
+                            <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_warning" role="alert">
+                                <span class="slds-assistive-text">warning</span>
+                                <lightning:icon iconName="action:warning" variant="warning"  size="x-small" />
+                                <h2>{!v.Retrunfromcontroller[1]}. <a href="javascript:void(0);"></a></h2>
+                            </div> 
+                            </div> </footer>
+                    </aura:if>
+                </article>
+            </div>
+        </aura:if>
+        <!-- ################################################################################################################### -->
+        <aura:if isTrue="{!v.secondstage}">
+            <div class="slds-grid" style="">
+                <article class="slds-card slds-col">
+                    <aura:if isTrue="{!v.secondstagebuttons}">
+                        <div class="slds-card__body slds-card__body_inner" style="margin-top: 10px;">
+                            <center>
+                                <lightning:button variant="brand" class="slds-button_success sldsbuttonmodifications" label="Approve CAP" disabled="false" iconName="action:approval" onclick="{!c.approvecap}" />
+                                <lightning:button variant="brand" class="slds-button_success sldsbuttonmodifications" label="Approve Customer Assurance" disabled="false" iconName="action:approval" onclick="{!c.approvecustomerassurance}" />
+                                <lightning:button variant="brand" class="slds-button_success sldsbuttonmodifications" label="Approve Request for Watchlist" disabled="false" iconName="action:approval" onclick="{!c.approveToWatchlist}" />
+                                <lightning:button variant="brand" class="slds-button_destructive sldsbuttonmodifications" label="Reject" disabled="false" iconName="action:reject" onclick="{!c.reject }" />
+                            </center>
+                        </div>
+                    </aura:if>
+                    <aura:if isTrue="{!v.secondstagenonapprovers}">
+                        <footer class="slds-card__footer"><div class="slds-text-heading_default">
+                            <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_warning" role="alert">
+                                <span class="slds-assistive-text">warning</span>
+                                <lightning:icon iconName="action:warning" variant="error"  size="x-small" />
+                                <h2>{!v.Retrunfromcontroller[1]}. <a href="javascript:void(0);"></a></h2>
+                            </div> 
+                            </div> </footer>
+                    </aura:if>
+                </article>
+            </div>
+        </aura:if>
+        <!-- ################################################################################################################### -->
+        <aura:if isTrue="{!v.thirdstageapproved}">
+            <div class="slds-grid" >
+                <article class="slds-card slds-col" >
+                    <div class="slds-card__body slds-card__body_inner" style="margin-top:10px">
+                        <center>
+                           
+                            <lightning:icon iconName="action:approval" variant="error"  size="x-small" />
+                           
+                            <h2>This Request is {!v.Retrunfromcontroller[0]}.</h2>
+                        </center>
+                    </div>
+                    <footer class="slds-card__footer"><div class="slds-text-heading_default"></div> </footer>
+                </article>
+            </div>
+        </aura:if>
+         <!-- ################################################################################################################### -->
+        <aura:if isTrue="{!v.fourthstageapproved}">
+            <div class="slds-grid" >
+                <article class="slds-card slds-col" >
+                    <div class="slds-card__body slds-card__body_inner" style="margin-top:10px">
+                        <center>
+                           
+                            <lightning:icon iconName="action:approval" variant="error"  size="x-small" />
+                           
+                            <h2>This Request is {!v.Retrunfromcontroller[0]}.</h2>
+                        </center>
+                    </div>
+                    <footer class="slds-card__footer"><div class="slds-text-heading_default"></div> </footer>
+                </article>
+            </div>
+        </aura:if>
+        <!-- #################################################################################################################### -->
+        <aura:if isTrue="{!v.thirdstagerejected}">
+            <div class="slds-grid" >
+                <article class="slds-card slds-col"  >
+                    <div class="slds-card__body slds-card__body_inner" style="margin-top:10px">
+                        <center>
+                            <lightning:icon iconName="action:close" variant="error" size="x-small" />
+                            <h2>This Request is Rejected.</h2>
+                        </center>
+                    </div>
+                    <footer class="slds-card__footer"> 
+                            <div class="slds-card__body slds-card__body_inner" style="Display:Block" >
+                                <center><lightning:button variant="brand" label="Resubmit for Approval" disabled="false" iconName="action:submit_for_approval" onclick="{!c.submitforapproval}" /></center>
+                            </div>
+                    </footer>
+                </article>
+            </div>
+        </aura:if>
+        <!-- ################################################################################################################### -->
+    </div>
+    <!-- ################################################################################################################### -->
+    
+</aura:component>

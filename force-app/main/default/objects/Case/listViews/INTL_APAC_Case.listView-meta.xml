@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>INTL_APAC_Case</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>NAME</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>Creation_Category__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Support_Queue__c</field>
+        <operation>equals</operation>
+        <value>HOS INTL APAC</value>
+    </filters>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>&quot;Closed, Discontinued&quot;,Closed No Response (3 attempts),Closed with Exception,Closed without Revenue,Closed with Revenue,Closed,Resolved,Cancelled</value>
+    </filters>
+    <filters>
+        <field>Jira_Number__c</field>
+        <operation>equals</operation>
+    </filters>
+    <label>HOS INTL APAC</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

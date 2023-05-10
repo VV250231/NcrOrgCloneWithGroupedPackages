@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOS_ENT_All_POS</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>Support_Queue__c</columns>
+    <columns>Case_Age_In_Days__c</columns>
+    <columns>Site_Id__c</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+    <columns>OWNER_NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Support_Queue__c</field>
+        <operation>contains</operation>
+        <value>hos ent</value>
+    </filters>
+    <filters>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>Support_Queue__c</field>
+        <operation>notContain</operation>
+        <value>Cloud,BSL,NBO</value>
+    </filters>
+    <label>*HOS ENT - All POS Queues</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>ACCOUNT_ID</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Parent_Account_Name__c</field>
+    </columns>
+    <columns>
+        <field>PARENT_ID</field>
+    </columns>
+    <columns>
+        <field>Account.Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>Account.LOB__c</field>
+    </columns>
+    <columns>
+        <field>CONTACT_ID</field>
+    </columns>
+    <columns>
+        <field>FIRST_NAME</field>
+    </columns>
+    <columns>
+        <field>LAST_NAME</field>
+    </columns>
+    <columns>
+        <field>TITLE</field>
+    </columns>
+    <columns>
+        <field>OWNER_FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_OWNER_ROLE</field>
+    </columns>
+    <columns>
+        <field>CDF1</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.CDM_SMB_Flag__c</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>IF(CONTAINS(ACCOUNT_OWNER_ROLE,&quot;Channel&quot;),
+IF(CONTAINS(ACCOUNT_OWNER_ROLE,&quot;Central&quot;),&quot;Channel Central&quot;,
+IF(CONTAINS(ACCOUNT_OWNER_ROLE,&quot;North&quot;),&quot;Channel North&quot;,
+IF(CONTAINS(ACCOUNT_OWNER_ROLE,&quot;South&quot;),&quot;Channel South&quot;,
+IF(CONTAINS(ACCOUNT_OWNER_ROLE,&quot;West&quot;),&quot;Channel West&quot;, &quot;Channel &quot; &amp; ACCOUNT_OWNER_ROLE)))), 
+IF(CONTAINS(ACCOUNT_OWNER_ROLE,&quot;Northeast&quot;),&quot;Northeast&quot;,
+IF(CONTAINS(ACCOUNT_OWNER_ROLE,&quot;Southeast&quot;),&quot;Southeast&quot;,
+IF(CONTAINS(ACCOUNT_OWNER_ROLE,&quot;Central&quot;),&quot;Central&quot;,
+IF(CONTAINS(ACCOUNT_OWNER_ROLE,&quot;Florida&quot;),&quot;Florida&quot;,
+IF(CONTAINS(ACCOUNT_OWNER_ROLE,&quot;Texas&quot;),&quot;Texas&quot;,
+IF(CONTAINS(ACCOUNT_OWNER_ROLE,&quot;West&quot;),&quot;West&quot;, ACCOUNT_OWNER_ROLE)))))))</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>SMB Region</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>ACCOUNT_OWNER_ROLE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>SMB</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>WorldPay Campaign Task Creation List</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>ContactList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

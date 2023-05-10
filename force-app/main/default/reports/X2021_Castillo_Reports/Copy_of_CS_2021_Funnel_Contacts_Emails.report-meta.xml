@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Opportunity$Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity$Account</field>
+    </columns>
+    <columns>
+        <field>Opportunity.OpportunityContactRoles$Name</field>
+    </columns>
+    <columns>
+        <field>Opportunity.OpportunityContactRoles$Email</field>
+    </columns>
+    <columns>
+        <field>Opportunity$Owner</field>
+    </columns>
+    <columns>
+        <field>Opportunity$Commitment_Risk__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity$Risk_Comments__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>2021 CS Funnel Contacts with emails. Barbara/s request.</description>
+    <filter>
+        <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+        <criteriaItems>
+            <column>Opportunity$Opportunity_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>700661187,700517269,700458863,700632296,700672924,700685235,700625970,700684793,700617477,700583783,700662127,700511344,700655651,700462256,700634405,700559071,700593685,700493175,700546447,700654004,700618046,700472266,700594399,700646346,700462305,700579580,700438519,700396136,700459812,700594712,700535361,700593007,700635925,700581167,700418563,700666371,700443687,700577562,700592977,700686829,700680327,700617954,700671503,700675500,700396162,700597563,700640401,700618135,700415221,700410906,700660931,700573295,700396177,700514872,700437396,700661192,700612529,700559610,700538669,700675513,700645262,700577881,700607447,700686160,700396186,700469817,700561593,700681531,700676949,700661185,700617052,700576311,700624079,700677441,700516387,700686154,700659202,700514622,700671235,700532877,700658997,700636607,700669361,700628426,700622350,700396222,700523519,700687880,700577261,700613135,700579429,700681840,700426210,700458165,700682776,700676042,700630717,700668433,700689262,700637883,700686120,700632685,700516345,700537650,700630041,700599418,700400319,700541137,700421109,700616015,700666711,700672238,700664761,700684753,700551602,700684933,700532579,700619815,700677439,700624495</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity$Opportunity_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>700622214,700687245,700515105,700638738,700645308,700503152,700669678,700646647,700516024,700653895,700655518,700675306,700595417,700612166,700495977,700510599,700606344,700670717,700606862,700682769,700661850,700652817,700585862,700557248,700615705,700630979,700675305,700669314,700626506,700594498,700685396,700547765,700528080,700638195,700396304,700515324,700495901,700620263,700531005,700419853,700621551,700610373,700573448,700650579,700630910,700632091,700482031,700685256,700572327,700396321,700682777,700628077,700601695,700599432,700438476,700577269,700512777,700688634,700551180,700668369,700653169,700585783,700677382,700666080,700657482,700674668,700571640,700676336,700618871,700612578,700478205,700681167,700401613,700529940,700666767,700661852,700652050,700643399,700640939,700560515,700396355,700677298,700617943,700617519,700606239,700418735,700616998</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity$Forecast_Category__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Omitted,Pipeline,Upside,Commit,Closed,Exclude Pipeline,Exclude Upside,Exclude Commit</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Copy of CS 2021 Funnel Contacts/Emails</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunities_with_Contact_Roles__c</reportType>
+    <roleHierarchyFilter>FIN_NAMER</roleHierarchyFilter>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>Opportunity$Opportunity_Number__c</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>Opportunity$CloseDate</dateColumn>
+        <interval>INTERVAL_CURNEXTY</interval>
+    </timeFrameFilter>
+</Report>

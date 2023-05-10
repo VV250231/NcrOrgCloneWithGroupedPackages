@@ -1,0 +1,20 @@
+<apex:page id="thePage">
+    <html>
+        <head>
+             <script type="text/javascript">
+                function myfunc () 
+                {
+                    var frm = document.getElementById("test");
+                    frm.submit();
+                }
+                window.onload = myfunc;
+            </script>
+        </head>
+        <form id ="test" action="http://sun1319.daytonoh.ncr.com:8200/" method="post" target="itarget">
+              <input type="hidden" name="loginSource" value="nsc"/>
+              <input type="hidden" name="id" value="{!$User.id}"/>
+        </form> 
+    </html> 
+    <iframe  frameborder="0" height="600px" id="itarget" name="itarget" scrolling="auto" title="Content" width="100%">
+    </iframe>
+</apex:page>

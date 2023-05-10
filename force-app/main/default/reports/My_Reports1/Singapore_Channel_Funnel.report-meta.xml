@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_29642155</developerName>
+        <masterLabel>Sub-region</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>FULL_NAME</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Avi Shaul</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Nima Moradi</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Daniel Pancic</sourceValue>
+            </sourceValues>
+            <value>.Coles</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Eric Su</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Jason Zou Ji Ming</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Xuemei Wang</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ella Fang</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Raymond Lee</sourceValue>
+            </sourceValues>
+            <value>.Greater China</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Kithy Lim</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Matthew Wales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Devan Vidondaraja</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Jiaranai Janwong</sourceValue>
+            </sourceValues>
+            <value>.SEA</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Lisa Surridge</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Vincent De Stefano</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>David Dessmann</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Mark Quayle</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Tim Patrick Lewin</sourceValue>
+            </sourceValues>
+            <value>.SPA</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Angela Edmunds</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Keren Rosen</sourceValue>
+            </sourceValues>
+            <value>.Woolworths</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Dongwon Kim</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>HS Park</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>SeokHwan Lee</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>WM Cho</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Kwanho Lee</sourceValue>
+            </sourceValues>
+            <value>.Korea</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE2</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Soln_Opp_Amount__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Hardware_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Software_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>Opportunity.PS_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Annuity_Contract__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Services_Products__c.CONVERT</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Opportunity.IncludeinFunnel,Opportunity.Indirect_Include_in_Funnel</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FORECAST_CATEGORY</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Omitted</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FULL_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Hazel Cheung</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>FORECAST_CATEGORY</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>FiscalQuarter</dateGranularity>
+        <field>CLOSE_DATE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>ACCOUNT_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Singapore : Channel - Funnel</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <roleHierarchyFilter>ChiefExecutiveOffice</roleHierarchyFilter>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <endDate>2019-12-31</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2017-01-01</startDate>
+    </timeFrameFilter>
+</Report>

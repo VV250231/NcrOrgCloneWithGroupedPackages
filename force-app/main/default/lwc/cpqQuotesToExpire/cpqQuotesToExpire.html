@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title="Quotes Expiring Soon" icon-name="custom:custom63">
+        <div class="slds-scrollable--y" style="margin:20px;">
+            <template if:true={quotes}>
+                <lightning-datatable
+                    hide-checkbox-column="true" 
+                    key-field="Id"
+                    data={quotes}
+                    columns={columns}
+                    onsave={handleSave}
+                    draft-values={draftValues}>
+                </lightning-datatable>
+            </template>
+            <template if:true={quotes.error}>
+                <!-- handle Apex error -->
+            </template>
+        </div>
+    </lightning-card>
+</template>

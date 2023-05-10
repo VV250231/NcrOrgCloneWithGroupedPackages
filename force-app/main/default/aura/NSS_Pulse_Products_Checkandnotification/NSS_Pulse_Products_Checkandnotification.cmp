@@ -1,0 +1,19 @@
+<!-- ####################################################################################################  
+Created by sk250817
+Below code will check if below product exist for that account
+-'A-MS NSS Managed Anti Virus', 'A-MS NSS PCI Compliance Service','A-MS NSS Event Logger','A-MS NSS Managed Wifi','A-MS NSS Site Shield',
+- 'A-MS NSS Patch Management','A-MS NSS Secure Access','A-MS NSS Activation Fee','A-MS NSS Core Bundle','A-MS NSS Internal Vulnerability Scanning',
+- 'A-MS NSS Threat Defender','Cloud-NSS Secure Access','Cloud-NSS Threat Defender','Cloud-NSS Site Shield','Cloud-NSS Control Scan','SW-Pulse PCR Real Time',
+- 'Cloud-Pulse Real-Time','SW-Pulse PCR Forecourt Manager','SW-Systems_MGT-Pulse-Banking','SW-Pulse PCR RT and FM','SW-Retail ONE-Pulse on Cloud',
+- 'SW-Retail ONE-Pulse On Premise'
+
+####################################################################################################  -->
+<aura:component controller="Controller_NSS_Pulse_Check" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+   
+    <ltng:require scripts="{! $Resource.PSFR_Resource + '/PSFR_Resource/bootstrap/js/jQuery-2.2.0.min.js'}"  afterScriptsLoaded="{!c.SG_Errorpop}" />
+    
+    <aura:attribute name="oppid" type="Id"  default="{!v.recordId}"/>
+    <aura:attribute name="toggleerror" type="Boolean"  default="False" />
+    <aura:attribute name="tresult" type="String"  default="False" />
+   
+</aura:component>

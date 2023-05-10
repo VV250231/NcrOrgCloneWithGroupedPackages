@@ -1,0 +1,23 @@
+<aura:component controller="silverQuoteButton" implements="lightning:availableForFlowScreens,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader" access="global" >
+    <aura:handler name="init" value ="{!this}" action = "{!c.doInit}"/>
+    <aura:attribute name="showSilverQuoteButton" type="Boolean" access="global" default="true"/>
+    <aura:attribute name="oppRecord" type="Object"/>
+    <aura:attribute name="recordLoadError" type="String"/>
+    <aura:attribute name="currentOpportunityId" type="String"/>
+    <aura:attribute name="isSpinner" type="boolean" default="false"/> 
+    <!-- Fetching Opportunity related data through LDS-->
+    <force:recordData aura:id="recordLoader" 
+                      recordId="{!v.recordId}"
+                      fields="Silver_Opportunity_flag__c,SBQQ__PrimaryQuote__c,CPQ__c"
+                      targetFields="{!v.oppRecord}"
+                      targetError="{!v.recordLoadError}"
+                      recordUpdated="{!c.doInit}"
+                      />
+    <aura:if isTrue="{!v.showSilverQuoteButton}">
+    <div> 
+        <lightning:buttonGroup>
+          <lightning:button variant="brand" disabled="{!v.isSpinner}" label="{!v.isSpinner == true ? 'Please Wait...' : 'Create/View Silver Quote'}" iconName="" onclick="{!c.mapSFFieldsToSilver}"/>
+        </lightning:buttonGroup> 
+    </div>
+    </aura:if>
+</aura:component>

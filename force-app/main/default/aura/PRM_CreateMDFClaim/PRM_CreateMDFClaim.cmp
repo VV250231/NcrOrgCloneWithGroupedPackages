@@ -1,0 +1,307 @@
+<aura:component controller="CreateMDFClaimCmpController" implements="forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <aura:attribute name="mdfRequest" type="SFDC_MDF__c" default="{'sobjectType':'SFDC_MDF__c'}" />
+    <aura:attribute name="mdfClaim" type="SFDC_MDF_Claim__c" default="{'sobjectType':'SFDC_MDF_Claim__c'}"/>
+    <aura:attribute name="expenseList" type="MDF_Expense_Detail__c[]" />
+    <aura:attribute name="mdfRequestId" type="String" />
+    <aura:attribute name="isExpenseError" type="Boolean" default="false"/> 
+    <aura:attribute name="isExpenseNumberValidationError" type="Boolean" default="false"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:registerEvent name="DetailRequestEvt" type="c:DetailMDFRequestEvt"/>
+    <aura:registerEvent name="CloneCancelRequestEvt" type="c:CancelMDFRequestEvt"/>
+    
+    <!---Redirecting To Show Fields -->
+    <div class="slds-scope slds-grid slds-show" aura:id = "crateClaim">
+        <!-- activity details -->
+        <div class="slds-m-top_small slds-text-align_center">
+            <button class="slds-button slds-button_neutral" type="button" onclick="{!c.createClaim}">Create Claim</button>
+            <button class="slds-button slds-button_neutral" type="button" onclick="{!c.cancelRequest}">Back</button>
+        </div>
+        <div class="slds">
+            <div class="section">
+                <h2 class="slds-text-heading_small section-heading">Activity Profile</h2>
+                <div>
+                    <div class="slds-grid slds-wrap section-body">
+                        <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                            <div class="slds-grid slds-wrap">
+                                <div class="slds-size_1-of-1">
+                                    <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                        <span class="slds-form-element__label">Activity name</span>
+                                        <div class="slds-form-element__control">
+                                            <ui:outputText value="{! v.mdfRequest.Name}" class="slds-form-element__static"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-size_1-of-1">
+                                    <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                        <span class="slds-form-element__label">Activity Type</span>
+                                        <div class="slds-form-element__control">
+                                            <ui:outputText value="{! v.mdfRequest.Activity_Type__c}" class="slds-form-element__static"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-size_1-of-1">
+                                    <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                        <span class="slds-form-element__label">Status</span>
+                                        <div class="slds-form-element__control">
+                                            <ui:outputText value="{! v.mdfRequest.Status__c}" class="slds-form-element__static"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-size_1-of-1">
+                                    <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                        <span class="slds-form-element__label">Activity Contact</span>
+                                        <div class="slds-form-element__control">
+                                            <ui:outputText value="{! v.mdfRequest.Requester_Name__r.Name}" class="slds-form-element__static"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-size_1-of-1">
+                                    <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                        <span class="slds-form-element__label">CAM</span>
+                                        <div class="slds-form-element__control">
+                                            <ui:outputText value="{! v.mdfRequest.CAM__r.Name}" class="slds-form-element__static"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-size_1-of-1">
+                                    <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                        <span class="slds-form-element__label">Other Vendors Represented</span>
+                                        <div class="slds-form-element__control">
+                                            <ui:outputText value="{! v.mdfRequest.Other_Vendors_Represented__c}" class="slds-form-element__static"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-size_1-of-1">
+                                    <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                        <span class="slds-form-element__label">Activity Description</span>
+                                        <div class="slds-form-element__control">
+                                            <ui:outputText value="{! v.mdfRequest.Activity_Description__c}" class="slds-form-element__static"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-size_1-of-1">
+                                    <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                        <span class="slds-form-element__label">Transaction Reference</span>
+                                        <div class="slds-form-element__control">
+                                            <ui:inputText value="{! v.mdfClaim.Transaction_Reference__c}" class="slds-input"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                            <div class="slds-grid">
+                                <div class="slds-size_1-of-1">
+                                    <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                        <span class="slds-form-element__label">Activity Start Date</span>
+                                        <div class="slds-form-element__control">
+                                            <ui:outputText value="{! v.mdfRequest.Activity_Date__c}" class="slds-form-element__static"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-wrap">
+                                <div class="slds-size_1-of-1">
+                                    <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                        <span class="slds-form-element__label">Activity End Date</span>
+                                        <div class="slds-form-element__control">
+                                            <ui:outputText value="{! v.mdfRequest.End_Date__c}" class="slds-form-element__static"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- endof activity details -->
+            
+            <!-- Financial Profile -->
+            <div class="section">
+                <h2 class="slds-text-heading_small section-heading">Financial Profile</h2>
+                <aura:if isTrue="{! and(v.mdfRequest.Activity_Type__c != 'NCR defined Sales Program – Funded Head Count Distributor Only', v.mdfRequest.Activity_Type__c !='---None---')}">
+                    <ui:message aura:id="fp_error" title="Note:" severity="error" closable="false" ><!--class="slds-hide" removed-->
+                        Fill in any, or all of the fields below related to the actual number of lead type for the activity type selected.
+                    </ui:message>
+                </aura:if>
+                <div>
+                    <div class="slds-grid slds-wrap section-body">
+                        <!---MDF Request output -->
+                        <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                            <aura:if isTrue="{!! (v.mdfRequest.Activity_Type__c == 'Print – Business case driven' || v.mdfRequest.Activity_Type__c == 'NCR defined Sales Program – Funded Head Count Distributor Only')}">
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-size_1-of-1">
+                                        <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                            <span class="slds-form-element__label">Estimated New Leads</span>
+                                            <div class="slds-form-element__control">
+                                                <ui:outputText value="{! v.mdfRequest.Estimated_New_Leads__c}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </aura:if>
+                            <aura:if isTrue="{!! (v.mdfRequest.Activity_Type__c == 'Search Engine Marketing/Social Media/PR' || v.mdfRequest.Activity_Type__c == 'Print – Business case driven' || v.mdfRequest.Activity_Type__c == 'Sales Program - Incentive' || v.mdfRequest.Activity_Type__c == 'NCR defined Sales Program – Funded Head Count Distributor Only')}">
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-size_1-of-1">
+                                        <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                            <span class="slds-form-element__label">Estimated Existing Leads</span>
+                                            <div class="slds-form-element__control">
+                                                <ui:outputText value="{! v.mdfRequest.Estimated_Existing_Leads__c}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </aura:if>
+                            <aura:if isTrue="{!! (v.mdfRequest.Activity_Type__c == 'Event - Customer Briefing Center (CBC) Visit' || v.mdfRequest.Activity_Type__c == 'Event – Webinar' || v.mdfRequest.Activity_Type__c == 'E-marketing Digital Campaign' || v.mdfRequest.Activity_Type__c == 'Print – Business case driven' || v.mdfRequest.Activity_Type__c == 'NCR defined Sales Program – Funded Head Count Distributor Only')}">
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-size_1-of-1">
+                                        <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                            <span class="slds-form-element__label">Estimated Interactions</span>
+                                            <div class="slds-form-element__control">
+                                                <ui:outputText value="{! v.mdfRequest.Estimated_Interactions__c}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </aura:if>
+                            <aura:if isTrue="{!! (v.mdfRequest.Activity_Type__c == 'Search Engine Marketing/Social Media/PR' || v.mdfRequest.Activity_Type__c == 'E-marketing - Video' || v.mdfRequest.Activity_Type__c == 'Print – Business case driven' || v.mdfRequest.Activity_Type__c == 'NCR defined Sales Program – Funded Head Count Distributor Only')}">
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-size_1-of-1">
+                                        <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                            <span class="slds-form-element__label">Estimated Opportunity</span>
+                                            <div class="slds-form-element__control">
+                                                <ui:outputText value="{! v.mdfRequest.Estimated_Opportunity__c}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </aura:if>
+                            
+                        </div>
+                        <!---MDF Claim Input -->
+                        <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slduus-col_padded">
+                            
+                            <aura:if isTrue="{!! (v.mdfRequest.Activity_Type__c == 'Print – Business case driven' || v.mdfRequest.Activity_Type__c == 'NCR defined Sales Program – Funded Head Count Distributor Only')}">
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-size_1-of-1">
+                                        <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                            <span class="slds-form-element__label"><abbr class="slds-required" title="required"></abbr>Actual New Leads</span>
+                                            <div class="slds-form-element__control">
+                                                <ui:inputText value="{! v.mdfClaim.Actual_New_Leads__c}" aura:id="Actual_New_Leads" class="slds-input"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </aura:if> 
+                            <aura:if isTrue="{!! (v.mdfRequest.Activity_Type__c == 'Search Engine Marketing/Social Media/PR' || v.mdfRequest.Activity_Type__c == 'Print – Business case driven' || v.mdfRequest.Activity_Type__c == 'Sales Program - Incentive' || v.mdfRequest.Activity_Type__c == 'NCR defined Sales Program – Funded Head Count Distributor Only')}">
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-size_1-of-1">
+                                        <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                            <span class="slds-form-element__label"><abbr class="slds-required" title="required"></abbr>Actual Existing Leads</span>
+                                            <div class="slds-form-element__control">
+                                                <ui:inputText value="{! v.mdfClaim.Actual_Existing_Leads__c}" aura:id="Actual_Existing_Leads" class="slds-input"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </aura:if> 
+                            <aura:if isTrue="{!! (v.mdfRequest.Activity_Type__c == 'Event - Customer Briefing Center (CBC) Visit' || v.mdfRequest.Activity_Type__c == 'Event – Webinar' || v.mdfRequest.Activity_Type__c == 'E-marketing Digital Campaign' || v.mdfRequest.Activity_Type__c == 'Print – Business case driven' || v.mdfRequest.Activity_Type__c == 'NCR defined Sales Program – Funded Head Count Distributor Only')}">
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-size_1-of-1">
+                                        <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                            <span class="slds-form-element__label"><abbr class="slds-required" title="required"></abbr>Actual Interactions</span>
+                                            <div class="slds-form-element__control">
+                                                <ui:inputText value="{! v.mdfClaim.Actual_Interactions__c}" aura:id="Actual_Interactions" class="slds-input"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </aura:if> 
+                            <aura:if isTrue="{!! (v.mdfRequest.Activity_Type__c == 'Search Engine Marketing/Social Media/PR' || v.mdfRequest.Activity_Type__c == 'E-marketing - Video' || v.mdfRequest.Activity_Type__c == 'Print – Business case driven' || v.mdfRequest.Activity_Type__c == 'NCR defined Sales Program – Funded Head Count Distributor Only')}">
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-size_1-of-1">
+                                        <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                            <span class="slds-form-element__label"><abbr class="slds-required" title="required"></abbr>Actual Opportunity</span>
+                                            <div class="slds-form-element__control">
+                                                <ui:inputText value="{! v.mdfClaim.Actual_Opportunity__c}" aura:id="Actual_Opportunity" class="slds-input"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </aura:if> 
+                            
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-wrap">
+                        <p class="text-notice">NCR Estimated Reimbursement amount is based on the pre-approval submission documentation provided and percentages associated with each MDF activity. The amount of the reimbursement (NCR Approved Amount) may differ from the NCR Estimated Reimbursement amount depending on the Proof of Performance (PoP) documentation submitted.</p>
+                    </div>
+                    
+                    <div class="slds-m-vertical_small slds-col_padded">
+                        <div class="slds-m-vertical_small slds-col_padded">
+                            <h3>Expense Table</h3>
+                            <aura:if isTrue="{!v.isExpenseError}">
+                                <h3><abbr class="slds-required" title="required">Please enter All the values of "Actual Cost (Based on POP)":</abbr></h3>
+                            </aura:if>
+                            <aura:if isTrue="{!v.isExpenseNumberValidationError}">
+                                <h3><abbr class="slds-required" title="required">Please enter number values in "Actual Cost (Based on POP)":</abbr></h3>
+                            </aura:if>
+                            <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                                <thead>
+                                    <tr class="slds-text-title_caps">
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Activity Line Item">Activity Line Item</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Estimated Cost">Estimated Cost</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Approved Reimbursement Limit">Approved Reimbursement Limit</div>
+                                        </th> 
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Actual Cost (Based on POP)"><abbr class="slds-required" title="required">*</abbr>Actual Cost (Based on POP)</div>
+                                        </th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <aura:iteration items="{!v.expenseList}" var="et">
+                                        <tr class="slds-text-title_caps">
+                                            <td>
+                                                {!et.Actvity__c}
+                                            </td>
+                                            <td>
+                                                {!et.Estimated_Cost__c}
+                                            </td>
+                                            <td>
+                                                {!et.NCR_Estimated_Participation__c}
+                                            </td>
+                                            <td>
+                                                <ui:inputText value="{!et.Actual_Cost__c}" class="slds-input"/>
+                                            </td>
+                                        </tr>
+                                    </aura:iteration>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Total:</th>
+                                        <th>{!v.mdfRequest.Total_Estimated_Cost__c} </th>
+                                        <th>{!v.mdfRequest.Total_NCR_Estimated_Participation__c} </th>
+                                        <th> </th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        
+                    </div>
+                </div>    
+            </div>
+        </div>
+        <div class="slds-m-top_small slds-text-align_center">
+            <button class="slds-button slds-button_neutral" type="button" onclick="{!c.createClaim}">Create Claim</button>
+            <button class="slds-button slds-button_neutral" type="button" onclick="{!c.cancelRequest}">Back</button>
+        </div>
+    </div>
+</aura:component>

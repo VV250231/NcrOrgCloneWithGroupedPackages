@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Credit_Detail_email_alert_to_account_owner</fullName>
+        <description>Credit Detail email alert to account owner</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>NSC_Admin_Templates/Credit_Details_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>X30_Days_Notification</fullName>
+        <ccEmails>an230182@ncr.com</ccEmails>
+        <description>30 Days Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>an230182@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>AR_Detail_Templates/Overdue_AR_balance_30_days</template>
+    </alerts>
+    <alerts>
+        <fullName>X45_Days_Notification</fullName>
+        <ccEmails>an230182@ncr.com</ccEmails>
+        <description>45 Days Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <recipients>
+            <field>Account_Owner_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>an230182@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>AR_Detail_Templates/Overdue_AR_balance_45_days</template>
+    </alerts>
+    <alerts>
+        <fullName>X60_Days_Notification</fullName>
+        <ccEmails>an230182@ncr.com</ccEmails>
+        <description>60 Days Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <recipients>
+            <field>Account_Owner_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Regional_Lead__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Second_Level_Manager_of_Account_Owner__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Secondary_Regional_Lead__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>an230182@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>AR_Detail_Templates/Overdue_AR_balance_60_days</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Update_AR_Detail_Name</fullName>
+        <field>AR_Detail_Name__c</field>
+        <formula>Account__r.Name +&apos; - &apos;+ Account__r.Master_Customer_Number__c</formula>
+        <name>Update AR Detail Name</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>AR Detail Name Update</fullName>
+        <actions>
+            <name>Update_AR_Detail_Name</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Credit_Detail__c.CreatedDate</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <tasks>
+        <fullName>Engage_with_Customer</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Please contact the Collector assigned to your account to assist with customer late payment issue.  When you contact the customer, please fill out the Sales Discussion with Customer section so we can document the discussion.</description>
+        <dueDateOffset>1</dueDateOffset>
+        <notifyAssignee>true</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Attention Needed: Collection needs your support with customer late payment issue</subject>
+    </tasks>
+</Workflow>

@@ -1,0 +1,544 @@
+<apex:page Controller="PSFRApexController" standardStylesheets="false" sidebar="false" showHeader="false" cache="false" expires="0" >
+    <head>
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/bootstrap/css/bootstrap.min.css')}"/>        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"/>   
+        
+        <!-- DataTables -->     
+        <link rel="stylesheet" href="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/datatables/dataTables.bootstrap.css')}"/>
+        
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/bootstrap/css/AdminLTE.min.css')}"/>
+        <style>
+            .container-fluid {
+            margin-top: 15px;
+            }
+            .centered-text {
+            text-align:center
+            }
+        .nav-tabs{
+          background-color:#3c8dbc;
+        }   
+        .btn-block {
+            display: block;
+            width: 100%;
+        }       
+            
+        </style>
+    </head>
+    <body>
+        <apex:form >
+            <div class="container-fluid">
+                <div class="row">
+                    <!----------------Fund Request Details------------------------>
+                    <div class="col-md-6">
+                        <div class="box box-primary box-solid ">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Fund Request Details</h3>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="Fund_Request_Number">Fund Request Number</label>
+                                            <br />
+                                            <apex:outputField value="{!MasterRecord.Name}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="PFR_Presales_Category__c">Presales Category</label>
+                                            <br />
+                                            <apex:outputField value="{!MasterRecord.PFR_Presales_Category__c}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="PFR_Sales_Engineer__c">PFR Sales Engineer</label>
+                                            <br />
+                                            <apex:outputField value="{!MasterRecord.PFR_Sales_Engineer__c}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="PFR_Opportunity__c">Opportunity</label>
+                                            <br />
+                                            <apex:outputField value="{!MasterRecord.PFR_Opportunity__r.Name}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="PFR_Expected_Date__c">Expected Start Date</label>
+                                            <br />
+                                            <apex:outputField value="{!MasterRecord.PFR_Expected_Date__c}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="Account__c">Account</label>
+                                            <br />
+                                            <apex:outputField value="{!MasterRecord.Account__r.name}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="Owner">Fund Request Owner</label>
+                                            <br />
+                                            <apex:outputField value="{!MasterRecord.Owner.name}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="PFR_Is_this_Recoverable__c">Is this Recoverable</label>
+                                            <br />
+                                            <apex:outputField value="{!MasterRecord.PFR_Is_this_Recoverable__c}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="Approval_Status__c">Approval Status</label>
+                                            <br />
+                                            <apex:outputField value="{!MasterRecord.Approval_Status__c}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="Raised_Objection_Status__c">Raised Objection Status</label>
+                                            <br />
+                                            <apex:outputField value="{!MasterRecord.Raised_Objection_Status__c}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="PFR_Approval_Number__c">Approval Number</label>
+                                            <br />
+                                            <apex:outputField value="{!MasterRecord.PFR_Approval_Number__c}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="PFR_Success_Criteria__c">Success Criteria</label>
+                                            <br />
+                                            <apex:outputField value="{!MasterRecord.PFR_Success_Criteria__c}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="PFR_Justification__c">Justification</label>
+                                            <br />
+                                            <apex:outputField value="{!MasterRecord.PFR_Justification__c}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!----------------Fund Request Details------------------------>
+                    
+                    <!----------------Submit for Approval Modal ------------------------------------>
+                    
+                    <div class="modal fade" id="myModal1"  role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog modal-sm" >
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    
+                                    <h4 class="modal-title">Please Confirm</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p><b>Do you want to submit for approval ?</b></p>
+                                    <p>Please note, once submitted this record will be locked and no change take place</p>
+                                </div>
+                                
+                                <div class="modal-footer">
+                                    
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <apex:commandButton styleclass="btn btn-primary" value="Confirm"  action="{!Submit}" style="margin:4px;"  />
+                                </div>
+                                
+                                
+                            </div>
+                        </div>    
+                    </div>
+                    
+                    
+                    <!---------------Submit for Approval Modal ------------------------------------->
+                    <!----------------Opportunity Information------------------------>
+                    <div class="col-md-6">
+                        <div class="box box-primary box-solid ">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Opportunity Information</h3>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="PFR_Opportunity_Number__c">Opportunity Number</label>
+                                            <br />
+                                            <apex:outputField value="{!MasterRecord.PFR_Opportunity_Number__c}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="PFR_Opportunity_Selling_Stage__c" >Opportunity Selling Stage</label>
+                                            <br />
+                                            <apex:outputField value="{!MasterRecord.PFR_Opportunity_Selling_Stage__c}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="PFR_Forecast_Category__c">Forecast Category</label>
+                                            <br />
+                                            <apex:outputField value="{!MasterRecord.PFR_Forecast_Category__c}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="PFR_Opportunity_Amount__c">Opportunity Amount</label>
+                                            <br />
+                                            <apex:outputField value="{!MasterRecord.PFR_Opportunity_Amount__c}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="Region__c">Region</label>
+                                            <br />
+                                            <apex:outputField value="{!MasterRecord.Region__c}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="PFR_Opportunity_Owner__c">Opportunity Owner</label>
+                                            <br />
+                                            <apex:outputField value="{!MasterRecord.PFR_Opportunity_Owner__c}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="PFR_Software_Products__c">Software Products</label>
+                                            <br />
+                                            <apex:outputField value="{!MasterRecord.PFR_Software_Products__c}" />
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">                                        
+                                            <label for="PFR_Hardware_Products__c">Hardware Products</label>
+                                            <br />
+                                            <apex:outputField value="{!MasterRecord.PFR_Hardware_Products__c}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="Services_Products__c">Services Product</label>
+                                            <br />
+                                            <apex:outputField value="{!MasterRecord.Services_Products__c}" />
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="Cloud_Products__c" >Cloud Products</label>
+                                            <br />
+                                            <apex:outputField value="{!MasterRecord.Cloud_Products__c}" />
+                                        </div>
+                                    </div>
+                                </div>  
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="PS_Product__c">PS Product</label>
+                                            <br />
+                                            <apex:outputField value="{!MasterRecord.PS_Product__c}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="Expected Book Date" >Expected Book Date</label>
+                                            <br />
+                                            <apex:outputField value="{!MasterRecord.PFR1_Expected_Book_Date__c}" />
+                                        </div>
+                                    </div>
+                                </div> 
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!----------------Opportunity Information------------------------>
+                    
+                    
+                    
+                    <!----------------Related Resources------------------------>
+                    <!--
+<div class="col-md-12">
+<div class="box box-primary box-solid ">
+<div class="box-header with-border" style="padding: 12.6px;">
+<h3 class="box-title">Related Resources</h3>
+<div class="box-tools pull-right">
+<apex:commandButton styleClass="btn bg-navy btn-flat margin" value="Add Resource"  action="{!AddResource}" style="margin:0px;"  />
+<apex:commandButton styleClass="btn bg-navy btn-flat margin" value="Edit Resource"  action="{!EditR}" style="margin:4px;"  />
+<button type="button" id="Modal1" class="btn bg-navy btn-flat margin"  data-toggle="modal" data-target="#myModal1" style="margin:4px;">
+Submit for Approval
+</button>
+<!--<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>-->
+                   
+                    <!--
+</div>
+</div>
+<div class="box-body">
+<table id="example1" class="table table-bordered table-striped">
+<thead>
+<tr>
+<th>Resource Name</th>
+<th>Task Name</th>
+<th>BU</th>
+<th>Travel Cost (USD)</th>
+<th>Hours Not to Exceed</th>
+<th>Hourly Rate (USD)</th>
+<th>Total Value</th>
+</tr>
+</thead>
+<tfoot>
+<tr>
+<th>-</th>
+<th>-</th>
+<th>-</th>
+<th style="text-align:right;">{!MasterRecord.Total_Travel_Cost_of_Resources__c}</th>
+<th style="text-align:right;">{!MasterRecord.Total_Hours_not_to_exceed__c}</th>
+<th style="text-align:right;">-</th>
+<th style="text-align:right;">{!MasterRecord.Total_Value_of_Resources__c}</th>
+</tr>
+</tfoot>
+<tbody>
+<apex:repeat value="{!ChildRecords}" var="Resources">
+<tr>
+<td style="text-align:left;">{!Resources.PFR_Resource_Name__c}</td>
+<td style="text-align:left;">{!Resources.PFR_Task__c}</td>
+<td style="text-align:left;">{!Resources.PFR_BU__c}</td>
+<td style="text-align:right;">{!Resources.PFR_Travel_Cost__c}</td>
+<td style="text-align:right;">{!Resources.PFR_Num_of_days_not_to_exceed__c}</td>
+<td style="text-align:right;">{!Resources.PFR_Daily_Rate_USD__c}</td>
+<td style="text-align:right;">{!Resources.PFR_Total__c}</td>
+</tr>
+</apex:repeat>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+-->
+                    <!----------------Related Resources------------------------>
+                    <!----------------Tab Window------------------------>
+                    <div class="col-md-12">
+                        <!-- Custom Tabs -->
+                        <div class="nav-tabs-custom" >
+                     
+                            <ul class="nav nav-tabs">
+                            
+                                <li class="active"> <a href="#tab_1" data-toggle="tab">Related Resources</a></li>
+                                
+                                <li> <a href="#tab_2" data-toggle="tab">PS Team Users</a></li>
+                                <!--
+                                <li><a href="#tab_3" data-toggle="tab">Tab 3</a></li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                                        Dropdown <span class="caret"></span>
+                                    </a>
+                                    
+                                    <ul class="dropdown-menu">
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+                                        <li role="presentation" class="divider"></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+                                        
+                                    </ul>
+                                    
+                                </li>
+                                -->
+                                <li class="pull-right">
+                                    <button type="button" id="Modal1" class="btn bg-navy btn-flat margin"  data-toggle="modal" data-target="#myModal1" style="margin:4px;">
+                                        Submit for Approval
+                                    </button>
+                                </li>
+                                </ul>
+                              
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tab_1">
+                                     
+                                     <div class="box-tools pull-right">
+                                        <apex:commandButton styleClass="btn bg-navy btn-primary margin" Value="Add Resource"  action="{!AddResource}" style="margin:18px;"  />
+                                        <apex:commandButton styleClass="btn bg-navy btn-primary margin" value="Edit Resource"  action="{!EditR}" style="margin:18px;"  />
+                                         </div>
+                                    
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Resource Name</th>
+                                                <th>Task Name</th>
+                                                <th>BU</th>
+                                                <th>Travel Cost (USD)</th>
+                                                <th>Hours Not to Exceed</th>
+                                                <th>Hourly Rate (USD)</th>
+                                                <th>Total Value</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>-</th>
+                                                <th>-</th>
+                                                <th>-</th>
+                                                <th style="text-align:right;">{!MasterRecord.Total_Travel_Cost_of_Resources__c}</th>
+                                                <th style="text-align:right;">{!MasterRecord.Total_Hours_not_to_exceed__c}</th>
+                                                <th style="text-align:right;">-</th>
+                                                <!--<th style="text-align:right;">{!MasterRecord.Total_Hourly_Rate__c}</th>-->
+                                                <th style="text-align:right;">{!MasterRecord.Total_Value_of_Resources__c}</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            <apex:repeat value="{!ChildRecords}" var="Resources">
+                                                <tr>
+                                                    <td style="text-align:left;">{!Resources.PFR_Resource_Name__c}</td>
+                                                    <td style="text-align:left;">{!Resources.PFR_Task__c}</td>
+                                                    <td style="text-align:left;">{!Resources.PFR_BU__c}</td>
+                                                    <td style="text-align:right;">{!Resources.PFR_Travel_Cost__c}</td>
+                                                    <td style="text-align:right;">{!Resources.PFR_Num_of_days_not_to_exceed__c}</td>
+                                                    <td style="text-align:right;">{!Resources.PFR_Daily_Rate_USD__c}</td>
+                                                    <td style="text-align:right;">{!Resources.PFR_Total__c}</td>
+                                                </tr>
+                                            </apex:repeat>
+                                        </tbody>
+                                        
+                                    </table>
+                                    <!--
+
+                                    <div class="box-tools pull-right">
+                                        <apex:commandButton styleClass="btn bg-navy btn-primary margin" Value="Add Resource"  action="{!AddResource}" style="margin:18px;"  />
+                                        <apex:commandButton styleClass="btn bg-navy btn-primary margin" value="Edit Resource"  action="{!EditR}" style="margin:18px;"  />
+                                    </div>
+                                    -->
+                                    
+                                </div>
+                                <!-- /.tab-pane -->
+                                <div class="tab-pane" id="tab_2">
+                                        <div class="box-tools pull-right">
+                                    <a class="btn bg-navy btn-flat margin" href="https://ncr.force.com/BPMEmployeeCommunity/PSFR_Add_PSTeam?id={!MasterRecordId}&psid={!PsidRecordId}" style="margin:18px;" >Add/Edit Team</a>
+                                    </div>
+                                        <table id="example2" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>PS User(1)</th>
+                                                <th>PS User(2)</th>
+                                                <th>PS User(3)</th>
+                                                <th>PS User(4)</th>
+                                                <th>PS User(5)</th>
+                                                <th>PS User(6)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <apex:repeat value="{!PSRecords}" var="a">
+                                                <tr>
+                                                    <td style="text-align:left;">{!a.Email_ID__c}</td>
+                                                    <td style="text-align:left;">{!a.Email_ID_1__c}</td>
+                                                    <td style="text-align:left;">{!a.Email_ID_2__c}</td>
+                                                    <td style="text-align:left;">{!a.Email_ID_3__c}</td>
+                                                    <td style="text-align:left;">{!a.Email_ID_4__c}</td>
+                                                    <td style="text-align:left;">{!a.Email_ID_5__c}</td>
+                                                    </tr>
+                                            </apex:repeat>
+                                        </tbody>
+                                    </table>
+                                    <!--
+                                     <div class="box-tools pull-right">
+                                    <a class="btn bg-navy btn-flat margin" href="http://ncrpresalesfundrequest.force.com/PreSalesRequestForm/PSFR_Add_PSTeam?id={!MasterRecordId}&psid={!PsidRecordId}" style="margin:18px;" >Add/Edit Team</a>
+                                    </div>
+                                        -->
+                                    </div>
+                                    
+                                <!-- /.tab-pane -->
+                                
+                                        <div class="tab-pane" id="tab_3">
+                                        
+                                                Ths is tab 3
+                                        </div>
+                                <!-- /.tab-pane -->
+                            </div>
+                            <!-- /.tab-content -->
+                        </div>
+                        <!-- nav-tabs-custom -->
+                    </div>
+                    <!----------------Tab Window------------------------>
+                </div>
+            </div>
+        </apex:form>
+    </body>
+    <script src="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/bootstrap/js/jQuery-2.2.0.min.js')}"></script>
+    <script src="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/bootstrap/js/bootstrap.min.js')}"></script>
+    
+    <!-- DataTables --> 
+    <script src="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/datatables/jquery.dataTables.min.js')}"></script>
+    <script src="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/datatables/dataTables.bootstrap.min.js')}"></script>
+    
+    <script src="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/bootstrap/js/app.min.js')}"></script>
+    
+    <script>
+        $(function () {
+            
+            $('#example1').DataTable({
+                "paging": false,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "columnDefs": [
+                    { "width": "20%", "targets": 1 }
+                ]
+            });
+            $(function () {
+            
+            $('#example2').DataTable({
+                "paging": false,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "columnDefs": [
+                    { "width": "20%", "targets": 1 }
+                ]
+            });
+            
+        });
+    </script>
+    
+</apex:page>

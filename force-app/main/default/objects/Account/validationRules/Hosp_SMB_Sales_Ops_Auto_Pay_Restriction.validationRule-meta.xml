@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hosp_SMB_Sales_Ops_Auto_Pay_Restriction</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISCHANGED(AutoPay_Setup__c) &amp;&amp; 
+((TEXT(AutoPay_Setup__c) == &apos;Manual&apos; &amp;&amp; TEXT(PRIORVALUE(AutoPay_Setup__c)) == &apos;True&apos;) || 
+
+(TEXT(AutoPay_Setup__c) != &apos;Manual&apos; &amp;&amp; (TEXT(PRIORVALUE(AutoPay_Setup__c)) != &apos;Fail&apos; || TEXT(PRIORVALUE(AutoPay_Setup__c)) != &apos;&apos;)))
+&amp;&amp;  $UserRole.Name = &apos;Hosp SMB Sales Ops&apos;
+&amp;&amp; NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c)</errorConditionFormula>
+    <errorDisplayField>AutoPay_Setup__c</errorDisplayField>
+    <errorMessage>You are allowed to change the AutoPay Setup to &apos;Manual&apos; only.</errorMessage>
+</ValidationRule>

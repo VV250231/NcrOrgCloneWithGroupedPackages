@@ -1,0 +1,1770 @@
+<aura:component implements="lightning:isUrlAddressable,flexipage:availableForRecordHome,flexipage:availableForAllPageTypes,force:hasRecordId,forceCommunity:availableForAllPageTypes" controller="PS_Schedule_NewClass" access="global" >
+    <!-- NEWADDITION FOR SUBSCRIPTION PACKAGE-->
+    <!--<aura:attribute name="isPackageTab" type="Boolean" default="false"/>
+    <aura:attribute name="isAdminProfile" type="Boolean" default="false"/>
+    <aura:attribute name="packageCount" type="Integer" default="0"/>
+    <aura:attribute name="isOpen" type="boolean" default="false"/>
+    <aura:attribute name="pkgid" type="String" />
+    <aura:attribute name="isSubPkg" type="boolean" default="false"/>
+    <aura:handler name="reconfigPKG" event="c:ReconfigEvt" action="{!c.handleReconfigPKG}"/>-->
+    
+    <!--Attribute for Name And EDD--> 
+    <aura:attribute name="isCommunityUser" type="Boolean" default="false"/>		
+    <aura:attribute name="IPTPartnerCommunityUrl" type="String"/>
+    <aura:attribute name="opportunityId" type="String" default=""/>
+    <aura:attribute name="OppId" type="String"/>
+    <aura:attribute name="EDD" type="date" /> 
+    <aura:attribute name="EBD" type="date" /> 
+    <aura:attribute name="OppName" type="String" />  
+    <aura:attribute name="OppCurr" type="String" />  
+    <aura:attribute name="ScreenName" type="String" />
+    <aura:attribute name="showDistributeBuutons" type="Boolean" default="true"/>
+    <aura:attribute name="haserror" type="Boolean" default="true"/>
+    <aura:attribute name="isReadOnlyAllsectionsOpen" type="Boolean" default="false"/>
+    <aura:attribute name="openSectionButton" type="String" default="Open All Sections" />
+    <aura:attribute name="qtyTyp" type="String"></aura:attribute>
+    <aura:attribute name="fieldMap" type="Map"></aura:attribute>
+    <aura:attribute name="isCatm"  type="boolean" default="false" />
+    <aura:attribute name="CATMerror" type="Boolean" default="false"/>
+    <!--Attribute for Name And EDD-->
+    
+    <!-- ATTRIBUTE FOR SLIDER -->
+    <aura:attribute name="pageNo" type="integer" default="1"/> 
+    <aura:attribute name="Totalpage" type="integer" default="1"/>
+    <aura:attribute name="movement" type="integer" default="200"/>
+    
+    <!-- ATTRIBUTE FOR SLIDER -->
+    
+    <!-- ATTRIBUTE FOR CALENDER -->
+    <aura:attribute name="calenderCount" type="integer" default="2"/>
+    <!-- ATTRIBUTE FOR CALENDER -->
+    
+    <!-- ATTRIBUTE FOR TOGGLE DISABLE OF ADJUST PICKLIST -->
+    
+    <aura:attribute name="TOGGLEDELETE" type="boolean" default="true"/>
+    <!-- ATTRIBUTE FOR TOGGLE DISABLE OF ADJUST PICKLIST -->
+    
+    <!-- ATTRIBUTE FOR TOGGLE SPINNER -->
+    <aura:attribute name="toggleSpinner" type="boolean" default="true"/> 
+    <!-- ATTRIBUTE FOR TOGGLE SPINNER -->
+    
+    <!-- ATTRIBUTE FOR MONTH MODAL -->
+    <aura:attribute name="toggleModal" default="false" type="boolean"/>
+    <aura:attribute name="MonthData" type="object[]"/>
+    
+    <!-- ATTRIBUTE FOR MONTH MODAL --> 
+    
+    <!--ATTRIBUTE FOR COPYPASTE-->
+    <aura:attribute name="ShowHideCopyModel" type="boolean" default='false'/>
+    <aura:attribute name="hideIndex" type="Integer"/>
+    <aura:attribute name="dataListCopy" type="object[]"/>
+    <aura:attribute name="PasteIndexArray" type="Integer[]"/>
+    <!--ATTRIBUTE FOR COPYPASTE--> 
+    
+    
+    
+    <!-- Attribute for sumbut toggle-->
+    <aura:attribute name="ToggleSubmit" type="boolean" default="true"/>
+    <aura:attribute name="Onlyonce" type="boolean" default="true"/> 
+    <!--Attribute for sumbut toggle-->
+    
+    
+    
+    <!--Attribute for AutoSchedule-->
+    <aura:attribute type="boolean" name="showhideAutoSchedule" default="false"/> 
+    <aura:attribute type="Integer" name="IndexOfAutoScheduel" ></aura:attribute>
+    <aura:attribute type="Object[]"  name="SchdeuleDataList" ></aura:attribute>
+    <!--Attribute for AutoSchedule-->
+    
+    
+    
+    <!-- ATTRIBUTE FOR DATA --> 
+    <aura:attribute name="dataList" type="object[]"/>
+    <aura:attribute name="scheduleHeader" type="string[]"/>
+    <aura:attribute name="Counter" type="Integer"/>
+    <aura:attribute name="MapCounterToSchQty" type="list"/>
+    <!-- ATTRIBUTE FOR DATA -->
+    
+    
+    <!--Attribute for opportunity -->
+    <aura:attribute name="OpportunityRecord" type="Opportunity"/>    
+    <!--End of Attribute for opportunity -->
+    
+    <!--Attribute for error's -->
+    <ltng:require scripts="{! $Resource.PSFR_Resource + '/PSFR_Resource/bootstrap/js/jQuery-2.2.0.min.js'}"  afterScriptsLoaded="{!c.SG_Errorpop}" />
+    <aura:attribute name="hostname" type="String"/>
+    <aura:attribute name="togglehelp" type="Boolean" default="false" />
+    <aura:attribute name="toggleautoschedule" type="Boolean" default="true" />
+    <aura:attribute name="toggledistschedule" type="Boolean" default="true" />
+    <aura:attribute name="toggleaddmonth" type="Boolean" default="false" />
+    <aura:attribute name="tooltipautoschedule" type="string" />
+    <aura:attribute name="tooltipcopydist" type="string" />
+    <aura:attribute name="helpvideourl" type="string" />
+    <aura:attribute name="togglevideop1" type="Boolean" default="true" />
+    <aura:attribute name="togglevideop2" type="Boolean" default="false" />
+    <aura:attribute name="togglevideop3" type="Boolean" default="false" />
+    <aura:attribute name="togglevideop4" type="Boolean" default="false" />
+    
+    <!--Attribute for error's -->
+    
+    <!-- ATTRIBUTE FOR TOGGLE READONLY VIEW -->
+    <aura:attribute name="ToggleReadOnly" type="boolean" default="false"/>
+    <aura:attribute name="disableEdit" type="boolean" default="false"/>
+    <!-- ATTRIBUTE FOR TOGGLE READONLY VIEW -->
+    
+    <aura:attribute name="anyCloudProduct" type="Boolean" />
+    <aura:attribute name="anyNonCloudProduct" type="Boolean" />
+    
+    <!--Added by Satyam-->
+    <aura:attribute name="anySubscrProd" type="Boolean" />
+    <aura:attribute name="anyNonSubscrProd" type="Boolean" />
+    <aura:attribute name="subsOnlyProdNames" type="Set" default="{}" />
+    <aura:attribute name="subsOnlyRevenueTypes" type="Set" default="{}" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <!--Handle delete product schedule event-->
+    <!--Event to update EBD/EDD -->
+    <aura:handler event="c:EDDEvent" action="{!c.updateDate}"/>
+    <aura:handler event="c:PS_RefreshView" action="{!c.RefreshView}"/>
+    <aura:handler event="c:PS_refreshAddedPackage" action="{!c.refreshPageWithPackage}"/>
+    <!--Event to update EBD/EDD -->
+    <aura:handler event="c:InsertScheduleEvent" action="{!c.handlesInsertOLI}"/>
+    <aura:handler event="c:RemoveScheduleEvent" action="{!c.deleteProduct}"/>
+    <!--Handle delete product schedule event--> 
+    <!--<aura:registerEvent name="FloatMsgEvent" type="c:FloatMsgEvent"/>-->
+    <aura:registerEvent name="appEvent" type="c:ConfirmOliInsert"/>
+    <aura:handler name="change" value="{!v.pageReference}" action="{!c.reInit}" />
+    <aura:attribute name="todayDateVal" type="Date" />
+    <aura:attribute name="oppMonths" type="Integer" ></aura:attribute>
+    <!-- added for story EBA_SF-2497 -->
+    <aura:attribute name="totalTCV" type="Decimal" ></aura:attribute>
+    
+    <aura:if isTrue="{!v.toggleSpinner}">
+        <div>
+            <lightning:spinner variant="brand" size="large"/>
+        </div>
+        
+    </aura:if>
+    <!--####################################### MODAL BOX Start#####################################--> 
+    <!--<aura:if isTrue="{!v.isOpen}">
+        <c:PS_PackageConfigDetail packageId="{!v.pkgid}" dataList="{!v.dataList}" fromScheduler="true" isSubPkg="{!v.isSubPkg}" openModal="{!v.isOpen}" />
+           </aura:if>-->
+    <!--################################### MODAL BOX Part END Here #################################################-->
+    
+    
+    
+    <!-- below is help window -->
+    
+    
+    <!-- end of help window -->
+    
+    <!-- SELECT MONTH YEAR MODAL START -->
+    <aura:if isTrue="{!v.toggleModal}">
+        <section role="alertdialog" tabindex="-1" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper" class="slds-modal slds-fade-in-open slds-modal_prompt">
+            <div class="slds-modal__container customModalCSS" style="width: 798px;">
+                <header class="slds-modal__header slds-theme_error slds-theme_alert-texture">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close"  onclick="{!c.closeMonthModal}">
+                        <lightning:icon iconName="utility:close" size="small"/>                     
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-text-heading_medium" id="prompt-heading-id">Select Month(s) for Scheduling</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <aura:iteration items="{!v.MonthData}" var="yr" >
+                        <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_warning slds-m-top_small" role="alert" >
+                            <div class="slds-text-body_center" ><b>{!yr.year}</b></div>
+                        </div>
+                        <aura:iteration items="{!yr.month}" var="mnth">
+                            <div class="tooltip">
+                                <span class="tooltiptext">{!mnth.access}</span>
+                                <button class="{!if(mnth.selected,'slds-button slds-button_success CursorCustom monthBtn','slds-button slds-button_neutral monthBtn')}" disabled="{!mnth.disable}" id="{!mnth.id}" onclick="{!c.addMonthBtnClick}" value="{!if(mnth.selected,'DONE','')}">{!mnth.label}</button>
+                            </div>
+                        </aura:iteration>
+                    </aura:iteration>
+                    
+                    
+                    <div class="slds-grid slds-m-top_small">
+                        <div class="slds-col">							
+                            <button class="slds-button slds-button_neutral slds-align_absolute-center" onclick="{!c.addMoreYear}">
+                                Add More Year
+                            </button>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                </div>            
+                <footer class="slds-modal__footer slds-theme_default">                
+                    <button class="slds-button slds-button_neutral"  onclick="{!c.closeMonthModal}">Done</button>
+                </footer>
+                
+            </div>
+        </section>
+        
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    
+    <!-- SELECT MONTH YEAR MODAL END -->
+    
+    
+    <!--Initial Modal START DC -->
+    
+    
+    <!-- Initial Modal END DC -->
+    
+    
+    <aura:if isTrue="{!v.ToggleReadOnly}">
+        <!--<c:PS_Readonly_New opportunityRecordId="{!v.recordId}"/>-->
+       
+            <div class="slds-page-header">
+                <div class="slds-grid">
+                    <div class="slds-col slds-has-flexi-truncate">
+                        <div class="slds-media slds-no-space slds-grow">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container" title="Description of icon when needed">
+                                    <aura:if isTrue="{!v.isCommunityUser}">	
+                                        <img src="{!v.IPTPartnerCommunityUrl+'/resource/SchedulerIcon/NCRSchedulerAssets/Scheduler_Icon.svg'}" class="slds-icon" style="width:55px;height:55px;"/>	
+                                        <aura:set attribute="else">	
+                                            <img src="/resource/SchedulerIcon/NCRSchedulerAssets/Scheduler_Icon.svg" class="slds-icon" style="width:55px;height:55px;"/>	
+                                        </aura:set>	
+                                    </aura:if>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <ul>
+                                    <li><b>{!v.OppName}</b></li>
+                                    <li>OPPORTUNITY</li>
+                                    <li><b>Scheduler</b></li>
+                                </ul>
+                                <br/> 
+                                <a class="slds-text-link_reset" href="" onclick="{!c.navigatetoopportunity}"> 
+                                    <aura:if isTrue="{!v.isCommunityUser}">	
+                                        <img src="{!v.IPTPartnerCommunityUrl+'/resource/MyIcon/svg/left-arrow.svg'}" style="width:15px;"/>	
+                                        <aura:set attribute="else">	
+                                            <img src="/resource/MyIcon/svg/left-arrow.svg" style="width:15px;"/>	
+                                        </aura:set>	
+                                    </aura:if>
+                                    Return to Opportunity</a>
+                            </div>
+                            
+                        </div>
+                    </div>            
+                    <div class="slds-col slds-no-flex slds-grid slds-align-top">                                
+                        <button class="slds-button slds-button_neutral" onclick="{!c.toggleEditView}" disabled="{!v.disableEdit}">
+                            <aura:if isTrue="{!v.isCommunityUser}">	
+                                <img src="{!v.IPTPartnerCommunityUrl+'/resource/SchedulerIcon/NCRSchedulerAssets/Scheduler_Icon.svg'}" class="slds-button__icon slds-button__icon_left" />	
+                                <aura:set attribute="else">	
+                                    <img src="/resource/SchedulerIcon/NCRSchedulerAssets/Scheduler_Icon.svg" class="slds-button__icon slds-button__icon_left" />	
+                                </aura:set> 	
+                            </aura:if>
+                            EDIT
+                        </button>
+                    </div>
+                </div>
+                <div class="slds-page-header__detail-row">
+                    
+                    <div class="slds-grid">
+                        <div class="slds-size_2-of-12">
+                            <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">
+                                <h1 class="slds-text-heading_medium"><b>Product Info</b></h1>
+                            </div>
+                        </div>
+                        <div class="slds-size_10-of-12">
+                            <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">
+                                <h1 class="slds-text-heading_medium"><b>Schedule Overview</b></h1>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Sushant-->
+                    <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">
+                        <aura:if isTrue="{!v.isCatm}"> 
+                            <lightning:button onclick="{! c.handleSetActiveSections }" label="{!v.openSectionButton}"/>   
+                            <lightning:accordion aura:id="accordion" allowMultipleSectionsOpen="true"  activeSectionName="">
+                                <!-- <lightning:accordionSection name="Package" label="Package Schedules">
+                        <aura:set attribute="body">
+                           <aura:iteration items="{!v.dataList}" var="productInfo" >
+                    <aura:if isTrue="{! and( productInfo.isPackage == true, productInfo.Source != 'Package-Inclusive') }" >
+                        <div class="slds-grid">
+                            
+                            <div class="slds-size_2-of-12">
+                                <p class="slds-text-heading_small slds-m-left_x-small"><b>{!productInfo.Name}</b></p>
+                                <aura:if isTrue="{!productInfo.isPackage==true}">
+                                    <p> <img src="/resource/alohaPackageImg/aas/defaultPackageIcon.PNG" style="float: left;" class='packageImage'/></p>
+                                </aura:if>
+                                <dl class="slds-list_horizontal slds-wrap slds-m-left_x-small slds-m-top_x-small slds-m-bottom_x-small">
+                                    
+                                    <dt class="slds_PSData"><b>Monthly Fee</b></dt>
+                                    <dd class="slds_PSData2"><ui:outputNumber format="Number"  value="{!productInfo.MonthlyFee}"/> 
+                                        <aura:if isTrue="{! !productInfo.MonthlyFee > 0.5}">0</aura:if>
+                                        
+                                    </dd>
+                                    <dt class="slds_PSData"><b># of sites</b></dt>
+                                    <dd class="slds_PSData2">{!productInfo.Quantity}</dd>
+                                    
+                                    <dt class="slds_PSData"><b>Total Value</b></dt>
+                                    <dd class="slds_PSData2"><ui:outputNumber format="Number"  value="{!productInfo.TotalPrice}"/>
+                                        <aura:if isTrue="{! !productInfo.TotalPrice > 0.5}">0</aura:if>
+                                    </dd>
+                                    <dt class="slds_PSData"><b>Unsch Qty</b></dt>
+                                    <dd class="slds_PSData2">{!productInfo.Unscheduled_Quantity}</dd>
+                                </dl>
+                            </div>
+                            <div class="slds-size_1-of-12">
+                                <div class="slds-p-around_x-small slds-m-around_x-small">
+                                    <p><b>Month-Year</b></p>
+                                    <p><b>Quantity</b></p>
+                                </div>
+                            </div>
+                            <div class="slds-size_9-of-12">
+                                <div class="slds-grid slds-wrap">
+                                    <aura:iteration items="{!productInfo.Schedules}" var="sch" >
+                                        <aura:if isTrue="{!sch.Quantity > 0}">
+                                            <aura:if isTrue="{!productInfo.isPackage==true}">
+                                                <div class="slds-size_1-of-12">
+                                                    <div class="slds-box slds-box_x-small slds-m-around_x-small slds-theme_shade slds-theme_alert-texture readOnlySuccess slds-text-align_center">
+                                                        <p>{!sch.schLabel}</p>
+                                                        <p>{!sch.Quantity}</p>
+                                                    </div>
+                                                </div>
+                                                <aura:set attribute="else">
+                                                    <div class="slds-size_1-of-12">
+                                                        <div class="slds-box slds-box_x-small slds-m-around_x-small slds-theme_shade slds-theme_alert-texture readOnlySuccess slds-text-align_center">
+                                                            <p>{!sch.schLabel}</p>
+                                                            <p>{!sch.Quantity}</p>
+                                                        </div>
+                                                    </div> 
+                                                </aura:set>
+                                            </aura:if>
+                                            <aura:set attribute="else">
+                                                <aura:if isTrue="{!productInfo.isPackage==true}">
+                                                    <div class="slds-size_1-of-12">
+                                                        <div class="slds-box slds-box_x-small slds-m-around_x-small slds-theme_shade slds-theme_alert-texture readOnlyWarning slds-text-align_center">
+                                                            <p>{!sch.schLabel}</p>
+                                                           
+                                                            <p>{!if(sch.Quantity == null,0,sch.Quantity)}</p>
+                                                        </div>
+                                                    </div>
+                                                    <aura:set attribute="else">
+                                                        <div class="slds-size_1-of-12">
+                                                            <div class="slds-box slds-box_x-small slds-m-around_x-small slds-theme_shade slds-theme_alert-texture readOnlyWarning slds-text-align_center">
+                                                                <p>{!sch.schLabel}</p>
+                                                               
+                                                                <p>{!if(sch.Quantity == null,0,sch.Quantity)}</p>
+                                                            </div>
+                                                        </div>
+                                                    </aura:set>
+                                                </aura:if>
+                                            </aura:set>
+                                        </aura:if>
+                                        
+                                    </aura:iteration>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-border_top slds-m-around_small"></div>
+                    </aura:if>
+                </aura:iteration>
+                        </aura:set>
+                    </lightning:accordionSection>-->
+                                
+                                <lightning:accordionSection name="Cloud Products" label="Standalone Subscription Products Schedules">
+                                    <aura:iteration items="{!v.dataList}" var="productInfo">
+                                        <aura:if isTrue="{! or(or(or( (productInfo.isSubscriptioned == true &amp;&amp; productInfo.isPackage != true &amp;&amp;  productInfo.isCompanion != true),   (productInfo.RevenueType == 'Cloud' &amp;&amp; productInfo.isPackage != true &amp;&amp;  productInfo.isCompanion != true)), (productInfo.isCATMProduct == true &amp;&amp; productInfo.isPackage != true &amp;&amp;  productInfo.isCompanion != true)), (OR(productInfo.RevenueType == 'As a Service', productInfo.RevenueType == 'Payments Processing' ) &amp;&amp; productInfo.isPackage != true &amp;&amp;  productInfo.isCompanion != true))}" >
+                                            <div class="slds-grid">
+                                                
+                                                <div class="slds-size_2-of-12">
+                                                    <p class="slds-text-heading_small slds-m-left_x-small"><b>{!productInfo.Name}</b></p>
+                                                    <aura:if isTrue="{!productInfo.isPackage==true}">
+                                                        <p> <img src="/resource/alohaPackageImg/aas/defaultPackageIcon.PNG" class='packageImage'/></p>
+                                                    </aura:if>
+                                                    <dl class="slds-list_horizontal slds-wrap slds-m-left_x-small slds-m-top_x-small slds-m-bottom_x-small">
+                                                        
+                                                        <dt class="slds_PSData"><b>Monthly Fee</b></dt>
+                                                        <aura:if isTrue="{!v.isCatm}">
+                                                            <dd class="slds_PSData2"><ui:outputNumber format="0.0000"  value="{!productInfo.MonthlyFee}"/> 
+                                                                <aura:if isTrue="{! !productInfo.MonthlyFee > 0.5}">0</aura:if>
+                                                            </dd>
+                                                            <aura:set attribute="else">
+                                                                <!-- EBA_SF-2340  TCV Remove Rounding --> 
+                                                                <dd class="slds_PSData2"><ui:outputNumber format="0.00"  value="{!productInfo.MonthlyFee}"/> 
+                                                                    <aura:if isTrue="{! !productInfo.MonthlyFee > 0.5}">0</aura:if>
+                                                                </dd>
+                                                            </aura:set>
+                                                        </aura:if>
+                                                        <dt class="slds_PSData"><b># of UOM</b></dt>
+                                                        <dd class="slds_PSData2">{!productInfo.Quantity}</dd>
+                                                        
+                                                        <aura:if isTrue="{!v.isCatm}">
+                                                            <dt class="slds_PSData"><b>Qty Type</b></dt>
+                                                            <aura:if isTrue="{!productInfo.qtyTyp}">
+                                                                <dd class="slds_PSData2">{!productInfo.qtyTyp}</dd>
+                                                                <aura:set attribute="else">
+                                                                    <dd class="slds_PSData2">None</dd>
+                                                                </aura:set>
+                                                            </aura:if>
+                                                        </aura:if>
+                                                        
+                                                        <dt class="slds_PSData"><b>Total Value</b></dt>
+                                                        <!-- EBA_SF-2340  TCV Remove Rounding --> 
+                                                        <aura:if isTrue="{!v.isCatm}"> 
+                                                            <dd class="slds_PSData2"><ui:outputNumber format="Number"  value="{!productInfo.TotalTCVPrice}"/>
+                                                                <aura:if isTrue="{! !productInfo.TotalTCVPrice > 0.5}">0</aura:if>
+                                                            </dd>
+                                                            <!-- EBA_SF-2340  TCV Remove Rounding --> 
+                                                            <aura:set attribute="else">
+                                                                <dd class="slds_PSData2"><ui:outputNumber format="0.00"  value="{!productInfo.TotalTCVPrice}"/>
+                                                                    <aura:if isTrue="{! !productInfo.TotalTCVPrice > 0.5}">0</aura:if>
+                                                                </dd>
+                                                            </aura:set>
+                                                        </aura:if>
+                                                        
+                                                        <dt class="slds_PSData"><b>Unsch Qty</b></dt>
+                                                        <dd class="slds_PSData2">{!productInfo.Unscheduled_Quantity}</dd>
+                                                    </dl>
+                                                </div>
+                                                <div class="slds-size_1-of-12">
+                                                    <div class="slds-p-around_x-small slds-m-around_x-small">
+                                                        <p><b>Month-Year</b></p>
+                                                        <p><b>Quantity</b></p>
+                                                    </div>
+                                                </div>
+                                                <div class="slds-size_9-of-12">
+                                                    <div class="slds-grid slds-wrap">
+                                                        <aura:iteration items="{!productInfo.Schedules}" var="sch" >
+                                                            <aura:if isTrue="{!sch.Quantity > 0}">
+                                                                <aura:if isTrue="{!productInfo.isPackage==true}">
+                                                                    <div class="slds-size_1-of-12">
+                                                                        <div class="slds-box slds-box_x-small slds-m-around_x-small slds-theme_shade slds-theme_alert-texture readOnlySuccess slds-text-align_center">
+                                                                            <p>{!sch.schLabel}</p>
+                                                                            <p>{!sch.Quantity}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <aura:set attribute="else">
+                                                                        <div class="slds-size_1-of-12">
+                                                                            <div class="slds-box slds-box_x-small slds-m-around_x-small slds-theme_shade slds-theme_alert-texture readOnlySuccess slds-text-align_center">
+                                                                                <p>{!sch.schLabel}</p>
+                                                                                <p>{!sch.Quantity}</p>
+                                                                            </div>
+                                                                        </div> 
+                                                                    </aura:set>
+                                                                </aura:if>
+                                                                <aura:set attribute="else">
+                                                                    <aura:if isTrue="{!productInfo.isPackage==true}">
+                                                                        <div class="slds-size_1-of-12">
+                                                                            <div class="slds-box slds-box_x-small slds-m-around_x-small slds-theme_shade slds-theme_alert-texture readOnlyWarning slds-text-align_center">
+                                                                                <p>{!sch.schLabel}</p>
+                                                                                <!--<p>{!sch.Quantity}</p>-->
+                                                                                <p>{!if(sch.Quantity == null,0,sch.Quantity)}</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <aura:set attribute="else">
+                                                                            <div class="slds-size_1-of-12">
+                                                                                <div class="slds-box slds-box_x-small slds-m-around_x-small slds-theme_shade slds-theme_alert-texture readOnlyWarning slds-text-align_center">
+                                                                                    <p>{!sch.schLabel}</p>
+                                                                                    <!--<p>{!sch.Quantity}</p>-->
+                                                                                    <p>{!if(sch.Quantity == null,0,sch.Quantity)}</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </aura:set>
+                                                                    </aura:if>
+                                                                </aura:set>
+                                                            </aura:if>
+                                                            
+                                                        </aura:iteration>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="slds-grid slds-border_top slds-m-around_small"></div>
+                                        </aura:if>
+                                        
+                                    </aura:iteration>
+                                </lightning:accordionSection>
+                                
+                                <lightning:accordionSection name="Non Cloud Products" label="Other Sales Products Schedules ">
+                                    <aura:iteration items="{!v.dataList}" var="productInfo" >
+                                        <aura:if isTrue="{!  productInfo.isSubscriptioned == false &amp;&amp; productInfo.RevenueType != 'Cloud' &amp;&amp;  productInfo.RevenueType != 'As a Service' &amp;&amp; productInfo.RevenueType != 'Payments Processing' &amp;&amp; productInfo.isCATMProduct == false  &amp;&amp; productInfo.isPackage != true &amp;&amp; productInfo.isCompanion != true}" >
+                                            <div class="slds-grid">
+                                                
+                                                <div class="slds-size_2-of-12">
+                                                    <p class="slds-text-heading_small slds-m-left_x-small"><b>{!productInfo.Name}</b> 
+                                                    </p>
+                                                    <aura:if isTrue="{!productInfo.isPackage==true}">
+                                                        <p> <img src="/resource/alohaPackageImg/aas/defaultPackageIcon.PNG" class='packageImage'/></p>
+                                                    </aura:if>
+                                                    <dl class="slds-list_horizontal slds-wrap slds-m-left_x-small slds-m-top_x-small slds-m-bottom_x-small">
+                                                        
+                                                        <dt class="slds_PSData"><b>Unit Price</b></dt>
+                                                        <aura:if isTrue="{!v.isCatm}">
+                                                            <dd class="slds_PSData2"><ui:outputNumber format=".0000"  value="{!productInfo.UnitPrice}"/> 
+                                                                <aura:if isTrue="{! !productInfo.UnitPrice > 0.5}">0</aura:if> 
+                                                            </dd>
+                                                            <aura:set attribute="else">
+                                                                <dd class="slds_PSData2"><ui:outputNumber format="Number"  value="{!productInfo.UnitPrice}"/> 
+                                                                    <aura:if isTrue="{! !productInfo.UnitPrice > 0.5}">0</aura:if> 
+                                                                </dd>
+                                                            </aura:set>
+                                                        </aura:if>
+                                                        <dt class="slds_PSData"><b>Total Qty</b></dt>
+                                                        <dd class="slds_PSData2">{!productInfo.Quantity}</dd>
+                                                        
+                                                        <aura:if isTrue="{!v.isCatm}">
+                                                            <dt class="slds_PSData"><b>Qty Type</b></dt>
+                                                            <aura:if isTrue="{!productInfo.qtyTyp}">
+                                                                <dd class="slds_PSData2">{!productInfo.qtyTyp}</dd>
+                                                                <aura:set attribute="else">
+                                                                    <dd class="slds_PSData2">None</dd>
+                                                                </aura:set>
+                                                            </aura:if>
+                                                        </aura:if>
+                                                        
+                                                        <dt class="slds_PSData"><b>Total Value</b></dt>
+                                                        <dd class="slds_PSData2"><ui:outputNumber format="Number"  value="{!productInfo.TotalPrice}"/>
+                                                            <aura:if isTrue="{! !productInfo.TotalPrice > 0.5}">0</aura:if>
+                                                        </dd>
+                                                        
+                                                        
+                                                        <dt class="slds_PSData"><b>Unsch Qty</b></dt>
+                                                        <dd class="slds_PSData2">{!productInfo.Unscheduled_Quantity}</dd>
+                                                    </dl>
+                                                </div>
+                                                <div class="slds-size_1-of-12">
+                                                    <div class="slds-p-around_x-small slds-m-around_x-small">
+                                                        <p><b>Month-Year</b></p>
+                                                        <p><b>Quantity</b></p>
+                                                    </div>
+                                                </div>
+                                                <div class="slds-size_9-of-12">
+                                                    <div class="slds-grid slds-wrap">
+                                                        <aura:iteration items="{!productInfo.Schedules}" var="sch" >
+                                                            <aura:if isTrue="{!sch.Quantity > 0}">
+                                                                <aura:if isTrue="{!productInfo.isPackage==true}">
+                                                                    <div class="slds-size_1-of-12">
+                                                                        <div class="slds-box slds-box_x-small slds-m-around_x-small slds-theme_shade slds-theme_alert-texture readOnlySuccess slds-text-align_center">
+                                                                            <p>{!sch.schLabel}</p>
+                                                                            <p>{!sch.Quantity}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <aura:set attribute="else">
+                                                                        <div class="slds-size_1-of-12">
+                                                                            <div class="slds-box slds-box_x-small slds-m-around_x-small slds-theme_shade slds-theme_alert-texture readOnlySuccess slds-text-align_center">
+                                                                                <p>{!sch.schLabel}</p>
+                                                                                <p>{!sch.Quantity}</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </aura:set>
+                                                                </aura:if>
+                                                                <aura:set attribute="else">
+                                                                    <aura:if isTrue="{!productInfo.isPackage==true}">
+                                                                        <div class="slds-size_1-of-12">
+                                                                            <div class="slds-box slds-box_x-small slds-m-around_x-small slds-theme_shade slds-theme_alert-texture readOnlyWarning slds-text-align_center">
+                                                                                <p>{!sch.schLabel}</p>
+                                                                                <!--<p>{!sch.Quantity}</p>-->
+                                                                                <p>{!if(sch.Quantity == null,0,sch.Quantity)}</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <aura:set attribute="else">
+                                                                            <div class="slds-size_1-of-12">
+                                                                                <div class="slds-box slds-box_x-small slds-m-around_x-small slds-theme_shade slds-theme_alert-texture readOnlyWarning slds-text-align_center">
+                                                                                    <p>{!sch.schLabel}</p>
+                                                                                    <!--<p>{!sch.Quantity}</p>-->
+                                                                                    <p>{!if(sch.Quantity == null,0,sch.Quantity)}</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </aura:set>
+                                                                    </aura:if>
+                                                                </aura:set>
+                                                            </aura:if>
+                                                            
+                                                        </aura:iteration>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="slds-grid slds-border_top slds-m-around_small"></div>
+                                        </aura:if>
+                                    </aura:iteration>
+                                </lightning:accordionSection>
+                            </lightning:accordion>
+                            <!-- EBA_SF-2497- Added new read only view start -->
+                            <aura:set attribute="else">
+                                
+                                <c:PS_ReadOnlyView anySubscrProd="{!v.anySubscrProd}" anyNonSubscrProd="{!v.anyNonSubscrProd}" OppCurr="{!v.OppCurr}" dataList="{!v.dataList}" totalTCV="{!v.totalTCV}"/>                
+                            </aura:set>
+                             <!-- EBA_SF-2497- Added new read only view end -->
+                        </aura:if>
+                    </div>
+                    <!--sushant-->
+                    
+                    
+                </div>
+            </div>
+            
+        <aura:set attribute="else">
+            <div class="slds-page-header">
+                <div class="slds-grid">
+                    <div class="slds-col slds-has-flexi-truncate">
+                        <div class="slds-media slds-no-space slds-grow">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container" title="Description of icon when needed">
+                                    <aura:if isTrue="{!v.isCommunityUser}">	
+                                        <img src="{!v.IPTPartnerCommunityUrl+'/resource/SchedulerIcon/NCRSchedulerAssets/Scheduler_Icon.svg'}" class="slds-icon" style="width:55px;height:55px;"/>	
+                                        <aura:set attribute="else">	
+                                            <img src="/resource/SchedulerIcon/NCRSchedulerAssets/Scheduler_Icon.svg" class="slds-icon" style="width:55px;height:55px;"/>	
+                                        </aura:set>	
+                                    </aura:if>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <ul>
+                                    <li><b>{!v.OppName}</b></li>
+                                    <li>OPPORTUNITY</li>
+                                    <li><b>Scheduler</b></li>
+                                </ul>
+                                <br/> 
+                                <a class="slds-text-link_reset" href="" onclick="{!c.navigatetoopportunity}"> 
+                                    <aura:if isTrue="{!v.isCommunityUser}">	
+                                        <img src="{!v.IPTPartnerCommunityUrl+'/resource/MyIcon/svg/left-arrow.svg'}" style="width:15px;"/>	
+                                        <aura:set attribute="else">	
+                                            <img src="/resource/MyIcon/svg/left-arrow.svg" style="width:15px;"/>	
+                                        </aura:set>	
+                                    </aura:if>
+                                    Return to Opportunity 
+                                </a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-no-flex slds-grid slds-align-top">                
+                        <!--<c:PS_SearchBarProductScheduler passId="{!v.recordId}" ScreenName="{!v.ScreenName}"/>-->
+                        <lightning:button onclick="{!c.CreateDynamic_Search}" label="SEARCH PRODUCTS" iconName="utility:search" iconPosition="left" />   
+                    </div>
+                    <div class="slds-col slds-no-flex slds-grid slds-align-top">  
+                        <div class="tooltip">
+                            <span class="tooltiptextBottom">{!if(v.ToggleSubmit > 0,'No Changes to Submit','Submit to Save Schedules')}</span>
+                            <button class="slds-button slds-button_neutral slds-m-left_x-small" aura:id="submitbtn" disabled="{!v.ToggleSubmit}" onclick="{!c.Submit}">SUBMIT</button>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-no-flex slds-grid slds-align-top">
+                        <div class="tooltip">
+                            <span class="tooltiptextBottom">Read-Only View</span>
+                            <button class="slds-button slds-button_icon slds-button_icon-border slds-m-left_x-small" title="" onclick="{!c.toggleReadOnlyView}">                            
+                                <aura:if isTrue="{!v.isCommunityUser}">	
+                                    <c:svgIcon svgPath="{!v.IPTPartnerCommunityUrl+'/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#preview'}" category="Utility" size="small" name="preview" class="SVGFill"/>	
+                                    <aura:set attribute="else">	
+                                        <c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#preview" category="Utility" size="small" name="preview" class="SVGFill"/>	
+                                    </aura:set>	
+                                </aura:if>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-no-flex slds-grid slds-align-top"  >
+                        <div class="tooltip">
+                            <span class="tooltiptextBottom">Open Video Tutorial</span>
+                            <button class="slds-button slds-button_icon slds-button_icon-border slds-m-left_x-small" title="" onclick="{!c.showhelpwindow}" >
+                                <aura:if isTrue="{!v.isCommunityUser}">	
+                                    <c:svgIcon svgPath="{!v.IPTPartnerCommunityUrl+'/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#question'}" category="Utility" size="x-small" class="SVGFill"/>	
+                                    <aura:set attribute="else">	
+                                        <c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#question" category="Utility" size="x-small" class="SVGFill"/>	
+                                    </aura:set>	
+                                </aura:if>
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="slds-page-header__detail-row">
+                    <!-- Header Row Start-->
+                    <div class="tab-only">
+                        <div class="slds-tabs_default text-align:center">
+                            <ul class="slds-tabs_default__nav" role="tablist">     
+                                <li class="slds-tabs_default__item slds-is-active" title="Products" role="presentation">
+                                    <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-3" id="tab-default-3__item">
+                                        <span class="slds-tabs__left-icon">
+                                            <span class="slds-icon_container slds-icon-standard-product " title="Products">
+                                                <lightning:icon iconName="standard:product" alternativeText="Products" />
+                                            </span>
+                                        </span>Products</a>
+                                </li>
+                                <!-- <aura:if isTrue="{!v.isAdminProfile}">
+                                <li class="{!v.isPackageTab? 'slds-tabs_default__item slds-is-active': 'slds-tabs_default__item'}" title="Packages" role="presentation">
+                                    <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-4" id="tab-default-4__item" onclick="{!c.packageselected}">
+                                        <span class="slds-tabs__left-icon">
+                                            <lightning:icon iconName="standard:proposition" alternativeText="Subscription Packages" />
+                                        </span>Packages <span class="dot" style="text-align:center">{!v.packageCount}</span> </a>
+                                </li> 
+                                </aura:if>-->
+
+                            </ul>
+                        </div>	
+                    </div>
+                    
+                    <div class="slds-box slds-box_x-small slds-m-top_medium">
+                        <div class="slds-grid slds-wrap slds-grid_pull-padded">                
+                            <div class="slds-p-horizontal_small slds-size_1-of-2 slds-medium-size_5-of-6 slds-large-size_8-of-12">
+                                <span class="slds-text-heading_medium slds-text-align_left"><b>Scheduler</b></span>
+                                <!--<span class="slds-m-left_small slds-text-title">( Expected Delivery Start Date: {!v.EDD}  )</span>-->
+                                <span class="slds-m-left_small slds-text-title">( Expected Book Date:<ui:outputDate value="{!v.EBD}" format="MMM DD YYYY"/>  )</span>
+                                <!-- opp fields section start -->
+        <aura:if isTrue="{!v.isCatm}">	
+             <section class="slds-clearfix  slds-m-bottom_large"> 
+                 <div class="slds-align_absolute-center" >
+                  <div class="slds-form-element"> 
+                    <label class="slds-form-element__label opplabel">Contract Term (Months)</label>
+                    <lightning:input type="number" name="OppMnths" label="No of Terms" variant="label-hidden" aura:id="NoOfTerms" required="true" class="oppinput" value="{!v.oppMonths}" onblur="{!c.oppMonthChange}" />
+                  </div> 
+                     </div>
+            </section>
+        </aura:if>
+        <!-- opp fields section end -->
+                            </div>
+                            <div class="slds-col">
+                                <div class="slds-grid slds-wrap slds-grid_pull-padded-medium slds-align_absolute-center">
+                                    <div class="slds-col slds-p-horizontal_medium slds-m-top_xxx-small slds-align_absolute-center">
+                                        <aura:if isTrue="{!!v.isPackageTab}" >
+                                            <button class="slds-button slds-button_icon slds-button_icon CursorCustom" title=" " disabled="{!v.TOGGLEDELETE}" onclick="{!c.RemoveProduct}" aura:id="delBtn" >
+                                                <!--<c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#delete" category="Utility" size="small" name="delete" class="SVGFill"/>-->
+                                                <div class="tooltip">
+                                                    <span class="tooltiptext">{!if(!v.TOGGLEDELETE > 0,'Remove Selected Product','Select Product')}</span>
+                                                    <aura:if isTrue="{!v.isCommunityUser}">	
+                                                        <c:svgIcon svgPath="{!v.IPTPartnerCommunityUrl+'/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#delete'}" category="Utility" size="small" name="delete" class="SVGFill"/>	
+                                                        <aura:set attribute="else">	
+                                                            <c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#delete" category="Utility" size="small" name="delete" class="SVGFill"/>	
+                                                        </aura:set>	
+                                                    </aura:if>
+                                                </div>
+                                            </button> 
+                                        </aura:if>
+                                        <button class="{!if(v.toggleaddmonth,'slds-button slds-button_icon slds-button_icon CursorCustom','slds-button slds-button_icon slds-button_icon')}" disabled="{!v.toggleaddmonth}" title=" " style="margin-top:3px;" onclick="{!c.showMonthModal}">
+                                            <div class="tooltip">
+                                                <span class="tooltiptext">Add months</span>
+                                                <aura:if isTrue="{!v.isCommunityUser}">	
+                                                    <c:svgIcon svgPath="{!v.IPTPartnerCommunityUrl+'/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#new'}" category="Utility" size="small" name="new" class="SVGFill"/>	
+                                                    <aura:set attribute="else">	
+                                                        <c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#new" category="Utility" size="small" name="new" class="SVGFill"/>	
+                                                    </aura:set>	
+                                                </aura:if>
+                                            </div>
+                                        </button>
+                                    </div>
+                                    <div class="slds-col slds-p-horizontal_medium slds-m-top_xxx-small slds-align_absolute-center">
+                                        <div class="tooltip">
+                                            <span class="tooltiptext">Move Left</span>
+                                            <button class="slds-button slds-button_icon slds-button_icon" title=" " onclick="{!c.scrollLeft}">
+                                                <aura:if isTrue="{!v.isCommunityUser}">	
+                                                    <c:svgIcon svgPath="{!v.IPTPartnerCommunityUrl+'/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#chevronleft'}" category="Utility" size="small" name="chevronleft" class="SVGFill"/>	
+                                                    <aura:set attribute="else">	
+                                                        <c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#chevronleft" category="Utility" size="small" name="chevronleft" class="SVGFill"/>	
+                                                    </aura:set>	
+                                                </aura:if>
+                                            </button>
+                                        </div>    
+                                        <span class="slds-badge">{!v.pageNo}/{!v.Totalpage}</span>
+                                        <div class="tooltip">
+                                            <span class="tooltiptext">Move Right</span>
+                                            <button class="slds-button slds-button_icon" title=" " onclick="{!c.scrollRight}">
+                                                <aura:if isTrue="{!v.isCommunityUser}">	
+                                                    <c:svgIcon svgPath="{!v.IPTPartnerCommunityUrl+'/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#chevronright'}" category="Utility" size="small" name="chevronright" class="SVGFill"/>	
+                                                    <aura:set attribute="else">	
+                                                        <c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#chevronright" category="Utility" size="small" name="chevronright" class="SVGFill"/>	
+                                                    </aura:set>	
+                                                </aura:if>
+                                            </button>
+                                        </div>    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Header Row END-->
+                    <!-- Table Start-->
+                    
+                    <!-- Subscription packages view-->
+                    <div class="slds-grid" onmouseover="{!c.assigntooltips}">
+                        
+                        
+                        
+                        
+                        <!--<aura:if isTrue="{!v.isPackageTab}" >-->
+                        <!-- <div class="slds-col">
+                                
+                                <aura:if isTrue="{!v.anySubscrProd}">
+                                    <table class="slds-table slds-table-#-bordered slds-max-medium-table-#-stacked slds-no-row-hover" >
+                                        <thead>
+                                            <tr class="slds-text-heading-#-label TRBGCOLOR">
+                                                <th scope="col" class = "slds-size_1-of-12">
+                                                    <lightning:icon iconName="custom:custom108" alternativeText="Tools" title="Tools For Scheduler" />
+                                                    
+                                                </th>
+                                                <th scope="col" class = "slds-size_3-of-12">
+                                                    <div class="slds-truncate CelltruncateCustom" title="Product Name">Product Name</div>
+                                                </th>
+                                                
+                                                <th scope="col" class = "slds-size_1-of-12">
+                                                    <div class="slds-truncate" title="One Time Fee">One Time<br/> Fee ({!v.OppCurr}) </div>
+                                                </th>
+                                                <th scope="col" class = "slds-size_1-of-12">
+                                                    <div class="slds-truncate" title="Monthly Fees">Monthly Fee <br/>({!v.OppCurr})</div>
+                                                </th>
+                                                <th scope="col" class = "slds-size_1-of-12">
+                                                    <div class="slds-truncate" title="Number Of License"># of Lanes/<br/> License</div>
+                                                </th>
+                                                
+                                                <th scope="col" class = "slds-size_1-of-12">
+                                                    <div class="slds-truncate" title="No Of Months"># Of Months</div>
+                                                </th>
+                                                <th scope="col" class = "slds-size_1-of-12">
+                                                    <div class="slds-truncate" title="No Of Sites"># Of Sites</div>
+                                                </th>
+                                                
+                                                <th scope="col" class = "slds-size_1-of-12">
+                                                    <div class="slds-truncate" title="ACV">ACV ({!v.OppCurr})</div>
+                                                </th>
+                                                <th scope="col" class = "slds-size_1-of-12">
+                                                    <div class="slds-truncate" title="ACV">TCV ({!v.OppCurr})</div>
+                                                </th>
+                                                
+                                                <th scope="col" class = "slds-size_1-of-12">
+                                                    <div class="slds-truncate" title="Unsch Qty">Unsch Qty</div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <aura:iteration items="{!v.dataList}" var="productInfo" >
+                                                <aura:if isTrue="{! productInfo.isPackage == true}" >
+                                                    <tr class="slds-hint-parent">
+                                                        <th scope="col"> 
+                                                            <aura:if isTrue="{! productInfo.MasterLineId == NULL}" >
+                                                                
+                                                                <div class="tooltip ">
+                                                                   
+                                                                    <span class="tooltiptext">Delete Package</span>
+                                                                    <button  class="slds-button slds-button_icon slds-button_icon slds-m-left_xx-small" data-ids="{!productInfo.Counter}" value="{!productInfo.ProductId}" title=""  onclick="{!c.RemovePackage}">
+                                                                        
+                                                                        <lightning:icon iconName="utility:delete" size="small"/>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="tooltip">
+                                                                    
+                                                                    <span class="tooltiptext">Detail / Configure</span>
+                                                                    <button  class="slds-button slds-button_icon slds-button_icon slds-m-left_xx-small" data-ids="{!productInfo.Counter}" value="{!productInfo.ProductId}" title="" onclick="{!c.showDetail}" aura:id="{!productInfo.ProductId}">
+                                                                       
+                                                                        <lightning:icon iconName="utility:setup" size="small" />
+                                                                    </button>
+                                                                </div>
+                                                                
+                                                                <aura:set attribute="else">
+                                                                    <div class="tooltip slds-size-#-1-of-3">
+                                                                        &nbsp;
+                                                                    </div>
+                                                                    <div class="tooltip">
+                                                                        
+                                                                        <span class="tooltiptext">View Detail</span>
+                                                                        <button  class="slds-button slds-button_icon slds-button_icon slds-m-left_xx-small" data-ids="{!productInfo.Counter}" value="{!productInfo.ProductId}" title="" onclick="{!c.showSubPkgDetail}" aura:id="{!productInfo.ProductId}">
+                                                                       
+                                                                            <lightning:icon iconName="utility:info" size="small" />
+                                                                        </button>
+                                                                    </div>
+                                                                    
+                                                                </aura:set>
+                                                            </aura:if>
+                                                            
+                                                            <div class="tooltip">
+                                                               
+                                                                <span class="tooltiptext">{!v.tooltipautoschedule}</span>
+                                                                
+                                                                <button disabled="{!v.toggleautoschedule}" class="{!if(v.toggleautoschedule,'slds-button slds-button_icon slds-button_icon slds-m-left_xx-small CursorCustom','slds-button slds-button_icon slds-button_icon slds-m-left_xx-small')}" data-ids="{!productInfo.Counter}" value="{!productInfo.NumberOfSites}" title="" onclick="{!c.AdjustQuantity}">
+                                                                    
+                                                                    <lightning:icon iconName="utility:macros" size="small"/>
+                                                                </button>
+                                                            </div>
+                                                            
+                                                        </th>
+                                                        <th scope="row">
+                                                            <div class="slds-truncate CelltruncateCustom" title="{!productInfo.Name}">{!productInfo.Name}</div>
+                                                        </th>
+                                                        <td>
+                                                            <div class="slds-truncate" onclick="{!c.CaptureIndex}" data-ids="{!productInfo.Counter}" productType="{! productInfo.RevenueType == 'Cloud' ? 'true' : 'false'}"  ><ui:inputNumber aura:id="OneTimeFee" labelClass="{!productInfo.Counter}" disabled="true"  value="{!productInfo.OneTimeFee}" blur="{!c.OnChangeOTF}"  class="slds-input TXTBOXWIDTH" format="0" updateOn="change" /></div> 
+                                                        </td>
+                                                        <td>
+                                                            <div class="slds-truncate" onclick="{!c.CaptureIndex}"  data-ids="{!productInfo.Counter}"><ui:inputCurrency aura:id="NumberOfLicense" labelClass="{!productInfo.Counter}"  value="{!productInfo.MonthlyFee}" blur="{!c.OnChangeUnitPrice}" disabled="true" class="slds-input TXTBOXWIDTH" format="0.00" updateOn="change"/></div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="slds-truncate" onclick="{!c.CaptureIndex}"  data-ids="{!productInfo.Counter}"><ui:inputCurrency aura:id="ProductUnit" labelClass="{!productInfo.Counter}"  value="{!productInfo.NumberOfLicense}" blur="{!c.OnChangeUnitPrice}" disabled="true" class="slds-input TXTBOXWIDTH" format="0" updateOn="change"/></div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="slds-truncate" onclick="{!c.CaptureIndex}"  data-ids="{!productInfo.Counter}"> <ui:inputNumber aura:id="NumberOfTerms" labelClass="{!productInfo.Counter}"   value="{!productInfo.NumberOfTerms}" blur="{!c.OnChangeNumberOfTermsPkg}" disabled="{! productInfo.MasterLineId==null? false:true}" class="slds-input TXTBOXWIDTH" format="0" updateOn="change" />  </div> 
+                                                        </td>
+                                                        <td>
+                                                            <div class="slds-truncate" onclick="{!c.CaptureIndex}"  data-ids="{!productInfo.Counter}"><ui:inputNumber aura:id="ProductQty" labelClass="{!productInfo.Counter}"  value="{!productInfo.Quantity}" blur="{!c.OnChangeQuantity}" class="slds-input TXTBOXWIDTH" format="0" updateOn="change"/></div> 
+                                                        </td>
+                                                        
+                                                        <td>
+                                                            <div class="slds-truncate" onclick="{!c.CaptureIndex}" data-ids="{!productInfo.Counter}" ><ui:inputCurrency aura:id="ProductACVTotal" labelClass="{!productInfo.Counter}" value="{!productInfo.TotalACVPrice}" disabled="true"   class="slds-input TXTBOXWIDTHLARGE" updateOn="change" format="0"/></div> 
+                                                        </td>
+                                                        
+                                                        <td>
+                                                            <div class="slds-truncate" onclick="{!c.CaptureIndex}" data-ids="{!productInfo.Counter}" ><ui:inputCurrency aura:id="ProductTCVTotal" labelClass="{!productInfo.Counter}" value="{!productInfo.TotalTCVPrice}" disabled="true" class="slds-input TXTBOXWIDTHLARGE" format="0" /></div> 
+                                                        </td>
+                                                        
+                                                        <td>
+                                                            <div class="slds-truncate" ><ui:outputNumber aura:id="ProductUnsch" value="{!productInfo.Unscheduled_Quantity}" class="{!productInfo.UnchStyleClass +':' + productInfo.Counter}" /></div> 
+                                                        </td>
+                                                    </tr>
+                                                </aura:if>
+                                            </aura:iteration>
+                                        </tbody>
+                                    </table>
+                                </aura:if>
+                               
+                            </div>-->
+                        
+                        <!-- subscriptionPackage change end here-->
+                        
+                        <!--<aura:set attribute="else">-->
+                        <aura:if isTrue="{!v.isCatm}">
+                            <div class="slds-col">
+                                <!--<aura:if isTrue="{!v.anyNonCloudProduct}" by Satyam>-->
+                                <aura:if isTrue="{!v.anyNonSubscrProd}">
+                                    <table class="slds-table slds-table_bordered slds-max-medium-table_stacked slds-no-row-hover" >
+                                        <thead>
+                                            <tr class="slds-text-heading_label TRBGCOLOR">
+                                                <th scope="col" class = "slds-size_1-of-12">
+                                                    <label class="slds-checkbox FACETCHKBOX"> 
+                                                        <!--header checkbox for select all-->
+                                                        <ui:inputCheckbox aura:id="chkAll" change="{!c.selectAll}" />
+                                                        <span class="slds-checkbox_faux"></span>
+                                                        <span class="slds-form-element__label text"></span>
+                                                    </label> 
+                                                </th>
+                                                <th scope="col" class = "slds-size_3-of-12">
+                                                    <div class="slds-truncate CelltruncateCustom" title="Product Name">Product Name</div>
+                                                </th>
+                                              
+                                                <!-- commented Build Lead Times(wks) as part of story EBA_SF-2397 -->
+                                                <!--<th scope="col" class = "slds-size_1-of-12"> 
+                                                    <div class="slds-truncate" title="Lead Time(WKS)">Build Lead Times(wks)</div>
+                                                </th> -->
+                                                
+                                                <th scope="col" class = "slds-size_2-of-12">
+                                                    <div class="slds-truncate" title="Unit Price">Unit Price ({!v.OppCurr})</div>
+                                                </th>
+                                                <th scope="col" class = "slds-size_2-of-12">
+                                                    <div class="slds-truncate" title="Total Qty">Total Qty</div>
+                                                </th>
+                                                <aura:if isTrue="{!v.isCatm}">
+                                                <th scope="col" class = "slds-size_2-of-12">
+                                                    <div class="slds-truncate" title="Qty Types">Qty Type</div>
+                                                </th>
+                                                </aura:if>
+                                                <th scope="col" class = "slds-size_2-of-12">
+                                                    <div class="slds-truncate" title="ACV">ACV ({!v.OppCurr})</div>
+                                                </th>                                            
+                                                 <th scope="col" class = "slds-size_2-of-12">
+                                                    <div class="slds-truncate" title="ACV">TCV ({!v.OppCurr})</div>
+                                                </th>
+                                                <!-- commented total price as part of story EBA_SF-2397
+                                                <th scope="col" class = "slds-size_2-of-12">
+                                                    <div class="slds-truncate" title="Total Value">Total Value ({!v.OppCurr})</div>
+                                                </th> -->
+                                                
+                                                <th scope="col" class = "slds-size_2-of-12">
+                                                    <div class="slds-truncate" title="Unsch Qty">Unsch Qty</div>
+                                                </th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <aura:iteration items="{!v.dataList}" var="productInfo" >
+                                                <aura:if isTrue="{! ( productInfo.isSubscriptioned == false  &amp;&amp; productInfo.mandateSubscriptioned == false &amp;&amp; productInfo.isPackage != true &amp;&amp; productInfo.isCompanion != true  ) }" >
+                                                    <tr class="slds-hint-parent">
+                                                        <th scope="col" class = "slds-size_1-of-12">
+                                                            <label class="slds-checkbox slds-m-left_xx-small">
+                                                                <ui:inputCheckbox aura:id="Chk" class="{!productInfo.productID}"  text="{!productInfo.Counter}" value="" change="{!c.toggleAdjust}"/>
+                                                                <span class="slds-checkbox_faux"></span>
+                                                                <span class="slds-form-element__label text"></span>
+                                                            </label>
+                                                            <div class="tooltip">
+                                                                <span class="tooltiptext">{!v.tooltipcopydist}</span>
+                                                                <button disabled="{!v.toggledistschedule}" class="{!if(v.toggledistschedule,'slds-button slds-button_icon slds-button_icon slds-m-left_xx-small CursorCustom','slds-button slds-button_icon slds-button_icon slds-m-left_xx-small')}" title=" " data-ids="{!productInfo.Counter}" onclick="{!c.OpenCopyPasteWindow}">
+                                                                    <aura:if isTrue="{!v.isCommunityUser}">	
+                                                                        <c:svgIcon svgPath="{!v.IPTPartnerCommunityUrl+'/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#copy'}" category="Utility" size="x-small" name="copy" class="SVGFill"/>	
+                                                                        <aura:set attribute="else">	
+                                                                            <c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#copy" category="Utility" size="x-small" name="copy" class="SVGFill"/>	
+                                                                        </aura:set>	
+                                                                    </aura:if>
+                                                                </button>
+                                                            </div>
+                                                            <div class="tooltip">
+                                                                <!-- <span class="tooltiptext">{!if(productInfo.Quantity > 0,'Auto Schedule ','Please fill quantity')}</span> -->   
+                                                                <span class="tooltiptext">{!v.tooltipautoschedule}</span>
+                                                                <button disabled="{!v.toggleautoschedule}"  class="{!if(v.toggleautoschedule,'slds-button slds-button_icon slds-button_icon slds-m-left_xx-small CursorCustom','slds-button slds-button_icon slds-button_icon slds-m-left_xx-small')}" data-ids="{!productInfo.Counter}" value="{!productInfo.Quantity}" title="" onclick="{!c.AdjustQuantity}">
+                                                                    <!--<c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#richtextindent" category="Utility" size="x-medium" name="copy" class="SVGFill"/>-->
+                                                                    <lightning:icon iconName="utility:macros" size="small"/>
+                                                                </button>
+                                                            </div>
+                                                            
+                                                        </th> 
+                                                        <th scope="row" class = "slds-size_3-of-12">
+                                                            <div class="slds-truncate CelltruncateCustom" title="{!productInfo.Name}">{!productInfo.Name}</div>
+                                                        </th>
+                                                        
+                                                        <!-- commented Build Lead Times(wks) as part of story EBA_SF-2397 -->
+                                                        <!-- <td class = "slds-size_1-of-12">
+                                                            <div class="slds-truncate" >
+                                                                
+                                                                <ui:outputNumber aura:id="ProductUnsch" class="" value="{!productInfo.LeadTime_Wks}" />
+                                                                
+                                                            </div> 
+                                                        </td> -->
+                                                        <td class = "slds-size_2-of-12">
+                                                            <aura:if isTrue="{!v.isCatm}">
+                                                            <div class="slds-truncate" onclick="{!c.CaptureIndex}" data-ids="{!productInfo.Counter}"><ui:inputCurrency aura:id="ProductUnit" labelClass="{!productInfo.Counter}"  value="{!productInfo.UnitPrice}" blur="{!c.OnChangeUnitPrice}" class="slds-input TXTBOXWIDTH" format="0.0000" updateOn="change"/></div> 
+                                                           <aura:set attribute="else">	
+                                                                <div class="slds-truncate" onclick="{!c.CaptureIndex}" data-ids="{!productInfo.Counter}"><ui:inputCurrency aura:id="ProductUnit" labelClass="{!productInfo.Counter}"  value="{!productInfo.UnitPrice}" blur="{!c.OnChangeUnitPrice}" class="slds-input TXTBOXWIDTH"  format="0.00" updateOn="change"/></div> 
+                                                            </aura:set>
+                                                            </aura:if>
+                                                            </td>
+                                                        <td class = "slds-size_2-of-12">
+                                                            <div class="slds-truncate " onclick="{!c.CaptureIndex}"  data-ids="{!productInfo.Counter}"><ui:inputNumber aura:id="ProductQty" labelClass="{!productInfo.Counter}"  value="{!productInfo.Quantity}" blur="{!c.OnChangeQuantity}" class="slds-input TXTBOXWIDTH" format="0" updateOn="change"/></div> 
+                                                        </td>
+                                                        <aura:if isTrue="{!v.isCatm}">
+                                                        <td> 
+                                                            <lightning:select aura:id="qtyType" class ="pickSelect" value="{!productInfo.qtyTyp}" name="qtyTypeName" required="true" onchange="{!c.onQtyTypChange}">
+                                                                <option value="">None</option>
+                                                                <aura:iteration items="{!v.fieldMap}" var="i" indexVar="key">
+                                                                    <option text="{!i.key}" value="{!i.value}"/>
+                                                                </aura:iteration>
+                                                            </lightning:select>
+                                                        </td> 
+                                                        </aura:if>
+                                                        
+                                                        <td class = "slds-size_2-of-12">
+                                                            <div class="slds-truncate" onclick="{!c.CaptureIndex}" data-ids="{!productInfo.Counter}">
+                                                                <ui:inputCurrency aura:id="ProductTotal" labelClass="{!productInfo.Counter}" value="{!productInfo.TotalACVPrice}" disabled="true" class="slds-input TXTBOXWIDTHLARGE" format="0.00" />
+                                                            </div> 
+                                                        </td>
+                                                        
+                                                        <td class = "slds-size_2-of-12">
+                                                            <div class="slds-truncate" onclick="{!c.CaptureIndex}" data-ids="{!productInfo.Counter}">
+                                                                <ui:inputCurrency aura:id="ProductTCVTotal" labelClass="{!productInfo.Counter}" value="{!productInfo.TotalTCVPrice}" disabled="true" class="slds-input TXTBOXWIDTHLARGE" format="0.00" />
+                                                                <!-- <ui:inputCurrency aura:id="ProductTotal" labelClass="{!productInfo.Counter}" value="{!productInfo.TotalPrice}" change="{!c.OnChangeTotalVal}" class="slds-input TXTBOXWIDTHLARGE" updateOn="change" format="0"/> -->
+                                                            </div> 
+                                                        </td>
+                                                        
+                                                        
+                                                        
+                                                        <td class = "slds-size_2-of-12">
+                                                            <div class="slds-truncate" ><ui:outputNumber aura:id="ProductUnsch" value="{!productInfo.Unscheduled_Quantity}" class="{!productInfo.UnchStyleClass + ':'+productInfo.Counter }"/></div> 
+                                                        </td>
+                                                    </tr>
+                                                </aura:if>
+                                            </aura:iteration>
+                                        </tbody>
+                                    </table>
+                                </aura:if>
+                                
+                                <!-- Added by DC, ModiFy by Satyam-->
+                                <!-- <aura:if isTrue="{!v.anyCloudProduct}" >-->
+                                <aura:if isTrue="{!v.anySubscrProd}" >
+                                    <table class="slds-table slds-table_bordered slds-max-medium-table_stacked slds-no-row-hover" >
+                                        <thead>
+                                            <tr class="slds-text-heading_label TRBGCOLOR">
+                                                <th scope="col" class = "slds-size_1-of-12">
+                                                    <!-- <aura:if isTrue="{!v.anyCloudProduct &amp;&amp; !v.anyNonCloudProduct}" >
+                                                                <ui:inputCheckbox aura:id="chkAll_Cloud" change="{!c.selectAll}" />
+                                                            </aura:if>-->
+                                                    <aura:if isTrue="{!v.anySubscrProd &amp;&amp; !v.anyNonSubscrProd}" >
+                                                        <ui:inputCheckbox aura:id="chkAll_Cloud" change="{!c.selectAll}" />
+                                                    </aura:if>
+                                                </th>
+                                                <th scope="col" class = "slds-size_3-of-12">
+                                                    <div class="slds-truncate CelltruncateCustom" title="Product Name">Product Name</div>
+                                                </th>
+                                                
+                                                <th scope="col" class = "slds-size_2-of-12">
+                                                    <div class="slds-truncate" title="One Time Fee">One Time<br/> Fee ({!v.OppCurr}) </div>
+                                                </th>
+                                                <th scope="col" class = "slds-size_2-of-12">
+                                                    <div class="slds-truncate" title="Monthly Fees">Monthly Fee <br/>({!v.OppCurr})</div>
+                                                </th>
+                                                <aura:if isTrue="{!!v.isCatm}">
+                                                <th scope="col" class = "slds-size_2-of-12">
+                                                    <div class="slds-truncate" title="Number Of terms"># of Months</div>
+                                                </th>
+                                                </aura:if>
+                                                
+                                                <th scope="col" class = "slds-size_2-of-12">
+                                                    <div class="slds-truncate" title="Unit of Measurement (UoM) is defined using the &quot; Subscription UoM &quot; picklist in the opportunity details section. Site, Lane, VM, Other"># Of UOM
+                                                    </div>
+                                                </th>
+                                                <aura:if isTrue="{!v.isCatm}">
+                                                <th scope="col" class = "slds-size_2-of-12">
+                                                    <div class="slds-truncate slds-m-left_small" title="Qty Type">Qty Type</div>
+                                                </th>
+                                                </aura:if>
+                                              
+                                                <th scope="col" class = "slds-size_2-of-12">
+                                                    <div class="slds-truncate" title="ACV">ACV ({!v.OppCurr})</div>
+                                                </th>
+                                                <th scope="col" class = "slds-size_2-of-12">
+                                                    <div class="slds-truncate" title="ACV">TCV ({!v.OppCurr})</div>
+                                                </th>
+                                                
+                                                <th scope="col" class = "slds-size_2-of-12">
+                                                    <div class="slds-truncate" title="Unsch Qty">Unsch Qty</div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <aura:iteration items="{!v.dataList}" var="productInfo" >
+                                                
+                                                <aura:if isTrue="{!or(or( (productInfo.isSubscriptioned == true &amp;&amp; productInfo.isPackage != true &amp;&amp;  productInfo.isCompanion != true),   (productInfo.mandateSubscriptioned &amp;&amp; productInfo.isPackage != true &amp;&amp;  productInfo.isCompanion != true)),
+                                                                    (productInfo.isCATMProduct &amp;&amp; productInfo.isPackage != true &amp;&amp;  productInfo.isCompanion != true)) }" >
+                                                    <tr class="slds-hint-parent">
+                                                        <th scope="col">
+                                                            <label class="slds-checkbox slds-m-left_xx-small">
+                                                                <ui:inputCheckbox aura:id="Chk" class="{!productInfo.productID}"  text="{!productInfo.Counter}" value="" change="{!c.toggleAdjust}"/>
+                                                                <span class="slds-checkbox_faux"></span>
+                                                                <span class="slds-form-element__label text"></span>
+                                                            </label>
+                                                            <div class="tooltip">
+                                                                <span class="tooltiptext">{!v.tooltipcopydist}</span>
+                                                                <button disabled="{!v.toggledistschedule}" class="{!if(v.toggledistschedule,'slds-button slds-button_icon slds-button_icon slds-m-left_xx-small CursorCustom','slds-button slds-button_icon slds-button_icon slds-m-left_xx-small')}" title=" " data-ids="{!productInfo.Counter}" onclick="{!c.OpenCopyPasteWindow}">
+                                                                    <aura:if isTrue="{!v.isCommunityUser}">	
+                                                                        <c:svgIcon svgPath="{!v.IPTPartnerCommunityUrl+'/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#copy'}" category="Utility" size="x-small" name="copy" class="SVGFill"/>	
+                                                                        <aura:set attribute="else">	
+                                                                            <c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#copy" category="Utility" size="x-small" name="copy" class="SVGFill"/>	
+                                                                        </aura:set>
+                                                                    </aura:if>
+                                                                </button>
+                                                            </div>
+                                                            <div class="tooltip">
+                                                                <!-- <span class="tooltiptext">{!if(productInfo.Quantity > 0,'Auto Schedule ','Please fill quantity')}</span> -->   
+                                                                <span class="tooltiptext">{!v.tooltipautoschedule}</span>
+                                                                <button disabled="{!v.toggleautoschedule}"  class="{!if(v.toggleautoschedule,'slds-button slds-button_icon slds-button_icon slds-m-left_xx-small CursorCustom','slds-button slds-button_icon slds-button_icon slds-m-left_xx-small')}" data-ids="{!productInfo.Counter}" value="{!productInfo.Quantity}" title="" onclick="{!c.AdjustQuantity}">
+                                                                    <!--<c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#richtextindent" category="Utility" size="x-medium" name="copy" class="SVGFill"/>-->
+                                                                    <lightning:icon iconName="utility:macros" size="small"/>
+                                                                </button>
+                                                            </div>
+                                                            
+                                                        </th>
+                                                        <th scope="row">
+                                                            <div class="slds-truncate CelltruncateCustom" title="{!productInfo.Name}">{!productInfo.Name}</div>
+                                                        </th>
+                                                        <td>
+                                                            <div class="slds-truncate" onclick="{!c.CaptureIndex}" data-ids="{!productInfo.Counter}" productType="{! productInfo.RevenueType == 'Cloud' ? 'true' : 'false'}"  ><ui:inputNumber aura:id="OneTimeFee" labelClass="{!productInfo.Counter}"  value="{!productInfo.OneTimeFee}" blur="{!c.OnChangeOTF}"  class="slds-input TXTBOXWIDTH" format="0.00" updateOn="change" /></div> 
+                                                        </td>
+                                                        <!--Monthly fee change - inputcurrency to inputNumber-->
+                                                        <td>
+                                                            <aura:if isTrue="{!v.isCatm}">
+                                                            <div class="slds-truncate" onclick="{!c.CaptureIndex}"  data-ids="{!productInfo.Counter}"><ui:inputNumber aura:id="ProductUnit" labelClass="{!productInfo.Counter}"  value="{!productInfo.MonthlyFee}" blur="{!c.OnChangeUnitPrice}" format="0.0000" class="slds-input TXTBOXWIDTH"  updateOn="change"/></div>
+                                                        <aura:set attribute="else">
+                                                            <div class="slds-truncate" onclick="{!c.CaptureIndex}"  data-ids="{!productInfo.Counter}"><ui:inputNumber aura:id="ProductUnit" labelClass="{!productInfo.Counter}"  value="{!productInfo.MonthlyFee}" blur="{!c.OnChangeUnitPrice}" format="0.00" class="slds-input TXTBOXWIDTH"  updateOn="change"/></div>
+                                                                </aura:set>
+                                                            </aura:if>
+                                                            </td>
+                                                        <aura:if isTrue="{!!v.isCatm}">
+                                                        <td>
+                                                            <div class="slds-truncate" onclick="{!c.CaptureIndex}"  data-ids="{!productInfo.Counter}"> <ui:inputNumber aura:id="NumberOfTerms" labelClass="{!productInfo.Counter}"   value="{!productInfo.NumberOfTerms}" blur="{!c.OnChangeNumberOfTerms}" class="slds-input TXTBOXWIDTH" format="0" updateOn="change" />  </div> 
+                                                        </td>
+                                                        </aura:if>
+                                                        <td>
+                                                            <div class="slds-truncate" onclick="{!c.CaptureIndex}"  data-ids="{!productInfo.Counter}"><ui:inputNumber aura:id="ProductQty" labelClass="{!productInfo.Counter}"  value="{!productInfo.Quantity}" blur="{!c.OnChangeQuantity}" class="slds-input TXTBOXWIDTH" format="0" updateOn="change"/></div> 
+                                                        </td>
+                                                        <aura:if isTrue="{!v.isCatm}">
+                                                        <td>
+                                                            <abbr title="required" class="slds-required" style="vertical-align:top;">*</abbr>
+                                                            <lightning:select aura:id="qtyType" value="{!productInfo.qtyTyp}" variant="label-hidden" class ="pickSelect" name="qtyTypeName" required="true" onchange="{!c.onQtyTypChange}" > 
+                                                                <option value="">None</option>
+                                                                <aura:iteration items="{!v.fieldMap}" var="i" indexVar="key">
+                                                                    <option text="{!i.key}" value="{!i.value}"/>
+                                                                </aura:iteration>
+                                                            </lightning:select>
+                                                        </td> 
+                                                        </aura:if>
+                                                        <td>
+                                                            <div class="slds-truncate" onclick="{!c.CaptureIndex}" data-ids="{!productInfo.Counter}" ><ui:inputCurrency aura:id="ProductTotal" labelClass="{!productInfo.Counter}" value="{!productInfo.TotalACVPrice}" disabled="true"   class="slds-input TXTBOXWIDTHLARGE" updateOn="change" format="0.00"/></div> 
+                                                        </td>
+                                                         
+                                                        <td>
+                                                            <div class="slds-truncate" onclick="{!c.CaptureIndex}" data-ids="{!productInfo.Counter}" ><ui:inputCurrency aura:id="ProductTCVTotal" labelClass="{!productInfo.Counter}" value="{!productInfo.TotalTCVPrice}" disabled="true" class="slds-input TXTBOXWIDTHLARGE" format="0.00" /></div> 
+                                                        </td>
+                                                        
+                                                        <td>
+                                                            <div class="slds-truncate" ><ui:outputNumber aura:id="ProductUnsch" value="{!productInfo.Unscheduled_Quantity}" class="{!productInfo.UnchStyleClass +':' + productInfo.Counter}" /></div> 
+                                                        </td>   
+                                                    </tr>
+                                                </aura:if>
+                                            </aura:iteration>
+                                        </tbody>
+                                    </table>
+                                </aura:if>
+                                <!-- END DC -->
+                                
+                            </div>
+                            
+	<!--############### EBA_SF-2497- Single table for both Recurring and Non-recurring Products start #############-->
+                            <aura:set attribute="else">	
+                                <div class="slds-col">
+                                    <!--<aura:if isTrue="{!v.anyNonCloudProduct}" by Satyam>-->
+                                    
+                                    <table class="slds-table slds-table_bordered slds-max-medium-table_stacked slds-no-row-hover" >                                        
+                                        <aura:if isTrue="{!v.anyNonSubscrProd}">
+                                            <thead>
+                                                <tr class="slds-text-heading_label TRBGCOLOR">
+                                                    <th scope="col" class="slds-size_1-of-12">
+                                                        <label class="slds-checkbox FACETCHKBOX"> 
+                                                            <!--header checkbox for select all-->
+                                                            <ui:inputCheckbox aura:id="chkAll" change="{!c.selectAll}" />
+                                                            <span class="slds-checkbox_faux"></span>
+                                                            <span class="slds-form-element__label text"></span>
+                                                        </label> 
+                                                    </th>
+                                                    <th scope="col" class = "slds-size_2-of-12">
+                                                        <div class="slds-truncate CelltruncateCustom" title="Non-Recurring Product">Non-Recurring Revenue</div>
+                                                    </th>                                                    
+                                                    
+                                                    <th scope="col" class="slds-size_1-of-12">                                                        
+                                                    </th>   
+                                                    
+                                                    <th scope="col" class = "slds-size_2-of-12">
+                                                        <div class="slds-truncate" title="Unit Price">Unit Price ({!v.OppCurr})</div>
+                                                    </th>
+                                                    <th scope="col" class = "slds-size_2-of-12">
+                                                        <div class="slds-truncate" title="Total Qty">Total Qty</div>
+                                                    </th>
+                                                    
+                                                    <th scope="col" class = "slds-size_1-of-12">
+                                                    </th> 
+                                                    
+                                                    <th scope="col" class = "slds-size_2-of-12">
+                                                        <div class="slds-truncate" title="ACV">ACV ({!v.OppCurr})</div>
+                                                    </th>                                            
+                                                    <th scope="col" class = "slds-size_2-of-12">
+                                                        <div class="slds-truncate" title="ACV">TCV ({!v.OppCurr})</div>
+                                                    </th>                                                   
+                                                    
+                                                    <th scope="col" class = "slds-size_1-of-12">
+                                                        <div class="slds-truncate" title="Unsch Qty">Unsch Qty</div>
+                                                    </th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                        </aura:if>
+                                       
+                                        <tbody>  
+                                        <aura:iteration items="{!v.dataList}" var="productInfo" >                                          
+                                         
+                                            <aura:if isTrue="{! ( productInfo.isSubscriptioned == false  &amp;&amp; productInfo.mandateSubscriptioned == false &amp;&amp; productInfo.isCATMProduct == false &amp;&amp; productInfo.isPackage != true &amp;&amp; productInfo.isCompanion != true  ) }" >
+                                                <tr class="slds-hint-parent">
+                                                    <th scope="col" class="slds-size_1-of-12">
+                                                        <label class="slds-checkbox slds-m-left_xx-small">
+                                                            <ui:inputCheckbox aura:id="Chk" class="{!productInfo.productID}"  text="{!productInfo.Counter}" value="" change="{!c.toggleAdjust}"/>
+                                                            <span class="slds-checkbox_faux"></span>
+                                                            <span class="slds-form-element__label text"></span>
+                                                        </label>
+                                                        <div class="tooltip">
+                                                            <span class="tooltiptext">{!v.tooltipcopydist}</span>
+                                                            <button disabled="{!v.toggledistschedule}" class="{!if(v.toggledistschedule,'slds-button slds-button_icon slds-button_icon slds-m-left_xx-small CursorCustom','slds-button slds-button_icon slds-button_icon slds-m-left_xx-small')}" title=" " data-ids="{!productInfo.Counter}" onclick="{!c.OpenCopyPasteWindow}">
+                                                                <aura:if isTrue="{!v.isCommunityUser}">	
+                                                                    <c:svgIcon svgPath="{!v.IPTPartnerCommunityUrl+'/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#copy'}" category="Utility" size="x-small" name="copy" class="SVGFill"/>	
+                                                                    <aura:set attribute="else">	
+                                                                        <c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#copy" category="Utility" size="x-small" name="copy" class="SVGFill"/>	
+                                                                    </aura:set>	
+                                                                </aura:if>
+                                                            </button>
+                                                        </div>
+                                                        <div class="tooltip">
+                                                            <!-- <span class="tooltiptext">{!if(productInfo.Quantity > 0,'Auto Schedule ','Please fill quantity')}</span> -->   
+                                                            <span class="tooltiptext">{!v.tooltipautoschedule}</span>
+                                                            <button disabled="{!v.toggleautoschedule}"  class="{!if(v.toggleautoschedule,'slds-button slds-button_icon slds-button_icon slds-m-left_xx-small CursorCustom','slds-button slds-button_icon slds-button_icon slds-m-left_xx-small')}" data-ids="{!productInfo.Counter}" value="{!productInfo.Quantity}" title="" onclick="{!c.AdjustQuantity}">
+                                                                <!--<c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#richtextindent" category="Utility" size="x-medium" name="copy" class="SVGFill"/>-->
+                                                                <lightning:icon iconName="utility:macros" size="small"/>
+                                                            </button>
+                                                        </div>
+                                                        
+                                                    </th> 
+                                                    
+                                                    <th scope="row" class = "slds-size_3-of-12">
+                                                        <div class="slds-truncate CelltruncateCustom" title="{!productInfo.Name}">{!productInfo.Name}</div>
+                                                    </th>
+                                                    
+                                                    <td scope="col" class = "slds-size_1-of-12">                                                           
+                                                    </td>                                                         
+                                                    
+                                                    <td class = "slds-size_2-of-12">
+                                                        <aura:if isTrue="{!v.isCatm}">
+                                                            <div class="slds-truncate" onclick="{!c.CaptureIndex}" data-ids="{!productInfo.Counter}"><ui:inputCurrency aura:id="ProductUnit" labelClass="{!productInfo.Counter}"  value="{!productInfo.UnitPrice}" blur="{!c.OnChangeUnitPrice}" class="slds-input TXTBOXWIDTH" format="0.0000" updateOn="change"/></div> 
+                                                            <aura:set attribute="else">	
+                                                                <div class="slds-truncate" onclick="{!c.CaptureIndex}" data-ids="{!productInfo.Counter}"><ui:inputCurrency aura:id="ProductUnit" labelClass="{!productInfo.Counter}"  value="{!productInfo.UnitPrice}" blur="{!c.OnChangeUnitPrice}" class="slds-input TXTBOXWIDTH"  format="0.00" updateOn="change"/></div> 
+                                                            </aura:set>
+                                                        </aura:if>
+                                                    </td>
+                                                    <td class = "slds-size_2-of-12">
+                                                        <div class="slds-truncate " onclick="{!c.CaptureIndex}"  data-ids="{!productInfo.Counter}"><ui:inputNumber aura:id="ProductQty" labelClass="{!productInfo.Counter}"  value="{!productInfo.Quantity}" blur="{!c.OnChangeQuantity}" class="slds-input TXTBOXWIDTH" format="0" updateOn="change"/></div> 
+                                                    </td>
+                                                    
+                                                    <td scope="col" class = "slds-size_1-of-12">                                                           
+                                                    </td> 
+                                                    
+                                                    
+                                                    <td class = "slds-size_2-of-12">
+                                                        <div class="slds-truncate" onclick="{!c.CaptureIndex}" data-ids="{!productInfo.Counter}">
+                                                            <ui:inputCurrency aura:id="ProductTotal" labelClass="{!productInfo.Counter}" value="{!productInfo.TotalACVPrice}" disabled="true" class="slds-input TXTBOXWIDTHLARGE" format="0.00" />
+                                                        </div> 
+                                                    </td>
+                                                    
+                                                    <td class = "slds-size_2-of-12">
+                                                        <div class="slds-truncate" onclick="{!c.CaptureIndex}" data-ids="{!productInfo.Counter}">
+                                                            <ui:inputCurrency aura:id="ProductTCVTotal" labelClass="{!productInfo.Counter}" value="{!productInfo.TotalTCVPrice}" disabled="true" class="slds-input TXTBOXWIDTHLARGE" format="0.00" />
+                                                            <!-- <ui:inputCurrency aura:id="ProductTotal" labelClass="{!productInfo.Counter}" value="{!productInfo.TotalPrice}" change="{!c.OnChangeTotalVal}" class="slds-input TXTBOXWIDTHLARGE" updateOn="change" format="0"/> -->
+                                                        </div> 
+                                                    </td>
+
+                                                    <td class = "slds-size_1-of-12">
+                                                        <div class="slds-truncate" ><ui:outputNumber aura:id="ProductUnsch" value="{!productInfo.Unscheduled_Quantity}" class="{!productInfo.UnchStyleClass + ':'+productInfo.Counter }"/></div> 
+                                                    </td>
+                                                </tr>
+                                            </aura:if>
+                                        </aura:iteration>
+                                        </tbody>  
+                                        
+                                        <aura:if isTrue="{!v.anySubscrProd}" >
+                                            <thead>
+                                                <tr class="slds-text-heading_label TRBGCOLOR">
+                                                    <th scope="col">                                                  
+                                                        <aura:if isTrue="{!v.anySubscrProd &amp;&amp; !v.anyNonSubscrProd}" >
+                                                            <ui:inputCheckbox aura:id="chkAll_Cloud" change="{!c.selectAll}" />
+                                                        </aura:if>
+                                                    </th>
+                                                    <th scope="col" class = "slds-size_3-of-12">
+                                                        <div class="slds-truncate CelltruncateCustom" title="Recurring Revenue Prodducts">Recurring Revenue</div>
+                                                    </th>
+                                                    
+                                                    <th scope="col" class = "slds-size_2-of-12">
+                                                        <div class="slds-truncate" title="One Time Fee">One Time<br/> Fee ({!v.OppCurr}) </div>
+                                                    </th>
+                                                    <th scope="col" class = "slds-size_2-of-12">
+                                                        <div class="slds-truncate" title="Monthly Fees">Monthly Fee <br/>({!v.OppCurr})</div>
+                                                    </th>
+                                                    
+                                                    <th scope="col" class = "slds-size_2-of-12">
+                                                        <div class="slds-truncate" title="Unit of Measurement (UoM) is defined using the &quot; Subscription UoM &quot; picklist in the opportunity details section. Site, Lane, VM, Other"># Of UOM
+                                                        </div>
+                                                    </th>                                                
+                                                    
+                                                    <th scope="col" class = "slds-size_2-of-12">
+                                                        <div class="slds-truncate" title="Number Of terms"># of Months</div>
+                                                    </th>
+                                                    
+                                                    <th scope="col" class = "slds-size_2-of-12">
+                                                        <div class="slds-truncate" title="ACV">ACV ({!v.OppCurr})</div>
+                                                    </th>
+                                                    <th scope="col" class = "slds-size_2-of-12">
+                                                        <div class="slds-truncate" title="ACV">TCV ({!v.OppCurr})</div>
+                                                    </th>
+                                                    
+                                                    <th scope="col" class= "slds-size_1-of-12">
+                                                        <div class="slds-truncate" title="Unsch Qty">Unsch Qty</div>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                        </aura:if>
+                                        
+                                         <tbody>  
+                                        <aura:iteration items="{!v.dataList}" var="productInfo" >                                            
+                                            <aura:if isTrue="{!or(or( (productInfo.isSubscriptioned == true &amp;&amp; productInfo.isPackage != true &amp;&amp;  productInfo.isCompanion != true),   (productInfo.mandateSubscriptioned &amp;&amp; productInfo.isPackage != true &amp;&amp;  productInfo.isCompanion != true)),
+                                                             (productInfo.isCATMProduct &amp;&amp; productInfo.isPackage != true &amp;&amp;  productInfo.isCompanion != true)) }" >
+                                                <tr class="slds-hint-parent">
+                                                    <th scope="col">
+                                                        <label class="slds-checkbox slds-m-left_xx-small">
+                                                            <ui:inputCheckbox aura:id="Chk" class="{!productInfo.productID}"  text="{!productInfo.Counter}" value="" change="{!c.toggleAdjust}"/>
+                                                            <span class="slds-checkbox_faux"></span>
+                                                            <span class="slds-form-element__label text"></span>
+                                                        </label>
+                                                        <div class="tooltip">
+                                                            <span class="tooltiptext">{!v.tooltipcopydist}</span>
+                                                            <button disabled="{!v.toggledistschedule}" class="{!if(v.toggledistschedule,'slds-button slds-button_icon slds-button_icon slds-m-left_xx-small CursorCustom','slds-button slds-button_icon slds-button_icon slds-m-left_xx-small')}" title=" " data-ids="{!productInfo.Counter}" onclick="{!c.OpenCopyPasteWindow}">
+                                                                <aura:if isTrue="{!v.isCommunityUser}">	
+                                                                    <c:svgIcon svgPath="{!v.IPTPartnerCommunityUrl+'/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#copy'}" category="Utility" size="x-small" name="copy" class="SVGFill"/>	
+                                                                    <aura:set attribute="else">	
+                                                                        <c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#copy" category="Utility" size="x-small" name="copy" class="SVGFill"/>	
+                                                                    </aura:set>
+                                                                </aura:if>
+                                                            </button>
+                                                        </div>
+                                                        <div class="tooltip">
+                                                            <!-- <span class="tooltiptext">{!if(productInfo.Quantity > 0,'Auto Schedule ','Please fill quantity')}</span> -->   
+                                                            <span class="tooltiptext">{!v.tooltipautoschedule}</span>
+                                                            <button disabled="{!v.toggleautoschedule}"  class="{!if(v.toggleautoschedule,'slds-button slds-button_icon slds-button_icon slds-m-left_xx-small CursorCustom','slds-button slds-button_icon slds-button_icon slds-m-left_xx-small')}" data-ids="{!productInfo.Counter}" value="{!productInfo.Quantity}" title="" onclick="{!c.AdjustQuantity}">
+                                                                <!--<c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#richtextindent" category="Utility" size="x-medium" name="copy" class="SVGFill"/>-->
+                                                                <lightning:icon iconName="utility:macros" size="small"/>
+                                                            </button>
+                                                        </div>
+                                                        
+                                                    </th>
+                                                    <th scope="row">
+                                                        <div class="slds-truncate CelltruncateCustom" title="{!productInfo.Name}">{!productInfo.Name}</div>
+                                                    </th>
+                                                    <td>
+                                                        <div class="slds-truncate" onclick="{!c.CaptureIndex}" data-ids="{!productInfo.Counter}" productType="{! productInfo.RevenueType == 'Cloud' ? 'true' : 'false'}"  ><ui:inputNumber aura:id="OneTimeFee" labelClass="{!productInfo.Counter}"  value="{!productInfo.OneTimeFee}" blur="{!c.OnChangeOTF}"  class="slds-input TXTBOXWIDTH" format="0.00" updateOn="change" /></div> 
+                                                    </td>
+                                                    <!--Monthly fee change - inputcurrency to inputNumber-->
+                                                    <td>
+                                                        <aura:if isTrue="{!v.isCatm}">
+                                                            <div class="slds-truncate" onclick="{!c.CaptureIndex}"  data-ids="{!productInfo.Counter}"><ui:inputNumber aura:id="ProductUnit" labelClass="{!productInfo.Counter}"  value="{!productInfo.MonthlyFee}" blur="{!c.OnChangeUnitPrice}" format="0.0000" class="slds-input TXTBOXWIDTH"  updateOn="change"/></div>
+                                                            <aura:set attribute="else">
+                                                                <div class="slds-truncate" onclick="{!c.CaptureIndex}"  data-ids="{!productInfo.Counter}"><ui:inputNumber aura:id="ProductUnit" labelClass="{!productInfo.Counter}"  value="{!productInfo.MonthlyFee}" blur="{!c.OnChangeUnitPrice}" format="0.00" class="slds-input TXTBOXWIDTH"  updateOn="change"/></div>
+                                                            </aura:set>
+                                                        </aura:if>
+                                                    </td>
+                                                    <aura:if isTrue="{!!v.isCatm}">
+                                                        <td>
+                                                       <div class="slds-truncate" onclick="{!c.CaptureIndex}"  data-ids="{!productInfo.Counter}"><ui:inputNumber aura:id="ProductQty" labelClass="{!productInfo.Counter}"  value="{!productInfo.Quantity}" blur="{!c.OnChangeQuantity}" class="slds-input TXTBOXWIDTH" format="0" updateOn="change"/></div> 
+                                                        </td>
+                                                    </aura:if>
+                                                    <td>
+                                                    	 <div class="slds-truncate" onclick="{!c.CaptureIndex}"  data-ids="{!productInfo.Counter}"> <ui:inputNumber aura:id="NumberOfTerms" labelClass="{!productInfo.Counter}"   value="{!productInfo.NumberOfTerms}" blur="{!c.OnChangeNumberOfTerms}" class="slds-input TXTBOXWIDTH" format="0" updateOn="change" />  </div>    
+                                                    </td>
+                                                    <aura:if isTrue="{!v.isCatm}">
+                                                        <td>
+                                                            <abbr title="required" class="slds-required" style="vertical-align:top;">*</abbr>
+                                                            <lightning:select aura:id="qtyType" value="{!productInfo.qtyTyp}" variant="label-hidden" class ="pickSelect" name="qtyTypeName" required="true" onchange="{!c.onQtyTypChange}" > 
+                                                                <option value="">None</option>
+                                                                <aura:iteration items="{!v.fieldMap}" var="i" indexVar="key">
+                                                                    <option text="{!i.key}" value="{!i.value}"/>
+                                                                </aura:iteration>
+                                                            </lightning:select>
+                                                        </td> 
+                                                    </aura:if>
+                                                    <td>
+                                                        <div class="slds-truncate" onclick="{!c.CaptureIndex}" data-ids="{!productInfo.Counter}" ><ui:inputCurrency aura:id="ProductTotal" labelClass="{!productInfo.Counter}" value="{!productInfo.TotalACVPrice}" disabled="true"   class="slds-input TXTBOXWIDTHLARGE" updateOn="change" format="0.00"/></div> 
+                                                    </td>
+                                                    
+                                                    <td>
+                                                        <div class="slds-truncate" onclick="{!c.CaptureIndex}" data-ids="{!productInfo.Counter}" ><ui:inputCurrency aura:id="ProductTCVTotal" labelClass="{!productInfo.Counter}" value="{!productInfo.TotalTCVPrice}" disabled="true" class="slds-input TXTBOXWIDTHLARGE" format="0.00" /></div> 
+                                                    </td>
+                                                    
+                                                    <td>
+                                                        <div class="slds-truncate" ><ui:outputNumber aura:id="ProductUnsch" value="{!productInfo.Unscheduled_Quantity}" class="{!productInfo.UnchStyleClass +':' + productInfo.Counter}" /></div> 
+                                                    </td>   
+                                                </tr>
+                                            </aura:if>
+                                        </aura:iteration>
+                                        </tbody>
+                                        
+                                        <aura:if isTrue="{!!empty(v.dataList)}">
+                                            <tbody>  
+                                                <tr class="slds-hint-parent">
+                                                    
+                                                    <td scope="col">
+                                                    </td>
+                                                    <th scope="row" class="slds-size_4-of-12" colspan="2" style="margin-left:-20px;"> 
+                                                        <div title="Total">Total</div>                                                    	
+                                                    </th>                                                 
+                                                    
+                                                    <td scope="col">
+                                                    </td>
+                                                    
+                                                    <td scope="col">  
+                                                    </td>
+                                                    
+                                                    <td scope="col">
+                                                    </td>    
+
+                                                    <th scope="row">
+                                                        <div class="TXTBOXWIDTHLARGE" style="text-align:right;" title="Total Contract Value">TCV ({!v.OppCurr})</div>                                                    	
+                                                    </th> 
+                                                    <th scope="row">
+                                                        <ui:outputNumber class="slds-m-left_x-small" value="{!v.totalTCV}" format="0.00"/>                                                 
+                                                    </th> 
+                                                    
+                                                    <td scope="col">
+                                                    </td>
+                                                </tr>
+                                            </tbody> 
+                                        </aura:if>
+                                    </table>
+                                </div>
+                            </aura:set>  
+ 	<!--################### EBA_SF-2497- Single table for both Recurring and Non-recurring Products end #####################-->
+                        </aura:if>
+                        <!--</aura:set>
+                        </aura:if>-->
+                        <div class="slds-scrollable_x" aura:id="scroll" onscroll="{!c.scrl}">
+                            <!--<aura:if isTrue="{!v.isPackageTab}" >-->
+                            <!-- <div class="slds-col">                    
+                                    <table class="slds-table slds-table-#-bordered slds-max-medium-table-#-stacked slds-no-row-hover" >
+                                        <aura:if isTrue="{!v.anySubscrProd || v.anyNonSubscrProd}" >
+                                            
+                                            <thead>
+                                                <tr class="slds-text-heading-#-label TRBGCOLOR">                                    
+                                                    <aura:iteration items="{!v.scheduleHeader}" var="SH" >
+                                                        <th scope="col" style="{!SH.style}">
+                                                            <div>                                                        
+                                                                {!SH.label}
+                                                                <div class="tooltip">
+                                                                    <span class="tooltiptextBottom">Remove Month</span>
+                                                                    <button class="slds-button slds-button_icon" title="" id="{!SH.label}" onclick="{!c.deleteMonthBtnClick}">
+                                                                        <c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#clear" category="Utility" size="x-small" name="clear" class="SVGFill"/>
+                                                                        
+                                                                    </button>
+                                                                </div>    
+                                                            </div>
+                                                        </th>
+                                                    </aura:iteration>
+                                                </tr> 
+                                            </thead>
+                                        </aura:if>
+                                        <tbody>
+                                            
+                                               <!-#-<aura:iteration items="{!v.dataList}" var="scheduleItm"> 
+                                                
+                                             <aura:if isTrue="{!scheduleItm.isPackage == true }" >
+                                                    <tr class="slds-hint-parent">                                                                
+                                                        <aura:iteration items="{!scheduleItm.Schedules}" var="sch" indexVar="schIncrementCounter">                                            
+                                                            <td>
+                                                                <div class="slds-truncate" onclick="{!c.CaptureIndex}" data-ids="{!scheduleItm.Counter}">
+                                                                    <ui:inputNumber aura:id="InputSchQty" value="{!sch.Quantity}" labelClass="{!scheduleItm.Counter}" class="slds-input TXTBOXWIDTH" maxlength="8" change="{!c.OnChangeSchQty}" updateOn="change" format="0"/>
+                                                                </div> 
+                                                            </td>
+                                                        </aura:iteration>
+                                                    </tr>
+                                                </aura:if>
+                                            </aura:iteration>
+                                            
+                                            
+                                        </tbody>
+                                        
+                                    </table>
+                                </div> -->
+                            
+                            <!--<aura:set attribute="else">-->
+                            <div class="slds-col">                    
+                                <table class="slds-table slds-table_bordered slds-max-medium-table_stacked slds-no-row-hover" >
+                                    <aura:if isTrue="{!v.anySubscrProd || v.anyNonSubscrProd}" >
+                                        
+                                        <thead>
+                                            <tr class="slds-text-heading_label TRBGCOLOR">                                    
+                                                <aura:iteration items="{!v.scheduleHeader}" var="SH" >
+                                                    
+                                                    <th scope="col" style="{!SH.style}">
+                                                        <div>                                                        
+                                                            {!SH.label}
+                                                            <div class="tooltip">
+                                                                <span class="tooltiptextBottom">Remove Month</span>
+                                                                <button class="slds-button slds-button_icon" title="" id="{!SH.label}" onclick="{!c.deleteMonthBtnClick}">
+                                                                    <aura:if isTrue="{!v.isCommunityUser}">	
+                                                                        <c:svgIcon svgPath="{!v.IPTPartnerCommunityUrl+'/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#clear'}" category="Utility" size="x-small" name="clear" class="SVGFill"/>	
+                                                                        <aura:set attribute="else">	
+                                                                            <c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#clear" category="Utility" size="x-small" name="clear" class="SVGFill"/>	
+                                                                        </aura:set>	
+                                                                    </aura:if>	
+                                                                    
+                                                                </button>
+                                                            </div>    
+                                                        </div>
+                                                    </th>
+                                                </aura:iteration>
+                                            </tr> 
+                                        </thead>
+                                    </aura:if>
+                                    <tbody>
+                                        <!-- <aura:if isTrue="{!v.anyNonCloudProduct}" > by Satyam-->
+                                        <aura:if isTrue="{!v.anyNonSubscrProd}" >
+                                            <aura:iteration items="{!v.dataList}" var="scheduleItm"> 
+                                                <aura:if isTrue="{! ( scheduleItm.isSubscriptioned == false &amp;&amp; scheduleItm.mandateSubscriptioned != true &amp;&amp; scheduleItm.isCATMProduct != true &amp;&amp; scheduleItm.isPackage != true &amp;&amp; scheduleItm.isCompanion != true  ) }" >
+                                                    <tr class="slds-hint-parent">                                                                
+                                                        <aura:iteration items="{!scheduleItm.Schedules}" var="sch" indexVar="schIncrementCounter">                                            
+                                                            <td>
+                                                                <div class="slds-truncate" onclick="{!c.CaptureIndex}" data-ids="{!scheduleItm.Counter}">
+                                                                    <ui:inputNumber aura:id="InputSchQty" value="{!sch.Quantity}" labelClass="{!scheduleItm.Counter}" class="slds-input TXTBOXWIDTH" maxlength="8" change="{!c.OnChangeSchQty}" updateOn="change" format="0"/>
+                                                                </div> 
+                                                            </td>
+                                                        </aura:iteration>
+                                                    </tr>
+                                                </aura:if>
+                                            </aura:iteration>
+                                        </aura:if>
+                                        
+                                        
+                                        <!-- Added by DC -->
+                                        <aura:if isTrue="{!v.anySubscrProd &amp;&amp; v.anyNonSubscrProd}" >
+                                            <tr class="slds-text-heading_label TRBGCOLOR">                                    
+                                                <aura:iteration items="{!v.scheduleHeader}" var="SH" >
+                                                    <th scope="col" style="{!SH.style }" class="override-bgColor">
+                                                        <div style="display:none;">                                                        
+                                                            {!SH.label}
+                                                            <div class="tooltip">
+                                                                <span class="tooltiptextBottom">Remove Month</span>
+                                                                <button class="slds-button slds-button_icon" title="" id="{!SH.label}" onclick="{!c.deleteMonthBtnClick}">
+                                                                    <aura:if isTrue="{!v.isCommunityUser}">	
+                                                                        <c:svgIcon svgPath="{!v.IPTPartnerCommunityUrl+'/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#clear'}" category="Utility" size="x-small" name="clear" class="SVGFill"/>	
+                                                                        <aura:set attribute="else">	
+                                                                            <c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#clear" category="Utility" size="x-small" name="clear" class="SVGFill"/>	
+                                                                        </aura:set>	
+                                                                    </aura:if>
+                                                                    
+                                                                </button>
+                                                            </div>    
+                                                        </div>
+                                                    </th>
+                                                </aura:iteration>
+                                            </tr> 
+                                        </aura:if>
+                                        <aura:if isTrue= "{!v.anySubscrProd}" >
+                                            
+                                            <aura:iteration items="{!v.dataList}" var="scheduleItm"> 
+                                                
+                                                <aura:if isTrue="{!or(or( (scheduleItm.isSubscriptioned == true &amp;&amp; scheduleItm.isPackage != true &amp;&amp;  scheduleItm.isCompanion != true),   (scheduleItm.mandateSubscriptioned == true &amp;&amp; scheduleItm.isPackage != true &amp;&amp;  scheduleItm.isCompanion != true)), (scheduleItm.isCATMProduct == true &amp;&amp; scheduleItm.isPackage != true &amp;&amp;  scheduleItm.isCompanion != true)) }" >
+                                                    <tr class="slds-hint-parent">                                                                
+                                                        <aura:iteration items="{!scheduleItm.Schedules}" var="sch" indexVar="schIncrementCounter">                                            
+                                                            <td>
+                                                                <div class="slds-truncate" onclick="{!c.CaptureIndex}" data-ids="{!scheduleItm.Counter}">
+                                                                    <ui:inputNumber aura:id="InputSchQty" value="{!sch.Quantity}" labelClass="{!scheduleItm.Counter}" class="slds-input TXTBOXWIDTH" maxlength="8" change="{!c.OnChangeSchQty}" updateOn="change" format="0"/>
+                                                                </div> 
+                                                            </td>
+                                                        </aura:iteration>
+                                                    </tr>
+                                                </aura:if>
+                                            </aura:iteration>
+                                        </aura:if>
+                                        <!-- DC END -->
+                                        
+                                        
+                                    </tbody>
+                                    
+                                </table>
+                            </div>         
+                            <!--</aura:set>
+                            </aura:if>-->
+                            
+                        </div>
+                    </div>
+                    <!-- Table END-->    
+                    
+                    
+                    <!-- Table END Divya C--> 
+                    
+                    
+                    
+                </div>
+            </div>
+        </aura:set>
+    </aura:if> 
+    <c:ToastComponent />
+    
+    <!--Copy Paste Window Code-->
+    
+    <section role="dialog" tabindex="-1" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper" class="slds-modal slds-fade-in-open slds-modal_prompt" id="showModal" style="{!if(v.ShowHideCopyModel,'display:block','display:none')}">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header slds-theme_error slds-theme_alert-texture">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.CancelCopyWindow}">
+                    <lightning:icon iconName="utility:close" size="small"/>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                <h2 class="slds-text-heading_medium" id="prompt-heading-id">Select to Copy/Distribute Schedule</h2>
+            </header>
+            
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <table class="slds-table slds-table_bordered" stlye="width:20px;">  
+                    <thead >
+                        <tr class="slds-text-title_caps">
+                            <th scope="col">
+                                <div class="slds-truncate" title="slect all checkbox">
+                                    <label class="slds-checkbox">
+                                        <ui:inputCheckbox aura:id="SchedulerSection"  click="{!c.selectAllcheckBox}"/> 
+                                        <span class="slds-checkbox_faux"></span>          
+                                    </label>
+                                </div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Product Name">
+                                    <b>Product Name</b> 
+                                </div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Quantity">
+                                    <b>Quantity</b> 
+                                </div></th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Unit Price">
+                                    <b>Unit Price</b>
+                                </div></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{!v.dataListCopy}" var="productInfoForCopy">
+                            <aura:renderif isTrue="{!productInfoForCopy.Counter != v.hideIndex &amp;&amp; productInfoForCopy.isPackage != true &amp;&amp; productInfoForCopy.isCompanion != true}">
+                                <tr > 
+                                    <td>  
+                                        <label class="slds-checkbox">
+                                            <ui:inputCheckbox aura:id="TheCheckBox"  name="{!productInfoForCopy.Counter}" click="{!c.updateButton}"/>
+                                            <span class="slds-checkbox_faux"></span>           
+                                        </label> 
+                                    </td>    
+                                    <td role="gridcell" data-label="Product Name" >
+                                        <div  class="slds-truncate" title="{!productInfoForCopy.Name}">
+                                            <ui:outputText title="{!productInfoForCopy.ProductName}" value="{!productInfoForCopy.Name}"/>                                                            
+                                            
+                                        </div>
+                                    </td>   
+                                    <td role="gridcell" data-label="Quantity">
+                                        <div  class="slds-truncate" title="{!productInfoForCopy.Quantity}">
+                                            <ui:outputNumber value="{!productInfoForCopy.Quantity}"/>
+                                        </div>   
+                                    </td>
+                                    <td role="gridcell" data-label="Unit Price"> 
+                                        <div  class="slds-truncate" title="{!productInfoForCopy.UnitPrice}" >
+                                            <ui:outputcurrency currencyCode="{!v.OppCurr}" value="{!productInfoForCopy.UnitPrice}" /> 
+                                        </div>
+                                    </td>
+                                </tr> 
+                            </aura:renderif>
+                        </aura:iteration>
+                    </tbody>               
+                </table>
+            </div>
+            <footer class="slds-modal__footer slds-theme_default">
+                
+                <ui:button class="slds-button slds-button_brand" label="Distribute" press="{!C.distributeData}" disabled="{!v.showDistributeBuutons}"/>
+                <ui:button class="slds-button slds-button_brand customWidth" label="Copy" press="{!C.pasteData}" disabled="{!v.showDistributeBuutons}"/>
+                <button type="button" class="slds-button slds-button_brand" style="width:100px;" onclick="{!c.CancelCopyWindow}">Cancel</button>
+            </footer>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" id="modalGrayout" style="{!if(v.ShowHideCopyModel,'display : block','display : None')}"></div>
+    <!--<c:ToastComponent />-->
+    <!--Copy Paste Window Code-->
+    
+    
+    
+    <c:ValidateEDDEBDComponent />
+    <!--Confirmation box for Autoschedule -->
+    
+    <div class="demo-only"  style="{!if(v.showhideAutoSchedule,'display : block','display : None')}"> 
+        <section role="alertdialog" tabindex="-1" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper" class="slds-modal slds-fade-in-open slds-modal_prompt">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header slds-theme_error slds-theme_alert-texture HeaderColor">                   
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeAutoSchedule}">
+                        <lightning:icon iconName="utility:close" size="small"/> 
+                        <span class="slds-assistive-text">Close</span> 
+                    </button>
+                    <h2 class="slds-text-heading_medium" id="prompt-heading-id">WARNING : Schedule will be overwritten</h2>
+                </header> 
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <p class="slds-align_absolute-center">Your schedule will be overwritten </p>
+                </div> 
+                <footer class="slds-modal__footer slds-theme_default">
+                    <button class="slds-button slds-button_neutral" onclick="{!c.closeAutoSchedule}">Cancel</button>
+                    <button class="slds-button slds-button_neutral" onclick="{!c.recalculateAutoSchdeuleAfterConfirmation}">Okay</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>	
+    
+    <!-- confirmation box for Autoschedule--> 
+    
+    {!v.body} 
+</aura:component>

@@ -1,0 +1,44 @@
+<aura:component >
+    <aura:attribute name="fltrIndex" type="Integer" /> 
+    <aura:attribute name="isActiveFltr" type="Boolean" default="false"/>
+    <aura:attribute name="filter" type="OppListViewController.FieldFilterWrapper"/>
+    <aura:attribute name="fieldsInfoMap" type="Map" />    
+     <aura:attribute name="currencyList" type="String[]" />
+
+    <aura:dependency resource="markup://c:FilterPopUp" type="COMPONENT" />
+    <aura:dependency resource="markup://c:LVFilterSave" type="EVENT"/>
+    
+	<!-- register remove filter event -->
+    <aura:registerEvent name="removefilter" type="c:RemoveFilter"/> 
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />   
+    
+	<div class="slds-is-relative slds-filters__item slds-grid slds-grid_vertical-align-center hasBeenEdited wrapper" id="{!'fltrboxdiv-' + v.fltrIndex}">
+        <button  class="slds-button_reset slds-grow slds-has-blur-focus" id="{!'fltrboxbtn-' + v.fltrIndex}" onclick="{!c.editfilter}" >
+            <span class="slds-assistive-text">Edit filter:</span>
+            <div class="slds-show slds-text-body_small">
+                <aura:if isTrue="{!(v.filter.mode == 'edit')}">
+                    New Filter*
+                    <aura:set attribute="else">
+                        {!v.filter.fieldLabel}    
+                    </aura:set>
+                </aura:if>
+            </div>
+            <span class="">{!v.filter.selectedOPR}</span>&nbsp;
+            <span class="textwrap">
+                <aura:if isTrue="{!(v.filter.fieldType == 'PICKLIST')}">
+                     <aura:iteration items="{!v.filter.selectedOptions}" var="option" indexVar="optionIndex">
+                     	{!option}  {!((v.filter.selectedOptions.length-1) == optionIndex ? '':', ')}	    
+                     </aura:iteration>    
+                     <aura:set attribute="else">
+                        {!v.filter.selectedValue}    
+                    </aura:set>
+                </aura:if>
+            </span>
+        </button>
+        
+        <lightning:button  variant="base" class="slds-button_icon slds-button_icon-small" name="{!'closebtn-' + v.fltrIndex}" title="Remove filter" onclick="{!c.removeFltr}">
+            <lightning:icon iconName="utility:close" size="x-small" class="slds-button__icon_hint" />
+        </lightning:button>
+        {!v.body}
+    </div>
+</aura:component>

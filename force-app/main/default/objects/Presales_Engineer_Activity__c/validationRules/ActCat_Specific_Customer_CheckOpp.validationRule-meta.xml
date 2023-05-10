@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ActCat_Specific_Customer_CheckOpp</fullName>
+    <active>true</active>
+    <description>Account is mandatory if Customer Multiple and Opportunity not yet created is checked</description>
+    <errorConditionFormula>AND(ISPICKVAL(PSE_Activity_Category__c,&apos;Customer-Specific&apos;),PSE_Opportunity__c=&quot;&quot;,PSE_Opportunity_Number_Not_Yet_Created__c = False)</errorConditionFormula>
+    <errorDisplayField>PSE_Account__c</errorDisplayField>
+    <errorMessage>Please enter &quot;Opportunity&quot; Or Check &quot;Opportunity Not Yet Created&quot;</errorMessage>
+</ValidationRule>

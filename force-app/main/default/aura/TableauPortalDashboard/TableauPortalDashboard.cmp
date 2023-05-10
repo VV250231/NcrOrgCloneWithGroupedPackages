@@ -1,0 +1,252 @@
+<aura:component controller="TableauPortalController"  implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction,forceCommunity:availableForAllPageTypes" access="global" >
+    <aura:attribute name="showdashboard" type="Boolean"/>    
+    <aura:attribute name="reports" type="TableauPortalAdmin_config__c[]"/>
+    <aura:attribute name="showNoRecordMessage" type="Boolean"/>
+    <aura:attribute name="msg" type="String"/>
+    <aura:attribute name="name" type="String"/>
+    <aura:attribute name="email" type="String"/>
+    <aura:attribute name="name1" type="String"/>
+    <aura:attribute name="email1" type="String"/>
+    <aura:attribute name="usertype" type="String"/>
+    <aura:attribute name="header" type="String"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <div class="slds-grid slds-grid_vertical" >
+        <div class="slds-col" >
+            
+            <div class="slds-grid">
+                <div class="slds-col slds-size_2-of-12">
+                    <div aura:id="dummy3" class="inactive">
+                        <center>
+                            <div class="container" style="max-width=70%">                                
+                            </div>
+                            <div class="slds-text-heading_small slds-text-align_center"></div>                            
+                        </center>
+                    </div>
+                </div>                
+                <div class="slds-col slds-size_2-of-12">
+                    <div aura:id="WFR" class="inactive">
+                        <center>
+                            <div aura:id="WFR2" class="container" style="max-width=70%">
+                                <a onclick="{!c.showWFR}">
+                                    <img aura:id="WFR2" src="/resource/TableauPortalSupportImages/Tableau_Portal_Images/WFR.png"  style="max-width:60%"/>
+                                    
+                                </a>
+                            </div>
+                            <div aura:id="WFR2" class="slds-text-heading_small slds-text-align_center">Weekly Funnel Report/WFR</div>
+                            
+                        </center>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_2-of-12">
+                    <div aura:id="Industry" class="inactive">
+                        <center>
+                            <div class="container" style="max-width=70%">
+                                <a onclick="{!c.showIndustry}">
+                                    <img id="Industry" src="/resource/TableauPortalSupportImages/Tableau_Portal_Images/Industry.png" style="max-width:60%" />
+                                </a>
+                            </div>
+                            <div class="slds-text-heading_small slds-text-align_center">Industry Dashboards</div>
+                            
+                        </center>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_2-of-12" >
+                    <div aura:id="Regional" class="inactive">
+                        <center>
+                            <div class="container" style="max-width=70%">
+                                <a onclick="{!c.showRegional}">
+                                    <img id="Regional" src="/resource/TableauPortalSupportImages/Tableau_Portal_Images/Regional.png" style="max-width:60%" />
+                                </a>
+                            </div>
+                            <div class="slds-text-heading_small slds-text-align_center">Regional Dashboards</div>
+                            
+                        </center>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_2-of-12">
+                    <div aura:id="Country" class="inactive">
+                        <center>
+                            <div class="container" style="max-width=70%">
+                                <a onclick="{!c.showCountry}">
+                                    <img id="Country" src="/resource/TableauPortalSupportImages/Tableau_Portal_Images/Country.png" style="max-width:60%" />
+                                </a>
+                            </div>
+                            <div class="slds-text-heading_small slds-text-align_center">Country Model Dashboards</div>
+                            
+                        </center>
+                    </div>
+                </div>                
+                <div class="slds-col slds-size_2-of-12">
+                    <div aura:id="dummy5" class="inactive">
+                        <center>
+                            <div class="container" style="max-width=70%">
+                                
+                            </div>
+                            <div class="slds-text-heading_small slds-text-align_center"></div>
+                            
+                        </center>
+                    </div>
+                </div>            
+            </div> 
+            <div class="slds-grid">
+                <div class="slds-col slds-size_1-of-12">
+                    <div aura:id="dummy6" class="inactive">
+                        <center>
+                            <div class="container" style="max-width=70%">
+                                
+                            </div>
+                            <div class="slds-text-heading_small slds-text-align_center"></div>
+                            
+                        </center>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_2-of-12">
+                    <div aura:id="dummy4" class="inactive">
+                        <center>
+                            <div class="container" style="max-width=70%">
+                                
+                            </div>
+                            <div class="slds-text-heading_small slds-text-align_center"></div>
+                            
+                        </center>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_2-of-12">
+                    <div aura:id="ISG" class="inactive">
+                        <center>
+                            <div class="container" style="max-width=70%">
+                                <a onclick="{!c.showIsg}">
+                                    <img id="ISG" src="/resource/TableauPortalSupportImages/Tableau_Portal_Images/ProductBase.png" style="max-width:60%" />
+                                </a>
+                            </div>
+                            <div class="slds-text-heading_small slds-text-align_center">Product Base Dashboards</div>
+                            
+                        </center>
+                    </div>
+                </div>
+                
+                <div class="slds-col slds-size_2-of-12">
+                    <div aura:id="HC" class="inactive">
+                        <center>
+                            <div class="container" style="max-width=70%">
+                                <a onclick="{!c.showHC}">
+                                    <img id="HC" src="/resource/TableauPortalSupportImages/Tableau_Portal_Images/HeadCount.png" style="max-width:60%" />
+                                </a>
+                            </div>
+                            <div class="slds-text-heading_small slds-text-align_center">Headcount / Compensation</div>
+                            
+                        </center>
+                    </div>
+                </div>   
+                <div class="slds-col slds-size_2-of-12">
+                    <div aura:id="OT" class="inactive">
+                        <center>
+                            <div class="container" style="max-width=70%">
+                                <a onclick="{!c.showOther}">
+                                    <img id="OT" src="/resource/TableauPortalSupportImages/Tableau_Portal_Images/Other.png" style="max-width:60%" />
+                                </a>
+                            </div>
+                            <div class="slds-text-heading_small slds-text-align_center">Other Dashboards</div>
+                            
+                        </center>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_2-of-12">
+                    <div aura:id="dummy1" class="inactive">
+                        <center>
+                            <div class="container" style="max-width=70%">
+                                
+                            </div>
+                            <div class="slds-text-heading_small slds-text-align_center"></div>
+                            
+                        </center>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-12">
+                    <div aura:id="dummy2" class="inactive">
+                        <center>
+                            <div class="container" style="max-width=70%">
+                                
+                            </div>
+                            <div class="slds-text-heading_small slds-text-align_center"></div>
+                            
+                        </center>
+                    </div>
+                </div>
+            </div>
+            <aura:if isTrue="{!v.header!=''}">
+                <div>
+                    <br/>
+                    <div class="slds-box slds-theme_shade slds-theme_alert-texture head">
+                        <p>
+                            <strong><center>{!v.header}</center></strong> </p>
+                    </div>
+                    <br/>
+                </div>
+            </aura:if>
+            <aura:if isTrue="{!v.showdashboard}">
+                <div>
+                    <table class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout">
+                        <thead>
+                            <tr class="slds-text-heading_label">
+                                <th scope="col"><div class="slds-truncate" title="Report Name">Report Name</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Owner">Owner</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Frequency">Frequency</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Description">Description</div></th>                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Use the Apex model and controller to fetch server side data -->
+                            <aura:iteration items="{!v.reports}" var="rep">
+                                <tr>
+                                    <th scope="row"><div class="slds-truncate" title="{!rep.Report_Name__c}"><a href="{!rep.Report_URL__c}" target="_blank">{!rep.Report_Name__c}</a></div></th>
+                                    <td><div class="slds-truncate" title="{!rep.Report_Owner__c}">{!rep.Report_Owner__c}</div></td>
+                                    <td><div class="slds-truncate" title="{!rep.Frequency__c}">{!rep.Frequency__c}</div></td>
+                                    <td><div class="slds-truncate" title="{!rep.Description__c}">{!rep.Description__c}</div></td>                                    
+                                </tr>
+                            </aura:iteration>
+                        </tbody>
+                    </table>
+                </div>
+            </aura:if>
+            <aura:if isTrue="{!v.showNoRecordMessage}">
+                <header class="slds-modal__header slds-theme_info slds-theme_alert-texture">                   
+                    <h2 class="slds-text-heading_medium" id="prompt-heading-id"><center>There are no reports available for this dashboard category!!</center></h2>
+                </header>                
+            </aura:if>
+            <div class="slds-col" style="height:60px;color:Grey" > <!-- ## header of the page -->
+                <div class="slds-align_absolute-center font-weight-bold" style="margin-top:40px;font-size:2em;">
+                    <h1><b>Contact Us / Feedback</b></h1>
+                </div>
+            </div>
+            <aura:if isTrue="{!v.usertype == 'Guest'}">
+                <div class="slds-grid ">
+                    <div class="slds-form-element slds-col slds-size_6-of-12 ">
+                        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                            <lightning:icon class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default slds-icon_xx-small" iconName="utility:user" size="xx-small" alternativeText="Search address"/>
+                            <lightning:input name="name" value="{! v.name }" placeholder="Your Name"  />
+                        </div>
+                    </div>
+                    
+                    <div class="slds-form-element slds-col slds-size_6-of-12 ">
+                        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                            <lightning:icon class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default slds-icon_xx-small" iconName="utility:email" size="xx-small"  title="" />
+                            <lightning:input name="email" value="{! v.email }" placeholder="Your Email" />
+                            
+                        </div>
+                    </div>
+                </div>
+            </aura:if>
+            <div class="slds-grid">                
+                <div class="slds-form-element slds-col slds-size_1-of-1 slds-m-top_large">
+                    <div class="slds-form-element__control slds-input-has-icon slds-input__icon_left">
+                        <lightning:icon class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default slds-icon_xx-small" iconName="utility:chat" size="xx-small"  title="" />
+                        <lightning:textarea name="message" value="{! v.msg }"  placeholder="Message.."/>
+                    </div>
+                </div>
+            </div>
+            <center><lightning:button variant="brand" label="Submit" title="Submitn" onclick="{! c.handleSubmit }" /></center>
+        </div>    
+    </div>
+</aura:component>

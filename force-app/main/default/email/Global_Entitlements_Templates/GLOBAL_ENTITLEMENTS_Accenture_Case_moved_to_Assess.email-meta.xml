@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notification for Managers that Accenture rep has moved Case from &apos;Compile&apos; to &apos;Assess&apos;</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Global_Entitlements_Letterhead</letterhead>
+    <name>GLOBAL ENTITLEMENTS: Accenture Case moved to Assess</name>
+    <style>freeForm</style>
+    <subject>{!Case.OwnerFullName} has moved Case to &apos;Assess&apos;</subject>
+    <textOnly>Hello--
+
+{!Case.OwnerFullName} has moved Case #{!Case.CaseNumber} for {!Case.Account} from &apos;Compile&apos; to &apos;Assess.&apos;
+
+This case has been moved to the Entitlement Queue for reassignment. To view this case, please click {!Case.Link}.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

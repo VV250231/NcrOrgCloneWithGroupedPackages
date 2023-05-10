@@ -1,0 +1,34 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+
+<aura:attribute type="String" name="OppId"></aura:attribute>    
+<div class="slds-tabs_default slds-sub-tabs">
+   <ul class="slds-tabs_default__nav" role="tablist">
+      <li aura:id="Tab1"  onclick="{!c.SelectTab1}" style="width: 235px;" class="slds-tabs_default__item slds-sub-tabs__item slds-grid slds-grid_vertical-align-center " role="presentation">
+         <a aria-controls="subtab-tabpanel-01" aria-selected="true" class="slds-tabs_default__link slds-p-horizontal_xx-small" href="javascript:void(0);" id="subtab-tabitem-01" role="tab" tabindex="0" title="00071938">
+            <span class="slds-indicator-container"></span>
+            <span class="slds-icon_container" title="Case">
+               <lightning:icon size="x-small" iconName="utility:custom_apps" alternativeText="custom_apps" />
+               <span class="slds-assistive-text">Case</span>
+            </span>&nbsp;
+            <span class="slds-truncate" title="00071938">Subscript</span>
+         </a>
+      </li>
+      <li aura:id="Tab2"  onclick="{!c.SelectTab2}" class="slds-tabs_default__item slds-sub-tabs__item slds-grid slds-grid_vertical-align-center" role="presentation">
+         <a aria-controls="subtab-tabpanel-02" aria-selected="false" class="slds-tabs_default__link slds-p-horizontal_xx-small" href="javascript:void(0);" id="subtab-tabitem-02" role="tab" tabindex="-1" title="Chat - Customer">
+            <span class="slds-indicator-container"></span>
+            <span class="slds-icon_container" title="Live Chat">
+               <lightning:icon size="x-small" iconName="utility:custom_apps" alternativeText="custom_apps" />
+               <span class="slds-assistive-text">Live Chat</span>
+            </span>&nbsp;
+            <span class="slds-truncate" title="Chat - Customer">Non Subscription</span>
+         </a>
+      </li>
+   </ul>
+   <div aria-labelledby="subtab-tabitem-01" class="slds-tabs_default__content" aura:id="subtab-tabpanel-01" role="tabpanel">
+       <c:CustomAccordian  OppId="{!v.OppId}"></c:CustomAccordian>
+   </div>
+   <div aria-labelledby="subtab-tabitem-02" class="slds-tabs_default__content slds-hide" aura:id="subtab-tabpanel-02" role="tabpanel">
+       Item Two Content
+   </div>
+</div>
+</aura:component>

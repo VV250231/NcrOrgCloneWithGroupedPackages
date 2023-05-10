@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Account.Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Channel_Office__c</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Opportunities Report</description>
+    <filter>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <column>Account.Master_Customer_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>41312749,10306176,10383694,10175662,40713712,40711431,40747786,10418547,40729624,10369058,10704597,10228248,10025156,40817006,10059093,40730446,40709437,40713061,7957239,9990509,9205503,9573048,40729619,40746054,40729717,40787897,40710720,40729141,10174951,40743109,40779145,10422287,40729596,10704203,9962578,10422247,40721280,40713707,41262406,40739302,41062233,40736590,40729726,40731252,40889090,40837050,40729594,40729729,8138768,40710757,40728371,40856104,40728234,40718502,8460190,40718322,40720643,40708586,7433429,40729724,40890558,40729715,40857120,40710780,10703880,40708783,40808638,10054777,40735166,7430037,8928434</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Master_Customer_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>8739309,10033458,10061735,10332156,7431480,7424932,7430906,8880842,8840261,9807854,7429421,10003204,7956382,9431636,7423485,8136852,9646700,9914689,7425462,8955337,10123018,9516829,7430883,7432523,7431781,7432524,7432533,9925167,8620239,7424466,41299832,9850852,8224767,8642570,9981151,41125068,10703694,7431934,7426130,7430128,8136636,7438454,40723905,10172521,41360438,10331137,9805188,10395067,10347818,10418007,8640675,10367622,9219389,7424271,9851172,8943643,8936019,7435038,41350624,41341039,10019836,41033144,41249073,10194263,8901536,7429343,7423690,8880855,8140764</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>JRZ Opportunity Partners</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>CREATED_DATE</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

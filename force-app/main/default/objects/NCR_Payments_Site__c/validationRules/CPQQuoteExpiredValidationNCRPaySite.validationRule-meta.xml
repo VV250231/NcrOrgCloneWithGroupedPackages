@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CPQQuoteExpiredValidationNCRPaySite</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(ISPICKVAL(Quote__r.SBQQ__Status__c, &apos;Expired&apos;), $Profile.Name != &apos;NCR Payments Orchestrator&apos;)</errorConditionFormula>
+    <errorMessage>Payment Site changes are not allowed on an Expired quote In case you want to work on this quote, please contact Sales Ops for un-expiring the quote.</errorMessage>
+</ValidationRule>

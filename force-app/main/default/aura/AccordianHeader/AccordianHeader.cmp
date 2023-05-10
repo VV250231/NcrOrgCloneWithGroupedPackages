@@ -1,0 +1,106 @@
+<aura:component controller="AccordianHeaderController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/> 
+    <aura:attribute type="Boolean" name="IsBundleSelected"></aura:attribute> 
+     <aura:attribute type="Boolean" name="SelectAll"></aura:attribute>
+      <aura:attribute name="IPTPartnerCommunityUrl" type="String"/>
+    <aura:attribute name="isCommunityUser" type="Boolean" default="false"/> 
+    <aura:attribute type="String" name="BundleName" ></aura:attribute>
+    <aura:attribute type="String" name="BundleId" ></aura:attribute>
+    <aura:attribute type="String" name="CollapseIcon" default="right"></aura:attribute>
+    <aura:attribute name="TableHeader" type="Map"/>  
+    <aura:attribute name="TableBody" type="Map"/>
+    <aura:attribute Name="ToggleTableBody" type="String" default="slds-hide"></aura:attribute>
+    <aura:attribute name="EditCoalpse" type="String" default="edit"/>
+    <aura:attribute type="String" name="ToggleReadOnly" default="none"></aura:attribute>
+    <aura:attribute name="timer" type="Integer"/>
+    <aura:attribute name="IsFav" type="Boolean"></aura:attribute>
+    <aura:attribute name="isCatm"  type="boolean"/> 
+    
+    <aura:registerEvent name="RefreshFavBundle" type="c:RefreshFavBundle"/>
+       
+    <div class="slds-box slds-box_xx-small">
+                  <div class="slds-grid slds-wrap" >
+                     <div class="slds-col slds-size_1-of-12">
+                        <div class="slds-grid slds-wrap slds-m-top_xx-small">
+                           <div class="slds-col slds-size_6-of-12">
+                              <div class="slds-form-element">
+                                 <div class="slds-form-element__control">
+                                    <span class="slds-checkbox"> 
+                                        <lightning:input type="checkbox" checked="{!v.IsBundleSelected}"   name="input1" onchange="{!c.CollectBundleValue}"/>
+                                           <!-- <input  type="checkbox" name="options" id="checkbox-25" value="{!value.IsSelected}" />-->
+                           
+                                    </span>
+                                 </div>
+                              </div>
+                           </div> 
+                           
+                           <div class="slds-col slds-size_6-of-12">
+                              <button aura:id="toggleIcon" class="slds-button slds-button_icon site-color-example" onclick="{!c.ToggelSection}">
+                                 <lightning:icon iconName="{!'utility:'+v.CollapseIcon}" size="xx-small" />
+                              </button>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="slds-col slds-size_10-of-12" >
+                        <span>
+                           <div class="slds-form-element">
+                              <div class="slds-form-element__control" >
+                                 <!--<input type="text" id="text-input-id-1" class="slds-input slds-input_bare" placeholder="Placeholder Text" />-->
+                                 <ui:inputText required="true" class="slds-input Input_Custom inputHeight" value="{!v.BundleName}" keyup="{!c.Update_BundleName}" updateOn="keyup"/>
+                              </div>
+                           </div>
+                        </span>
+                     </div>
+                      <div class="slds-col slds-size_1-of-12 slds-m-top_xx-small">
+                          <button class="slds-button"   onclick="{!c.AddBundleToFav}" style = "margin-top: -7px;margin-bottom: -7px;"> 
+                              <!--<lightning:buttonIconStateful iconName="utility:favorite" selected="{!v.IsFav}"  size="small"/>-->
+                              <aura:if isTrue="{!v.isCommunityUser}">     
+                                  <aura:if isTrue="{!v.IsFav}">
+                                      <img src="{!v.IPTPartnerCommunityUrl+'/resource/MyIcon/svg/heart.svg'}" style="width:15px;margin:right:5px;" title="Make Unfavourite"/>
+                                      <aura:set attribute="else">
+                                          <img src="{!v.IPTPartnerCommunityUrl+'/resource/MyIcon/svg/like.svg'}" style="width:15px;margin:right:5px;" title="Make favourite"></img> 
+                                      </aura:set>
+                                  </aura:if>
+                                  <aura:set attribute="else">
+                                      <aura:if isTrue="{!v.IsFav}">
+                                          <img src="/resource/MyIcon/svg/heart.svg" style="width:15px;margin:right:5px;" title="Make Unfavourite"/>
+                                          <aura:set attribute="else">
+                                              <img src="/resource/MyIcon/svg/like.svg" style="width:15px;margin:right:5px;" title="Make favourite"></img> 
+                                          </aura:set>
+                                      </aura:if>
+                                  </aura:set>
+                              </aura:if>
+                          </button> 
+                      </div>
+                  </div>
+                  
+               </div> 
+        
+      
+     <div  class="{!v.ToggleTableBody}" style="background-color:#fafaf9">
+                  <div class="slds-m-around_xx-small">
+                      <table class="zui-table">
+                        <thead>
+                             <tr>
+                                 <!--<aura:iteration items="{!v.TableHeader}" var="col">
+                                    <c:TableHeader style="padding: right;"  label="{!col.label}"></c:TableHeader>
+                                </aura:iteration>-->
+                                <th></th>
+                                <th>Product Name</th>
+                                <th></th>
+                                <th>Quantity</th>
+                                <th>UnitPrice</th>
+                             </tr>       
+                       </thead>  
+                         <tbody>
+                                <aura:iteration items="{!v.TableBody}" var="data">
+                                 <tr>
+                                     <c:TableRow isCatm="{!v.isCatm}"  TempSelectAll="{!v.SelectAll}" IsSelected="{!data.IsProductSelected}" ProductId="{!data.ProductId}"  ProductName="{!data.ProductName}" UnitPrice="{!data.UnitPrice}" Quantity="{!data.Quantity}"></c:TableRow>
+                                 </tr> 
+                                </aura:iteration>
+                         </tbody>    
+                    </table>     
+                     
+                  </div>
+      </div>
+</aura:component>

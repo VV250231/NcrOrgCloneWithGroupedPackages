@@ -1,0 +1,102 @@
+<aura:component controller='DeleteRecordsController' implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name='userSelections' type="Object"/>
+    <aura:attribute name="Schedule" type="Boolean" default="false" />
+    <aura:attribute name="days" type="string[]" />
+    <aura:attribute name="date" type="string[]" />
+    <aura:attribute name="frequency" type="string" />
+    <aura:attribute name="day" type="string" />
+    <aura:attribute name="week" type="string" />
+    <aura:attribute name="cronExpression" type="string" />
+    <aura:attribute name="notSchedule" type="Boolean" default="true" />
+    <aura:handler name='init' value='{!this}' action='{!c.doInit}'/>
+    <div class="slds-grid slds-wrap">
+        <c:DeleteRecordChildComponent inputName='Object Name' inputLabel='Object Name (API Name only)' inputType='text' inputValue='{!v.userSelections.objectName}' />
+        <c:DeleteRecordChildComponent inputName='Query Condition' inputLabel='Query Condition ( Use "LAST_N_DAYS:" in Query condtion to Delete Records older than X days )' inputType='text' inputValue='{!v.userSelections.condition}'/>
+        <!-- <c:DeleteRecordChildComponent inputName='Number Of Days Older Records' inputLabel='Enter Number of Days (Records older than number of Days to be deleted)' inputType='text' inputValue='{!v.userSelections.NoOfDays}'/> -->
+        <c:DeleteRecordChildComponent inputName='Records To Be Deleted?(Empty out the field if you want to delete all records)' inputLabel='Records to be deleted?(Empty out the field if you want to delete all records)' inputType='number' inputValue='{!v.userSelections.recordLimit}'/>
+        <c:DeleteRecordChildComponent inputName='Batch Size' inputLabel='Batch Size(Max. 2000)' inputType='number' inputValue='{!v.userSelections.batchSize}'/>
+        
+        <div class='slds-col slds-size_12-of-12 slds-align_absolute-center'>
+            <br/><br/><br/>
+            <b> <aura:if isTrue="{!v.userSelections.objectName}">This is your query (Please verify):  Select Id from 
+                                    <b class="custom-color">{!v.userSelections.objectName}</b> 
+                <aura:if isTrue="{!v.userSelections.condition}"> where <b class="custom-color"> {!v.userSelections.condition}</b> </aura:if>
+                <aura:if isTrue="{!v.userSelections.recordLimit}">
+                    Limit  <b class="custom-color"> {!v.userSelections.recordLimit} </b>
+                </aura:if>
+                <!--<aura:if isTrue="{!and(v.objectName!=null, v.condition !='',v.recordLimit!='')}"><img src="{!$Resource.OkSign}"/></aura:if>-->
+             </aura:if>   
+            </b>
+        
+        </div>
+        
+        <!--<c:DeleteRecordChildComponent inputName='Run at System Level' inputLabel='Run at System Level' inputType='toggle' inputValue='{!v.userSelections.systemLevel}'/>-->
+        <c:DeleteRecordChildComponent inputName="Delete records(Not shared with you)" inputLabel='Delete records(Not shared with you)' inputType='toggle' inputValue='{!v.userSelections.deleteUnshared}'/>
+        <c:DeleteRecordChildComponent inputName='Partial Delete(In case of Error)' inputLabel='Partial Delete(In case of Error)' inputType='toggle' inputValue='{!v.userSelections.partialDelete}'/>
+        <div class='slds-col slds-size_4-of-12 slds-align_absolute-center'>
+            <lightning:input name='Do you want schedule it ?' onchange="{!c.checkSchedule}" label='Do you want schedule it' type='toggle' checked='{!v.userSelections.isSchedule}' variant='label-inline'/>
+            </div>
+        <div class='slds-col slds-size_12-of-12 slds-align_absolute-center'>
+            <br/>
+            <br/>
+            <lightning:button label='Delete Records' onclick='{!c.submit}' variant='brand' disabled= '{!v.notSchedule}'/>
+            &nbsp;
+            <lightning:button label='Reset' onclick='{!c.doInit}'/>
+        </div>
+        
+         <div class='slds-col slds-size_12-of-12 slds-align_absolute-center'>
+
+             <br/>
+             <br/>
+             <aura:if isTrue="{!!v.Schedule}">
+                 <div class="slds-grid slds-wrap">
+                     <div class='slds-col slds-size_12-of-12 slds-align_absolute-center'>
+                         <div class="slds-size_1-of-1 slds-var-p-bottom_x-small slds-var-p-top_x-small slds-border_bottom">
+                             <br/>
+             <br/>
+                             <h2 class="slds-text-heading_small slds-var-p-bottom_x-small">Schedule Job</h2>
+                             <lightning:select aura:id="selectPicklist" onchange="{!c.handleTimeChange}" name="Frequency" label="When would you like to schedule the sync ?" required="true">
+                                 <option value="None">Today</option>
+                                 <option value="Daily">Daily</option>
+                                 <option value="Weekly">Weekly</option>
+                                 <option value="Monthly">Monthly</option>
+                                 <option value="Other">Other</option>
+                             </lightning:select>
+                             <br/>
+                             
+                            <aura:if isTrue="{!v.frequency=='Weekly'}">
+                             <lightning:select aura:id="selectWeek" onchange="{!c.handleTimeChange}" name="Week" label="Enter Week" required="true">
+                                 <aura:iteration items="{!v.days}" var="day">
+                                     <option value="{!day}">{!day}</option>
+                                 </aura:iteration>
+                             </lightning:select>
+                                <br/>
+                             </aura:if>
+                             
+                             
+                             <aura:if isTrue="{!v.frequency=='Monthly'}">
+                             <lightning:select aura:id="selectDay" onchange="{!c.handleTimeChange}" name="Date" label="Enter Date" required="true">
+                                 <aura:iteration items="{!v.date}" var="date">
+                                     <option value="{!date}">{!date}</option>
+                                 </aura:iteration>
+                             </lightning:select>
+                                   <br/>
+                             </aura:if>
+                             
+                             <aura:if isTrue="{!v.frequency=='Other'}">
+                            <lightning:input aura:id="cron" onchange='{!c.handleTimeChange}' class="slds-var-p-bottom_x-small" type="text" name="Cron" label="Enter Your Cron Expression (* * * * * * )" value='{!v.userSelections.time}' required="true"></lightning:input>
+                                   <br/>
+                             </aura:if>
+                           
+                            <aura:if isTrue="{!not(v.frequency=='Other')}">
+                             <lightning:input  onchange='{!c.handleTimeChange}' class="slds-var-p-bottom_x-small" type="time" name="time" label="At what time ?" value='{!v.userSelections.time}' required="true"></lightning:input>
+                             </aura:if>
+                                <br/>
+                             <lightning:button label='Schedule Job' onclick='{!c.submit}' variant='brand' disabled= '{!v.Schedule}' />
+                         </div>
+                     </div>
+                 </div>
+             </aura:if>
+        </div>
+    </div>
+</aura:component>

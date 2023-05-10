@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_Requestor_to_Update_Confirmation</fullName>
+    <active>true</active>
+    <description>Prevent Requestor to Update Confirmation Section</description>
+    <errorConditionFormula>RecordType.DeveloperName ==&apos;DI_Demo_Request&apos; &amp;&amp;
+(NOT($Permission.DI_Demo_Request )) &amp;&amp; 
+	$Profile.Name &lt;&gt; &quot;04 NSC UI Administrator&quot; &amp;&amp;
+	$Profile.Name &lt;&gt; &quot;10 Read Only Advanced&quot; &amp;&amp;
+((ISNEW() &amp;&amp; NOT(ISNULL(Confirmed_Date_Time__c))) ||
+(ISNEW() &amp;&amp; NOT(ISNULL(Confirmed_Duration__c)))||
+(ISNEW() &amp;&amp; NOT(ISBLANK(Alt_SE__c))) ||
+(ISNEW() &amp;&amp; NOT(ISBLANK(SE_Assigned__c)))||
+(ISNEW() &amp;&amp; NOT(ISPICKVAL(Status__c , &apos;New Request&apos;)))
+||
+ISCHANGED( Confirmed_Date_Time__c )||
+ISCHANGED( Confirmed_Duration__c )||
+ISCHANGED( Status__c )||
+ISCHANGED( SE_Assigned__c ) ||
+ ISCHANGED(Alt_SE__c ))</errorConditionFormula>
+    <errorMessage>You are not allowed to change anything in confirmation section.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>another email will be sent in case of email alert fails to send an email</description>
+        <name>Email_alert_failure_action</name>
+        <label>Email alert failure action</label>
+        <locationX>440</locationX>
+        <locationY>455</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>failureEmailtemplate</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>failureEmailRecipient</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <elementReference>failureemailfromaddress</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>failureEmailSubject</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>this action will be performed when the ERP order number is populated on the fulfillment order</description>
+        <name>Order_Booked_email_alert</name>
+        <label>Order Booked email alert</label>
+        <locationX>176</locationX>
+        <locationY>335</locationY>
+        <actionName>qtc_FulfillmentOrder__c.Email_alert_when_ERP_Order_Booked</actionName>
+        <actionType>emailAlert</actionType>
+        <faultConnector>
+            <targetReference>Email_alert_failure_action</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>54.0</apiVersion>
+    <description>Send an email alert to the CDP/CPM, when the NCR Order Number is populated on the CPQ order so that, the CDP/CPM is aware the order is booked in ERP and they can schedule the order lines.
+Flow skip condition added in flow entry.</description>
+    <environments>Default</environments>
+    <interviewLabel>CPQ-Send Email to CDP when ERP Order Booked {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>CPQ-Send Email to CDP when ERP Order Booked</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Order_Booked_email_alert</targetReference>
+        </connector>
+        <filterFormula>AND(
+NOT({!$Setup.Automation_Setting__c.Skip_Flow__c}),
+ISCHANGED({!$Record.Order_Interface_Status__c}), 
+ISPICKVAL({!$Record.Order_Interface_Status__c} , &quot;Order Booked&quot;),
+NOT(ISBLANK({!$Record.qtc_ERP_Order_Number__c}))
+)</filterFormula>
+        <object>qtc_FulfillmentOrder__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <description>text template in case of failure</description>
+        <name>failureEmailtemplate</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;Hello,&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;ERP Order Booked email alert failed to send the notification to CDP.&lt;/p&gt;&lt;p&gt;error:&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color: rgb(224, 50, 50);&quot;&gt;{!$Flow.FaultMessage}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Thanks,&lt;/p&gt;</text>
+    </textTemplates>
+    <variables>
+        <name>failureemailfromaddress</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>salesforce.administration@ncr.com</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>failureEmailRecipient</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>rk250519@ncr.com</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <description>failure email subject</description>
+        <name>failureEmailSubject</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>Flow failed to send an ERP Order booked email notification to CDP</stringValue>
+        </value>
+    </variables>
+</Flow>

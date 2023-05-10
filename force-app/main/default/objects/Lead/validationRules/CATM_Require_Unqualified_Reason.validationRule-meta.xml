@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CATM_Require_Unqualified_Reason</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+CATM_Record__c,
+TEXT(Status) = &quot;Disqualified&quot;,
+NOT(CONTAINS( Business_Unit__c  ,&quot;FI&quot;)),
+ISBLANK(TEXT(Disqualified_Reason__c))
+)</errorConditionFormula>
+    <errorMessage>ERROR:  Please select the &quot;Disqualified Reason&quot;</errorMessage>
+</ValidationRule>

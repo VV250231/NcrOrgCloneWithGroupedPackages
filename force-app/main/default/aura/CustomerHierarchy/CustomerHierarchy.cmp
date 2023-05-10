@@ -1,0 +1,127 @@
+<aura:component controller="HierarchyController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="showHierarchy" type="Boolean" default="false"/>
+    <aura:attribute name="recordViewId" type="String" />
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+    <aura:handler  event="c:HRYRecordSelection" action="{!c.handleRecordSelection}" /> 
+    <aura:attribute name="opptyColumns" type="List" />
+    <aura:attribute name="arColumns" type="List" />
+    <aura:attribute name="contactColumns" type="List" /> 
+    <aura:attribute name="customActions" type="List" />
+    <aura:attribute name="recordId" type="String" />
+    <lightning:navigation aura:id="navService"/>
+    <aura:attribute name="pageReference" type="Object"/>
+    <aura:attribute name="url" type="String"/>
+    <!-- new attributes added -->
+   	<aura:attribute name="opptySortingField" type="String" />
+    <aura:attribute name="opptyFields" type="String" />
+    <aura:attribute name="opptySortDir" type="String" />
+    <aura:attribute name="oppNumRecords" type="Integer" />
+    <aura:attribute name="arSortingField" type="String" />
+    <aura:attribute name="arFields" type="String" />
+    <aura:attribute name="arSortDir" type="String" />
+    <aura:attribute name="arNumRecords" type="Integer" />
+    <aura:attribute name="conSortingField" type="String" />
+    <aura:attribute name="conFields" type="String" />
+    <aura:attribute name="conSortDir" type="String" />
+    <aura:attribute name="conNumRecords" type="Integer" />
+    <aura:attribute name="opptyViewAllColumns" type="List" />
+    <aura:attribute name="arViewAllColumns" type="List" />
+    <aura:attribute name="conViewAllColumns" type="List" />
+    <aura:attribute name="allconfields" type="String" />
+    <aura:attribute name="alloppfields" type="String" />
+    <aura:attribute name="allARfields" type="String" />
+    <aura:attribute name="Seltab" type="String" default ="one"/>
+    
+    <div style="padding:2rem,padding:0.5rem;background:white" class="slds-box">
+    <div style="padding:2rem,padding:0.5rem;background:white">
+        <aura:if isTrue="{! !v.showHierarchy}">            
+            <div class="slds-grid"> 
+                <div class="slds-col slds-size_3-of-12">
+                </div> 
+                <div class="color:red slds-col slds-size_6-of-12 slds-align_absolute-center slds-grid_vertical">
+                    <div class="slds-col">
+                        <span>
+                            Customer Detailed Hierarchy View:  
+                            <button title="Non-primary action" type="button" class="slds-button slds-button_neutral"  onclick="{!c.handleShowModal}"><lightning:icon iconName="standard:hierarchy" variant="brand" alternativeText="Customer Hierarchy" title="Customer Hierarchy"/></button>                           
+                        </span>
+                    </div>
+                </div>                
+                <div class="slds-col slds-size_3-of-12" >                  
+                </div>
+            </div>
+        </aura:if>
+    </div>
+    <aura:if isTrue="{!v.showHierarchy}">
+        <center><div class="slds-box slds-box_x-small">
+  <p><lightning:icon iconName="standard:hierarchy" variant="brand" alternativeText="Customer Hierarchy" title="Customer Hierarchy"/><h1>&nbsp;<b>Customer Detailed Hierarchy View</b></h1></p>
+</div><!--div class="topbarMain">Customer Overview</div--></center>
+        <div class="slds-grid slds-gutters slds-box" >            
+            <div class="slds-col slds-size_1-of-3 topbar slds-box">
+                <aura:if  isTrue="{!!empty(v.recordId)}">
+                <c:HierarchyComponent accId="{!v.recordId}"/>
+                </aura:if>
+            </div>
+            <div class="slds-col slds-size_2-of-3  topbar ">
+                <span> 
+                    <lightning:tabset selectedTabId="{!v.Seltab}" >
+                        <lightning:tab label="Detail" id="one" >
+                            <aura:if isTrue="{!not(empty(v.recordViewId))}">
+                                <!--force:recordView recordId="{!v.recordViewId}" /-->
+                                <c:C360_ViewOnlyRecord recordId="{!v.recordViewId}"/>
+                            </aura:if>
+                        </lightning:tab>
+                        <lightning:tab label="Related" id="two" >
+                            <c:Common_relatedList recordId="{!v.recordViewId}" 
+                                                  sobjectApiName="Opportunity"
+                                                  relatedFieldApiName="AccountId"
+                                                  sortedBy="{!v.opptySortingField}"
+                                                  fields="{!v.opptyFields}"
+                                                  columns="{!v.opptyColumns}"
+                                                  sortedDirection="{!v.opptySortDir}"
+                                                  numberOfRecords="{!v.oppNumRecords}"
+                                                  ViewAllColumns ="{!v.opptyViewAllColumns}"
+                                                  allfields ="{!v.alloppfields}"
+                                                  />
+                            <c:Common_relatedList recordId="{!v.recordViewId}" 
+                                                  sobjectApiName="Credit_Detail__c"
+                                                  relatedFieldApiName="Account__c"
+                                                  sortedBy="{!v.arSortingField}"
+                                                  fields="{!v.arFields}"
+                                                  columns="{!v.arColumns}"
+                                                  sortedDirection="{!v.arSortDir}"
+                                                  numberOfRecords="{!v.arNumRecords}"
+                                                  ViewAllColumns="{!v.arViewAllColumns}"
+                                                  allfields ="{!v.allARfields}"
+                                                  />
+                            <c:Common_relatedList recordId="{!v.recordViewId}" 
+                                                  sobjectApiName="Contact"
+                                                  relatedFieldApiName="AccountId"
+                                                  sortedBy="{!v.conSortingField}"
+                                                  fields="{!v.conFields}"
+                                                  columns="{!v.contactColumns}"
+                                                  sortedDirection="{!v.conSortDir}"
+                                                  numberOfRecords="{!v.conNumRecords}"
+                                                  ViewAllColumns="{!v.conViewAllColumns}"
+                                                  allfields ="{!v.allconfields}"
+                                                  />
+                        </lightning:tab>
+                        <lightning:tab label="Services Overview" id="three">
+                            <c:aplRevenueHierarchyDataDisplay recordId="{!v.recordViewId}" />
+                            <c:openDispatchesHierarchy recordId="{!v.recordViewId}" /> 
+                            <c:openHelpDeskHierarchy recordId="{!v.recordViewId}"/> 
+                            <c:entitlementSectionHierarchy recordId="{!v.recordViewId}" />
+                            <c:UserActivityLogger tabName="Services Overview-Customer Hierarchy View" />
+                        </lightning:tab>
+                        <lightning:tab label="Sites Information" id="four">
+                            <aura:if isTrue="{!not(empty(v.recordViewId))}">
+                            <c:C360_AccountRelatedSites recordId="{!v.recordViewId}" />   
+                              </aura:if>
+                        </lightning:tab>
+                    </lightning:tabset>
+                </span>
+            </div>
+        </div>	
+    </aura:if>
+    <!--<lightning:overlayLibrary aura:id="overlayLib"/> -->
+    </div>
+</aura:component>

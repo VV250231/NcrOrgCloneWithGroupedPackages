@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Available_Tickets_should_not_be_negative</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR(VALUE( No_Of_Tickets_Available__c ) &lt; 0, 
+VALUE( Suite_Tickets_Available__c ) &lt; 0,
+VALUE( Lower_Level_Tickets_Available__c ) &lt; 0,   
+VALUE( VVIP_Tickets_Available__c) &lt; 0 )</errorConditionFormula>
+    <errorMessage>No of Available Tickets of Each Type should not be negative.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Expected_Alert_Trigger_Date__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(
+    OR(
+       CONTAINS(LOWER(Customer_Name__c), &apos;wal-mart&apos;),
+       CONTAINS(LOWER(Customer_Name__c), &apos;walmart&apos;),
+	   CONTAINS(LOWER(Customer_Name__c),&apos;starbucks&apos;)
+      ), 
+	ETB_Date__c +5,
+    IF(
+		CONTAINS(LOWER(Customer_Name__c), &apos;cardtronics&apos;), 
+		Period_Start_Date__c+26,
+		IF(
+			LOWER(Country_Code__c)=&apos;jp&apos;, 
+			IF(
+				MONTH(ETB_Date__c)=1,
+				DATE(YEAR(ETB_Date__c )-1, 12 ,23), 
+				DATE(YEAR( ETB_Date__c ), MONTH(ETB_Date__c)-1 ,23)
+			),
+			IF(
+				CONTAINS(LOWER(Hold_Reason_Description__c),&apos;interim billing&apos;),
+				ETB_Date__c,
+				IF(
+					OR(Contains(LOWER(Header_Billing_Period_Name__c),&apos;annual&apos;),
+						Contains(LOWER(Header_Billing_Period_Name__c),&apos;semi-annual&apos;),
+						Contains(LOWER(Header_Billing_Period_Name__c),&apos;quarterly&apos;)
+					),
+					ETB_Date__c-45,
+					ETB_Date__c-15
+				)
+			)
+		)
+	)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Expected Alert Trigger Date</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOSPD_Invoice_Dispute_Wrong_Price</fullName>
+    <active>true</active>
+    <description>This will prevent a case from being closed when Subcategory is Invoice Dispute Wrong Price and required fields not completed.</description>
+    <errorConditionFormula>(
+ISBLANK(TEXT(Wrong_price_reason__c))
+||
+ISBLANK(What_part_ID_was_missing__c)
+||
+ISBLANK(What_part_name_was_missing__c)
+||
+ISBLANK(What_was_the_wrong_price__c)
+||
+ISBLANK(What_is_the_right_price__c)
+||
+ISBLANK(What_part_ID_was_missing__c)
+||
+ISBLANK(What_part_name_was_missing__c)
+||
+Issue_properly_reported__c = FALSE
+)
+&amp;&amp; 
+ISCHANGED(Status)
+&amp;&amp;
+ISPICKVAL( Invoice_Dispute_Description__c,&quot;Wrong Price&quot;)
+&amp;&amp; 
+ISPICKVAL(Status, &quot;Closed&quot;)</errorConditionFormula>
+    <errorMessage>Must complete fields in Invoice Dispute Wrong Price section to Close Case</errorMessage>
+</ValidationRule>

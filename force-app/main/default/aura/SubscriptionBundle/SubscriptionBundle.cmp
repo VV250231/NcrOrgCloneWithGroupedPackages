@@ -1,0 +1,19 @@
+<aura:component Controller="SubscriptionBundleController" implements="flexipage:availableForAllPageTypes,force:appHostable,force:hasRecordId,force:lightningQuickAction" access="global">
+    <!--<lightning:button onclick="{! c.handleShowActiveSectionName }" label="Show Active Section Name"/>
+    <lightning:button onclick="{! c.handleSetActiveSectionC }" label="Open Section C"/>-->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="myBool" type="Boolean" default="false"/>
+    <aura:attribute name="SubscriptionBundleWithProducts" type="Object"></aura:attribute>
+    <aura:attribute name="showErrorIndicator" type="Boolean" default="false"></aura:attribute>
+    <aura:attribute name="OppId" type="String"></aura:attribute> 
+    <lightning:accordion aura:id="accordion" activeSectionName="A">
+        <aura:iteration items="{!v.SubscriptionBundleWithProducts}" var="ele" indexVar="key">
+        <lightning:accordionSection  name="A" label="{!ele.Name}" class="TextWrap"> 
+             <aura:set attribute="actions">
+                <lightning:buttonIcon value="{!ele.Subscription_Bundle_Products__r}" size="large"  iconName="utility:new" variant="bare" onclick="{! c.handleSelect }" alternativeText="Add Bundle To Scheduler" />
+            </aura:set> 
+            <c:AccordianBody Product="{!ele.Subscription_Bundle_Products__r}"></c:AccordianBody>
+        </lightning:accordionSection>
+        </aura:iteration>     
+    </lightning:accordion>
+</aura:component>

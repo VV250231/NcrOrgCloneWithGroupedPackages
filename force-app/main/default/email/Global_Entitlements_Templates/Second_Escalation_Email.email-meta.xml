@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Template for Global Entitlements to notify Account Owner, Entitlement Analyst Manager and Account Owner Manager</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Global_Entitlements_Letterhead</letterhead>
+    <name>Second Escalation Email</name>
+    <style>freeForm</style>
+    <subject>URGENT ACTION REQUIRED: Recovery Entitlement Found for {!Case.Account}</subject>
+    <textOnly>{!Case.Account_Owner_First_Name__c}-
+
+I have made several attempts to contact you to discuss the Entitlement possibilities for {!Case.Account}. Here’s a breakdown of the findings:
+
+•         Name of Account - {!Case.Account}
+•         Line of Business - {!Case.Industry__c}
+•         Master Customer Number – {!Case.Master_Customer_Number__c}
+•         Back Bill $ found – {!Case.Exception_Back_Bill__c}
+•         Future Bill $ Impact – {!Case.Future_Bill_Total__c}
+•         Number of Months remaining in Contract – {!Case.Months_Remaining_on_Contract__c}
+•         Next billing date – {!Case.Next_Billing_Date__c}
+•         Summary of issues found - {!Case.Description}
+
+The Back Bill found is for the prior billing period. The Future Bill found is for the remainder of the contract for the customer, typically less than 36 months.
+
+Based on these findings, we will need your attention to approve this to move forward. I am needing a response so that we can take care of {!Case.Account}. Let’s schedule to discuss this account detail on {!Case.Meeting_Date_Time_1__c}?
+
+I look forward to speaking with you soon.
+
+
+
+
+Thank you,
+{!Case.OwnerFullName}
+{!User.Title}
+{!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

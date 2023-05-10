@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Update_Current_Status_Date</fullName>
+        <field>Current_Lenos_Status_Date__c</field>
+        <formula>NOW()</formula>
+        <name>Update Current Status Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Matching_Email</fullName>
+        <field>Test_Email_Field__c</field>
+        <formula>Lenos_Email__c</formula>
+        <name>Update Matching Email</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Update Lenos Email</fullName>
+        <actions>
+            <name>Update_Current_Status_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Matching_Email</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Campaign_Member_History__c.Lenos_Email__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Updates the matching email for Lenos with the value of the Lenos Email</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

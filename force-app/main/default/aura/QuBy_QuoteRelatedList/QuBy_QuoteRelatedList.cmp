@@ -1,0 +1,395 @@
+<aura:component controller="QuBy_QuoteRelatedList" implements="flexipage:availableForAllPageTypes,force:hasRecordId">
+    
+    <aura:attribute name="opportunityId" type="Id"  default="{!v.recordId}"/>
+    <aura:attribute name="dataList" type="Object[]"/>
+    <aura:attribute name="AlldataList" type="sObject[]"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler event="c:QuoteUpdate" action="{!c.handleQuotseUpdate}"/>
+    
+    <aura:attribute name="page" type="integer" default="1"/>
+    <aura:attribute name="pages" type="integer" default="10"/>
+    <aura:attribute name="total" type="integer" default="200"/>
+    <aura:attribute name="pageSize" type="String" default="10" />     
+    <aura:attribute name="offset" type="integer" default="0"/>
+    
+    <aura:attribute name="disabled" type="boolean" default="false"/>           
+    <aura:attribute name="isDisAssociate" type="boolean" default="false"/>
+    <aura:attribute name="isAssociate" type="boolean" default="false"/>
+    <aura:attribute name="isSearch" type="boolean" default="false"/>
+    <aura:attribute name="toggleSpinner" type="boolean" default="false"/> 
+    
+    <aura:attribute name="sortDirectionMain" type="string" default="asc"/> 
+    <aura:attribute name="sortDirectionClassMain" type="string" default="slds-is-sortable slds-is-resizable slds-text-title--caps slds-is-sorted slds-is-sorted--asc"/> 
+    <aura:attribute name="sortDirectionAsso" type="string" default="asc"/> 
+    <aura:attribute name="sortDirectionClassAsso" type="string" /> 
+    
+    <aura:attribute name="searchStr" type="string" /> 
+    <aura:attribute name="fromWhereSearch" type="string"/>
+    
+    
+    
+    <aura:attribute name="arrowDirection" type="string" default="arrowup" description="Use for change arrow sign direction on header based on click"/>
+    <aura:attribute name="isAsc" type="boolean" default="true" description="boolean flag for pass sorting condition to apex class"/> 
+    <aura:attribute name="selectedTabsoft" type="string" default="QuoteNumber" description="Use for show/hide arraow sign on header based on conditions"/>
+    
+    <aura:if isTrue="{!v.disabled}">
+        <div class="slds-notify_container" style="position: absolute;margin-top:25px;">
+            <div class="slds-notify slds-notify--alert slds-theme--error slds-theme--alert-texture" role="alert">                        
+                <h2>You are not authorized to View / Associate / Disassociate Quotes. Please Contact Sales Operations for Access.</h2>
+            </div>
+        </div>
+    </aura:if>
+    
+    <aura:if isTrue="{!v.toggleSpinner}">
+        <lightning:spinner variant="brand" size="large" alternativeText="Loading"/>
+    </aura:if>
+    
+    <aura:if isTrue="{!v.isDisAssociate}">
+        <article class="slds-card">
+            <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media--center slds-has-flexi-truncate">
+                    <div class="slds-media__figure"></div>
+                    <div class="slds-media__body">
+                        <h2>
+                            <a href="javascript:void(0);" class="slds-card__header-link slds-truncate">
+                                <span class="slds-text-heading--small">Associated Quotes ({!v.total})</span>
+                            </a>
+                        </h2>
+                    </div>
+                </header>
+                <div class="slds-no-flex">
+                    <button class="slds-button slds-button--neutral" onclick="{!c.availableQuoteJS}">Associate New Quotes</button>
+                    <button class="slds-button slds-button--neutral" onclick="{!c.disAssociateQuoteJS}">Disassociate Selected Quotes</button>
+                </div>
+            </div>
+            <div class="slds-card__body">
+                <section class="slds-card__body">
+                    <div class="slds-grid">
+                        <div class="slds-col">
+                            <lightning:select name="select" label="Items per page" class="ItemsPerPage slds-m-left--medium slds-m-bottom--medium" value="{!v.pageSize}" onchange="{!c.itemPerPage}">
+                                <option value="10" text="10"></option>
+                                <option value="25" text="25"></option>
+                                <option value="50" text="50"></option>
+                                <option value="100" text="100"></option>
+                            </lightning:select>
+                        </div>
+			<aura:if isTrue="{!v.dataList.length > 5}">
+                        <div class="slds-col">
+                            <div class="slds-form-element slds-m-right--medium slds-size--2-of-4 slds-float--right">
+                                <label class="slds-form-element__label" for="text-input-01">Search</label>								
+                                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right">
+                                    <ui:inputText value="{!v.searchStr}" placeholder="Search Associated Quotes" class="slds-input"/>
+                                    <button class="slds-input__icon slds-input__icon--right slds-button slds-button--icon" onclick="{!c.searchJS}">
+                                        <c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#search" category="utility" size="small" name="search" class="slds-button__icon slds-icon-text-default searchIcon"/>
+                                        <span class="slds-assistive-text">Search</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+			 </aura:if>
+                    </div>
+                    <div class="slds-scrollable--x">
+                        <table class="slds-table slds-table--bordered slds-max-medium-table--stacked" >
+                            <thead>
+                                <tr class="slds-text-heading--label">
+                                    <th scope="col">
+                                        <label class="slds-checkbox">
+                                            <!--header checkbox for select all-->
+                                            <ui:inputCheckbox aura:id="chkAll" change="{!c.selectAll}"/>
+                                            <span class="slds-checkbox--faux"></span>
+                                            <span class="slds-form-element__label text"></span>
+                                        </label>
+                                    </th>
+                                    <th class="slds-is-sortable" scope="col" onclick="{!c.sortColumn}" id="QuoteNumber">
+                                        <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+                                            <span class="slds-assistive-text">Sort</span>
+                                            <span class="slds-truncate" title="Quote No">Quote No.</span>  
+                                            <aura:if isTrue="{! and(v.arrowDirection == 'arrowdown', v.selectedTabsoft == 'QuoteNumber') }">&nbsp;  &#9660; </aura:if>  
+                                            <aura:if isTrue="{! and(v.arrowDirection != 'arrowdown', v.selectedTabsoft == 'QuoteNumber') }"> &nbsp;  &#9650; </aura:if>                        
+                                        </a>
+                                    </th>
+                                    <th class="slds-is-sortable" scope="col" onclick="{!c.sortColumn}" id="QuoteName">                                        
+                                        <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+                                            <span class="slds-assistive-text">Sort</span>
+                                            <span class="slds-truncate" title="Quote Name">Quote Name</span>  
+                                            <aura:if isTrue="{! and(v.arrowDirection == 'arrowdown', v.selectedTabsoft == 'QuoteName') }">&nbsp;  &#9660; </aura:if>  
+                                            <aura:if isTrue="{! and(v.arrowDirection != 'arrowdown', v.selectedTabsoft == 'QuoteName') }"> &nbsp;  &#9650; </aura:if>                        
+                                        </a>
+                                    </th>
+                                    <th class="slds-is-sortable" scope="col" onclick="{!c.sortColumn}" id="QuoteAmount">
+                                        <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+                                            <span class="slds-assistive-text">Sort</span>
+                                            <span class="slds-truncate" title="Quote Value">Quote Value</span>  
+                                            <aura:if isTrue="{! and(v.arrowDirection == 'arrowdown', v.selectedTabsoft == 'QuoteAmount') }">&nbsp;  &#9660; </aura:if>  
+                                            <aura:if isTrue="{! and(v.arrowDirection != 'arrowdown', v.selectedTabsoft == 'QuoteAmount') }"> &nbsp;  &#9650; </aura:if>
+                                        </a>
+                                    </th>
+                                    <th class="slds-is-sortable" scope="col" onclick="{!c.sortColumn}" id="OrderNumber">
+                                        <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+                                            <span class="slds-assistive-text">Sort</span>
+                                            <span class="slds-truncate" title="Order No">Order No.</span>  
+                                            <aura:if isTrue="{! and(v.arrowDirection == 'arrowdown', v.selectedTabsoft == 'OrderNumber') }">&nbsp;  &#9660; </aura:if>  
+                                            <aura:if isTrue="{! and(v.arrowDirection != 'arrowdown', v.selectedTabsoft == 'OrderNumber') }"> &nbsp;  &#9650; </aura:if>
+                                        </a>
+                                    </th>
+                                    
+                                    <th class="slds-is-sortable" scope="col" onclick="{!c.sortColumn}" id="OrderType">
+                                        <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+                                            <span class="slds-assistive-text">Sort</span>
+                                            <span class="slds-truncate" title="OrderType">Order Type</span>  
+                                            <aura:if isTrue="{! and(v.arrowDirection == 'arrowdown', v.selectedTabsoft == 'OrderType') }">&nbsp;  &#9660; </aura:if>  
+                                            <aura:if isTrue="{! and(v.arrowDirection != 'arrowdown', v.selectedTabsoft == 'OrderType') }"> &nbsp;  &#9650; </aura:if>
+                                        </a>
+                                    </th>
+                                    
+                                    <th class="slds-is-sortable" scope="col" onclick="{!c.sortColumn}" id="modificationDate">                                        
+                                        <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+                                            <span class="slds-assistive-text">Sort</span>
+                                            <span class="slds-truncate" title="Modified Date">Modified Date</span>  
+                                            <aura:if isTrue="{! and(v.arrowDirection == 'arrowdown', v.selectedTabsoft == 'modificationDate') }">&nbsp;  &#9660; </aura:if>  
+                                            <aura:if isTrue="{! and(v.arrowDirection != 'arrowdown', v.selectedTabsoft == 'modificationDate') }"> &nbsp;  &#9650; </aura:if>
+                                        </a>
+                                    </th>
+                                    <th class="slds-is-sortable" scope="col" onclick="{!c.sortColumn}" id="SolutionQuoteStatus">                                        
+                                        <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+                                            <span class="slds-assistive-text">Sort</span>
+                                            <span class="slds-truncate" title="Solution Status">Solution Status</span>  
+                                            <aura:if isTrue="{! and(v.arrowDirection == 'arrowdown', v.selectedTabsoft == 'SolutionQuoteStatus') }">&nbsp;  &#9660; </aura:if>  
+                                            <aura:if isTrue="{! and(v.arrowDirection != 'arrowdown', v.selectedTabsoft == 'SolutionQuoteStatus') }"> &nbsp;  &#9650; </aura:if>
+                                        </a>
+                                    </th>
+                                    <th class="slds-is-sortable" scope="col" onclick="{!c.sortColumn}" id="AnnuityQuoteStatus">                                        
+                                        <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+                                            <span class="slds-assistive-text">Sort</span>
+                                            <span class="slds-truncate" title="Annuity Status">Annuity Status</span>  
+                                            <aura:if isTrue="{! and(v.arrowDirection == 'arrowdown', v.selectedTabsoft == 'AnnuityQuoteStatus') }">&nbsp;  &#9660; </aura:if>  
+                                            <aura:if isTrue="{! and(v.arrowDirection != 'arrowdown', v.selectedTabsoft == 'AnnuityQuoteStatus') }"> &nbsp;  &#9650; </aura:if>
+                                        </a>
+                                    </th>
+                                    <th class="slds-cell-shrink"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+				<aura:if isTrue="{!v.dataList.length > 0}">
+                                <aura:iteration items="{!v.dataList}" var="QBData" >
+                                    <tr class="slds-hint-parent">
+                                        <th scope="col">
+                                            <label class="slds-checkbox">
+                                                <ui:inputCheckbox text="{!QBData.id}" aura:id="Chk" value=""/>
+                                                <span class="slds-checkbox--faux"></span>
+                                                <span class="slds-form-element__label text"></span>
+                                            </label>
+                                        </th>
+                                        <th scope="row">
+                                            <div class="slds-truncate"><a onclick="{!c.QBRedirect}" id="{!QBData.QuoteNumber}">{!QBData.QuoteNumber}</a></div>
+                                        </th>
+                                        <td>
+                                            <div class="slds-truncate quotelineitem_margin">{!QBData.QuoteName}</div> 
+                                        </td>
+                                        <td>
+                                            <div class="slds-truncate quotelineitem_margin">{!QBData.QuoteAmount}</div> 
+                                        </td>
+                                        <td>
+                                            <div class="slds-truncate quotelineitem_margin">{!QBData.OrderNumber}</div> 
+                                        </td>
+                                        <td>
+                                            <div class="slds-truncate quotelineitem_margin">{!QBData.OrderType}</div> 
+                                        </td>
+                                        <td>
+                                            <div class="slds-truncate quotelineitem_margin">{!QBData.modificationDate}</div> 
+                                        </td>
+                                        <td>
+                                            <div class="slds-truncate quotelineitem_margin">{!QBData.SolutionQuoteStatus}</div> 
+                                        </td>
+                                        <td>
+                                            <div class="slds-truncate quotelineitem_margin">{!QBData.AnnuityQuoteStatus}</div> 
+                                        </td>
+                                    </tr>
+                                </aura:iteration>
+			    <aura:set attribute="else">
+                                    <tr>
+                                        <td colspan="9" style="padding-top: 15px;padding-bottom: 15px;">
+                                            <Center>Currently no Quotes associated to Opportunity<br/>
+                                        Click on "Associate New Quotes" button above to associate new quotes.</Center>
+                                        </td>
+                                    </tr>
+                                </aura:set>
+                                </aura:if>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+            <div class="slds-card__footer">
+                <section class="slds-clearfix">
+                    <div class="slds-float--left">
+                        <p class="slds-button slds-text-link--reset">Page {!v.page} / {!v.pages}</p>
+                    </div>
+                    <div class="slds-float--right">
+                        <button class="slds-button slds-text-link--reset" disabled="{!v.page &lt;= 1}" onclick="{!c.previousPage}">Previous</button>
+                        |            
+                        <button class="slds-button slds-text-link--reset" disabled="{!v.page >= v.pages}" onclick="{!c.nextPage}">Next</button>        
+                    </div>
+                </section>
+            </div>
+        </article>
+    </aura:if>
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    <aura:if isTrue="{!v.isSearch}">
+        <article class="slds-card">
+            <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media--center slds-has-flexi-truncate">                
+                    <div class="slds-media__body">
+                        <h2>
+                            <a href="javascript:void(0);" class="slds-card__header-link slds-truncate">
+                                <span class="slds-text-heading--small">Search Result ({!v.total})</span>
+                            </a>
+                        </h2>
+                    </div>
+                </header>
+                <div class="slds-no-flex">
+                    <button class="slds-button slds-button--icon-border" title="Back" style="background-color: #0070d2;" onclick="{!c.closeSearchModal}">
+                        <c:svgIcon svgPath="/resource/SLDS103/assets/icons/action-sprite/svg/symbols.svg#close" category="action" size="small" name="Close" class="slds-icon slds-icon--small"/>
+                        <span class="slds-assistive-text">close</span>                        
+                    </button>
+                </div>
+            </div>
+            <div class="slds-card__body">
+                <div class="slds-scrollable--x">
+                    <table class="slds-table slds-table--bordered slds-no-row-hover slds-table--cell-buffer">
+                        <thead>
+                            <tr class="slds-text-title--caps">
+                                <th scope="col"></th>
+                                <th class="slds-is-sortable" scope="col" onclick="{!c.sortColumn}" id="QuoteNumber">
+                                        <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+                                            <span class="slds-assistive-text">Sort</span>
+                                            <span class="slds-truncate" title="Quote No">Quote No.</span>  
+                                            <aura:if isTrue="{! and(v.arrowDirection == 'arrowdown', v.selectedTabsoft == 'QuoteNumber') }">&nbsp;  &#9660; </aura:if>  
+                                            <aura:if isTrue="{! and(v.arrowDirection != 'arrowdown', v.selectedTabsoft == 'QuoteNumber') }"> &nbsp;  &#9650; </aura:if>                        
+                                        </a>
+                                    </th>
+                                    <th class="slds-is-sortable" scope="col" onclick="{!c.sortColumn}" id="QuoteName">                                        
+                                        <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+                                            <span class="slds-assistive-text">Sort</span>
+                                            <span class="slds-truncate" title="Quote Name">Quote Name</span>  
+                                            <aura:if isTrue="{! and(v.arrowDirection == 'arrowdown', v.selectedTabsoft == 'QuoteName') }">&nbsp;  &#9660; </aura:if>  
+                                            <aura:if isTrue="{! and(v.arrowDirection != 'arrowdown', v.selectedTabsoft == 'QuoteName') }"> &nbsp;  &#9650; </aura:if>                        
+                                        </a>
+                                    </th>
+                                    <th class="slds-is-sortable" scope="col" onclick="{!c.sortColumn}" id="QuoteAmount">
+                                        <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+                                            <span class="slds-assistive-text">Sort</span>
+                                            <span class="slds-truncate" title="Quote Value">Quote Value</span>  
+                                            <aura:if isTrue="{! and(v.arrowDirection == 'arrowdown', v.selectedTabsoft == 'QuoteAmount') }">&nbsp;  &#9660; </aura:if>  
+                                            <aura:if isTrue="{! and(v.arrowDirection != 'arrowdown', v.selectedTabsoft == 'QuoteAmount') }"> &nbsp;  &#9650; </aura:if>
+                                        </a>
+                                    </th>
+                                    <th class="slds-is-sortable" scope="col" onclick="{!c.sortColumn}" id="OrderNumber">
+                                        <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+                                            <span class="slds-assistive-text">Sort</span>
+                                            <span class="slds-truncate" title="Order No">Order No.</span>  
+                                            <aura:if isTrue="{! and(v.arrowDirection == 'arrowdown', v.selectedTabsoft == 'OrderNumber') }">&nbsp;  &#9660; </aura:if>  
+                                            <aura:if isTrue="{! and(v.arrowDirection != 'arrowdown', v.selectedTabsoft == 'OrderNumber') }"> &nbsp;  &#9650; </aura:if>
+                                        </a>
+                                    </th>
+                                
+                                	<th class="slds-is-sortable" scope="col" onclick="{!c.sortColumn}" id="OrderType">
+                                        <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+                                            <span class="slds-assistive-text">Sort</span>
+                                            <span class="slds-truncate" title="OrderType">Order Type</span>  
+                                            <aura:if isTrue="{! and(v.arrowDirection == 'arrowdown', v.selectedTabsoft == 'OrderType') }">&nbsp;  &#9660; </aura:if>  
+                                            <aura:if isTrue="{! and(v.arrowDirection != 'arrowdown', v.selectedTabsoft == 'OrderType') }"> &nbsp;  &#9650; </aura:if>
+                                        </a>
+                                    </th>
+                                    <th class="slds-is-sortable" scope="col" onclick="{!c.sortColumn}" id="modificationDate">                                        
+                                        <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+                                            <span class="slds-assistive-text">Sort</span>
+                                            <span class="slds-truncate" title="Modified Date">Modified Date</span>  
+                                            <aura:if isTrue="{! and(v.arrowDirection == 'arrowdown', v.selectedTabsoft == 'modificationDate') }">&nbsp;  &#9660; </aura:if>  
+                                            <aura:if isTrue="{! and(v.arrowDirection != 'arrowdown', v.selectedTabsoft == 'modificationDate') }"> &nbsp;  &#9650; </aura:if>
+                                        </a>
+                                    </th>
+                                    <th class="slds-is-sortable" scope="col" onclick="{!c.sortColumn}" id="SolutionQuoteStatus">                                        
+                                        <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+                                            <span class="slds-assistive-text">Sort</span>
+                                            <span class="slds-truncate" title="Solution Status">Solution Status</span>  
+                                            <aura:if isTrue="{! and(v.arrowDirection == 'arrowdown', v.selectedTabsoft == 'SolutionQuoteStatus') }">&nbsp;  &#9660; </aura:if>  
+                                            <aura:if isTrue="{! and(v.arrowDirection != 'arrowdown', v.selectedTabsoft == 'SolutionQuoteStatus') }"> &nbsp;  &#9650; </aura:if>
+                                        </a>
+                                    </th>
+                                    <th class="slds-is-sortable" scope="col" onclick="{!c.sortColumn}" id="AnnuityQuoteStatus">                                        
+                                        <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+                                            <span class="slds-assistive-text">Sort</span>
+                                            <span class="slds-truncate" title="Annuity Status">Annuity Status</span>  
+                                            <aura:if isTrue="{! and(v.arrowDirection == 'arrowdown', v.selectedTabsoft == 'AnnuityQuoteStatus') }">&nbsp;  &#9660; </aura:if>  
+                                            <aura:if isTrue="{! and(v.arrowDirection != 'arrowdown', v.selectedTabsoft == 'AnnuityQuoteStatus') }"> &nbsp;  &#9650; </aura:if>
+                                        </a>
+                                    </th>
+                                    <th class="slds-cell-shrink"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <aura:iteration items="{!v.dataList}" var="QBData" >
+                                <tr class="slds-hint-parent">
+                                    <th scope="col">
+                                        <label class="slds-checkbox">
+                                            <ui:inputCheckbox text="{!QBData.id}" aura:id="ChkSer" value=""/>
+                                            <span class="slds-checkbox--faux"></span>
+                                            <span class="slds-form-element__label text"></span>
+                                        </label>
+                                    </th>
+                                    <th scope="row">
+                                        <div class="slds-truncate"><a onclick="{!c.QBRedirect}" id="{!QBData.QuoteNumber}">{!QBData.QuoteNumber}</a></div>
+                                    </th>
+                                    <td>
+                                        <div class="slds-truncate quotelineitem_margin">{!QBData.QuoteName}</div> 
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate quotelineitem_margin">{!QBData.QuoteAmount}</div> 
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate quotelineitem_margin">{!QBData.OrderNumber}</div> 
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate quotelineitem_margin">{!QBData.OrderType}</div> 
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate quotelineitem_margin">{!QBData.modificationDate}</div> 
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate quotelineitem_margin">{!QBData.SolutionQuoteStatus}</div> 
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate quotelineitem_margin">{!QBData.AnnuityQuoteStatus}</div> 
+                                    </td>
+                                </tr>
+                            </aura:iteration>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="slds-card__footer">
+                <div class="slds-no-flex">
+                    <section class="slds-clearfix">
+                        <div class="slds-float--left">
+                            <button class="slds-button slds-text-link--reset" disabled="{!v.page &lt;= 1}" onclick="{!c.previousPage}">Previous</button>
+                            |            
+                            <button class="slds-button slds-text-link--reset" disabled="{!v.page >= v.pages}" onclick="{!c.nextPage}">Next</button> 
+                        </div>
+                        <div class="slds-align--absolute-center">Page {!v.page} / {!v.pages}</div>
+                        <div class="slds-float--right">
+                            <aura:if isTrue="{!v.fromWhereSearch == 'DIS'}">
+                                <button class="slds-button slds-button--neutral" onclick="{!c.SearchDiss}">Disassociate Selected Quotes</button>
+                            </aura:if>
+                            
+                            <aura:if isTrue="{!v.fromWhereSearch == 'ASSO'}">
+                                <button class="slds-button slds-button--neutral" onclick="{!c.SearchAsso}">Associate Selected Quotes</button>
+                            </aura:if>
+                            <button class="slds-button slds-button--neutral" onclick="{!c.closeSearchModal}">Close</button>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </article>
+    </aura:if>
+</aura:component>

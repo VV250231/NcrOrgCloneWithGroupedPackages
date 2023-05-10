@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_8229132</developerName>
+        <masterLabel>Creation Category Bucket</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>Case.Creation_Category__c</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Command Center CMC Devices Offline</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Command Center CMC Login Issue</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Command Center CMC Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Command Center CMC Site Install</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Command Center CMC Site Offline</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Secure Access Login Issue</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Secure Access Other</sourceValue>
+            </sourceValues>
+            <value>CMC</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Aloha Configuration Center/NAM Can&apos;t Refresh</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Configuration Center/NAM Comp/Promo Issue</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Configuration Center/NAM Config Change Request</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Configuration Center/NAM Doesn&apos;t Launch</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Configuration Center/NAM Login Issue</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Configuration Center/NAM Menu Issue</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Configuration Center/NAM Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Configuration Center/NAM Reports - BOH</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Configuration Center/NAM Training Request</sourceValue>
+            </sourceValues>
+            <value>CFC</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Aloha Stored Value ASV Action Not Allowed Error</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Stored Value ASV API Company Setup</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Stored Value ASV API Response Error</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Stored Value ASV Card Declined</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Stored Value ASV Card Range Change</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Stored Value ASV Card Setup Config Change</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Stored Value ASV GC Balance Button Not Working</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Stored Value ASV Hardware Swap</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Stored Value ASV MID Change</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Stored Value ASV New Report Request</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Stored Value ASV Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Stored Value ASV Reporting Discrepancy</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Stored Value ASV Report Question</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Stored Value ASV Unable to Load - All Terminals</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Stored Value ASV Unable to Load - Specific Terminal(s)</sourceValue>
+            </sourceValues>
+            <value>ASV</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>CASE_NUMBER</field>
+    </columns>
+    <columns>
+        <field>OWNER</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>SUBJECT</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Average</aggregateTypes>
+        <field>AGE</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>if (CONTAINS(Case.Creation_Category__c,&quot;Customer Voice&quot;),&quot;CV&quot;,
+if (CONTAINS(Case.Creation_Category__c,&quot;Restaurant Guard&quot;),&quot;RG&quot;,
+if (CONTAINS(Case.Creation_Category__c,&quot;Insight Polling&quot;),&quot;Polling&quot;,
+if (CONTAINS(Case.Creation_Category__c,&quot;Insight Reports&quot;),&quot;Reports&quot;,
+if (CONTAINS(Case.Creation_Category__c,&quot;Online Ordering&quot;),&quot;AOO&quot;,
+if (CONTAINS(Case.Creation_Category__c,&quot;NCR Console&quot;),&quot;Console&quot;,
+if (CONTAINS(Case.Creation_Category__c,&quot;Mobile Pay&quot;),&quot;MP&quot;,
+if (CONTAINS(Case.Creation_Category__c,&quot;Pulse RT&quot;),&quot;Pulse&quot;,
+if (OR(CONTAINS(Case.Creation_Category__c,&quot;Aloha Stored Value&quot;),
+CONTAINS(Case.Creation_Category__c,&quot;Blackhawk&quot;)),&quot;ASV&quot;,
+if (CONTAINS(Case.Creation_Category__c,&quot;Aloha Configuration Center&quot;),&quot;CFC&quot;,
+if (OR(CONTAINS(Case.Creation_Category__c, &quot;Aloha Loyalty&quot;),
+CONTAINS(Case.Creation_Category__c,&quot;Consumer Marketing&quot;)),&quot;ALOY&quot;,
+if (CONTAINS(Case.Creation_Category__c, &quot;NCR Console&quot;),&quot;Console&quot;,
+if(OR(CONTAINS(Case.Creation_Category__c,&quot;Command Center&quot;),
+CONTAINS(Case.Creation_Category__c,&quot;Secure Access&quot;)),&quot;CMC&quot;,
+&quot;Other&quot;)))))))))))))</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>Creation Category Groups</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>OPEN</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case.Support_Queue__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>ENT Cloud Apps</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case.Support_Queue__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>JIRA</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CDF1</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>ENT Hosted Open Cases by Product</name>
+    <params>
+        <name>units</name>
+        <value>d</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CaseList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATEONLY</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

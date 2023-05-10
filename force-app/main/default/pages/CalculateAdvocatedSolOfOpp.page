@@ -1,0 +1,43 @@
+<apex:page >
+<!--
+<apex:page standardController="Opportunity" action="{!redirect}" extensions="OppAdvocatedSolutionController">
+    <apex:form id="Selected_PBS">
+        <apex:pageBlock >
+        <apex:pageBlockSection columns="1">
+            <apex:outputLabel style="font-weight:bold;color:solid black;"><apex:image url="/img/msg_icons/info16.png"/>&nbsp;The Advocated Solution cannot be identified based on the Topline Products selected for this opportunity. Please select an Advocated Solution that is aligned to your selected Offer Portfolio "<font size="2" color="red">{!portfolio}</font>" from the list below: </apex:outputLabel>            
+        </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock >
+        <apex:pageBlockSection rendered="{!Messages<>null}" columns="1">
+            <apex:outputLabel style="font-weight:bold;color:solid black;"><apex:image url="/img/msg_icons/error24.png"/>&nbsp;Following Exception/ Error occured while setting the Advocated Solution, Please "<a href="/{!asOpportunity.id}"> Click Here</a> " to go to Opportunity Detail page and correct the Error First.</apex:outputLabel> 
+            <apex:pageMessages escape="false"/> 
+        </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:outputPanel rendered="{!AdvocateSolutions.size>0}">
+        <apex:pageBlock title="Advocated Solution">
+        <apex:pageBlockSection >
+            <apex:pageBlockTable value="{!AdvocateSolutions}" var="as">
+            <apex:column >  
+                <apex:facet name="header">
+                   <apex:outputLabel >Select</apex:outputLabel>     
+                 </apex:facet>                 
+                 <input type="radio" name="selectRadio" id="radio">
+                <apex:actionSupport event="onclick" action="{!getSelected}" rerender="Selected_PBS">
+                <apex:param name="as" value="{!as}"/>
+                </apex:actionSupport>
+                </input>  
+            </apex:column>
+            <apex:column >  
+                <apex:facet name="header">
+                   <apex:outputLabel value="Advocated Solution"/>          
+                 </apex:facet>                 
+                 <apex:outputLabel >{!as}</apex:outputLabel>   
+            </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        </apex:pageBlock>
+        </apex:outputPanel>
+    </apex:form>
+</apex:page>
+-->
+</apex:page>

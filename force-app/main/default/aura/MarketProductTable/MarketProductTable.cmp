@@ -1,0 +1,24 @@
+<aura:component controller="MarketProductDetailController" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,lightning:isUrlAddressable" access="global">
+	<aura:attribute name="mycolumns" type="List"/>
+    <aura:attribute name="prdList" type="MarketProductDetailController.TopLineWrap[]"/>
+    <aura:attribute name="OppId" type="String"></aura:attribute>
+    <aura:attribute name="isCpqOpp" type="String"></aura:attribute>
+    <aura:attribute name="isCommunity" type="Boolean"></aura:attribute>
+    <aura:attribute name="OpportunityName" type="String"></aura:attribute>
+    <aura:handler name="init" value="{!this}" action="{!c.fetchAllRelatedOli}"/>
+    
+    <lightning:card>
+           <lightning:breadcrumbs>
+            <lightning:breadcrumb label="Opportunity" href=""/>
+            <lightning:breadcrumb label="{!v.OpportunityName}" onclick="{!c.RedirectToRecord}"/> 
+           </lightning:breadcrumbs>
+         <lightning:card title="Market Product" iconName="standard:product_item">
+        
+            <lightning:datatable data="{! v.prdList }"
+                                 columns="{! v.mycolumns }"
+                                 keyField="id"
+                                 hideCheckboxColumn="true"/>
+         </lightning:card>   
+    </lightning:card>
+      
+</aura:component>

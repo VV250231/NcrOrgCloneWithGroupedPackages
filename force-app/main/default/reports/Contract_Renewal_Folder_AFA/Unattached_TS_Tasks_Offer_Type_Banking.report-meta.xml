@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_91935695</developerName>
+        <masterLabel>Opportunity Type</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Activity.Call_Result__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Issue Resolution</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Initial Proposal to Customer</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Not Qualified</sourceValue>
+            </sourceValues>
+            <value>Hardware</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Proposal Follow-up</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Issue - WIP</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Qualified Lead</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Post-Sale Issue</sourceValue>
+            </sourceValues>
+            <value>Services</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_53090152</developerName>
+        <masterLabel>Status</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>STATUS</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Completed</sourceValue>
+            </sourceValues>
+            <value>Completed</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>In Progress</sourceValue>
+            </sourceValues>
+            <value>In progress</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>ASSIGNED</field>
+    </columns>
+    <columns>
+        <field>Activity.ASM_ESM_QLID__c</field>
+    </columns>
+    <columns>
+        <field>WHAT_NAME</field>
+    </columns>
+    <columns>
+        <field>STATUS</field>
+    </columns>
+    <columns>
+        <field>Activity.Industry__c</field>
+    </columns>
+    <columns>
+        <field>Activity.Region__c</field>
+    </columns>
+    <columns>
+        <field>Activity.Country__c</field>
+    </columns>
+    <columns>
+        <field>Activity.Offer_Details__c</field>
+    </columns>
+    <columns>
+        <field>Activity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>Activity.NCR_Contact_Person__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>SUBJECT</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>ASM/ESM/ISS TS Campaign,ASM/ESM Opportunity</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>WHAT_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Brenka Test Account</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Activity.Opportunity_Upsell_Type__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Unattached TS</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Activity.NCR_Contact_Person__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Bojan Skara,Dejana Pesic,Ivana Milosevic,Maja Ilic,Tatjana Jeremic,Srdjan Lazic,Aleksandar Milovanovic,Tatjana Aleksandric,Vladan Milosevic,Marko Djukanovic,Nemanja Kosovic,Ivica Velickovic</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Activity.Offer_Type__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Activity.Opportunity_Upsell_Type__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Activity.Quantity__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Unattached TS Tasks Offer Type Banking</name>
+    <params>
+        <name>closed</name>
+        <value>closed</value>
+    </params>
+    <params>
+        <name>type</name>
+        <value>t</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Activity</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>DUE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

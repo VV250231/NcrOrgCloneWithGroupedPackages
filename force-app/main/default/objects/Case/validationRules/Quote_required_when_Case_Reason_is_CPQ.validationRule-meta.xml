@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Quote_required_when_Case_Reason_is_CPQ</fullName>
+    <active>false</active>
+    <errorConditionFormula>AND(RecordType.Name = &apos;SF Global Support&apos;, ISPICKVAL(Reason, &apos;CPQ&apos;),ISPICKVAL(Origin , &apos;Salesforce&apos;),  ISBLANK(cpq_Quote__c))</errorConditionFormula>
+    <errorDisplayField>cpq_Quote__c</errorDisplayField>
+    <errorMessage>Quote is required when Case Reason is CPQ</errorMessage>
+</ValidationRule>

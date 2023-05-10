@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_15543956</developerName>
+        <masterLabel>Product Group</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>PRODUCT_NAME</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>D3 Business Intelligence - Cloud</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NCR Analytics</sourceValue>
+            </sourceValues>
+            <value>Analytics</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Advanced Marketing System</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Advanced Marketing System Cloud</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Loyalty Pro/Connected Loyalty</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Loyalty</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Aloha Loyalty SWM</sourceValue>
+            </sourceValues>
+            <value>Loyalty</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Emerald</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Emerald Subscription Service</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Emerald SCO Add-on Subscription Service</sourceValue>
+            </sourceValues>
+            <value>Emerald</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>NCR Freshop</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ecommerce</sourceValue>
+            </sourceValues>
+            <value>Freshop</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>R10 POS</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>R10 Quick Service Restaurant POS</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>R10 Enterprise</sourceValue>
+            </sourceValues>
+            <value>R10</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Digital Receipts Service</sourceValue>
+            </sourceValues>
+            <value>Digital Receipts</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Software Defined Store</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>POS Connect</sourceValue>
+            </sourceValues>
+            <value>SDS</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Software_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.PS_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Payments_Processing__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Cloud_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Commitment_Risk__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.OCR_TEAM__c</field>
+    </columns>
+    <columns>
+        <field>BucketField_15543956</field>
+    </columns>
+    <columns>
+        <field>QUANTITY</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>OpportunityLineItem.Line_TCV__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>OpportunityLineItem.Line_ACV__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>OpportunityLineItem.Number_of_Terms__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <booleanFilter>1 AND (2 AND 4) AND 3</booleanFilter>
+        <criteriaItems>
+            <column>Product2.Service_Offer_Category__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>HWM,Managed Service,HW,TS</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FORECAST_CATEGORY</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Closed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.OCR_2018_TEAM__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>GS:Ret</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Actual_Close_Date__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>THIS_YEAR</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>FORECAST_CATEGORY</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Quarter</dateGranularity>
+        <field>CLOSE_DATE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Product2.Service_Offer_Category__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Global Specialist Report Finance Won</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>OpportunityProduct</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Co_Branding_Approved_Acknowledgment</fullName>
+        <description>Co Branding Approved Acknowledgment</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <recipients>
+            <field>Channel_Account_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Co_Branding_Templates/Co_Branding_Request_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Co_Branding_Partner_Acknowledgment_mail</fullName>
+        <description>Co Branding Partner Acknowledgment mail</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <recipients>
+            <field>Channel_Account_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Co_Branding_Templates/Co_Branding_Partner_Acknowledgment</template>
+    </alerts>
+    <alerts>
+        <fullName>Co_Branding_Request_Rejection_Partner_Acknowledgment</fullName>
+        <description>Co Branding Request Rejection Partner Acknowledgment</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <recipients>
+            <field>Channel_Account_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Co_Branding_Templates/Co_Branding_Request_Rejected</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Status_Changed_to_Approved</fullName>
+        <field>Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Status Changed to Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Status_Changed_to_Rejected</fullName>
+        <field>Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Status Changed to Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Status_Changed_to_Submitted</fullName>
+        <field>Status__c</field>
+        <literalValue>Submitted</literalValue>
+        <name>Status Changed to Submitted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+</Workflow>

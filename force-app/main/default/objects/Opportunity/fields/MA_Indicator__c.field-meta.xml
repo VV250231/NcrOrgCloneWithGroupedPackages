@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MA_Indicator__c</fullName>
+    <externalId>false</externalId>
+    <formula>IMAGE(
+IF(MA_Received__c= TRUE,
+&quot;/img/samples/flag_green.gif&quot;,
+&quot;/img/samples/flag_red.gif&quot;
+),
+&apos;Master Agreement&apos;
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Green: Signed Master Agreement
+Red: No Master Agreement</inlineHelpText>
+    <label>Master Agreement Indicator</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

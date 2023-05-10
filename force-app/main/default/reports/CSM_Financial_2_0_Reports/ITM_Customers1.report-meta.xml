@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>User.Manager_Level_01__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>ITM Customers v1 
+Created 11/7/2019</description>
+    <filter>
+        <criteriaItems>
+            <column>DUE_DATE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>greaterThan</operator>
+            <value>1/1/2019</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>ACCOUNT.NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>ARVEST BANK OPERATIONS INC.,ASCEND FEDERAL CREDIT UNION,BANK OF OAKRIDGE NC,CADENCE BANK N.A.,CHEVRON FCU,COASTAL COMMUNITY CREDIT UNION,FINANCIAL PARTNERS CREDIT UNION OF DOWNEY CA,FIRST COMMERCE CREDIT UNION,FIRST ONTARIO CREDIT UNION LIMITED,FIVEPOINT CREDIT UNION,GROW FINANCIAL FCU,HERITAGE BANK OF JONESBORO GA,HORIZON UTAH FEDERAL CREDIT UNION,KINETIC CREDIT UNION,Matanuska Valley FCU,MECU OF BALTIMORE INC,NIH,NOVENTIS CREDIT UNION,ORNL FEDERAL CREDIT UNION OF OAK RIDGE TN,PEN AIR FEDERAL CREDIT UNION,REDSTONE FEDERAL CREDIT UNION,RENASANT BANK,SAFE FEDERAL CREDIT UNION OF SUMTER SC,SMART FINANCIAL CREDIT UNION,STAR ONE CU,SUNCOAST CREDIT UNION,TENNESSEE VALLEY FEDERAL CREDIT UNION,UNITED BANK OF ZEBULON GA,Uwharrie Bank,WAYCROSS BANK &amp; TRUST OF WAYCROSS GA,FIRST LIGHT FEDERAL CREDIT UNION,GECU,FIRST CAPITAL BANK OF TEXAS,TEXAS BAY CU,SOUTHSIDE BANK TX,VERABANK,MERITRUST CREDIT UNION,BLACK HILLS FCU,WINGS FINANCIAL FCU,BANKWEST,REPUBLIC BANK &amp; TRUST OF LOUISVILLE KY,CHARTWAY FCU,COASTAL FEDERAL CREDIT UNION OF RALEIGH NC,BAYPORT CU,COMERICA BANK,SUMMIT COMMUNITY BANK,GE CREDIT UNION,SEVEN SEVENTEEN CREDIT UNION OF WARREN OH</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>USERS.NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>ITM Customers with Service Issues</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>false</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <sortColumn>ACCOUNT.NAME</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>1900-01-01</startDate>
+    </timeFrameFilter>
+</Report>

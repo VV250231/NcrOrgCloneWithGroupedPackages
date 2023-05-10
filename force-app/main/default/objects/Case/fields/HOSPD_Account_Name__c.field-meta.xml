@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOSPD_Account_Name__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>If Account name is incorrect, this is the correct Account Name associated with Contact.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If Account name is incorrect, this is the correct Account Name associated with Contact.</inlineHelpText>
+    <label>Correct Account Name</label>
+    <lookupFilter>
+        <active>true</active>
+        <booleanFilter>1 AND 2</booleanFilter>
+        <filterItems>
+            <field>Account.RecordType.DeveloperName</field>
+            <operation>notEqual</operation>
+            <value>Site</value>
+        </filterItems>
+        <filterItems>
+            <field>Account.RecordType.DeveloperName</field>
+            <operation>notEqual</operation>
+            <value>Enterprise</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Cases</relationshipLabel>
+    <relationshipName>Cases</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

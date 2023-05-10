@@ -1,0 +1,33 @@
+<messaging:emailTemplate subject="Approval Request: CAP/Customer Assurance Request for {!relatedTo.Customer_Name__c}" recipientType="User" relatedToType="CAP_Form__c">
+<messaging:htmlEmailBody >
+<html>
+         <style>
+              p {
+                font-family: Verdana, Helvetica, sans-serif;
+                color: rgb(0,0,0);
+                font-size: 12.5px;
+                font-style: normal;
+                font-variant: normal;
+                font-weight: 400;
+                line-height: 20px;
+              }
+              
+              .inlineText {
+                  display: inline-block;
+                  margin-left: 12px;
+              }
+             
+         </style>
+    <body>
+<p>Hi Team,</p>
+
+<p> {!relatedTo.Name__c} has submitted a CAP/Customer Assurance Request for <a href="{!LEFT($Api.Partner_Server_URL_280, FIND(".com/",$Api.Partner_Server_URL_280)+3)}/{!relatedTo.Id}">
+    {!relatedTo.Customer_Name__c} 
+</a>
+</p>
+<p>Thank you</p>
+
+</body>
+</html>
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>

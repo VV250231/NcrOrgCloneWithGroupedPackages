@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validate_Approved_Reimbursement_Limit</fullName>
+    <active>true</active>
+    <description>Validate Approved Reimbursement Limit</description>
+    <errorConditionFormula>Estimated_Cost__c  &lt;  NCR_Estimated_Participation__c</errorConditionFormula>
+    <errorDisplayField>NCR_Estimated_Participation__c</errorDisplayField>
+    <errorMessage>Approved Reimbursement Limit should not be greater than Estimated Cost.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Email_NABG_Product_of_Managed_Services_CWP_Opportunities_0</name>
+        <label>Opportunity.Email_NABG_Product_of_Managed_Services_CWP_Opportunities</label>
+        <locationX>176</locationX>
+        <locationY>335</locationY>
+        <actionName>Opportunity.Email_NABG_Product_of_Managed_Services_CWP_Opportunities</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>55.0</apiVersion>
+    <environments>Default</environments>
+    <formulas>
+        <name>SkipValidationSettingCheck</name>
+        <dataType>Boolean</dataType>
+        <expression>{!$Setup.Automation_Setting__c.Skip_Validation_Rule__c}</expression>
+    </formulas>
+    <interviewLabel>CATM_Email NABG Product of MS Opp for Colon {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>CATM_Email NABG Product of MS Opp for Colon</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Email_NABG_Product_of_Managed_Services_CWP_Opportunities_0</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterFormula>AND(
+NOT({!$Setup.Automation_Setting__c.Skip_Flow__c}),
+{!$Record.CATM_Record__c},
+{!$Record.Region__c} = &quot;NABG&quot;,
+ISPICKVAL({!$Record.StageName}, &quot;Closing&quot;),
+CONTAINS({!$Record.Products__c}, &quot;Managed Services&quot;),
+CONTAINS({!$Record.Owner.LastName}, &quot;Colon&quot;)
+)</filterFormula>
+        <object>Opportunity</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

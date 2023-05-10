@@ -1,0 +1,88 @@
+<messaging:emailTemplate relatedToType="Partner_Opportunity__c" subject="Partner Opportunity Request Submitted" recipientType="User" >
+    <messaging:plainTextEmailBody >
+        Dear {!relatedTo.CAM__r.Name},
+        
+        The Partner Opportunity module within Interact Program Tools has received a submission from  {!relatedTo.Partner_Account__r.Name} 
+        
+        
+        Please review this submission Click Here Your approval is required before this Opportunity registration submission can be directed as a new Opportunity within Salesforce. If you approve this submission, it will become part of your Opportunities in Salesforce and eventually your funnel
+        
+        If you decide to reject this Opportunity registration submission, please make sure to discuss this you’re your channel partner in detail.
+        
+        
+        If this submission changes, is canceled, or you have any question regarding this submission, please contact the NCR Interact team at Channels.Team@ncr.com or interact.operations@ncr.com
+        
+        Regards,
+        NCR Interact Channel Program Team
+    </messaging:plainTextEmailBody>
+    
+    <messaging:htmlEmailBody >
+        <html>
+        <body bgcolor="#FFFFFF">
+            <style>
+              
+            a {
+                color: #54b948;
+            }
+            
+            p {
+                margin-top: 0px;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 12px;
+                line-height: 15px;
+                color: #58585A;
+            }
+            </style>
+                    <table width="660" border="0" align="center" cellpadding="0" cellspacing="0">
+            <tr bgcolor="#ffffff">
+                <td valign="top">
+                    <c:InteractProgramToolHeader />
+                </td>
+            </tr>
+            <tr valign="top" bgcolor="#ffffff">
+                <td valign="top">
+                    <table width="100%" cellpadding="20" cellspacing="0">
+                        <tr>
+                            <td>
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height:15px;margin-bottom:15px; color: #58585A;"> 
+                                    Dear {!relatedTo.CAM__r.Name},
+                                </p>
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height:15px; margin-bottom:15px; color: #58585A;">
+                                    The Partner Opportunity module within Interact Program Tools has received a submission from  {!relatedTo.Partner_Account__r.Name} 
+                                </p>
+                                <br/>
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #58585A;line-height:15px;">
+                                    Please review this submission  <a href="{!$Label.Org_Base_URL}/{!relatedTo.Id}" target="__blank"> Click Here </a>
+                                    Your approval is required before this Opportunity registration submission can be directed as a new Opportunity within Salesforce. If you approve this submission, it will become part of your Opportunities in Salesforce and eventually your funnel
+                                </p>
+                                
+                                 <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #58585A;line-height:15px;">
+                                    If you decide to reject this Opportunity registration submission, please make sure to discuss this you’re your channel partner in detail.
+                                    
+                                </p>
+                                <br/>
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #58585A;line-height:15px;margin-bottom:10px;">
+                                    If this submission changes, is canceled, or you have any question regarding this submission, please contact the NCR Interact team at Channels.Team@ncr.com  or interact.operations@ncr.com
+                                </p>
+                                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #58585A;line-height:20px;">Regards,<br/>
+                                
+                                <b><span style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: color: #58585A;">NCR Interact Channel Program Team</span></b>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="center" valign="middle">
+                    <c:InteractProgramToolFooter />
+                </td>
+
+            </tr>
+        </table>
+        <img height="1" width="1" style="visibility:hidden" src="https://www.cprpt.com/NCREmail/o.aspx?t=50038.10019.19808.19886.0.1.N.295797.1429.0&amp;e=RG250274@ncr.com"/>        
+        </body>
+        </html>
+    </messaging:htmlEmailBody>
+</messaging:emailTemplate>

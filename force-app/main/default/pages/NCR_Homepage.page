@@ -1,0 +1,347 @@
+<apex:page standardStylesheets="false" showHeader="false" controller="NCR_HomePageController">
+     
+   <html lang="en">
+    
+    <c:NCR_CustomHead />
+    
+    <body >
+        <apex:form id="pageForm">
+        
+        <!--<c:NCR_HomepageHeader />-->
+
+    
+            <div style="padding: 2px">
+                <div class="col-md-9">      
+                
+                    <!--Search-->
+                    <c:NCR_HomePageSearchSection />
+    
+                    <!--Featured-->    
+               <div class="row panel" style="height:360px;">
+                <h1>Featured Idea</h1>
+                <!--Slider-->    
+                <div id="myCarousel" class="col-sm-8 carousel slide" data-ride="carousel" style="width:100%">
+                      <!-- Indicators -->
+                      <ol class="carousel-indicators">
+                         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <apex:repeat value="{!featsize}" var="cnt">
+                          <li data-target="#myCarousel" data-slide-to="{!cnt}" class=""></li>
+                                </apex:repeat>
+                      </ol>
+                      <div class="carousel-inner" role="listbox">
+                            <apex:variable var="count" value="{!0}"/>
+                            <apex:repeat value="{!FeaturedIdeas}" var="fi">
+                            
+                            <div class="item {!IF(count=0,'active','')}">
+                                <div style="padding: 2px">
+                                
+                                    <table width="90%" style="margin: 5px 20px;">
+                                        <tr valign="top">
+                                            <td width="70%">
+                                                    <table width="100%">
+                                                        <tr valign="top">
+                                                            <td width="100%">
+                                                                <h1><b>{!fi.Title}</b></h1>
+                                                            </td>
+                                                        </tr>
+                                                        <tr valign="top">
+                                                            <td width="100%">
+                                                                <div class="ellipsis">
+                                                                    <div>
+                                                                        <apex:outputText value="{!fi.Body}" escape="false" />
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr valign="top">
+                                                            <td width="100%">
+                                                                <apex:commandButton style="margin-top: 15px;" value="View Idea" styleClass="btn btn-lg btn-primary" action="/apex/NCR_ViewIdeapage?id={!fi.id}&pge=NCR_Homepage"/>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                            </td>
+                                            <td width="30%">
+                                                <apex:image id="theImage" value="{!fi.Di_Idea_Featured_Image__c}" style="float:right; max-height:200px" rendered="{!fi.Di_Idea_Featured_Image__c !=null}" styleclass="img-responsive col-xs-12"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                
+                                <!--
+                                    <div class="carousel-caption" style="height:70% !important; margin-bottom: 90px !important; width: 80%;">
+                                        <h1 style="width:70%; float:left"><b>{!fi.Title}</b></h1><br/><br/>
+                                        
+                                        <div class="ellipsis">
+                                            <div>
+                                                <apex:outputText value="{!fi.Body}" escape="false" />
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                        <div style="overflow: hidden !important; height: 70% !Important; margin-bottom: 25px;">
+                                            <p><!--apex:outputText value="{!fi.Body}" escape="false"/--><!--</p>-->
+                                            <!--<apex:image id="theImage" value="{!fi.Di_Idea_Featured_Image__c}" style="float:right;height:100%" width="220" rendered="{!fi.Di_Idea_Featured_Image__c !=null}"/>                                           
+
+                                        </div>
+                                        <p><apex:commandButton value="View Idea" styleClass="btn btn-lg btn-primary" action="/apex/NCR_ViewIdeapage?id={!fi.id}"/></p>
+                                        <!--<p><a class="btn btn-lg btn-primary" href="http://getbootstrap.com/examples/carousel/#" role="button">View Idea</a></p>-->
+                                         
+                                    <!--</div>-->
+                                </div>
+                            </div>
+                            <apex:variable value="{!count+1}" var="count"/>
+                            </apex:repeat>
+ <!--last modified for EBA_SF_1766 (IdeaExchange: Wrong redirection from the Carousel) by Kavya Sree -->                         
+                      </div>
+                    <!--href="http://getbootstrap.com/examples/carousel/#myCarousel-->
+                      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev" style="width: 3% !important;">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                      </a>
+                    <!--href="http://getbootstrap.com/examples/carousel/#myCarousel-->
+                      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                      </a>
+                </div> 
+            </div> 
+    
+                    <!--Recent-->    
+                    <div class="row panel">
+                        <h1>Recent Ideas</h1>
+                        
+                <apex:outputLabel value="{!noRecentIdeasHome}" />
+                            <apex:repeat value="{!recentWrapperList}" var="ri">
+                                <div class="col-md-2 recent-img" style="padding-left:0px; width:65px !important; height:110px !important;" align="center">
+                                    <apex:image url="{!IF(ri.fImageRecent!=null, newUrl+ri.fImageRecent, URLFOR($Resource.NCR_cssjsimg, 'img/ideas-default-avatar.png'))}" style="max-width: 100px !important; max-height: 55px !important; margin-bottom: 5px !important; width: 55px !important;"/> 
+                                    <br/>
+                                    <apex:outputText value="{!ri.totalVotesRecent} pts." style="font-size: 13px !important;" rendered="{!ri.totalVotesRecent>0}" /> 
+                                </div>
+                                <h2 class="col-md-9 title-drk-blue" >
+                                <apex:outputLink value="/apex/NCR_ViewIdeapage?id={!ri.idRecent}&pge=NCR_Homepage" styleclass="title-drk-blue">{!ri.titleRecent}</apex:outputLink></h2>
+                                <div class="col-md-9">
+                                <apex:outputLink value="/apex/NCR_ViewAllPage?selectTab=AllIdeas&chan={!ri.statRecent}" style="background-color: #676767 !important; color: #FFFFFF !important; padding: 3px !important; font-size: 14px !important; border-radius: 3px !important; text-decoration: none;" rendered="{!ri.statRecent!=null && ri.statRecent!='Under Point Threshold'}">{!ri.statRecent}</apex:outputLink>
+                                <apex:outputLink value="/apex/NCR_ViewAllPage?lob={!ri.lobRecent}&selectTab=AllIdeas" style="color:#666666; text-decoration:none; margin-left: 7px !important;"> {!ri.lobRecent} </apex:outputLink> 
+                                <apex:outputText value="{! ', '+ri.diIdeaChannelRecent}" rendered="{! ri.diIdeaChannelRecent!= null}" style="color:#666666; text-decoration:none;"/>
+                                <apex:outputLink value="/apex/NCR_ViewALLPage?cat={!ri.categoryRecent}&selectTab=AllIdeas" StyleClass="drk-gray" style="color:#666666; text-decoration:none;"> <apex:outputText value="{! ', '+ri.categoryRecent}" rendered="{! ri.categoryRecent!= null}"/> </apex:outputLink></div>
+                                <p class="col-md-9 solo" id="idpi" ><apex:outputText escape="true" value="{!ri.bodyRecent}" /></p>
+                                <div class="row">
+                                    <div class="col-md-2" style="width:75px;"></div>
+                                    <p class="col-md-9">
+                                   <apex:outputLink value="/apex/NCR_MyProfilePage?id={!ri.createdByIdRecent}" styleClass="drk-gray" style="float: left;">{!ri.createdByNameRecent} <apex:outputText value=", {! ri.createdByTitleRecent}" rendered="{! ri.createdByTitleRecent != null}" /> <apex:outputText value="{! ', '+ri.createdByDiFiNameRecent}" rendered="{! ri.createdByDiFiNameRecent != null}" /> |</apex:outputLink>
+                                    <apex:outputText value="{0,date, MM/dd/yy}" styleClass="drk-gray" style="float: left; margin: 0px 5px !important;"> 
+                                        <apex:param value="{!ri.createdDateRecent}" /> 
+                                    </apex:outputText>   
+                                    <apex:outputLink value="/apex/NCR_ViewIdeapage?id={!ri.idRecent}" styleClass="comment-link">| Comment</apex:outputLink>  
+                                    <apex:commandButton rendered="{!ri.createdByIdRecent!=currentUser.id && ri.isFaveRecent==false}" action="{!insertToMyFavorites}" styleclass="add-fave-link" value="| Add to Favorites" disabled="{!IF(ri.isFaveRecent==true, true, false)}" reRender="pageForm">
+                                        <apex:param name="faveName" value="{!ri.idRecent}" assignTo="{!RecentIdeaId}" />
+                                    </apex:commandButton> 
+                                    <apex:commandButton styleclass="add-fave-link" rendered="{!ri.isFaveRecent==true}" value="| Remove from Favorites" action="{!deleteToMyFavoritesRecent}" reRender="pageForm">
+                                        <apex:param name="faveName2" value="{!ri.idRecent}" assignTo="{!RecentFaveIdeaId}" />
+                                    </apex:commandButton>
+                                    </p>
+                                </div>
+                                <div class="gray-line"></div>
+                            </apex:repeat>
+                
+                
+                <!-- 
+                            <apex:repeat value="{!RecentIdeas}" var="ri">
+                                <div class="col-md-2 recent-img" style="padding-left:0px; width:100px !important; height:75px !important;" >
+                                    <apex:image url="{!IF(ri.Di_Idea_Featured_Image__c!=defaultAvatar, ri.Di_Idea_Featured_Image__c, URLFOR($Resource.NCR_cssjsimg, 'img/ideas-default-avatar.png'))}" style="max-width: 100px !important; max-height: 75px !important;"/>
+                                </div>
+                                <h2 class="col-md-9" style="color:#029fe2"><apex:outputLink value="/apex/NCR_ViewIdeapage?id={!ri.id}" style="color:#029fe2; text-decoration:none;">{!ri.Title}</apex:outputLink></h2>
+                                <p class="sub-title col-md-9" >Platform Solutions, Branding and Flexibility</p>
+                                <p class="col-md-9 solor" id="idri" style="height:23px !important; max-height:23px !important; overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;"><apex:outputText escape="false" value="{!ri.Body}" /></p>
+                                <div class="row"><div class="col-md-2"></div>
+                                <p class="col-md-9"> <apex:outputLink value="/apex/NCR_MyProfilePage?id={!ri.CreatedById}" style="color:#029fe2; text-decoration:none;">{!ri.CreatedBy.Name}</apex:outputLink> | <apex:outputText value="{0,date, MM/dd/yy}"> <apex:param value="{!ri.CreatedDate}" /> </apex:outputText>  | <apex:outputLink value="/apex/NCR_ViewIdeapage?id={!ri.id}" style="color:#029fe2; text-decoration:none;"> Comment</apex:outputLink> | <apex:commandButton style="color:#029fe2; text-decoration:none; background: none; border: none;" value="Add to Favorite"  reRender="formPage" /> </p>
+                                </div>
+                                
+                                <div class="gray-line"></div>
+                            </apex:repeat>  -->
+                            <div style="background-color: #FFFFFF; width: 100%; height: 25px; margin-top: -35px;"></div>
+                            <div class="row"><apex:outputLink styleClass="view-link" style="float: right !important; margin-right: 15px;" value="{!ViewAllRecent}">View All Recent Ideas</apex:outputLink></div>     
+                    </div>
+    
+                    <!--Popular-->
+                    <div class="row panel">
+                        <h1>Popular Ideas</h1>
+                            <apex:repeat value="{!popularWrapperList}" var="ri">
+                                <div class="col-md-2 recent-img" style="padding-left:0px; width:65px !important; height:110px !important;" align="center">
+                                    <apex:image url="{!IF(ri.fImagePopular!=null, newUrl+ri.fImagePopular, URLFOR($Resource.NCR_cssjsimg, 'img/ideas-default-avatar.png'))}" style="max-width: 100px !important; max-height: 55px !important; margin-bottom: 5px !important; width: 55px !important;"/> 
+                                    <br/>
+                                    <apex:outputText value="{!ri.totalVotesPopular} pts." style="font-size: 13px !important;" rendered="{!ri.totalVotesPopular>0}" /> 
+                                </div>
+                                <h2 class="col-md-9 title-drk-blue" ><apex:outputLink value="/apex/NCR_ViewIdeapage?id={!ri.idPopular}&pge=NCR_Homepage" styleclass="title-drk-blue">{!ri.titlePopular}</apex:outputLink></h2>
+                                <apex:outputLink value="/apex/NCR_ViewAllPage?selectTab=AllIdeas&chan={!ri.statPopular}" style="background-color: #676767 !important; color: #FFFFFF !important; padding: 3px !important; font-size: 14px !important; border-radius: 3px !important; text-decoration: none;" rendered="{!ri.statPopular!=null && ri.statPopular!='Under Point Threshold'}">{!ri.statPopular}</apex:outputLink>
+                                <apex:outputLink value="/apex/NCR_ViewAllPage?lob={!ri.lobPopular}&selectTab=AllIdeas" style="color:#666666; text-decoration:none; margin-left: 7px !important;"> {!ri.lobPopular}</apex:outputLink> 
+                                <apex:outputText value="{! ', '+ri.diIdeaChannelPopular}" rendered="{! ri.diIdeaChannelPopular!= null}" style="color:#666666; text-decoration:none;"/> 
+                                <apex:outputLink value="/apex/NCR_ViewALLPage?cat={!ri.categoryPopular}&selectTab=AllIdeas" style="color:#666666; text-decoration:none;"> <apex:outputText value="{! ', '+ri.categoryPopular}" rendered="{!ri.categoryPopular != null}"></apex:outputText> </apex:outputLink>
+                                <p class="col-md-9 solo" id="idpi" ><apex:outputText escape="true" value="{!ri.bodyPopular}" /></p>
+                                <div class="row">
+                                    <div class="col-md-2" style="width:75px;"></div>
+                                    <p class="col-md-9">
+                                    <apex:outputLink value="/apex/NCR_MyProfilePage?id={!ri.createdByIdPopular}" styleClass="drk-gray" style="float: left;">{!ri.createdByNamePopular}<apex:outputText value=", {! ri.createdByTitlePopular}" rendered="{! ri.createdByTitlePopular != null}" /> <apex:outputText value="{! ', '+ri.createdByDiFiNamePopular }" rendered="{! ri.createdByDiFiNamePopular != null}" /> | </apex:outputLink>
+                                    <apex:outputText value="{0,date, MM/dd/yy}" styleClass="drk-gray" style="float: left;margin: 0px 5px !important;"> <apex:param value="{!ri.createdDatePopular}" /> </apex:outputText>
+                                    <apex:outputLink value="/apex/NCR_ViewIdeapage?id={!ri.idPopular}" styleClass="comment-link"> | Comment </apex:outputLink>
+                                    <apex:commandButton rendered="{!ri.createdByIdPopular!=currentUser.id && ri.isFavePopular==false}" action="{!insertToMyFavoritesPopular}" styleclass="add-fave-link" value="| Add to Favorites" disabled="{!IF(ri.isFavePopular==true, true, false)}" reRender="pageForm">
+                                        <apex:param name="faveName" value="{!ri.idPopular}" assignTo="{!PopularIdeaId}" />
+                                    </apex:commandButton> 
+                                    <apex:commandButton styleclass="add-fave-link" rendered="{!ri.isFavePopular==true}" value="| Remove from Favorites" action="{!deleteToMyFavoritesPopular}" reRender="pageForm">
+                                        <apex:param name="faveName2" value="{!ri.idPopular}" assignTo="{!PopularFaveIdeaId}" />
+                                    </apex:commandButton>
+                                    </p>
+                                    
+                                </div>
+                                <div class="gray-line"></div>
+                            </apex:repeat>
+                            <div style="background-color: #FFFFFF; width: 100%; height: 25px; margin-top: -35px;"></div>
+                            <div class="row"><apex:outputLink styleClass="view-link" style="float: right !important; margin-right: 15px;" value="{!ViewAllPopular}">View All Popular Ideas</apex:outputLink></div>     
+                        
+                        
+                        
+                        <!-- 
+                        <div class="row"><apex:outputLink styleClass="view-link" style="float: right !important;" value="{!ViewAllPopular}">View All Popular Ideas</apex:outputLink></div>
+                            <apex:repeat value="{!PopularIdeas}" var="ri">
+                                <div class="col-md-2 recent-img" style="padding-left:0px; width:100px !important; height:75px !important;" >
+                                    <apex:image url="{!IF(ri.Di_Idea_Featured_Image__c!=defaultAvatar, ri.Di_Idea_Featured_Image__c, URLFOR($Resource.NCR_cssjsimg, 'img/ideas-default-avatar.png'))}" style="max-width: 100px !important; max-height: 75px !important;"/> 
+                                </div>
+                                <h2 class="col-md-9" style="color:#029fe2"><apex:outputLink value="/apex/NCR_ViewIdeapage?id={!ri.id}" style="color:#029fe2; text-decoration:none;">{!ri.Title}</apex:outputLink></h2>
+                                <!-- <p class="col-md-9" style="height:23px !important; max-height:23px !important; overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;"><apex:outputText value="{!ri.Body}" escape="false"/></p> -->
+                                <!--<p class="col-md-9 solo" id="idpi" style="height:23px !important; max-height:23px !important; overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;"><apex:outputText escape="false" value="{!ri.Body}" /></p>
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <p class="col-md-9"> {!ri.CreatedBy.Name} | {!ideaVote[ri]} vote | <apex:outputLink value="/apex/NCR_ViewIdeapage?id={!ri.id}" style="color:#029fe2; text-decoration:none;"> Comment</apex:outputLink></p>
+                                </div>
+                                <div class="gray-line"></div>
+                            </apex:repeat>   -->   
+                    </div>
+                </div> <!-- END OF div class="col-md-9" -->
+    
+                <!--sideBar-->
+                <div class="col-md-3" role="complementary">
+                    <!--<div class="col-md-4" style="width:40%;margin:18px 0px;float:right">
+                        <apex:image url="{!URLFOR($Resource.NCR_cssjsimg, 'img/text70.png')}" style="width:30px"/>
+                        
+                        <apex:image url="{!URLFOR($Resource.NCR_cssjsimg, 'img/college.png')}" style="width:30px;margin-left:10px;"/>
+                        
+                    </div> -->
+    
+                    <div class="row"></div>    
+                    <nav class=" bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top" >
+                        <c:NCR_HomePageSidebar />
+                    </nav>
+                </div><!-- END OF div class="col-md-3" -->
+            </div>
+    
+            <!--<apex:includeScript value="{!URLFOR($Resource.NCR_cssjsimg, 'js/leapfrog.min.js')}"/>-->
+            <script src="https://resource.digitalinsight.com/leapfrog/1.0/js/leapfrog.min.js" />
+            <apex:includeScript value="{!URLFOR($Resource.NCR_cssjsimg, 'js/docs.js')}"/>
+        </apex:form>
+    </body>
+    
+        <style>
+        .row panel{
+            max-width: 1240px !important;
+            
+        }
+        .container{
+            padding: 2px !important;
+            
+        }
+            ::-webkit-input-placeholder { /* WebKit browsers */
+                color:    #333333!important;
+            }
+            :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+               color:    #333333!important;
+               opacity:  1;
+            }
+            ::-moz-placeholder { /* Mozilla Firefox 19+ */
+               color:    #333333!important;
+               opacity:  1;
+            }
+            :-ms-input-placeholder { /* Internet Explorer 10+ */
+               color:    #333333!important;
+            }
+            
+        .ellipsis {
+            overflow: hidden;
+            position: relative;
+            height: 70px;
+            width: 520px;
+            line-height: 25px;
+            margin: 5px;
+            border: 0px solid #AAA; }
+
+        .ellipsis:before {
+            content:"";
+            float: left;
+            width: 5px; height: 200px; }
+
+        .ellipsis > *:first-child {
+            float: right;
+            width: 100%;
+            margin-left: -5px; }        
+
+        .ellipsis:after {
+            content: "\02026"; 
+
+            box-sizing: content-box;
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+
+            float: right; position: relative;
+            top: -150px; left: 99%; 
+            width: 20px; margin-left: -20px;
+            padding-right: 5px;
+            
+            text-align: right;
+
+            background: -webkit-gradient(linear, left top, right top,
+                from(rgba(255, 255, 255, 0)), to(white), color-stop(15%, white));
+            background: -moz-linear-gradient(to right, rgba(255, 255, 255, 0), white 15%, white);           
+            background: -o-linear-gradient(to right, rgba(255, 255, 255, 0), white 15%, white);
+            background: -ms-linear-gradient(to right, rgba(255, 255, 255, 0), white 15%, white);
+            background: linear-gradient(to right, rgba(255, 255, 255, 0), white 15%, white);  }
+
+        .ellipsis a { position: absolute;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            overflow: hidden; text-indent: -9999px; }
+        .ellipsis i, .ellipsis:after {
+            font-style: normal; color: blue;}
+
+        .ellipsis i:before { content: "";}
+        </style>    
+        <script>         
+            window.onload=function(){
+            //alert($(document).height());
+            //alert("{!currentUser.id}" + "        {!currentUser.DI_Fi_Domain__c}");
+            var dom2 = "*";
+            if("{!currentUser.DI_Fi_Domain__c}" != null && "{!currentUser.DI_Fi_Domain__c}" != ""){
+                dom2 = "{!currentUser.DI_Fi_Domain__c}";
+            }
+            var hgt = $(document).height() + "px";
+                //alert(hgt);
+            /*if("{!currentUser.id}" == "00519000000yPILAA2"){
+             top.postMessage(hgt,"https://aplogin.digitalinsight.com" );
+            }else if("{!currentUser.id}" == "00519000000rMzI"){
+                top.postMessage(hgt,"https://ap.diginsite.net" );
+            }else{
+                top.postMessage(hgt,"{!dfDomain}" );
+            }*/
+            top.postMessage(hgt, '*');
+            };
+            //google analytics
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+             
+              ga('create', 'UA-66575504-1', 'auto');
+              ga('send', 'pageview');
+        
+        </script>
+        
+    </html>
+
+</apex:page>

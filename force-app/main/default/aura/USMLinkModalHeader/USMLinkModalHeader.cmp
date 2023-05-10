@@ -1,0 +1,16 @@
+<aura:component >
+	 <aura:attribute name="errorMessage" type="Boolean" default="flase"/>
+    <aura:attribute name="fieldName" type="string"/>
+    <aura:handler event="c:usm_showError" action="{!c.showUSMError}"/>
+    <div class="slds-text-title">
+        <span class="slds-icon_container" title="Does not have Managed Service">
+                                    <img src="/resource/USM/img/USM_Logo.png" class="slds-icon" style="width:50px;height:50px;"/>
+                                </span> 
+        USM Detail </div>
+    <aura:if isTrue="{!v.errorMessage}">
+    <div class="slds-box slds-theme--error" aura:id="messages">
+        <p><strong>{!v.fieldName}.</strong></p>
+    </div>
+    </aura:if>
+     	
+</aura:component>

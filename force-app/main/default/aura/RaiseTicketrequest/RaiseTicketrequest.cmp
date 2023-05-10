@@ -1,0 +1,330 @@
+<aura:component controller="TicketRequestController" implements="lightning:actionOverride,force:hasRecordId,force:hasSObjectName,force:lightningQuickActionWithoutHeader" access="global">
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>       
+    <!--Parking Passes Changes-->
+    <aura:attribute name="AvailableParkingPasses" type="list"/>
+    <aura:attribute name="SelectedParkingPasses" type="String"/>
+    <aura:attribute name="selectedContactLookUpRecords" type="sObject[]" default="[]"/>
+    <aura:attribute name="selectedContactLookUpRecordsTemp" type="sObject[]" default="[]"/>
+    <aura:attribute name="selectedContactLookUpRecords_Opp" type="sObject[]" default="[]"/>
+    <aura:attribute name="selectedContactLookUpRecords_OppTemp" type="sObject[]" default="[]"/>
+    <aura:attribute name="selectedContactLookUpRecords_User" type="sObject[]" default="[]"/>
+    <!--Parking Passes Changes-->
+     
+    <!--Skip Required Field for Kedell Reed Changes--> 
+        <aura:attribute name="isKendellReed" type="boolean" default="false"/>
+        <aura:attribute name="skipRequiredField" type="boolean" default="false"/>
+    <!--End Skip Required Field for Kedell Reed Changes-->
+
+    <aura:attribute name="falconList" type="List"/>
+    <aura:attribute name="AtlUniList" type="List"/>
+    <aura:attribute name="spclEventList" type="List"/>
+    <aura:attribute name="falconTcktList" type="List"/>
+    <aura:attribute name="SetNoneOnEventName" type="List"/>
+    <aura:attribute name="SetNoneOnTcktAvlble" type="List"/>
+    <aura:attribute name="eventNames" type="List"/>
+    <aura:attribute name="eventType" type="List" />
+    <aura:attribute name="eventTypeonEdit" type="List" />
+    <aura:attribute name="eventNameonEdit" type="List" />
+    <aura:attribute name="rcrcTypeId" type="Id" default="01I4B0000009X26"/>
+    <aura:attribute name="avlblTicketonEdit" type="List" />
+    <aura:attribute name="gameTicktsAvlble" type="List" />
+    <aura:attribute name="selectedEventName" type="String" />
+    <aura:attribute name="selectedEventType" type="String" />
+    <aura:attribute name="avalbleTickets" type="String" />
+    <aura:attribute name="showEditModal" type="Boolean" default="False" />
+    <aura:attribute name="showModal" type="Boolean" default="True" />
+    <aura:attribute name="selEvtTyp" type="String" />
+    <aura:attribute name="selEvtName" type="String" />
+    <aura:attribute name="selTcktReqst" type="String" />
+    <aura:attribute name="disabled" type="Boolean" default="false" />
+    <aura:attribute name="disabledNoTckt" type="Boolean" default="false" />
+    <aura:attribute name="disabledonEdit" type="Boolean" default="false" /> 
+    <aura:attribute name="diableEvntName" type="Boolean" default="false" />
+    <aura:attribute name="record" type="Object" />
+    <aura:attribute name="tRRecord" type="Object" />
+    <aura:attribute name="recordError" type="String" />
+    <aura:attribute name="havePermissionSetAccess" type="Boolean" default="false" />
+    <aura:attribute name="EventTypeAndNameMap" type="Map"/>
+    <aura:attribute name="EventNameAndEventMap" type="Map"/>
+    <aura:attribute name="TicketType" type="List"></aura:attribute>
+    <aura:attribute name="EventName" type="String"></aura:attribute>
+    <aura:attribute name="TicketType_And_NoOfTicketAvilable" type="Map"></aura:attribute>
+    <aura:attribute type="Boolean" Name="ToggleTicketType" default="true"></aura:attribute>
+    <aura:attribute type="Boolean" Name="ToggleTicketNo" default="true"></aura:attribute>
+    <aura:attribute Name="SelectedTicketType" type="String"></aura:attribute>
+    <aura:attribute Name="TicketRequested" type="String" default="1"></aura:attribute>
+    <aura:attribute Name="PhoneNo" type="Integer" default=''></aura:attribute>
+    <aura:attribute Name="ListAttende" Type="String"></aura:attribute>
+    <aura:attribute Name="Reason" Type="String"></aura:attribute>
+    
+    <aura:attribute Name="TicketRequest" type="Ticket_Request__c" default="{ 'sobjectType': 'Ticket_Request__c','Name': 'Pankaj'}"></aura:attribute>
+    <aura:attribute name="Junction_Ticket_Contact__c" type="List" access="private"/>
+    <aura:attribute name="Junction_Ticket_Opportunity__c" type="List" access="private"/> 
+    <aura:attribute Name="contact" type="Contact" default="{ 'sobjectType': 'Contact'}"></aura:attribute>
+    
+    <!-- <aura:registerEvent name="SentTcktIdtoContactCmp" type="c:TcktRqstMultipleContact"/>
+    <aura:registerEvent name="RenderLookUp" type="c:RenderLookUp"/>  -->
+    <aura:attribute Name="ContactListOnUpdate" type="List"></aura:attribute>
+    <aura:attribute Name="accountID" type="String"/>
+    <aura:attribute name="isdisabled" type="boolean" default="true"/>
+    
+    <aura:attribute name="EventNameIdMap" type="Map"></aura:attribute>
+    <aura:attribute name="SelectedEventId" type="String"></aura:attribute>
+   	<aura:attribute name="isPhoneDisabled" type="boolean" default="false"/>
+    <force:recordData aura:id="recordEditor"
+                      layoutType="FULL"
+                      recordId="{!v.recordId}"
+                      targetError="{!v.recordError}"
+                      targetRecord="{!v.record}"
+                      targetFields="{!v.tRRecord}"
+                      mode="EDIT" 
+                      recordUpdated="{!c.handleRecordUpdated}"/>
+    
+    <aura:if isTrue="{!v.showEditModal}">
+        
+						 <div class="slds-form" >
+					<fieldset class="slds-form-element">
+					<div class="slds-form-element__group">
+						<div class="slds-form-element__row">
+                           <div class="slds-form-element slds-size_1-of-1">
+                            <div class="boxed">
+                                <p><b>{!$Label.c.Ticket_Request_Text_Added}</b></p>
+                                </div>
+                            </div>
+                            </div>
+                        <div class="slds-form-element__row">
+						<div class="slds-form__item" role="listitem">
+							<div class="slds-form-element slds-size_1-of-2">
+								
+								<!--<lightning:select name="EventType" label="Event Type" required="true" onchange="{!c.getEventType}" value="{!v.tRRecord.Event_Typ__c}" disabled="{!v.disabledonEdit}" >
+									<aura:iteration items="{!v.eventTypeonEdit}" var="item">
+										<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"></option>
+									</aura:iteration>
+								</lightning:select>-->
+								
+								<ui:inputSelect  label="Event Type" required="true" value="{!v.tRRecord.Event_Typ__c}" disabled="{!v.disabledonEdit}"  change="{!c.getEventType}">
+									<aura:iteration items="{!v.eventTypeonEdit}" var="item">
+										 <ui:inputSelectOption text="{!item.label}" label="{!item.value}"/>
+									</aura:iteration>
+								</ui:inputSelect>
+								
+								<!--<lightning:select name="TicketType" label="Ticket Type" required="true" onchange="{!c.getAvlblTickets}" value="{!v.tRRecord.Ticket_Typ__c}">
+									<aura:iteration items="{!v.TicketType}" var="item">
+										<option text="{!item.label}" value="{!item.value}" />
+									</aura:iteration>
+								</lightning:select>-->
+								
+								<ui:inputSelect label="Ticket Type" required="true" value="{!v.tRRecord.Ticket_Typ__c}"   change="{!c.getAvlblTickets}">
+									<aura:iteration items="{!v.TicketType}" var="item">
+										 <ui:inputSelectOption text="{!item.label}" label="{!item.value}"/>
+									</aura:iteration>
+								</ui:inputSelect>
+								
+								<ui:inputPhone label="Enter Phone number:"  required="true"  value="{!v.PhoneNo}" />
+								
+								<lightning:textarea aura:id="field" label="List other NCR reps attending" name="ListAttende" value="{!v.ListAttende}"  />  <!-- placeholder="List other NCR reps attending" -->
+								
+							</div>
+							<div class="slds-form-element slds-size_1-of-2">
+								
+								<!--<lightning:select aura:id="eventname" name="Eventname" label="Event Name and Date" required="true" onchange="{!c.getTicket_Type}" value="{!v.tRRecord.Event_Name_Date__c}"  disabled="{!v.diableEvntName}">
+									<aura:iteration items="{!v.eventNameonEdit}" var="evtNmeonEdit">
+										<option text="{!evtNmeonEdit.label}" value="{!evtNmeonEdit.value}" />
+									</aura:iteration>
+								</lightning:select>-->
+								<ui:inputSelect aura:id="eventname" label="Event Name and Date" required="true"  value="{!v.tRRecord.Event_Name_Date__c}"  disabled="{!v.diableEvntName}" change="{!c.getTicket_Type}">
+									<aura:iteration items="{!v.eventNameonEdit}" var="evtNmeonEdit">
+										 <ui:inputSelectOption text="{!evtNmeonEdit.label}" label="{!evtNmeonEdit.value}"/>
+									</aura:iteration>
+								</ui:inputSelect>
+								
+								
+								<!--<lightning:select name="No. Of Tickets Available" label="No. Of Tickets Available" required="true" value="{!v.tRRecord.No_of_Tickets_Requested__c}" aura:id="onEditTkts" disabled="{!v.disabledNoTckt}" onchange="{!c.setTicketRequested}">
+									<aura:iteration items="{!v.avlblTicketonEdit}" var="avlblTckt">
+										<option text="{!avlblTckt.label}" value="{!avlblTckt.value}" />
+									</aura:iteration>
+								</lightning:select>-->
+								
+								<ui:inputSelect label="No. Of Tickets Available" required="true" value="{!v.tRRecord.No_of_Tickets_Requested__c}" aura:id="onEditTkts" disabled="{!v.disabledNoTckt}"  change="{!c.setTicketRequested}">
+								   <aura:iteration items="{!v.avlblTicketonEdit}" var="avlblTckt">
+										 <ui:inputSelectOption text="{!avlblTckt.label}" label="{!avlblTckt.value}"/>
+									</aura:iteration>
+								</ui:inputSelect>
+								<lightning:select label="No. of Parking Passes Available" onchange="{!c.setPassRequested}"  name="newParkingPassReq" aura:id="newParkingPassReq" value="" disabled="{!v.disabledNoTckt}" >
+													<aura:iteration items="{!v.AvailableParkingPasses}" var="ParkingPass">
+														<option value="{!ParkingPass.value}" text="{!ParkingPass.label}" selected="{!ParkingPass.selected}"></option>
+													</aura:iteration>
+							  </lightning:select>
+							  <div>
+							  	<lightning:textarea required="true" aura:id="field" label="Reason" name="reason" value="{!v.Reason}"/>  <!--  placeholder="Reason"  -->
+							  </div>		
+							</div>
+						</div>
+						</div>
+					</div>
+				</fieldset>
+		
+				  
+			<!-- 
+			<c:reUsableMultiSelectLookup objectAPIName="contact"
+															   IconName="standard:contact"
+															   lstSelectedRecords="{!v.selectedContactLookUpRecords}"
+															   label="Select Contact" />
+				
+				
+								
+								
+						   
+								
+			 <c:reUsableMultiSelectLookup objectAPIName="opportunity"
+															   IconName="standard:opportunity"
+															   lstSelectedRecords="{!v.selectedContactLookUpRecords_Opp}"
+															   label="Select Opportunity" />  -->
+			
+			 
+						
+					</div>	
+					<section class="slds-clearfix">
+                        <div class="slds-float--right">
+                    		<button class="slds-button slds-button_neutral" onclick="{!c.closeEditModal}">Cancel</button>        
+							<button class="slds-button slds-button_brand" onclick="{!c.saveUpdateChanges}" disabled="{!v.disabledNoTckt}">Save</button>
+					    </div>
+					</section>
+                        
+				
+    </aura:if>  
+    
+    <aura:if isTrue="{!v.showModal}">
+        <div class="evtModal" aura:id="evtModal" style="height: 440px;"> {!v.TicketRequested}
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeModal}">
+                            <c:svgIcon class="slds-icon myfill" svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#close" size="x-small" />
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Select Event Type and Event Name</h2>
+                    </header>
+                    <div class="slds-modal__content" id="modal-content-id-1">
+                        
+                        <div class="slds-form">
+                            <fieldset class="slds-form-element">
+                                
+                                <div class="slds-form-element__group">
+                                    <div class="boxed">
+                                        <p><b>{!$Label.c.Ticket_Request_Text_Added}</b></p>
+                                    </div>
+                                    <div class="slds-form-element__row ">
+									    <div class="slds-form__item" role="listitem">
+
+                                        <div class="slds-form-element slds-size_1-of-2 slds-p-around_xx-small">
+                                            
+                                            <ui:inputSelect aura:id="selectItem" label="Event Type" required="true"  change="{!c.getEventType}">
+                                                <aura:iteration items="{!v.eventType}" var="evtTyp">
+                                                    <ui:inputSelectOption text="{!evtTyp.label}" label="{!evtTyp.value}"/>
+                                                </aura:iteration>    
+                                            </ui:inputSelect> 
+                                            
+
+                                            <ui:inputSelect label="Ticket Type" required="true" change="{!c.getAvlblTickets}">
+                                                <aura:iteration items="{!v.TicketType}"  var="Type" >
+                                                    <ui:inputSelectOption text="{!Type.label}" label="{!Type.value}"/>
+                                                </aura:iteration>    
+                                            </ui:inputSelect> 
+                                            
+                                            
+                                            
+                                            <lightning:select label="No. of Parking Passes Available" name="newParkingPassReq" aura:id="newParkingPassReq" value="" onchange="{!c.setPassRequested}" disabled="{!v.disabledNoTckt}" >
+                                                <aura:iteration items="{!v.AvailableParkingPasses}" var="ParkingPass">
+                                                    <option value="{!ParkingPass.value}" text="{!ParkingPass.label}" selected="{!ParkingPass.selected}"></option>
+                                                </aura:iteration> 
+                                            </lightning:select>
+                                            <div>
+                                            	 <!-- <lightning:textarea aura:id="field" label="List other NCR reps attending" name="ListAttende" value="{!v.ListAttende}" /> placeholder="List other NCR reps attending"  -->
+                                                 <lightning:textarea aura:id="field" required="true" label="Reason" name="reason" value="{!v.Reason}"  /> <!-- placeholder="Reason" -->
+                                            </div>
+                                            
+                                             <aura:if isTrue="{!v.isKendellReed}">
+                                                <lightning:input type="checkbox" label="Internal Request" checked="{!v.skipRequiredField}" name="input1"/> 
+                                             </aura:if> 
+                                        </div>
+                                        <div class="slds-form-element slds-size_1-of-2 slds-p-around_xx-small">
+                                          
+                                           
+                                            <ui:inputSelect aura:id="eventSelect" label="Event Name and Date" required="true" change="{!c.getTicket_Type}" disabled="{!v.diableEvntName}">
+                                            	<aura:iteration items="{!v.eventNames}" var="selEvtList">
+                                                    <ui:inputSelectOption text="{!selEvtList.label}" label="{!selEvtList.value}"/>
+                                                </aura:iteration>    
+                                            </ui:inputSelect>    
+                                            
+                                            
+                                            <ui:inputSelect aura:id="newTkts" label="No. Of Tickets Requested" required="true" change="{!c.setTicketRequested}">
+                                            	<aura:iteration items="{!v.gameTicktsAvlble}" var="evtTckt">
+                                                    <ui:inputSelectOption text="{!evtTckt}" label="{!evtTckt}"/>
+                                                </aura:iteration>    
+                                            </ui:inputSelect>    
+                                            
+                                            <lightning:input type="tel" required="true" label="Phone No" name="phone1" value="{!v.PhoneNo}" disabled="{!v.isPhoneDisabled}" />
+                                            
+                                            <div>
+                                            	
+                                            </div> 
+                                           
+                                        </div>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                   		<div class="slds-form-element slds-p-around_small">		
+                              <c:reUsableMultiSelectLookup objectAPIName="user"		
+                                                             IconName="standard:user"		
+                                                             lstSelectedRecords="{!v.selectedContactLookUpRecords_User}"		
+                                                             label="Select All NCR Reps Attending" 		
+                                                             filterField=""		
+                                                             filterValue=""		
+                                                             disabled = "{!v.isdisabled}"    
+                                                           	required = "false"
+                                                             />   		
+                           <!-- </div>-->
+                        <div class="{!if(v.skipRequiredField ,'slds-hidden','slds-visible')}">
+                            <div style="height:250px;">
+                            <!--<div class="slds-form-element slds-p-around_small">-->
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">* </abbr>Select Account</label>
+                                <force:inputField value="{!v.TicketRequest.Related_Account__c}"/>
+							
+                                
+                            <c:reUsableMultiSelectLookup objectAPIName="contact"
+                                                               IconName="standard:contact"
+                                                               lstSelectedRecords="{!v.selectedContactLookUpRecords}"
+                                                               label="Select All Contacts Attending"
+                                                               filterField="AccountId"
+                                                               filterValue="{!v.TicketRequest.Related_Account__c}"
+                                                               disabled = "{!v.isdisabled}"
+                                                               />
+                                
+                                
+                             <c:reUsableMultiSelectLookup objectAPIName="opportunity"
+                                                               IconName="standard:opportunity"
+                                                               lstSelectedRecords="{!v.selectedContactLookUpRecords_Opp}"
+                                                               label="Select All Opportunities" 
+                                                               filterField="AccountId" 
+                                                               filterValue="{!v.TicketRequest.Related_Account__c}"
+                                                               disabled = "{!v.isdisabled}"    
+                                                            />   
+                                
+                                </div>  
+                        </div>    
+					</div>
+                   </div>
+                    <footer class="slds-modal__footer slds-modal__footer_directional">
+                        <button class="slds-button slds-button_neutral" onclick="{!c.closeModal}">Cancel</button>
+                        <button class="slds-button slds-button_brand" onclick="{!c.proceedtoCreateRecord}" disabled="{!v.disabled}">Save</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open" aura:id="backdrop"></div>
+        </div>
+    </aura:if>
+</aura:component>

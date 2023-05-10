@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Dispute Approval Reminder</name>
+    <style>none</style>
+    <subject>NCR Dispute Case {!Case.CaseNumber} - REMINDER APPROVAL NEEDED</subject>
+    <textOnly>Dispute Approval Needed
+
+
+
+This is a gentle reminder, that I have not yet received your approval for the following dispute.  			 NCR Dispute Case {!Case.CaseNumber} has a Net Credit Amount of  {!Case.Net_Credit_Amount__c}  and  NEEDS YOUR APPROVAL
+
+The following are the case details:
+
+Dispute Number:  {!Case.CCAD_Dispute_Nbr__c}
+Customer Name:  {!Case.Account}
+Customer Number:  {!Case.Master_Customer_Nbr__c}
+
+
+Customer Contact Name:  {!Case.Contact}
+Customer Contact Phone:  {!Case.Customer_Contact_Phone1__c}
+Customer Contact Email:  {!Case.Customer_Contact_Email1__c}
+
+
+Disputed Amount:  {!Case.Disputed_Amount__c}
+Dispute Reason:  {!Case.Dispute_Reason__c}
+Dispute Description:  {!Case.Description}
+Dispute Details:  {!Case.Dispute_Details__c}
+
+
+Please reply with your Approval or reach out to me if there are any questions. Thank you.
+
+{Case.Dispute_Analyst_Name__c}
+Dispute Analyst
+
+
+NCR Confidential. FOR INTERNAL USE ONLY.
+NCR Corporation 864 Spring St. NW, Atlanta, GA 30308-1007
+©2020 NCR Corporation. All rights reserved.  ncr.com
+NCR respects your privacy.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

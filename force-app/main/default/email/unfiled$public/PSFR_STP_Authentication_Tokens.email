@@ -1,0 +1,50 @@
+<messaging:emailTemplate subject="Authentication Token: PreSales Fund Request:{!relatedTo.Name}, Account Name : {!relatedTo.Account__r.Name} and Region: {!relatedTo.Region__c}" recipientType="User" relatedToType="Presales_Funding_Request__c" >
+<messaging:htmlEmailBody >
+<html>
+         <style>
+              p {
+                font-family: Verdana, Helvetica, sans-serif;
+                color: rgb(0,0,0);
+                font-size: 12.5px;
+                font-style: normal;
+                font-variant: normal;
+                font-weight: 400;
+                line-height: 20px;
+              }
+              
+              .inlineText {
+                  display: inline-block;
+                  margin-left: 12px;
+              }
+             
+         </style>
+    <body>
+
+<table>
+    <tr>
+                <td>
+                    <c:PSFR_Header />
+                </td>
+
+            </tr>
+</table>
+
+    
+<p>Please find the Authentication Token for PreSales Fund Request:{!relatedTo.Name}</p>
+
+<p>"{!relatedTo.PSFR_Authentication_Token_Text__c}" </p>
+
+
+<table>
+ <tr>
+                <td>
+                    <c:DemingEmail />
+                </td>
+
+            </tr>
+</table>
+
+</body>
+</html>
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>

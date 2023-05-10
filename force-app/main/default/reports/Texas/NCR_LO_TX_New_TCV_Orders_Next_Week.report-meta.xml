@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_88913469</developerName>
+        <masterLabel>Local Office Region</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Opportunity.Channel_Office__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>NCR LOCAL - TRI-STATE AREA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NCR LOCAL - NEW ENGLAND</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NCR LOCAL - WASHINGTON DC</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NCR Local - Ohio/Detroit</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NCR LOCAL - PENNSYLVANIA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NCR LOCAL - CHICAGO</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NCR Local - Rocky Mountain</sourceValue>
+            </sourceValues>
+            <value>North</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>NCR LOCAL - DALLAS/FT WORTH</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NCR LOCAL - HOUSTON</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NCR LOCAL - SAN ANTONIO</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NCR LOCAL - AUSTIN</sourceValue>
+            </sourceValues>
+            <value>Texas</value>
+        </values>
+    </buckets>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <aggregate>Sum</aggregate>
+            <axisBinding>y</axisBinding>
+            <column>OpportunityLineItem.Total_Cost_Value__c.CONVERT</column>
+        </chartSummaries>
+        <chartType>HorizontalBarGrouped</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>BucketField_88913469</groupingColumn>
+        <legendPosition>Right</legendPosition>
+        <location>CHART_BOTTOM</location>
+        <secondaryGroupingColumn>Opportunity.Channel_Office__c</secondaryGroupingColumn>
+        <showAxisLabels>false</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>true</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Actual_Close_Date__c</field>
+    </columns>
+    <columns>
+        <field>OpportunityLineItem.Topline_Product_Lkp__c</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>FORECAST_CATEGORY</field>
+    </columns>
+    <columns>
+        <field>LAST_UPDATE</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>OpportunityLineItem.Actual_Contract_Value__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>OpportunityLineItem.Total_Cost_Value__c.CONVERT</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Reflects NEW commits for next week for TX Local Offices</description>
+    <filter>
+        <criteriaItems>
+            <column>STAGE_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Closing,Closed/Booked</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Channel_Office__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>startsWith</operator>
+            <value>NCR Local</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>BucketField_88913469</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Texas</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OpportunityLineItem.Topline_Product_Lkp__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Aloha POS,NCR Custom Installation Services</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_88913469</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Opportunity.Channel_Office__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>FULL_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>NCR LO TX - New TCV Orders Next Week</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>OpportunityProduct</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>NEXT_FISCALWEEK</interval>
+    </timeFrameFilter>
+</Report>

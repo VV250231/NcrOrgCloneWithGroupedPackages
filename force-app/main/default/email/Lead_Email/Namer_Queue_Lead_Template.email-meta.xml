@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Template for Lead Queue and SLA Rules</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>X2015_NCR_Logo_Letterhead</letterhead>
+    <name>Namer Queue Lead Template</name>
+    <style>freeForm</style>
+    <subject>Lead In Open Status For More Than 5 Days</subject>
+    <textOnly>{!Lead.OwnerFullName}
+
+You have a lead that has exceeded the accepted SLA for qualifying/disqualifying/reassigning/returning to nurture.
+
+This means the lead has been sitting in open status without an update for more than 5 days.
+
+Please take action by reviewing your leads on the leads tab in NSC and updating any open leads.
+
+{!Lead.Link}
+
+NSC Administration</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

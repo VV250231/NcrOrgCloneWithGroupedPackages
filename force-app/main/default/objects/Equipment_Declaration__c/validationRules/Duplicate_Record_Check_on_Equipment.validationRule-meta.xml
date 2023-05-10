@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Duplicate_Record_Check_on_Equipment</fullName>
+    <active>false</active>
+    <errorConditionFormula>VLOOKUP( $ObjectType.Equipment_Declaration__c.Fields.Name, $ObjectType.Equipment_Declaration__c.Fields.Name ,   NameAndAccount__c ) =  Name</errorConditionFormula>
+    <errorDisplayField>Name</errorDisplayField>
+    <errorMessage>Equipment with same same Serial Number and same Partner Account Already exists. Please specify another Serial Number.</errorMessage>
+</ValidationRule>

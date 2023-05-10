@@ -1,0 +1,87 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="RelatedListController" >
+    <aura:attribute name="sobjectApiName" type="String" Default="Opportunity" />    
+    <aura:attribute name="relatedFieldApiName" type="String" Default="AccountId" />    
+    <aura:attribute name="numberOfRecords" type="Integer" default="10"/>    
+    <aura:attribute name="sortedBy" type="String" />
+    <aura:attribute name="sortedDirection" type="String" default="ASC"/>    
+    <aura:attribute name="onRowActionHandler" type="Aura.Action"/>    
+    <aura:attribute name="customActions" type="List"/>    
+    <aura:attribute name="columns" type="List" />
+    <aura:attribute name="columnsWithActions" type="List" access="private"/>
+    <aura:attribute name="fields" type="String" />
+    <aura:attribute name="records" type="Object" access="private"/>
+    <aura:attribute name="parentRelationshipApiName" type="String" access="private"/>    
+    <aura:attribute name="sobjectLabel" type="String" access="private"/>    
+    <aura:attribute name="sobjectLabelPlural" type="String" access="private"/>    
+    <aura:attribute name="numberOfRecordsForTitle" type="String" access="private"/>    
+    <aura:attribute name="iconName" type="String" access="private"/> 
+    <aura:attribute name="showSpinner" type="Boolean" access="private"/>
+    <aura:attribute name="showNew" type="Boolean" />
+    <!-- new attribute added for search-->
+    <aura:attribute name="srchKey" type="String" />
+    <aura:attribute name="UnfilteredData" type="List" access="private"/>
+    <aura:attribute name="isViewAll" type="Boolean" default="false"/>
+    <aura:attribute name="ViewAllColumns" type="List" />
+    <aura:attribute name="allfields" type="String" />
+    <!-- new attribute added for search-->
+    <aura:handler name="change" value="{!v.recordId}" action="{! c.init }"/>
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <aura:handler name="change" value="{!v.columns}" action="{! c.handleColumnsChange }"/>
+    <aura:handler event="force:showToast" action="{!c.handleToastEvent}"/>  
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    <lightning:navigation aura:id="navService"/>
+    
+    <div class="c-container">
+        <lightning:card class="slds-card_boundary" iconName="{!v.iconName}">
+            <aura:set attribute="actions">
+                <aura:if isTrue="{!v.showNew}">
+                    <lightning:button label="New" onclick="{!c.handleCreateRecord}"/>
+                </aura:if>
+            </aura:set>
+            
+            <aura:set attribute="title">
+                <aura:if isTrue="{!v.isViewAll}">
+                    <lightning:breadcrumbs>
+                        <lightning:breadcrumb label="Go Back" onclick="{! c.goBack }"/>
+                    </lightning:breadcrumbs>
+                </aura:if>
+                <b><aura:if isTrue="{!and(not(empty(v.records)),not(v.isViewAll))}"><a class="slds-card__header-link" onclick="{!c.redirectToViewAll}">{!(v.sobjectLabelPlural) + ' (' + (v.records.length) + ')'}</a>
+                    <aura:set attribute="else">
+                        {!(v.sobjectLabelPlural) + ' (' + (v.records.length) + ')'}
+                    </aura:set>
+                    </aura:if>
+                </b>
+            </aura:set>             
+            <aura:set attribute="footer">
+                <aura:if isTrue="{!and(not(empty(v.records)),not(v.isViewAll))}"> 
+                    <a onclick="{!c.redirectToViewAll}">View All</a>
+                </aura:if>
+            </aura:set>
+            <aura:if isTrue="{!not(empty(v.UnfilteredData))}"> 
+                <div class="slds-p-horizontal_small" style="margin-top : -18px;">
+                    <lightning:input aura:id="SearchBox" name="Search" placeholder="Search" value="{!v.srchKey}" onchange="{!c.searchFunc}"/>  
+                </div>
+            </aura:if>
+            <aura:if isTrue="{!not(empty(v.records))}"> 
+                <p class="slds-p-horizontal_small">                  
+                    <lightning:datatable class="related-list"
+                                         columns="{! v.columnsWithActions }"
+                                         data="{! v.records }"
+                                         keyField="id"
+                                         onrowaction="{! c.handleRowAction }"
+                                         hideCheckboxColumn="true"
+                                         onsort="{!c.handleSort}"
+                                         sortedDirection="{!v.sortedDirection}"
+                                         sortedBy="{!v.sortedBy}"
+                                         target ="abc"
+                                         />                     
+                </p>               
+            </aura:if>
+            
+        </lightning:card>
+        <aura:if isTrue="{! v.showSpinner }">           
+            <lightning:spinner alternativeText="Loading" />
+        </aura:if>
+    </div>
+    
+</aura:component>

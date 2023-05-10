@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Add_Deinstallation_Date</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( 
+!$Setup.Automation_Setting__c.Skip_Validation_Rule__c, 
+ISPICKVAL(Termination_Status__c ,&apos;De-installed&apos;),
+ISBLANK( De_install_Date__c ) 
+)</errorConditionFormula>
+    <errorMessage>Please add “De-Install Date”</errorMessage>
+</ValidationRule>

@@ -1,0 +1,86 @@
+<template>
+    <div class= "slds-box">
+        <template if:true={RevenueByCategory}>
+    <ul class="ulhorizontal">
+        <li class="tiles-box"> 
+            <div class="slds-box custom-slds-box ">
+                <div class="slds-tile slds-tile_board" >
+                    <div class="titleHead">
+                        <h2>HW Maintenance <br/>
+                        (File Value) <lightning-helptext content="This value represents a rolling 12 month File Account Value."></lightning-helptext>
+                        </h2>
+                    </div >
+                    <div class="amountHead">
+                        <h2>$<lightning-formatted-number value={RevenueByCategory.HWM_Value} maximum-fraction-digits="0" >
+                            </lightning-formatted-number>
+                        </h2>
+                    </div>
+                   
+                </div>  
+            </div> 
+        </li>
+        <li class="tiles-box"> 
+            <div class="slds-box custom-slds-box">
+                <div class="slds-tile slds-tile_board">
+                    <div class="titleHead">
+                        <h2>SW Maintenance<br/>
+                        (File Value) <lightning-helptext content="This value represents a rolling 12 month File Account Value."></lightning-helptext>
+                        </h2>
+                    </div>
+                    <div class="amountHead">
+                        <h2>$<lightning-formatted-number value={RevenueByCategory.SWM_Value} maximum-fraction-digits="0" >
+                            </lightning-formatted-number>
+                        </h2>
+                    </div>
+                    
+                </div>  
+            </div> 
+        </li>
+        <li class="tiles-box"> 
+            <div class="slds-box custom-slds-box ">
+                <div class="slds-tile slds-tile_board">
+                    <div class="titleHead">
+                        <h2>Managed Services
+                            <br/>(File Value) <lightning-helptext content="This value represents a rolling 12 month File Account Value."></lightning-helptext>
+                        </h2>
+                    </div>
+                    <div class="amountHead">
+                        <h2>$<lightning-formatted-number value={RevenueByCategory.ManagedServices_Value} maximum-fraction-digits="0" >
+                            </lightning-formatted-number>
+                        </h2>
+                    </div>                    
+                </div>  
+            </div> 
+         </li>
+        <li class="tiles-box"> 
+            <div class="slds-box custom-slds-box ">
+                <div class="slds-tile slds-tile_board">
+                    <div class="titleHead">
+                        <h2>T&M
+                            <br/>(File Value) <lightning-helptext content="This value represents a rolling 12 month File Account Value."></lightning-helptext>
+                        </h2>
+                    </div>
+                    <div class="amountHead" >
+                        <h2>$<lightning-formatted-number value={RevenueByCategory.TM_Value} maximum-fraction-digits="0" >
+                            </lightning-formatted-number>
+                        </h2>
+                    </div>                    
+                </div>  
+            </div> 
+        </li>
+        <!-- <li class="tiles-box"> 
+            <div class="slds-box custom-slds-box">
+                <div class="slds-tile slds-tile_board">
+                    <div class="titleHead">
+                        <h2>Transportation Services</h2>
+                    </div>
+                    <div class="amountHead">
+                        <h2>$33,298</h2>
+                    </div>                    
+                </div>  
+            </div> 
+        </li> -->
+    </ul>
+</template>
+	</div>
+</template>

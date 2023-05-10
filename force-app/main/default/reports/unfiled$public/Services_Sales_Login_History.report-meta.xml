@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>User.Manager_Level_01__c</field>
+    </columns>
+    <columns>
+        <field>ROLE</field>
+    </columns>
+    <columns>
+        <field>PROFILE</field>
+    </columns>
+    <columns>
+        <field>USERNAME</field>
+    </columns>
+    <columns>
+        <field>LOGIN_DATETIME</field>
+    </columns>
+    <columns>
+        <field>BROWSER_TYPE</field>
+    </columns>
+    <columns>
+        <field>ACTIVE</field>
+    </columns>
+    <currency>USD</currency>
+    <description>report for Laura King</description>
+    <filter>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <column>FULL_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Aziz Zarazel,Kristina Kazlausky,Paul A Goff,Duke Hoffer,Melody Jenkins,Emmanuel Fremont,Gosia Rother,Regine Mueller,Stephen Hill,Stuart Henderson,Chay Chauncey,Chris O&apos;Connell,Jim Munchel,Phillip Pack,Anand Barry,Roman Jakubowski,Paul Davies,Roberto Bisagni,Chris Allen,Brian Godish,Sal DeMarco,Amit Mishra,Bernardo Alexandrovich,Shoichi Yamazaki,David Anderson,Montserrat Del Valle,Shawn Fields,Claire Webb,Matt Pelot,Robert Sindinger,Nick Salvo,Walid Heikal,Joe Xu,Ricardo Chavez,Tridib Biswas,Michael Radomski,Sean Duggan,Ryan Pinkerton,Charity Meyers,Karin Sertl,Karen Bean,Michael McGaughey,Peter Nauenberg,Mirza Causevic</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FULL_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Scott Coombs,Patricia Doss,Jeannie Tinsley,Tina Lomagno,Jennifer L Bosold,Al Perez,Craig McNaughton,Saleem Zaman,Emilio Sanchez-Walker,Gabor Sajer,Jonathan Steele,Said Torres Jaimes,Giulianno Matteucci,Tobias Drebes,Han Wang,Svetlana Khaustova,Phiroze Meherhomji,Harish Sharma,Abid Malick,Alyona Fateeva,Andrew Schneider,Ahmed Awad,Rohit Guliani,Ignacio Poblet,Brenda Allen,Nakis Agamemnonos,Mohamed Othman,Gabriela Sieradzka,Francisco Campos,Jim Watson,Bryan Glatt,Adib Kangda,Clive Williams,Mudassir Iqbal,Armagan Teselli,Gilberto Gatti,Connel Vereker,Bret Harrison</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Services Sales Login History</name>
+    <params>
+        <name>active</name>
+        <value>active</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>User</reportType>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>LOGIN_DATETIME</dateColumn>
+        <interval>INTERVAL_LASTWEEK</interval>
+    </timeFrameFilter>
+</Report>

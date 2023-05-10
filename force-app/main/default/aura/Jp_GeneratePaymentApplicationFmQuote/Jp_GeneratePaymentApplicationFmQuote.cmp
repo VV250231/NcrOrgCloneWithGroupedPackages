@@ -1,0 +1,117 @@
+<aura:component controller='GeneratePaymentsApplicationController' implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader" access="global" >
+     
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="showModal" type="Boolean" Default="true" />
+    <aura:attribute name="showSpinner" type="Boolean" Default="false" />
+    <aura:attribute name="QteWrapper" type="object"/>
+    <aura:attribute name="multiSiteDataColumns" type="List" />
+    <aura:attribute name="multiQPaymentSiteData" type="List"/>
+    <aura:attribute name="response" type="String" />
+    <aura:attribute name="isMultisiteQuote" type="Boolean" Default="false" />
+    <aura:attribute name="MultiSiteResponse" type="List" />
+    <aura:attribute name="MultiSiteResponseColumns" type="List" />
+    <aura:attribute name="options" type="List" default="[]"/>
+    <aura:attribute name="ConDetails" type="Contact"></aura:attribute>
+    <aura:attribute name="ToggleConDetls" type="Boolean" default="false"></aura:attribute>
+    <aura:attribute name="isError" type="Boolean" Default="false" />
+    <aura:attribute name="errorMessage" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    
+    <aura:if isTrue="{!v.isError}">
+        {!v.errorMessage}
+        <aura:set attribute = "else">
+            <aura:if isTrue="{!empty(v.MultiSiteResponse)}">
+                <div style="padding:2rem,padding:0.5rem;background:white" >
+                    <center><h1><b><u>Send Payments Application:</u></b></h1></center>
+                    <aura:if isTrue="{!v.showSpinner}"><lightning:spinner aura:id="mySpinner" /></aura:if> 
+                    <div style="overflow: auto;height:800px;">
+                        <aura:if isTrue="{!not(empty(v.QteWrapper.res))}">
+                            <div class="slds-box hdr">            
+                                <div><lightning:icon iconName="utility:warning" alternativeText="Warning!" variant="warning" size="x-small"/> Correct following Validation Error(s) to send Application:</div>
+                                <aura:iteration items="{!v.QteWrapper.res}" var="item">
+                                    <div class="errHdr">• {!item}</div>
+                                </aura:iteration>            
+                            </div>
+                        </aura:if>
+                        <aura:if isTrue="{!not(empty(v.QteWrapper.nps))}">
+                            <div class="slds-box hdr">            
+                                <div style="color: red"><lightning:icon iconName="utility:warning" alternativeText="Warning!" variant="warning" size="x-small"/>&nbsp; <B><u>Application Already Sent For Payments Underwriting:</u></B></div>
+                                <div class="slds-col slds-size_1-of-1">
+                                    <div><b>Site Name:</b> &nbsp;{!v.QteWrapper.nps.Account_Sites__r.Name}  </div>              
+                                    <div><b>Site Id:</b> &nbsp;{!v.QteWrapper.nps.Account_Sites__r.Site_Number__c}  </div>               
+                                    <div><b>OnBoarding Status:</b> &nbsp;{!v.QteWrapper.nps.NCR_Payments_Application_Status__c }  </div>               
+                                    <div><b>MID(s):</b> &nbsp;{!v.QteWrapper.nps.MID__c}  </div>
+                                    <div><b>TID(s):</b> &nbsp;{!v.QteWrapper.nps.TID__c}  </div>
+                                </div>           
+                            </div>
+                        </aura:if>
+                        <div class="slds-box " >
+                            <b><Center>Site And Contact Information On Quote For Underwriting:</Center></b>
+                            <aura:if isTrue ="{!not(empty(v.multiQPaymentSiteData))}">
+                                <div  class="slds-box " >
+                                    <div class="slds-grid">
+                                        <div class="slds-col slds-size_1-of-1">
+                                            <lightning:datatable keyField="SiteId" data="{! v.multiQPaymentSiteData }" columns="{! v.multiSiteDataColumns }" hideCheckboxColumn="true"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <aura:set attribute="else">
+                                    <div  class="slds-box " >
+                                        <div class="slds-grid">
+                                            <div class="slds-col slds-size_1-of-1">                              
+                                                <div><b>Site Name:</b> &nbsp;{!v.QteWrapper.Qte.Deliver_To_Site__r.Name}  </div>              
+                                                <div><b>Site Id:</b> &nbsp;{!v.QteWrapper.Qte.Deliver_To_Site__r.Site_Number__c}  </div>
+                                                <!--<div><b>Contact Name:</b> &nbsp;{!v.QteWrapper.Qte.SBQQ__PrimaryContact__r.Name}  </div>               
+                                            <div><b>Contact Email:</b> &nbsp;{!v.QteWrapper.Qte.SBQQ__PrimaryContact__r.Email}  </div>
+                                            <div><b>Contact Phone:</b> &nbsp;{!v.QteWrapper.Qte.SBQQ__PrimaryContact__r.Phone}  </div>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </aura:set>
+                            </aura:if>
+                            <br/>
+                            <div  class="slds-box " >
+                                <div class="slds-grid">
+                                    <div class="slds-col slds-size_1-of-1">      
+                                        <div>Please select Contact:<lightning:helptext content="Select contact Before sending the Application"/><lightning:combobox name="general" label="" placeholder="Select an Option" options="{! v.options }" onchange="{! c.handleAssigneChange }"/><br/></div>
+                                        <div><b>Contact Name:</b> &nbsp;{!v.ConDetails.Name}  </div>               
+                                        <div><b>Contact Email:</b> &nbsp;{!v.ConDetails.Email}  </div>
+                                        <div><b>Contact Phone:</b> &nbsp;{!v.ConDetails.Phone}  </div>
+                                    </div>    
+                                </div>
+                                <aura:if isTrue="{!v.ToggleConDetls}">
+                                    <div class="exampleHolder">
+                                        <lightning:spinner alternativeText="Loading" size="small" />
+                                    </div>
+                                </aura:if>     
+                            </div>
+                        </div>
+                    <div>
+                        <footer role="contentinfo"  class="slds-p-around_small">
+                            <!-- LAYOUT GRID -->
+                            <div class="slds-grid slds-grid_align-spread">
+                                <lightning:button variant="neutral" label="Cancel" title="Cancel" onclick="{! c.cancel }" />
+                                <lightning:button variant="brand" disabled="{!not(empty(v.QteWrapper.res)) || not(empty(v.QteWrapper.nps)) || (empty(v.ConDetails))}" label="Send Application" title="Send Application" onclick="{! c.handleSubmit }" />
+                            </div>
+                            <!-- / LAYOUT GRID -->
+                        </footer>
+                    </div>
+                    </div>
+                    <!--<lightning:overlayLibrary aura:id="overlayLib"/>-->
+            
+                </div>
+                </aura:if>
+                <aura:if isTrue="{!not(empty(v.MultiSiteResponse))}">
+                    <b><Center>Response Status:</Center></b>
+                    <div  class="slds-box " >
+                        <div class="slds-grid">
+                            <div class="slds-col slds-size_1-of-1">
+                                <lightning:datatable keyField="siteNumber" data="{! v.MultiSiteResponse }" columns="{! v.MultiSiteResponseColumns }" hideCheckboxColumn="true"/>
+                            </div>
+                        </div>
+                    </div>
+                </aura:if>
+        </aura:set>
+    </aura:if>
+
+</aura:component>

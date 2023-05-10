@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>This email template notifies user after account is created and user in not NSC Admin</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>NCR_new_logo_small</letterhead>
+    <name>Account Creation Notification</name>
+    <style>freeForm</style>
+    <subject>Account Created</subject>
+    <textOnly>Greetings {!Account.OwnerFullName},
+
+Your Account has been created with Master Customer Number i.e. {!Account.Master_Cutomer_Number_Formula__c}.
+
+Thank you,
+Salesforce Admin Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

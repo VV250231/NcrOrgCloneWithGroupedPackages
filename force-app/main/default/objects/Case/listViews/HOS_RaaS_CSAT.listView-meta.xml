@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOS_RaaS_CSAT</fullName>
+    <columns>CSAT_Response__c</columns>
+    <columns>CSAT_Response_Report_URL__c</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>Site_Id__c</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Support_Queue__c</field>
+        <operation>contains</operation>
+        <value>HOS RaaS</value>
+    </filters>
+    <filters>
+        <field>CSAT_Response__c</field>
+        <operation>greaterOrEqual</operation>
+        <value>1</value>
+    </filters>
+    <label>HOS RaaS CSAT</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

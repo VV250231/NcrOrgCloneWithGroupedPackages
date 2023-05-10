@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <assignments>
+        <name>Set_Billing_Account_and_Invoice_Batch</name>
+        <label>Set Billing Account and Invoice Batch</label>
+        <locationX>624</locationX>
+        <locationY>569</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.blng__BillingAccount__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Deliver_To_Site__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.blng__InvoiceBatch__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>SetBatch</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Set_Billing_Day_of_Month</name>
+        <label>Set Billing Day of Month</label>
+        <locationX>160</locationX>
+        <locationY>352</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.blng__BillingDayOfMonth__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>1</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Billing_Account_and_Invoice_Check</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Billing_Account_and_Invoice_Check</name>
+        <label>Billing Account and Invoice Check</label>
+        <locationX>340</locationX>
+        <locationY>567</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Update</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Deliver_To_Site__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.blng__InvoiceBatch__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.blng__BillingAccount__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Billing_Account_and_Invoice_Batch</targetReference>
+            </connector>
+            <label>Yes - Update</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Billing_Day_of_Month_Null</name>
+        <label>Billing Day of Month Null</label>
+        <locationX>343</locationX>
+        <locationY>355</locationY>
+        <defaultConnector>
+            <targetReference>Billing_Account_and_Invoice_Check</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Null</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.blng__BillingDayOfMonth__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Billing_Day_of_Month</targetReference>
+            </connector>
+            <label>Yes - Null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Status_of_Order</name>
+        <label>Status of Order</label>
+        <locationX>487</locationX>
+        <locationY>861</locationY>
+        <defaultConnectorLabel>Status is Activated</defaultConnectorLabel>
+        <rules>
+            <name>Status_is_Draft</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Draft</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_BDOM_and_Billing_Account</targetReference>
+            </connector>
+            <label>Status is Draft</label>
+        </rules>
+        <rules>
+            <name>Status_is_Activated_AND_Deliver_To_is_Updated</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Deliver_To_Site__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Activated</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Billing_Account</targetReference>
+            </connector>
+            <label>Status is Activated AND Deliver To is Updated</label>
+        </rules>
+    </decisions>
+    <description>SFCPQBLG-317 - ATG - 30-Nov-2021 - Replaced record updates with assignments. Added in decisions to only assign when necessary
+SFCPQBLG-317 Set Billing Day of Month
+SFCPQBLG-315 Set Billing Account to Delivery To Site
+SFCPQBLG-429 Set Batch</description>
+    <formulas>
+        <name>SetBatch</name>
+        <dataType>String</dataType>
+        <expression>IF(LEFT({!$Record.Deliver_To_Site__r.Name}, 1)= &quot;A&quot;, &apos;Batch 1&apos;, 
+IF(LEFT({!$Record.Deliver_To_Site__r.Name}, 1)= &quot;B&quot;, &apos;Batch 1&apos;, 
+IF(LEFT({!$Record.Deliver_To_Site__r.Name}, 1)= &quot;C&quot;, &apos;Batch 1&apos;, 
+IF(LEFT({!$Record.Deliver_To_Site__r.Name}, 1)= &quot;D&quot;, &apos;Batch 1&apos;, 
+IF(LEFT({!$Record.Deliver_To_Site__r.Name}, 1)= &quot;E&quot;, &apos;Batch 1&apos;, 
+IF(LEFT({!$Record.Deliver_To_Site__r.Name}, 1)= &quot;F&quot;, &apos;Batch 1&apos;, 
+IF(LEFT({!$Record.Deliver_To_Site__r.Name}, 1)= &quot;G&quot;, &apos;Batch 1&apos;, 
+IF(LEFT({!$Record.Deliver_To_Site__r.Name}, 1)= &quot;H&quot;, &apos;Batch 1&apos;, 
+IF(LEFT({!$Record.Deliver_To_Site__r.Name}, 1)= &quot;I&quot;, &apos;Batch 1&apos;, 
+IF(LEFT({!$Record.Deliver_To_Site__r.Name}, 1)= &quot;J&quot;, &apos;Batch 1&apos;, 
+IF(LEFT({!$Record.Deliver_To_Site__r.Name}, 1)= &quot;K&quot;, &apos;Batch 1&apos;, 
+IF(LEFT({!$Record.Deliver_To_Site__r.Name}, 1)= &quot;L&quot;, &apos;Batch 1&apos;, 
+IF(LEFT({!$Record.Deliver_To_Site__r.Name}, 1)= &quot;M&quot;, &apos;Batch 1&apos;, 
+&apos;Batch 2&apos;)))))))))))))</expression>
+    </formulas>
+    <interviewLabel>BLG Order on Create {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>BLG Order on Create and Update</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Set_BDOM_and_Billing_Account</name>
+        <label>Set BDOM and Billing Account</label>
+        <locationX>50</locationX>
+        <locationY>897</locationY>
+        <inputAssignments>
+            <field>blng__BillingAccount__c</field>
+            <value>
+                <elementReference>$Record.Deliver_To_Site__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>blng__BillingDayOfMonth__c</field>
+            <value>
+                <stringValue>1</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>blng__InvoiceBatch__c</field>
+            <value>
+                <elementReference>SetBatch</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Set_Billing_Account</name>
+        <label>Set Billing Account</label>
+        <locationX>809</locationX>
+        <locationY>842</locationY>
+        <inputAssignments>
+            <field>blng__BillingAccount__c</field>
+            <value>
+                <elementReference>$Record.Deliver_To_Site__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>blng__InvoiceBatch__c</field>
+            <value>
+                <elementReference>SetBatch</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>224</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Billing_Day_of_Month_Null</targetReference>
+        </connector>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>blng__BillingDayOfMonth__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>blng__InvoiceBatch__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>blng__BillingAccount__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Deliver_To_Site__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>Order</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

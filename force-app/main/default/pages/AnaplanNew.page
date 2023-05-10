@@ -1,0 +1,122 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false"> 
+ <style type="text/css">
+        .popupBackground{
+            display: none;
+            z-index: 9998;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            position: absolute;             
+            background-color:#cccccc;
+        }
+        
+       .modalPopup{
+            position: relative;
+            z-index: 9999;
+            margin: auto;
+            padding : 0;
+            background-color: #fefefe;
+            color: #000000;
+            width: 500px;
+            top: 20%;
+            border-radius: 0.5rem;
+            font-family:"Salesforce Sans", Arial, sans-serif;
+        }
+      
+        
+        .modal-header {
+           border-bottom: 1px solid #dddbda;
+           padding: 0.75rem 1rem;
+        }
+        
+        /* Modal Body */
+        .modal-body {
+            padding: 2px 16px; 
+            text-align:center; 
+            font-size: 0.8125rem;
+            padding-bottom: 50px;}
+        
+        /* Modal Footer */
+        .modal-footer {
+            padding: 0.5rem 1rem;
+            border-top: 1px solid #dddbda;
+            text-align: right;
+            border-bottom-right-radius: 0.5rem;
+            border-bottom-left-radius: 0.5rem;
+            background-color: #f3f2f2;
+        }
+        
+        .close {
+            color: black;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            display:inline;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+       .slds-button_brand {
+            padding-left: 1rem;
+            padding-right: 1rem;
+            text-align: center;
+            vertical-align: middle;
+            border: 1px solid #dddbda;
+            -webkit-transition: border 0.15s linear;
+            transition: border 0.15s linear;
+            background-color: #0070d2;
+            border-color: #0070d2;
+            color: white;
+            display: inline-block;
+            background-clip: border-box;
+            border: 1px solid transparent;
+            border-radius: 0.25rem;
+            line-height: 1.75rem;
+        }
+
+    </style>
+
+ 
+
+
+     <div>
+       <h3 style="text-align:center">Launching Anaplan in New Tab...</h3>
+        <div id="modalbox" class="popupBackground">
+            <div class="modalPopup">
+              <div class="modal-header">
+                <span class="close" onclick="hidepopup();">&times;</span>
+                <h2 style="display:inline;">Oops!</h2>
+              </div>
+              <div class="modal-body">
+                <p style="text-align:left;display:inline-block;">Error in opening Anaplan in New Tab.<br/>
+                Please enable pop-up and try again.</p>
+                
+              </div>
+              <div class="modal-footer">
+                  <button class="slds-button slds-button_brand" onclick="hidepopup();">Close</button>  
+              </div>
+                
+            </div>
+        </div>
+     </div>
+  <script>
+  setTimeout(function() {
+          var link = "https://sdp.anaplan.com/frontdoor/saml/ncrazuresaml";
+            var newWin = window.open(link, '_blank');
+            if(!newWin || newWin.closed || typeof newWin.closed == 'undefined') 
+            { 
+                document.getElementById("modalbox").style.display = "block";
+            }     
+         }, 2000);
+    
+    function hidepopup() {
+        document.getElementById("modalbox").style.display = "none";
+    }
+</script>
+</apex:page>

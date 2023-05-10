@@ -1,0 +1,145 @@
+<template>
+    <div>
+        <div class="slds-form-element">
+            <div class="slds-form-element__control">
+                <div class="slds-combobox_container">
+                    <div id="box" class={boxClass} aria-expanded="true" aria-haspopup="listbox" role="combobox">
+                        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                            <template if:true={isValueSelected}>
+                                <div id="lookup-pill" class="slds-pill-container">
+                                    <lightning-pill class="pillSize" label={selectedName} name={selectedName} onremove={handleRemovePill} href={href}>
+                                        <lightning-icon icon-name={iconName} alternative-text="acc" ></lightning-icon>
+                                    </lightning-pill>
+                                </div>
+                            </template>
+                            <template if:false={isValueSelected}>
+                                <div class="slds-p-top_none">
+                                    <lightning-input class={inputClass} type="search" id="input" value={searchTerm} required={isRequired}
+                                                     onclick={handleClick} onblur={onBlur} onchange={onChange}
+                                                     variant="label-hidden" label={labelName} autocomplete="off" placeholder={searchPlaceholder}>
+                                    </lightning-input>
+                                </div>
+                            </template>
+                        </div>
+                        <div id="listbox-id-1" class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid" role="listbox">
+                            <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                <template for:each={records} for:item="record">
+                                    <li key={record.Id} onclick={onSelect} data-id={record.Id} role="presentation" data-name={record.Name}>
+                                        <span class="slds-lookup__item-action slds-lookup__item-action--label" role="option">
+                                            <lightning-icon class="slds-icon slds-icon--small slds-icon-text-default" icon-name={iconName} alternative-text={objName} size="small"></lightning-icon>
+                                            <template if:true={record.Quicklook_ID__c}>
+                                                <span class="slds-truncate">{record.Name} - {record.Quicklook_ID__c}</span>
+                                            </template>
+                                            <template if:false={record.Quicklook_ID__c}>
+                                                <span class="slds-truncate">{record.Name}</span>
+                                            </template>
+                                           
+                                        </span>
+                                    </li>
+                                </template>
+                            <!--
+                            <template if:true={showReportBttn}>
+                            <footer class="slds-popover__footer slds-popover__footer_form">
+                                <lightning-button label="See All Reports"  onclick={handleReports} class="slds-m-left_x-small"></lightning-button>
+                                </footer>
+                            </template>
+                            -->   
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Spinner Element-->
+   
+        <!--  MODAL -->
+        <template if:true={isModalShown}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container" style="height: inherit;">
+                    <header class="slds-modal__header">
+                        <div if:true={isLoading}>
+                            <lightning-spinner alternative-text="Loading..." variant="brand" class="slds-is-fixed">
+                            </lightning-spinner>
+                        </div>
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close"
+                            onclick={closeModal}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small">
+                            </lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <div class="slds-scrollable" style="height:21rem;width:37rem">
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered ">
+                                <thead>
+                                   <tr class="slds-line-height_reset">
+                                    <!--
+                                     <th class="" scope="col">
+                                           
+                                        </th>
+                                 --> 
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate">Name</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate">Folder Name</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate">DeveloperName</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate">Description</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <!--Body of the table-->
+                                <tbody>
+                                    <template for:each={reportList} for:item="item" for:index="indexVar">
+                                        <tr key={item.Id} class="slds-hint-parent">
+                                          <!--
+                                         <td class="slds-truncate">
+                                                <div>
+                                                    <lightning-input class="chk" data-id={item.Id} id={item.Id} type="checkbox"  onchange={handleChkBox} name="inputChk"></lightning-input>
+                                                </div>
+                                            </td>
+                                          -->  
+                                            <td class="slds-truncate">
+                                                <div>
+                                                    {item.Name}
+                                                </div>
+                                            </td>
+                                            <td class="slds-truncate">
+                                                <div>
+                                                    {item.FolderName}
+                                                </div>
+                                            </td>
+                                            <td class="slds-truncate">
+                                                <div>
+                                                    {item.DeveloperName}
+                                                </div>
+                                            </td>
+                                            <td class="slds-truncate">
+                                                <div>
+                                                    {item.Description}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                    </header>
+        
+                    <footer class="slds-modal__footer slds-modal__footer_directional">
+                        <div class="slds-align_absolute-center">
+                            <lightning-button label="Ok" onclick={submit}></lightning-button>
+                        </div>
+        
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+        <!-- / MODAL -->
+        
+        </div>
+</template>

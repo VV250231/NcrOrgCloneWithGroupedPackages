@@ -1,0 +1,52 @@
+<aura:component controller="QONB_DashboardController" implements="force:appHostable,force:hasRecordId,flexipage:availableForAllPageTypes" access="global" >
+    <!-- Record Id -->
+    <aura:attribute name="recordId" type="String" default="123"/>
+     
+    <!-- getting data -->
+    <aura:attribute name="DataCollection" type="Object[]"/>
+    <!-- getting data -->
+    <aura:attribute name="summerizeData" type="Object"/>
+    
+    <!-- getting data -->
+    <aura:attribute name="NotBookedReasons" type="list"/>
+    <!-- getting data -->
+    <aura:attribute name="QuoteInProcess" type="list"/>
+    
+    <!-- getting data -->
+    <aura:attribute name="OrdersSubmittedBOC" type="list"/>
+    
+    <!-- getting data -->
+    <aura:attribute name="OrdersReturned" type="list"/>
+    
+    <!-- Account Options -->
+    <aura:attribute name="AccountOptions" type="List" />
+    
+    <!-- Account Options -->
+    <aura:attribute name="showSpinner" type="boolean" default="false" />
+    
+    <!-- to fetch records on component load -->
+    <aura:handler name="init" value="{!this}" action="{!c.doinit}" />
+    
+    
+    
+    <article class="slds-card">
+        <aura:if isTrue="{!v.showSpinner}">
+            <lightning:spinner variant="brand" size="small" />
+        </aura:if>
+        <div class="slds-card__header slds-grid">
+            <div class="slds-col slds-col slds-size_4-of-12">
+                <lightning:select name="mySelect" label="Select Account" aura:id="mySelect" onchange="{!c.onChangeAccount}">
+                    <aura:iteration items="{!v.AccountOptions}" var="item">
+                        <option text="{!item.label}" value="{!item.value}"/>
+                    </aura:iteration>
+                </lightning:select>
+            </div>                       
+        </div>
+        <c:QONB_DashboardList summerizeData="{!v.summerizeData}" 
+                              QuoteInProcess="{!v.QuoteInProcess}"
+                              OrderSubmittedBOC="{!v.OrdersSubmittedBOC}"
+                              OrdersReturned="{!v.OrdersReturned}"
+                              NotBookedReasons="{!v.NotBookedReasons}"
+                              />
+    </article>
+</aura:component>

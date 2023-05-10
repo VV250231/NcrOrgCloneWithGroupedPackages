@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Forecast_Category_Exclude__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(CONTAINS(RecordType.DeveloperName, &apos;Exclude&apos;) &amp;&amp; (TEXT(Forecast_Category__c)==&apos;Pipeline&apos; ||TEXT(Forecast_Category__c)==&apos;Upside&apos;||TEXT(Forecast_Category__c)==&apos;Commit&apos;), &apos;Exclude - &apos;+ TEXT(Forecast_Category__c) , TEXT(Forecast_Category__c))</formula>
+    <label>Forecast Category Exclude</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

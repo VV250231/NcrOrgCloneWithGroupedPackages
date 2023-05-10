@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Case$CaseNumber</field>
+    </columns>
+    <columns>
+        <field>Case$Site_Id__c.Name</field>
+    </columns>
+    <columns>
+        <field>Case$Status</field>
+    </columns>
+    <columns>
+        <field>Case$Subject</field>
+    </columns>
+    <columns>
+        <field>Case$Priority</field>
+    </columns>
+    <columns>
+        <field>Case$CreatedDate</field>
+    </columns>
+    <columns>
+        <field>Case$Support_Queue__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>This is a custom report everyone should have... feel free to setup filters for (queues, sites or whatever you like)</description>
+    <filter>
+        <criteriaItems>
+            <column>Case$Site_Id__c.Site_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>41178106,42972888,43069487,43058352,7613040,42497586,8479438,42472368,42471132,10231634,10231543,42416164,42750241,9396014,10231545,9548348,7614646,10231623,10592497,7611633,8479452,10231632,8479409,10231621,10231624,10592498,43069486,7613037,42433278,10203971,10592496,10231626,9313187,42484098,42750029,8366543,9020402,10572415,8190373,8619372,9546502,9029514,9029513,9019869,7531006,10581040,10581039,10566927,9030582,9432103,10206096,42665920,41224695,8649497</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Copy of ATR by status</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Case_With_Lookup_Info__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Case$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

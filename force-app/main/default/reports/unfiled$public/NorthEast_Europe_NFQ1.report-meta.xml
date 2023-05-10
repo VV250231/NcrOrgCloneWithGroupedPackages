@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_9755653</developerName>
+        <masterLabel>TEAM</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>Opportunity.OCR_2018_TEAM__c</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>FS - Europe - Eastern - Austria-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:Europe:East:Austria-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:Gulf &amp; Saudi:Saudi Arabia-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:DACH:Austria</sourceValue>
+            </sourceValues>
+            <value>Austria</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>FS - Europe - Eastern - Central East - Czech</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:Europe:East:C East:Czech</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:East:Czech</sourceValue>
+            </sourceValues>
+            <value>Czech</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>FS - Europe - Eastern - Central East - GSL CEE</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:Europe:East:C East:GSL CEE</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:East:GSL CEE</sourceValue>
+            </sourceValues>
+            <value>GSL CEE</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>FS - Europe - Eastern - Central East - Hungary</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:Europe:East:C East:Hungary</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:East:Hungary</sourceValue>
+            </sourceValues>
+            <value>Hungeary</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>FS - Europe - Eastern - Central East - Poland</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:Europe:East:C East:Poland</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:East:Poland</sourceValue>
+            </sourceValues>
+            <value>Poland</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>FS - Europe - Eastern - Greece-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:Europe:East:Greece-D6</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:East:Greece</sourceValue>
+            </sourceValues>
+            <value>Greece</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:DACH:Switzerland</sourceValue>
+            </sourceValues>
+            <value>Switzerland</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:DACH:Germany</sourceValue>
+            </sourceValues>
+            <value>Germany</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:East:Cyprus</sourceValue>
+            </sourceValues>
+            <value>Cyprus</value>
+        </values>
+    </buckets>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.TS_Product_Total__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Hardware_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Software_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.PS_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Soln_Opp_Amount__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>Opportunity.OCR_2018_TEAM__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>GS:FS:EMEA:NorthEast Europe</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FORECAST_CATEGORY</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Omitted</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Soln_Opp_Amount__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>greaterThan</operator>
+            <value>USD 0</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>FORECAST_CATEGORY</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_9755653</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>FULL_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>NorthEast Europe NFQ</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>0</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_NEXT1</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CATM_Require_Zone_for_Intl_IBG_UK</fullName>
+    <active>true</active>
+    <description>&apos;Zone&apos; field must be completed by the Territory Managers &amp; SME Executives for the UK business</description>
+    <errorConditionFormula>AND (
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+CATM_Record__c,
+   OR(
+      IsPickVal( StageName , &quot;Validating&quot;),
+      IsPickVal( StageName , &quot;Offering&quot;),
+      IsPickVal( StageName , &quot;Closing&quot;)
+   ),
+Region__c = &quot;IBG&quot;,
+Business_Unit__c  = &quot;IBG (Core)&quot;,
+Geography__c = &quot;UK&quot;,
+TEXT(Opportunity_Classification__c) != &quot;CATM - iDesign&quot;,
+TEXT(Opportunity_Classification__c) != &quot;CATM - atmAd&quot;,
+Isblank( Text( Zone__c))
+)</errorConditionFormula>
+    <errorMessage>Please go to the &quot;ZONE&quot; field to select your Sales Territory.</errorMessage>
+</ValidationRule>

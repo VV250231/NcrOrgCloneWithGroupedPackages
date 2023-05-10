@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mandatory_Date</fullName>
+    <active>true</active>
+    <description>&quot;Date Of Signing&quot; field becomes mandatory only when answer to the field &quot;Any Current Contract&quot; is &quot;Yes&quot;.</description>
+    <errorConditionFormula>AND(
+ISPICKVAL( Any_Current_Contract__c ,&quot;Yes&quot;),
+ISBLANK( Date_Of_Signing__c ),
+ISBLANK( Date_Of_Expiration__c ))</errorConditionFormula>
+    <errorDisplayField>Any_Current_Contract__c</errorDisplayField>
+    <errorMessage>If &quot;Any Current Contract&quot; is Yes, please fill the &quot;Date Of Signing&quot; and &quot;Date Of Expiration&quot;.</errorMessage>
+</ValidationRule>

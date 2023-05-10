@@ -1,0 +1,196 @@
+<aura:component controller="PRM_EquipmentPaginationCon" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <!--<ltng:require scripts="/resource/PRM_jQuery, /resource/PRM_jsonQ_min"></ltng:require>-->
+    <aura:attribute name="ObjectData" type="List" />
+    
+    <aura:attribute name="PaginationList" type="List"/>
+    <aura:attribute name="currentPage" type="Integer" default="0"/>
+    <aura:attribute name="start" type="Integer" default="0"/>
+    <aura:attribute name="end" type="Integer" default="0"/>
+    <aura:attribute name="totalPages" type="Integer" default="0"/>
+    <aura:attribute name="paginationTable" type="List" />
+    <aura:attribute name="totalRecords" type="Integer" default="0"/>
+    <aura:attribute name="pageSize" type="Integer" default="100"/>
+    <aura:attribute name="selectedView" type="String" default="All Equipment"/>
+    <aura:attribute name="sortBy" type="String" default="Customer_Name__c"/>
+    <aura:attribute name="sortIn" type="String" default="ASC"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <!--<aura:dependency resource="markup://force:navigateToSObject" type="EVENT"/>-->
+    
+  
+     <div class="slds-page-header" role="banner">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-has-flexi-truncate"> 
+                <div class="slds-media slds-media--center slds-no-space slds-grow">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-account">
+                            <lightning:icon iconName="standard:account" size="large" alternativeText="Equipments"/>
+                            <span class="slds-assistive-text">Equipments</span>
+                        </span>
+                    </div>
+                    <div class="slds-media__body slds-size_1-of-1 ">
+                       
+                        <lightning:select name="pageSelect" label="Equipments"  aura:id="viewName" 
+                                  value="{!v.selectedView}" onchange="{! c.cViewChange}" 
+                                  class="slds-m-right--small slds-align-middle slds-size_1-of-4 dropdownHeader">
+                            <option text="All Equipment" value="All Equipment" />
+                            <option text="Active Equipment" value="Active Equipment" />
+                            <option text="Inactive Equipment" value="Inactive Equipment" />
+                        </lightning:select>
+                    </div>
+                </div>                    
+            </div>  
+            <!-- ACTION BUTTONS -->
+            <div class="slds-col slds-no-flex slds-grid slds-wrap slds-align-top">
+                <div class="slds-button-group" role="group">
+                    <button class="slds-button slds-button--neutral" onclick="{!c.cNewEquipment}">
+                        New Equipment
+                    </button>
+                </div>
+            </div>
+            <!-- / ACTION BUTTONS -->               
+        </div>
+    </div>
+    
+    <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+        <thead>
+            <tr class="slds-text-title_caps">
+                <!--<th>ID</th>-->
+                <th scope="col">
+                    <a data-record="Name" onclick="{!c.sorting}">SERIAL NUMBER
+                        <aura:if isTrue="{!v.sortBy == 'Name'}">
+                        <aura:if isTrue="{!v.sortIn == 'DESC'}">
+                            <lightning:icon iconName="utility:arrowdown" size="xx-small" alternativeText=""/>
+                            <aura:set attribute="else">
+                                <lightning:icon iconName="utility:arrowup" size="xx-small" alternativeText=""/>
+                            </aura:set>
+                        </aura:if>
+                        </aura:if>
+                        
+                    </a>
+                </th>
+                <th scope="col">
+                    <a data-record="Active_Unit__c" onclick="{!c.sorting}">Active Unit
+                        <aura:if isTrue="{!v.sortBy == 'Active_Unit__c'}">
+                        <aura:if isTrue="{!v.sortIn == 'DESC'}">
+                            <lightning:icon iconName="utility:arrowdown" size="xx-small" alternativeText=""/>
+                            <aura:set attribute="else">
+                                <lightning:icon iconName="utility:arrowup" size="xx-small" alternativeText=""/>
+                            </aura:set>
+                        </aura:if>
+                        </aura:if>
+                    </a>
+                </th>
+                <th scope="col">
+                    <a data-record="Class__c" onclick="{!c.sorting}">Class
+                        <aura:if isTrue="{!v.sortBy == 'Class__c'}">
+                        <aura:if isTrue="{!v.sortIn == 'DESC'}">
+                            <lightning:icon iconName="utility:arrowdown" size="xx-small" alternativeText=""/>
+                            <aura:set attribute="else">
+                                <lightning:icon iconName="utility:arrowup" size="xx-small" alternativeText=""/>
+                            </aura:set>
+                        </aura:if>
+                        </aura:if>
+                    </a>
+                </th>
+                <th scope="col">
+                    <a data-record="Customer_Name__c" onclick="{!c.sorting}">Customer Name
+                        <aura:if isTrue="{!v.sortBy == 'Customer_Name__c'}">
+                        <aura:if isTrue="{!v.sortIn == 'DESC'}">
+                            <lightning:icon iconName="utility:arrowdown" size="xx-small" alternativeText=""/>
+                            <aura:set attribute="else">
+                                <lightning:icon iconName="utility:arrowup" size="xx-small" alternativeText=""/>
+                            </aura:set>
+                        </aura:if>
+                        </aura:if>
+                    </a>
+                </th>
+                <th scope="col">
+                    <a data-record="Installation_City__c" onclick="{!c.sorting}">Installation City
+                        <aura:if isTrue="{!v.sortBy == 'Installation_City__c'}">
+                        <aura:if isTrue="{!v.sortIn == 'DESC'}">
+                            <lightning:icon iconName="utility:arrowdown" size="xx-small" alternativeText=""/>
+                            <aura:set attribute="else">
+                                <lightning:icon iconName="utility:arrowup" size="xx-small" alternativeText=""/>
+                            </aura:set>
+                        </aura:if>
+                        </aura:if>
+                    </a>
+                </th>
+                <th scope="col">
+                    <a data-record="Installation_State_Province__c" onclick="{!c.sorting}">Installation State/Province
+                        <aura:if isTrue="{!v.sortBy == 'Installation_State_Province__c'}">
+                        <aura:if isTrue="{!v.sortIn == 'DESC'}">
+                            <lightning:icon iconName="utility:arrowdown" size="xx-small" alternativeText=""/>
+                            <aura:set attribute="else">
+                                <lightning:icon iconName="utility:arrowup" size="xx-small" alternativeText=""/>
+                            </aura:set>
+                        </aura:if>
+                        </aura:if>
+                    </a>
+                </th>
+                <th scope="col">
+                    <a data-record="CreatedDate" onclick="{!c.sorting}">Created Date
+                        <aura:if isTrue="{!v.sortBy == 'CreatedDate'}">
+                        <aura:if isTrue="{!v.sortIn == 'DESC'}">
+                            <lightning:icon iconName="utility:arrowdown" size="xx-small" alternativeText=""/>
+                            <aura:set attribute="else">
+                                <lightning:icon iconName="utility:arrowup" size="xx-small" alternativeText=""/>
+                            </aura:set>
+                        </aura:if>
+                        </aura:if>
+                    </a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.PaginationList}" var="obj">
+                <tr>
+                    <!--<td>{! obj.Id}</td>-->
+                    <!--<td><forceCommunity:routeLink id="myCaseId" class="caseClass" title="{! obj.Name}" label="{! obj.Name}" routeInput="{! '\\{recordId: '+ obj.Id + '//}' }" onClick="{!c.onClick}"/></td>-->
+                    <td><a data-record="{! obj.Id}" onclick="{!c.onClick}">{! obj.Name}</a></td>
+                    <td><ui:outputCheckbox value="{! obj.Active_Unit__c}"/></td>
+                    <td>{! obj.Class__c}</td>
+                    <td>{! obj.Customer_Name__c}</td>
+                    <td>{! obj.Installation_City__c}</td>
+                    <td>{! obj.Installation_State_Province__c}</td>
+                    <td><lightning:formattedDateTime value="{! obj.CreatedDate}" /></td>
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table>
+     <div class="slds-col slds-has-flexi-truncate"> 
+         <div class="slds-media slds-media--center slds-no-space slds-grow">
+            <div class="slds-size_1-of-8">
+                
+                <lightning:button label="Previous" disabled="{!1 >= v.currentPage }"  
+                                  onclick="{!c.cPrevious}" variant="brand" 
+                                  class="slds-button slds-button--neutral slds-p-horizontal--xx-small slds-m-right--x-small slds-float--left slds-button-margin"
+                                  iconName='utility:back'/> 
+                <lightning:button label="Next" disabled="{!v.currentPage >= v.totalPages}" 
+                                  onclick="{!c.cNext}" variant="brand" 
+                                  class="slds-button slds-button--neutral slds-p-horizontal--xx-small slds-m-right--x-small slds-float--left slds-button-margin"
+                                   iconName='utility:forward' iconPosition='right'/>
+            </div>
+           	<div class="slds-media__body slds-size_1-of-12 ">
+                <lightning:select name="pageSelect" label="Page No:" aura:id="pageSelect" 
+                                      value="{!v.currentPage}" onchange="{! c.cPageChange}">
+                    <aura:iteration items="{!v.paginationTable}" var="page">
+                        <option text="{!page.pageNo}" value="{!page.pageNo}" />
+                    </aura:iteration>
+                </lightning:select>
+             </div>&nbsp; &nbsp;
+             <div class="slds-media__body slds-size_1-of-12 ">
+                <lightning:select name="pageSize" label="Records/Page" aura:id="pageSize" 
+                                  value="{!v.pageSize}" onchange="{! c.cPageSizeChange}">
+                    <option text="100" value="100" />
+                    <option text="250" value="250" />
+                    <option text="500" value="500" />
+                    <option text="750" value="750" />
+                    <option text="1000" value="1000" />
+                </lightning:select>
+            </div>
+         </div>
+    </div>
+</aura:component>

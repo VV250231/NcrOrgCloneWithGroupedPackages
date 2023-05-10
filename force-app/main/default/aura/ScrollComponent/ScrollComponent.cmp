@@ -1,0 +1,256 @@
+<aura:component controller="ScrollComponentConreoller">
+    <aura:attribute name="ProductName" type="String"></aura:attribute>
+    <aura:attribute name="ServiceOfferCatogery" type="String"></aura:attribute>
+     <aura:attribute name="IPTPartnerCommunityUrl" type="String"/>
+    <aura:attribute name="isCommunityUser" type="Boolean" default="false"/>
+     <aura:attribute name="liked" default="false" type="Boolean" />
+     <aura:attribute name="answered" default="false" type="Boolean" />
+     <aura:attribute name="ProductId" type="String"></aura:attribute>
+     <aura:attribute name="ToggleSchedule" type="String" default="interface.svg"></aura:attribute>
+     <aura:attribute name="ToggleFav" type="String" default="like.svg"></aura:attribute>
+     <aura:attribute name="LeadTime_Wks" type="Integer"></aura:attribute>
+     <aura:attribute name="avail_Subscription" type="Boolean" />
+     <aura:attribute name="IsSchedule" type="Boolean"></aura:attribute>
+     <aura:attribute name="IsFav" type="Boolean"></aura:attribute>
+     <aura:attribute name="styleClass" type="String" default=""></aura:attribute>
+     <aura:attribute name="TriggerScreenName" type="String"></aura:attribute>
+     <aura:attribute name="IsCheckBoxSelected" type="Boolean"></aura:attribute> 
+     <aura:attribute type="Boolean" name="ConfirmForUnschedule" ></aura:attribute>
+     <aura:attribute name="confirmSubscription" type="Boolean" default="false" />
+     <aura:attribute name="sampleObj" type="Object" />
+    
+    <!-- Added for Opp Line Item Type -->   
+    <aura:attribute name="renewablRevnTypes" type="Set" /> 
+    <aura:attribute name="oppLineItemTypeMap" type="Map" />
+    <aura:attribute name="confirmService" type="Boolean" default="false" />
+    <aura:attribute name="isSubscriptionLine" type="Boolean" default="false" />
+    <aura:attribute name="selectLineItemType" type="String" />
+    <!-- Added for Opp Line Item Type -->
+    
+    <!-- Added for HWM Maintenance Type -->
+    <aura:attribute name="confirmHWMMntc" type="Boolean" default="false" />
+    <aura:attribute name="selectHWMMntcType" type="String" />
+    <aura:attribute name="HWMMntcTypes" type="Set" /> 
+    <!-- Added for HWM Maintenance Type -->
+    
+    <!--ADDED QTY TYPE-->
+    <aura:attribute name="qtyTyp" type="String"></aura:attribute>
+    <aura:attribute name="qtyTypeMap" type="Map"/>
+    <aura:attribute name="confirmQtyTypModal" type="Boolean" />
+    <!--ADDED QTY TYPE-->
+    
+    <!--Added for CATM check by Stuti-->
+    <aura:attribute name="isCatm"  type="boolean"/>
+    
+    
+   <aura:attribute type="Boolean" name="SelectAll" default="false"></aura:attribute>
+   <aura:attribute type="Integer" name="SeletedProductCount"></aura:attribute>	
+   <aura:attribute type="Boolean" name="DisableBulkProcess" default="false"></aura:attribute>
+   <aura:attribute type="Integer" name="TotalResultSetCount" default="false"></aura:attribute>
+    
+    
+    <aura:if isTrue="{!v.ConfirmForUnschedule}">   
+    <div class="slds-modal slds-fade-in-open" aria-hidden="false" role="dialog" id="Modal" style="width:100;">
+        
+        <div class="slds-modal__container slds-p-around_large" style="height: 600px;width:400px;">
+            <div class="slds-modal__header">
+                <b style="color:red;">*Caution </b>
+            </div>
+            <div class="slds-modal__content slds-p-around_large" style="height:150px;">
+                <div>
+                    <b><ui:outputText value="{!v.unScheduleName}"/></b>
+                    <p>This action will remove the Product
+                        and all its schedule.</p>
+                    
+                    <p >Do you want to continue?</p>
+                    
+                </div>
+            </div>
+            
+            
+            <center>
+                <div class="slds-modal__footer"> 
+                    
+                    <button class="slds-button slds-button_neutral slds-button_brand"  onclick="{!c.SingleScheduleProduct}" >Yes</button>
+                    <button class="slds-button slds-button_neutral slds-button_brand"  onclick="{!c.closeAlertWindow}">No</button>
+                    
+                </div>
+            </center>
+        </div> 
+        
+    </div>     
+    <div class="slds-backdrop slds-backdrop_open" id="greyBackground" ></div>
+</aura:if> 
+    
+    <!-- Opp Line Item Type changes Start--> 
+     <aura:if isTrue="{!(v.confirmSubscription || v.confirmService || v.confirmHWMMntc || v.confirmQtyTypModal)}">    
+        <div class="slds-modal slds-fade-in-open" aria-hidden="false" role="dialog" id="Modal" style="width:120;">
+            
+           <div class="slds-modal__container slds-p-around_large" style="height: 650px;width:400px;">
+                <div class="slds-modal__header">
+                    <b style="color:blue;font-size:1.25rem;">Please Confirm </b>
+                </div>
+                
+                <div class="slds-modal__content slds-p-around_large" style="height:150px; font-size:0.95rem;"> 
+                    <div>                        
+                        <b><ui:outputText value="{!v.unScheduleName}"/></b>
+                        <p>Please choose options for selected product: <b>{#v.ProductName}</b></p>
+                        <br/>
+                        <div clas="slds-form">
+                            <aura:if isTrue="{!v.confirmSubscription}">
+                                <div class="slds-form-element slds-form-element_stacked">
+                                    <label class="slds-form-element__label" style="font-size:small;">Add as a Subscription<abbr class="slds-required" title="required">* </abbr></label>   
+                                    <div class="slds-form-element__control">
+                                        <lightning:input type="checkbox" checked="{!v.isSubscriptionLine}" variant="label-hidden" class="label-hidden" /> 
+                                    </div>
+                                </div>
+                            </aura:if>
+                            <aura:if isTrue="{!v.confirmService}">
+                            <div class="slds-form-element slds-size_1-of-2 slds-form-element_stacked">
+                                <label class="slds-form-element__label" style="font-size:small;">Line Item Type<abbr class="slds-required" title="required">* </abbr></label>                           
+                                <div class="slds-form-element__control" style="font-size:small;">                                
+                                    <lightning:select value="{!v.selectLineItemType}" aura:id="servType" variant="label-hidden" required="true" class="label-hidden"> <!--value="{!prodItem.selectLineItemType}"-->                               
+                                        <option value="">--None--</option>
+                                        <aura:iteration items="{!v.oppLineItemTypeMap}" var="item" indexVar="key">
+                                            <option text="{!item.value}" value="{!item.key}" />
+                                        </aura:iteration>
+                                    </lightning:select>
+                                </div>                           
+                            </div> 
+                            </aura:if>
+                            
+                               <aura:if isTrue="{!v.confirmHWMMntc}">
+                                <div class="slds-form-element slds-size_1-of-2 slds-form-element_stacked">
+                                    <label class="slds-form-element__label" style="font-size:small;">Maintenance Type<abbr class="slds-required" title="required">* </abbr></label>                           
+                                    <div class="slds-form-element__control" style="font-size:small;">                                
+                                        <lightning:select value="{!v.selectHWMMntcType}" aura:id="mntcType" variant="label-hidden" required="true" class="label-hidden"> <!--value="{!prodItem.selectLineItemType}"-->                               
+                                            <option value="">--None--</option>
+                                            <aura:iteration items="{!v.HWMMntcTypes}" var="item">
+                                                <option text="{!item}" value="{!item}" />
+                                            </aura:iteration>
+                                        </lightning:select>
+                                    </div>                           
+                                </div> 
+                            </aura:if>
+                            
+                            <aura:if isTrue="{!v.confirmQtyTypModal}">
+                            <div class="slds-form-element slds-size_1-of-2 slds-form-element_stacked">
+                                <label class="slds-form-element__label" style="font-size:small;">Qty Type<abbr class="slds-required" title="required">* </abbr></label>
+                                <div class="slds-form-element__control" style="font-size:small;"> 
+                                    <lightning:select aura:id="qtyType" value="{!v.qtyTyp}" variant="label-hidden" name="qtyTypeName" class="liTypePick label-hidden">
+                                                    <option value="">--None--</option>
+                                                    <aura:iteration items="{!v.qtyTypeMap}" var="i"> 
+                                                        <option text="{!i.key}" value="{!i.value}"/>     
+                                                    </aura:iteration>
+                                                </lightning:select>
+                                </div>
+                            </div>
+                            </aura:if>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <center>
+                    <div class="slds-modal__footer">                        
+                        <button class="slds-button slds-button_neutral slds-button_brand" type="submit"  onclick="{!c.confirmYesSubcription}" >Submit</button>
+                    </div>
+                </center>
+            </div> 
+            
+        </div>     
+        <div class="slds-backdrop slds-backdrop_open" id="greyBackground" ></div>
+    </aura:if>  
+    <!-- Opp Line Item Type change end-->  
+    
+    <!-- START Change , Divya
+    <aura:if isTrue="{!v.confirmSubscription}">   
+        <div class="slds-modal slds-fade-in-open" aria-hidden="false" role="dialog" id="Modal" style="width:100;">
+            
+            <div class="slds-modal__container slds-p-around-large" style="height: 600px;width:400px;">
+                <div class="slds-modal__header">
+                    <b style="color:blue;font-size:1.25rem;">Please Confirm </b>
+                </div>
+                <div class="slds-modal__content slds-p-around-large" style="height:150px; font-size:1rem;">
+                    <div>
+                        <b><ui:outputText value="{!v.unScheduleName}"/></b>
+                        <p>Do you want to add the selected product as subscription?</p>
+                        
+                        <p ><b>{#v.ProductName}</b></p> 
+                        
+                    </div>
+                </div>
+                
+                
+                <center>
+                    <div class="slds-modal__footer"> 
+                        
+                        <button class="slds-button slds-button-neutral slds-button-brand"  onclick="{!c.confirmYesSubcription}" >Yes</button>
+                        <button class="slds-button slds-button-neutral slds-button-brand"  onclick="{!c.confirmNoSubscription}">No</button>
+                        
+                    </div>
+                </center>
+            </div> 
+            
+        </div>     
+        <div class="slds-backdrop slds-backdrop-open" id="greyBackground" ></div>
+    </aura:if>     
+    END change , DIvya -->      
+    
+    
+    
+	<tr class="{!'slds-grid slds-wrap '+v.styleClass}">  
+        <td class="slds-col slds-size_1-of-12">  
+            <ui:inputCheckbox value="{!v.IsCheckBoxSelected}" change="{!c.onSelectProduct}"/> 
+        </td>
+          <td class="slds-col slds-size_1-of-12" onclick="{!c.AddProductToFav}">      
+             <button class="slds-button"  title="Add to Schedule"> 
+                  <!--<lightning:buttonIconStateful iconName="utility:favorite" selected="{!v.IsFav}"  size="small"/>-->
+                  <aura:if isTrue="{!v.isCommunityUser}"> 
+                      <aura:if isTrue="{!v.IsFav}">
+                          <img src="{!v.IPTPartnerCommunityUrl+'/resource/MyIcon/svg/heart.svg'}" style="width:20px;margin:right:5px;" title="Make Unfavourite"/>
+                          <aura:set attribute="else">
+                              <img src="{!v.IPTPartnerCommunityUrl+'/resource/MyIcon/svg/like.svg'}" style="width:20px;margin:right:5px;"></img> 
+                          </aura:set>
+                      </aura:if>
+                      <aura:set attribute="else">
+                          <aura:if isTrue="{!v.IsFav}">
+                              <img src="/resource/MyIcon/svg/heart.svg" style="width:20px;margin:right:5px;" title="Make Unfavourite"/>
+                              <aura:set attribute="else">
+                                  <img src="/resource/MyIcon/svg/like.svg" style="width:20px;margin:right:5px;"></img> 
+                              </aura:set>
+                          </aura:if>
+                      </aura:set>
+                 </aura:if>
+              </button> 
+          </td> 
+      <td class="slds-col slds-size_1-of-12" onclick="{!c.AddProductToSchedule}">
+              <button class="slds-button"  title="Add to Schedule"> 
+                  <!--<lightning:buttonIconStateful iconName="utility:event" selected="{!v.IsSchedule}"  size="small"/>-->
+                  <aura:if isTrue="{!v.isCommunityUser}"> 
+                      <aura:if isTrue="{!v.IsSchedule}">
+                          <img src="{!v.IPTPartnerCommunityUrl+'/resource/MyIcon/svg/calendar_dark.svg'}" style="width:25px;margin:right:5px;"/>
+                          <aura:set attribute="else">
+                               <img src="{!v.IPTPartnerCommunityUrl+'/resource/MyIcon/svg/interface.svg'}" style="width:25px;margin:right:5px;"/>
+                          </aura:set>
+                      </aura:if>
+                      <aura:set attribute="else">
+                          <aura:if isTrue="{!v.IsSchedule}">
+                              <img src="/resource/MyIcon/svg/calendar_dark.svg" style="width:25px;margin:right:5px;"/>
+                              <aura:set attribute="else">
+                                  <img src="/resource/MyIcon/svg/interface.svg" style="width:25px;margin:right:5px;"/>
+                              </aura:set>
+                          </aura:if>
+                      </aura:set>
+                  </aura:if>
+          </button>  
+      </td>  
+      <td class="slds-col slds-size_5-of-12"><div>{#v.ProductName}</div></td>
+      <td class="slds-col slds-size_2-of-12">
+      <div>
+          <aura:if isTrue="{#v.ServiceOfferCatogery == 'HW'}">{#v.LeadTime_Wks}</aura:if>
+      </div>
+      </td>
+      <td class="slds-col slds-size_2-of-12"><div>{#v.ServiceOfferCatogery}</div></td>
+    </tr>     
+</aura:component>

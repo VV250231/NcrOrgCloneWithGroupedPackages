@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lead_Status_cannot_be_updated</fullName>
+    <active>false</active>
+    <description>The Lead Status field cannot be updated on Customer record types if the status is currently set to Partner Managed or Qualified for HOSP SMB profiles</description>
+    <errorConditionFormula>AND (
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+ CATM_Record__c = false,
+OR (
+ISPICKVAL(PRIORVALUE(Status), &quot;Partner Managed&quot;),
+ISPICKVAL(PRIORVALUE(Status), &quot;Qualified&quot;)
+),
+NOT(OR (
+ISPICKVAL(Status, &quot;Nurture&quot;),
+ISPICKVAL(Status, &quot;Qualified&quot;),
+ISPICKVAL(Status, &quot;Disqualified&quot;)
+)),
+
+RecordTypeId = &quot;012700000001S2W&quot;,
+ISCHANGED(Status),
+OR($Profile.Name = &quot;Hosp SMB Sales with Hosted&quot;,
+$Profile.Name = &quot;HOSP SMB Sales&quot;)
+)</errorConditionFormula>
+    <errorDisplayField>Status</errorDisplayField>
+    <errorMessage>You cannot change the status of a lead that is set to Partner Managed or Qualified.</errorMessage>
+</ValidationRule>

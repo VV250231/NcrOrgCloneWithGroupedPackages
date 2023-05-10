@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DD_Case_Queue_APAC</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>Escalation_Type__c</columns>
+    <columns>Product_Type__c</columns>
+    <columns>Revenue_USD__c</columns>
+    <columns>Opportunity_Name__c</columns>
+    <columns>Commitment_Risk_Flag__c</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>Industry__c</columns>
+    <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Deals_Desk</value>
+    </filters>
+    <filters>
+        <field>Account_Theatre__c</field>
+        <operation>equals</operation>
+        <value>APAC</value>
+    </filters>
+    <label>DD Case Queue: APAC</label>
+    <sharedTo>
+        <group>CSO_Team</group>
+        <roleAndSubordinatesInternal>Deals_Desk</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>No_End_Date_for_Ongoing_Activity</fullName>
+    <active>true</active>
+    <description>This validation rule prevents a Presales Engineer from selecting an &quot;End Date&quot; for &quot;Active&quot; activities.</description>
+    <errorConditionFormula>NOT(ISBLANK(PSE_End_Date__c)) &amp;&amp; PSE_IsActive__c = True</errorConditionFormula>
+    <errorDisplayField>PSE_End_Date__c</errorDisplayField>
+    <errorMessage>An &quot;End Date&quot; can not be entered for an ongoing activity. Please uncheck the &quot;Active&quot; checkbox.</errorMessage>
+</ValidationRule>

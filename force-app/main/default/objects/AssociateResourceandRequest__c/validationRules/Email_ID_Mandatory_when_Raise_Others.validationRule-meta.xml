@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Email_ID_Mandatory_when_Raise_Others</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR(
+AND(Raise_to_Other__c=True,Email_ID__c=null))</errorConditionFormula>
+    <errorDisplayField>Raise_to_Other__c</errorDisplayField>
+    <errorMessage>If Raise to Other&apos;s is True, Email ID is Mandatory.</errorMessage>
+</ValidationRule>

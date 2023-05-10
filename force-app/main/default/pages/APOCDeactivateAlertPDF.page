@@ -1,0 +1,27 @@
+<apex:page controller="APOCDeactivateCntlr" contenttype="application/vnd.ms-excel#APOC.xlsx" showheader="false">
+    <table style="border: 1px Solid black !important;  border-collapse: collapse;">
+         
+        <tr style="background-color: #D9E1F2; text-align: center; ">
+            <th style="border: 1px Solid black; margin-left:10px;margin-right:10px;  border-collapse: collapse;">Name</th>
+            <th style="border: 1px Solid black; margin-left:10px;margin-right:10px;  border-collapse: collapse;">QuickLookId</th>
+            <th style="border: 1px Solid black; margin-left:10px;margin-right:10px; border-collapse: collapse;">Retired Date</th>
+            <th style="border: 1px Solid black; margin-left:10px;margin-right:10px; border-collapse: collapse;">Role Name</th>
+            <th style="border: 1px Solid black; margin-left:10px;margin-right:10px; border-collapse: collapse;">Account Name</th>
+            <th style="border: 1px Solid black; margin-left:10px;margin-right:10px; border-collapse: collapse;">Master Number</th>
+        </tr> 
+        <apex:repeat value="{!wrapLst}" var="b">
+           <!--<apex:repeat value="{!b}" var="c">-->
+                <apex:repeat value="{!b}" var="a">
+            <tr style="text-align: center;">
+                <td style="border: 1px Solid black; margin-left:10px;margin-right:10px; border-collapse: collapse;">{!a.UserName}</td>
+                <td style="border: 1px Solid black; margin-left:10px;margin-right:10px; border-collapse: collapse;">{!a.QuicklookId}</td>
+                <td style="border: 1px Solid black; margin-left:10px;margin-right:10px; border-collapse: collapse;">{!a.retiredDate}</td>
+                <td style="border: 1px Solid black; margin-left:10px;margin-right:10px; border-collapse: collapse;">{!a.accSup.Role_Name__c}</td>
+                <td style="border: 1px Solid black; margin-left:10px;margin-right:10px; border-collapse: collapse;">{!a.accSup.Account_Name__c}</td>
+                 <td style="border: 1px Solid black; margin-left:10px;margin-right:10px; border-collapse: collapse;">{!a.accSup.Master__c}</td>
+            </tr>
+                </apex:repeat>
+            <!--</apex:repeat>-->
+        </apex:repeat>
+    </table>
+</apex:page>

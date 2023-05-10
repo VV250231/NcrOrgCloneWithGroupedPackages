@@ -1,0 +1,32 @@
+<aura:component controller="PRM_CoBrandedCollateralFileUpload" implements="force:lightningQuickAction,force:hasRecordId">
+ <!-- 'parentId' Aura Attribute for store the Id for Parent Record where we are attach our file -->  
+   
+ <!-- 'showLoadingSpinner' attribute for show/hide the uploading image and msg in aura:if-->
+   <aura:attribute name="showLoadingSpinner" type="boolean" default="false" />
+ <!-- 'fileName' attribute for display the selected file name -->  
+   <aura:attribute name="fileName" type="String" default="No File Selected.." />
+ <!-- Lightning Input with file type and on file change call the 'handleFilesChange' controller --> 
+    
+	<ui:message title="Provide samples, drafts or web addresses of the communications you’re requesting to be co-branding. Always Include the NCR document you want cobranded" severity="info" closable="false">
+     
+     </ui:message>
+    <ui:message title="For your request please submit your logo in one of these vector formats " severity="info" closable="false"> -AI (Adobe Illustrator)<br></br>-Eps (Encapsulated Postscript)<br></br>-PDF (Adobe Acrobat)<br></br>-SVG (Scalable Vector Graphics)</ui:message>
+    
+   
+ 	<ui:message title="Use 'Upload Files' icon to add attachments." severity="confirm" closable="false">
+     
+     </ui:message>
+   <lightning:input aura:id="fileId" onchange="{!c.handleFilesChange}" type="file" name="file" label="Upload Attachment" multiple="false"/>
+   <div class="slds-text-body_small slds-text-color_error">{!v.fileName} </div>
+ 
+ <!--use aura:if for show-hide the loading spinner image--> 
+   <aura:if isTrue="{!v.showLoadingSpinner}">
+      <div class="slds-text-body_small slds-text-color_error">Uploading... 
+         <img src="/auraFW/resources/aura/images/spinner.gif" class="spinner-img" alt="Loading"/>'
+      </div>
+   </aura:if>
+   
+ <br/>
+ 
+   <button class="slds-button slds-button_brand" onclick="{!c.doSave}">Save Attachment</button>
+</aura:component>

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_19055608</developerName>
+        <masterLabel>Lead Source Bucket</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>LEAD_SOURCE</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>CEC Visit</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Covid-19</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Direct</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Display</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Email</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Employee Referral</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Event</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Events and Conferences</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>External Referral</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Neos</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Paid Search</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Paid Social</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Phone Inquiry</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>PPC</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Social</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Strategic Referral</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Webinar</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Web Referral</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Organic Search/SEO</sourceValue>
+            </sourceValues>
+            <value>Inbound</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Outbound</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>PR</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Sales-Cold Call (SGL)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Sales-Event (SGL)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Sales-HOS-At Risk Customers</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Sales-HOS-Fab Five</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Sales-HOS-Restaurant Data</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Sales-HOS-Restaurant Data-Weekly</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Sales-Inside Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Sales-Other Must Specify (SGL)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Sales-Referral (SGL)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Programmatic</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Operation Teamwork</sourceValue>
+            </sourceValues>
+            <value>Outbound</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>AMOUNT</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>ROLLUP_DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>PRODUCT_NAME</field>
+    </columns>
+    <columns>
+        <field>QUANTITY</field>
+    </columns>
+    <columns>
+        <field>SERVICE_DATE</field>
+    </columns>
+    <columns>
+        <field>SERVICE_MONTH</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>OpportunityLineItem.Topline_Product_Lkp__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>ROLLUP_DESCRIPTION</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Hosp SMB,HOSP SMB</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OpportunityLineItem.Topline_Product_Lkp__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Aloha POS,Silver</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>PRODUCT_DESCRIPTION</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Aloha POS,Silver</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>PRODUCT_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Aloha</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>FiscalWeek</dateGranularity>
+        <field>CREATED_DATE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_19055608</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>LEAD_SOURCE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>New Opps ALOHA ESSENTIALS - Inbound/OUT</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>OpportunityProduct</reportType>
+    <scope>team</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_PREV1</interval>
+    </timeFrameFilter>
+</Report>

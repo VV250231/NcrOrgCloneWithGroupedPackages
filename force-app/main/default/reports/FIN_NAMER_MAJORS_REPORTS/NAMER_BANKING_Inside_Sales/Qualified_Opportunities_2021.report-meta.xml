@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_27021137</developerName>
+        <masterLabel>Created By</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>CREATED</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Michael Adamson</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Christian Pontalti</sourceValue>
+            </sourceValues>
+            <value>Christian Pontalti</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Gift Ogunwale</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>John Delaney</sourceValue>
+            </sourceValues>
+            <value>Gift Ogunwale</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Matthew Kircher</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Catherine Skinner</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Cara Dukes</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Stacy Fernandez</sourceValue>
+            </sourceValues>
+            <value>Catherine Skinner</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Rachel Ray</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ryan Schneider</sourceValue>
+            </sourceValues>
+            <value>Hannah Hunter</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>OPPORTUNITY_ID</field>
+    </columns>
+    <columns>
+        <field>CLOSE_MONTH</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Actual_Close_Date__c</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <booleanFilter>((1 AND 2 AND 3 AND 4 AND 6) OR 5) OR 7</booleanFilter>
+        <criteriaItems>
+            <column>AMOUNT</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>greaterThan</operator>
+            <value>USD 0</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FULL_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Sydney Aaron,Mackenzie King,Catherine Skinner,Gift Ogunwale,Christian Pontalti,Hannah Hunter</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CREATED</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Mackenzie King,Catherine Skinner,Sydney Aaron,Gift Ogunwale,Christian Pontalti,Hannah Hunter</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.OwnerAssignedDate__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>greaterOrEqual</operator>
+            <value>1/1/2021 12:00 AM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Opportunity_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>700731576,700737000,700728786,700727198,700672244,700680690,700686798,700672229,700728044,700727932,700670039,700710024,700699531,700710450,700685396,700685235,700699554,700684793,700515324,700715399,700659202,700662236,700690165,700708382,700708672,700708674,700722019,700723741,700723892,700668129,700681808,700681809,700692267,700696980,700696983,700697527,700704572,700704640,700710449</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Opportunity_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>700700414,700708673,700708675,700708679,700700411</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OPPORTUNITY_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Terafina - US Community CU</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CREATED</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Qualified Opportunities 2021</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_PREVFY</interval>
+    </timeFrameFilter>
+</Report>

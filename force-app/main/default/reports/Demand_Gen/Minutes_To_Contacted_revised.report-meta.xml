@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <aggregateTypes>Average</aggregateTypes>
+        <field>CDF1</field>
+    </columns>
+    <columns>
+        <field>Lead.INQ_Trigger_Date__c</field>
+    </columns>
+    <columns>
+        <field>Lead.SAL_Date__c</field>
+    </columns>
+    <columns>
+        <field>COMPANY_ACCT</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>LEAD_SOURCE</field>
+    </columns>
+    <columns>
+        <field>FIRST_NAME</field>
+    </columns>
+    <columns>
+        <field>LAST_NAME</field>
+    </columns>
+    <columns>
+        <field>LAST_UPDATE</field>
+    </columns>
+    <columns>
+        <field>LEAD_OWNER</field>
+    </columns>
+    <columns>
+        <field>Lead.Nurture_Trigger_Date__c</field>
+    </columns>
+    <columns>
+        <field>Lead.SQL_Date__c</field>
+    </columns>
+    <columns>
+        <field>STATUS</field>
+    </columns>
+    <columns>
+        <field>CREATED</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula> (Lead.SAL_Date__c - Lead.INQ_Trigger_Date__c)*24*60</calculatedFormula>
+        <dataType>Double</dataType>
+        <developerName>CDF1</developerName>
+        <label>Minutes To Contacted</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>Lead.LeadType__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>,Sales,Prospect</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead.SDR__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Braxton Hawcroft,Jackson Hawthorne,Jesse Lopez-Garcia,Braxton,Sarah Snyder,Lizzy D&apos;antoni,Valentina Galvez</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CREATED</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>Braxton Hawcroft,Jackson Hawthorne,Jesse Lopez-Garcia,Sarah Snyder,Lizzy D&apos;antoni,Valentina Galvez</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CDF1</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value></value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>LEAD_SOURCE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Phone Inquiry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead.INQ_Trigger_Date__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>12/24/2022 12:00 AM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>COMPANY_ACCT</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Mom&apos;s Haus,Blue House,Yakitori Kona LLC,shelter social club,goki cafe,Jalapeno,Leidertafle,Troy Enterprises,Say Cheese Food Truck,The Edge Sports Bar,Ernesto’s Mexican restaurant,Four Palates Gelato &amp; Bakery,Texas Hamburgers,To- Extreme,Cotton Tree Restaurant /Bar,Intermezzo,Turner Bar-b-que,NOSTALGIA KITCHEN,Gallery Lounge,Restaurant,Yakitori Kona,Bb brothers,Saddlebags Florida,Mi México lindo,Elevate Fighting Championships,Bruster&apos;s Real Ice Cream,McDonald&apos;s,Stephen Starr,Columbus Tavern Group,AMPMS,Elvira’s cafe,Name TBD,Gyropolis,De Babel inc,Jourdan Card Processing,Cannot Provide,The Spice of India,PINEAPPLE BYTES INC,he Spice of India,Tavern Grille Scottsdale,Hudson Bay Seafood,Fry Daddy&apos;s,Inspire,Duke University Hospital,DSI INC DBA RETAIL DATA SYS - KANSAS CITY,Face Plant,America&apos;s Best Wings,COSM,Velatop LLC,OMG Cocina,Chick-in Waffle,Pour Dreams Cafe,Trails End Ice Cream Shop,Fore Hospitality,Rigo’s finest Latin grill,The Burger Joint,Sky High Munchies,110 Bar,Apple Rock,Horton Grand Hotel,HI Lumpia FL,Lily&apos;S Food And Sweets,Edwin Dose Stuff,Manero&apos;s Restaurant,KOBUS BUSINESS SYSTEMS,La Cocina Ricura,The Boiler Room Coffee Company,Berry AParl,Lo Cocina Ricura,The Quarterdeck,AstroLatte,Cornerstone,LBK coffee and creamery,Gino&apos;s Pizza,Break Coffee Roasters llc,Velveteen Lounge &amp; Restaurant,Valeos Pizza</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead.INQ_Trigger_Date__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>2/4/2023 12:00 AM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead.INQ_Trigger_Date__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>2/5/2023 12:00 AM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead.INQ_Trigger_Date__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>2/11/2023 12:00 AM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead.INQ_Trigger_Date__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>2/12/2023 12:00 AM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead.INQ_Trigger_Date__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>2/18/2023 12:00 AM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>LAST_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Taylor,Nairne,RAI</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>COMPANY_ACCT</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>The Vault,Tyee Coffee Company,Buffalo wild wings,Elegant Meals,the rice,High Side Tavern,Barton,Las Kecas Restaurant,Ludus Rex Llc,PLANNET LOGIX VANCOUVER,Marom Entertainment LLC.,Nydia&apos;S Mexican Kitchen LLC,ConsultMent LLC,The Playhouse Gentlemans Club,burger boss,North Western Ventures LLC,BEN&apos;S BBQ LLC,Golden Parrots Pub,Steph Luvs Catering,seven restaurant burger king,Blues on broadway,Lake pointe yacht club,Moonfish,Jim&apos;S Shady Nook Resort,Elmahroosa,The Wildflower,The Hungry Bear Cafe,POSABILITIES - MD,WAXLER HOSPITALITY GROUP LLC,Rabbit Hill Inn,Access Hotels and Resorts,taste,Robstown Athletics,Bob Evans,Severna Park Elks #2482,Bens BBQ,Más tequila Mexican Bar &amp; Grill,The Original pancake house,Adria&apos;s Restaurant,Incorrigible Cafe,basil,LGR RIDGES,Brazilian Bakery,Mik Hospitality Pvt Ltd,Straight Off The Grill,TeaFe,Doke,The Beagle,El Tacontento,Range Road Incorporated operating as RGE RD Restaurant and The Butchery by RGE RD,Más Tequila Bar &amp; Grill,J&amp;e Cajun Kitchen,Carolina Crab Brewing Company,Aimbridge Hospitality - Sheraton Park Hotel at the Anaheim Resort,Rizzle’s Roadhouse,Novus Digital Solutions,Double dragon,Daddys Smoke Shop LLC,Speakcheesy,Thorn And Roots,The Ridges,Harleyz and Hot Rodz,Mo&apos;Bowls,Mom&apos;s Haus Hollywood,Red Gravy,43 north group,BB BROTHERS CONTRACTOR INC</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead.INQ_Trigger_Date__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>2/19/2023 12:00 AM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>LAST_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>Stoltzfoos,Cervantes,White</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>COMPANY_ACCT</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>Bear Brewing Co Inc,Yesca,Kusinanijavenjesel LLC,Carinos taqueria,Santos Tacos,Aimbridge Hospitality,Maui coffee roasters,Sweet Desires Espresso Bar &amp; Coffee,Temptations Gourmet LLC,Big Bear Brewing Co,Munch Tiime,Pineapple Paradise,Teka Molino,Niros,Fuel Restaurant,Frutylandia,Schobels Restaurant,Salt life Food Check Fernandina Beach,Michael Jordan Steakhouse,Play Lounge,House Of Food,Sirtaj,BEEFIN LLC,Señors Kitchen,Amy’s academics,Meetpoint Restaurant,Tiburon,Poor house bar-b-q,Distant Area Volunteer Fire Department,Tortilleria Azteca,Jasmine Place,The Soule Domain,Smokin D&apos;S BBQ Land,Brians,Sushiya/ Omifood,Paris delight,Bill,M&amp;MSOUL FOOD,Fluffy&apos;s Chicken LLC,Tata’s Soul Food,The Moose bar,Good Thyme Restaurant,Gabriel Pizza Franchise Corp,Plate Perfection,Process Payments Now,The Oyster Bar and Grille,Hilton Washington DC National Mall,Little Red&apos;s Chicken &amp; BBQ,The Shell Seafood Kitchen &amp; Bar,Kauai Community College,Short Stories Hotels,Grillin GypSea LLC,Hookah Corner,East Soul Food,CSK hotels,Hustlegod,Nathan&apos;S Elote,Kauai Community CollegeHustlegod,Espresso Patronum,Tasty Bowl Cuisine,Pappa&apos;S Pit Stop,Snowie,Jim &amp; Patty&apos;s Coffee,Plantation Resort on Crystal River</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead.INQ_Trigger_Date__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>2/25/2023 12:00 AM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead.INQ_Trigger_Date__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>2/26/2023 12:00 AM</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Lead.SDR__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Minutes To Contacted - revised</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>OpportunityLead</reportType>
+    <scope>org</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>THIS_FISCALWEEK</interval>
+    </timeFrameFilter>
+</Report>

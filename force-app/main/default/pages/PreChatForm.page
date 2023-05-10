@@ -1,0 +1,147 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0">
+
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+</head>
+
+<body>
+    <!-- This script takes the endpoint URL parameter passed from the deployment page and makes it the action for the form -->
+    <script type='text/javascript'>
+    (function() {
+    function handlePageLoad() {
+    var endpointMatcher = new RegExp("[\\?\\&]endpoint=([^&#]*)");
+    document.getElementById('prechatForm').setAttribute('action',
+    decodeURIComponent(endpointMatcher.exec(document.location.search)[1]));
+    } if (window.addEventListener) {
+    window.addEventListener('load', handlePageLoad, false);
+    } else { window.attachEvent('onload', handlePageLoad, false);
+    }})();
+    
+    
+    </script>
+    
+  
+
+    <!-- Form that gathers information from the chat visitor and sets the values to Live Agent Custom Details used later in the example -->
+    <div style="padding: 15px 15px 15px;">
+    <form method='post' id='prechatForm'>
+    <!--<img src="https://www.ncr.com/sites/all/themes/custom/ncr/assets/dist/logo_116x116.jpg" alt="NCR Corporation" style="heith:80px; width:80px;" class=" img-responsive img-thumbnail"/>-->
+    <div class="form-group">
+        <label for="firstName">First name </label>
+        <input type='text' class="form-control input-sm" name='liveagent.prechat:ContactFirstName' id='firstName' />
+        <input type="hidden" name="liveagent.prechat.save:ContactFirstName" value="First_Name__c" />
+    </div>
+    <div class="form-group">
+        <label for="lastName">Last name <span class="glyphicon glyphicon-asterisk" style="color:red; font-size: 8px;" aria-hidden="true"></span></label>
+        <input type='text' class="form-control input-sm" name='liveagent.prechat:ContactLastName' id='lastName' required="required" />
+        <input type="hidden" name="liveagent.prechat.save:ContactLastName" value="Last_Name__c" />
+    </div>
+    <!--<div class="form-group">
+        <label for="email">Email <span class="glyphicon glyphicon-asterisk" style="color:red; font-size: 8px;" aria-hidden="true"></span></label>
+        <input type='text' class="form-control input-sm" name='liveagent.prechat:ContactEmail' id='email' required="required" />
+    </div>-->
+    <div id ="errors" class="form-group" style="color:red; font-size: 12px;font-weight: bolder" >
+      </div>
+    <div class="form-group">
+    <label for="email">Email <span class="glyphicon glyphicon-asterisk" style="color:red; font-size: 8px;" aria-hidden="true"></span></label>
+     <input type="text" class="form-control input-sm" name="liveagent.prechat:email" id='email' required="required" />
+            <input type="hidden" name="liveagent.prechat.save:email" value="Customer_Email__c" />
+    </div >
+    
+     
+
+    <div class="form-group">
+        <label for="phone">Phone <span class="glyphicon glyphicon-asterisk" style="color:red; font-size: 8px;" aria-hidden="true"></span></label>
+        <input type='text' class="form-control input-sm" name='liveagent.prechat:ContactPhone' id='phone' required="required" />
+        <input type="hidden" name="liveagent.prechat.save:ContactPhone" value="Phone__c" />
+    </div>
+
+<div class="form-group">
+    <label for="Company">Company<span class="glyphicon glyphicon-asterisk" style="color:red; font-size: 8px;" aria-hidden="true"></span></label>
+     <input type="text" class="form-control input-sm" name="liveagent.prechat:Company" id='Company' required="required" />
+     <input type="hidden" name="liveagent.prechat.save:Company" value="Company__c" />
+    </div>        
+    <!-- Hidden fields used to set additional custom details
+    
+    <!-- Used to set the visitor's name for the agent in the Console -->
+    <input type="hidden" name="liveagent.prechat.name" id="prechat_field_name" />
+
+    <!-- map: Use the data from prechat form to map it to the Salesforce record's fields -->
+  <!-- <input type="hidden" name="liveagent.prechat.findorcreate.map:Contact" value="FirstName,ContactFirstName;LastName,ContactLastName;Email,ContactEmail;Phone,ContactPhone" />
+    <input type="hidden" name="liveagent.prechat:caseOrigin" value="Chat" />
+<input type="hidden" name="liveagent.prechat.findorcreate.map:Case" value="Origin,caseOrigin;Subject,caseSubject;" />
+<input type="hidden" name="liveagent.prechat.findorcreate.map.doCreate:Case" value="Origin,true;Subject,true;" />
+<input type="hidden" name="liveagent.prechat.findorcreate.saveToTranscript:Case" value="Case" />
+<input type="hidden" name="liveagent.prechat.findorcreate.showOnCreate:Case" value="true" />-->
+  <!--  <input type="hidden" name="liveagent.prechat.findorcreate.map:Case" value="Subject,'LiveAgentChat';Status,'New';Origin,'LiveChat'" />
+
+    <!-- doFind, doCreate and isExactMatch example for a Contact: 
+        Find a contact whose Email exactly matches the value provided by the customer in the form 
+        If there's no match, then create a Contact record and set it's First Name, Last Name, Email, and Phone to the values provided by the customer -->
+   <!-- <input type="hidden" name="liveagent.prechat.findorcreate.map.doFind:Contact" value="Email,true" />
+    <input type="hidden" name="liveagent.prechat.findorcreate.map.isExactMatch:Contact" value="Email,true" />-->
+   <!-- <input type="hidden" name="liveagent.prechat.findorcreate.map.doFind:Case" value="Email,true" />
+    <input type="hidden" name="liveagent.prechat.findorcreate.map.isExactMatch:Case" value="Email,true" />-->
+ 
+
+
+    <!-- linkToEntity: Set the record Contact record, found/created above, as the Contact on the Case that's created --> 
+  <!--  <input type="hidden" name="liveagent.prechat.findorcreate.linkToEntity:Contact" value="Case,ContactId" />-->
+
+    <!-- showOnCreate: Open the Contact and Case records as sub-tabs to the chat for the agent in the Console
+    <input type="hidden" name="liveagent.prechat.findorcreate.showOnCreate:Contact" value="true" />
+    <input type="hidden" name="liveagent.prechat.findorcreate.showOnCreate:Case" value="true" /> -->
+
+    <!-- saveToTranscript: Associates the records found / created, i.e. Contact and Case, to the Live Chat Transcript record. --> 
+  <!--  <input type="hidden" name="liveagent.prechat.findorcreate.saveToTranscript:Case" value="ContactId" />-->
+
+<div class="form-group">
+    <input type='submit' value='Chat Now' id='prechat_submit' class="btn btn-success" onclick="setName();return ValidateEmail()"/>
+</div>
+<!-- Set the visitor's name for the agent in the Console to first and last name provided by the customer -->
+<script type="text/javascript">
+   function setName() {
+    document.getElementById("prechat_field_name").value =  
+        document.getElementById("firstName").value + " " + document.getElementById("lastName").value;
+    };
+    
+    
+     function ValidateEmail()  
+        {  
+       var inputText =  document.getElementById('email').value;
+       
+       
+        var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;  
+        if(inputText.match(mailformat))  
+        {   
+               
+       
+        return true;  
+        }  
+        else  
+        {  
+          document.getElementById('errors').innerHTML="Please enter a valid email address";
+     
+        return false;  
+        }  
+    }  
+
+    
+</script>
+
+<style type="text/css">
+p {font-weight: bolder }
+</style>
+
+</form>
+</div>
+</body>
+</apex:page>

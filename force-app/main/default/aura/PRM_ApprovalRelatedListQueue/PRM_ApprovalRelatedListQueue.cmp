@@ -1,0 +1,205 @@
+<aura:component controller="PRM_ApprovalProcessQueue" implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}" access="global"/> 
+    
+    <aura:attribute name="processInstaces" type="List"/>
+    <aura:attribute name="processInstanceWorkitemId" type="String" default=""/>
+    <aura:attribute name="displayBtn" type="Boolean" default="false"/>
+    
+    <aura:attribute name="isRejection" type="Boolean" default="false"/>
+    <aura:attribute name="isApproved" type="Boolean" default="false"/>
+    <aura:attribute name="isReassign" type="Boolean" default="false"/>
+    
+    <aura:attribute name="selectedReason" type="String" default=""/>
+    <aura:attribute name="strComment" type="String" default=""/>
+    
+    <!-- TimeZone  -->
+    <aura:attribute name="timeZone" type="String" default=""/>
+    
+    
+    <aura:attribute name="actualApproverName" type="String" default=""/>
+    <aura:attribute name="options" type="List" default="[
+                                                        {'label': 'In your Deal Registration submission, the Customer field is not as specific as needed. Please remember, do not use abbreviations or acronyms.', 'value': 'In your Deal Registration submission, the Customer field is not as specific as needed. Please remember, do not use abbreviations or acronyms.'},
+                                                        {'label': 'Within your Deal Registration submission, some fields are either incomplete or contain information that is not specific enough to provide a proper evaluation and assessment', 'value': 'Within your Deal Registration submission, some fields are either incomplete or contain information that is not specific enough to provide a proper evaluation and assessment'},
+                                                        {'label': 'The customer opportunity you submitted was previously approved for another channel partner. Please contact your Channel Account Manager.', 'value': 'The customer opportunity you submitted was previously approved for another channel partner. Please contact your Channel Account Manager.'},
+                                                        {'label': 'Your Deal Registration submission has been reviewed by NCR Global Sales and has been declined because the customer is a direct covered customer of NCR’s Segmentation Strategy.  Please contact your Channel Account Manager.', 'value': 'Your Deal Registration submission has been reviewed by NCR Global Sales and has been declined because the customer is a direct covered customer of NCR’s Segmentation Strategy.  Please contact your Channel Account Manager.'},
+                                                        {'label': 'This is not a Net New Customer Request', 'value': 'This is not a Net New Customer Request'},
+                                                        {'label': 'Other', 'value': 'Other'}                                                       
+                                                        ]"/>
+    <!--Introducued due to ReAssign Functionality to users having modify all permission - NPC-1522-->
+    <aura:attribute name="ReAssignModifyAll" type="Boolean" default="false"/>
+    <aura:attribute Name="userObj" type="object"/>
+    
+    
+    
+    <aura:iteration items="{! v.processInstaces}" var="proInstace">
+        
+        <div class="slds-button-group" role="group" style="float:right;padding-bottom:10px;">
+            
+            <aura:if isTrue="{! and((proInstace.isApprover == true), (proInstace.status =='Started' ||  proInstace.status =='Pending'))}">
+                <button class="slds-button slds-button_neutral" onclick="{!c.openApprovalModal}" id="{!proInstace.workItemId}">Approve</button>
+                <button class="slds-button slds-button_neutral" onclick="{!c.openRejectionModal}" id="{!proInstace.workItemId}">Reject</button>
+                
+                <aura:if isTrue="{!and((proInstace.isQueueMember == true), ( v.ReAssignModifyAll == false) )}">
+                    <button class="slds-button slds-button_neutral" onclick="{!c.openReassignModal}" id="{!proInstace.workItemId}">Reassign</button>
+                </aura:if> 
+                <aura:if isTrue="{! v.ReAssignModifyAll == true}">
+                    <button class="slds-button slds-button_neutral" onclick="{!c.openReassignModal}" id="{!proInstace.workItemId}">Reassign</button>
+                </aura:if> 
+            </aura:if> 
+        </div>
+    </aura:iteration>
+    <div style="padding:5px;background-color:yellow;"><h1>Approval History</h1> </div>
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered" style="table-layout:fixed">
+        <thead>
+            <tr class="slds-line-height_reset">
+                <th class="slds-cell-wrap">Step Name</th>
+                <th>Date</th>
+                <th class="slds-cell-wrap">Status</th>
+                <th class="slds-cell-wrap">AssignedTo</th>
+                <th class="slds-cell-wrap">Actual Approver</th>
+                <th class="slds-cell-wrap">Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{! v.processInstaces}" var="proInstace">             
+                <aura:iteration items= "{! proInstace.processStepsAndWorkitemLst}" var="processInstaceHistoryRec">
+                    <tr class="slds-hint-parent">
+                        <td class="slds-cell-wrap">{! processInstaceHistoryRec.stepName}</td>
+                        <td><lightning:formattedDateTime value="{! processInstaceHistoryRec.createdDate}" year="numeric" month="numeric" day="numeric" hour="2-digit"
+                                                         minute="2-digit" timeZone="{!v.timeZone}" /></td>
+                        <td class="slds-cell-wrap">{! processInstaceHistoryRec.stepStatus}</td>
+                        <td class="slds-cell-wrap">{! processInstaceHistoryRec.originalActorName}</td>
+                        <td class="slds-cell-wrap">{! processInstaceHistoryRec.actorName}</td>
+                        <td class="slds-cell-wrap">{! processInstaceHistoryRec.comment}</td>
+                    </tr>
+                </aura:iteration>
+            </aura:iteration>
+        </tbody>
+    </table>
+    
+    
+    <aura:if isTrue="{!v.isRejection}">
+        <div class="demo-only" style="height: 640px;">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" 
+                     class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeDocModal}">
+                            X<span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Reject Deal Registration</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium section-heading" id="modal-content-id-1">
+                        
+                        <div class="slds-grid slds-wrap section-body">
+                            <div class="slds-size_1-of-1 slds-medium-size_1-of-1 slds-col_padded">
+                                <div class="slds-form-element slds-hint-parent">
+                                    <div class="slds-form-element__control">
+                                        <lightning:radioGroup name="radioGroupRequired"
+                                                              label="Rejection Reason (Select one of the below)"
+                                                              options="{! v.options }"
+                                                              value="{! v.selectedReason }"
+                                                              type="radio"
+                                                              required="true"/>
+                                    </div>
+                                </div>
+                                <aura:if isTrue="{!v.selectedReason == 'Other'}">
+                                    <lightning:textarea name="comment" value="{!v.strComment}" label="Comments" maxlength="500"  aura:id="Rejection_Comment" />
+                                </aura:if>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick="{!c.closeDocModal}">Cancel</button>
+                        <button class="slds-button slds-button_brand" onclick="{!c.doRejectRecord}">Reject</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+    
+    <aura:if isTrue="{!v.isApproved}">
+        <div class="demo-only" style="height: 640px;">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" 
+                     class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeDocModal}">
+                            X<span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Approve Deal Registration</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium section-heading" id="modal-content-id-1">
+                        
+                        <div class="slds-grid slds-wrap section-body">
+                            <div class="slds-size_1-of-1 slds-medium-size_1-of-1 slds-col_padded">
+                                
+                                <lightning:textarea name="comment" value="{!v.strComment}" label="Comments" maxlength="500"  aura:id="Rejection_Comment" />
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick="{!c.closeDocModal}">Cancel</button>
+                        <button class="slds-button slds-button_brand" onclick="{!c.doApproveRecord}">Approve</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+    
+    <aura:if isTrue="{!v.isReassign}">
+        <div class="demo-only" style="height: 640px;">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" 
+                     class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeDocModal}">
+                            X<span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Reassign <aura:if isTrue="{!!v.ReAssignModifyAll}"> to CAM </aura:if></h2>
+                        
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium section-heading" id="modal-content-id-1">
+                        
+                        <div class="slds-grid slds-wrap section-body">
+                            
+                            <aura:if isTrue="{!v.ReAssignModifyAll}">
+                                
+                                <div class="slds-size_1-of-1 slds-medium-size_1-of-1 slds-col_padded">
+                                    <c:LookupAccountSupport lookupIcon="standard:user"
+                                                            objectName="User"
+                                                            type = 'Role'
+                                                            field_API_search="Name"
+                                                            limit="5"
+                                                            placeholder="Search User by Name"
+                                                            field_API_val="Id,Quicklook_ID__c,Phone,Email"
+                                                            field_API_text="Name"
+                                                            selItem  ="{!V.userObj}"
+                                                            />
+                                </div>
+                            </aura:if>
+                            <div class="slds-size_1-of-1 slds-medium-size_1-of-1 slds-col_padded">
+                                
+                                <lightning:textarea name="comment" value="{!v.strComment}" label="Comments" maxlength="500"  aura:id="Rejection_Comment" />
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick="{!c.closeDocModal}">Cancel</button>
+                        <aura:if isTrue="{!v.ReAssignModifyAll}">
+                            <button class="slds-button slds-button_brand" onclick="{!c.doReassigntoUser}">Reassign</button>
+                            
+                            <aura:set attribute = "else"> <button class="slds-button slds-button_brand" onclick="{!c.doReassignRecord}">Reassign</button></aura:set>
+                        </aura:if> </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if> 
+</aura:component>

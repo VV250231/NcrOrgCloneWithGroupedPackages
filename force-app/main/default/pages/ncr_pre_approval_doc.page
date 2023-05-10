@@ -1,0 +1,28 @@
+<apex:page controller="FileController" sidebar="false" showHeader="false" >
+    <apex:pageMessages id="pageMessages"/>
+    <apex:form >
+        <apex:pageBlock title="Upload Document">
+            <apex:inputCheckbox value="{! file.Pre_Approval__c}" selected="true" style="display: none;" disabled="true"/>
+            <apex:pageBlockSection columns="1"> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel for="fileId"/>
+                    <apex:inputFile id="fileId" fileName="{! fileName}" value="{! fileBody}" required="true" />
+                </apex:pageBlockSectionItem> 
+                <apex:inputField value="{! file.File_Description__c}" style="width:300px;height:50px;"/>              
+                <apex:inputField value="{! file.Pre_Approval_Document_Type__c}" required="true"/>                          
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Save" action="{! processAttachment}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        
+    </apex:form>
+    
+    <script>
+        var isSuccess = {! isSuccess} ;
+        if(isSuccess){
+            window.opener.location.reload();
+            window.close();
+        }
+    </script>
+</apex:page>

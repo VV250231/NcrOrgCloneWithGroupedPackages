@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Requested_Due_Date_cannot_be_Current_Dat</fullName>
+    <active>true</active>
+    <description>This rule validates that date input is current date or not</description>
+    <errorConditionFormula>Requested_Due_Date__c  =  TODAY() &amp;&amp;  RecordType.Name !=&apos;Deals Desk&apos;</errorConditionFormula>
+    <errorDisplayField>Requested_Due_Date__c</errorDisplayField>
+    <errorMessage>This cannot be the current date. Please choose a future date.</errorMessage>
+</ValidationRule>

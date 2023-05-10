@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>CATM_Australia_New_Zealand_Group_Access</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>CATM Australia &amp; New Zealand Group Access</label>
+        <sharedTo>
+            <group>Australia_New_Zealand_Group</group>
+        </sharedTo>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <field>Geography__c</field>
+            <operation>equals</operation>
+            <value>Australia</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Geography__c</field>
+            <operation>equals</operation>
+            <value>New Zealand</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CATM_Germany_Group_Access</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>CATM Germany Group Access</label>
+        <sharedTo>
+            <group>Germany_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Geography__c</field>
+            <operation>equals</operation>
+            <value>Germany</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CATM_Spain_Group_Access</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>CATM Spain Group Access</label>
+        <sharedTo>
+            <group>Spain_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Geography__c</field>
+            <operation>equals</operation>
+            <value>Spain</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CATM_UK_Group_Access1</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>CATM UK Group Access</label>
+        <sharedTo>
+            <group>All_UK_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Geography__c</field>
+            <operation>equals</operation>
+            <value>UK</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CATM_US_Canada_Mexico_Group_Access</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>CATM US, Canada &amp; Mexico Group Access</label>
+        <sharedTo>
+            <group>US_Canada_Mexico_Group</group>
+        </sharedTo>
+        <booleanFilter>1 OR 2 OR 3</booleanFilter>
+        <criteriaItems>
+            <field>Geography__c</field>
+            <operation>equals</operation>
+            <value>US</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Geography__c</field>
+            <operation>equals</operation>
+            <value>Canada</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Geography__c</field>
+            <operation>equals</operation>
+            <value>Mexico</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_NCR_Opptys_with_CATM_users</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Share NCR Opptys with CATM users</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Cardtronics_Executives</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>CATM_Record__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Sharing_Rule_for_Financial_Retail_Hosp</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule is for Criteria where Industry equals Financial, Retail, Hospitality and sharing with combined group (Group: Malou Borchert and Group: Jose Maria Aragones)</description>
+        <label>Sharing Rule for Financial,Retail,Hosp</label>
+        <sharedTo>
+            <group>Jose_Aragones_Malou_Borchet_Combined</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Industry__c</field>
+            <operation>equals</operation>
+            <value>Financial,Retail,Hospitality</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

@@ -1,0 +1,917 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <assignments>
+        <description>* Object: Opportunity  * Field to Update: Opportunity: Account Name for PS Activity</description>
+        <name>Account_Name_for_PS_Activity</name>
+        <label>Account Name for PS Activity</label>
+        <locationX>545</locationX>
+        <locationY>551</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Account_Name_for_PS_Activity__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Account.Name</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Opportunity_FulfilledbyPartner</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Change_CATM_record_to_true</name>
+        <label>Change CATM_record to true</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.CATM_Record__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Field to Update:	Opportunity: User Modified Date</description>
+        <name>Field_Update_User_Modified_Date</name>
+        <label>Field Update User Modified Date</label>
+        <locationX>545</locationX>
+        <locationY>2567</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.User_Modified_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.LastModifiedDate</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Populate_OCR_Team</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Description: Updates Fulfilled by Partner to TRUE
+ObjectL Opportunity	 	 
+Field to Update: Opportunity: Fulfilled by Partner?</description>
+        <name>Fulfilled_by_Partner</name>
+        <label>Fulfilled by Partner</label>
+        <locationX>545</locationX>
+        <locationY>887</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Fulfilled_by_Partner__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Populate_Owner_Manager_Email</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Populate_OCR_Team</name>
+        <label>Populate OCR Team</label>
+        <locationX>677</locationX>
+        <locationY>2783</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.OCR_TEAM__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Sales_Org__r.Hierarchy_6__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>JP_Pricing_Review_RequestStatus_changed</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Reset_Prevent_Account_Change_Retrigger</name>
+        <label>Reset Prevent Account Change Retrigger</label>
+        <locationX>1106</locationX>
+        <locationY>3599</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Prevent_Account_Change_Retrigger__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Store_prior_forecast</name>
+        <label>Store prior forecast</label>
+        <locationX>545</locationX>
+        <locationY>1559</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Previous_Forecast_Category__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record__Prior.Forecast_Category__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>DNBI_Update_D_B_Fields</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Description: Updates Account Name &amp; State to D&amp;B Field
+Object: Opportunity
+Field to Update: Opportunity: D&amp;B Company Name, D&amp;B State/Province</description>
+        <name>Update_Account_Name_State</name>
+        <label>Update Account Name &amp; State</label>
+        <locationX>545</locationX>
+        <locationY>1895</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.DNBI__DnB_Company_Name__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Account.Name</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.DNBI__D_B_State_Province__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Account.BillingState</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Hospitality_Update_Commitment_Risk</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Update_Amendment_Opportunity</name>
+        <label>Update Amendment Opportunity</label>
+        <locationX>314</locationX>
+        <locationY>3359</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Closed_Booked_Comments__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Subscription-Auto Close</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Invoice_Trigger__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Shipment</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.LeadSource</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>None</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.StageName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Analyzing</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Forecast_Category__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Pipeline</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Type</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Existing Customer - Subscription Amendment</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Object:  Opportunity	 	 
+Field to Update: Opportunity: Commitment Risk</description>
+        <name>Update_Commitment_Risk</name>
+        <label>Update Commitment Risk</label>
+        <locationX>545</locationX>
+        <locationY>2231</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Commitment_Risk__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Green</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_User_Modified_date_on_Opportunity</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Update_Opportunity</name>
+        <label>Update pricing latest status update</label>
+        <locationX>545</locationX>
+        <locationY>3023</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Pricing_Latest_Status_Update_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Check_New_Amendment_or_Renewal_Opportunity</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Update_Opportunity_ACD_and_EBD</name>
+        <label>Update Opportunity ACD and EBD</label>
+        <locationX>842</locationX>
+        <locationY>3479</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Actual_Close_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.CloseDate</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Actual_Close_Date__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Prevent_Account_Change_Retrigger__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Object: Opportunity	 	 
+Field to Update: Opportunity: Owner Manager Email</description>
+        <name>Update_Owner_Manager_Email</name>
+        <label>Update Owner Manager Email</label>
+        <locationX>545</locationX>
+        <locationY>1223</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Owner_Manager_Email__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Owner.Manager.Email</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Set_Previous_Forecast_On_Closing_Modal</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>When contract is renewed some fields will auto populate in the renewal opportunity.</description>
+        <name>Update_Renewal_Opportunity</name>
+        <label>Update Renewal Opportunity</label>
+        <locationX>578</locationX>
+        <locationY>3359</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Closed_Booked_Comments__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Subscription-Auto Close</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Invoice_Trigger__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Other</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.LeadSource</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>None</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Forecast_Category__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Pipeline</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.StageName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Analyzing</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Type</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Existing Customer - Subscription Renewal</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.CloseDate</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Renewal_Opportunity_Expected_Book_Date</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <description>This section of flow will Update the &quot;Account Name for PS Activity&quot; field. This field is used as lookup filter in PreSales Engineer Activities Object.
+Rule Criteria: (Opportunity: Account Name for PS ActivityCONTAINS null) OR (Opportunity: Account Name for PS Activity DOES NOT CONTAIN null)</description>
+        <name>Account_Name_for_PS_Activity_Tracker_Object</name>
+        <label>Account Name for PS Activity Tracker Object</label>
+        <locationX>677</locationX>
+        <locationY>431</locationY>
+        <defaultConnector>
+            <targetReference>Opportunity_FulfilledbyPartner</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Condition Does Not Met</defaultConnectorLabel>
+        <rules>
+            <name>Condition_Met</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Account_Name_for_PS_Activity__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Account_Name_for_PS_Activity__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Account_Name_for_PS_Activity</targetReference>
+            </connector>
+            <label>Condition Met</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_if_owner_change_from_non_catm_to_catm</name>
+        <label>Check if owner change from non catm to catm</label>
+        <locationX>363</locationX>
+        <locationY>311</locationY>
+        <defaultConnector>
+            <targetReference>Account_Name_for_PS_Activity_Tracker_Object</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>If_owner_changed_from_non_catm_to_catm</name>
+            <conditionLogic>1 AND NOT(2)</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Owner.Profile.Name</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>CATM</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior.Owner.Profile.Name</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>CATM</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Change_CATM_record_to_true</targetReference>
+            </connector>
+            <label>If owner changed from non catm to catm</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_New_Amendment_or_Renewal_Opportunity</name>
+        <label>Check New Amendment or Renewal Opportunity</label>
+        <locationX>677</locationX>
+        <locationY>3239</locationY>
+        <defaultConnector>
+            <targetReference>Track_the_closed_Date</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Else</defaultConnectorLabel>
+        <rules>
+            <name>New_Amendment_Opportunity</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.SBQQ__AmendedContract__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Amendment_Opportunity</targetReference>
+            </connector>
+            <label>New Amendment Opportunity</label>
+        </rules>
+        <rules>
+            <name>New_Renewal_Opportunity</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.SBQQ__Renewal__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Renewal_Opportunity</targetReference>
+            </connector>
+            <label>New Renewal Opportunity</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Closed_to_Open_Opportunity_Update</name>
+        <label>Closed to Open Opportunity Update</label>
+        <locationX>1238</locationX>
+        <locationY>3479</locationY>
+        <defaultConnectorLabel>Else</defaultConnectorLabel>
+        <rules>
+            <name>Closed_Opportunity_Opened</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.StageName</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.IsClosed</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior.IsClosed</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Reset_Prevent_Account_Change_Retrigger</targetReference>
+            </connector>
+            <label>Closed Opportunity Opened</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Description: When Opportunity is created, update the DNB fields required for the Credit Application.
+Rule Criteria: Opportunity: Opportunity Record Type EQUALS Include in Funnel</description>
+        <name>DNBI_Update_D_B_Fields</name>
+        <label>DNBI Update D&amp;B Fields</label>
+        <locationX>677</locationX>
+        <locationY>1775</locationY>
+        <defaultConnector>
+            <targetReference>Hospitality_Update_Commitment_Risk</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Condition Does Not Met</defaultConnectorLabel>
+        <rules>
+            <name>Condition_Met5</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>IsNew</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Include in Funnel</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Account_Name_State</targetReference>
+            </connector>
+            <label>Condition Met</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Description:	For 5X users when opp Forecast Category changes to Closed set the Commitment Risk to Green
+Rule Criteria:	(Opportunity: Forecast CategoryEQUALSClosed) AND (Current User: ProfileEQUALS50 Hospitality Account Director,51 Hospitality Account Manager,52 Hospitality Finance Manager)</description>
+        <name>Hospitality_Update_Commitment_Risk</name>
+        <label>Hospitality Update Commitment Risk</label>
+        <locationX>677</locationX>
+        <locationY>2111</locationY>
+        <defaultConnector>
+            <targetReference>Update_User_Modified_date_on_Opportunity</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Condition Does Not Met</defaultConnectorLabel>
+        <rules>
+            <name>Condition_Met7</name>
+            <conditionLogic>1 AND ( 2 OR 3 OR 4 )</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Forecast_Category__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$User.User_Profile__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>50 Hospitality Account Director</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$User.User_Profile__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>51 Hospitality Account Manager</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$User.User_Profile__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>52 Hospitality Finance Manager</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Commitment_Risk</targetReference>
+            </connector>
+            <label>Condition Met</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>JP_Pricing_Review_RequestStatus_changed</name>
+        <label>JP-Pricing_Review_RequestStatus_changed</label>
+        <locationX>677</locationX>
+        <locationY>2903</locationY>
+        <defaultConnector>
+            <targetReference>Check_New_Amendment_or_Renewal_Opportunity</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Else</defaultConnectorLabel>
+        <rules>
+            <name>Pricing_review_Request_Changed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Pricing_Review_Request_Status__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Opportunity</targetReference>
+            </connector>
+            <label>Pricing review Request Changed</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Create workflow so that the Fulfilled by Partner box is TRUE if the account name is an active partner.</description>
+        <name>Opportunity_FulfilledbyPartner</name>
+        <label>Opportunity_FulfilledbyPartner</label>
+        <locationX>677</locationX>
+        <locationY>767</locationY>
+        <defaultConnector>
+            <targetReference>Populate_Owner_Manager_Email</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Condition Does Not Met</defaultConnectorLabel>
+        <rules>
+            <name>Condition_Met2</name>
+            <conditionLogic>1 AND (2 OR 3 OR  4 OR 5 OR 6 OR 7 OR 8 OR 9)</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Account.Partnership_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Active</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Account.Partner_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Premier Solution Provider</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Account.Partner_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Dealer</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Account.Partner_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Authorized Solution Provider</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Account.Partner_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Independent Software Vendor</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Account.Partner_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Managed Services Provider</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Account.Partner_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Distributor</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Account.Partner_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Advanced Solution Provider</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Account.Partner_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Systems Integrator</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Fulfilled_by_Partner</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>Condition Met</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Rule Criteria:  AND( NOT(ISBLANK(Owner.ManagerId)), NOT(ISBLANK(Owner.Manager.Email)) )</description>
+        <name>Populate_Owner_Manager_Email</name>
+        <label>Populate Owner Manager Email</label>
+        <locationX>677</locationX>
+        <locationY>1103</locationY>
+        <defaultConnector>
+            <targetReference>Set_Previous_Forecast_On_Closing_Modal</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Condition Does Not Met</defaultConnectorLabel>
+        <rules>
+            <name>Condition_Met3</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Owner.ManagerId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Owner.Manager.Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Owner_Manager_Email</targetReference>
+            </connector>
+            <label>Condition Met</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Rule Criteria: OR( AND(ISCHANGED( Forecast_Category__c ),IsClosed , OR(RecordTypeId =&apos;012700000001PoZ&apos;,RecordTypeId =&apos;0120g000000YU9x&apos;, RecordTypeId =&apos;0120g000000N2y2&apos;) ), AND(IsClosed , OR(RecordTypeId = &apos;012700000001PoU&apos;,RecordTypeId = &apos;0120g000000N2y1&apos; )))</description>
+        <name>Set_Previous_Forecast_On_Closing_Modal</name>
+        <label>Set Previous Forecast On Closing Modal</label>
+        <locationX>677</locationX>
+        <locationY>1439</locationY>
+        <defaultConnector>
+            <targetReference>DNBI_Update_D_B_Fields</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Condition Does Not Met</defaultConnectorLabel>
+        <rules>
+            <name>Condition_Met4</name>
+            <conditionLogic>((1 AND 2 AND( 3 OR 4 OR 5)) OR (2 AND ( 6 OR 7)))</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Forecast_Category__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.IsClosed</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordTypeId</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>012700000001PoZ</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordTypeId</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>0120g000000YU9x</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordTypeId</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>0120g000000N2y2</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordTypeId</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>012700000001PoU</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordTypeId</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>0120g000000N2y1</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Store_prior_forecast</targetReference>
+            </connector>
+            <label>Condition Met</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This check with check if Closed Opportunity created or subsequently Closed.</description>
+        <name>Track_the_closed_Date</name>
+        <label>Track the closed Date</label>
+        <locationX>1040</locationX>
+        <locationY>3359</locationY>
+        <defaultConnector>
+            <targetReference>Closed_to_Open_Opportunity_Update</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>If Opportunity not Closed</defaultConnectorLabel>
+        <rules>
+            <name>If_Opportunity_Closed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>TracktheclosedDate</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Opportunity_ACD_and_EBD</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>If Opportunity Closed</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Description:	This workflow updates the User Modified Date field on Opportunity, based on Access Type of Current User.
+Rule Criteria:	Current User: Access TypeNOT EQUAL TOSystem</description>
+        <name>Update_User_Modified_date_on_Opportunity</name>
+        <label>Update User Modified date on Opportunity</label>
+        <locationX>677</locationX>
+        <locationY>2447</locationY>
+        <defaultConnector>
+            <targetReference>Populate_OCR_Team</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Condition Does Not Met</defaultConnectorLabel>
+        <rules>
+            <name>Condition_Met9</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$User.Access_Type__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>System</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Field_Update_User_Modified_Date</targetReference>
+            </connector>
+            <label>Condition Met</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>CurrentUserProfile</name>
+        <dataType>String</dataType>
+        <expression>{!$User.User_Profile__c}</expression>
+    </formulas>
+    <formulas>
+        <name>IsNew</name>
+        <dataType>Boolean</dataType>
+        <expression>ISNEW()</expression>
+    </formulas>
+    <formulas>
+        <name>Renewal_Opportunity_Expected_Book_Date</name>
+        <dataType>Date</dataType>
+        <expression>IF(Not(ISBLANK({!$Record.SBQQ__RenewedContract__c})),{!$Record.SBQQ__RenewedContract__r.EndDate} +1 , null)</expression>
+    </formulas>
+    <formulas>
+        <name>SetPreviousForecastOnClosingModal</name>
+        <dataType>Boolean</dataType>
+        <expression>OR( 
+               AND( 
+                    ISCHANGED( {!$Record.Forecast_Category__c}),
+                    {!$Record.IsClosed} , 
+                    OR( {!$Record.RecordTypeId} =&apos;012700000001PoZ&apos;,{!$Record.RecordTypeId}=&apos;0120g000000YU9x&apos;, {!$Record.RecordTypeId}=&apos;0120g000000N2y2&apos; ) 
+                  ) , 
+              AND(    {!$Record.IsClosed} , OR( {!$Record.RecordTypeId}= &apos;012700000001PoU&apos;, {!$Record.RecordTypeId} = &apos;0120g000000N2y1&apos;)))</expression>
+    </formulas>
+    <formulas>
+        <name>TracktheclosedDate</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+AND ( {!$Record.CPQ__c},
+({!$Profile.Name} &lt;&gt; &quot;02 NSC Administrator&quot;), 
+({!$Profile.Name} &lt;&gt; &quot;C9 Administration&quot;),
+({!$Profile.Name} &lt;&gt; &quot;iPaas Administration&quot;),
+OR( ISPICKVAL( {!$Record.StageName}, &apos;Closed/Booked&apos;),
+ISPICKVAL( {!$Record.StageName}, &apos;Closed/Lost&apos;),
+ISPICKVAL( {!$Record.StageName}, &apos;Closed/Discontinued&apos;),
+ISPICKVAL( {!$Record.StageName}, &apos;Closed/Booked - NonFunnel&apos;)) ,
+({!$Record.Prevent_Account_Change_Retrigger__c} = false))
+,
+
+AND ( NOT({!$Record.CPQ__c}),
+({!$Profile.Name} &lt;&gt; &quot;02 NSC Administrator&quot;),
+({!$Profile.Name} &lt;&gt; &quot;C9 Administration&quot;),
+({!$Profile.Name} &lt;&gt; &quot;iPaas Administration&quot;),
+({!$Profile.Name} &lt;&gt; &quot;Soup Integration&quot;),
+({!$Profile.Name} &lt;&gt; &quot;04 NSC UI Administrator&quot;),
+IF({!$Permission.Update_Closed_Opp_for_7_days},today()- {!$Record.CloseDate} &gt;= VALUE({!$Label.Opp_Grace_Sales_Rep})+1,
+IF({!$Permission.Update_Closed_Opp_for_37_days},today()-{!$Record.CloseDate} &gt;=VALUE({!$Label.Opp_Grace_Sales_Ops})+1,true)
+),
+OR( ISPICKVAL( {!$Record.StageName}, &apos;Closed/Booked&apos;),
+ISPICKVAL( {!$Record.StageName}, &apos;Closed/Lost&apos;),
+ISPICKVAL( {!$Record.StageName}, &apos;Closed/Discontinued&apos;),
+ISPICKVAL( {!$Record.StageName}, &apos;Closed/Booked - NonFunnel&apos;)) ,
+({!$Record.Prevent_Account_Change_Retrigger__c }= false))
+)</expression>
+    </formulas>
+    <interviewLabel>Opporunity {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Opportunity Before Save Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>237</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Check_if_owner_change_from_non_catm_to_catm</targetReference>
+        </connector>
+        <filterFormula>AND({!$Setup.Automation_Setting__c.Skip_Flow__c} = false,
+{!$Record.CATM_Record__c} = false)</filterFormula>
+        <object>Opportunity</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

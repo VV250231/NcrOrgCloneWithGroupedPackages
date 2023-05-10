@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <aggregate>Sum</aggregate>
+            <axisBinding>y</axisBinding>
+            <column>DURATION</column>
+        </chartSummaries>
+        <chartType>HorizontalBar</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>Case.Support_Queue__c</groupingColumn>
+        <location>CHART_BOTTOM</location>
+        <showAxisLabels>false</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>OWNER</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>SUBJECT</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>AGE</field>
+    </columns>
+    <columns>
+        <field>OPEN</field>
+    </columns>
+    <columns>
+        <field>CLOSED</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <aggregateTypes>Average</aggregateTypes>
+        <field>DURATION</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>IF(CONTAINS(FK_NAME,&quot;Insight Polling&quot;), &quot;Insight Polling&quot;,
+IF(CONTAINS(FK_NAME,&quot;Aloha Configuration&quot;), &quot;CFC&quot;,
+IF(CONTAINS(FK_NAME,&quot;Command Center&quot;), &quot;Command Center&quot;,
+IF(CONTAINS(FK_NAME,&quot;Insight Reports&quot;), &quot;Insight Reports&quot;,
+IF(CONTAINS(FK_NAME,&quot;Aloha Stored Value&quot;), &quot;ASV&quot;,
+IF(CONTAINS(FK_NAME,&quot;Pulse RT&quot;), &quot;Pulse&quot;,
+IF(CONTAINS(FK_NAME,&quot;Online Ordering&quot;), &quot;AOO&quot;,
+IF(CONTAINS(FK_NAME,&quot;Aloha Loyalty&quot;), &quot;Loyalty&quot;,
+IF(CONTAINS(FK_NAME,&quot;Secure Access&quot;), &quot;Command Center&quot;,
+IF(CONTAINS(FK_NAME,&quot;Aloha Enterprise&quot;), &quot;Aloha Enterprise&quot;,
+IF(CONTAINS(FK_NAME,&quot;Restaurant Guard&quot;), &quot;RG&quot;,
+IF(CONTAINS(FK_NAME,&quot;Customer Voice&quot;), &quot;CV&quot;,
+&quot;Other&quot;)
+)
+)
+)
+)
+)
+)
+)
+)
+)
+)
+)</calculatedFormula>
+        <dataType>Text</dataType>
+        <description>Resolution Category Summary</description>
+        <developerName>CDF1</developerName>
+        <label>Product Summary</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>Case.Support_Queue__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>INTL</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>CDF1</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>HSTATUS</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Case.Support_Queue__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>INTL Effort Report</name>
+    <params>
+        <name>units</name>
+        <value>h</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CaseHistory@Case.Resolution_Category__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

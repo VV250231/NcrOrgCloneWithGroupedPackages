@@ -1,0 +1,43 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:appHostable,force:hasRecordId,flexipage:availableForRecordHome,force:lightningQuickAction" access="GLOBAL">
+    <aura:attribute name="options" type="List" default="[]"/>
+    <aura:attribute name="values" type="List" default="[]"/>
+    <aura:attribute name="assignValue" type="String" />
+    <aura:attribute name="isOther" type="Boolean" Default="false"/>
+    <aura:attribute name="otherOption" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <div>Select Options</div> 
+    
+    
+    <lightning:dualListbox name="multipleOptions"
+                           class="slds-text-heading_large_bold slds-fo "
+                           sourceLabel="Available" 
+                           selectedLabel="Selected"
+                           disableReordering="true"
+                           options="{!v.options}" 
+                           value="{!v.values}" 
+                           onchange="{! c.handleChange }"/>
+    <aura:if isTrue="{!v.isOther}">    
+        <div class="demo-only" style="height: 640px;">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header"> 
+                        <div class="demo-only" style="padding:0.5rem;background:#16325c">
+                            <div class="slds-text-color_inverse">In case you know the option, Please enter value and click Done. If you dont know then please click "Cancel" and choose the value Unknown for this category.</div>
+                        </div>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <div class="row">
+                            <lightning:input aura:id="othr" name="input8" value="{! v.otherOption }" placeholder="Please enter option for your selection Other..." label="Other:" />
+                            
+                        </div>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning:button variant="brand" label="Done" title="Done:Value Added to Other " onclick="{! c.handleOther }"/>
+                        <lightning:button variant="brand" label="Cancel" title="Cancel" onclick="{! c.Cancel }"/>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+</aura:component>

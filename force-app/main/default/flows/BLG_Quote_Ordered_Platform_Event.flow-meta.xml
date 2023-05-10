@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <assignments>
+        <name>Set_Quote_fields</name>
+        <label>Set Quote fields</label>
+        <locationX>434</locationX>
+        <locationY>482</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Quote.qtc_Ordered_Custom__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_Quote.SBQQ__Ordered__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_Quote.qtc_Dont_Run_Ordered_Flow__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Quote</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Retry_Attempts</name>
+        <label>Retry Attempts</label>
+        <locationX>750</locationX>
+        <locationY>614</locationY>
+        <defaultConnector>
+            <targetReference>Add_to_Error_Log</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Less_than_5_Attempts</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.qtcRetryAttempt__c</leftValueReference>
+                <operator>LessThan</operator>
+                <rightValue>
+                    <numberValue>5.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Retry_Quote_Order_Platform_Event</targetReference>
+            </connector>
+            <label>Less than 5 Attempts</label>
+        </rules>
+    </decisions>
+    <description>Mar 3, 2022 - Update fault error handling
+Platform Event Trigger to Order a Quote
+7-Sep-2022 - Update version 55 to subscribe platform event object</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Error Message</description>
+        <name>ErrorMessage</name>
+        <dataType>String</dataType>
+        <expression>{! &apos;Flow: BLG Quote Ordered Platform Event. The Quote &apos;+$Record.qtcQuoteId__c +&apos; was not able to be Ordered&apos;}</expression>
+    </formulas>
+    <formulas>
+        <description>Increments the retry count</description>
+        <name>IncrementRetryCount</name>
+        <dataType>Number</dataType>
+        <expression>{!$Record.qtcRetryAttempt__c + 1}</expression>
+        <scale>2</scale>
+    </formulas>
+    <interviewLabel>BLG Quote Ordered Platform Event {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>BLG Quote Ordered Platform Event</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <description>Log the issue to the Error_Log__c object</description>
+        <name>Add_to_Error_Log</name>
+        <label>Add to Error Log</label>
+        <locationX>917</locationX>
+        <locationY>749</locationY>
+        <inputAssignments>
+            <field>Error_Type__c</field>
+            <value>
+                <stringValue>Flow Fault Error</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Message__c</field>
+            <value>
+                <elementReference>ErrorMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <elementReference>$Record.qtcQuoteId__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Stack_Trace__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Create an Order Activation Platform Event</description>
+        <name>Create_Platform_Event_Order_Activation</name>
+        <label>Create Platform Event Order Activation</label>
+        <locationX>434</locationX>
+        <locationY>842</locationY>
+        <inputAssignments>
+            <field>qtcOrderId__c</field>
+            <value>
+                <elementReference>Get_Order.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>qtcOrderActivation__e</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Retry_Quote_Order_Platform_Event</name>
+        <label>Retry Quote Order Platform Event</label>
+        <locationX>707</locationX>
+        <locationY>793</locationY>
+        <inputAssignments>
+            <field>qtcQuoteId__c</field>
+            <value>
+                <elementReference>$Record.qtcQuoteId__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>qtcRetryAttempt__c</field>
+            <value>
+                <elementReference>IncrementRetryCount</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Quote_Ordered__e</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <description>Get newly created Order</description>
+        <name>Get_Order</name>
+        <label>Get Order</label>
+        <locationX>434</locationX>
+        <locationY>722</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Create_Platform_Event_Order_Activation</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>SBQQ__Quote__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Quote.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Order</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Fetch Quote from Platform Event</description>
+        <name>Get_Quote</name>
+        <label>Get Quote</label>
+        <locationX>830</locationX>
+        <locationY>242</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Set_Quote_fields</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.qtcQuoteId__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>SBQQ__Quote__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Update the quote</description>
+        <name>Update_Quote</name>
+        <label>Update Quote</label>
+        <locationX>431</locationX>
+        <locationY>600</locationY>
+        <connector>
+            <targetReference>Get_Order</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Retry_Attempts</targetReference>
+        </faultConnector>
+        <inputReference>Get_Quote</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>704</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>Get_Quote</targetReference>
+        </connector>
+        <object>Quote_Ordered__e</object>
+        <triggerType>PlatformEvent</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

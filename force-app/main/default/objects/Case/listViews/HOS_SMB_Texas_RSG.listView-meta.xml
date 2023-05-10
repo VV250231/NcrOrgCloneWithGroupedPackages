@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOS_SMB_Texas_RSG</fullName>
+    <columns>No_HelpDesk_Support_Reason__c</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>Site_Id__c</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>Status_Reason__c</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>Support_Queue__c</columns>
+    <columns>CreatedDate__c</columns>
+    <columns>CASES.LAST_UPDATE_DATE_ONLY</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Closed</value>
+    </filters>
+    <filters>
+        <field>Support_Queue__c</field>
+        <operation>contains</operation>
+        <value>Texas</value>
+    </filters>
+    <filters>
+        <field>Support_Queue__c</field>
+        <operation>notContain</operation>
+        <value>Contracts</value>
+    </filters>
+    <filters>
+        <field>Support_Queue__c</field>
+        <operation>notContain</operation>
+        <value>Finance</value>
+    </filters>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Cancelled</value>
+    </filters>
+    <filters>
+        <field>Support_Queue__c</field>
+        <operation>notContain</operation>
+        <value>Depot</value>
+    </filters>
+    <filters>
+        <field>OWNER_NAME</field>
+        <operation>notContain</operation>
+        <value>Stacey Hiott</value>
+    </filters>
+    <filters>
+        <field>Support_Queue__c</field>
+        <operation>notContain</operation>
+        <value>Field Service</value>
+    </filters>
+    <label>HOS SMB Texas All Queues</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

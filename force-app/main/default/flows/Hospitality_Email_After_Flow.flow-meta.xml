@@ -1,0 +1,835 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Send_email_on_reopen</name>
+        <label>Send email on reopen</label>
+        <locationX>314</locationX>
+        <locationY>2135</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>BodyForReopen</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>Get_Case_2.Account.email_addresses__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sendRichBody</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <stringValue>ncrhospitality.support@ncr.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>subForreopen</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>Send_New_Case_Creation_Email</name>
+        <label>Send New Case Creation Email</label>
+        <locationX>50</locationX>
+        <locationY>1295</locationY>
+        <actionName>Case.New_Case_Creation_Email_Alert</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>Get_Case.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>Send_Reopened_Email_Alert</name>
+        <label>Send Reopened Email Alert</label>
+        <locationX>446</locationX>
+        <locationY>1895</locationY>
+        <actionName>Case.Case_Reopened_Email_Alert</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Email_Address_null_check</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>Get_Case_2.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>55.0</apiVersion>
+    <assignments>
+        <name>Assign_Case_status1</name>
+        <label>Assign Case status</label>
+        <locationX>446</locationX>
+        <locationY>1655</locationY>
+        <assignmentItems>
+            <assignToReference>CaseStatusUpdated</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>New</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CaseStatusReasonUpdated</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Case_2.Status_Reason__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Case_3</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Case_status2</name>
+        <label>Assign Case status</label>
+        <locationX>842</locationX>
+        <locationY>1655</locationY>
+        <assignmentItems>
+            <assignToReference>CaseStatusUpdated</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>New</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CaseStatusReasonUpdated</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Case_2.Status_Reason__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Case_2</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Case_status3</name>
+        <label>Assign Case status</label>
+        <locationX>1106</locationX>
+        <locationY>1415</locationY>
+        <assignmentItems>
+            <assignToReference>CaseStatusUpdated</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>New</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CaseStatusReasonUpdated</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Case_2.Status_Reason__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Update_Case_2</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Number_of_Hours</name>
+        <label>Assign Number of Hours</label>
+        <locationX>1007</locationX>
+        <locationY>1055</locationY>
+        <assignmentItems>
+            <assignToReference>ReopenHours</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Number_of_Hours.Number_of_Hours__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Case_Status_Check</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Case_Check</name>
+        <label>Case Check</label>
+        <locationX>1716</locationX>
+        <locationY>575</locationY>
+        <defaultConnectorLabel>Case ID Null</defaultConnectorLabel>
+        <rules>
+            <name>Case_ID_Not_Null</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Case.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Case</targetReference>
+            </connector>
+            <label>Case ID Not Null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Case_Status_Check</name>
+        <label>Case Status Check</label>
+        <locationX>1007</locationX>
+        <locationY>1175</locationY>
+        <defaultConnector>
+            <targetReference>Check_Email_Is_Replied_By_Customer</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Case Not Closed</defaultConnectorLabel>
+        <rules>
+            <name>Case_Closed_and_Older_Than_72_Hours</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Case_2.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>DateTimeComparison</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Case_2.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Hospitality Support</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_New_Case_Creation_Email</targetReference>
+            </connector>
+            <label>Case Closed and Older Than 72 Hours</label>
+        </rules>
+        <rules>
+            <name>Case_Closed_and_Not_Older_Than_72_Hours</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Case_2.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>DateTimeComparison</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Case_2.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Hospitality Support</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Support_Group_Null_Check</targetReference>
+            </connector>
+            <label>Case Closed and Not Older Than 72 Hours</label>
+        </rules>
+        <rules>
+            <name>Case_Cancelled</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Case_2.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Cancelled</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Case_2.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Hospitality Support</stringValue>
+                </rightValue>
+            </conditions>
+            <label>Case Status = Cancelled</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Email_Is_Replied_By_Customer</name>
+        <label>Check Email Is Replied By Customer</label>
+        <locationX>1964</locationX>
+        <locationY>1295</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>If_True</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Incoming</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Case_2.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Hospitality Support</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_email_messages</targetReference>
+            </connector>
+            <label>If True</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_First_Email</name>
+        <label>Check First Email</label>
+        <locationX>1766</locationX>
+        <locationY>1535</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>If_false</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_email_messages.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Case_Status</targetReference>
+            </connector>
+            <label>If false</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Email_Address_null_check</name>
+        <label>Email Address null check</label>
+        <locationX>446</locationX>
+        <locationY>2015</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Not_Null</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Case_2.Account.email_addresses__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_email_on_reopen</targetReference>
+            </connector>
+            <label>Not Null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Queue_Null_Check</name>
+        <label>Queue Null Check</label>
+        <locationX>644</locationX>
+        <locationY>1535</locationY>
+        <defaultConnector>
+            <targetReference>Assign_Case_status2</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Queue Null</defaultConnectorLabel>
+        <rules>
+            <name>Queue_Not_Null</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Queue.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Case_status1</targetReference>
+            </connector>
+            <label>Queue Not Null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Skip_Flow_Check</name>
+        <label>Skip Flow Check</label>
+        <locationX>2203</locationX>
+        <locationY>335</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Skip_Flow_False</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Setup.Automation_Setting__c.Skip_Flow__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Case</targetReference>
+            </connector>
+            <label>Skip Flow = False</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Support_Group_Null_Check</name>
+        <label>Support Group Null Check</label>
+        <locationX>875</locationX>
+        <locationY>1295</locationY>
+        <defaultConnector>
+            <targetReference>Assign_Case_status3</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Support Group Null</defaultConnectorLabel>
+        <rules>
+            <name>Support_Group_Not_Null</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Case_2.Support_Queue__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Queue</targetReference>
+            </connector>
+            <label>Support Group Not Null</label>
+        </rules>
+    </decisions>
+    <description>Subject changes</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>ClosedDatePlusWindow</name>
+        <dataType>DateTime</dataType>
+        <expression>{!Get_Case_2.ClosedDate} + ({!ReopenHours}* 60)/1440</expression>
+    </formulas>
+    <formulas>
+        <name>DateComparison</name>
+        <dataType>Boolean</dataType>
+        <expression>IF(
+TODAY() &gt; DATEVALUE({!ClosedDatePlusWindow}), 
+True, 
+False)</expression>
+    </formulas>
+    <formulas>
+        <name>DateTimeComparison</name>
+        <dataType>Boolean</dataType>
+        <expression>IF(
+Now() &gt;= {!ClosedDatePlusWindow}, 
+True, 
+False)</expression>
+    </formulas>
+    <formulas>
+        <name>ReopenedSubject</name>
+        <dataType>String</dataType>
+        <expression>&quot;Reopened - &quot; &amp; {!Get_Case_2.Subject}</expression>
+    </formulas>
+    <formulas>
+        <name>Status</name>
+        <dataType>String</dataType>
+        <expression>IF(AND({!$Record.Incoming} ,VALUE(TEXT({!$Record.Status}))=0),&apos;Pending&apos;,{!CaseStatusUpdated})</expression>
+    </formulas>
+    <formulas>
+        <name>StatusReason</name>
+        <dataType>String</dataType>
+        <expression>IF(AND({!$Record.Incoming} ,VALUE(TEXT({!$Record.Status}))=0),&apos;Email Response Received&apos;,{!CaseStatusReasonUpdated})</expression>
+    </formulas>
+    <interviewLabel>Hospitality Email After Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Hospitality Email After Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Case</name>
+        <label>Get Case</label>
+        <locationX>1716</locationX>
+        <locationY>455</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Case_Check</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.RelatedToId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Case</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Case_2</name>
+        <label>Get Case 2</label>
+        <locationX>1007</locationX>
+        <locationY>815</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Number_of_Hours</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Case.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Case</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_email_messages</name>
+        <label>Get email messages</label>
+        <locationX>1766</locationX>
+        <locationY>1415</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_First_Email</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>RelatedToId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.RelatedToId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Id</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>EmailMessage</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Number_of_Hours</name>
+        <label>Get Number of Hours</label>
+        <locationX>1007</locationX>
+        <locationY>935</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Number_of_Hours</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Label</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Case Reopen Window</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Case_Reopen_Window__mdt</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Queue</name>
+        <label>Get Queue</label>
+        <locationX>644</locationX>
+        <locationY>1415</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Queue_Null_Check</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Case_2.Support_Queue__r.Name</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Group</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Case</name>
+        <label>Update Case</label>
+        <locationX>1007</locationX>
+        <locationY>695</locationY>
+        <connector>
+            <targetReference>Get_Case_2</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Case.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Response_Email__c</field>
+            <value>
+                <elementReference>$Record.FromAddress</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Case_2</name>
+        <label>Update Case 2</label>
+        <locationX>842</locationX>
+        <locationY>1775</locationY>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Send_Reopened_Email_Alert</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Case_2.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Case_Reopened_Flag__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <elementReference>Status</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status_Reason__c</field>
+            <value>
+                <elementReference>StatusReason</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>ReopenedSubject</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Case_3</name>
+        <label>Update Case 3</label>
+        <locationX>446</locationX>
+        <locationY>1775</locationY>
+        <connector>
+            <targetReference>Send_Reopened_Email_Alert</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Case_2.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Case_Reopened_Flag__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Get_Queue.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <elementReference>Status</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status_Reason__c</field>
+            <value>
+                <elementReference>StatusReason</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>ReopenedSubject</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Case_Status</name>
+        <label>Update Case Status</label>
+        <locationX>1634</locationX>
+        <locationY>1655</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Case_2.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Pending</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status_Reason__c</field>
+            <value>
+                <stringValue>Email Response Received</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <start>
+        <locationX>2077</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Skip_Flow_Check</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>RelatedToId</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </filters>
+        <object>EmailMessage</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>BodyForReopen</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;https://ncr--cert--c.documentforce.com/servlet/servlet.ImageServer?id=0153I000000ClHa&amp;amp;oid=00D3I0000000exN&amp;amp;lastMod=1671099763000&quot;&gt;&lt;/p&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Dear {!Get_Case_2.Contact.Full_Name__c},&lt;/span&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Your reported Case has been reopened with the following details:&lt;/span&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Case Number: {!Get_Case_2.CaseNumber}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Site Name: {!Get_Case_2.Site_Id__r.Name}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Store Number/Branch: {!Get_Case_2.Store_Branch_No__c}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Address: {!Get_Case_2.Address__c}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Created Date/Time: {!Get_Case_2.CreatedDate__c}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Priority: {!Get_Case_2.Priority}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Software Product: {!Get_Case_2.Creation_Category__r.Name}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Brief Description: {!Get_Case_2.Description}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Customer Reference Number: {!Get_Case_2.GUID_Id__c}&lt;/span&gt;&lt;br&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;If you need additional help or to provide support with an update to your case, feel free to contact the Service Desk.&lt;/span&gt;&lt;br&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;Sincerely,&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;NCR Service Desk&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;{!Get_Case_2.SuppliedPhone}&lt;/span&gt;&lt;br&gt;
+&lt;span style=&quot;color: rgb(0, 0, 0); font-family: &amp;quot;Times New Roman&amp;quot;; font-size: medium;&quot;&gt;{!Get_Case_2.Support_Email__c}&lt;/span&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>subForreopen</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Case {!Get_Case_2.CaseNumber} has been Reopened</text>
+    </textTemplates>
+    <variables>
+        <name>CaseStatusReasonUpdated</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue></stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>CaseStatusUpdated</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue></stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>countEmails</name>
+        <dataType>Number</dataType>
+        <isCollection>true</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <scale>2</scale>
+    </variables>
+    <variables>
+        <name>emailList</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>EmailMessage</objectType>
+    </variables>
+    <variables>
+        <name>ReopenHours</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>2</scale>
+    </variables>
+</Flow>

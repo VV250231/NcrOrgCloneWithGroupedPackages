@@ -1,0 +1,208 @@
+<aura:component  implements="flexipage:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <ltng:require scripts="{! $Resource.PSFR_Resource + '/PSFR_Resource/bootstrap/js/jQuery-2.2.0.min.js'}"  
+                  afterScriptsLoaded="{!c.SG_Errorpop}" />
+    <aura:attribute type="List" name="devlist" />
+    <aura:attribute type="List" name="adminlist" />
+    <aura:attribute type="List" name="objectresult" />
+    <aura:attribute type="List" name="objectresultreport" />
+    <aura:attribute type="List" name="objectresultuser" />
+    <aura:attribute type="Boolean" name="toggletable" default="false" />
+    <aura:attribute type="Boolean" name="togglereporttable" default="false" />
+    <aura:attribute type="Boolean" name="toggleusertable" default="false" />
+    <aura:attribute type="Boolean" name="toggleLTNGtable" default="false" />
+    <aura:attribute type="Boolean" name="toggleprofiletable" default="false" />
+    <aura:attribute type="Boolean" name="togglesearchcriteria" default="false" />
+    <aura:attribute type="Boolean" name="toggleerrorfromserver" default="false" />
+    <aura:attribute type="Boolean" name="toggleprofileaccess" default="false" />
+    <aura:attribute type="Boolean" name="togglesearchkeyerror" default="false" />
+    <aura:attribute type="Boolean" name="toggleselecterror" default="false" />
+    <aura:attribute type="Boolean" name="toggletablePermissionset" default="false" />
+    <aura:attribute type="Boolean" name="toggleloader" default="true" />
+    <aura:attribute type="string" name="objectname" />
+    <aura:attribute type="string" name="url" />
+    <aura:attribute type="string" name="url2" />
+    
+    <aura:if isTrue="{!v.toggleprofileaccess}">
+        <div class="slds-form-element">
+            <div class="slds-form-element__control">
+                <center>
+                    <lightning:select name="AdminSearch" aura:id="adminselect" disabled="false" label="Admin Search" onchange="{!c.adminsearch}" >
+                        <aura:iteration items="{!v.adminlist}" var="item">
+                            <option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"></option>
+                        </aura:iteration>
+                    </lightning:select>
+                </center>
+            </div>
+        </div>
+        <div class="slds-box slds-scrollable" style="min-height:305px;max-height:305px;margin-top: 5px;">
+            <aura:if isTrue="{!v.togglesearchcriteria}">
+                <div class="alert-box--error"> 
+                    <div class="slds-box slds-theme--error">
+                        <p> No Result, Please try with new keyword !</p>
+                    </div>
+                </div> 
+            </aura:if>
+            <aura:if isTrue="{!v.toggleerrorfromserver}">
+                <div class="alert-box--error"> 
+                    <div class="slds-box slds-theme--error">
+                        <p>Error occured at server, Please send screenshot to admin</p>
+                    </div>
+                </div> 
+            </aura:if>
+            <aura:if isTrue="{!v.togglesearchkeyerror}">
+                <div class="alert-box--error"> 
+                    <div class="slds-box slds-theme--error">
+                        <p>Please enter search key</p>
+                    </div>
+                </div> 
+            </aura:if>
+            <aura:if isTrue="{!v.toggleselecterror}">
+                <div class="alert-box--error"> 
+                    <div class="slds-box slds-theme--error">
+                        <p>Please select an option</p>
+                    </div>
+                </div> 
+            </aura:if>
+            
+            <aura:if isTrue="{!v.toggletable}">
+                <aura:if isTrue="{!v.toggleloader}">
+                    <center><div class="loader" ></div></center>
+                    <br></br>
+                </aura:if>
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                    <thead>
+                        <tr class="slds-text-title_caps">
+                            <th scope="col">
+                                <div class="slds-truncate" title="Name">Name</div>
+                            </th>
+                            <th>
+                                <div class="slds-truncate" title="Object">Object</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{!v.objectresult}" var="item">
+                            <tr>
+                                <td scope="row" data-label="Name">
+                                    <div class="slds-truncate" title="{!item.Name}"><a href="{!'/'+item.Id }">{!item.Name}</a></div>
+                                </td>
+                                <td scope="row" data-label="Object">
+                                    <div class="slds-truncate" title="Object Name">{!v.objectname}</div>
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                    </tbody>
+                </table>
+            </aura:if>
+            
+            <aura:if isTrue="{!v.togglereporttable}">
+                <aura:if isTrue="{!v.toggleloader}">
+                    <center><div class="loader" ></div></center>
+                    <br></br>
+                </aura:if>
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                    <thead>
+                        <tr class="slds-text-title_caps">
+                            <th scope="col">
+                                <div class="slds-truncate" title="Name">Name</div>
+                            </th>
+                            <th>
+                                <div class="slds-truncate" title="Object">Object</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{!v.objectresultreport}" var="item">
+                            <tr>
+                                <td scope="row" data-label="Name">
+                                    <div class="slds-truncate" title="{!item.Name}"><a href="{!'/'+item.Id +'?export=1&amp;enc=UTF-8&amp;xf=xls' }">{!item.Name}</a></div>
+                                </td>
+                                <td scope="row" data-label="Object">
+                                    <div class="slds-truncate" title="Object Name">{!v.objectname}</div>
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                    </tbody>
+                </table>
+            </aura:if>
+            
+            <aura:if isTrue="{!v.toggleLTNGtable}">
+                <aura:if isTrue="{!v.toggleloader}">
+                    <center><div class="loader" ></div></center>
+                    <br></br>
+                </aura:if>
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                    <thead>
+                        <tr class="slds-text-title_caps">
+                            <th scope="col">
+                                <div class="slds-truncate" title="Name">Name</div>
+                            </th>
+                            <th>
+                                <div class="slds-truncate" title="Object">Object</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{!v.objectresult}" var="item">
+                            <tr>
+                                <td scope="row" data-label="Name">
+                                    <div class="slds-truncate" title="{!item.Name}"><a href="{!'/'+item.Id}">{!item.DeveloperName}</a></div>
+                                </td>
+                                <td scope="row" data-label="Object">
+                                    <div class="slds-truncate" title="Object Name">{!v.objectname}</div>
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                    </tbody>
+                </table>
+            </aura:if>
+            
+            <aura:if isTrue="{!v.toggleusertable}">
+                <aura:if isTrue="{!v.toggleloader}">
+                    <center><div class="loader" ></div></center>
+                    <br></br>
+                </aura:if>
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                    <thead>
+                        <tr class="slds-text-title_caps">
+                            <th scope="col">
+                                <div class="slds-truncate" title="Name">Name</div>
+                            </th>
+                            <th>
+                                <div class="slds-truncate" title="Object">Login-As User</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{!v.objectresultuser}" var="item">
+                            <tr>
+                                <td scope="row" data-label="Name">
+                                    <div class="slds-truncate" title="{!item.Name}"><a href="{!'/'+item.Id +'?noredirect=1&amp;isUserEntityOverride=1' }">{!item.Name}</a></div>
+                                </td>
+                                <td scope="row" data-label="Object">
+                                    <a href="{!'/servlet/servlet.su?oid=00D700000008mDk&amp;suorgadminid='+item.Id+'&amp;retURL=%2F'+item.Id+'%3Fnoredirect%3D1%26isUserEntityOverride%3D1&amp;targetURL=%2Fhome%2Fhome.jsp'}"><lightning:button variant="brand" label="Login" onclick="{!c.searchnow}"/></a>
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                    </tbody>
+                </table>
+            </aura:if>
+        </div>
+        <div class="slds-grid slds-grid_align-space">
+            <div class="slds-large-size_8-of-12 slds-grid_align-space" style="margin-left: 10px;">
+                <lightning:input type="search" aura:id="searchkey" label="Enter Keyword" name="search" />
+            </div>
+            <div class="slds-large-size_4-of-12 slds-grid_align-space" style="margin-top: 23px;margin-left: 12px;">
+                <lightning:button variant="brand" label="Search" iconPosition="left" iconName="utility:search" onclick="{!c.searchnow}"/>
+            </div>
+        </div>
+        <aura:set attribute="else">
+            <br></br>
+            <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info"> 
+                <p>This feature is only available for Admins</p>
+            </div>
+        </aura:set>
+    </aura:if>
+    
+</aura:component>

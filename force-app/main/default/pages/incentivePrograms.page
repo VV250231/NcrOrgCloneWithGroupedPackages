@@ -1,0 +1,25 @@
+<apex:page controller="IncentiveProgramListCon">
+    <apex:form >
+        <apex:pageMessages />
+        
+        <apex:pageBlock rendered="{! NOT(validPartnForOptIn)}">
+            <apex:pageMessage severity="INFO" strength="2" summary="{! validateMessage }" />
+        </apex:pageBlock>
+        
+        <apex:pageBlock rendered="{! validPartnForOptIn}">
+            <apex:pageBlockSection columns="1" collapsible="false" title="Incentive programs available for Retail Partners">
+                <apex:pageBlockSectionItem >
+                </apex:pageBlockSectionItem>
+                <apex:pageblockSectionItem >
+                    <apex:selectList value="{! selectedProgram}" label="Select Incentive Program" multiselect="false" size="1">
+                        <apex:selectOptions value="{! incentivePrograms}">
+                        </apex:selectOptions>
+                    </apex:selectList>
+                </apex:pageblockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom"><apex:commandButton value="Next" action="{! next}"/></apex:pageBlockButtons>
+        </apex:pageBlock>
+        
+    </apex:form>
+    
+</apex:page>

@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>DNBI__Send_Credit_Status_Change_Notification_for_contract</fullName>
+        <description>Send Credit Status Change Notification for contract</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>DNBI__DNBI_email_Templates/DNBI__DNBI_Credit_Information_Update_for_Contract</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Contract_Approved</fullName>
+        <description>Email Contract Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Contract_Templates/Contract_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Contract_In_Query</fullName>
+        <description>Email Contract In Query</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Owners_Mgr_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Contract_Templates/Contract_Contract_In_Query</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_NA_FI_when_Contract_is_Created</fullName>
+        <description>Email NA FI when Contract is Created</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Contract_Templates/Contract_Contract_Created</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_NA_Retail_when_Contract_is_Created</fullName>
+        <description>Email NA Retail when Contract is Created</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Contract_Templates/Contract_Contract_Created</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Operations_New_Contract</fullName>
+        <description>Email operations new contract</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>Kristina_Zaveckiene</recipient>
+            <type>group</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Contract_Templates/Contract_Operations_Notification</template>
+    </alerts>
+    <alerts>
+        <fullName>Negotiated_Contract_Expiration_Email_Notification_to_Account_Owner_and_Account_T</fullName>
+        <description>Negotiated Contract Expiration Email Notification to Account Owner and Account Team Members</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <recipients>
+            <recipient>Account Manager</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>CMS Account Manager</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>COE</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Channel Account Manager</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Executive Sponsor</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Global Account Manager</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Inside Sales Specialist</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Lead Qualifier</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Other Involved</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Pre-Sales Consultant</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Sales Manager</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Sales Rep</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Services Sales Consultant</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Services Sales Leader</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Solution Sales Specialist</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Negotiated_Contract_Renewal_Notice_html</template>
+    </alerts>
+    <alerts>
+        <fullName>New_contract_has_been_created</fullName>
+        <description>New contract has been created</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Contract_Templates/Opportunity_has_been_closed_won_and_a_contract_has_been_created</template>
+    </alerts>
+    <alerts>
+        <fullName>Non_Negotiated_Contract_Expiration_Email_Notification_to_Account_Owner_and_Accou</fullName>
+        <description>Non Negotiated Contract Expiration Email Notification to Account Owner and Account Team Members</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <recipients>
+            <recipient>Account Manager</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>CMS Account Manager</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>COE</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Channel Account Manager</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Executive Sponsor</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Global Account Manager</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Inside Sales Specialist</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Lead Qualifier</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Other Involved</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Pre-Sales Consultant</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Sales Manager</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Sales Rep</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Services Sales Consultant</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Services Sales Leader</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Solution Sales Specialist</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Non_Negotiated_Contract_Renewal_Notice_html</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Contract_End_Date_Override</fullName>
+        <field>Contract_End_Date_Override__c</field>
+        <literalValue>1</literalValue>
+        <name>Contract End Date Override</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Contract_FI_Operations_Opportunity</fullName>
+        <field>FI_Operations_Opportunity__c</field>
+        <literalValue>1</literalValue>
+        <name>Contract FI Operations Opportunity</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Contract_Owner_Expiration_Notice_Date</fullName>
+        <field>Owner_Expiration_Notice_Date__c</field>
+        <formula>EndDate -  Value(text( Owner_Expiration_Notice__c ))</formula>
+        <name>Contract Owner Expiration Notice Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Statusupdate</fullName>
+        <field>Status</field>
+        <literalValue>Current</literalValue>
+        <name>Status update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Contract_End_Date</fullName>
+        <field>EndDate</field>
+        <formula>ADDMONTHS( StartDate , ContractTerm )</formula>
+        <name>Update Contract End Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Contract_End_Date_for_Auto_Ext</fullName>
+        <field>EndDate</field>
+        <formula>addmonths( EndDate, Renewal_Period_Months__c)</formula>
+        <name>Update Contract End Date for Auto Ext</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Finance_Admin_Status_Date</fullName>
+        <field>Finance_Contracts_Admin_Status_Date__c</field>
+        <formula>Today()</formula>
+        <name>Update Finance Admin Status Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_IBG_Contract_Flag</fullName>
+        <field>IBG_Contract__c</field>
+        <literalValue>1</literalValue>
+        <name>Update IBG Contract Flag</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Owner_Manager_Email</fullName>
+        <field>Owners_Mgr_Email__c</field>
+        <formula>Owner.Manager.Email</formula>
+        <name>Update Owner Manager Email</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Renewal_Term</fullName>
+        <field>SBQQ__RenewalTerm__c</field>
+        <formula>12</formula>
+        <name>Update Renewal Term</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>CATM AUS IBG - 18 months are left to the renewal date</fullName>
+        <actions>
+            <name>Contract_is_expiring_in_18_months_please_contact_your_customer</name>
+            <type>Task</type>
+        </actions>
+        <active>true</active>
+        <description>Once the site has 18 months left on the contract a task will be created to contact the customer</description>
+        <formula>!$Setup.Automation_Setting__c.Skip_Flow__c &amp;&amp; CATM_Record__c = TRUE &amp;&amp; Remaining_Term_in_Months__c = 18 &amp;&amp; TEXT(Status) != &apos;Closed/Cancelled&apos; &amp;&amp; $User.AUS_IBG__c = TRUE</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM AUS IBG - Contract meets the halfway point in its lifecycle</fullName>
+        <actions>
+            <name>Contract_term_has_reached_its_halfway_point</name>
+            <type>Task</type>
+        </actions>
+        <active>true</active>
+        <description>Once the contract meets the halfway point in its life cycle a task is created for the Account Manager to contact his customer</description>
+        <formula>!$Setup.Automation_Setting__c.Skip_Flow__c &amp;&amp; CATM_Record__c = TRUE &amp;&amp; Account.Geography__c = &apos;UK&apos; &amp;&amp; Contract_Term_Halfway_Point_Date__c =  TODAY() &amp;&amp; TEXT(Status) != &apos;Closed/Cancelled&apos; &amp;&amp; ISPICKVAL(Business_Unit__c, &apos;CATM - IBG (Core)&apos;)</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>CATM Email NA FI RM Team</fullName>
+        <actions>
+            <name>Email_NA_FI_when_Contract_is_Created</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <description>Email when Contract is created to assign RM</description>
+        <formula>!$Setup.Automation_Setting__c.Skip_Flow__c &amp;&amp; CATM_Record__c = TRUE &amp;&amp; TEXT($User.CATM_Region__c) = &apos;NABG&apos; &amp;&amp; TEXT($User.Business_Unit__c) = &apos;FI&apos;</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM Email NA Retail RM Team</fullName>
+        <actions>
+            <name>Email_NA_Retail_when_Contract_is_Created</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <description>Email when Contract is created to assign RM</description>
+        <formula>!$Setup.Automation_Setting__c.Skip_Flow__c &amp;&amp; CATM_Record__c = TRUE &amp;&amp; TEXT($User.CATM_Region__c) = &apos;NABG&apos; &amp;&amp; TEXT($User.Business_Unit__c) = &apos;Retail (Corporate)&apos;</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM UK IBG Email%3A Contract Accepted by FCA team</fullName>
+        <actions>
+            <name>Email_Contract_Approved</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <formula>!$Setup.Automation_Setting__c.Skip_Flow__c &amp;&amp; CATM_Record__c = TRUE &amp;&amp; TEXT(Status) = &apos;Activated&apos; &amp;&amp; TEXT( Finance_Contracts_Admin_Status__c ) = &apos;Accepted&apos; &amp;&amp; TEXT( $User.Business_Unit__c ) = &apos;IBG (Core)&apos; &amp;&amp; TEXT( $User.CATM_Region__c ) = &apos;IBG&apos;</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM UK IBG Email%3A Contract In Query w%2F FCA</fullName>
+        <actions>
+            <name>Email_Contract_In_Query</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <formula>!$Setup.Automation_Setting__c.Skip_Flow__c &amp;&amp; CATM_Record__c = TRUE &amp;&amp; TEXT(Status) = &apos;Activated&apos; &amp;&amp; TEXT( Finance_Contracts_Admin_Status__c ) = &apos;In Query&apos; &amp;&amp; TEXT( $User.Business_Unit__c ) = &apos;IBG (Core)&apos; &amp;&amp; TEXT( $User.CATM_Region__c ) = &apos;IBG&apos;</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM Update FI Ops Opps</fullName>
+        <actions>
+            <name>Contract_FI_Operations_Opportunity</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Update Field on contract that denotes that this opportunity will be filled by Operations for FI</description>
+        <formula>!$Setup.Automation_Setting__c.Skip_Flow__c &amp;&amp;  CATM_Record__c = TRUE &amp;&amp;  Account.CATM_Region__c = &apos;NABG&apos; &amp;&amp;  Account.Geography__c = &apos;US&apos; &amp;&amp;  CONTAINS(Account.Business_Unit__c, &apos;FI&apos;) &amp;&amp;  Incremental_ACV__c != 0 &amp;&amp; OR( CONTAINS(Products__c,&apos;Branding&apos;), CONTAINS(Products__c, &apos;Managed&apos;) )</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM Update IBG Contract Flag</fullName>
+        <actions>
+            <name>Update_IBG_Contract_Flag</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>!$Setup.Automation_Setting__c.Skip_Flow__c &amp;&amp; CATM_Record__c = TRUE &amp;&amp; ISPICKVAL( Business_Unit__c,&apos;CATM - IBG (Core)&apos;)</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM Update Owner Expiration Date</fullName>
+        <actions>
+            <name>Contract_Owner_Expiration_Notice_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>!$Setup.Automation_Setting__c.Skip_Flow__c &amp;&amp; CATM_Record__c = TRUE &amp;&amp; OR(ISPICKVAL(Owner_Expiration_Notice__c ,&apos;15&apos;), ISPICKVAL(Owner_Expiration_Notice__c ,&apos;30&apos;), ISPICKVAL(Owner_Expiration_Notice__c , &apos;45&apos;), ISPICKVAL(Owner_Expiration_Notice__c ,&apos;60&apos;), ISPICKVAL(Owner_Expiration_Notice__c ,&apos;90&apos;), ISPICKVAL(Owner_Expiration_Notice__c ,&apos;120&apos;), ISPICKVAL(Owner_Expiration_Notice__c , &apos;135&apos;), ISPICKVAL(Owner_Expiration_Notice__c ,&apos;180&apos;), ISPICKVAL(Owner_Expiration_Notice__c , &apos;210&apos;), ISPICKVAL(Owner_Expiration_Notice__c , &apos;270&apos;), ISPICKVAL(Owner_Expiration_Notice__c , &apos;360&apos;) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM Update Owner Manager Email</fullName>
+        <actions>
+            <name>Update_Owner_Manager_Email</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>!$Setup.Automation_Setting__c.Skip_Flow__c &amp;&amp; CATM_Record__c = TRUE &amp;&amp; NOT(ISBLANK(CreatedDate))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>DNBI__Contract Credit Status Change</fullName>
+        <actions>
+            <name>DNBI__Send_Credit_Status_Change_Notification_for_contract</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <formula>AND(ISCHANGED(DNBI__DnB_Application_Modified_Date__c), $Setup.DNBI__EnableStatusEmailNotification1__c.DNBI__Enable_Email_Notification__c)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Renewal Term on Contract</fullName>
+        <actions>
+            <name>Update_Renewal_Term</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>$Setup.Automation_Setting__c.Skip_Flow__c = false &amp;&amp;  CATM_Record__c = false &amp;&amp; SBQQ__Opportunity__r.CPQ__c= true</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <tasks>
+        <fullName>Action_Required_Contract_is_about_to_expire_and_requires_negotiations</fullName>
+        <assignedToType>accountOwner</assignedToType>
+        <dueDateOffset>0</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <offsetFromField>Contract.EndDate</offsetFromField>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Action Required: Contract is about to expire and requires negotiations</subject>
+    </tasks>
+    <tasks>
+        <fullName>Contract_expiring_soon_and_will_renew_automatically</fullName>
+        <assignedToType>accountOwner</assignedToType>
+        <dueDateOffset>0</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <offsetFromField>Contract.EndDate</offsetFromField>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Contract expiring soon and will renew automatically</subject>
+    </tasks>
+    <tasks>
+        <fullName>Contract_is_expiring_in_18_months_please_contact_your_customer</fullName>
+        <assignedTo>kz250077@ncr.com</assignedTo>
+        <assignedToType>user</assignedToType>
+        <description>Please contact customer to renew the contract &amp; determine the following:
+1. What are we competing on e.g. price, product, service etc. 
+2. Confirm if we can renew early
+3. If they are going to RFP/are out to tender
+4. Identify if it&apos;s at risk customer</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Open</status>
+        <subject>Contract is expiring in 18 months, please contact your customer</subject>
+    </tasks>
+    <tasks>
+        <fullName>Contract_term_has_reached_its_halfway_point</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Please contact your customer</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Open</status>
+        <subject>Contract term has reached its halfway point</subject>
+    </tasks>
+</Workflow>

@@ -1,0 +1,433 @@
+<aura:component implements="force:hasRecordId,flexipage:availableForAllPageTypes" access="global" >
+    
+	<!-- getting data -->
+    <aura:attribute name="summerizeData" type="Object" />
+    <!-- getting data -->
+    <aura:attribute name="NotBookedReasons" type="list"/>
+    <!-- getting data -->
+    <aura:attribute name="QuoteInProcess" type="List" />
+    <!-- getting data -->
+    <aura:attribute name="OrderSubmittedBOC" type="List" />
+    <!-- getting data -->
+    <aura:attribute name="OrdersReturned" type="List" />
+    
+    
+    
+    <!-- Account Options -->
+    <aura:attribute name="showSpinner" type="boolean" default="false" />
+    
+    <!-- to fetch records on component load -->
+    <!--<aura:handler name="init" value="{!this}" action="{!c.doinit}" />-->
+    
+    
+    
+    <article class="slds-card">
+        <aura:if isTrue="{!v.showSpinner}">
+            <lightning:spinner variant="brand" size="small" alternativeText="spinner"/>
+        </aura:if>
+        <div class="slds-card__header slds-grid">
+            <div class="slds-col slds-col slds-size_4-of-12">
+                <!--Account SELECT LIST HERE-->
+            </div>                       
+        </div>
+        <div class="slds-card__body slds-p-left_medium slds-p-right_medium">
+            <section>
+                <div class="slds-grid slds-gutters" style="background-color: #F8E6E6;">
+                    <div class="slds-col slds-size_1-of-12" style="width: 130px;">
+                        <div class="slds-box1">
+                            <span>                        	
+                                <lightning:buttonIcon alternativeText="Expand" iconName="utility:chevronright" variant="inverse" aura:id="section_A_Collapse" class="" onclick="{!c.expand}"/>
+                                <lightning:buttonIcon alternativeText="Collapse" iconName="utility:chevrondown" variant="inverse" aura:id="section_A_Expand" class="slds-hide" onclick="{!c.collapse}"/>
+                            </span>
+                            <span>
+                                <lightning:buttonIcon name="QuotesInProcess"  iconName="utility:download" variant="inverse" aura:id="DownloadQuoteInProcess" class="" onclick="{!c.downloadCsv}" alternativeText="Download"/>
+                             </span>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_5-of-12">
+                        <div class="slds-box1">
+                            <span>Quotes in Process (Not Submitted to BOC)</span>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_5-of-12">
+                        <div class="slds-box1">
+                            <span>In Progress</span>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12" >
+                        <div class="slds-box1">
+                            <span>{!v.summerizeData.InProgress}</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="slds-grid slds-gutters" style="background-color: #F8E6E6;">
+                    <div class="slds-col slds-size_1-of-12" style="width: 130px;">
+                        <div class="slds-box1">
+                            <span>&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_5-of-12">
+                        <div class="slds-box1">
+                            <span>&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_5-of-12">
+                        <div class="slds-box1"><span>Awaiting Approvals</span></div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12">
+                        <div class="slds-box1"><span>{!v.summerizeData.Awaiting_Approvals}</span></div>
+                    </div>
+                </div>
+            </section>
+            <section aura:id="section_A" class="slds-is-collapsed">
+                
+                <div class="slds-table--header-fixed_container " style="height:450px;">
+                      <div class="slds-scrollable_y" style="height:100%;">
+                        
+                        <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_col-bordered slds-table_striped slds-table--header-fixed">
+                            <aura:if isTrue="{!v.QuoteInProcess.length>0}">
+                               <thead class="TableHeaderColor"> 
+                                 <tr class="slds-text-title_caps TableHeaderColor">
+                                    <th scope="col" class="slds-cell-wrap ">
+                                        <div class="slds-cell-wrap slds-cell-fixed " title="Quote#">Quote#</div>
+                                    </th>
+                                    <th scope="col" class="slds-cell-wrap ">
+                                        <div class="slds-cell-wrap slds-cell-fixed " title="Owner">Owner</div>
+                                    </th>
+                                    <th scope="col" class="slds-cell-wrap " style="width:130px;">
+                                        <div class="slds-cell-wrap slds-cell-fixed " title="Opportunity Number">Opportunity <br/> Number</div>
+                                    </th>
+                                    <th scope="col" class="slds-cell-wrap " style="width:130px;">
+                                        <div class="slds-cell-wrap slds-cell-fixed " title="Opportunity Value">Opportunity <br/> Value</div>
+                                    </th>
+                                    <th scope="col" class="slds-cell-wrap " style="width:130px;">
+                                        <div class="slds-cell-wrap slds-cell-fixed " title="Quote Total">Quote Total <br/> Amount</div>
+                                    </th>
+                                    <th scope="col" class="slds-cell-wrap ">
+                                        <div class="slds-cell-wrap slds-cell-fixed " title="Date Modified">Date Modified</div>
+                                    </th>
+                                    <th scope="col" class="slds-cell-wrap ">
+                                        <div class="slds-cell-wrap slds-cell-fixed " title="HW/SW Status">HW/SW Status</div>
+                                    </th>
+                                    <th scope="col" class="slds-cell-wrap ">
+                                        <div class="slds-cell-wrap slds-cell-fixed " title="Maint &amp; Support  Status">Maint &amp; Support <br/>Status</div>
+                                    </th>
+                                    <th scope="col" class="slds-cell-wrap ">
+                                        <div class="slds-cell-wrap slds-cell-fixed " title="Financial Call-Off">Financial Call-Off</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                                <aura:set attribute="else">
+                                     <ui:message severity="info" >
+                                         <p style="font-weight: bold;">
+                                            There are no Quote in this category.
+                                         </p>
+                                    </ui:message>
+                                </aura:set>
+                            </aura:if>
+                            
+                            <tbody  >
+                                
+                                <aura:iteration items="{!v.QuoteInProcess}" var="QIP">
+                                    <tr>
+                                      <td class="slds-cell-wrap">
+                                        <div class="slds-cell-wrap" title="{!QIP.QuoteNo}"><a onclick="{!c.QuoteRedirect}" id="{!QIP.QuoteNo}">{!QIP.QuoteNo}</a></div>
+                                      </td>
+                                      <td class="slds-cell-wrap">
+                                        <div class="slds-cell-wrap " title="{!QIP.Owner}">{!QIP.Owner}</div>
+                                      </td>
+                                      <td class="slds-cell-wrap">
+                                        <div class="slds-cell-wrap" title="{!QIP.OpportunityNumber}">{!QIP.OpportunityNumber}</div>
+                                      </td>
+                                      <td class="slds-cell-wrap">
+                                        <div class="slds-cell-wrap" title="{!QIP.OpportunityValue}">{!QIP.OpportunityValue}</div>
+                                      </td>
+                                      <td class="slds-cell-wrap">
+                                        <div class="slds-cell-wrap" title="{!QIP.QuoteTotal}">{!QIP.QuoteTotal}</div>
+                                      </td>
+                                      <td class="slds-cell-wrap">
+                                        <div class="slds-cell-wrap" title="{!QIP.DateModified}">{!QIP.DateModified}</div>
+                                      </td>
+                                      <td class="slds-cell-wrap">
+                                            <div class="slds-cell-wrap" title="{!QIP.HW_SW_Status}">{!QIP.HW_SW_Status}</div>
+                                      </td>
+                                      <td class="slds-cell-wrap">
+                                            <div class="slds-cell-wrap" title="{!QIP.Main_SupportStatus}">{!QIP.Main_SupportStatus}</div>
+                                      </td>
+                                      <td class="slds-cell-wrap">
+                                            <div class="slds-cell-wrap" title="{!QIP.FinancialCallOff}">{!QIP.FinancialCallOff}</div>
+                                      </td>
+                                    </tr>
+                                </aura:iteration>
+                                   
+                            </tbody>
+                            
+                        </table>
+                       
+                    </div>
+                </div>
+            </section>
+            
+            
+            <section>
+                <div class="slds-grid slds-gutters" style="background-color: #e5ddbc;">
+                    <div class="slds-col slds-size_1-of-12" style="width:130px;">
+                        <div class="slds-box1">
+                            <span>                        	
+                                <lightning:buttonIcon iconName="utility:chevronright" variant="inverse" aura:id="section_B_Collapse" class="" onclick="{!c.expand}" alternativeText="Expand"/>
+                                <lightning:buttonIcon iconName="utility:chevrondown" variant="inverse" aura:id="section_B_Expand" class="slds-hide" onclick="{!c.collapse}" alternativeText="Collapse"/>
+                            </span>
+                            <span>
+                                <lightning:buttonIcon name="OrderSubmittedBOC"  iconName="utility:download" variant="inverse" aura:id="DownloadOrderSubmittedBOC" class="" onclick="{!c.downloadCsv}" alternativeText="Download"/>
+                             </span>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_5-of-12">
+                        <div class="slds-box1">
+                            <span>Order Submitted to BOC</span>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_5-of-12">
+                        <div class="slds-box1"><span>Pending</span></div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12">
+                        <div class="slds-box1"><span>{!v.summerizeData.None_OrderFieldsNull}</span></div>
+                    </div>
+                </div>
+            </section>
+            
+            <aura:iteration items="{!v.NotBookedReasons}" var="Reasons">
+            <section>
+                <div class="slds-grid slds-gutters" style="background-color: #e5ddbc;">
+                    <div class="slds-col slds-size_1-of-12" style="width:130px;">
+                        <div class="slds-box1">
+                            <span>&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_5-of-12">
+                        <div class="slds-box1">
+                            <span>&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_5-of-12">
+                        <div class="slds-box1"><span>{!Reasons.ReasonName}</span></div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12">
+                        <div class="slds-box1"><span>{!Reasons.NumberOfQuotes}</span></div>
+                    </div>
+                </div>
+            </section>
+           </aura:iteration>
+            
+            
+             
+            <section aura:id="section_B" class="slds-is-collapsed">
+                <div class="slds-table--header-fixed_container " style="height:450px;">
+                      <div class="slds-scrollable_y" style="height:100%;">
+                        <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_col-bordered slds-table_striped slds-table--header-fixed">
+                            <aura:if isTrue="{!v.OrderSubmittedBOC.length>0}">
+                               <thead class="TableHeaderColor"> 
+                                 <tr class="slds-text-title_caps TableHeaderColor">
+                                    <th scope="col" class="slds-cell-wrap ">
+                                        <div class="slds-truncate slds-cell-fixed " title="Quote#">Quote#</div>
+                                    </th>
+                                    <th scope="col" class="slds-cell-wrap ">
+                                        <div class="slds-truncate slds-cell-fixed " title="Owner">Owner</div>
+                                    </th>
+                                    <th scope="col" class="slds-cell-wrap ">
+                                        <div class="slds-cell-wrap slds-cell-fixed " title="Opportunity Number">Opportunity <br/> Number</div>
+                                    </th>
+                                    <th scope="col" class="slds-cell-wrap " style="width:130px;">
+                                        <div class="slds-cell-wrap slds-cell-fixed " title="Opportunity Value">Opportunity <br/> Value</div>
+                                    </th>
+                                    <th scope="col" class="slds-cell-wrap " style="width:130px;">
+                                        <div class="slds-cell-wrap slds-cell-fixed " title="Quote Total">Quote Total <br/> Amount</div>
+                                    </th>
+                                    <th scope="col" class="slds-cell-wrap " style="width:130px;">
+                                        <div class="slds-cell-wrap slds-cell-fixed " title="Date Modified">Date Modified</div>
+                                    </th>
+                                    <th scope="col" class="slds-cell-wrap " style="width:130px;">
+                                        <div class="slds-cell-wrap slds-cell-fixed " title="Action Owner">Action Owner</div>
+                                    </th>
+                                    <th scope="col" class="slds-cell-wrap ">
+                                        <div class="slds-cell-wrap slds-cell-fixed " title="Status">Status </div>
+                                    </th>
+                                    <th scope="col" class="slds-cell-wrap ">
+                                        <div class="slds-cell-wrap slds-cell-fixed " title="Pending Reason">Pending Reason</div>
+                                    </th>
+                                     <th scope="col" class="slds-cell-wrap ">
+                                        <div class="slds-cell-wrap slds-cell-fixed " title="Financial Call-Off">Financial Call-Off</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                                <aura:set attribute="else">
+                                     <ui:message severity="info" >
+                                         <p style="font-weight: bold;">
+                                            There are no Quote in this category.
+                                         </p>
+                                    </ui:message>
+                                </aura:set>
+                            </aura:if>
+                            
+                            <tbody  >
+                                
+                                <aura:iteration items="{!v.OrderSubmittedBOC}" var="OSB">
+                                    <tr>
+                                      <td class="slds-cell-wrap">
+                                        <div class="slds-cell-wrap" title="{!OSB.QuoteNo}"><a onclick="{!c.QuoteRedirect}" id="{!OSB.QuoteNo}">{!OSB.QuoteNo}</a></div>
+                                      </td>
+                                      <td class="slds-cell-wrap">
+                                        <div class="slds-cell-wrap " title="{!OSB.Owner}">{!OSB.Owner}</div>
+                                      </td>
+                                      <td class="slds-cell-wrap">
+                                        <div class="slds-cell-wrap" title="{!OSB.OpportunityNumber}">{!OSB.OpportunityNumber}</div>
+                                      </td>
+                                      <td class="slds-cell-wrap">
+                                        <div class="slds-cell-wrap" title="{!OSB.OpportunityValue}">{!OSB.OpportunityValue}</div>
+                                      </td>
+                                      <td class="slds-cell-wrap">
+                                        <div class="slds-cell-wrap" title="{!OSB.QuoteTotal}">{!OSB.QuoteTotal}</div>
+                                      </td>
+                                      <td class="slds-cell-wrap">
+                                        <div class="slds-cell-wrap" title="{!OSB.DateModified}">{!OSB.DateModified}</div>
+                                      </td>
+                                      <td class="slds-cell-wrap">
+                                            <div class="slds-cell-wrap" title="{!OSB.ActionOwner}">{!OSB.ActionOwner}</div>
+                                      </td>
+                                      <td class="slds-cell-wrap">
+                                            <div class="slds-cell-wrap" title="{!OSB.Status}">{!OSB.Status}</div>
+                                      </td>
+                                       <td class="slds-cell-wrap">
+                                            <div class="slds-cell-wrap" title="{!OSB.PendingReason}">{!OSB.PendingReason}</div>
+                                      </td>
+                                      <td class="slds-cell-wrap">
+                                            <div class="slds-cell-wrap" title="{!OSB.FinancialCallOff}">{!OSB.FinancialCallOff}</div>
+                                      </td>
+                                    </tr>
+                                </aura:iteration>
+                                   
+                            </tbody>
+                            
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            
+            
+            <section>
+                <div class="slds-grid slds-gutters ThemeInfo">
+                    <div class="slds-col slds-size_1-of-12" style="width:130px;">
+                        <div class="slds-box1">
+                            <span>                        	
+                                <lightning:buttonIcon alternativeText="Expand" iconName="utility:chevronright" variant="inverse" aura:id="section_C_Collapse" class="" onclick="{!c.expand}"/>
+                                <lightning:buttonIcon alternativeText="Collapse" iconName="utility:chevrondown" variant="inverse" aura:id="section_C_Expand" class="slds-hide" onclick="{!c.collapse}"/>
+                            </span>
+                            <span>
+                                <lightning:buttonIcon name="OrdersReturned"  iconName="utility:download" variant="inverse" aura:id="DownloadOrdersReturned" class="" onclick="{!c.downloadCsv}" alternativeText="Download"/>
+                             </span>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_5-of-12">
+                        <div class="slds-box1"><span>Order Returned to Sales</span></div>
+                    </div>
+                    <div class="slds-col slds-size_5-of-12">
+                        <div class="slds-box1"><span>Returned</span></div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12">
+                        <div class="slds-box1"><span>{!v.summerizeData.Missing_Documentations}</span></div>
+                    </div>
+                </div>
+            </section>
+            <section aura:id="section_C" class="slds-is-collapsed">
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col">
+                      <div class="slds-table--header-fixed_container " style="height:450px;">
+                       <div class="slds-scrollable_y" style="height:100%;">
+                        <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_col-bordered slds-table_striped slds-table--header-fixed">
+                           <aura:if isTrue="{!v.OrdersReturned.length>0}">
+                               <thead>
+                                <tr class="slds-text-title_caps">
+                                    <th scope="col" class="slds-cell-wrap ">
+                                        <div class="slds-cell-wrap slds-cell-fixed " title="Quote#">Quote#</div>
+                                    </th>
+                                    <th scope="col" class="slds-cell-wrap ">
+                                        <div class="slds-cell-wrap slds-cell-fixed " title="Owner">Owner</div>
+                                    </th>
+                                    <th scope="col" class="slds-cell-wrap " style="width:120px;">
+                                        <div class="slds-cell-wrap slds-cell-fixed " title="Opportunity Number">Opportunity <br/> Number</div>
+                                    </th>
+                                    <th scope="col" class="slds-cell-wrap " style="width:120px;">
+                                        <div  class="slds-cell-wrap slds-cell-fixed " title="Opportunity Value">Opportunity <br/> Value</div>
+                                    </th>
+                                    <th scope="col" class="slds-cell-wrap " style="width:120px;">
+                                        <div class="slds-cell-wrap slds-cell-fixed " title="Quote Total">Quote Total <br/>Amount</div>
+                                    </th>
+                                    <th  scope="col" class="slds-cell-wrap " style="width:120px;">
+                                        <div class="slds-cell-wrap slds-cell-fixed " title="Date Modified">Date Modified</div>
+                                    </th>
+                                    <th scope="col" class="slds-cell-wrap ">
+                                        <div class="slds-cell-wrap slds-cell-fixed " title="Return Reason">Return Reason</div>
+                                    </th>
+                                    <th scope="col" class="slds-cell-wrap ">
+                                        <div class="slds-cell-wrap slds-cell-fixed " title="Return Comment">Return Comment</div>
+                                    </th>
+                                    <th scope="col" class="slds-cell-wrap ">
+                                        <div class="slds-cell-wrap slds-cell-fixed " title="Financial Call-Off">Financial Call-Off</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                                    <aura:set attribute="else">
+                                             <ui:message severity="info" >
+                                                 <p style="font-weight: bold;">
+                                                    There are no Quote in this category.
+                                                 </p>
+                                            </ui:message>
+                                   </aura:set>
+                            </aura:if>
+                            
+                            <tbody>
+                                <aura:iteration items="{!v.OrdersReturned}" var="ODR">
+                                    <tr class="slds-hint-parent">
+										<td class="slds-cell-wrap TableBodyColor">
+                                            <div title="{!ODR.QuoteNo}"><a onclick="{!c.QuoteRedirect}" id="{!ODR.QuoteNo}">{!ODR.QuoteNo}</a></div>
+										</td>
+										<td class="slds-cell-wrap TableBodyColor">
+											<div title="{!ODR.Owner}">{!ODR.Owner}</div>
+										</td>
+										<td class="slds-cell-wrap TableBodyColor">
+											<div title="{!ODR.OpportunityNumber}">{!ODR.OpportunityNumber}</div>
+										</td>
+										<td class="slds-cell-wrap TableBodyColor">
+											<div title="{!ODR.OpportunityValue}">{!ODR.OpportunityValue}</div>
+										</td>
+										<td class="slds-cell-wrap TableBodyColor">
+											<div title="{!ODR.QuoteTotal}">{!ODR.QuoteTotal}</div>
+										</td>
+										<td class="slds-cell-wrap TableBodyColor">
+											<div title="{!ODR.DateModified}">{!ODR.DateModified}</div>
+										</td>
+										<td class="slds-cell-wrap TableBodyColor">
+											<div title="{!ODR.ReturnReason}">{!ODR.ReturnReason}</div>
+										</td>
+										<td class="slds-cell-wrap TableBodyColor">
+											<div title="{!ODR.ReturnComment}">{!ODR.ReturnComment}</div>
+										</td>
+										<td class="slds-cell-wrap TableBodyColor">
+											<div title="{!ODR.FinancialCallOff}">{!ODR.FinancialCallOff}</div>
+										</td>
+									</tr>
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                        </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+        </div>
+    </article>
+</aura:component>

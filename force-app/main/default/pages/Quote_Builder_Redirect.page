@@ -1,0 +1,19 @@
+<apex:page >
+    <script>        
+        var opportunityId = '{!$CurrentPage.parameters.oppno}';
+        var quoteNumber = '{!$CurrentPage.parameters.qno}';
+        var oppId = '{!$CurrentPage.parameters.opportunityId}';
+        
+        if( opportunityId != null && opportunityId != '' ){
+            window.open( '/apex/qb_landing_page?oppno='+opportunityId );
+            //window.open( '/one/one.app?source=aloha#/sObject/'+opportunityId+'/view?a:t=1494523634745','_parent' );
+            sforce.one.navigateToSObject(opportunityId,'detail');
+        }else if( quoteNumber != null && quoteNumber != '' ){
+            window.open( '/apex/qb_landing_page?qno='+quoteNumber );
+            // window.open( '/one/one.app?source=aloha#/sObject/'+oppId+'/view?a:t=1494516929315','_parent' );
+        }else{
+            window.open( '/apex/qb_landing_page' );
+            //window.open( '/one/one.app?source=aloha#/sObject/Opportunity/list?filterName=Recent&a:t=1494516929315','_parent' );
+        }
+    </script>
+</apex:page>

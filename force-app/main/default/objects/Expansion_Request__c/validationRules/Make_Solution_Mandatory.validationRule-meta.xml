@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Make_Solution_Mandatory</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(OR( RecordType.DeveloperName == &apos;Solution_Expansion&apos; ,RecordType.DeveloperName == &apos;Territory_and_Solution_Expansion&apos;) , AND( ISBLANK( Financial__c ) , ISBLANK( Hospitality__c ) , ISBLANK( Retail__c ) ) )</errorConditionFormula>
+    <errorMessage>Please select at least one solution to save the request.</errorMessage>
+</ValidationRule>

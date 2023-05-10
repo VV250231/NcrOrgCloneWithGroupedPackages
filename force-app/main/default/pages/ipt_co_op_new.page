@@ -1,0 +1,24 @@
+<apex:page standardController="Co_Op__c" extensions="coOpReqExt">
+    <apex:form >
+        <apex:pageMessages ></apex:pageMessages>
+        <apex:pageBlock title="Activity Information">
+            <apex:pageMessage severity="Info" strength="2" title="Note:">This program is only applicable for Non-US Hospitality Partners.</apex:pageMessage>
+            <apex:pageBlockSection >
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Save" action="{! save}"/>
+                <apex:commandButton value="Cancel" action="{! cancel}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection >
+                <apex:inputField value="{! Co_Op__c.Activity_Name__c}"/>
+                <apex:inputField value="{! Co_Op__c.Activity_Type__c}"/>
+                <apex:inputField value="{! Co_Op__c.Activity_Start_Date__c}" required="true"/>
+                <apex:inputField value="{! Co_Op__c.Activity_End_Date__c}" required="true"/>
+                <!--<apex:inputField value="{! Co_Op__c.Description__c}"/>-->
+                <apex:inputField value="{! Co_Op__c.Approved_Amount__c}" rendered="{! currentUser.ContactId == null}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>        
+    </apex:form>
+</apex:page>

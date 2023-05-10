@@ -1,0 +1,45 @@
+<template>
+	<div class="slds-box">
+		<div class="HelpDesk-font">
+			<div class="slds-float_left" style="padding:4px">
+				<lightning-icon icon-name="utility:help_center" title="OpenHelpDesk" ></lightning-icon>
+			</div>
+			<div class="slds-float_left" style="padding:4px">
+				<h3>Open Help Desk Cases</h3>
+			</div>
+		</div>
+
+		<table class="slds-table slds-table_cell-buffer slds-cell-focus slds-table_bordered slds-table_fixed-layout slds-border_right slds-border_left">
+			<thead>
+				<tr class="slds-line-height_reset">
+					<th class="" scope="col">
+						<div class="slds-truncate" title="Blank"></div>
+					</th>
+					<th class="" scope="col">
+						<div class="slds-truncate slds-line-clamp" title="Open Less than 24 hours">Open Less than 24 hours</div>
+					</th>
+					<th class="" scope="col">
+						<div class="slds-truncate slds-line-clamp" title="Open More than 24 hours">Open More than 24 hours</div>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<template if:true={getHelpDeskCases}>
+					<template for:each={getHelpDeskCases} for:item= "getHelpDesk">
+						<tr class="slds-hint-parent" key={getHelpDesk.id}>
+							<td data-label="Blank" >
+								<div  title={getHelpDesk.priority_code__c}> Priority {getHelpDesk.priority_code__c}</div>
+							</td> 
+							<td data-label="Open Less than 24 hours" >
+								<div  title={getHelpDesk.less_then_24_hours__c}>{getHelpDesk.less_then_24_hours__c}</div>
+							</td>
+							<td data-label="Open More than 24 hours" >
+								<div  title={getHelpDesk.more_then_24_hours__c}>{getHelpDesk.more_then_24_hours__c}</div>
+							</td>
+						</tr>
+					</template>
+				</template>
+			</tbody>    
+		</table>
+	</div>
+</template>

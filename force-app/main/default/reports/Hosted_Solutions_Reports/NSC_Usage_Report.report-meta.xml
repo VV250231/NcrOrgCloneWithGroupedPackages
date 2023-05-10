@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>zqu__Quote__c.zqu__ZuoraSubscriptionID__c</field>
+    </columns>
+    <columns>
+        <field>zqu__QuoteAmendment__c.zqu__QuoteAmendmentZuoraId__c</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c.zqu__SubscriptionType__c</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c.zqu__Number__c</field>
+    </columns>
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c.Reporting_ShipTo_Enterprise_ID__c</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c.Reporting_ShipTo_Aloha_Key__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>used for usage z-billing process</description>
+    <format>Tabular</format>
+    <name>NSC Usage Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntityCustomEntity$zqu__Quote__c$zqu__QuoteAmendment__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>zqu__Quote__c.zqu__CancellationDate__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

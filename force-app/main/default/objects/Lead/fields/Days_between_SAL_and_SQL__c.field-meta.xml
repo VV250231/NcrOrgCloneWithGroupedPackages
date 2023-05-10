@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Days_between_SAL_and_SQL__c</fullName>
+    <description>Calculate Days Between SAL Lead Stage Trigger date and SQL Lead Stage Trigger date</description>
+    <externalId>false</externalId>
+    <formula>IF( AND(ISBLANK(MQL_Date__c),NOT(ISBLANK(SAL_Date__c)), NOT(ISBLANK(SQL_Date__c))) , DATEVALUE(SQL_Date__c) - DATEVALUE(SAL_Date__c),
+IF(AND(ISBLANK(MQL_Date__c),ISBLANK(SAL_Date__c), NOT(ISBLANK(SQL_Date__c))), DATEVALUE(SQL_Date__c) - DATEVALUE(INQ_Trigger_Date__c), 
+IF(AND(NOT(ISBLANK(MQL_Date__c)),ISBLANK(SAL_Date__c), NOT(ISBLANK(SQL_Date__c))), DATEVALUE(SQL_Date__c) - DATEVALUE(MQL_Date__c), DATEVALUE(SQL_Date__c) - DATEVALUE(SAL_Date__c)) ) )</formula>
+    <label>Days between SAL and SQL</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

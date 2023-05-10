@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>This email notifies the NCR partner team that a new engineer has been registered.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>NSC_Admin_Letterhead</letterhead>
+    <name>NewEngineerNotification</name>
+    <style>freeForm</style>
+    <subject>NSC Portal - New Active Engineer - {!Engineers__c.Partner_Account__c}</subject>
+    <textOnly>A new active engineer has been added to NSC. This engineer needs to be reviewed for certification. 
+
+First Name: {!Engineers__c.First_Name__c} 
+Last Name: {!Engineers__c.Last_Name__c} 
+Partner: {!Engineers__c.Partner_Account__c} 
+
+Use the following report to see pending engineers. 
+https://na5.salesforce.com/00O700000031fDp 
+
+Thanks 
+NSC Portal Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

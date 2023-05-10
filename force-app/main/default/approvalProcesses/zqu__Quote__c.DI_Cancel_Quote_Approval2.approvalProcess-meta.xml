@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <allowRecall>true</allowRecall>
+    <allowedSubmitters>
+        <type>owner</type>
+    </allowedSubmitters>
+    <approvalPageFields>
+        <field>zqu__Account__c</field>
+        <field>Name</field>
+        <field>Owner</field>
+    </approvalPageFields>
+    <approvalStep>
+        <allowDelegate>true</allowDelegate>
+        <assignedApprover>
+            <approver>
+                <name>Approval_Contracts_Admin</name>
+                <type>queue</type>
+            </approver>
+            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
+        </assignedApprover>
+        <label>DI Finance Review</label>
+        <name>DI_Finance_Review</name>
+    </approvalStep>
+    <emailTemplate>unfiled$public/DI_Cancel_Quote_Approval</emailTemplate>
+    <enableMobileDeviceAccess>true</enableMobileDeviceAccess>
+    <entryCriteria>
+        <formula>AND(
+OR(CONTAINS(zqu__Account__r.Master_Customer_Number__c , &apos;DI&apos;),
+(Account_s_Subscription_Group__c = &apos;Digital Insight&apos;),
+NOT(ISNULL(zqu__Account__r.DI_Customer__c))),
+ISPICKVAL(zqu__SubscriptionType__c, &apos;Cancel Subscription&apos;),
+NOT(CONTAINS($Profile.Name, &apos;Hosted Solutions&apos;)),
+NOT(CONTAINS($Profile.Name, &apos;Hosp SMB Sales with Hosted&apos;)),
+NOT(CONTAINS($Profile.Name, &apos;HOSP SMB Sales&apos;))
+)</formula>
+    </entryCriteria>
+    <finalApprovalActions>
+        <action>
+            <name>DI_Quote_Approved_Notification</name>
+            <type>Alert</type>
+        </action>
+        <action>
+            <name>Quote_Set_Record_Type_Cancellation</name>
+            <type>FieldUpdate</type>
+        </action>
+        <action>
+            <name>Set_DI_Approval_Status_Approved</name>
+            <type>FieldUpdate</type>
+        </action>
+    </finalApprovalActions>
+    <finalApprovalRecordLock>false</finalApprovalRecordLock>
+    <finalRejectionActions>
+        <action>
+            <name>DI_Quote_Rejection_Notification</name>
+            <type>Alert</type>
+        </action>
+        <action>
+            <name>Quote_Set_Record_Type_Cancellation</name>
+            <type>FieldUpdate</type>
+        </action>
+    </finalRejectionActions>
+    <finalRejectionRecordLock>false</finalRejectionRecordLock>
+    <initialSubmissionActions>
+        <action>
+            <name>Quote_Set_Record_Type_Canc_ReadOnly</name>
+            <type>FieldUpdate</type>
+        </action>
+        <action>
+            <name>Set_DI_Approval_Status_Pending</name>
+            <type>FieldUpdate</type>
+        </action>
+    </initialSubmissionActions>
+    <label>DI Cancel Quote Approval 9/21</label>
+    <processOrder>1</processOrder>
+    <recallActions>
+        <action>
+            <name>Quote_Set_Record_Type_Cancellation</name>
+            <type>FieldUpdate</type>
+        </action>
+        <action>
+            <name>Set_DI_Approval_Status_NULL</name>
+            <type>FieldUpdate</type>
+        </action>
+    </recallActions>
+    <recordEditability>AdminOrCurrentApprover</recordEditability>
+    <showApprovalHistory>true</showApprovalHistory>
+</ApprovalProcess>

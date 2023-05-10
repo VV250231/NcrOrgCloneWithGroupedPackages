@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Email To FIN MEA Saudi Arabia-Sales Manager</name>
+    <style>none</style>
+    <subject>New Opportunity created</subject>
+    <textOnly>Hello,
+
+A new Opportunity has been created by the member of your team.
+
+
+Opportunity Name : {!Opportunity.Name}
+Created Date : {!Opportunity.CreatedDate}
+Opportunity Owner : {!Opportunity.OwnerFullName}
+
+
+Opportunity Details:
+Expected Book Date : {!Opportunity.CloseDate}
+Amount : {!Opportunity.Amount}
+Selling Stage : {!Opportunity.StageName}
+
+
+Link to Opportunity : {!Opportunity.Link}
+
+
+Thanks
+NSC Administration</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

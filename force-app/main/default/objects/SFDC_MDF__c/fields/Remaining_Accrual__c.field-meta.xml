@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Remaining_Accrual__c</fullName>
+    <description>It&apos;s a difference between NCR Estimated Participation and NCR Approved.</description>
+    <externalId>false</externalId>
+    <formula>IF( OR(Total_NCR_Approved__c  = 0,Total_NCR_Approved__c  = null), 0, Total_NCR_Estimated_Participation__c - Total_NCR_Approved__c - Released_Funds__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Accrual Balance</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

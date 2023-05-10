@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LO_Region_Group__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( ISPICKVAL(Sales_Survey__r.Local_Office_Region__c, &quot;Northeast – PDC, TRS, NEE&quot;), &quot;NH230160@ncr.com&quot;, IF( ISPICKVAL(Sales_Survey__r.Local_Office_Region__c, &quot;Southeast – CAR, FLA, ATL&quot;), &quot;SH230289@ncr.com&quot;, IF( ISPICKVAL(Sales_Survey__r.Local_Office_Region__c, &quot;Central – OHD, MIN, CHI&quot;), &quot;CH230242@ncr.com&quot;, IF( ISPICKVAL(Sales_Survey__r.Local_Office_Region__c, &quot;Texas – AUS, DFW, SAT, HOU&quot;), &quot;TH230169@ncr.com&quot;, IF( ISPICKVAL(Sales_Survey__r.Local_Office_Region__c, &quot;West – NOC, LVN, RMT&quot;), &quot;WH230054@ncr.com&quot;, &quot;IS230122@ncr.com&quot;)))))</formula>
+    <label>LO Region Group</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

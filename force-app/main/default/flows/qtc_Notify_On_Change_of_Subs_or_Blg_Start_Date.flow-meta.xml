@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <assignments>
+        <name>Set_Expected_Delivery_Date</name>
+        <label>Set Expected Delivery Date</label>
+        <locationX>778</locationX>
+        <locationY>494</locationY>
+        <assignmentItems>
+            <assignToReference>Order_Start_or_Expected_Delivery_Date</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.qtc_ExpectedDeliveryDate__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_qtc_SubBlgStartChange_c</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Set_Order_Start_Date</name>
+        <label>Set Order Start Date</label>
+        <locationX>221</locationX>
+        <locationY>509</locationY>
+        <assignmentItems>
+            <assignToReference>Order_Start_or_Expected_Delivery_Date</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.qtc_OrderStartDate__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_qtc_SubBlgStartChange_c</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Update_qtc_SubBlgStartChange_c</name>
+        <label>Update qtc_SubBlgStartChange__c</label>
+        <locationX>509</locationX>
+        <locationY>565</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.qtc_SubBlgStartChange__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Fulfillment_Order</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>send notification to the customer on change of Subscription/Billing Start Date. OSD = Order Start Date, EDD = Expected Delivery Date</description>
+        <name>OSD_or_EDD_is_changed</name>
+        <label>OSD or EDD is changed</label>
+        <locationX>496</locationX>
+        <locationY>393</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>is_Order_Start_Date_Changed_for_Channel</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.qtc_OrderStartDate__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior.qtc_OrderStartDate__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.qtc_Quote__r.qtc_Channel_Local_Office_Record_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>PARTNER</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Order_Start_Date</targetReference>
+            </connector>
+            <label>is Order Start Date Changed for Channel?</label>
+        </rules>
+        <rules>
+            <name>is_EDD_Changed_on_Shipped_Order_for_LO</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.qtc_ExpectedDeliveryDate__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior.qtc_ExpectedDeliveryDate__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.qtc_Quote__r.qtc_Channel_Local_Office_Record_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>LOCAL OFFICE</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Order_Interface_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Order Shipped</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Expected_Delivery_Date</targetReference>
+            </connector>
+            <label>is EDD Changed on Shipped Order for LO?</label>
+        </rules>
+    </decisions>
+    <description>Skip Flow Condition added in flow entry condition - 06-FEB-2023 DP250110
+send notification to the customer on change of Subscription/Billing Start Date.</description>
+    <environments>Default</environments>
+    <interviewLabel>qtc Notify On Change of Subs or Blg Start Date {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>qtc Notify On Change of Subs or Blg Start Date</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_Fulfillment_Order</name>
+        <label>Update Fulfillment Order</label>
+        <locationX>517</locationX>
+        <locationY>862</locationY>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>401</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>OSD_or_EDD_is_changed</targetReference>
+        </connector>
+        <filterFormula>AND(NOT({!$Setup.Automation_Setting__c.Skip_Flow__c}),
+OR(
+NOT(ISBLANK({!$Record.qtc_OrderStartDate__c})),
+NOT(ISBLANK({!$Record.qtc_ExpectedDeliveryDate__c}))
+)
+)</filterFormula>
+        <object>qtc_FulfillmentOrder__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>Email_Body</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;&lt;span style=&quot;font-size: 10pt; font-family: Arial, sans-serif;&quot;&gt;Dear {!$Record.qtc_Quote__r.SBQQ__PrimaryContact__r.FirstName}, &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 10pt; font-family: Arial, sans-serif;&quot;&gt;This email is being sent to notify you that the Subscription/Billing Start Date has been changed to &lt;/span&gt;&lt;b style=&quot;font-size: 10pt; font-family: Arial, sans-serif;&quot;&gt;{!Order_Start_or_Expected_Delivery_Date}&lt;/b&gt;&lt;span style=&quot;font-size: 10pt; font-family: Arial, sans-serif;&quot;&gt;.&amp;nbsp;If you have any questions or concerns, please contact your sales representative.&amp;nbsp;&lt;/span&gt;&lt;/p&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>Email_Subject</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Change in Subscription/Billing Start Date for {!$Record.qtc_Quote__r.Name} {!$Record.qtc_Quote__r.qtc_Quote_Name__c}</text>
+    </textTemplates>
+    <variables>
+        <name>Order_Start_or_Expected_Delivery_Date</name>
+        <dataType>Date</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

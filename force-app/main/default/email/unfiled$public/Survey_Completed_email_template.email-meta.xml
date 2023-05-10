@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>email alert for Survey Result workflow rule</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Survey Completed email template</name>
+    <style>none</style>
+    <subject>Survey Completed / Review Feedback from {!Survey_Result__c.Contact__c}</subject>
+    <textOnly>{!Survey_Result__c.Contact__c} from {!Survey_Result__c.Account__c} has completed their NCR Customer Relationship Survey.
+
+
+Please click this link: https://ncr.my.salesforce.com/{!Survey_Result__c.Id} to review their responses.
+
+
+NOTE: You may receive additional alerts if {!Survey_Result__c.Contact__c} reported an immediate concern or was classified as a Detractor.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

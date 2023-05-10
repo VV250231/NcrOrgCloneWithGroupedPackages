@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Priority_Type__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Request_Type_Mapping__c = &apos;RMA-RRW&apos;, 1,
+			IF( Request_Type_Mapping__c = &apos;RMA-STD&apos;, 2,
+						IF(Request_Type_Mapping__c = &apos;3rd Party Dispatch&apos;, 3, 4
+									)
+						)
+			)</formula>
+    <label>Priority Type</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,23 @@
+<messaging:emailTemplate subject="Pricebook Update : {!relatedTo.SBQQ__Account__r.Master_Customer_Number__c} - {!relatedTo.SBQQ__Account__r.Name}" recipientType="User" relatedToType="SBQQ__Quote__c">
+<messaging:plainTextEmailBody >
+Pricebook:
+  
+ Please assign the below customer to the pricebook and salesperson below:
+  
+ MCN - {!relatedTo.SBQQ__Account__r.Master_Customer_Number__c}
+  
+ Pricebook catalog = ALOHA_RENTAL
+ Salesperson = {!relatedTo.SBQQ__SalesRep__r.LastName},{!relatedTo.SBQQ__SalesRep__r.FirstName}-{!relatedTo.SBQQ__SalesRep__r.Sales_Org_Code__c}
+  
+ Account Group = ALOHAINDIR
+ Region Code = US
+  
+  
+   
+ Thank you,
+  
+ Essentials
+AlohaEssentials@ncr.com
+
+</messaging:plainTextEmailBody>
+</messaging:emailTemplate>

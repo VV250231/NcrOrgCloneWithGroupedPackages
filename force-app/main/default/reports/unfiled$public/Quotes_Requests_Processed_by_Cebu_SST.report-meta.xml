@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>zqu__Quote__c.zqu__StartDate__c</field>
+    </columns>
+    <columns>
+        <field>CUST_CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c.zqu__Number__c</field>
+    </columns>
+    <columns>
+        <field>Quote_Product__c.ZProduct__c</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c.Reporting_Opportunity_Owner__c</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c.zqu__SubscriptionType__c</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c.Aloha_Type__c</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c.zqu__Account__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>zqu__Quote__c.zqu__Previewed_SubTotal__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>CUST_CREATED_DATE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>greaterThan</operator>
+            <value>8/2/2021 12:00 AM</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Quotes Requests Processed by Cebu SST</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntityCustomEntity$zqu__Quote__c$Quote_Product__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>zqu__Quote__c.Approved_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

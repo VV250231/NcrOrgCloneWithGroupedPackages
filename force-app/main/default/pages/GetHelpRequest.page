@@ -1,0 +1,49 @@
+<!-- Case Edit Page for Partners
+        Created : rgaira@ncr.com
+
+-->
+<apex:page standardController="Case" extensions="GetHelpRequestCtrl"  tabStyle="Case">
+   
+     <apex:sectionHeader title=" New Get Help Request"  subtitle="Get Help Request Edit" help="https://help.salesforce.com/htviewhelpdoc?id=co_edit.htm&siteLang=en_US"/>
+     <apex:form >
+          <apex:pageMessages id="error">
+          </apex:pageMessages>
+           <apex:pageMessage summary="Get Help request is successfully created .Create another Get Help request" severity="info" strength="3" rendered="{!messageFlag}" />
+        <apex:pageMessages />
+      
+            <apex:pageBlock title="Get Help Request Edit" >
+                <apex:pageBlockButtons >
+              
+                    <apex:commandButton action="{!cancel}" value="Cancel"/>
+                    <!-- <apex:commandButton action="{!saveAndNew}" value="Save And New"/>-->
+                    <apex:commandButton action="{!submit}" value="Submit"/>
+                <!--    <apex:commandButton action="{!SubmitAndAddAttachment}" value="Submit and add attachment"/>-->
+                
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection >
+                    <apex:inputField value="{!cases.ContactId}" label="Contact"/>
+                    <apex:OutputField value="{!cases.status}"/>
+                    <apex:inputField value="{!cases.priority}"/>
+              
+                    <apex:pageBlockSectionItem >
+              
+                        <apex:outputLabel >Subject</apex:outputLabel>
+                        <apex:selectList value="{!subject}" multiselect="false" size="1" title="Subject">
+                            <apex:selectOption itemValue="Deal Registration" itemLabel="Deal Registration"/>
+                            <apex:selectOption itemValue="Engineer" itemLabel="Engineer"/>
+                            <apex:selectOption itemValue="Equipment" itemLabel="Equipment"/>
+                            <apex:selectOption itemValue="General" itemLabel="General"/>
+                            <apex:selectOption itemValue="MDF" itemLabel="MDF"/>
+                            <apex:selectOption itemValue="Incentives" itemLabel="Incentives"/>
+
+                        </apex:selectList>
+                    </apex:pageBlockSectionItem>
+            
+                <apex:inputField value="{!cases.CC__c}"/>
+                </apex:pageBlockSection>
+            <apex:pageBlockSection title="Description Information section">
+                <apex:inputField value="{!cases.Description}" style="width:100%;" />
+            </apex:pageBlockSection>
+        </apex:pageBlock> 
+    </apex:form>
+</apex:page>

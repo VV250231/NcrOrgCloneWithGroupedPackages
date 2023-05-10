@@ -1,0 +1,100 @@
+<aura:component controller="GenerateLegalDocumentService" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader" access="global"> 
+    
+    
+    <aura:attribute name="isApproved" type="boolean"/>
+    <aura:attribute name="isACHNotSelected" type="boolean"/>
+    <aura:attribute name="msg" type="String"/>
+    <aura:attribute name="achErrorMsg" type="String"/>
+    <aura:attribute name="nonPartnerQuote" type="boolean"/>
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/> 
+    <aura:attribute name="options" type="List" />
+    <aura:attribute name="multiSiteData" type="List" />
+    <aura:attribute name="multiSiteDataColumns" type="List" />
+    <aura:attribute name="alohaKeyErrorData" type="List" />
+    <aura:attribute name="alohaKeyErrorMsgColumns" type="List" />
+    <aura:attribute name="isMultisiteParent" type="boolean"/>
+    <aura:attribute name="isGenerateDoc" type="boolean"/>
+    <aura:attribute name="isAutoPayNotSetup" type="boolean"/>
+    <aura:attribute name="isAutoPayNotOnChild" type="boolean" default="false"/>
+    <aura:attribute name="isValidMSDocGenerate" type="boolean"/>
+    <aura:attribute name="showDocWarning" type="boolean" default="false"/>
+    <aura:attribute name="warningMessage" type="String"/>
+    <aura:attribute name="Quote" type="SBQQ__Quote__c"></aura:attribute>
+    <aura:if isTrue="{!v.isApproved}">
+        <center><div class="slds-text-heading_large"><b style="color:red">{!v.msg}</b></div></center>
+        
+        
+        <div class="slds-p-top_medium"> 
+        
+            <aura:if isTrue ="{!not(empty(v.alohaKeyErrorData))}">
+               		
+                    <lightning:card >  
+                        <p class="slds-p-horizontal_small" style="color:red"> 
+                                                      
+                          <lightning:datatable keyField="QuoteName" data="{! v.alohaKeyErrorData }" columns="{! v.alohaKeyErrorMsgColumns }" hideCheckboxColumn="true" />
+                                                 
+                        </p>
+                    </lightning:card> 
+                
+            </aura:if>
+             
+        </div>
+        
+        <aura:set attribute="else">
+            
+            <aura:if isTrue ="{!v.isAutoPayNotSetup}">
+                
+                <lightning:combobox name="progress" aura:id="mySelect" label="Please Select ACH Contact" required = "true" value="" placeholder="Select ACH" options="{! v.options }" onchange="{! c.handleACHChange }"/> 
+                <div class="row slds-p-top_small"><b style="color:red">{!v.achErrorMsg}</b></div>  
+            </aura:if>
+            <!--<div class="slds-text-heading_large">
+                 <center>
+                     <b style="color:green">Creating User at MyNCR. Its Processing...</b>
+                 </center>
+             <center><b>Please wait while being redirected.</b></center>
+            </div>-->
+            
+            <div class="row slds-p-top_medium">
+                <lightning:textarea aura:id="orderFormNote"  label="Order Form Note" maxlength="2000" value = "{! v.Quote.qtc_Order_Form_Notes__c }" />
+            	<aura:if isTrue ="{!v.isMultisiteParent}">
+                   <b style="color:red">* Order Form notes being entered will be applicable only for parent multisite quote.</b>  
+             	</aura:if>
+            </div>
+            <center>
+                <div class="row slds-p-top_medium">
+                    <lightning:button variant="brand"   label="Generate" title="Brand action" onclick="{! c.sendLegalDocument }" /> 
+                </div>
+            </center>
+            
+            <aura:if isTrue ="{!v.showDocWarning}">
+                <div class="slds-notify slds-notify_alert slds-alert_warning row marginTop" role="alert">
+                    <span class="slds-assistive-text">warning</span>
+                    <span class="slds-icon_container slds-icon-utility-warning slds-m-right_x-small" title="Description of icon when needed">
+                        
+                        <lightning:icon iconName="utility:warning" alternativeText="Warning!" title="Warning" />
+                        
+                    </span>
+                    <h2><aura:unescapedHtml value="{!v.warningMessage}" />
+                    </h2>
+                </div>
+            </aura:if>
+           <!--  <div class="row slds-p-top_medium">
+            	<aura:if isTrue ="{!v.showDocWarning}">
+                    <b style="color:red"> <aura:unescapedHtml value="{!v.warningMessage}" /></b>
+             	</aura:if>
+            </div> -->
+            
+            <div class="slds-p-top_medium"> 
+                <aura:if isTrue ="{!not(empty(v.multiSiteData))}">
+                    <lightning:card title="Multi-Site Quote Details (quotes not yet signed)">  
+                        <p class="slds-p-horizontal_small"> 
+                            <lightning:datatable keyField="Siteno" data="{! v.multiSiteData }" columns="{! v.multiSiteDataColumns }" hideCheckboxColumn="true"/>
+                        </p>
+                    </lightning:card>  
+                </aura:if>
+            </div>
+            
+        </aura:set>
+    </aura:if>
+    
+</aura:component>

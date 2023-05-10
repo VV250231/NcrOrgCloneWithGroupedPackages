@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tier_must_match</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+  NOT(ISBLANK(TEXT(Product_Bundle__r.Customer_Tier_Level__c))),
+  NOT(ISBLANK(Product_Rate_Plan__r.CustomerTierLevel__c)),
+  TEXT(Product_Bundle__r.Customer_Tier_Level__c)!= Product_Rate_Plan__r.CustomerTierLevel__c
+)</errorConditionFormula>
+    <errorDisplayField>Product_Rate_Plan__c</errorDisplayField>
+    <errorMessage>The Customer Tier Level of the product rate plan must match the parent bundle&apos;s tier level.</errorMessage>
+</ValidationRule>

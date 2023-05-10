@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_36383738</developerName>
+        <masterLabel>REGION</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>FULL_NAME</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Alex DeBenedictis</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Dianne Campbell</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Tim Cornett</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Alan Smith</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>David L Surut</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Jason Skolak</sourceValue>
+            </sourceValues>
+            <value>NAMER</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Mauricio Arroyo</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ivan Gutierrez</sourceValue>
+            </sourceValues>
+            <value>CLA</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Denis Oya</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Milan Malada</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Mario Petrilli</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Adam Knapp</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Pedro Dominguez</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Michael Aniftos</sourceValue>
+            </sourceValues>
+            <value>EMEA</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>AMOUNT</field>
+    </columns>
+    <columns>
+        <field>BucketField_36383738</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Hardware_Products__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Software_Products__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.PS_Products__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.TS_Product_Total__c</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Commitment_Risk__c</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Risk_Comments__c</field>
+    </columns>
+    <columns>
+        <field>Account.Distributor__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>report for Dawn Desai</description>
+    <filter>
+        <criteriaItems>
+            <column>ALIAS</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>JS185319,MN185107,TC100011,DS133659,AD185222,AP250291,DC185241,JG185287,DR185153,AS185700,ak185318,DO250057,mp163400,ma185245,mm250484,ig185023,mp185206,pd185127</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Opportunity.Indirect_Exclude_from_Funnel,Opportunity.ExcludefromFunnel</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Opportunity.Forecast_Category__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>RECORDTYPE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>All Opps by FC - Current FY Excl</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>open</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>CLOSE_DATE</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CURFY</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Approval_email_to_Partner</fullName>
+        <description>Approval email to Partner</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Expansion_Request/Expansion_Request_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_to_Steve</fullName>
+        <description>Email to Steve</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>dr185073@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Expansion_Request/Expansion_Request_Notification_to_Steve</template>
+    </alerts>
+    <alerts>
+        <fullName>Notification_to_CAM</fullName>
+        <description>Notification to CAM</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Account_Owner__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Expansion_Request/Expansion_Request_Rejected</template>
+    </alerts>
+    <alerts>
+        <fullName>Notification_to_CAM_CSL_Mike</fullName>
+        <description>Notification to CAM,CSL,Mike</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>mk185249@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <field>Account_Owner__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>CSL__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Expansion_Request/Expansion_Request_Rejected</template>
+    </alerts>
+    <alerts>
+        <fullName>Notification_to_Partner</fullName>
+        <description>Notification to Partner</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Expansion_Request/ER_Notification_to_Partner</template>
+    </alerts>
+    <alerts>
+        <fullName>Rejection_Notification_to_CAM_CSL</fullName>
+        <description>Rejection Notification to CAM,CSL</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Account_Owner__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>CSL__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Expansion_Request/Expansion_Request_Rejected</template>
+    </alerts>
+    <alerts>
+        <fullName>Rejection_Notification_to_Partner</fullName>
+        <description>Rejection Notification to Partner</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Expansion_Request/Expansion_Request_Rejected</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Expansion_Request_status_submitted</fullName>
+        <field>Status__c</field>
+        <literalValue>Submitted</literalValue>
+        <name>Expansion Request status submitted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Status_Approved</fullName>
+        <field>Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Status Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Status_Rejected</fullName>
+        <field>Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Status Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+</Workflow>

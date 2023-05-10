@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOS_SMB_Central_Case_Backlog_Attack</fullName>
+    <columns>CASES.PRIORITY</columns>
+    <columns>Site_Id__c</columns>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>Status_Reason__c</columns>
+    <columns>NAME</columns>
+    <columns>CreatedDate__c</columns>
+    <columns>CASES.LAST_UPDATE_DATE_ONLY</columns>
+    <columns>Support_Queue__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Closed,Resolved,Cancelled</value>
+    </filters>
+    <filters>
+        <field>Support_Queue__c</field>
+        <operation>contains</operation>
+        <value>SMB CENTRAL CASE Management</value>
+    </filters>
+    <filters>
+        <field>Status_Reason__c</field>
+        <operation>notEqual</operation>
+        <value>Case No Longer Needed</value>
+    </filters>
+    <filters>
+        <field>CASES.LAST_UPDATE_DATE_ONLY</field>
+        <operation>notEqual</operation>
+        <value>TODAY</value>
+    </filters>
+    <filters>
+        <field>OWNER_NAME</field>
+        <operation>notEqual</operation>
+        <value>Travis DeMoss</value>
+    </filters>
+    <label>HOS SMB Central Case Backlog Attack</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

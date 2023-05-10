@@ -1,0 +1,936 @@
+<aura:component controller="ValuePrompterController" implements="flexipage:availableForAllPageTypes,force:hasRecordId">
+    <aura:attribute name="validUserProfile" type="Object" />
+    <aura:attribute name="OppId" type="Id"  default="{!v.recordId}"/>
+    <aura:attribute name="vprompter" type="sObject" default="{'sobjectType': 'Value_Prompter__c'}"/>
+    <aura:attribute name="diffbadge" type="Boolean"  />
+    <aura:attribute name="valuebadge" type="Boolean" />
+ 	<aura:attribute name="powerbadge" type="Boolean" />
+    <aura:attribute name="planbadge" type="Boolean" />
+    <aura:attribute name="qpbadge" type="Boolean" />
+    <aura:attribute name="apprvlbtnVsb" type="boolean" default="true" />
+    <aura:attribute name="apprvlStatus" type="String" />
+    
+    <aura:attribute name="visMatchScore" type="integer" />
+    <aura:attribute name="valueScore" type="integer" />
+    <aura:attribute name="powerScore" type="integer" />
+    <aura:attribute name="planScore" type="integer" />
+   
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <!-- aura:handler name="change" value="{!v.validUserProfile}" action="{!c.loadValuePrompter}"/-->
+    <aura:dependency resource="markup://c:ConfirmRadio" />
+    <aura:dependency resource="markup://ui:button" />
+    <aura:registerEvent name="NotifyComitmntRisk" type="c:NotifyCommitmentRisk"/>
+    <aura:handler event="c:NotifyCommitmentRisk" action="{!c.handleApplicationEventParent}"/>
+   
+<aura:if isTrue="{!and(v.validUserProfile != null, v.validUserProfile.valproaccess == true)}">    
+    
+<div class="slds-spinner_container slds-hide" aura:id="loadingDiv">
+  <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+    <span class="slds-assistive-text">Loading</span>
+    <div class="slds-spinner__dot-a"></div>
+    <div class="slds-spinner__dot-b"></div>
+  </div>
+</div>
+    
+   <center>
+       <div class="slds-form--inline">
+            <div class="slds-form-element">
+               <label class="slds-form-element__label" for="qpdiv">Qualified Prospect</label>
+               <div id="qpdiv" class="slds-badge">&nbsp;{!if(v.qpbadge != null,if(v.qpbadge, '1', '0'),'')}</div> 
+           </div>
+           
+            <div class="slds-form-element">
+               <label class="slds-form-element__label" for="eqdiv">&nbsp;</label>
+               <div id="eqdiv" class="equaldiv" />
+           </div>
+           
+           <div class="slds-form-element" style="margin-right:-25px;">
+               <label class="slds-form-element__label" for="diffdiv">Differentiated VisionMatch</label>
+               <div id="diffdiv" class="slds-badge">&nbsp;{!if(v.diffbadge != null,if(v.diffbadge, '1', '0'),'')}</div>
+           </div>
+           
+           <div class="slds-form-element">
+               <label class="slds-form-element__label" for="xdiv1">&nbsp;</label> 
+               <div id="xdiv1" class="xdiv" style="margin-left: 0px;" />
+           </div>
+           
+           <div class="slds-form-element">
+               <label class="slds-form-element__label" for="valuediv" style="margin:auto;">Value</label>
+               <div id="valuediv" class="slds-badge">&nbsp;{!if(v.valuebadge != null,if(v.valuebadge, '1', '0'),'')} </div> 
+           </div>
+           
+           <div class="slds-form-element">
+               <label class="slds-form-element__label" for="xdiv2">&nbsp;</label>
+               <div id="xdiv2" class="xdiv"  />
+           </div>
+           
+           <div class="slds-form-element">
+               <label class="slds-form-element__label" for="powerdiv" style="margin:auto;">Power</label>
+               <div id="powerdiv" class="slds-badge" >&nbsp;{!if(v.powerbadge != null,if(v.powerbadge, '1', '0'),'')}</div>
+           </div>
+           
+            <div class="slds-form-element">
+               <label class="slds-form-element__label" for="xdiv3">&nbsp;</label>
+               <div id="xdiv3" class="xdiv"  />
+           </div>
+           
+           <div class="slds-form-element">
+               <label class="slds-form-element__label" for="plandiv" style="margin:auto;">Plan</label>
+               <div id="plandiv" class="slds-badge">&nbsp;{!if(v.planbadge != null,if(v.planbadge, '1', '0'),'')}</div>
+           </div>
+           
+           
+       </div><br/><br/>
+ </center>
+    
+    <!-- VP edit textboxes -->
+    <aura:if isTrue="{!and(v.validUserProfile != null, v.validUserProfile.editbtnaccess == true)}"> 
+        <!--CommitmentRiskCode-->
+        <aura:if isTrue="{!v.validUserProfile.editbtnaccess}">
+        <c:CommitmentRiskCmp OppId="{!v.OppId}"></c:CommitmentRiskCmp>
+       </aura:if>  
+        <!--CommitmentRiskCode-->
+        
+        <div class="slds-form--horizontal"> 
+            <div class="slds-form-element">
+                <span class="slds-form-element__label">Contact</span>
+                <div class="slds-form-element__control slds-is-relative">
+                    <ui:inputText class="slds-input" aura:id="contxt" value="{!v.vprompter.Contact__c}"  blur="{!c.inputFocusChange}"></ui:inputText>
+                       <span aura:id="contxt_ajax" class="slds-spinner_container slds-hide">
+                         <span role="status" class="ajaxLoad slds-spinner--x-small">Saving...</span>
+                     </span>
+                    
+                </div>
+            </div>
+             
+               <div class="slds-form-element">
+                <span class="slds-form-element__label" >Business Issue</span>
+                <div class="slds-form-element__control slds-is-relative">
+                    <ui:inputText class="slds-input" aura:id="issuetxt" value="{!v.vprompter.Business_Issue__c}"  blur="{!c.inputFocusChange}"></ui:inputText>
+                     <span aura:id="issuetxt_ajax" class="slds-spinner_container slds-hide">
+                          <span role="status" class="ajaxLoad slds-spinner--x-small">Saving...</span>
+                     </span>
+                   </div>
+            </div>
+            
+            <!-- <div class="slds-form-element">
+                <span class="slds-form-element__label" for="inputSample2">Anxiety Question</span>
+                <div class="slds-form-element__control slds-has-divider-bottom">
+                  <ui:outputText value="{!v.vprompter.Anxiety_Question__c}" />
+                </div>
+            </div>-->
+        </div> 
+    
+    	<br />
+		<br />
+         <fieldset class="slds-form--compound">
+            <legend class="slds-form-element__label slds-text-title--caps">Remember to always ask <b>OPEN, PROBE</b> and <b>CONFIRMING</b> questions</legend>
+            <br/>
+            <div class="slds-form-element__group">
+                <div class="slds-form-element__row">
+                  <div class="slds-form-element slds-size--1-of-2">
+                    <span class="slds-form-element__label">Problem</span>
+                    <div class="slds-form-element__control slds-is-relative">
+                        <ui:inputTextArea class="slds-textarea" aura:id="probtxtarea" value="{!v.vprompter.Problem__c}"  blur="{!c.inputFocusChange}"></ui:inputTextArea>
+                             <span aura:id="probtxtarea_ajax" class="slds-spinner_container slds-hide">
+                               <span role="status" class="ajaxLoad">Saving...</span>
+                            </span>
+                      </div>
+        
+                  </div>
+                  <div class="slds-form-element slds-size--1-of-2">
+                    <span class="slds-form-element__label">Solution</span>
+                      <div class="slds-form-element__control slds-is-relative">
+                         <ui:inputTextArea class="slds-textarea" aura:id="soltxtarea" value="{!v.vprompter.Solution__c}"  blur="{!c.inputFocusChange}"></ui:inputTextArea>
+                          <span aura:id="soltxtarea_ajax" class="slds-spinner_container slds-hide">
+                             <span role="status" class="ajaxLoad">Saving...</span>
+                           </span>
+                      </div>
+                  </div> 
+                </div>
+              </div>
+         </fieldset>
+         <fieldset class="slds-form--compound">     
+            <div class="slds-form-element__group">
+                <div class="slds-form-element__row"> 
+                    <div class="slds-form-element slds-size--1-of-2">
+                        <span class="slds-form-element__label">Value</span>
+                        <div class="slds-form-element__control slds-is-relative">
+                            <ui:inputTextArea class="slds-textarea" aura:id="valuetxtarea" value="{!v.vprompter.Value__c}" blur="{!c.inputFocusChange}"></ui:inputTextArea> 
+                              <span aura:id="valuetxtarea_ajax" class="slds-spinner_container slds-hide">
+                                  <span role="status" class="ajaxLoad">Saving...</span>
+                                </span>
+                        </div>
+                    </div>
+                    <div class="slds-form-element slds-size--1-of-2" >
+                            <span class="slds-form-element__label">Power</span>
+                            <div class="slds-form-element__control slds-is-relative">
+                                <ui:inputTextArea aura:id="powertxt" class="slds-textarea" value="{!v.vprompter.Power__c}" blur="{!c.inputFocusChange}"></ui:inputTextArea>
+                                 <span aura:id="powertxt_ajax" class="slds-spinner_container slds-hide">
+                                  <span role="status" class="ajaxLoad">Saving...</span>
+                                </span>
+                            </div>
+                    </div>
+              </div>
+            </div>
+        </fieldset> 
+    
+          <fieldset class="slds-form--compound">     
+            <div class="slds-form-element__group">
+                <div class="slds-form-element__row"> 
+                    <div class="slds-form-element slds-size--1-of-2"></div>
+                    <div class="slds-form-element slds-size--1-of-2">
+                        <span class="slds-form-element__label">Plan</span>
+                        <div class="slds-form-element__control slds-is-relative"> 
+                            <ui:inputTextArea aura:id="plantxt" class="slds-textarea" value="{!v.vprompter.Plan__c}"  blur="{!c.inputFocusChange}"></ui:inputTextArea>
+                            <span aura:id="plantxt_ajax" class="slds-spinner_container slds-hide">
+                                 <span role="status" class="ajaxLoad">Saving...</span>
+                            </span>
+                        </div>
+                    </div>
+              </div>
+            </div>
+        </fieldset> 
+    </aura:if> 
+    <!-- VP edit textboxes -->
+    
+    <!-- VP read only textboxes -->
+    	<aura:if isTrue="{!and(v.validUserProfile != null, v.validUserProfile.editbtnaccess == false)}">
+        	 <div class="slds-form--horizontal">
+                <div class="slds-form-element">
+                    <span class="slds-form-element__label">Contact</span>
+                    <div class="slds-form-element__control slds-has-divider--bottom">
+                        <ui:outputText value="{!v.vprompter.Contact__c}" />
+                    </div>
+                </div>
+                 
+                   <div class="slds-form-element">
+                    <span class="slds-form-element__label" >Business Issue</span>
+                    <div class="slds-form-element__control slds-has-divider--bottom">
+                       <ui:outputText value="{!v.vprompter.Business_Issue__c}" />
+                    </div>
+                </div>
+            </div> 
+            
+            <br />
+            <br />
+             <fieldset class="slds-form--compound">
+                <legend class="slds-form-element__label slds-text-title--caps">Remember to always ask <b>OPEN, PROBE</b> and <b>CONFIRMING</b> questions</legend>
+                <br/>
+                <div class="slds-form-element__group">
+                    <div class="slds-form-element__row">
+                      <div class="slds-form-element slds-size--1-of-2">
+                        <span class="slds-form-element__label">Problem</span>
+                        <div class="slds-form-element__control slds-has-divider--bottom">
+                            <ui:outputTextArea value="{!v.vprompter.Problem__c}" />
+                        </div>
+            
+                      </div>
+                      <div class="slds-form-element slds-size--1-of-2">
+                        <span class="slds-form-element__label">Solution</span>
+                          <div class="slds-form-element__control slds-has-divider--bottom">
+                            <ui:outputTextArea value="{!v.vprompter.Solution__c}" />
+                         </div>
+                      </div> 
+                    </div>
+                  </div>
+             </fieldset>
+             <fieldset class="slds-form--compound">     
+                <div class="slds-form-element__group">
+                    <div class="slds-form-element__row"> 
+                        <div class="slds-form-element slds-size--1-of-2">
+                            <span class="slds-form-element__label">Value</span>
+                            <div class="slds-form-element__control slds-has-divider--bottom"><ui:outputTextArea value="{!v.vprompter.Value__c}" /> </div>
+                        </div>
+                        <div class="slds-form-element slds-size--1-of-2" >
+                                <span class="slds-form-element__label">Power</span>
+                                <div class="slds-form-element__control slds-has-divider--bottom"><ui:outputText value="{!v.vprompter.Power__c}" /></div>
+                        </div>
+                  </div>
+                </div>
+            </fieldset> 
+            
+              <fieldset class="slds-form--compound">     
+                <div class="slds-form-element__group">
+                    <div class="slds-form-element__row"> 
+                        <div class="slds-form-element slds-size--1-of-2"></div>
+                        <div class="slds-form-element slds-size--1-of-2">
+                            <span class="slds-form-element__label">Plan</span>
+                            <div class="slds-form-element__control slds-has-divider--bottom"><ui:outputText value="{!v.vprompter.Plan__c}" /></div>
+                        </div>
+                  </div>
+                </div>
+            </fieldset> 
+        </aura:if> 
+    <!-- VP read only textboxes -->
+    
+    <!-- value prompter read only checklist -->
+     <!-- 1.VisionMatch card -->
+    	<div>
+        <div class="vp_section_header">
+             <h3 class="slds-section__title slds-theme_default">
+                 <span class="slds-truncate" title="Section Title">VisionMatch:</span>
+             </h3>
+        </div>
+        
+          <table class="slds-table">
+              <tbody>
+              	<tr class="quesCell">
+                    <td><label class="slds-form-element">Business issue: Is it a Business Issue (versus a technical problem)? Can it be directly related to Revenue or Profit?</label></td>
+                    <td><c:ConfirmRadio aura:id="vpques11" checked="{!v.vprompter.Can_it_be_related_to_Revenue_or_Profit__c}"  selChange="{!c.handleSelChange}" inlineUpdate="true" readonly="{!!v.validUserProfile.editbtnaccess}" />
+                    <span aura:id="vpques11_ajax" class="slds-spinner_container slds-hide">
+                        <span role="status" class="rdajaxLoad">
+                        Saving
+                     </span>
+                    </span></td>
+                </tr>
+                <tr class="quesCell">
+                    <td><label class="slds-form-element">Has the prospect acknowledged the business issue?</label></td>
+                    <td><c:ConfirmRadio aura:id="vpques12"  checked="{!v.vprompter.Has_prspect_acknowledged_business_issue__c}"  selChange="{!c.handleSelChange}" inlineUpdate="true" readonly="{!!v.validUserProfile.editbtnaccess}" />
+                     <span aura:id="vpques12_ajax" class="slds-spinner_container slds-hide">
+                            <span role="status" class="rdajaxLoad">Saving</span>
+                    </span></td>
+                </tr>
+                <tr class="quesCell">
+                    <td><label class="slds-form-element">Have we identified the problems or challenges that make this issue difficult to solve?</label></td>
+                    <td><c:ConfirmRadio aura:id="vpques13"  checked="{!v.vprompter.Find_prob_make_this_issue_hard_to_solve__c}"  selChange="{!c.handleSelChange}" inlineUpdate="true" readonly="{!!v.validUserProfile.editbtnaccess}" />
+                     <span aura:id="vpques13_ajax" class="slds-spinner_container slds-hide">
+                           <span role="status" class="rdajaxLoad">Saving</span>
+                    </span></td>
+                </tr>
+                <tr class="quesCell">
+                    <td><label class="slds-form-element">Have we identified/introduced problems that only we can solve?</label></td>
+                    <td><c:ConfirmRadio aura:id="vpques14"  checked="{!v.vprompter.identified_prblm_that_only_we_can_solve__c}" selChange="{!c.handleSelChange}" inlineUpdate="true" readonly="{!!v.validUserProfile.editbtnaccess}" />
+                     <span aura:id="vpques14_ajax" class="slds-spinner_container slds-hide">
+                          <span role="status" class="rdajaxLoad">Saving</span>
+                    </span></td>
+                </tr>
+                <tr class="quesCell">
+                    <td><label class="slds-form-element">Would the prospect say any of the solution requirements are unique or differentiated?</label></td>
+                    <td><c:ConfirmRadio aura:id="vpques15"  checked="{!v.vprompter.Is_prospect_req_any_unique_or_diff_sol__c}" selChange="{!c.handleSelChange}" inlineUpdate="true" readonly="{!!v.validUserProfile.editbtnaccess}" />
+                     <span aura:id="vpques15_ajax" class="slds-spinner_container slds-hide">
+                           <span role="status" class="rdajaxLoad">Saving</span>
+                    </span></td>
+                </tr>  
+                 
+              </tbody>
+          </table> 
+            
+        <!-- comments -->  
+		<div class="slds-form-element__group" style="padding-top:10px">
+			<div class="slds-grid slds-gutters"> 
+				<div class="slds-col slds-size--1-of-2">
+					<label class="slds-form-element__label" >Comments</label>
+                    <aura:if isTrue="{!and(v.validUserProfile != null,v.validUserProfile.editbtnaccess == true)}">
+                        <ui:inputTextArea class="slds-textarea" aura:Id="visncmnts" value="{!v.vprompter.VisionMatch_Comments__c}" blur="{!c.inputFocusChange}"></ui:inputTextArea>
+                        <span aura:id="visncmnts_ajax" class="slds-spinner_container slds-hide">
+                            <span role="status" class="ajaxLoad">Saving...</span>
+                        </span>
+                     <aura:set attribute="else">
+                         <ui:outputTextArea value="{!v.vprompter.VisionMatch_Comments__c}" />
+                     </aura:set>
+                    </aura:if>     
+				</div>
+                <div class="slds-col slds-size--1-of-2">
+                    <div class="slds-badge" style="float: right; text-align: center;margin-right: 8px;width: 100px;">&nbsp;{!v.visMatchScore}%</div>
+                </div>
+			</div>
+		</div>
+	   <!-- comments -->  
+	 	</div>
+    
+    	<div>
+           <div class="vp_section_header">
+             <h3 class="slds-section__title slds-theme_default">
+                 <span class="slds-truncate" title="Section Title">Value:</span>
+             </h3>
+           </div>
+          <table class="slds-table">
+              <tbody>
+              	<tr class="quesCell">
+                    <td><label class="slds-form-element">Has the Business Value been uncovered and quantified?</label></td>
+                    <td><c:ConfirmRadio aura:id="vpques6"  checked="{!v.vprompter.Has_the_Business_Value_been_quantified__c}" selChange="{!c.handleSelChange}" inlineUpdate="true" readonly="{!!v.validUserProfile.editbtnaccess}"/>
+                    <span aura:id="vpques6_ajax" class="slds-spinner_container slds-hide">
+                           <span role="status" class="rdajaxLoad">Saving</span>
+                    </span></td>
+                </tr>
+                <tr class="quesCell">
+                    <td><label class="slds-form-element">Has a cost justification or ROI been completed?</label></td>
+                    <td><c:ConfirmRadio aura:id="vpques7" checked="{!v.vprompter.Has_a_cost_justification_been_completed__c}" selChange="{!c.handleSelChange}" inlineUpdate="true" readonly="{!!v.validUserProfile.editbtnaccess}"/>
+                    <span aura:id="vpques7_ajax" class="slds-spinner_container slds-hide">
+                           <span role="status" class="rdajaxLoad">Saving</span>
+                    </span></td>
+                </tr>
+                <tr class="quesCell">
+                    <td><label class="slds-form-element">Does the prospect agree with the potential value to their business?</label></td>
+                    <td><c:ConfirmRadio aura:id="vpques8" checked="{!v.vprompter.Do_prospect_agreed_potential_buss_value__c}" selChange="{!c.handleSelChange}" inlineUpdate="true" readonly="{!!v.validUserProfile.editbtnaccess}"/>
+                    <span aura:id="vpques8_ajax" class="slds-spinner_container slds-hide">
+                           <span role="status" class="rdajaxLoad">Saving</span>
+                    </span></td>
+                </tr>
+            
+                <tr class="quesCell">
+                    <td><label class="slds-form-element">Was the Business Value confirmed as part of the Plan letter?</label></td>
+                    <td><c:ConfirmRadio aura:id="vpques9"  checked="{!v.vprompter.Was_any_personal_value_uncovered__c}" selChange="{!c.handleSelChange}" inlineUpdate="true" readonly="{!!v.validUserProfile.editbtnaccess}"/>
+                    <span aura:id="vpques9_ajax" class="slds-spinner_container slds-hide">
+                           <span role="status" class="rdajaxLoad">Saving</span>
+                    </span></td>
+                </tr>
+                <tr class="quesCell">
+                    <td><label class="slds-form-element">Do we understand the personal value of the ultimate decision maker / Power Person?</label></td>
+                    <td><c:ConfirmRadio aura:id="vpques10" checked="{!v.vprompter.Understand_personal_value_of_dec_maker__c}" selChange="{!c.handleSelChange}" inlineUpdate="true" readonly="{!!v.validUserProfile.editbtnaccess}"/>
+                     <span aura:id="vpques10_ajax" class="slds-spinner_container slds-hide">
+                          <span role="status" class="rdajaxLoad">Saving</span>
+                    </span></td>
+                </tr>
+    		  </tbody>
+          </table>
+		  
+			   <!-- comments -->  
+                <div class="slds-form-element__group" style="padding-top:10px">
+                  <div class="slds-grid slds-gutters"> 
+							<div class="slds-col slds-size--1-of-2">
+                            <label class="slds-form-element__label" >Comments</label>
+                            <aura:if isTrue="{!and(v.validUserProfile != null,v.validUserProfile.editbtnaccess == true)}">
+                                <ui:inputTextArea class="slds-textarea" aura:Id="valcmts" value="{!v.vprompter.Value_Comments__c}" blur="{!c.inputFocusChange}" ></ui:inputTextArea>
+                                <span aura:id="valcmts_ajax" class="slds-spinner_container slds-hide">
+                                    <span role="status" class="ajaxLoad">Saving...</span>
+                                </span>
+                            <aura:set attribute="else">
+                                 <ui:outputTextArea value="{!v.vprompter.Value_Comments__c}" />
+                            </aura:set>
+                            </aura:if> 
+                        </div>
+                         <div class="slds-col slds-size--1-of-2">
+                   				 <div class="slds-badge" style="float: right; text-align: center;margin-right: 8px;width: 100px;">&nbsp;{!v.valueScore}%</div>
+               				 </div>
+                    </div>
+                </div>
+               <!-- comments --> 
+		
+    	</div>
+    
+        <div>
+    	<div class="vp_section_header">
+             <h3 class="slds-section__title slds-theme_default">
+                 <span class="slds-truncate" title="Section Title">Power:</span>
+             </h3>  
+        </div>
+          <table class="slds-table">
+              <tbody>
+              		<tr class="quesCell">
+                        <td><label class="slds-form-element">Organizational chart Completed?</label></td>
+                        <td><c:ConfirmRadio aura:id="vpques1" checked="{!v.vprompter.Organizational_chart_Completed__c}" selChange="{!c.handleSelChange}" inlineUpdate="true" readonly="{!!v.validUserProfile.editbtnaccess}" />
+                             <span aura:id="vpques1_ajax" class="slds-spinner_container slds-hide">
+                               <span role="status" class="rdajaxLoad">Saving</span>
+                            </span></td>
+                    </tr>
+                    <tr class="quesCell">
+                        <td><label class="slds-form-element">Do we have access to the Power Person?</label></td>
+                        <td><c:ConfirmRadio aura:id="vpques2"  checked="{!v.vprompter.Access_to_the_Power_Person__c}"  selChange="{!c.handleSelChange}" inlineUpdate="true" readonly="{!!v.validUserProfile.editbtnaccess}"/>
+                            <span aura:id="vpques2_ajax" class="slds-spinner_container slds-hide">
+                                <span role="status" class="rdajaxLoad">Saving</span>
+                        </span></td>
+                    </tr>
+                    <tr class="quesCell">
+                        <td><label class="slds-form-element">Do we understand the Decision Making Process?</label></td>
+                        <td><c:ConfirmRadio aura:id="vpques3" checked="{!v.vprompter.Have_we_developed_an_eVP__c}" selChange="{!c.handleSelChange}" inlineUpdate="true" readonly="{!!v.validUserProfile.editbtnaccess}"/>
+                        <span aura:id="vpques3_ajax" class="slds-spinner_container slds-hide">
+                               <span role="status" class="rdajaxLoad">Saving</span>
+                        </span></td>
+                    </tr>
+                    <tr class="quesCell">
+                        <td><label class="slds-form-element">Validated the Power Person's decision making authority?</label></td>
+                        <td><c:ConfirmRadio aura:id="vpques4" checked="{!v.vprompter.Validatd_Power_Person_decsion_authority__c}" selChange="{!c.handleSelChange}" inlineUpdate="true" readonly="{!!v.validUserProfile.editbtnaccess}"/>
+                         <span aura:id="vpques4_ajax" class="slds-spinner_container slds-hide">
+                               <span role="status" class="rdajaxLoad">Saving</span>
+                        </span></td>
+                    </tr>
+                    <tr class="quesCell">
+                        <td><label class="slds-form-element">Have we confirmed the Power Person has access to the funds and budget (do not assume)?</label></td>
+                        <td><c:ConfirmRadio aura:id="vpques5" checked="{!v.vprompter.Power_Person_has_access_to_funds_bdgt__c}" selChange="{!c.handleSelChange}" inlineUpdate="true" readonly="{!!v.validUserProfile.editbtnaccess}"/>
+                        <span aura:id="vpques5_ajax" class="slds-spinner_container slds-hide">
+                               <span role="status" class="rdajaxLoad">Saving</span>
+                        </span></td>
+                    </tr>
+    		  </tbody>
+          </table> 
+            
+             <!-- comments -->  
+                <div class="slds-form-element__group" style="padding-top:10px">
+                   <div class="slds-grid slds-gutters"> 
+							<div class="slds-col slds-size--1-of-2">
+                            <label class="slds-form-element__label" >Comments</label>
+                            <aura:if isTrue="{!and(v.validUserProfile != null,v.validUserProfile.editbtnaccess == true)}">
+	                             <ui:inputTextArea aura:Id="powercmts" class="slds-textarea" value="{!v.vprompter.Power_Comments__c}" blur="{!c.inputFocusChange}"> </ui:inputTextArea>
+                                 <span aura:id="powercmts_ajax" class="slds-spinner_container slds-hide">
+                                    <span role="status" class="ajaxLoad">Saving...</span>
+                                </span>
+                             <aura:set attribute="else">
+                                 <ui:outputTextArea value="{!v.vprompter.Power_Comments__c}" />
+                            </aura:set>
+                            </aura:if> 
+                        </div>
+                           <div class="slds-col slds-size--1-of-2">
+                   				 <div class="slds-badge" style="float: right; text-align: center;margin-right: 8px;width: 100px;" >&nbsp;{!v.powerScore}%</div>
+               			  </div>
+                    </div>
+                </div>
+               <!-- comments -->
+            
+    </div>
+    
+    <div>
+        <div class="vp_section_header">
+            <h3 class="slds-section__title slds-theme_default">
+                <span class="slds-truncate" title="Section Title">Plan:</span>
+            </h3>
+    	</div>
+          <table class="slds-table">
+              <tbody>
+                 <tr class="quesCell">
+                    <td><label class="slds-form-element">Has the Plan been mutually developed , confirmed in writing  and agreed upon with the customer?</label></td>
+                    <td><c:ConfirmRadio aura:id="vpques16"  checked="{!v.vprompter.Has_Plan_confirmed_with_customer__c}" selChange="{!c.handleSelChange}" inlineUpdate="true" readonly="{!!v.validUserProfile.editbtnaccess}" />
+                     <span aura:id="vpques16_ajax" class="slds-spinner_container slds-hide">
+                            <span role="status" class="rdajaxLoad">Saving</span>
+                    </span></td>
+                </tr>
+                <tr class="quesCell">
+                    <td><label class="slds-form-element">Has client agreed to a completion date that maps to their urgency to act or compelling event?</label></td>
+                    <td><c:ConfirmRadio aura:id="vpques17"  checked="{!v.vprompter.Has_client_agreed_to_a_completion_date__c}" selChange="{!c.handleSelChange}" inlineUpdate="true" readonly="{!!v.validUserProfile.editbtnaccess}" />
+                     <span aura:id="vpques17_ajax" class="slds-spinner_container slds-hide">
+                           <span role="status" class="rdajaxLoad">Saving</span>
+                    </span></td>
+                </tr>
+                <tr class="quesCell">
+                    <td><label class="slds-form-element">Has the power person agreed to a mutual plan of activities?</label></td>
+                    <td><c:ConfirmRadio aura:id="vpques18"  checked="{!v.vprompter.Has_power_person_agreed_on_mutual_plan__c}"  selChange="{!c.handleSelChange}" inlineUpdate="true" readonly="{!!v.validUserProfile.editbtnaccess}" /> 
+                     <span aura:id="vpques18_ajax" class="slds-spinner_container slds-hide">
+                            <span role="status" class="rdajaxLoad">Saving</span>
+                    </span></td>
+                </tr>
+                <tr class="quesCell">
+                    <td><label class="slds-form-element">If this plan is with a sponsor, does it include access to the decision maker?</label></td>
+                    <td><c:ConfirmRadio aura:id="vpques19" checked="{!v.vprompter.Is_this_Plan_with_a_sponsor__c}" selChange="{!c.handleSelChange}" inlineUpdate="true" readonly="{!!v.validUserProfile.editbtnaccess}" />
+                    <span aura:id="vpques19_ajax" class="slds-spinner_container slds-hide">
+                           <span role="status" class="rdajaxLoad">Saving</span>
+                    </span></td>
+                </tr>
+                <tr class="quesCell">
+                    <td><label class="slds-form-element">Are there logical checkpoints for Decision Maker review?</label></td>
+                    <td><c:ConfirmRadio aura:id="vpques20" checked="{!v.vprompter.Are_checkpnts_for_Decision_Maker_review__c}" selChange="{!c.handleSelChange}" inlineUpdate="true" readonly="{!!v.validUserProfile.editbtnaccess}" />
+                     <span aura:id="vpques20_ajax" class="slds-spinner_container slds-hide">
+                          <span role="status" class="rdajaxLoad">Saving</span>
+                    </span></td>
+                </tr>    
+    		  </tbody>
+          </table> 
+        
+        	 <!-- comments -->  
+                <div class="slds-form-element__group" style="padding-top:10px;padding-bottom:10px;">
+                    <div class="slds-grid slds-gutters"> 
+							<div class="slds-col slds-size--1-of-2">
+                            <label class="slds-form-element__label" ><strong>Comments</strong></label>
+                            <aura:if isTrue="{!and(v.validUserProfile != null,v.validUserProfile.editbtnaccess == true)}">
+                                <ui:inputTextArea aura:Id="plancmts" class="slds-textarea" value="{!v.vprompter.Plan_Comments__c}" blur="{!c.inputFocusChange}"></ui:inputTextArea>
+                                 <span aura:id="plancmts_ajax" class="slds-spinner_container slds-hide">
+                                    <span role="status" class="ajaxLoad">Saving...</span>
+                                </span>
+                            <aura:set attribute="else">
+                                 <ui:outputTextArea value="{!v.vprompter.Plan_Comments__c}" />
+                            </aura:set>
+                            </aura:if> 
+                        </div>
+                         <div class="slds-col slds-size--1-of-2">
+                   				 <div class="slds-badge" style="float: right; text-align: center;margin-right: 8px;width: 100px;" >&nbsp;{!v.planScore}%</div>
+               			  </div>
+                    </div>
+                </div>
+               <!-- comments -->
+	</div>
+    
+     <table class="slds-table slds-no-row-hover">
+   	 <tbody>
+        <tr class="quesCell">
+        	<td class="ctrhlt slds-size_5-of-6"><label class="slds-form-element">VPQ Score</label></td>
+            <td class="ctrhlt slds-size_1-of-6"><div class="slds-form-element__control">{!v.vprompter.VPQ_Score__c}%</div></td>
+    	</tr>
+  	</tbody>
+	</table> 	
+    
+		Approval Status::     <ui:outputText value="{!v.vprompter.Approval_Process_Status__c}"/>
+    <!-- value prompter read only checklist -->
+	
+    <div class="slds-form--stacked">
+        
+     <div aura:id="hidAftrSbmtFrAprvl" class="slds-col slds-no-flex slds-align-bottom slds-align--absolute-center slds-m-top--small ">      
+         <div  class="slds-button-group" onmouseover="{!c.helpmouseover}" onmouseout="{!c.helpmouseout}">
+             <ui:button class="slds-button slds-button--neutral slds-button--brand" label="Email Me" press="{!c.emailValuePrompter}"></ui:button>
+         </div>
+        
+         <aura:if isTrue="{!(v.apprvlbtnVsb == true)}">
+            <aura:if isTrue="{!(v.apprvlStatus == 'Submitted')}">
+                 <lightning:button aura:Id="recallbtn" variant="brand" label="Modify ValuePrompter" disabled="false" onclick="{!c.recallApprvlRqst}" /> 
+                <aura:set attribute="else">
+                    <lightning:button aura:Id="editbtn" variant="brand" label="Submit for Review" disabled="false" onclick="{!c.submitforApproval}" />  
+                </aura:set>   
+             </aura:if> 
+        </aura:if> 
+    </div>  
+        
+        <!---Modal for Prompt to fill all required fields-->
+        <div aura:id="prmptToAllFlds" class="slds-hide" style="height: 24rem;">
+  <section role="alertdialog" tabindex="-1" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper" class="slds-modal slds-fade-in-open slds-modal_prompt">
+    <div class="slds-modal__container">
+      <header class="slds-modal__header slds-theme_error slds-theme_alert-texture">
+        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+        
+        </button>
+        <h2 class="slds-text-heading_medium" id="prompt-heading-id">Caution</h2>
+      </header>
+      <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+        <p>Before submitting ValuePrompter, please fill in all fields and make sure Qualifier Prospect is 1.</p>
+      </div>
+      <footer class="slds-modal__footer slds-theme_default">
+        <button class="slds-button slds-button_neutral" onclick="{!c.hidePrompt}">Okay</button>
+      </footer>
+    </div>
+  </section>
+  <div class="slds-backdrop slds-backdrop_open"></div>
+</div>
+       
+         <!-- email tooltip help -->
+        
+         <center>
+        <div id="help" class="slds-popover slds-popover--tooltip slds-nubbin--bottom slds-hidden" role="tooltip" aria-live="polite" style="margin-right:18%;top:-120px;text-align:left;" aura:id="email_tooltip" >
+            <div class="slds-popover__body slds-text-longform">
+                <p>Upon sending email, and making updates to ValuePrompter form, please go back and update in NSC.</p>
+            </div> 
+        </div>
+        </center>
+       
+	<!-- email tooltip help -->
+        
+    </div>
+  
+       
+    
+  <!-- edit form start here --> 
+  <div class="slds-modal slds-fade-in-open slds-modal--large" aria-hidden="false" role="dialog" id="backGroundSection" aura:id="backGroundSection" style="display:None">
+  <div class="slds-modal__container" style="width:65%;padding-top:4rem;"> 
+  	<div class="slds-modal__header">
+     
+       
+      <h2 ><b>Edit Value Prompter</b></h2> 
+    </div>
+	<div id="modal_content" class="slds-modal__content slds-p-around--medium">
+		  <div id="errorMsgDiv" aura:id="errorMsgDiv"  class="slds-hide">
+               <div style="display:block;" class="slds-notify slds-notify--toast slds-theme--error" role="alert">
+             	  <span class="slds-assistive-text">Error</span>
+                  <button class="slds-button slds-notify__close slds-button--icon-inverse" title="Close">
+                     <!-- lightning:icon class="whiteIcon" iconName="utility:close" size="small" alternativeText="Close"/>-->
+                  </button>
+                	<div class="slds-grid">
+                        <div class="slds-icon--small slds-m-right--small slds-col slds-no-flex">
+      						<!-- <lightning:icon class="whiteIcon" iconName="utility:info" size="small"/> -->
+                        </div>
+                  <div class="slds-col slds-align-middle">
+                    <h2 class="slds-text-heading--small" aura:id="errorMsg" styl="font-size: 1.0rem;"></h2>
+                  </div>
+                </div>
+                </div>
+            </div>             
+        
+    	<div> 
+    	 <center>
+        <div class="slds-form--inline">
+            <div class="slds-form-element">
+               <label class="slds-form-element__label" for="qpdiv">Qualified Prospect</label>
+               <div id="qpdiv" class="slds-badge">&nbsp;{!if(v.qpbadge != null,if(v.qpbadge, '1', '0'),'')}</div> 
+           </div>
+            
+            <div class="slds-form-element">
+               <label class="slds-form-element__label" for="eqdiv">&nbsp;</label>
+               <div id="eqdiv" class="equaldiv" />
+           </div>
+            
+           <div class="slds-form-element" style="margin-right:-25px;">
+               <label class="slds-form-element__label" for="diffdiv">Differentiated VisionMatch</label>
+               <div id="diffdiv" class="slds-badge">&nbsp;{!if(v.diffbadge != null,if(v.diffbadge, '1', '0'),'')}</div>
+           </div>
+           
+           <div class="slds-form-element">
+               <label class="slds-form-element__label" for="xdiv1">&nbsp;</label> 
+               <div id="xdiv1" class="xdiv" style="margin-left: 0px;" />
+           </div>
+           
+           <div class="slds-form-element">
+               <label class="slds-form-element__label" for="valuediv" style="margin:auto;">Value</label>
+               <div id="valuediv" class="slds-badge">&nbsp;{!if(v.valuebadge != null,if(v.valuebadge, '1', '0'),'')} </div> 
+           </div>
+           
+           <div class="slds-form-element">
+               <label class="slds-form-element__label" for="xdiv2">&nbsp;</label>
+               <div id="xdiv2" class="xdiv"  />
+           </div>
+           
+           <div class="slds-form-element">
+               <label class="slds-form-element__label" for="powerdiv" style="margin:auto;">Power</label>
+               <div id="powerdiv" class="slds-badge" >&nbsp;{!if(v.powerbadge != null,if(v.powerbadge, '1', '0'),'')}</div>
+           </div>
+           
+            <div class="slds-form-element">
+               <label class="slds-form-element__label" for="xdiv3">&nbsp;</label>
+               <div id="xdiv3" class="xdiv"  />
+           </div>
+           
+           <div class="slds-form-element">
+               <label class="slds-form-element__label" for="plandiv" style="margin:auto;">Plan</label>
+               <div id="plandiv" class="slds-badge">&nbsp;{!if(v.planbadge != null,if(v.planbadge, '1', '0'),'')}</div>
+           </div>
+            
+  </div></center><br/><br/>
+
+ 
+    <div class="slds-form--horizontal">
+    	<div class="slds-form-element">
+            <label class="slds-form-element__label" >Contact</label>
+            <div class="slds-form-element__control">
+                <ui:inputText class="slds-input" aura:id="contxtedit" value="{!v.vprompter.Contact__c}"></ui:inputText>
+            </div>
+        </div>
+        
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" >Business Issue</label>
+            <div class="slds-form-element__control">
+                <ui:inputText class="slds-input" aura:id="issuetxtedit" value="{!v.vprompter.Business_Issue__c}"></ui:inputText>
+            </div>
+        </div>
+        
+        <!-- div class="slds-form-element">
+            <label class="slds-form-element__label" for="inputSample2">Anxiety Question</label>
+            <div class="slds-form-element__control">
+               <ui:inputText class="slds-input" aura:id="anxtxt" keyup="{!c.inputKeyUp}" updateOn="keyup" value="{!v.vprompter.Anxiety_Question__c}"></ui:inputText>
+            </div>
+        </div -->
+ 	</div>
+    
+    <br/>    <br/> 
+    <fieldset class="slds-form--compound">
+        <legend class="slds-form-element__label slds-text-title--caps">Remember to always ask <b>OPEN, PROBE</b> and <b>CONFIRMING</b> questions</legend>
+        <br/>
+      <div class="slds-form-element__group centertext">
+        <div class="slds-form-element__row">
+          <div class="slds-form-element slds-size--1-of-2">
+            <label class="slds-form-element__label" for="textarea-input-01">Problem</label>
+           <ui:inputTextArea class="slds-textarea" aura:id="probtxtareaedit" value="{!v.vprompter.Problem__c}"></ui:inputTextArea>
+          </div>
+          <div class="slds-form-element slds-size--1-of-2">
+            <label class="slds-form-element__label" for="textarea-input-02">Solution</label>
+            <ui:inputTextArea class="slds-textarea" aura:id="soltxtareaedit" value="{!v.vprompter.Solution__c}"></ui:inputTextArea>
+          </div>
+        </div>
+          
+         <div class="slds-form-element__row"> 
+          <div class="slds-form-element slds-size--1-of-2" style="clear: both;margin: auto;">
+            <label class="slds-form-element__label" for="textarea-input-03">Value</label>
+            <ui:inputTextArea class="slds-textarea" aura:id="valuetxtareaedit" value="{!v.vprompter.Value__c}"></ui:inputTextArea>
+          </div>  
+          <div class="slds-form-element slds-size--1-of-2" >
+				 <label class="slds-form-element__label" for="textarea-input-04">Power</label>
+				 <ui:inputTextArea aura:id="powertxtedit" class="slds-textarea" value="{!v.vprompter.Power__c}"></ui:inputTextArea>
+           </div>
+          </div>     
+		  
+		   <div class="slds-form-element__row"> 
+          <div class="slds-form-element slds-size--1-of-2" >
+            
+          </div> 
+		  
+		<div class="slds-form-element slds-size--1-of-2" >
+				 <label class="slds-form-element__label" for="textarea-input-05">Plan</label>
+				<ui:inputTextArea aura:id="plantxtedit" class="slds-textarea" value="{!v.vprompter.Plan__c}"></ui:inputTextArea>
+           </div>		  
+         
+          </div>     
+        </div>
+      
+    </fieldset> 
+            
+   
+   <!-- Value prompter question list --> 
+    <lightning:card > <!-- 1.VisionMatch edit card -->
+         <aura:set attribute="title">
+             <h3 class="slds-section__title slds-theme_default">
+                 <span class="slds-truncate" title="Section Title">VisionMatch:</span>
+             </h3>
+         </aura:set>
+          <table class="slds-table">
+              <tbody>
+                    <tr class="quesCell">
+                        <td><label class="slds-form-element">Business issue: Is it a Business Issue (versus a technical problem)? Can it be directly related to Revenue or Profit?</label></td>
+                        <td><c:ConfirmRadio checked="{!v.vprompter.Can_it_be_related_to_Revenue_or_Profit__c}" selChange="{!c.handleSelChange}" />
+                        </td>
+                    </tr>
+                    <tr class="quesCell">
+                        <td><label class="slds-form-element">Has the prospect acknowledged the business issue?</label></td>
+                        <td><c:ConfirmRadio checked="{!v.vprompter.Has_prspect_acknowledged_business_issue__c}" selChange="{!c.handleSelChange}" />
+                        </td>
+                    </tr>
+                    <tr class="quesCell">
+                        <td><label class="slds-form-element">Have we identified the problems or challenges that make this issue difficult to solve?</label></td>
+                        <td><c:ConfirmRadio checked="{!v.vprompter.Find_prob_make_this_issue_hard_to_solve__c}" selChange="{!c.handleSelChange}" />
+                        </td>
+                    </tr>
+                    <tr class="quesCell">
+                        <td><label class="slds-form-element">Have we identified/introduced problems that only we can solve?</label></td>
+                        <td><c:ConfirmRadio checked="{!v.vprompter.identified_prblm_that_only_we_can_solve__c}"  selChange="{!c.handleSelChange}"/>
+                        </td>
+                    </tr>
+                    <tr class="quesCell">
+                        <td><label class="slds-form-element">Would the prospect say any of the solution requirements are unique or differentiated</label></td>
+                        <td><c:ConfirmRadio checked="{!v.vprompter.Is_prospect_req_any_unique_or_diff_sol__c}"  selChange="{!c.handleSelChange}" />
+                        </td>
+                    </tr>
+              </tbody> 
+          </table>
+    </lightning:card>
+            
+    <lightning:card > <!-- 2.Value edit card -->
+         <aura:set attribute="title">
+             <h3 class="slds-section__title slds-theme_default">
+                 <span class="slds-truncate" title="Section Title">Value:</span>
+             </h3>
+         </aura:set>
+          <table class="slds-table">
+              <tbody>
+                  <tr class="quesCell">
+                        <td><label class="slds-form-element">Has the Business Value been uncovered and quantified?</label></td>
+                        <td><c:ConfirmRadio checked="{!v.vprompter.Has_the_Business_Value_been_quantified__c}" selChange="{!c.handleSelChange}" />
+                        </td>
+                    </tr>
+                    <tr class="quesCell">
+                        <td><label class="slds-form-element">Has a cost justification or ROI been completed?</label></td>
+                        <td><c:ConfirmRadio checked="{!v.vprompter.Has_a_cost_justification_been_completed__c}" selChange="{!c.handleSelChange}" />
+                        </td>
+                    </tr>
+                    <tr class="quesCell">
+                        <td><label class="slds-form-element">Does the prospect agree with the potential value to their business?</label></td>
+                        <td><c:ConfirmRadio checked="{!v.vprompter.Do_prospect_agreed_potential_buss_value__c}" selChange="{!c.handleSelChange}" />
+                        </td>
+                    </tr>
+                
+                    <tr class="quesCell">
+                        <td><label class="slds-form-element">Was the Business Value confirmed as part of the Plan letter?</label></td>
+                        <td><c:ConfirmRadio checked="{!v.vprompter.Was_any_personal_value_uncovered__c}" selChange="{!c.handleSelChange}" />
+                        </td>
+                    </tr>
+                    <tr class="quesCell">
+                        <td><label class="slds-form-element">Do we understand the personal value of the ultimate decision maker / Power Person?</label></td>
+                        <td><c:ConfirmRadio checked="{!v.vprompter.Understand_personal_value_of_dec_maker__c}" selChange="{!c.handleSelChange}" />
+                        </td>
+                    </tr>
+              </tbody> 
+          </table>
+    </lightning:card> 
+            
+    <lightning:card > <!-- 3.Power edit card -->
+         <aura:set attribute="title">
+             <h3 class="slds-section__title slds-theme_default">
+                 <span class="slds-truncate" title="Section Title">Power:</span>
+             </h3>
+         </aura:set>
+          <table class="slds-table">
+              <tbody>
+                  <tr class="quesCell">
+                        <td><label class="slds-form-element">Organizational chart Completed?</label></td>
+                        <td><c:ConfirmRadio checked="{!v.vprompter.Organizational_chart_Completed__c}" selChange="{!c.handleSelChange}" />
+                        </td>
+                    </tr>
+                    <tr class="quesCell">
+                        <td><label class="slds-form-element">Do we have access to the Power Person?</label></td>
+                        <td><c:ConfirmRadio checked="{!v.vprompter.Access_to_the_Power_Person__c}" selChange="{!c.handleSelChange}" />
+                        </td>
+                    </tr>
+                    <tr class="quesCell">
+                        <td><label class="slds-form-element">Do we understand the Decision Making Process?</label></td>
+                        <td><c:ConfirmRadio checked="{!v.vprompter.Have_we_developed_an_eVP__c}" selChange="{!c.handleSelChange}" />
+                        </td>
+                    </tr>
+                    <tr class="quesCell">
+                        <td><label class="slds-form-element">Validated the Power Person's decision making authority?</label></td>
+                        <td><c:ConfirmRadio checked="{!v.vprompter.Validatd_Power_Person_decsion_authority__c}" selChange="{!c.handleSelChange}" />
+                        </td>
+                    </tr>
+                    <tr class="quesCell">
+                        <td><label class="slds-form-element">Have we confirmed the Power Person has access to the funds and budget (do not assume)?</label></td>
+                        <td><c:ConfirmRadio checked="{!v.vprompter.Power_Person_has_access_to_funds_bdgt__c}" selChange="{!c.handleSelChange}" />
+                        </td>
+                    </tr>
+              </tbody> 
+          </table>
+    </lightning:card>
+            
+    <lightning:card > <!-- 4.Plan edit card -->
+         <aura:set attribute="title">
+             <h3 class="slds-section__title slds-theme_default">
+                 <span class="slds-truncate" title="Section Title">Plan:</span>
+             </h3>
+         </aura:set>
+          <table class="slds-table">
+              <tbody>
+                  	<tr class="quesCell">
+                        <td><label class="slds-form-element">Has the Plan been mutually developed , confirmed in writing  and agreed upon with the customer?</label></td>
+                        <td><c:ConfirmRadio checked="{!v.vprompter.Has_Plan_confirmed_with_customer__c}" selChange="{!c.handleSelChange}" />
+                        </td>
+                    </tr>
+                    <tr class="quesCell">
+                        <td><label class="slds-form-element">Has client agreed to a completion date that maps to their urgency to act or compelling event?</label></td>
+                        <td><c:ConfirmRadio checked="{!v.vprompter.Has_client_agreed_to_a_completion_date__c}"  selChange="{!c.handleSelChange}"/>
+                        </td>
+                    </tr>
+                    <tr class="quesCell">
+                        <td><label class="slds-form-element">Has the power person agreed to a mutual plan of activities?</label></td>
+                        <td><c:ConfirmRadio checked="{!v.vprompter.Has_power_person_agreed_on_mutual_plan__c}"  selChange="{!c.handleSelChange}"/> 
+                        </td>
+                    </tr>
+                    <tr class="quesCell">
+                        <td><label class="slds-form-element">If this plan is with a sponsor, does it include access to the decision maker?</label></td>
+                        <td><c:ConfirmRadio checked="{!v.vprompter.Is_this_Plan_with_a_sponsor__c}"  selChange="{!c.handleSelChange}"/>
+                        </td>
+                    </tr>
+                    <tr class="quesCell">
+                        <td><label class="slds-form-element">Are there logical checkpoints for Decision Maker review?</label></td>
+                        <td><c:ConfirmRadio checked="{!v.vprompter.Are_checkpnts_for_Decision_Maker_review__c}" selChange="{!c.handleSelChange}"/>
+                        </td>
+                    </tr>
+              </tbody> 
+          </table>
+    </lightning:card>
+            
+           
+   <table class="slds-table slds-no-row-hover">
+   	 <tbody>
+        <tr class="quesCell">
+        	<td class="ctrhlt slds-size_5-of-6"><label class="slds-form-element">VPQ Score</label></td>
+            <td class="ctrhlt slds-size_1-of-6"><div class="slds-form-element__control">{!v.vprompter.VPQ_Score__c}%</div></td>
+    	</tr>
+  	</tbody>
+	</table>
+     <!-- value prompter question list --> 
+ 	</div>
+    </div>
+	<div class="slds-modal__footer slds-modal__footer--directional"> 
+      <ui:button class="slds-button slds-button--neutral" press="{!c.showModal}" >Cancel</ui:button>
+      <ui:button class="slds-button slds-button--neutral slds-button--brand" label="Save" press="{!c.updateValuePrompter}"></ui:button>
+    </div>
+ </div>
+  </div>
+    <div class="slds-backdrop slds-backdrop--open" aura:id="hoverSection" id="hoverSection" style="display:None;"></div> 
+    <aura:set attribute="else">
+         <aura:if isTrue="{!(v.validUserProfile.valproaccess == false)}">
+    	 	You dont have access for Value Prompter, Please contact your administrator.
+  	     </aura:if> 
+    </aura:set>
+  </aura:if> 
+</aura:component>

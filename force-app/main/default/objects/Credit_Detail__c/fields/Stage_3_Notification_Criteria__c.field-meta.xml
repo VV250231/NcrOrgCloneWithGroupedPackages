@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Stage_3_Notification_Criteria__c</fullName>
+    <externalId>false</externalId>
+    <formula>AND(X60_Days_past_due__c &gt;=  Customer_Balance__c * CASE( Account_LOB__c, &quot;FINANCIAL&quot;, $CustomMetadata.AR_Detail_Setting__mdt.FINANCIAL.Step_3_Open_AR_Balance_Percentage__c, &quot;RETAIL&quot;, $CustomMetadata.AR_Detail_Setting__mdt.RETAIL.Step_3_Open_AR_Balance_Percentage__c,&quot;T&amp;T&quot;, $CustomMetadata.AR_Detail_Setting__mdt.T_and_T.Step_3_Open_AR_Balance_Percentage__c,&quot;HOSPITALITY&quot;, $CustomMetadata.AR_Detail_Setting__mdt.HOSPITALITY.Step_3_Open_AR_Balance_Percentage__c,0),X60_Days_past_due__c &gt; CASE( Account_LOB__c , &quot;FINANCIAL&quot;, $CustomMetadata.AR_Detail_Setting__mdt.FINANCIAL.Step_3_Maximum_Due_Amount__c,&quot;RETAIL&quot;, $CustomMetadata.AR_Detail_Setting__mdt.RETAIL.Step_3_Maximum_Due_Amount__c,&quot;T&amp;T&quot;, $CustomMetadata.AR_Detail_Setting__mdt.T_and_T.Step_3_Maximum_Due_Amount__c,&quot;HOSPITALITY&quot;, $CustomMetadata.AR_Detail_Setting__mdt.HOSPITALITY.Step_3_Maximum_Due_Amount__c,0),OR(Account_LOB__c = &apos;FINANCIAL&apos;,Account_LOB__c = &apos;RETAIL&apos;,Account_LOB__c = &apos;HOSPITALITY&apos;,Account_LOB__c = &apos;T&amp;T&apos;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Stage 3 Notification Criteria</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

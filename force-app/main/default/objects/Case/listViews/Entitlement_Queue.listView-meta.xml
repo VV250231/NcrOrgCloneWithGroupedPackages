@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Entitlement_Queue</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>Region__c</columns>
+    <columns>Account_LOB__c</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>On Hold,Escalated,Closed,New,Submitted</value>
+    </filters>
+    <filters>
+        <field>Queue__c</field>
+        <operation>equals</operation>
+        <value>Entitlement Queue</value>
+    </filters>
+    <label>Entitlement Queue</label>
+    <sharedTo>
+        <group>Entitlements_Group</group>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AUS_NZ_Retail_Closed_Won_Pending</fullName>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <columns>OPPORTUNITY.CLOSE_DATE</columns>
+    <columns>CORE.USERS.FULL_NAME</columns>
+    <columns>Sales_Admin__c</columns>
+    <columns>Win_Loss_Comments__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>OPPORTUNITY.STAGE_NAME</field>
+        <operation>equals</operation>
+        <value>Closing</value>
+    </filters>
+    <filters>
+        <field>Geography__c</field>
+        <operation>equals</operation>
+        <value>Australia,New Zealand</value>
+    </filters>
+    <filters>
+        <field>Business_Unit__c</field>
+        <operation>equals</operation>
+        <value>IBG (Core)</value>
+    </filters>
+    <filters>
+        <field>CATM_Record__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>CATM AUS&amp;NZ-Retail-Closed WonPending</label>
+    <sharedTo>
+        <role>Australia_NZ_Retail_FI_Teams_Mngr</role>
+        <role>Australia_NZ_Retail_Team_NAMs</role>
+    </sharedTo>
+</ListView>

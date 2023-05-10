@@ -1,0 +1,232 @@
+<!--Content Starts HereContent Starts Here
+Visualforce Page
+NCR_PostIdeapage2
+Help for this Page
+Page Detail
+ 
+Label   NCR_PostIdeapage2   Name    NCR_PostIdeapage2
+Namespace Prefix        Available for Lightning Experience, Lightning Communities, and the mobile app   Not Checked
+Require CSRF protection on GET requests Not Checked Description Input fields to post ideas with radio fields
+    Created By  Dev Admin,  9/26/2015 11:52 AM
+Last Modified By    Shiv Mahla,  2/17/2017 7:56 AM       
+    
+    
+Visualforce Markup
+
+    
+    
+Version Settings-->
+
+
+<apex:page id="postIdeaPage" standardStylesheets="false" showHeader="false" standardController="Idea" extensions="NCR_PostIdeapageController">
+    <html lang="en">
+        <style>
+            label {
+                font-weight: normal !important;
+            }
+        </style>
+        <c:NCR_CustomHead />
+        <apex:includeScript value="{!URLFOR($Resource.NCR_cssjsimg, 'js/leapfrog.min.js')}"/>
+        <body onclick="checkOnFocus();">
+            <div id="containerDiv" class="" style='padding:2px'>
+                <div id="mainDiv" class="col-md-12"> 
+                    <div class="row panel">
+                        <apex:form id="pageForm1"> 
+                            <apex:actionFunction name="checkDesc" action="{!checkDescription}" rerender="buttonFormId">       
+                            </apex:actionFunction>
+                            <h1>Post Idea</h1>
+                            <div style="margin-top:20px;">
+                                <h2>Title</h2>
+                                <apex:actionRegion >
+                                    <apex:inputText onkeyup="titleKeyUp();" onkeydown="titleKeyDwn();" onfocus="displayPlaceholder();" label="Title" styleClass="col-md-12" html-placeholder="As you enter a descriptive title, similar ideas may display." style="width:100%" value="{! ideaTitle}" id="myTitle" onblur="checkNextFocus();">
+                                    </apex:inputText>
+                                    <apex:actionFunction name="afSearchTitle" action="{!searchTitle}" reRender="similarIdeasId, buttonFormId" status="statusRecent" oncomplete="top.postMessage($('#mainDiv').height()+67+'px', '*');" />
+                                </apex:actionRegion>
+                            </div>
+                            <apex:actionStatus id="statusRecent">
+                                <apex:facet name="start">
+                                    <div style="width: 500px;" align="left">
+                                        <img src="/img/loading24.gif" style="vertical-align:middle; width:15px;"/>
+                                        <span style="margin-left: 2px; font-size: 12px; color: #000000;">Searching for duplicates</span>
+                                    </div>
+                                </apex:facet>
+                            </apex:actionStatus>
+                                    
+                            <apex:outputPanel id="similarIdeasId" style="font-size: 14px">
+                                <apex:outputText value="Similar Ideas" style="font-weight: bold; font-family: Arial !important; font-size: 14px !important;" rendered="{!similarIdeasList.size>0}" /> <apex:outputText value="(Click to open in new window)" style="font-size: 14px !important; font-family: Arial !important;" rendered="{!similarIdeasList.size>0}" />
+                                <apex:repeat value="{!similarIdeasList}" var="si">
+                                    <ul style="margin-bottom:0px;">
+                                        <li><apex:outputLink tabindex="3" onfocus="displayPlaceholder();" onblur="checkNextFocus();" value="/apex/NCR_ViewIdeaPage?id={!si.id}" style="color: #000000; font-family: Arial !important;" target="_blank">{!si.Title}</apex:outputLink> - {!si.VoteTotal} Points</li>
+                                    </ul>
+                                </apex:repeat>
+                            </apex:outputPanel>
+                
+                            <div>
+                                <apex:outputPanel id="formPge3">                  
+                                <div id="sample" style="margin-top:30px;">
+                                    <br/>
+                                    <h2>Description</h2><apex:outputText value="(What problem does this solve? What is the business case?)"/>
+                                        <apex:inputField value="{!newIdea.Body}" id="ideaBody"/>
+                                </div> <!--end of div id sample-->
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel id="form2">
+                                    <div class="row" >
+                                        <div class="col-md-9" style="margin-bottom:10px">
+                                            <h2 style="margin-left:8px; float:left">Roadmap category</h2>
+                                        </div>  
+
+                                      <!--tooltip--->  
+                                     <!-- <div style="display:none;">
+                                            <div id="demo2_tip">
+                                                Categorization allows you and other users to view ideas by product area.<br/><br/>
+                                                It also delivers your idea to corresponding Product Team members.
+                                            </div>  
+                                        </div>-->
+                                                     
+                                        <div class="col-md-4">
+                                            <apex:actionRegion >
+                                                <apex:selectList value="{!selectedPostIdeaLineOfBusiness}" size="1" styleClass="form-control" onfocus="displayPlaceholder();" onblur="checkNextFocus();">
+                                                    <div style="margin-left:20px;">
+                                                        <apex:selectOptions value="{!LineOfBusinessValues}"/>
+                                                        <apex:actionSupport event="onchange" reRender="form2" oncomplete="top.postMessage($('#mainDiv').height()+67+'px', '*');"/>
+                                                    </div>
+                                                </apex:selectList>
+                                            </apex:actionRegion>
+                                        </div> <!--end of div class col-md-4-->
+                                    </div> <!--end of div class row-->
+                                    
+                                    <div class="row" style="margin-top:20px;">
+                                        <div class="col-md-6" style="width: {!IF(selectedPostIdeaLineOfBusiness=='Platform Solutions' && selectedPostIdeaLineOfBusiness!=null, 0, '')}">
+                                            <apex:outputPanel rendered="{!selectedPostIdeaLineOfBusiness!=null && selectedPostIdeaLineOfBusiness!='Platform Solutions'}">
+                                                <h2 style="margin-left:8px;color:#000;"><!--<apex:outputLabel value="{!deviceLabel}" rendered="{!selectedPostIdeaLineOfBusiness!=null}" />-->Device/Channel</h2>
+                                                <apex:selectRadio value="{!selectedPostIdeaDevice}" layout="pageDirection" style="margin-left:10px; margin-top:10px;" rendered="{!selectedPostIdeaLineOfBusiness!=null}" onfocus="displayPlaceholder();" onblur="displayPlaceholder();">
+                                                    <apex:selectOptions value="{!DeviceValues}"/>
+                                                    <apex:actionSupport event="onchange" reRender="form2, buttonFormId" action="{!validateButton}"/>
+                                                </apex:selectRadio>
+                                            </apex:outputPanel>
+                                        </div>  <!--end of div class col-md-6-->
+                                        
+                                        <div class="col-md-6">
+                                            <apex:outputPanel rendered="{!selectedPostIdeaLineOfBusiness!=null}">
+                                                <h2 style="margin-left:8px;color:#000;">Solution</h2>
+                                                <div style="margin-top:10px;">
+                                                    <apex:selectRadio value="{!selectedPostIdeaCategory}" layout="pageDirection" style="margin-left:10px;" rendered="{!selectedPostIdeaLineOfBusiness!=null}" onfocus="displayPlaceholder();" onblur="displayPlaceholder();">
+                                                        <apex:selectOptions value="{!CategoryValues}"/>
+                                                        <apex:actionSupport event="onchange" reRender="form2, buttonFormId" action="{!validateButton}"/>
+                                                    </apex:selectRadio>
+                                                </div>
+                                            </apex:outputPanel>
+                                        </div>  <!--end of div class col-md-6-->
+                                    </div>  <!--end of div class row style--> 
+                                </apex:outputPanel>
+                            </div> <!-- end of div-->
+                            <apex:outputPanel id="buttonFormId">
+                                <apex:messages style="background-color: #FDE8E5; padding: 10px 50px; list-style-image: url('https://free-121d5f44d20-121d603d1c5-121ee2b8103.force.com/img/msg_icons/warning16.png');"/> 
+                                <!-- <apex:pageMessages style="background-color: #FDE8E5; padding: 10px; list-style-image: url('sqpurple.gif');" /> rerender="buttonFormId,form2" -->
+                                <div class="row">
+                                    <apex:commandButton id="postButtonId" value="Post Idea" style="margin-left:8px;margin-top:10px;"  styleClass="btn btn-default col-md-2" disabled="{!disablePostButton}"  action="{!postNewIdea}"/>
+                                </div> <!--end of div class row -->
+                                <apex:outputText value="You may add an attachment after you post your idea." style="font-size: 12px; float: left;" />
+                            </apex:outputPanel>
+                        </apex:form>    
+                    </div>  <!--end of div class row panel-->
+                </div>
+            </div> <!--enf of div class container-->
+            
+            <apex:includeScript value="{!URLFOR($Resource.NCR_cssjsimg, 'js/docs.js')}"/>
+        </body>
+        <style>
+            .nicEdit-panel {
+                padding:8px 5px;
+                background:transparent linear-gradient(to bottom, #f4f4f4 0px, #d7d6d6 100%) repeat scroll 0% 0%!important;
+                margin:0px!important;
+            }
+            label {
+                margin-left:22px;
+            }
+        </style>
+    </html>
+    <script>
+    
+        
+        
+
+        function displayPlaceholder() {
+            //document.getElementById("bodyPlaceholder").style.display = "block";
+        }
+        
+        function checkNextFocus() {
+            if(document.activeElement.nodeName.toUpperCase() == 'BODY') {
+                //newBodyPlaceholder();
+            }
+        }
+           
+        function checkOnFocus() {
+            if(document.activeElement.nodeName.toUpperCase() == 'BODY') {
+                //alert('body');
+                checkDesc();
+            } else if(document.activeElement.nodeName.toUpperCase() == 'DIV') {
+                //alert('div');
+                checkDesc();
+            }
+        }
+        
+        /*
+        window.setInterval(function(){
+          checkDesc();
+        }, 5000);
+        */
+        document.getElementsByTagName("body")[0].onclick=function(){checkOnFocus();};
+            
+        //google analytics
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+         
+          ga('create', 'UA-66575504-1', 'auto');
+          ga('send', 'pageview');
+              
+              
+    </script>
+    <!-- Tooltip -->
+    <!--
+    <apex:stylesheet value="{!URLFOR($Resource.NCR_cssjsimg, 'tooltip/tooltip.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.NCR_cssjsimg, 'tooltip/tooltip.js')}"/>-->
+     
+     <script>
+  
+        var typingTimer;                //timer identifier
+        var doneTypingInterval = 1000;  //time in ms, 5 second for example
+        
+        function titleKeyUp() {
+          clearTimeout(typingTimer);
+          typingTimer = setTimeout(doneTyping, doneTypingInterval);
+        }
+        
+        function titleKeyDwn() {
+          clearTimeout(typingTimer);
+        }
+        
+        function doneTyping () {
+          afSearchTitle();
+        }
+        
+
+        editor.on('instanceReady',function() { 
+            var hgt = $("#mainDiv").height();
+            top.postMessage(hgt+67+"px", '*');         
+            $(document).scrollTop();
+        })
+        
+        window.onload=function() {
+            var hgt = $("#mainDiv").height();
+            top.postMessage(hgt+67+"px", '*');         
+            $(document).scrollTop();
+        }
+     </script>
+     
+    
+
+</apex:page>

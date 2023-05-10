@@ -1,0 +1,59 @@
+<apex:page controller="adobe_tools">
+    
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <link href="{!URLFOR($Resource.LDS, 'assets/styles/salesforce-lightning-design-system-vf.css')}" rel="stylesheet" type="text/css" />
+    
+    <div class="cc">
+        
+        <!-- PAGE HEADER -->
+        <div class="slds-page-header" role="banner">
+        
+          <!-- LAYOUT GRID -->
+          <div class="slds-grid">
+        
+            <!-- GRID COL -->
+            <div class="slds-col">
+              <!-- HEADING AREA -->
+              <p class="slds-text-heading--label">Form Data</p>
+              <h1 class="slds-text-heading--medium">Adobe Sign</h1>
+              <!-- /HEADING AREA -->
+            </div>
+        
+            <!-- ACTION BUTTONS -->
+            <!-- / ACTION BUTTONS -->
+        
+          </div>
+          <!-- / LAYOUT GRID -->
+        
+          <!-- PAGE HEADER DETAIL ROW -->
+          <!-- /PAGE HEADER DETAIL ROW -->
+        
+        </div>
+        <!-- / PAGE HEADER -->
+        
+        <div id="form-data" />
+    </div>
+    
+    <script>
+         $(document).ready(function() {
+             
+                var aggr = ['{!$CurrentPage.parameters.id}']
+    
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.adobe_tools.formData}',
+                        aggr,
+                        function(response, event) {
+                            $.each(response, function (index, i) {
+                                $( "#form-data" ).append('<div class="slds-form-element">' +
+                                                         '<label class="slds-form-element__label" for="text-input-01">' + i.split( ':' )[0] + '</label>' +
+                                                         '<div class="slds-form-element__control">' +
+                                                         '<input id="text-input-01" class="slds-input" type="text" placeholder="Placeholder Text" value="' + i.split( ':' )[1] + '"/>' +
+                                                         '</div>' +
+                                                            '</div>');    
+                            });
+                        });
+             
+         });
+         
+    </script>
+    
+</apex:page>

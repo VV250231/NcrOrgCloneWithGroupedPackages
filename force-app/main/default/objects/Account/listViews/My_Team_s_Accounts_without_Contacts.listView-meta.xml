@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Team_s_Accounts_without_Contacts</fullName>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>ACCOUNT.TYPE</columns>
+    <columns>ACCOUNT.CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CORE.USERS.LAST_NAME</field>
+        <operation>contains</operation>
+        <value>Crew,Whitta,Zarnecki,Jarett,Richards</value>
+    </filters>
+    <filters>
+        <field>Count_of_Contacts__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>CATM My Team&apos;s Accounts without Contacts</label>
+    <sharedTo>
+        <role>atmAd_Commercial_Director</role>
+    </sharedTo>
+</ListView>

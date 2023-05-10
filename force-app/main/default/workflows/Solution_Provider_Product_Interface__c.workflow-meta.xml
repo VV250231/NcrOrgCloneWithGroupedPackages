@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Update_Parent_Product_Name</fullName>
+        <field>Parent_Product_Name__c</field>
+        <formula>Solution_Provider_Product__r.Name</formula>
+        <name>Update Parent Product Name</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Populate Parent Product Name field on Vendor Interface</fullName>
+        <actions>
+            <name>Update_Parent_Product_Name</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>This workflow is used to populate Parent Product Name field on Solution Provider Product interface from Solution Provider Product.</description>
+        <formula>NOT(ISNULL(Solution_Provider_Product__c ))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

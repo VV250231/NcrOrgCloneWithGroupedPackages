@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOSPD_Maintenance_Billing_Review_Approve</fullName>
+    <active>true</active>
+    <description>This will prevent a case from being closed when Subcategory is Maintenance Billing Review/Approval and required fields not completed.</description>
+    <errorConditionFormula>(
+Customer_Approval_for_this_Billing__c = FALSE
+||
+ISBLANK(If_no_customer_approval_explain_why__c)
+) 
+&amp;&amp;
+ISPICKVAL(Subcategory__c,&quot;Maintenance Billing Review/Approval&quot;)
+&amp;&amp;
+ISCHANGED(Status)
+&amp;&amp; 
+ISPICKVAL(Status, &quot;Closed&quot;)</errorConditionFormula>
+    <errorMessage>Must complete fields in Maintenance Billing Review/Approval section to Close Case</errorMessage>
+</ValidationRule>

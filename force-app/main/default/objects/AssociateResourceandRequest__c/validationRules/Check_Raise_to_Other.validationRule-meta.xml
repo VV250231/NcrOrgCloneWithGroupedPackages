@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Check_Raise_to_Other</fullName>
+    <active>true</active>
+    <description>If Email&apos;s are entered, but the Raise to Other&apos;s is marked uncheck. It will throw error</description>
+    <errorConditionFormula>OR(
+AND(Raise_to_Other__c=False,Email_ID__c!=null),
+AND(Raise_to_Other__c=False,CC_1__c !=null),
+AND(Raise_to_Other__c=False,CC_2__c!=null))</errorConditionFormula>
+    <errorDisplayField>Raise_to_Other__c</errorDisplayField>
+    <errorMessage>If Email is entered, please check Raise to Others to send notification</errorMessage>
+</ValidationRule>

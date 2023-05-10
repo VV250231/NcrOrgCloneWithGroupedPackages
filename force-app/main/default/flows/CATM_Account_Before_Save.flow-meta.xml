@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <assignments>
+        <name>Populate_Account_fields_on_Insert</name>
+        <label>Populate Account fields on Insert</label>
+        <locationX>180</locationX>
+        <locationY>555</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Business_Unit__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Account_Owner.Business_Unit__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.CATM_Region__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Account_Owner.CATM_Region__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Department__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Account_Owner.Department__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Geography__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Account_Owner.Geography__c</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <name>Check_New_Account</name>
+        <label>Check New Account</label>
+        <locationX>384</locationX>
+        <locationY>349</locationY>
+        <defaultConnector>
+            <targetReference>Update_Account_fields</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>New_Account</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>IsNewAccount</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.CDM_Account_Manager__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>IsSystemAdmin</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Account_Owner</targetReference>
+            </connector>
+            <label>New Account</label>
+        </rules>
+    </decisions>
+    <description>Updates the Account Region, Business Unit, Department, and Geography fields.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>IsNewAccount</name>
+        <dataType>Boolean</dataType>
+        <expression>ISNEW()</expression>
+    </formulas>
+    <formulas>
+        <name>IsSystemAdmin</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(NOT(ISBLANK({!$Record.CDM_Account_Manager__c})), 
+OR(
+UPPER({!$Record.CDM_Account_Manager__c}) = &apos;NA230205&apos;,
+UPPER({!$Record.CDM_Account_Manager__c}) = &apos;ADMINNSC&apos;,
+UPPER({!$Record.CDM_Account_Manager__c}) =  &apos;ADMINNSC&apos;))</expression>
+    </formulas>
+    <interviewLabel>CATM Account Before Save {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>CATM Account Before Save</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Account_Owner</name>
+        <label>Get Account Owner</label>
+        <locationX>155</locationX>
+        <locationY>430</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Populate_Account_fields_on_Insert</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Quicklook_ID__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.CDM_Account_Manager__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>User</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Account_fields</name>
+        <label>Update Account fields</label>
+        <locationX>450</locationX>
+        <locationY>558</locationY>
+        <inputAssignments>
+            <field>Business_Unit__c</field>
+            <value>
+                <elementReference>$Record.Owner.Business_Unit__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CATM_Region__c</field>
+            <value>
+                <elementReference>$Record.Owner.CATM_Region__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Department__c</field>
+            <value>
+                <elementReference>$Record.Owner.Department__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Geography__c</field>
+            <value>
+                <elementReference>$Record.Owner.Geography__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>373</locationX>
+        <locationY>47</locationY>
+        <connector>
+            <targetReference>Check_New_Account</targetReference>
+        </connector>
+        <filterFormula>AND(
+{!$Setup.Automation_Setting__c.Skip_Flow__c} = false,
+OR(
+AND(
+ISNEW()
+),
+AND(
+ISCHANGED({!$Record.OwnerId}),
+OR(
+TEXT({!$Record.Owner.CATM_Region__c})&lt;&gt;{!$Record.CATM_Region__c},
+TEXT({!$Record.Owner.Geography__c})&lt;&gt;{!$Record.Geography__c},
+TEXT({!$Record.Owner.Business_Unit__c})&lt;&gt;{!$Record.Business_Unit__c},
+TEXT({!$Record.Owner.Department__c})&lt;&gt;{!$Record.Department__c}
+)
+)
+)
+)</filterFormula>
+        <object>Account</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

@@ -1,0 +1,17 @@
+<aura:component controller="CPQ_QuotesNotYetSigned" implements="lightning:availableForFlowScreens" access="global">
+    <aura:attribute name="multiSiteData" type="List" />
+    <aura:attribute name="multiSiteDataColumns" type="List" />
+    <aura:attribute name="quoteId" type="String"/>
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+     <div class="slds-p-top_medium"> 
+        <aura:if isTrue ="{!not(empty(v.multiSiteData))}">
+                    <lightning:card title="Multi-Site Quote Details (quotes not yet signed)">  
+                        <p class="slds-p-horizontal_small"> 
+                            <lightning:datatable keyField="Siteno" data="{! v.multiSiteData }" columns="{! v.multiSiteDataColumns }" hideCheckboxColumn="true"/>
+                        </p>
+                    </lightning:card>  
+            </aura:if>
+                
+            </div>
+	
+</aura:component>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <assignments>
+        <name>Set_Start_Date</name>
+        <label>Set Start Date</label>
+        <locationX>50</locationX>
+        <locationY>575</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Quote.SBQQ__StartDate__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.qtc_ActualDeliveryDate__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Quote</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Is_Local_Office</name>
+        <label>Is Local Office</label>
+        <locationX>182</locationX>
+        <locationY>455</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Local_Office</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Quote.qtc_Channel_Local_Office_Record_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>LOCAL OFFICE</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Start_Date</targetReference>
+            </connector>
+            <label>Local Office</label>
+        </rules>
+    </decisions>
+    <description>SFCPQBLG-645: Update Stat date and activate Order when Fulfillment Order Delivery Date is populated</description>
+    <interviewLabel>BLG Fulfillment Order After Update {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>BLG Fulfillment Order After Update</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <description>Creates a Platform event to Order the specified quote</description>
+        <name>Create_Platform_Event_Quote_Ordered</name>
+        <label>Create Platform Event Quote Ordered</label>
+        <locationX>50</locationX>
+        <locationY>815</locationY>
+        <inputAssignments>
+            <field>qtcQuoteId__c</field>
+            <value>
+                <elementReference>Get_Quote.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Quote_Ordered__e</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <name>Get_Quote</name>
+        <label>Get Quote</label>
+        <locationX>182</locationX>
+        <locationY>335</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Is_Local_Office</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.qtc_Quote__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>SBQQ__Quote__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Update related quote</description>
+        <name>Update_Quote</name>
+        <label>Update Quote</label>
+        <locationX>50</locationX>
+        <locationY>695</locationY>
+        <connector>
+            <targetReference>Create_Platform_Event_Quote_Ordered</targetReference>
+        </connector>
+        <inputReference>Get_Quote</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Quote</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>qtc_ActualDeliveryDate__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>qtc_FulfillmentOrder__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Draft</status>
+</Flow>

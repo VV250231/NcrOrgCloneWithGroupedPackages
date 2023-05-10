@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status_Close_Resolution_Note_Required</fullName>
+    <active>true</active>
+    <description>Resolution Note is required to close the Incident</description>
+    <errorConditionFormula>AND($Setup.Automation_Setting__c.Skip_Validation_Rule__c = FALSE, NOT($Profile.Name = &quot;Soup Integration&quot;),ISPICKVAL(Status, &apos;Closed&apos;), ISBLANK(Resolution_Notes__c))</errorConditionFormula>
+    <errorDisplayField>Resolution_Notes__c</errorDisplayField>
+    <errorMessage>Resolution Note is required when Inicident Status is Closed</errorMessage>
+</ValidationRule>

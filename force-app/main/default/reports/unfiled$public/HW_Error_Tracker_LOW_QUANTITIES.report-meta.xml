@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_31913549</developerName>
+        <masterLabel>Region Bucket</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>Account.Account_Region__c</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>NAMER</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NAMER CFI</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NAMER DIRECT</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NAMER SMB</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NAMER MAJORS</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>AMERICAS</sourceValue>
+            </sourceValues>
+            <value>NAMER</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>EMEA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>EUROPE</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>EUROPE EXC RUSSIA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>MEA</sourceValue>
+            </sourceValues>
+            <value>EMEA</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>APAC</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>APJ</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>CHINA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NORTH ASIA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NORTH ASIA AND SPA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>SAPAC</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>SEA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>INDIA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>INDIA &amp; SEA</sourceValue>
+            </sourceValues>
+            <value>APAC</value>
+        </values>
+        <values>
+            <value>LATAM</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>BRAZIL</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>CLA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>CLA BRAZIL</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>LATAM</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>JAPAN</sourceValue>
+            </sourceValues>
+            <value>JAPAN</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>Opportunity.OCR_2018_TEAM_H3__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>PRODUCT_NAME</field>
+    </columns>
+    <columns>
+        <field>Product2.Pmdm_Product_Family__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>AMOUNT.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>TOTAL_PRICE.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>QUANTITY</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>UNIT_PRICE.CONVERT</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>IF(AND(UNIT_PRICE.CONVERT &gt; 4000, UNIT_PRICE.CONVERT &lt;= 20000), &quot;Green&quot;,
+
+IF(AND(UNIT_PRICE.CONVERT &gt; 2000, UNIT_PRICE.CONVERT &lt;= 4000), 
+&quot;Yellow&quot;,
+ 
+&quot;Red&quot;)
+
+)</calculatedFormula>
+        <dataType>Text</dataType>
+        <description>Green = NUP &gt; 4000 Yellow = NUP &gt;2000 but &lt;4000 Red = NUP &lt; 2000</description>
+        <developerName>CDF1</developerName>
+        <label>Error Status</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>Product2.Service_Offer_Category__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>HW</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Product2.Pmdm_Product_Family__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>SCO</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OPPORTUNITY_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>installation,replacement</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Opportunity.Indirect_Include_in_Funnel_Distributor,Opportunity.Indirect_Include_in_Funnel,Opportunity.IncludeinFunnel</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>QUANTITY</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>lessThan</operator>
+            <value>5</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CDF1</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>STAGE_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_31913549</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>HW Error Tracker - LOW QUANTITIES</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>open</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>OpportunityProduct@Opportunity.Sales_Org__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>PRODUCT_NAME</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

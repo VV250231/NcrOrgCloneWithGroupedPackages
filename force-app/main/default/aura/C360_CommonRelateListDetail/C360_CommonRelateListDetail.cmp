@@ -1,0 +1,43 @@
+<aura:component controller="HierarchyController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+    <aura:attribute name="opptyColumns" type="List" />
+    <aura:attribute name="arColumns" type="List" />
+    <aura:attribute name="contactColumns" type="List" /> 
+    <aura:attribute name="customActions" type="List" />
+    <aura:attribute name="recordId" type="String" />
+    <lightning:navigation aura:id="navService"/>
+    <aura:attribute name="pageReference" type="Object"/>
+    <aura:attribute name="url" type="String"/>
+    
+   
+    
+    <div style="padding:2rem,padding:0.5rem;background:white" class="slds-box">    
+            <div class="slds-col slds-size_1-of-1  topbar ">
+                <span> 
+                    
+                            <c:Common_relatedList recordId="{!v.recordId}" 
+                                                  sobjectApiName="Opportunity"
+                                                  relatedFieldApiName="AccountId"
+                                                  sortedBy="Name"
+                                                  fields="Name, Account.Name, StageName, CloseDate, Amount"
+                                                  columns="{!v.opptyColumns}"
+                                                  />
+                            <c:Common_relatedList recordId="{!v.recordId}" 
+                                                  sobjectApiName="Credit_Detail__c"
+                                                  relatedFieldApiName="Account__c"
+                                                  sortedBy="Name"
+                                                  fields="Name, Customer_Balance__c, Risk_Level__c, On_Hold__c"
+                                                  columns="{!v.arColumns}"
+                                                  />
+                            <c:Common_relatedList recordId="{!v.recordId}" 
+                                                  sobjectApiName="Contact"
+                                                  relatedFieldApiName="AccountId"
+                                                  sortedBy="Name"
+                                                  fields="Name, Title, Email, Phone"
+                                                  columns="{!v.contactColumns}"
+                                                  />
+                        
+                </span>
+            </div>
+        </div>	
+</aura:component>

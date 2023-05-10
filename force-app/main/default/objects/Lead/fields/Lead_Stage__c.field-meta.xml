@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lead_Stage__c</fullName>
+    <externalId>false</externalId>
+    <label>Lead Stage</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Status</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>MQL</fullName>
+                <default>false</default>
+                <label>MQL</label>
+            </value>
+            <value>
+                <fullName>SAL</fullName>
+                <default>false</default>
+                <label>SAL</label>
+            </value>
+            <value>
+                <fullName>SQL</fullName>
+                <default>false</default>
+                <label>SQL</label>
+            </value>
+            <value>
+                <fullName>IAV</fullName>
+                <default>false</default>
+                <label>IAV</label>
+            </value>
+            <value>
+                <fullName>PST</fullName>
+                <default>false</default>
+                <label>PST</label>
+            </value>
+            <value>
+                <fullName>INQ</fullName>
+                <default>true</default>
+                <label>INQ</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Open</controllingFieldValue>
+            <valueName>INQ</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Qualified</controllingFieldValue>
+            <controllingFieldValue>Partner Managed</controllingFieldValue>
+            <controllingFieldValue>Silver Managed</controllingFieldValue>
+            <valueName>SQL</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disqualified</controllingFieldValue>
+            <valueName>IAV</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Deferred</controllingFieldValue>
+            <controllingFieldValue>Accepted</controllingFieldValue>
+            <controllingFieldValue>Pending</controllingFieldValue>
+            <controllingFieldValue>Researching</controllingFieldValue>
+            <controllingFieldValue>Contacted</controllingFieldValue>
+            <valueName>SAL</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Nurture</controllingFieldValue>
+            <valueName>PST</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Marketing Qualified</controllingFieldValue>
+            <valueName>MQL</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Overdue AR balance - 30 days</name>
+    <style>none</style>
+    <subject>1st Notification - Overdue AR balance for {!Credit_Detail__c.Account__c} - {!Credit_Detail__c.Master_Customer_Number__c}</subject>
+    <textOnly>AR Detail
+
+This notification is to inform you there is a significant overdue balance, which is 30 days or greater past-due on this customer&apos;s account. Your help may be required to bring this account up-to-date. 
+
+The current AR profile of this account is: 
+
+Customer Balance: {!Credit_Detail__c.Customer_Balance__c}   
+Aging &lt;31 Days: {!Credit_Detail__c.X1_30_Days_Late__c}  
+Aging 31-60 Days: {!Credit_Detail__c.X31_60_Days_Late__c} 
+Aging 61-90 Days: {!Credit_Detail__c.X61_90_Days_Late__c}  
+Aging 91-180 Days: {!Credit_Detail__c.X91_180_Days_Late__c} 
+Aging 181-360 Days: {!Credit_Detail__c.X181_360_Days_Late__c}  
+Aging &gt;360 Days: {!Credit_Detail__c.X361_Days_Late__c}  
+Not Due 1-360 Days: {!Credit_Detail__c.Not_Due_1_360_Days__c}  
+Not Due &gt;360 Days: {!Credit_Detail__c.Not_Due_360_Days__c}
+
+The latest update from the AR Collector and what action/support is required on this account is:
+
+{!Credit_Detail__c.Executive_Summary_of_Customer__c}
+
+{!Credit_Detail__c.What_action_is_needed__c}
+
+AR Detail Number: {!Credit_Detail__c.AR_Detail_Name__c}
+
+We kindly ask for your support to facilitate bringing this account up-to-date from an AR perspective and to avoid potential risks such as credit holds or P&amp;L impacts to the company&apos;s results.
+
+NCR Confidential. FOR INTERNAL USE ONLY.
+NCR Corporation 864 Spring St. NW, Atlanta, GA 30308-1007
+©2020 NCR Corporation. All rights reserved.   ncr.com
+NCR respects your privacy.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Promise_Time_new__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( 
+AND(
+ISPICKVAL(Category_Hospitality__c ,&apos;Billing&apos;), 
+OR(ISPICKVAL(Subcategory__c ,&apos;Invoice question&apos;),
+ISPICKVAL(Subcategory__c ,&apos;Credit memo not received&apos;))), Assigned_Time__c + 480/1440,
+IF( AND(ISPICKVAL(Category_Hospitality__c ,&apos;Billing&apos;), ISPICKVAL(Subcategory__c ,&apos;HWM Backup Request&apos;)),Assigned_Time__c +960/1440,
+IF( AND(ISPICKVAL(Category_Hospitality__c ,&apos;Billing&apos;), OR(ISPICKVAL(Subcategory__c ,&apos;Invoice dispute&apos;),ISPICKVAL(Subcategory__c ,&apos;Maintenance Billing Review/Approval&apos;))),Assigned_Time__c +1440/1440,NULL)))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Promise Time</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>DateTime</type>
+</CustomField>

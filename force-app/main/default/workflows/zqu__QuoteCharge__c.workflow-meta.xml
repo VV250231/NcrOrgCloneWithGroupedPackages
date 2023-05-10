@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Copy_Gross_Profit_Formula_to_Currency</fullName>
+        <field>Gross_Profit_currency__c</field>
+        <formula>Gross_Profit_Calculation__c</formula>
+        <name>Copy Gross Profit Formula to Currency</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Copy_Gross_Profit_Formula_to_Text</fullName>
+        <field>GrossProfit__c</field>
+        <formula>TEXT (Gross_Profit_Calculation__c)</formula>
+        <name>Copy Gross Profit Formula to Text</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Cost</fullName>
+        <description>From Partner_Cost__c Formula (Currency) to PartnerCost__c Text(255)</description>
+        <field>PartnerCost__c</field>
+        <formula>TEXT( Partner_Cost__c)</formula>
+        <name>Partner Cost</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Populate_Channel_Partner_Text</fullName>
+        <field>ChannelPartner__c</field>
+        <formula>ChannelPartner_Lkp__r.Name</formula>
+        <name>Populate Channel Partner(Text)</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Populate_Salesperson_Text</fullName>
+        <field>Salesperson__c</field>
+        <formula>Salesperson_Lkp__r.FirstName &amp; &quot; &quot; &amp; Salesperson_Lkp__r.LastName</formula>
+        <name>Populate Salesperson(Text)</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Quote_Charge_Partner_Commission_curre</fullName>
+        <field>Partner_Commission_currency__c</field>
+        <formula>VALUE( PartnerCommission__c)</formula>
+        <name>Quote Charge : Partner Commission (curre</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Quote_Charge_Populate_Cost_currency</fullName>
+        <field>Cost_currency__c</field>
+        <formula>VALUE(Cost__c)</formula>
+        <name>Quote Charge : Populate Cost (currency)</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>update_cost</fullName>
+        <field>Cost__c</field>
+        <formula>zqu__ProductRatePlanCharge__r.Cost__c</formula>
+        <name>update cost</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>update_pcommsn</fullName>
+        <field>PartnerCommission__c</field>
+        <formula>zqu__ProductRatePlanCharge__r.PartnerCommission__c</formula>
+        <name>update pcommsn</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>update_term</fullName>
+        <field>Terms__c</field>
+        <formula>zqu__ProductRatePlanCharge__r.Terms__c</formula>
+        <name>update term</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Populate currency fields</fullName>
+        <actions>
+            <name>Copy_Gross_Profit_Formula_to_Currency</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Copy_Gross_Profit_Formula_to_Text</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Partner_Cost</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Populate_Channel_Partner_Text</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Populate_Salesperson_Text</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Quote_Charge_Partner_Commission_curre</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Quote_Charge_Populate_Cost_currency</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Evaluate the rule when a record is created, and every time it’s edited</description>
+        <formula>1=1</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>populate cost partner commission terms</fullName>
+        <actions>
+            <name>update_cost</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>update_pcommsn</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>update_term</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>populate the cost, partner commission, and terms fields on quote charge from Product Rate Plan Charge</description>
+        <formula>1=1</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

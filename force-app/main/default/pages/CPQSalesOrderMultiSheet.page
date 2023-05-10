@@ -1,0 +1,246 @@
+<apex:page controller="CPQSalesOrderMultiSheetController" contentType="txt/xml#HSRExcelTemplate - Quote Builder.xls" cache="true">
+    <apex:outputText value="{!xlsHeader}"/>
+    <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+    xmlns:o="urn:schemas-microsoft-com:office:office"
+    xmlns:x="urn:schemas-microsoft-com:office:excel"
+    xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+    xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Styles>
+   <Style ss:ID="s1">
+   <Alignment ss:WrapText="1"/>
+   <Borders/>
+   <Font ss:FontName="Calibri" ss:Size="11" ss:Color="#0B610B"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+   </Style>
+   
+   <Style ss:ID="s2">
+   <Alignment/>
+   <Borders/>
+   <Font ss:FontName="Calibri" ss:Size="11" ss:Color="#000000" ss:Bold="1"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+   </Style>
+   
+   <Style ss:ID="s3">
+   <Alignment/>
+   <Borders/>
+   <Font ss:FontName="Calibri" ss:Size="11" ss:Color="#FF0000" ss:Bold="1"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+   </Style>
+   
+   <Style ss:ID="s4">
+   <Alignment/>
+   <Borders/>
+   <Font ss:FontName="Calibri" ss:Size="11" ss:Color="#000000" />
+   <Interior/>
+   <NumberFormat ss:Format="General"/>
+   <Protection/>
+   </Style>
+   
+      
+  </Styles>
+  <Worksheet ss:Name="Quote Header">
+ <Table x:FullColumns="1" x:FullRows="1">
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Row>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >This is a unique number required to map rows on PID Line Item tab and notes on Order Notes tab with the order row on Quote Header tab.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >Customer Number is mandatory to create an order. This should be a valid ERP HSR Customer.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >This is an optional field. If not populated, for all orders except Site Order, default Freight Method will be fetched from customer's contract and for site orders, default will be copied fro Master Order. If populated, it will override all defaults.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >This is an Optional field. Mandatory only if user chooses Freight method as Add/Enter contracted Freight Amount. If populated this should be a numeric value.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >This is a required field, however if not provided, it will be defaulted to 'HSR Standard'.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >This field is mandatory if Order Type selected is 'HSR Site' and should be populated with Approved HSR Master Quote Number.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >This is an optional field.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >PO date is optional. If populated, it should be in format DD-MMM-YYYY.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >This is an optional field. If not specified, will be defaulted to NET 30.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >This is an optional field. If not populated, for all orders except Site Order, default address will be fetched from ERP and for site orders, default will be copied from HSR Master Order. If populated, it will override all defaults.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >This is an optional field. If not populated, for all orders except Site Order, default address will be fetched from customer's contract and for site orders, default will be copied from HSR Master Order. If populated, it will override all defaults.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >This is an optional field. If not populated, for all orders except Site Order, default address will be fetched from ERP and for site orders, default will be copied from HSR Master Order. If populated, it will override all defaults.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >Request date is not mandatory. If not provided, it will be calculated by system. If populated, It should be in format DD-MMM-YYYY.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >For all Order Types except Site Order, this field is optional, however, if not provided it will be defaulted to 'Ground'. For Site Orders, this value will be copied from Master Order.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >This is an optional field.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >This is an optional field. If not populated, for all orders except Site Order, default Invoice Trigger will be fetched from customer's contract and for site orders, default will be copied from HSR Master Order. If populated, it will override all defaults.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >This field is mandatory if the total Revenue is greater than the defined threshold.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >This is mandatory if the Requested Delivery Date (RDD) precedes the Recommended Date.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >This is a mandatory field.</Data></Cell>
+ </Row> 
+ 
+ <Row>
+     <Cell ss:StyleID="s3"><Data ss:Type="String" >* Quote Header ID</Data></Cell>
+     <Cell ss:StyleID="s3"><Data ss:Type="String" >* Customer Number</Data></Cell>
+     <Cell ss:StyleID="s2"><Data ss:Type="String" >Freight Method</Data></Cell>
+     <Cell ss:StyleID="s2"><Data ss:Type="String" >Contracted Freight Amount</Data></Cell>
+     <Cell ss:StyleID="s3"><Data ss:Type="String" >* Order Type</Data></Cell>
+     <Cell ss:StyleID="s2"><Data ss:Type="String" >Master Quote Number</Data></Cell>
+     <Cell ss:StyleID="s2"><Data ss:Type="String" >PO Number</Data></Cell>
+     <Cell ss:StyleID="s2"><Data ss:Type="String" >PO date</Data></Cell>
+     <Cell ss:StyleID="s2"><Data ss:Type="String" >Payment Term</Data></Cell>
+     <Cell ss:StyleID="s2"><Data ss:Type="String" >Available Ship To</Data></Cell>
+     <Cell ss:StyleID="s2"><Data ss:Type="String" >Available Bill To</Data></Cell>
+     <Cell ss:StyleID="s2"><Data ss:Type="String" >Available Final Installation</Data></Cell>
+     <Cell ss:StyleID="s2"><Data ss:Type="String" >Requested Delivery Date</Data></Cell>
+     <Cell ss:StyleID="s2"><Data ss:Type="String" >Shipping Method</Data></Cell>
+     <Cell ss:StyleID="s2"><Data ss:Type="String" >Shipping Instructions</Data></Cell>
+     <Cell ss:StyleID="s2"><Data ss:Type="String" >Invoice Trigger</Data></Cell>
+     <Cell ss:StyleID="s2"><Data ss:Type="String" >Opportunity</Data></Cell>
+     <Cell ss:StyleID="s2"><Data ss:Type="String" >Approved Explanation</Data></Cell>
+     <Cell ss:StyleID="s3"><Data ss:Type="String" >* Auto-Submit</Data></Cell>
+ </Row>  
+ 
+ <apex:repeat value="{!InvestmentDetails}" var="items" rows="1">
+  <Row>
+     <Cell ss:StyleID="s4"><Data ss:Type="Number" >{!items.QUOTE_HEADER_ID}</Data> </Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.SOLD_TO_CUST_ID}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.FREIGHT_METHOD}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.CONTRACTED_FREIGHT_AMOUNT}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.ORDER_TYPE}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.MASTER_QUOTE_NUMBER}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.SUBSCRIPTION_TYPE}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.PO_DATE}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.PAYMENT_TERM}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.SHIP_TO_CUST_ID}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.BILL_TO_CUST_ID}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.DELIVER_TO_CUST_ID}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.REQUESTED_ARRIVAL_DATE}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.SHIPPING_METHOD}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.SHIP_INSTRUCTIONS}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.INVOICE_TRIGGER}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.OPPORTUNITY_NUMBER}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.APPROVED_EXPLANATION}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.AUTO_SUBMIT}</Data></Cell>
+
+      
+ </Row> 
+ </apex:repeat> 
+ </Table>
+ <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
+   <Range>R3C18:R100000C18</Range>
+   <Type>List</Type>
+   <CellRangeList/>
+   <Value>&quot;Engineering Risk Buy,Utilizing Available Inventory,Preferred Offer Order,Contractual – Failure to deliver on this date will result in penalties&quot;</Value>
+ </DataValidation>
+ </Worksheet>
+ 
+ <Worksheet ss:Name="Order Notes">
+ <Table x:FullColumns="1" x:FullRows="1">
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Row>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >This is mandatory field. This is to link order notes with Quote Header row. Any row with Quote Header ID not populated will be ignored.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >This is an optional field. Maximum 5 order notes can be added on an Order. All other Order Notes will be ignored.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >This is an optional field. All Order notes with blank Order Note Description will be ignored.</Data></Cell>
+ </Row> 
+ 
+ <Row>
+     <Cell ss:StyleID="s3"><Data ss:Type="String" >* Quote Header ID</Data></Cell>
+     <Cell ss:StyleID="s2"><Data ss:Type="String" >Order Notes Type</Data></Cell>
+     <Cell ss:StyleID="s2"><Data ss:Type="String" >Order Notes Description</Data></Cell>
+ </Row>  
+ 
+ <apex:repeat value="{!InvestmentDetails}" var="items" rows="1">
+ <Row>
+     <Cell ss:StyleID="s4"><Data ss:Type="Number" >{!items.QUOTE_HEADER_ID}</Data> </Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >Invoice</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.TEXT254}</Data></Cell>
+ </Row>  
+ </apex:repeat>
+
+ </Table>
+ </Worksheet>
+ 
+  <Worksheet ss:Name="PID Line Items">
+ <Table x:FullColumns="1" x:FullRows="1">
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Column ss:Width="170"/>
+ <Row>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >This is mandatory field. This is to link Product ID/Bundle with Quote Header row. Any row with Quote Header ID not populated will be ignored.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >All Orders (other than 'HSR Site' Order): This field is mandatory if Product ID is being added. This field is not required for bundles and will be ignored if provided. 'HSR Site' Order: Populate ERP Line number for PIDs you want to copy from Master.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >Either Product ID or Bundle Name is mandatory.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >Either Product ID or Bundle Name is mandatory.For all orders except Site Orders, this should be the same Bundle Name as available in Customer's Catalog. For Site Orders, this should be same Bundle Name as available on Master Quote.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >This is an optional field representing Bundle or Product  ID Description.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >This is optional field.  If not given Qty will be treated as 1.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >Unit amount of Product ID/Bundle. This is an optional field.  If price given is different from Catalog price, quote would need Pricing Approval.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >This is an optional field. This would be annual Net Price of SID linked with SW or generic PPM. PPM price will be calculated on the basis of SID price and entitlement period.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >This is optional field.  If not given, system will try to fetch available HW Roles. But if more than 1 HW Role are found in system, quote won't be auto-submit.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >This is mandatory field for H400 SW PIDs. If provided for HW PID, this field will be ignored.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >SW Start Date is mandatory field for SW PIDs.Please enter date in format DD-MMM-YYYY.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >SW End Date is  mandatory field for SW PIDs.Please enter date in format DD-MMM-YYYY.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >Entitlement Start Date is mandatory  for SW PIDs having PPM linked to it. Please enter date in format DD-MMM-YYYY.</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >Entitlement End Date is mandatory for SW PIDs having PPM linked to it. Please enter date in format DD-MMM-YYYY.</Data></Cell>
+ </Row> 
+ 
+ <Row>
+     <Cell ss:StyleID="s3"><Data ss:Type="String" >* Quote Header ID</Data></Cell>
+     <Cell ss:StyleID="s3"><Data ss:Type="String" >Product Group/ERP Line Number</Data></Cell>
+     <Cell ss:StyleID="s3"><Data ss:Type="String" >* Product ID</Data></Cell>
+     <Cell ss:StyleID="s3"><Data ss:Type="String" >* Bundle Name</Data></Cell>
+     <Cell ss:StyleID="s2"><Data ss:Type="String" >Product Description/Bundle Description</Data></Cell>
+     <Cell ss:StyleID="s2"><Data ss:Type="String" >Qty</Data></Cell>
+     <Cell ss:StyleID="s2"><Data ss:Type="String" >Unit Amount</Data></Cell>
+     <Cell ss:StyleID="s2"><Data ss:Type="String" >Annual Net Price</Data></Cell>
+     <Cell ss:StyleID="s2"><Data ss:Type="String" >Hardware Role</Data></Cell>
+     <Cell ss:StyleID="s3"><Data ss:Type="String" >Software Key</Data></Cell>
+     <Cell ss:StyleID="s3"><Data ss:Type="String" >SW Start Date</Data></Cell>
+     <Cell ss:StyleID="s3"><Data ss:Type="String" >SW End Date</Data></Cell>
+     <Cell ss:StyleID="s2"><Data ss:Type="String" >Entitlement Start Date</Data></Cell>
+     <Cell ss:StyleID="s2"><Data ss:Type="String" >Entitlement End Date</Data></Cell>
+ </Row>  
+ 
+ <apex:repeat value="{!InvestmentDetails}" var="items">
+  <Row>
+     <Cell ss:StyleID="s4"><Data ss:Type="Number" >{!items.QUOTE_HEADER_ID}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="Number" >{!items.PG_GROUP_LINE_NO}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.IDENTIFIER}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.BUNDLE_NAME}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.DESCR}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="Number" >{!items.QTY}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="Number" >{!items.UNIT_AMT}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="Number" >{!items.ANNUAL_NET_PRICE}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.HARDWARE_ROLE}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.SW_KEY}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.SW_START_DATE}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.SW_END_DATE}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.ENTITLE_START_DATE}</Data></Cell>
+     <Cell ss:StyleID="s4"><Data ss:Type="String" >{!items.ENTITLE_END_DATE}</Data></Cell>
+ </Row>  
+ </apex:repeat>
+
+ </Table>
+ </Worksheet>
+ </Workbook>
+</apex:page>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Expected_Service_Start_Date_required</fullName>
+    <active>true</active>
+    <description>Expected Service Start Date is required for GSR to close opportunities</description>
+    <errorConditionFormula>AND(
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+NOT(CATM_Record__c),
+OR(RecordTypeId = &apos;012700000001PoU&apos;, RecordTypeId = &apos;0120g000000N2y1&apos;),ISBLANK(Expected_Service_Start_Date__c),IsClosed,
+(ISPICKVAL(Type ,&quot;Existing Customer - Service Renewal&quot;) ) &amp;&amp;
+($Profile.Name = &quot;Global Renewals&quot;)
+, ($Profile.Name &lt;&gt; &quot;Soup Integration&quot;)
+,($Profile.Name &lt;&gt; &quot;iPaas Administration&quot;)
+)</errorConditionFormula>
+    <errorDisplayField>Expected_Service_Start_Date__c</errorDisplayField>
+    <errorMessage>Expected Service Start Date is required to close opportunities</errorMessage>
+</ValidationRule>

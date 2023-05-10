@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>sp1Change_Status_or_Change_Owner</name>
+        <label>Lead.Change_Status_or_Change_Owner</label>
+        <locationX>308</locationX>
+        <locationY>288</locationY>
+        <actionName>Lead.Change_Status_or_Change_Owner</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>55.0</apiVersion>
+    <description>Migrated from the: Namer Lead SLA Rule- Update Status or Change Owner workflow rule
+Workflow rule description: This workflow rule fires when the status or the owner has not been changed within five days from the lead created date.&quot;</description>
+    <environments>Default</environments>
+    <label>Namer Lead SLA Rule- Update Status or Change Owner</label>
+    <migratedFromWorkflowRuleName>Namer Lead SLA Rule- Update Status or Change Owner</migratedFromWorkflowRuleName>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterFormula>
+AND({!$Record.TestCheckBox__c} = false,  ISBLANK({!$Record.Reassign_Date__c}), OR({!$Record.OwnerId} = &apos;00G70000002qaPI&apos;, {!$Record.OwnerId} = &apos;00570000003ipJ0AAI&apos;, {!$Record.OwnerId} = &apos;00570000003ipCdAAI&apos;,
+{!$Record.OwnerId} = &apos;00570000002TdOqAAK&apos;), NOT({!$Setup.Automation_Setting__c.Skip_Flow__c}), {!$Record.CATM_Record__c} = false)</filterFormula>
+        <object>Lead</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <scheduledPaths>
+            <name>X5_Days_after_lead_created_date</name>
+            <connector>
+                <targetReference>sp1Change_Status_or_Change_Owner</targetReference>
+            </connector>
+            <label>5 Days after lead created date</label>
+            <offsetNumber>5</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <recordField>CreatedDate</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

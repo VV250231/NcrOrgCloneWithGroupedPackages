@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Non_CPQ_Opportunity_Cant_be_Closed</fullName>
+    <active>true</active>
+    <description>Non-CPQ Opportunity can&apos;t be closed until the CLM Sales Acknowledgement checkbox is checked. EBA_SF-1854</description>
+    <errorConditionFormula>AND(
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+NOT(CATM_Record__c),
+OR($Profile.Name &lt;&gt; &quot;Soup Integration&quot;,
+$Profile.Name &lt;&gt; &quot;iPaas Administration&quot;) &amp;&amp; NOT(CPQ__c) &amp;&amp;
+ISCHANGED(StageName) &amp;&amp; NOT(PRIORVALUE(IsClosed)) &amp;&amp; IsClosed &amp;&amp; Not(CLM_Sales_Acknowledgment__c)&amp;&amp; bypass_validation__c&lt;&gt;true &amp;&amp; TEXT(StageName)=&quot;Closed/Booked&quot;
+)</errorConditionFormula>
+    <errorDisplayField>CLM_Sales_Acknowledgment__c</errorDisplayField>
+    <errorMessage>CLM steps should be acknowledged to closed/booked the opportunity.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>ALTF__Account__c$Name</field>
+    </columns>
+    <columns>
+        <field>ALTF__Account__c.ALTF__Altify_Account__r$Name</field>
+    </columns>
+    <columns>
+        <field>ALTF__Account__c$ALTF__Account__c</field>
+    </columns>
+    <columns>
+        <field>ALTF__Account__c.ALTF__Altify_Account__r$ALTF__Type__c</field>
+    </columns>
+    <columns>
+        <field>ALTF__Account__c$Id</field>
+    </columns>
+    <columns>
+        <field>ALTF__Account__c.ALTF__Altify_Account__r$Id</field>
+    </columns>
+    <currency>USD</currency>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>ALTF__Account__c.ALTF__Altify_Account__r$ALTF__Account_Plan__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Altify Accounts with Account Plans</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Altify_Accounts_with_Account_Plans__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>ALTF__Account__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2021-01-01</startDate>
+    </timeFrameFilter>
+</Report>

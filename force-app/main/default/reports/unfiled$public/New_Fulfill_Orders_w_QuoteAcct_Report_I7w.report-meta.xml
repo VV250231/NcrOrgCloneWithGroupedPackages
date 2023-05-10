@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>qtc_FulfillmentOrder__c.qtc_MCN__c</field>
+    </columns>
+    <columns>
+        <field>FK_$SBQQ__Quote__c.SBQQ__Account__c</field>
+    </columns>
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Fulfillment Orders with associated Quote Numbers and Account Name and MCN</description>
+    <format>Tabular</format>
+    <name>New Fulfill Orders w Quote&amp;Acct Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$qtc_FulfillmentOrder__c@qtc_FulfillmentOrder__c.qtc_Quote__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>qtc_FulfillmentOrder__c.qtc_ActualDeliveryDate__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

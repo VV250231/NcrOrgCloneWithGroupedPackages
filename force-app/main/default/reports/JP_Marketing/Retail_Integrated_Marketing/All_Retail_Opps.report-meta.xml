@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_60276202</developerName>
+        <masterLabel>Product Family</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>PRODUCT_NAME</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Emerald</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>PS Advisory - Emerald</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>PS Implementation - Emerald</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>PS RET - Emerald OOB-SCO Implementation</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>PS IPS - RET - Emerald SW Upgrade Service - MRR</sourceValue>
+            </sourceValues>
+            <value>Emerald</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>NCR Freshop</sourceValue>
+            </sourceValues>
+            <value>Freshop</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>PS Advisory - Loyalty Production Tune Up</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Basic Loyalty</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Loyalty Pro/Connected Loyalty</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NCR Cloud Loyalty Solution</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>PS Implementation - Loyalty Pro (LP) Standard Offer ver 10</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>PS Implementation - RET - Loyalty Pro Upgrade</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>PS Implementation - RET-Loyalty</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>PS RET - eCommerce-Loyalty Integration Consulting Service</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Radiant Loyalty Manager</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>SW Support for Basic Loyalty</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>PS IPS - RET - Loyalty Business Consulting Service - Recurring Revenue</sourceValue>
+            </sourceValues>
+            <value>Loyalty</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>PS RET - R10 OOB Implementation</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>R10 Enterprise</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>R10 Fuel POS</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>R10 POS</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>R10 Quick Service Restaurant POS</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>R10 Self Scanning</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>R10 Server</sourceValue>
+            </sourceValues>
+            <value>R10</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>PS Implementation - POC -  SDS Lab and Pilot</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>PS Implementation - POC - SDS Workload Prep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>PS Implementation - RET - SDS</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>PS Implementation - SDS Low Volume Store Deployment</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>PS Implementation - SDS Production Rollout</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>PS IPS - RET - SDS Application Management Service - MRR</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>PS IPS - RET - SDS Support Training</sourceValue>
+            </sourceValues>
+            <value>SDS</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Unique</aggregateTypes>
+        <field>OPPORTUNITY_ID</field>
+    </columns>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>BucketField_60276202</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>AMOUNT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>AMOUNT.CONVERT</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>Account.Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Actual_Close_Date__c</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_OWNER</field>
+    </columns>
+    <columns>
+        <field>User.Region__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Forecast_Category__c</field>
+    </columns>
+    <columns>
+        <field>INDUSTRY</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Industry__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>INDUSTRY</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>RETAIL:CFR,RETAIL:DSR,RETAIL:FDMM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Industry__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Retail</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>All Retail Opps Since Jan1 2020</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>OpportunityProduct</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2020-01-01</startDate>
+    </timeFrameFilter>
+</Report>

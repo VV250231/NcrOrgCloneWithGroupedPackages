@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>qtc_End_Date__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(ISPICKVAL(Type,&apos;Amendment&apos;) , SBQQ__Quote__r.SBQQ__MasterContract__r.EndDate , DATE(
+/*YEAR*/ 
+YEAR(EffectiveDate) + FLOOR((MONTH(EffectiveDate) + SBQQ__Quote__r.SBQQ__SubscriptionTerm__c- 1)/12), 
+
+/*MONTH*/ 
+CASE(MOD(MONTH(EffectiveDate) + SBQQ__Quote__r.SBQQ__SubscriptionTerm__c, 12 ), 0, 12, MOD(MONTH(EffectiveDate)+ SBQQ__Quote__r.SBQQ__SubscriptionTerm__c, 12 )), 
+
+/*DAY*/ 
+MIN(DAY(EffectiveDate), CASE(MOD(MONTH(EffectiveDate) + SBQQ__Quote__r.SBQQ__SubscriptionTerm__c,12), 
+9, 30, 
+4, 30, 
+6, 30, 
+11, 30, 
+2, 
+
+/* return max days for February dependent on if end date is leap year */ 
+IF(MOD(YEAR(EffectiveDate) + FLOOR((MONTH(EffectiveDate) + SBQQ__Quote__r.SBQQ__SubscriptionTerm__c)/12), 400) = 0 
+|| (MOD(YEAR(EffectiveDate) + FLOOR((MONTH(EffectiveDate) + SBQQ__Quote__r.SBQQ__SubscriptionTerm__c)/12), 4) = 0 
+&amp;&amp; MOD(YEAR(EffectiveDate) + FLOOR((MONTH(EffectiveDate) + SBQQ__Quote__r.SBQQ__SubscriptionTerm__c)/12), 100) &lt;&gt; 0 ), 
+29, 
+28), 
+31)) ) - 1
+)</formula>
+    <inlineHelpText>Effective end date of the subscriptions associated with this order</inlineHelpText>
+    <label>End Date</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Date</type>
+</CustomField>

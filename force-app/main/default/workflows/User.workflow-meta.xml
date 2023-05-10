@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>SCA_User_deactivation_from_NSC</fullName>
+        <ccEmails>IS230122@ncr.com</ccEmails>
+        <description>SCA_User_deactivation_from_NSC</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>at250303@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>DefaultWorkflowUser</senderType>
+        <template>unfiled$public/SCA_User_Deactivation_Notification</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Notification_to_User_For_Deactivation_if_user_has_not_login_more_that_3_Mon</fullName>
+        <description>Send Notification to User For Deactivation if user has not login more that 3 Months</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/User_Deactivation_Notification_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Test</fullName>
+        <description>Test</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>ad250024@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>pk185150@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/JP_Service_Failed</template>
+    </alerts>
+    <rules>
+        <fullName>DeactivationUserNotification</fullName>
+        <actions>
+            <name>Send_Notification_to_User_For_Deactivation_if_user_has_not_login_more_that_3_Mon</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <formula>AND(ISCHANGED(Notification_Send_Date__c) , Notification_Send_Date__c = TODAY(),IsActive = true)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>SCA_Users_Deactivation</fullName>
+        <actions>
+            <name>SCA_User_deactivation_from_NSC</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <description>This workflow rule will notify SCA Support Team when an SCA user gets deactivated in NSC using x500 feed in order to deactivate that user in SCA.
+SO_AGILE-22</description>
+        <formula>AND(ISCHANGED(IsActive), 
+NOT(CONTAINS(Profile.Name, &quot;Chatter&quot;)), 
+NOT(CONTAINS(Profile.Name, &quot;API&quot;)), 
+NOT(CONTAINS(Profile.Name, &quot;Community&quot;)), 
+NOT(CONTAINS(Profile.Name, &quot;Integration&quot;)),
+NOT(CONTAINS($User.Quicklook_ID__c, &quot;xx&quot;)),
+$User.Quicklook_ID__c = &apos;nscadmin&apos;)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

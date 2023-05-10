@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_82382758</developerName>
+        <masterLabel>Dept</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>ROLLUP_DESCRIPTION</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>NA IBG Kahuna</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NA IBG Kahuna AM Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NA IBG Kahuna AM Sales Reps</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NA IBG Kahuna Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NA IBG North Sales Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NA IBG Sales Manager 2</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NA IBG Sales Rep 2</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>CA IBG Account Director</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>CA IBG Canada</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>CA IBG Canada Sales Rep 1</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>CA IBG Relationship Manager</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>CA IBG Sales Manager 1</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>CA IBG Sales Manager 2</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>CA IBG Sales Rep 2</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Gaming IBG</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>CDS IBG Reps</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>US IBG</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>IBG Sales Manager</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NA FI VAR IBG</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NA CDS IBG</sourceValue>
+            </sourceValues>
+            <value>IBG</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Canada Retail and FI</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>CAN Sales &amp; RM</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NA FI National Accounts</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NA FI National Accounts Reps</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NA FI Relationship Mgmt Enterprise</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NA FI RM - Enterprise</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NA FI RM Nat &amp; Comm Reps</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NA FI RM National &amp; Comm</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NA FI Strategic Accounts</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NA FI Strategic Reps</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>MEX_Sales_Managers</sourceValue>
+            </sourceValues>
+            <value>FI</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>NA Retail (Corporate)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NA Retail Relationship Mgmt 1</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NA Retail Relationship Mgmt 2</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NA Retail RM Reps 1</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NA Retail RM Reps 2</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NA Retail Sales - C Stores</sourceValue>
+            </sourceValues>
+            <value>Retail</value>
+        </values>
+    </buckets>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Incremental_ACV__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>User.Business_Unit__c</field>
+    </columns>
+    <columns>
+        <field>ROLLUP_DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>Opportunity.Region__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>NABG</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>STAGE_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Closing,Closed/Booked</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Product_Category__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Equipment,VAR</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Incremental_ACV__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>greaterThan</operator>
+            <value>USD 0</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FULL_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>Hickl</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Month</dateGranularity>
+        <field>CLOSE_DATE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Opportunity.Geography__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_82382758</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Finance Scorecard</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>0</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CURY</interval>
+    </timeFrameFilter>
+</Report>

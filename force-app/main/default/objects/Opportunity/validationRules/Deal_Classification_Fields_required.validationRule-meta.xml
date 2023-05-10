@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Deal_Classification_Fields_required</fullName>
+    <active>true</active>
+    <description>This is to make the Deal Classification fields required when the end customer is known</description>
+    <errorConditionFormula>AND(
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+NOT(CATM_Record__c),
+NOT(Skip_Validation_Rule_for_Lead_Conversion__c),
+OR( 
+AND( 
+(ISPICKVAL( Prime__c ,&quot;&quot;) &amp;&amp; 
+(EndCustomerUnknown__c = False)&amp;&amp; 
+(End_Customer__c &lt;&gt; null) &amp;&amp; 
+($Profile.Name &lt;&gt; &quot;02 NSC Administrator&quot;) &amp;&amp; 
+($Profile.Name &lt;&gt; &quot;04 NSC UI Administrator&quot;)&amp;&amp; 
+($Profile.Name &lt;&gt; &quot;27 Marketing Campaign Admin&quot;)&amp;&amp; 
+($Profile.Name &lt;&gt; &quot;Soup Integration&quot;) &amp;&amp; 
+($Profile.Name &lt;&gt; &quot;iPaas Administration&quot;)&amp;&amp; 
+OR($RecordType.Name = &apos;Indirect - Include in Funnel Reseller&apos;,$RecordType.Name = &apos;Indirect - Include in Funnel Distributor&apos;,$RecordType.Name = &apos;Indirect - Exclude from Funnel&apos;))) 
+, 
+AND( 
+(ISPICKVAL( Prime__c ,&quot;&quot;) &amp;&amp; 
+(EndCustomerUnknown__c = False)&amp;&amp; 
+(End_Customer_Non_NCR__c &lt;&gt; null) &amp;&amp; 
+($Profile.Name &lt;&gt; &quot;02 NSC Administrator&quot;) &amp;&amp; 
+($Profile.Name &lt;&gt; &quot;04 NSC UI Administrator&quot;)&amp;&amp; 
+($Profile.Name &lt;&gt; &quot;27 Marketing Campaign Admin&quot;)&amp;&amp; 
+($Profile.Name &lt;&gt; &quot;Soup Integration&quot;) &amp;&amp; 
+($Profile.Name &lt;&gt; &quot;iPaas Administration&quot;)&amp;&amp; 
+OR($RecordType.Name = &apos;Indirect - Include in Funnel Reseller&apos;,$RecordType.Name = &apos;Indirect - Include in Funnel Distributor&apos;,$RecordType.Name = &apos;Indirect - Exclude from Funnel&apos;))) 
+, 
+AND( 
+(ISPICKVAL( Incumbent__c ,&quot;&quot;) &amp;&amp; 
+(EndCustomerUnknown__c = False)&amp;&amp; 
+(End_Customer__c &lt;&gt; null) &amp;&amp; 
+($Profile.Name &lt;&gt; &quot;02 NSC Administrator&quot;) &amp;&amp; 
+($Profile.Name &lt;&gt; &quot;04 NSC UI Administrator&quot;)&amp;&amp; 
+($Profile.Name &lt;&gt; &quot;27 Marketing Campaign Admin&quot;)&amp;&amp; 
+($Profile.Name &lt;&gt; &quot;Soup Integration&quot;) &amp;&amp; 
+($Profile.Name &lt;&gt; &quot;iPaas Administration&quot;)&amp;&amp; 
+OR($RecordType.Name = &apos;Indirect - Include in Funnel Reseller&apos;,$RecordType.Name = &apos;Indirect - Include in Funnel Distributor&apos;,$RecordType.Name = &apos;Indirect - Exclude from Funnel&apos;))) 
+, 
+AND( 
+(ISPICKVAL( Incumbent__c ,&quot;&quot;) &amp;&amp; 
+(EndCustomerUnknown__c = False)&amp;&amp; 
+(End_Customer_Non_NCR__c &lt;&gt; null) &amp;&amp; 
+($Profile.Name &lt;&gt; &quot;02 NSC Administrator&quot;) &amp;&amp; 
+($Profile.Name &lt;&gt; &quot;04 NSC UI Administrator&quot;)&amp;&amp; 
+($Profile.Name &lt;&gt; &quot;27 Marketing Campaign Admin&quot;)&amp;&amp; 
+($Profile.Name &lt;&gt; &quot;Soup Integration&quot;) &amp;&amp; 
+($Profile.Name &lt;&gt; &quot;iPaas Administration&quot;)&amp;&amp; 
+OR($RecordType.Name = &apos;Indirect - Include in Funnel Reseller&apos;,$RecordType.Name = &apos;Indirect - Include in Funnel Distributor&apos;,$RecordType.Name = &apos;Indirect - Exclude from Funnel&apos;))) 
+, 
+AND( 
+(ISPICKVAL( Incumbent__c ,&quot;&quot;) &amp;&amp; 
+(EndCustomerUnknown__c = False)&amp;&amp; 
+($Profile.Name &lt;&gt; &quot;02 NSC Administrator&quot;) &amp;&amp; 
+($Profile.Name &lt;&gt; &quot;04 NSC UI Administrator&quot;)&amp;&amp; 
+($Profile.Name &lt;&gt; &quot;27 Marketing Campaign Admin&quot;)&amp;&amp; 
+($Profile.Name &lt;&gt; &quot;Soup Integration&quot;) &amp;&amp; 
+($Profile.Name &lt;&gt; &quot;iPaas Administration&quot;)&amp;&amp; 
+OR($RecordType.Name = &apos;Indirect - Include in Funnel Reseller&apos;,$RecordType.Name = &apos;Indirect - Include in Funnel Distributor&apos;,$RecordType.Name = &apos;Indirect - Exclude from Funnel&apos;))) 
+, 
+AND( 
+(ISPICKVAL( Customer_Facing__c ,&quot;&quot;) &amp;&amp; 
+(EndCustomerUnknown__c = False)&amp;&amp; 
+(End_Customer_Non_NCR__c &lt;&gt; null) &amp;&amp; 
+($Profile.Name &lt;&gt; &quot;02 NSC Administrator&quot;) &amp;&amp; 
+($Profile.Name &lt;&gt; &quot;04 NSC UI Administrator&quot;)&amp;&amp; 
+($Profile.Name &lt;&gt; &quot;27 Marketing Campaign Admin&quot;)&amp;&amp; 
+($Profile.Name &lt;&gt; &quot;Soup Integration&quot;) &amp;&amp; 
+($Profile.Name &lt;&gt; &quot;iPaas Administration&quot;)&amp;&amp; 
+OR($RecordType.Name = &apos;Indirect - Include in Funnel Reseller&apos;,$RecordType.Name = &apos;Indirect - Include in Funnel Distributor&apos;,$RecordType.Name = &apos;Indirect - Exclude from Funnel&apos;))) 
+))</errorConditionFormula>
+    <errorMessage>Prime, Incumbent and Customer Facing fields are required.</errorMessage>
+</ValidationRule>

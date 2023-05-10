@@ -1,0 +1,281 @@
+<aura:component controller="PartnerMaturityController" implements="force:hasRecordId,flexipage:availableForAllPageTypes">
+	<aura:attribute name="accId" type="Id"  default="{!v.recordId}"/>
+    <aura:attribute name="statusOptions" type="String[]" description="options for status picklist" />
+    <aura:attribute name="matLvlRecords" type="List" />
+    <aura:attribute name="editMatRecords" type="PartnerMaturityController.MaturityLevelWrapper" />
+    <aura:attribute name="currentMatLvl" type="Object" />
+    <aura:attribute name="activeMatLvl" type="String" description="Current open maturity level for Account"/>
+    <aura:attribute name="approverComments" type="Object" description="Current level rejection comments" default="{'hascomments' : false}" />
+    <aura:attribute name="lastLvlApprvdComments" type="Object" description="Last level approved comments" default="{'hascomments' : false}" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+   <aura:if isTrue="{!(v.matLvlRecords.length > 0)}"> 
+    <div class="slds-box slds-m-bottom_small">
+     <h3 class="slds-theme_default slds-m-left_x-small" style="font-size:14px;">
+          <aura:if isTrue="{! !empty(v.currentMatLvl)}">
+             <span  style="font-weight:bold">Current Level</span> = {!v.currentMatLvl.level}<br/>
+             <span  style="font-weight:bold">Approval Status</span> = {!v.currentMatLvl.aprvlStatus} 
+         </aura:if> 
+         <aura:if isTrue="{!(v.approverComments.hascomments)}"> <div><span  style="font-weight:bold">Approver Comments</span> = {!v.approverComments.comments}</div></aura:if>
+         <aura:if isTrue="{!(v.lastLvlApprvdComments.hascomments)}"><div><span  style="font-weight:bold">Last Level Approved Comments</span> = {!v.lastLvlApprvdComments.comments}</div> </aura:if>
+    </h3>
+    </div>
+   </aura:if>
+    
+    <ul class="slds-accordion pmsadian">
+	    <aura:iteration items="{!v.matLvlRecords}" var="levelitem" indexVar="itemIndex">	
+          <li class="slds-accordion__list-item">
+            <section class="{!if(levelitem.level == v.activeMatLvl,'slds-accordion__section slds-is-open','slds-accordion__section')}" id="{!'section-' + itemIndex }">
+              <div class="slds-accordion__summary">
+                <h3 class="slds-text-heading_small slds-accordion__summary-heading">
+                   <button aria-expanded="true" class="slds-button slds-button_reset slds-accordion__summary-action" onclick="{!c.accordHeaderClick}" id="{!levelitem.uniqname + '-btn'}">
+                  		 <lightning:icon iconName="utility:switch" size="x-small" class="slds-button__icon slds-button__icon_left slds-accordion__summary-action-icon" />
+                         <span class="slds-truncate accrdheader" title="Accordion summary">{!levelitem.level}</span>
+                  </button>
+                </h3>
+              </div>
+              <div aria-hidden="false" class="slds-accordion__content">
+            	<div class="slds-scrollable_x">
+                    <table class="slds-table">
+                        <thead>
+                            <tr class="headerrow">
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Order">&nbsp;</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="" title="Actions">Actions</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Date Completed">Date Completed</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Status">Status</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Owner">Owner</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="EST Complete Date">EST Complete Date</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Comments">Comments</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <aura:iteration items="{!levelitem.actionsList}" var="item">
+                                <tr>
+                                    <td data-label="Order">
+                                        <div class="slds-truncate" title="A">{!item.actionOrder}</div>
+                                    </td>
+                                    <td data-label="Action">
+                                        <div class="" >{!item.action}&nbsp;
+                                            <aura:if isTrue="{!item.helptext != null}">
+                                            <div class="tooltip ">
+                                               <lightning:icon iconName="utility:info" size="xx-small" />
+                                                <span class="tooltiptext slds-cell-wrap" style="width: 300px;">&nbsp;{!item.helptext}
+                                                </span>
+                                            </div>
+                                            </aura:if>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate">{!item.dateCompleted}</div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate">{!item.status}</div>
+                                    </td>
+                                    <td >
+                                        <div class="slds-truncate">{!item.actionOwner}</div>
+                                    </td>
+                                    <td >
+                                        <div class="slds-truncate">{!item.estCompleteDate}</div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate">{!item.actionComments}</div>
+                                    </td>
+                                </tr>
+                            </aura:iteration>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                
+                  <lightning:card class="slds-m-top_medium" > 
+                      <aura:set attribute="title">
+                          <aura:if isTrue="{!(levelitem.aprvlStatus == 'Approved')}">                    
+                              <h3 class="slds-theme_default slds-m-left_x-small" style="font-size:14px;">
+                                  <span title="Section Title">Date Approved = {!levelitem.aprvlDate}</span><br/>
+                              </h3> 
+                          </aura:if>
+                      </aura:set>      
+                      <aura:set attribute="actions">
+                          <aura:if isTrue="{!levelitem.editAccesss}"> 
+                              <lightning:button label="Edit" variant="brand" name="{!'editbtn-' + itemIndex}" onclick="{!c.showEditModal}" disabled="{!or(levelitem.aprvlStatus =='Submitted', levelitem.aprvlStatus == 'Approved')}" />
+                          </aura:if> 
+                          <aura:if isTrue="{!and(levelitem.level == levelitem.currentMatlevel,levelitem.editAccesss)}">
+                              <lightning:button label="Submit for Approval" variant="brand" onclick="{!c.submitApprovalClick}" disabled="{!or(levelitem.aprvlStatus =='Submitted', levelitem.aprvlStatus == 'Approved')}" />
+                          </aura:if>
+                      </aura:set>
+                  </lightning:card> 
+              </div>
+            </section>
+          </li> 
+       </aura:iteration>
+    </ul>
+  <!-- all level comp msg -->  
+    <div aura:id="allcompletemsg" class="slds-hide" style="padding-top:10px;">
+    <div  class="slds-inline_icon_text" style="display:inline-flex;justify-content:center;">
+        <lightning:icon iconName="utility:info" size="small" class="slds-icon slds-icon_small slds-m-right_small slds-no-flex" />
+        <div class="slds-align-middle"><p>You have completed all levels.</p></div>
+    </div>
+    </div>    
+  <!-- all level comp msg --> 
+    
+    <!-- approval warning prompt -->
+    <div aura:id="prmtForBlkAct" class="slds-hide" style="height: 24rem;">
+        <section role="alertdialog" tabindex="-1" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper" class="slds-modal slds-fade-in-open slds-modal_prompt">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header slds-theme_error slds-theme_alert-texture">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+                        
+                    </button>
+                    <h2 class="slds-text-heading_medium" id="prompt-heading-id">Warning</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <p><aura:text aura:id="warningprmpt"></aura:text></p>
+                    
+                </div>
+                <footer class="slds-modal__footer slds-theme_default">
+                    <button class="slds-button slds-button_neutral" onclick="{!c.hidePrompt}">Okay</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+    <!-- approval warning prompt -->
+    
+    <!--edit modal section-->
+        <section tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_large slds-hide"  aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" aura:id="accrdEditModal" > <!--  style="display:none" -->
+            <div class="slds-modal__container" style="width:78%;padding-top:8.5rem;">  
+                <!-- aura:iteration items="{!v.editMatRecords}" var="levelitem">
+                	<aura:if isTrue="{!(levelitem.level == levelitem.currentMatlevel)}"> -->
+                                    
+                <header class="slds-modal__header" id="modal-heading-01">
+                    <h2 class="slds-text-heading_medium slds-hyphenate">Edit {!v.editMatRecords.level}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" aura:Id="editmodal_content" style="padding: 0.4rem;padding-top:0px;">
+					<div class="slds-scrollable_x">
+                        
+                        <ui:message aura:id="psmuimsg"  class="slds-theme_error slds-hide" title="Error" closable="false">
+                            <!-- ui:outputText aura:Id="psmerrortxt" /-->
+                            <aura:unescapedHtml aura:Id="psmerrortxt" />.
+                        </ui:message>
+                    <table class="slds-table slds-has-top-magnet slds-table_bordered">
+                        <thead>
+                            <tr class="headerrow">
+                                <th scope="col">
+                                    <div title="Order">&nbsp;</div>
+                                </th>
+                                <th scope="col">
+                                    <div title="Action">Actions</div>
+                                </th>
+                                <th scope="col">
+                                    <div title="Date Completed">Date Completed</div>
+                                </th>
+                                <th scope="col">
+                                    <div title="Status">Status</div>
+                                </th>
+                                <th scope="col">
+                                    <div title="Owner">Owner</div>
+                                </th>
+                                <th scope="col">
+                                    <div title="EST Complete Date">EST Complete Date</div>
+                                </th>
+                                <th scope="col">
+                                    <div title="Comments">Comments</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                               
+                               <aura:iteration items="{!v.editMatRecords.actionsList}" var="item">
+                                    <tr>
+                                    <td data-label="Order">
+                                        <div>{!item.actionOrder}</div>
+                                    </td>
+                                    <td data-label="Action" style="width:30%;"> 
+                                        <div class="">{!item.action}&nbsp;
+                                         <aura:if isTrue="{!item.helptext != null}">
+                                             <div class="tooltip">
+                                               <lightning:icon iconName="utility:info" size="xx-small" />
+                                                <span class="tooltiptext slds-cell-wrap" style="width: 300px;">&nbsp;{!item.helptext}
+                                                </span>
+                                            </div>
+                                            </aura:if>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <ui:inputDate aura:Id="actionCompDate" class="pmsinput" value="{!item.dateCompleted}" displayDatePicker="true" change="{!c.compDateChange}"/>   
+                                    </td>
+                                    <td>
+                                        <ui:inputSelect class="pmsselect" value="{!item.status}" >
+                                            <ui:inputSelectOption label="-None-" />
+                                            <aura:iteration items="{!v.statusOptions}" var="level">
+                                                <ui:inputSelectOption text="{!level}" label="{!level}"  />
+                                            </aura:iteration>
+                                        </ui:inputSelect> 
+                                        <!-- ui:inputText class="slds-input" value="{!item.status}" /-->
+                                    </td>
+                                    <td >
+                                        <ui:inputText class="slds-input pmsinput" value="{!item.actionOwner}" maxlength="120"/>
+                                    </td>
+                                    <td >
+                                    	<ui:inputDate aura:Id="inputESTDate" class="pmsinput" value="{!item.estCompleteDate}" displayDatePicker="true"/>
+                                    </td>
+                                    <td>
+                                        <ui:inputTextArea value="{!item.actionComments}" maxlength="255" cols="45" />
+                                    </td>
+                                </tr>
+                                    </aura:iteration>
+                            </tbody>
+                        </table>
+                         <!-- modal spinner -->
+                        <div class="slds-spinner_container slds-hide" aura:id="modalspinner">
+                        <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand" >
+                            <span class="slds-assistive-text">Loading</span>
+                            <div class="slds-spinner__dot-a"></div>
+                            <div class="slds-spinner__dot-b"></div>
+                        </div>
+                        </div>
+                        <!-- modal spinner -->
+                    </div>
+                    </div>
+                     
+                <div class="slds-modal__footer"> 
+                    <lightning:button label="Cancel" variant="neutral" onclick="{!c.modalCancelClick}" />
+                    <lightning:button label="Save" variant="brand" onclick="{!c.modalSaveClick}" />
+                </div>
+            </div>
+                                     
+        </section>
+    <!--edit modal section-->
+ 
+    <!-- hover div -->
+    <div class="slds-backdrop slds-backdrop_open slds-hide" aura:id="hoverSection" id="hoverSection"></div>
+    <!-- hover div -->
+    
+    <!-- Spinner -->
+    <div class="slds-spinner_container" aura:id="spinnerDiv">
+        <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand" >
+            <span class="slds-assistive-text">Loading</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+        </div>
+    </div>
+    <!-- Spinner -->
+    <!-- preload calendar icon -->
+    <div class="slds-hidden"><ui:inputDate displayDatePicker="true"/></div>
+    <!-- preload calendar icon -->
+</aura:component>

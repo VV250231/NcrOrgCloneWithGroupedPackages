@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_Negative_UnitPrice</fullName>
+    <active>false</active>
+    <errorConditionFormula>UnitPrice &lt; 0 &amp;&amp; IF(Opportunity.CPQ__c, FALSE, TRUE)</errorConditionFormula>
+    <errorDisplayField>UnitPrice</errorDisplayField>
+    <errorMessage>Net Unit Price should not be negative.</errorMessage>
+</ValidationRule>

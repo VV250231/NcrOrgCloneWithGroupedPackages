@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>zqu__Quote__c.Total_One_Time_Fee__c</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c.zqu__Number__c</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c.zqu__Status__c</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c.Billing_Team__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>zbilling</description>
+    <filter>
+        <criteriaItems>
+            <column>zqu__Quote__c.zqu__Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Sent to Z-Billing</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FK_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Engage Mobile Development Fee</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FK_$zqu__QuoteRatePlan__c.zqu__QuoteRatePlanFullName__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Engage</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Engage Mobile Dev Fee Activation Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntityCustomEntity$zqu__Quote__c$Quote_Product__c@Quote_Product__c.Quote_Rate_Plan__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>zqu__Quote__c.zqu__Status__c</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>zqu__Quote__c.Forecasted_Live_Date__c</dateColumn>
+        <interval>INTERVAL_CURFY</interval>
+    </timeFrameFilter>
+</Report>

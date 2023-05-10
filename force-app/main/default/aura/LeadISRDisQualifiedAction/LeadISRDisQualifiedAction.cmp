@@ -1,0 +1,52 @@
+<aura:component controller="Controller_lead_process_tracker" implements="force:lightningQuickActionWithoutHeader,flexipage:availableForRecordHome,force:hasRecordId">
+    <aura:attribute type="List" name="tracker_details" />
+   <aura:handler name="init" value="{!this}" action="{!c.load_details}" />
+    <aura:attribute name="recordidd" type="Id"  default="{!v.recordId}"/>
+    <!--<aura:handler event="force:refreshView" action="{!c.load_details}" />-->
+    <aura:attribute name="show_modal" type="Boolean" default="true"/>
+    <aura:attribute name="modaldetials" type="string" />
+    <aura:attribute name="dependentlist" type="string[]" />    
+    <aura:attribute name="depend_value" type="string[]" />
+    <aura:attribute name = "update_disabled" type = "Boolean" default="true" />
+    <aura:attribute name="disVal" type="string" default="Disqualified" />
+    <aura:if isTrue="{!v.show_modal}">
+    
+        <!-- <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                 <div class="slds-modal__container" >
+                    -->
+                     <lightning:recordEditForm aura:id="myRecordForm"
+                                                  class="width_form" 
+                                                  recordId="{!v.recordidd}" 
+                                                  objectApiName="Lead" 
+                                                  onsuccess="{!c.onSuccess}"
+                                                  onsubmit="{!c.onSubmit}"
+                                                  onload="{!c.onLoad}">
+                            <div class="slds-media">
+                                <div class="slds-media__body">
+                                    <!--    <lightning:inputField fieldName="Branches__c" /> -->
+                               <lightning:inputField disabled="true" aura:id="status" fieldName="Status" value="{!v.disVal}" />
+   
+                                    <aura:iteration items="{!v.dependentlist}" var="item" >
+                                        <lightning:inputField disabled="false" class="{!item}" required="true" aura:id="{!item}" id="{!item}" fieldName="{!item}" />
+                                    </aura:iteration>
+                                    <p>Disqualified Reason</p>
+                                    <ui:inputSelect class="single" aura:id="InputSelectSingle" required="true" change="{!c.onSingleSelectChange}">
+                                        <ui:inputSelectOption text="--None--" value="true"/>
+                                        <aura:iteration items="{!v.depend_value}" var="label" >
+                                            <ui:inputSelectOption text="{!label}"  />
+                                        </aura:iteration>
+                                    </ui:inputSelect>
+                                    <lightning:layout horizontalAlign="center" class="slds-m-top_large set_margin_b">
+                                        <lightning:button class="slds-m-top_small" variant="brand" type="submit" disabled="{!v.update_disabled}" onclick="{!c.show_Submit_modal}" name="update" label="Update" />
+                                        <lightning:button class="slds-m-top_small" variant="neutral"  aura:id="cancel"  value='cancel'  type="cancel" onclick="{!c.show_cancel}" label="Cancel" />
+                                    </lightning:layout>
+                                </div>
+                            </div>
+                        </lightning:recordEditForm>
+        <!--</div>
+                
+            </section>
+            <div class="slds-backdrop slds-backdrop_open" />-->
+        
+    </aura:if>
+  </aura:component>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Change_Creation_Category</fullName>
+    <active>true</active>
+    <description>If Case is closed and creation category other reason is &apos;Entered by cistomer&apos;.</description>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName = &quot;Hospitality_Support&quot;,
+Hospitality_Validation_Rule_Bypass_flag__c == False,
+$Setup.Automation_Setting__c.Skip_Validation_Rule__c == FALSE,
+ISPICKVAL(Status, &quot;Closed&quot;),
+CONTAINS(&quot;Entered by Customer&quot;,Creation_Other__c),
+NOT( ISBLANK(Creation_Other__c) )
+)</errorConditionFormula>
+    <errorMessage>Please change creation category</errorMessage>
+</ValidationRule>

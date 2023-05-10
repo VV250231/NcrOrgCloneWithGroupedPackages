@@ -1,0 +1,47 @@
+<template>
+  
+    <div class="slds-grid slds-wrap">
+      <div class="slds-col slds-size_1-of-1 slds-m-bottom_small">
+        <div class="slds-text-align_center">
+         
+            <template if:false={revenuedata}>
+              <h1
+                class="slds-p-left_small slds-p-right_small slds-text-heading_small slds-p-bottom_small"
+              >
+                <strong
+                  > Data Not Available!!!</strong
+                >
+              </h1>
+            </template>
+         
+        </div>
+      </div>
+      <!--div class="slds-col slds-col slds-size_1-of-2"-->
+      <!--<div class="slds-float_right" >-->
+      
+      
+      <div style="height:40vh; width:40vw"
+      
+    >
+      <div class="slds-text-align_left prm-padding ">
+        <div class="inner-box">
+          <div class="round">
+            <canvas
+              lwc:dom="manual"
+              data-id="pieChart"
+              width="100"
+              height="50"
+              class="pie-chart"
+              role="img"
+            ></canvas>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+     
+       
+      
+    </div>
+  
+</template>

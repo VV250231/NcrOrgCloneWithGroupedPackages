@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Request_Type_Mapping__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(AND(Out_of_Scope__c, ISPICKVAL(Service_Level_Name__c, &apos;15 Day Repair &amp; Return&apos;)),&apos;RMA-RRA&apos; ,  
+			IF(AND(Out_of_Scope__c, ISPICKVAL(Service_Level_Name__c, &apos;5x9 NBD PO&apos;)),&apos;RMA-STD&apos; ,
+						IF(ISPICKVAL(Request_Type__c, &apos;NEW FOR NEW&apos;), &apos;New-OBF&apos;,
+									IF(ISPICKVAL(Request_Type__c, &apos;RMA UPGRADE&apos;) ,&apos;RMA-UPG&apos; ,
+												IF(ISPICKVAL(Request_Type__c, &apos;WRONG PART SHIPPED&apos;) ,&apos;RMA-ERR&apos; ,
+															IF(ISPICKVAL(Request_Type__c, &apos;OUT OF BOX FAILURE&apos;) ,&apos;RMA-OBF&apos; ,
+                IF(AND(ISPICKVAL(Service_Level_Type__c, &apos;TPM&apos;), Service_Level_Response__c != &apos;RRR&apos;), &apos;3rd Party Dispatch&apos; ,  
+			                IF(AND(ISPICKVAL(Service_Level_Type__c, &apos;AED&apos;), Service_Level_Response__c != &apos;RRR&apos;), &apos;RMA-STD&apos; ,
+					                	IF(AND(Service_Level_Response__c = &apos;RRR&apos;, OR(ISPICKVAL(Service_Level_Type__c, &apos;AED&apos;), ISPICKVAL(Service_Level_Type__c, &apos;TPM&apos;))), &apos;RMA-RRW&apos;
+																											, &apos;Unknown&apos;
+																									)
+																						)
+																			)
+																)
+													)
+											)
+								)
+					)
+		)</formula>
+    <label>Request Type (Mapping)</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Make_Opportunity_2_Field_Required</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF( AND( Multiple_Opportunities__c = True, 
+ISBLANK( Opportunity_2__c ) ) , True, False)</errorConditionFormula>
+    <errorDisplayField>Opportunity_2__c</errorDisplayField>
+    <errorMessage>Please fill in Value for Opportunity 2.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,8 @@
+<apex:component access="global">
+  <apex:attribute name="heading" type="String" required="false" description="Heading of the Email"/>
+  <apex:outputPanel rendered="{!NOT(ISBLANK(heading))}">
+      <p style="font-family: 'Raleway', Arial, Helvetica, sans-serif; font-size: 20px; font-weight:700; line-height: 23px; color: #1d1d1d;">
+       <apex:outputText value="{!heading}"/><br/>
+       <img src="https://ncrpr.ncr.com/web/RsdMkt/emailCampaigns/templates/internalComms/images/green-line.png" width="623" height="2"/></p>
+  </apex:outputPanel>
+</apex:component>

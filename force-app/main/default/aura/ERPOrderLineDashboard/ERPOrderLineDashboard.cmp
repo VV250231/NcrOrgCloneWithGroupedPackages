@@ -1,0 +1,137 @@
+<aura:component controller="ERPOrderLineDashboardController" implements="lightning:isUrlAddressable,force:appHostable,forceCommunity:searchInterface,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    <aura:attribute name="accountName" type="String"/>
+    <aura:attribute name="searchText" type="String"/>
+    <aura:attribute name="orderId" type="String"/>
+    
+    <!-- DATA TABLE Attributes  -->
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="originalOrderNbr" type="String" />
+    
+    <!-- END DATA TABLE Attributes  -->
+    <!-- PAGINATION attributes --> 
+    <aura:attribute name="paginationList" type="Object"/>
+    <aura:attribute name="startPage" type="Integer" />
+    <aura:attribute name="endPage" type="Integer"/>
+    <aura:attribute name="totalRecordsCount" type="Integer"/>
+    <aura:attribute name="pageSize" type="Integer" default="20" description="number of records to be display on per page"/>
+    <aura:attribute name="currentPage" type="Integer" default="1"/>
+    <aura:attribute name="totalPagesCount" type="Integer" default="1"/>
+    <aura:attribute name="bNoRecordsFound" type="boolean"/>
+    <!-- PAGINATION attributes -->
+    
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <div class="slds-wrap slds-grid_pull-padded ">
+        <aura:if isTrue="{!v.showSpinner}" >
+            <lightning:spinner alternativeText="Loading" size="large" />
+        </aura:if>
+        <div class="slds-col_padded slds-p-bottom_large">
+            <div class="slds-box slds-box_small slds-theme_shade">
+                <div class="slds-media">
+                    <div class="slds-media__figure">
+                        <span class="slds-avatar slds-avatar_large">
+                            <img src="{!$Resource.DQCImages + '/Order.png'}"/>
+                            
+                            <!--  <lightning:icon iconName="standard:account" size="large" alternativeText="Accounts"/> -->
+                            
+                        </span>
+                    </div>
+                    <div class="slds-media__body">    
+                        <div class="slds-text-color_weak"><span>Order Detail - Order Nbr {!v.originalOrderNbr}</span>
+                            <span class="layout slds-float_right">
+                                <!--<aura:if isTrue="{!v.currentList.length > 2000}">
+                                    <lightning:icon iconName="utility:warning" size="small" variant="warning"/>
+                                </aura:if>
+                                <ui:outputText value="{!v.exportMessage}" />-->
+                            </span>
+                        </div>
+                        <aura:if isTrue="{!v.currentList.length > 0}">
+                            <span class="button slds-float_right"><button class="slds-button slds-button--neutral" onclick="{!c.downloadCsv}">Export</button></span>
+                        </aura:if>
+                        <div>
+                            <h2>
+                                <span class="slds-text-heading_large">{!v.accountName}</span>
+                                
+                                <div class="slds-form-element slds-lookup slds-float_right" data-select="single" style="width:30% ; margin-right:30px ;padding-bottom:5px;margin-top:-20px;">
+                                   <!-- <div>
+                                        <i> Search by PO Number </i>
+                                    </div>-->
+                                    
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-input-has-icon slds-input-has-icon--right">
+                                          <!--  <lightning:buttonIcon iconName="utility:search" variant="bare" onclick="{!c.handleSearchOrderLinesByBillToCustomer}"   alternativeText="Search" class="slds-input__icon" />
+                                            <ui:inputText value="{!v.searchText}" class="slds-lookup__search-input slds-input" placeholder="Search" /> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </h2>
+                            <div class="slds-text-color_default slds-float_right textsetting"><!-- <i>All amounts included/displayed are in USD 1000. Hover over the amount to see full value.</i> --> </div>
+                            
+                            <!--span class="layout slds-float_right"><i>This funnel is based on your territory assignment from icentivizer. This may differ from funnel reports directly in Salesforce.</i></span-->
+                        </div></div>
+                </div>
+                
+                <div class="slds-border_top"></div>
+                <div id="outer" class="outer-div" style="height: auto">
+                    <div style="height: auto">
+                        <lightning:datatable
+                                             keyField="id"
+                                             data="{! v.paginationList }"
+                                             columns="{! v.columns }"
+                                             hideCheckboxColumn="true"
+                                             onrowaction="{!c.viewOrderRecord}" />            
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--  Pagination Buttons Start -->
+        <aura:if isTrue="{!v.totalPagesCount>1}">
+        <div class="slds-clearfix">
+            <div class="slds-align_absolute-center">         
+                <lightning:button label="Prev"
+                                  disabled="{!v.startPage == 0}"  
+                                  onclick="{!c.navigation}"
+                                  variant="brand"
+                                  iconName="utility:back"
+                                  name="previous"/>
+                
+                <span class="slds-badge slds-badge_lightest"
+                      style="margin-right: 10px;margin-left: 10px;">
+                    Page {!v.currentPage} out of {!v.totalPagesCount}
+                </span>
+                
+                <lightning:button label="Next"
+                                  disabled="{!(v.endPage + 1) >= v.totalRecordsCount}" 
+                                  onclick="{!c.navigation}"
+                                  variant="brand"
+                                  iconName="utility:forward"
+                                  iconPosition="right"
+                                  name="next"/>
+            </div>  
+            <div class="slds-align_absolute-center">         
+                
+                <span
+                      style="margin-right: 10px;margin-left: 50px;">
+                    Page:
+                </span>
+                <span 
+                      style="margin-right: 10px;margin-left: 10px; margin-bottom: 20px;width: 25% margin-left: 150px;" >
+                    <lightning:input name="input1" label="" aura:id="inp1" />
+                </span>
+                <lightning:button label="GoTo Page"
+                                  onclick="{!c.goToPage}"
+                                  variant="brand"
+                                  iconName="utility:search"
+                                  iconPosition="right"
+                                  name="GoTo Page"
+                 />
+            </div>  
+        </div>
+        <!--  Pagination Buttons End -->
+        </aura:if>
+    </div>
+</aura:component>

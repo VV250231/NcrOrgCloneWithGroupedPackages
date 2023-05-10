@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Idea_Category_Changed</fullName>
+        <description>Idea Category Changed</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Di_Idea_Product_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Di_Idea_Alt_1st_Product_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Di_Idea_Alt_2nd_Product_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Di_Idea_Alt_3rd_Product_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>idea.exchange@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Idea/Idea_Category_Changed</template>
+    </alerts>
+    <alerts>
+        <fullName>Idea_Owner_Changed</fullName>
+        <description>Idea Owner Changed</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Di_Idea_Product_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Di_Idea_Alt_1st_Product_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Di_Idea_Alt_2nd_Product_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Di_Idea_Alt_3rd_Product_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>idea.exchange@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Idea/Idea_Owner_Changed</template>
+    </alerts>
+    <alerts>
+        <fullName>Idea_Owner_Changed_Old</fullName>
+        <description>Idea Owner Changed Old</description>
+        <protected>false</protected>
+        <recipients>
+            <field>OldEmail__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>idea.exchange@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Idea_Owner_Changed_Old</template>
+    </alerts>
+    <alerts>
+        <fullName>Idea_Status_Change</fullName>
+        <description>Idea Status Change</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderAddress>idea.exchange@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Idea/Idea_Status_Change</template>
+    </alerts>
+    <alerts>
+        <fullName>Idea_Submitted</fullName>
+        <description>Idea Submitted</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Di_Idea_Product_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>idea.exchange@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Idea/Idea_Submitted</template>
+    </alerts>
+    <alerts>
+        <fullName>SLA_1_Overdue</fullName>
+        <description>SLA 1 Overdue</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Di_Idea_Product_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>idea.exchange@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Idea/SLA_1_Overdue</template>
+    </alerts>
+    <alerts>
+        <fullName>SLA_1_almost_due_SLA_1_being_Product_Team_Review_for_almost_2_weeks</fullName>
+        <description>SLA 1 almost due (SLA 1 being Product Team Review for almost 2 weeks)</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Di_Idea_Product_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>idea.exchange@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Idea/SLA_1_almost_due_SLA_1_being_Product_Team_Review_for_almost_2_weeks</template>
+    </alerts>
+    <alerts>
+        <fullName>SLA_1_due_Product_Team_Review_for_2_weeks</fullName>
+        <description>SLA 1 due – Product Team Review for 2 weeks</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Di_Idea_Product_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>idea.exchange@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Idea/SLA_1_due_Product_Team_Review_for_2_weeks</template>
+    </alerts>
+    <alerts>
+        <fullName>SLA_2_Overdue</fullName>
+        <description>SLA 2 Overdue</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Di_Idea_Product_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>idea.exchange@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Idea/SLA_2_Overdue</template>
+    </alerts>
+    <alerts>
+        <fullName>SLA_2_almost_due_SLA_2_being_Under_Analysis_or_Additional_Information_Required</fullName>
+        <description>SLA 2 almost due (SLA 2 being Under Analysis or Additional Information Required</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Di_Idea_Product_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>idea.exchange@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Idea/SLA_2_almost_due_SLA_2_being_Under_Analysis_or_Additional_Information_Required</template>
+    </alerts>
+    <alerts>
+        <fullName>SLA_2_due</fullName>
+        <description>SLA 2 due</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Di_Idea_Product_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>idea.exchange@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Idea/SLA_2_due</template>
+    </alerts>
+    <alerts>
+        <fullName>SLA_3_Overdue</fullName>
+        <description>SLA 3 Overdue</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Di_Idea_Product_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>idea.exchange@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Idea/SLA_3_Overdue</template>
+    </alerts>
+    <alerts>
+        <fullName>SLA_3_almost_due_Accepted_or_Release_Scheduled_almost_6_months</fullName>
+        <description>SLA 3 almost due (Accepted or Release Scheduled almost 6 months)</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Di_Idea_Product_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>idea.exchange@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Idea/SLA_3_almost_due_Accepted_or_Release_Scheduled_almost_6_months</template>
+    </alerts>
+    <alerts>
+        <fullName>SLA_3_due</fullName>
+        <description>SLA 3 due</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Di_Idea_Product_Manager_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>idea.exchange@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Idea/SLA_3_due</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Auto_Status_Change_After_12Months</fullName>
+        <field>Status</field>
+        <literalValue>Product Team Review</literalValue>
+        <name>Auto Status Change After 12Months</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Idea_Due_Date_SLA_1</fullName>
+        <field>Di_Idea_Due_Date__c</field>
+        <formula>NOW()  + 14</formula>
+        <name>Idea Due Date : SLA 1</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Idea_Due_Date_SLA_2</fullName>
+        <field>Di_Idea_Due_Date__c</field>
+        <formula>NOW() + 90</formula>
+        <name>Idea Due Date : SLA 2</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Idea_Due_Date_SLA_3</fullName>
+        <field>Di_Idea_Due_Date__c</field>
+        <formula>NOW() + 180</formula>
+        <name>Idea Due Date : SLA 3</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Idea_SLA_Status_1</fullName>
+        <field>Di_Idea_SLA_Status__c</field>
+        <literalValue>SLA 1 Voilated</literalValue>
+        <name>Idea SLA Status 1</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Idea_SLA_Status_2</fullName>
+        <field>Di_Idea_SLA_Status__c</field>
+        <literalValue>SLA 2 Voilated</literalValue>
+        <name>Idea SLA Status 2</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Idea_SLA_Status_3</fullName>
+        <field>Di_Idea_SLA_Status__c</field>
+        <literalValue>SLA 3 Voilated</literalValue>
+        <name>Idea SLA Status 3</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>OldOwnerName</fullName>
+        <field>OldOwnerName__c</field>
+        <formula>TEXT(PRIORVALUE(Di_Idea_Product_Manager_Name__c))</formula>
+        <name>OldOwnerName</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateOldEmail</fullName>
+        <field>OldEmail__c</field>
+        <formula>PRIORVALUE( Di_Idea_Product_Manager_Email__c)</formula>
+        <name>UpdateOldEmail</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Auto Status Change After 12 Months</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Idea.Status</field>
+            <operation>equals</operation>
+            <value>Future Consideration</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Auto_Status_Change_After_12Months</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>365</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Idea Category Changed</fullName>
+        <actions>
+            <name>Idea_Category_Changed</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <formula>ISCHANGED(Di_Idea_Category__c)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Idea Owner Changed</fullName>
+        <actions>
+            <name>Idea_Owner_Changed</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>Idea_Owner_Changed_Old</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <formula>AND( ISCHANGED( OldOwnerName__c ) ,ISCHANGED(  OldEmail__c ))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Idea Status Change</fullName>
+        <actions>
+            <name>Idea_Status_Change</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <formula>ISCHANGED( Status)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Idea Submitted</fullName>
+        <actions>
+            <name>Idea_Submitted</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <formula>true</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>SLA 1 Overdue</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Idea.Status</field>
+            <operation>equals</operation>
+            <value>Product Team Review</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>SLA_1_Overdue</name>
+                <type>Alert</type>
+            </actions>
+            <actions>
+                <name>Idea_SLA_Status_1</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>15</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>SLA 1 almost due %28SLA 1 being Product Team Review for almost 2 weeks%29</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Idea.Status</field>
+            <operation>equals</operation>
+            <value>Product Team Review</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>SLA_1_almost_due_SLA_1_being_Product_Team_Review_for_almost_2_weeks</name>
+                <type>Alert</type>
+            </actions>
+            <timeLength>12</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>SLA 1 due %E2%80%93 Product Team Review for 2 weeks</fullName>
+        <actions>
+            <name>Idea_Due_Date_SLA_1</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Idea.Status</field>
+            <operation>equals</operation>
+            <value>Product Team Review</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>SLA_1_due_Product_Team_Review_for_2_weeks</name>
+                <type>Alert</type>
+            </actions>
+            <timeLength>14</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>SLA 2 Overdue</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Idea.Status</field>
+            <operation>equals</operation>
+            <value>Under Analysis,Additional Information Required</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>SLA_2_Overdue</name>
+                <type>Alert</type>
+            </actions>
+            <actions>
+                <name>Idea_SLA_Status_2</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>91</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>SLA 2 almost due %28SLA 2 being Under Analysis or Additional Information Required</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Idea.Status</field>
+            <operation>equals</operation>
+            <value>Under Analysis,Additional Information Required</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>SLA_2_almost_due_SLA_2_being_Under_Analysis_or_Additional_Information_Required</name>
+                <type>Alert</type>
+            </actions>
+            <timeLength>85</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>SLA 2 due</fullName>
+        <actions>
+            <name>Idea_Due_Date_SLA_2</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Idea.Status</field>
+            <operation>equals</operation>
+            <value>Under Analysis,Additional Information Required</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>SLA_2_due</name>
+                <type>Alert</type>
+            </actions>
+            <timeLength>90</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>SLA 3 Overdue</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Idea.Status</field>
+            <operation>equals</operation>
+            <value>Accepted,Release Scheduled</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>SLA_3_Overdue</name>
+                <type>Alert</type>
+            </actions>
+            <actions>
+                <name>Idea_SLA_Status_3</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>185</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>SLA 3 almost due %28Accepted or Release Scheduled almost 6 months%29</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Idea.Status</field>
+            <operation>equals</operation>
+            <value>Accepted,Release Scheduled</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>SLA_3_almost_due_Accepted_or_Release_Scheduled_almost_6_months</name>
+                <type>Alert</type>
+            </actions>
+            <timeLength>165</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>SLA 3 due</fullName>
+        <actions>
+            <name>Idea_Due_Date_SLA_3</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Idea.Status</field>
+            <operation>equals</operation>
+            <value>Accepted,Release Scheduled</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>SLA_3_due</name>
+                <type>Alert</type>
+            </actions>
+            <timeLength>180</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>UpdateOldEmail</fullName>
+        <actions>
+            <name>OldOwnerName</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>UpdateOldEmail</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>ISCHANGED( Di_Idea_Product_Manager_Name__c)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>In_Year_Revenue_Calc__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( OR(YEAR(Expected_Service_Start_Date__c) =  YEAR(CloseDate), YEAR(Expected_Service_Start_Date__c) =  YEAR( TODAY() )),
+	IF(AND(ISPICKVAL(Reporting_Geography__c,&apos;Canada&apos;), Business_Unit__c = &apos;IBG (Core)&apos;), 
+		IF(AND(ISPICKVAL(Type,&apos;New Customer&apos;), Contract_Term_Mths__c &lt;= 12), 
+			Reoccurring_Revenue_OLI__c +  One_Time_Revenue_OLI__c, 
+			IF(AND(ISPICKVAL(Type,&apos;New Customer&apos;),  Contract_Term_Mths__c &gt;= 12), 
+				(((12 - MONTH(Expected_Service_Start_Date__c)) * (Reoccurring_Revenue_OLI__c / Contract_Term_Mths__c)) + One_Time_Revenue_OLI__c) , 
+				IF(AND(ISPICKVAL(Type,&apos;Existing Customer - Service Renewal&apos;),  Contract_Term_Mths__c &lt;= 12),
+					((Reoccurring_Revenue_OLI__c  - Old_Contract_ACV__c) + One_Time_Revenue_OLI__c),
+					((12 - MONTH(Expected_Service_Start_Date__c) * ( Reoccurring_Revenue_OLI__c / Contract_Term_Mths__c)) - ((12 - MONTH( Expected_Service_Start_Date__c )) * (Old_Contract_ACV__c/12)) + One_Time_Revenue_OLI__c)
+				)
+			)
+		),
+
+
+		IF(Contract_Term_Mths__c &gt;=12, 
+			(12 - MONTH(Expected_Service_Start_Date__c)) * (IF (ISPICKVAL(Type,&apos;Existing Customer - Service Renewal&apos;) &amp;&amp; Old_Contract_ACV__c =0,
+				0,
+				IF( ISBLANK(Old_Contract_ACV__c),
+					Annual_Contract_Value__c,
+					Annual_Contract_Value__c - Old_Contract_ACV__c
+				)
+			)/12), 
+
+			IF(Contract_Term_Mths__c &lt;= 12 - MONTH(Expected_Service_Start_Date__c), 
+				IF (ISPICKVAL(Type,&apos;Existing Customer - Service Renewal&apos;) &amp;&amp; Old_Contract_ACV__c =0,
+					0,
+					IF( ISBLANK(Old_Contract_ACV__c),
+						Annual_Contract_Value__c,
+						Annual_Contract_Value__c - Old_Contract_ACV__c
+					)
+				),
+				0 
+			)
+		)
+	),
+	0
+)</formula>
+    <label>In Year Revenue Formula</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <type>Currency</type>
+</CustomField>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Email_CAM_and_User_about_Enrollment</fullName>
+        <ccEmails>interact.tools@ncr.com</ccEmails>
+        <description>Email CAM and User about Enrollment</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <recipients>
+            <field>Requester__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Incentive_Program_Submission_Acknowledge_static</template>
+    </alerts>
+    <alerts>
+        <fullName>Final_Approval_Incentive</fullName>
+        <ccEmails>partner.resourcecenter@ncr.com</ccEmails>
+        <description>Final Approval Incentive</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <recipients>
+            <field>Requester__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Incentive_Program_Approval_Static</template>
+    </alerts>
+    <alerts>
+        <fullName>Incentive_Submission</fullName>
+        <ccEmails>partner.resourcecenter@ncr.com</ccEmails>
+        <description>Incentive Submission</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <recipients>
+            <field>Requester__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Incentive_Program_Submission_Acknwolege_pastdate_Static</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Approved_Incentive</fullName>
+        <field>Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Approved Incentive</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Rejected_Incentive</fullName>
+        <field>Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Rejected Incentive</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Late_Enrollment</fullName>
+        <field>Late_Enrollment__c</field>
+        <literalValue>0</literalValue>
+        <name>Update Late Enrollment</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Is Enrolled in Enrolled time period</fullName>
+        <actions>
+            <name>Email_CAM_and_User_about_Enrollment</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Incentive_Program_Enrollment__c.Late_Enrollment__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

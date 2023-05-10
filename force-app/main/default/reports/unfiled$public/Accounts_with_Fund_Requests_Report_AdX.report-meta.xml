@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Account$Name</field>
+    </columns>
+    <columns>
+        <field>Account.R00N30000002DjDDEA0__r$Name</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.R00N30000002DjDDEA0__r$Total_NCR_Approved__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>Account.R00N30000002DjDDEA0__r$Account_LOB__c</field>
+    </columns>
+    <columns>
+        <field>Account.R00N30000002DjDDEA0__r$LOB__c</field>
+    </columns>
+    <columns>
+        <field>Account.R00N30000002DjDDEA0__r$Account_Partner_Type__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.R00N30000002DjDDEA0__r$Amount__c.CONVERT</field>
+    </columns>
+    <currency>USD</currency>
+    <format>Tabular</format>
+    <name>Accounts with Fund Requests Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Accounts_with_Fund_Requests__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Account$Account_Active_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,39 @@
+<aura:component controller="OpportunityLeadTimeMsg_ltng"  implements="flexipage:availableForAllPageTypes,force:appHostable,force:hasRecordId">   
+ <!-- ltng:require styles="/resource/SLDS103/assets/styles/salesforce-lightning-design-system-ltng.min.css"/-->
+<!-- <ltng:require scripts="/resource/svg4everybody/svg4everybody-master/lib/svg4everybody.legacy.js" /> -->
+    
+    <aura:attribute name="OpportunityId" type="Id"  default="{!v.recordId}"/>
+    <aura:attribute name="Message" type="String"/>
+    <aura:attribute name="MessageCount" type="String"/>
+    <aura:attribute name="ShowButton" type="Boolean" default="false"/>
+    <aura:attribute name="openModal" type="Boolean" default="false" />
+    <aura:handler event="force:refreshView" action="{!c.doInit}" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>   
+    <aura:attribute name="OppIndustry" type="String"/>
+    <aura:if isTrue="{!v.Message}">
+     <center>   
+      <div class="initLoad" aura:id="outerDiv">    
+        <div class="slds-notify slds-notify_alert slds-theme_alert-texture" role="alert" aura:id="floatMsg" style="width=100%;">
+            
+            <div class="slds-notify__content">
+                <h2 class="slds-text-heading_small">
+                    <aura:unescapedHtml value="{!v.Message}"></aura:unescapedHtml>
+                    <aura:if isTrue="{!v.ShowButton}">
+                        <lightning:button variant="base" label=" Click to acknowledge" title="Base action" onclick="{! c.handleClick }"/>
+                    </aura:if>
+                </h2>
+                <span class="slds-assistive-text">Alert</span>
+             <button class="slds-button slds-notify__close slds-button_icon-inverse" onclick="{!c.hidemsg}" style="margin-right: -22px">
+                <lightning:icon class="CloseIcon" iconName="action:close" size="small" alternativeText="Indicates close"/>
+                <span class="slds-assistive-text">Close</span>
+            </button>
+            </div>
+            
+        </div>
+    </div>
+      <aura:if isTrue="{!v.ShowButton}">
+            <c:OpportunityNonCPQCLM OpportunityId="{!v.OpportunityId}" Opportunity="{!v.Opportunity}" openModal="{!v.openModal}"/> 
+            </aura:if>
+    </center> 
+    </aura:if>  
+</aura:component>

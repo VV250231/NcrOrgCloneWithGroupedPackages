@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Dispute_Case__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>If credit was already in dispute what is the dispute case number?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If credit was already in dispute what is the dispute case number?</inlineHelpText>
+    <label>Dispute Case #</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>$Source.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Hospitality Namer Direct</value>
+        </filterItems>
+        <isOptional>true</isOptional>
+    </lookupFilter>
+    <referenceTo>Case</referenceTo>
+    <relationshipLabel>Cases (Dispute Case #)</relationshipLabel>
+    <relationshipName>Cases1</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>true</trackTrending>
+    <type>Lookup</type>
+</CustomField>

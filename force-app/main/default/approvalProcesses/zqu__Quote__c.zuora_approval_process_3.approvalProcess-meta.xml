@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>false</active>
+    <allowRecall>false</allowRecall>
+    <allowedSubmitters>
+        <type>owner</type>
+    </allowedSubmitters>
+    <approvalPageFields>
+        <field>zqu__Account__c</field>
+        <field>Name</field>
+        <field>Owner</field>
+    </approvalPageFields>
+    <approvalStep>
+        <allowDelegate>false</allowDelegate>
+        <assignedApprover>
+            <approver>
+                <name>Zuora_Provisioning_Required</name>
+                <type>queue</type>
+            </approver>
+            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
+        </assignedApprover>
+        <entryCriteria>
+            <booleanFilter>1 AND 2</booleanFilter>
+            <criteriaItems>
+                <field>zqu__Quote__c.zqu__Status__c</field>
+                <operation>equals</operation>
+                <value>QA Processing Complete</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>zqu__Quote__c.Rebill__c</field>
+                <operation>equals</operation>
+                <value>False</value>
+            </criteriaItems>
+        </entryCriteria>
+        <ifCriteriaNotMet>RejectRecord</ifCriteriaNotMet>
+        <label>Reject the record</label>
+        <name>Reject_the_record</name>
+        <rejectionActions>
+            <action>
+                <name>Exit_Approval_Process</name>
+                <type>FieldUpdate</type>
+            </action>
+            <action>
+                <name>Track_Approval_3_Step</name>
+                <type>FieldUpdate</type>
+            </action>
+        </rejectionActions>
+    </approvalStep>
+    <enableMobileDeviceAccess>true</enableMobileDeviceAccess>
+    <entryCriteria>
+        <criteriaItems>
+            <field>zqu__Quote__c.Account_s_Subscription_Group__c</field>
+            <operation>notEqual</operation>
+            <value>Digital Insight</value>
+        </criteriaItems>
+    </entryCriteria>
+    <finalApprovalRecordLock>false</finalApprovalRecordLock>
+    <finalRejectionActions>
+        <action>
+            <name>Track_Approval_3_Final_Rejetion</name>
+            <type>FieldUpdate</type>
+        </action>
+    </finalRejectionActions>
+    <finalRejectionRecordLock>false</finalRejectionRecordLock>
+    <label>zuora approval process 3</label>
+    <processOrder>2</processOrder>
+    <recordEditability>AdminOnly</recordEditability>
+    <showApprovalHistory>true</showApprovalHistory>
+</ApprovalProcess>

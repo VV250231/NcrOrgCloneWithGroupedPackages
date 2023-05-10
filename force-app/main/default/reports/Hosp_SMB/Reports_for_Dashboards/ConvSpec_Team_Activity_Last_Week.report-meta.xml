@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <axisBinding>y</axisBinding>
+            <column>RowCount</column>
+        </chartSummaries>
+        <chartType>HorizontalBar</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>ASSIGNED</groupingColumn>
+        <location>CHART_BOTTOM</location>
+        <showAxisLabels>false</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>DUE_DATE</field>
+    </columns>
+    <columns>
+        <field>PRIORITY</field>
+    </columns>
+    <columns>
+        <field>STATUS</field>
+    </columns>
+    <columns>
+        <field>TASK</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT</field>
+    </columns>
+    <columns>
+        <field>CONTACT</field>
+    </columns>
+    <columns>
+        <field>LEAD</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY</field>
+    </columns>
+    <columns>
+        <field>DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>FULL_DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>OWNER_ROLE</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>BLANKVALUE(
+IF(OR(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;CHECK IN&quot;),CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;CHECK-IN&quot;)),&quot;CHECK IN&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;DEMO&quot;),&quot;DEMO&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;MEETING&quot;),&quot;MEETING&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;DISCUSSION&quot;),&quot;MEETING&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;BUSINESS REVIEW&quot;),&quot;MEETING&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;DECISION MAKER&quot;),&quot;MEETING&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;ECONOMIC BUYER&quot;),&quot;MEETING&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;DISCOVERY&quot;),&quot;MEETING&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;CALL&quot;),&quot;CALL&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;EMAIL&quot;),&quot;EMAIL&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;TOUCH BASE&quot;),&quot;TOUCH BASE&quot;,
+IF(OR(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;FOLLOW UP&quot;),CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;FOLLOW-UP&quot;)),&quot;FOLLOW UP&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;SUPPORT&quot;),&quot;SUPPORT&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;REPORT&quot;),&quot;REPORTING&quot;,
+IF(OR(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;HIRE&quot;),CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;INTERVIEW&quot;), CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;HIRING&quot;)),&quot;HIRING&quot;,
+IF(CONTAINS(UPPER(TEXT(TASK_TYPE)&amp;TASK_SUBTYPE&amp;Activity.SalesLoft1__SalesLoft_Type__c&amp;SUBJECT),&quot;TEST&quot;),&quot;TESTING&quot;,&quot;&quot;)))))))))))))))),&quot;OTHER&quot;)</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>Activity</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>OWNER_ROLE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Hosp SMB,HOSP SMB</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OWNER_ROLE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Conversion Specialist</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>CDF1</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Week</dateGranularity>
+        <field>CREATED_DATE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>ASSIGNED</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>ConvSpec Team Activity Last Week</name>
+    <params>
+        <name>closed</name>
+        <value>closed</value>
+    </params>
+    <params>
+        <name>type</name>
+        <value>te</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Activity</reportType>
+    <scope>team</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>LAST_FISCALWEEK</interval>
+    </timeFrameFilter>
+</Report>

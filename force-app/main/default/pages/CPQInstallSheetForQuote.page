@@ -1,0 +1,61 @@
+<!-- ************************************** 
+  Author ...............: Suraj Parihar
+  Created Date..........: 13-APR-2021
+  Modified Date.........: 13-APR-2021 
+  Description...........: This page includes the productId and Quantity for the related Quote in the form of excel sheet. 
+*************************************** --> 
+<apex:page controller="CPQInstallSheetForQuoteController" contentType="txt/xml#HSRExcelTemplate - Quote Builder.xls" cache="true">    
+    <apex:outputText value="{!xlsHeader}"/>
+    <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+              xmlns:o="urn:schemas-microsoft-com:office:office"
+              xmlns:x="urn:schemas-microsoft-com:office:excel"
+              xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+              xmlns:html="http://www.w3.org/TR/REC-html40"> 
+        <Styles>            
+            <Style ss:ID="s2">
+                <Alignment/>
+                <Borders/>
+                <Font ss:FontName="Calibri" ss:Size="11" ss:Color="#000000" ss:Bold="1"/>
+                <Interior/>
+                <NumberFormat/>
+                <Protection/>
+            </Style>                       
+            <Style ss:ID="s3">
+                <Alignment/>
+                <Borders/>
+                <Font ss:FontName="Calibri" ss:Size="11" ss:Color="#000000" />
+                <Interior/>
+                <NumberFormat ss:Format="General"/>
+                <Protection/>
+            </Style>
+        </Styles>
+         <Worksheet ss:Name="Order Line Items">
+            <Table x:FullColumns="1" x:FullRows="1">                 
+                <Column ss:Width="170"/>
+                <Column ss:Width="170"/>
+                <Row> 
+                    <Cell ss:StyleID="s2"><Data ss:Type="String" >NCR Product Id</Data></Cell>
+                    <Cell ss:StyleID="s2"><Data ss:Type="String" >Name</Data></Cell>
+                    <Cell ss:StyleID="s2"><Data ss:Type="String" >Quantity</Data></Cell>
+                    <Cell ss:StyleID="s2"><Data ss:Type="String" >Product Family</Data></Cell> 
+                    <Cell ss:StyleID="s2"><Data ss:Type="String" >Effective Quantity</Data></Cell> 
+                    <Cell ss:StyleID="s2"><Data ss:Type="String" >Prior Quantity</Data></Cell>
+                    <Cell ss:StyleID="s2"><Data ss:Type="String" >New Aloha Key#</Data></Cell>
+                    <Cell ss:StyleID="s2"><Data ss:Type="String" >Existing Aloha Key#</Data></Cell>
+                </Row>                  
+                <apex:repeat value="{!productDetails}" var="items">
+                    <Row>
+                        <Cell ss:StyleID="s3"><Data ss:Type="String" >{!items.ProductID}</Data></Cell> 
+                        <Cell ss:StyleID="s3"><Data ss:Type="String" >{!items.Name}</Data></Cell> 
+                        <Cell ss:StyleID="s3"><Data ss:Type="String" >{!items.quantity}</Data></Cell>
+                        <Cell ss:StyleID="s3"><Data ss:Type="String" >{!items.ProductFamily}</Data></Cell>
+                        <Cell ss:StyleID="s3"><Data ss:Type="String" >{!items.EffectiveQuantity}</Data></Cell>
+                        <Cell ss:StyleID="s3"><Data ss:Type="String" >{!items.PriorQuantity}</Data></Cell>
+                        <Cell ss:StyleID="s3"><Data ss:Type="String" >{!IF(CONTAINS(items.ProductID, "H400-"),items.NewAlohaKey,'')}</Data></Cell>
+                        <Cell ss:StyleID="s3"><Data ss:Type="String" >{!IF(CONTAINS(items.ProductID, "H400-"),items.ExistingAlohaKey,'')}</Data></Cell>
+                    </Row>  
+                </apex:repeat>
+            </Table>
+        </Worksheet>
+    </Workbook>
+</apex:page>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Work Order cancelled Template</name>
+    <style>none</style>
+    <subject>Work Order {!WorkOrder.WorkOrderNumber} has been cancelled.</subject>
+    <textOnly>Dear {!WorkOrder.Contact}, Your reported Work Order has been cancelled with the following details: Case Number: {!WorkOrder.Case} Work Order Number: {!WorkOrder.WorkOrderNumber} Serialized Asset: {!WorkOrder.Serialized_Asset_Id__c} S/N: {!WorkOrder.Serial_Number__c} Site Name: {!WorkOrder.Site_Id__c} Store Number / Branch: {!WorkOrder.Store_Branch_No__c} Address: {!WorkOrder.Address} Created Date/Time: {!WorkOrder.CreatedDate} Dispatch Case Status (ES): {!WorkOrder.Dispatch_Case_Status_ES__c} Brief Description: {!WorkOrder.Description} Customer Reference Number: {!WorkOrder.Customer_Ticket_Number__c} If you need additional help or to provide support with an update to your case, feel free to contact the Service Desk. Sincerely, NCR Service Desk</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

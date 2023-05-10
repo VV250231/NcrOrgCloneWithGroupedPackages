@@ -1,0 +1,291 @@
+<aura:component controller="AddProductToBundleController" implements="flexipage:availableForAllPageTypes,force:hasRecordId,force:LightningQuickAction" access="global"> 
+    <aura:attribute name="CloseModel" type="String" default="slds-show"/>
+    <aura:attribute name="like" type="Boolean" />
+    <aura:attribute name="SelectedProductForBundle" type="List"/> 
+    <aura:attribute name="BundleData" type="List"></aura:attribute> 
+    
+    <aura:attribute name="ToggelBundleComponent" type="String"></aura:attribute>
+    <aura:registerEvent name="LeftToRightComEvent" type="c:LeftToRightComEvent"/>
+    <aura:handler event="c:LeftToRightComEvent" action="{!c.getSelectProduct}"/>
+    <aura:attribute name="OpportunityId" type="String"></aura:attribute>
+    
+    
+    <aura:registerEvent name="RightComponentEvent" type="c:RightComponentEvent"/>
+    <aura:handler event="c:RightComponentEvent" action="{!c.getSelectBundle}"/>
+    
+    <aura:registerEvent name="CustomAccordianRefreshEvent" type="c:CustomAccordianRefreshEvent"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="Selected_Product" type="Map" default="{ Id: '', Status: false }"></aura:attribute>
+    <aura:attribute name="Selected_Bundle" type="Map" default="{ Id: '', Status: false }"></aura:attribute>
+    <aura:attribute name="SelectAllForNBundle" type="Boolean"/>
+	<aura:attribute name="renewablRevnTypes" type="Set" /> 
+   
+    <aura:attribute name="confirmSubscriptionModal" type="Boolean" />
+    <aura:attribute name="confirmServTypeSelModal" type="Boolean" />
+    <aura:attribute name="confirmSubModalHeader" type="String" />
+    <aura:attribute name="selectedSubcrionableProdList" type="List" />
+    <aura:attribute name="selectedNONSubcrionableProdList" type="List" />
+    
+    <aura:attribute name="oppLineItemTypeMap" type="Map" />
+    <aura:attribute name="TriggerScreenName" type="String" default=""></aura:attribute>
+   
+    <!-- Added for HWM Maintenance Type -->
+    <aura:attribute name="confirmHWMTypeModal" type="Boolean" />
+    <aura:attribute name="HWMMntcTypes" type="Set" />
+    <!-- Added for HWM Maintenance Type -->
+    
+    <!--ADDED QTY TYPE-->
+    <aura:attribute name="qtyTyp" type="String"></aura:attribute>
+    <aura:attribute name="qtyTypeMap" type="Map"/>
+    <aura:attribute name="confirmQtyTypModal" type="Boolean" />
+    <!--ADDED QTY TYPE-->
+    
+    <!--Added for CATM check by Stuti-->
+    <aura:attribute name="isCatm"  type="boolean"/>
+    
+    <!--EBA_SF-2174 adding check for NCR Payment Processing by Stuti-->
+    <aura:attribute name="subsOnlyProdNames" type="Set" default="{}" />
+    <aura:attribute name="subsOnlyRevenueTypes" type="Set" default="{}" />
+    <!--EBA_SF-2174 ends-->
+    
+    <!--added as a part of story 2467-->
+    <aura:registerEvent name="closeAddBundle" type="c:bundleModalClose"/> 
+    
+    <div class="{!'demo-only slds-modal_large '+v.CloseModel}" style="height: 100%;" >
+    
+   <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container slds-m-top_xx-large">
+                <header class="slds-modal__header">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.CloseModelWindow}">
+                <lightning:icon iconName="utility:close"/>
+                <span class="slds-assistive-text">Close</span>
+                </button>
+                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Bundle Selection Screen</h2>
+                    <p class="slds-m-top_x-small">To add a Product to a Bundle, select the Product then the Corresponding Bundle and click "Add". Expand a Bundle to adjust the quantity and unit price of each Product. <!-- <a href="javascript:void(0);">Video Tutorial</a>--></p>
+                </header> 
+                <div class="slds-modal__content slds-p-around_medium" style="height:600px;" id="modal-content-id-1">
+                        
+                    <div class="demo-only demo-only_sizing slds-grid slds-wrap">
+                        
+                         
+                        <div class="slds-size_1-of-2"><p><b>PRODUCT NAME</b></p>
+                                <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                    <button class="slds-button slds-button_icon slds-button_icon-border-filled" aria-pressed="false" title="Select All">
+                                                       <lightning:input type="checkbox-button" label="Add salami"  checked="{!v.SelectAllForNBundle}" />
+                                                      <span class="slds-assistive-text">Select All</span>
+                                                    </button>
+                                                    </th>
+                                                    <th>Product Name</th>
+                                                </tr>
+                                            </thead>
+                                            <aura:iteration items="{!v.SelectedProductForBundle}" var="prd">
+                                                 <tr>
+               
+                                                   <c:AddtoBundleLeft  TriggerSelectAll="{!v.SelectAllForNBundle}" product="{!prd.Name}" productId="{!prd.Id}" liked="false" aura:id="LeftCmp"></c:AddtoBundleLeft>
+                                                    
+                                                </tr>
+                                             </aura:iteration>     
+                                        </table> 
+  
+                                </div>
+                        </div>
+                               
+                                <div class="slds-size_1-of-2"><p><b>BUNDLE NAME</b></p>
+                                        <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">
+          
+                                           <!-- <c:CustomAccordian></c:CustomAccordian>-->
+                                            {!v.body}
+                                        </div>
+                                </div>
+                
+                   </div>
+                </div>
+                       <footer class="slds-modal__footer">
+                            <button class="slds-button slds-button_neutral" onclick="{!c.CloseModelWindow}">Cancel</button>
+                            <button class="slds-button slds-button_brand"  onclick="{!c.Save}">ADD</button> 
+                       </footer>
+                        
+                </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+	
+	 <!-- START Change , Divya -->
+    <aura:if isTrue="{!(v.confirmSubscriptionModal || v.confirmServTypeSelModal || v.confirmHWMTypeModal || v.confirmQtyTypModal)}">   
+        <div class="slds-modal slds-fade-in-open" aria-hidden="false" role="dialog" id="Modal" style="width:100;z-index:90001;">
+            
+            <div class="slds-modal__container slds-p-around_" style="height:600px;width:650px;">
+                <div class="slds-modal__header">
+                    <b style="color:blue;font-size:1.25rem;"> {!v.confirmSubModalHeader}  </b>
+                </div>
+                <div class="slds-modal__content slds-p-around_medium slds-scrollable_y" style="height:350px;" > <!-- font-size:0.95rem; -->
+                    <div>
+                        <table class="slds-table slds-table_bordered slds-max-medium-table_stacked slds-no-row-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="slds-col" > <!--class="slds-col slds-size_8-of-12" style="width:67%;" -->
+                                        Product Name                                        
+                                    </th>
+                                    
+                                    <aura:if isTrue="{!v.confirmSubscriptionModal}">  
+                                        <th scope="col" class="slds-col checkboxHeaderC" > <!--style="padding-bottom:15px;"-->
+                                            <lightning:input type="checkbox"  label="Add to Subscription" name="input1" onchange="{!c.addAllForSubscription}"/> 
+                                        </th>
+                                    </aura:if>
+                                    
+                                    <aura:if isTrue="{!v.confirmServTypeSelModal}">
+                                        <th scope="col" class="slds-col checkboxHeaderC"> <!--slds-size_3-of-12 -->
+                                            <label>Line Item Type</label> <abbr class="slds-required" title="required">* </abbr>                                            
+                                        </th>
+                                    </aura:if> 
+                                    
+                                    <aura:if isTrue="{!v.confirmHWMTypeModal}">
+                                        <th scope="col" class="slds-col checkboxHeaderC"> <!--slds-size_3-of-12 -->
+                                            <label>Maintenance Type</label> <abbr class="slds-required" title="required">* </abbr>                                            
+                                        </th>
+                                    </aura:if>
+                                    
+                                    <aura:if isTrue="{!v.confirmQtyTypModal}">
+                                    <th scope="col" class="slds-col checkboxHeader">
+                                            <label>Qty Type</label> <abbr class="slds-required" title="required">* </abbr>                                            
+                                        </th>
+                                    </aura:if>
+                                    <br/>
+                                </tr> 
+                            </thead>
+                            <tbody>
+                                <aura:iteration items="{!v.selectedSubcrionableProdList}" var="prodItem" >
+                                    <tr style="height:40px;">
+                                        <td class="slds-col slds-cell-wrap"> <!-- slds-size_2-of-12 -->
+                                            {!prodItem.ProductName}
+                                            
+                                        </td>
+                                        <td class="slds-col slds-size_2-of-12">
+                                            
+                                            <lightning:input type="checkbox" checked="{!prodItem.checkOLISubcription}" />
+                                            
+                                        </td>
+                                        
+                                        <aura:if isTrue="{!v.confirmServTypeSelModal}">   
+                                            <td class="slds-col slds-size_2-of-12">   
+                                                <aura:if isTrue="{!prodItem.isServiceLineItem}">    
+                                                    <lightning:select value="{!prodItem.selectLineItemType}" variant="label-hidden" class="liTypePick label-hidden">                                   
+                                                        <option value="">--None--</option>
+                                                        <aura:iteration items="{!v.oppLineItemTypeMap}" var="item" indexVar="key">
+                                                            <option text="{!item.value}" value="{!item.key}" />
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                    <aura:set attribute="else">
+                                                        <lightning:helptext content="Not applicable" />
+                                                    </aura:set>
+                                                </aura:if>  
+                                            </td>
+                                        </aura:if>
+                                        
+                                         <aura:if isTrue="{!v.confirmHWMTypeModal}">  
+                                            <td class="slds-col slds-size_2-of-12">          
+                                                <aura:if isTrue="{!prodItem.isAvlAsCnctHWM}"> 
+                                                    <lightning:select value="{!prodItem.selectHWMMntcType}" variant="label-hidden" class="liTypePick label-hidden">                                   
+                                                        <option value="">--None--</option>
+                                                        <aura:iteration items="{!v.HWMMntcTypes}" var="item" >
+                                                            <option text="{!item}" value="{!item}" />
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                    <aura:set attribute="else">
+                                                        <lightning:helptext content="Not applicable" />
+                                                    </aura:set>
+                                                </aura:if> 
+                                            </td> 
+                                        </aura:if> 
+                                        <aura:if isTrue="{!v.confirmQtyTypModal}">
+                                        <td class="slds-col"> 
+                                                <lightning:select aura:id="qtyType" value="{!prodItem.qtyTyp}" name="qtyTypeName" class="liTypePick label-hidden">
+                                                    <option value="">--None--</option>
+                                                    <aura:iteration items="{!v.qtyTypeMap}" var="i">
+                                                        <option text="{!i.key}" value="{!i.value}" /> <!--selected="{!i==v.qtyTyp}"-->
+                                                    </aura:iteration>
+                                                </lightning:select>
+                                                </td>
+                                        </aura:if>
+                                    </tr>                                    
+                                </aura:iteration>
+                                
+                                <!-- NONSubcrionableProds for selecting service line item type  -->
+                                <aura:iteration items="{!v.selectedNONSubcrionableProdList}" var="prodItem">
+                                    <aura:if isTrue="{!(prodItem.isServiceLineItem || prodItem.isQtyTypApplicable)}">   
+                                        <tr style="height:40px;">
+                                            <td class="slds-col slds-cell-wrap">    <!-- slds-col slds-size_2-of-12 -->
+                                                {!prodItem.ProductName}
+                                                
+                                            </td>
+                                            <aura:if isTrue="{!v.confirmSubscriptionModal}"> 
+                                                <td class="slds-col slds-size_2-of-12">
+                                                    <lightning:helptext content="Product is not available for Subscription." />
+                                                </td>
+                                            </aura:if> 
+                                            
+                                            <aura:if isTrue="{!v.confirmServTypeSelModal}">  
+                                            <td class="slds-col slds-size_2-of-12">  
+                                                <lightning:select value="{!prodItem.selectLineItemType}" variant="label-hidden" class="liTypePick label-hidden">                                   
+                                                    <option value="">--None--</option>
+                                                    <aura:iteration items="{!v.oppLineItemTypeMap}" var="item" indexVar="key">
+                                                        <option text="{!item.value}" value="{!item.key}" />
+                                                    </aura:iteration>
+                                                </lightning:select>                              
+                                            </td>
+                                            </aura:if>
+                                            
+                                             <aura:if isTrue="{!v.confirmHWMTypeModal}"> 
+                                                <td class="slds-col slds-size_2-of-12">   
+                                                    <aura:if isTrue="{!prodItem.isAvlAsCnctHWM}"> 
+                                                        <lightning:select value="{!prodItem.selectHWMMntcType}" variant="label-hidden" class="liTypePick label-hidden">                                   
+                                                            <option value="">--None--</option>
+                                                            <aura:iteration items="{!v.HWMMntcTypes}" var="item" >
+                                                                <option text="{!item}" value="{!item}" />
+                                                            </aura:iteration>
+                                                        </lightning:select>
+                                                        <aura:set attribute="else">
+                                                            <lightning:helptext content="Not applicable" />
+                                                        </aura:set>
+                                                    </aura:if>
+                                                </td> 
+                                            </aura:if>
+                                            
+                                            <aura:if isTrue="{!v.confirmQtyTypModal}">
+                                            <td class="slds-col"> 
+                                                <lightning:select aura:id="qtyType" value="{!prodItem.qtyTyp}" name="qtyTypeName" class="liTypePick label-hidden">
+                                                    <option value="">--None--</option>
+                                                    <aura:iteration items="{!v.qtyTypeMap}" var="i">
+                                                        <option text="{!i.key}" value="{!i.value}" /> <!--selected="{!i==v.qtyTyp}"-->
+                                                    </aura:iteration>
+                                                </lightning:select>
+                                                </td>
+                                            </aura:if>
+                                        </tr> 
+                                    </aura:if>  
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                        <!-- NONSubcrionableProds for selecting service line item type  -->    
+                    </div>
+                </div>
+                
+                
+                <center>
+                    <div class="slds-modal__footer"> 
+                        
+                        <button class="slds-button slds-button_neutral slds-button_brand"  onclick="{!c.submitSubcriptionProdsForBundle}" >Submit</button>
+                    </div>
+                </center>
+            </div> 
+            
+            
+        </div>     
+        <div class="slds-backdrop slds-backdrop_open" id="greyBackground"  style="z-index:9002;"></div>
+    </aura:if> 
+    <!-- END change , DIvya -->    
+</aura:component>

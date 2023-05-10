@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fulfillment_Orders_to_Activate</fullName>
+    <booleanFilter>1 AND 2</booleanFilter>
+    <columns>NAME</columns>
+    <columns>qtc_Quote__c</columns>
+    <columns>qtc_OrderStartDate__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>qtc_QuoteOrdered__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>qtc_Channel_Local_Office_Record_Type__c</field>
+        <operation>equals</operation>
+        <value>PARTNER</value>
+    </filters>
+    <label>Fulfillment Orders to Activate</label>
+</ListView>

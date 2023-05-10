@@ -1,0 +1,235 @@
+<aura:component controller="OppListViewController" implements="flexipage:availableForAllPageTypes"> 
+    <aura:attribute name="accId" type="Id" />
+    <aura:attribute name="accName" type="String" />
+    <aura:attribute name="oppList" type="List" />
+    <aura:attribute name="selectFltr" type="String" default="THIS_QUARTER" />
+    <aura:attribute name="searchValue" type="String" />
+    <aura:attribute name="filterList" type="OppListViewController.FieldFilterWrapper[]"/>
+    <aura:attribute name="selectFltrIndex" type="Integer" /> 
+    
+    <aura:attribute name="fieldsInfoMap" type="Map" />
+    <aura:attribute name="currencyList" type="String[]" />
+    <!-- attributes for popup box -->
+    <aura:attribute name="selectFieldName" type="String" />
+    <aura:attribute name="selectOperator" type="String"  />
+    <aura:attribute name="selectOperand" type="String" />
+    <aura:attribute name="isPicklistField" type="Boolean" default="true"/>
+    <aura:attribute name="avlPicklstOptions" type="Object[]"  />
+    <!-- attributes for popup box -->
+   
+    <!-- attributes for sorting   -->
+    <aura:attribute name="sortt" type="string[]" />
+    <aura:attribute name="sortasc" type="boolean" />
+    <aura:attribute name="sortfield" type="boolean" />
+    <!-- attributes for sorting   -->
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="removefilter" event="c:RemoveFilter" action="{!c.removeFltr}"/>
+    <aura:handler name="saveFilter" event="c:LVFilterSave" action="{!c.saveFilter}"/>
+    <aura:handler name="change" value="{!v.searchValue}" action="{!c.searchTextChange}"/>    
+    
+    <!-- header start -->  
+    <header class="slds-modal__header slds-app-launcher__header slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+        
+        <h3 id="header43" class="slds-text-heading_small">
+            <div class="slds-media__figure">
+                <span class="slds-icon_container slds-icon-standard-account" title="account">
+                    <lightning:icon iconName="standard:account" title="Account" size="large" />
+                    <span class="slds-assistive-text">account</span>
+                </span>
+            </div>       
+            <div class="demo-only slds-m-top_large">
+                <nav role="navigation" aria-label="Breadcrumbs">
+                    <ol class="slds-breadcrumb slds-list_horizontal slds-wrap">
+                        <li class="slds-breadcrumb__item slds-text-title_caps"><a href="javascript:void(0);">Account</a></li>
+                        <li class="slds-breadcrumb__item slds-text-title_caps"><a href="javascript:void(0);">{!v.accName}</a></li>
+                    </ol>
+                </nav>
+            </div>   
+        </h3>
+        <div class="slds-global-header__item">
+            <div class="slds-form-element">
+                <ui:inputSelect class="slds-select slds-dropdown-trigger slds-dropdown-trigger_click" aura:id="fltrpcklst" change="{!c.onFltrPcklstChange}" value="{!v.selectFltr}" />
+            </div>
+        </div>
+        
+        <div class="slds-global-header__item">
+            <ul class="slds-global-actions">   
+                <li class="slds-global-actions__item">
+                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                        
+                        <lightning:icon iconName="utility:search" size="xx-small" class="slds-input__icon slds-input__icon_left slds-icon-text-default"/>
+                        <!-- search text -->
+                        <ui:inputText class="slds-input" value="{!v.searchValue}" size="25" placeholder="Search this list..." /> 
+                        <!-- search text -->  
+                    </div>
+                </li>
+                
+                <li class="slds-global-actions__item">
+                    <div class="slds-dropdown-trigger slds-dropdown-trigger_click">
+                        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-container slds-button_icon-medium slds-global-actions__setup slds-global-actions__item-action" aria-haspopup="true" title="Go Back" onClick="backtoBaseUrl();">
+                            <lightning:icon iconName="utility:back" title="back" size="x-small" />
+                            
+                        </button>
+                    </div>
+                </li>
+                
+                <!-- refresh button -->
+                <li class="slds-global-actions__item">
+                    <div class="slds-dropdown-trigger slds-dropdown-trigger_click">
+                        <button type="button" class="slds-button slds-button_icon-border-filled slds-button_icon slds-button_icon slds-button_icon-container slds-button_icon-medium slds-global-actions__notifications slds-global-actions__item-action" 
+                                title="Filter" aria-live="assertive" aria-atomic="true" onclick="{!c.toggleFltrPnl}">
+                            <lightning:icon iconName="utility:filterList" class="slds-button__icon slds-global-header__icon" size="x-small" />
+                            
+                        </button>
+                        <span aria-hidden="true" class="slds-notification-badge">0</span>
+                    </div>
+                </li>
+                
+                <li class="slds-global-actions__item">
+                    <div class="slds-dropdown-trigger slds-dropdown-trigger_click">
+                        <button class="slds-button slds-button_icon slds-button_icon-border-filled  slds-button_icon-container slds-button_icon-medium slds-global-actions__notifications slds-global-actions__item-action" title="Refresh" aria-live="assertive" aria-atomic="true">
+                            <!-- <svg class="slds-button__icon slds-global-header__icon" aria-hidden="true">
+                  <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#notification"></use>
+               </svg>-->
+                            
+                            
+                            
+                            <lightning:icon iconName="utility:refresh" class="slds-button__icon slds-global-header__icon" size="x-small" />
+                            
+                        </button>
+                        <span aria-hidden="true" class="slds-notification-badge">0</span>
+                    </div>
+                </li>
+            </ul>
+            
+            
+        </div>   
+    </header>  
+    <!-- header end -->  
+    
+    <div class="slds-grid slds-is-relative">
+        <div class="slds-col slds-p-around_small">
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                <thead>
+                    <tr class="slds-text-title_caps">
+                        <th scope="col">
+                            <div class="slds-truncate" title="Opportunity Name">Opportunity Name
+                                <lightning:buttonIcon name="col_1"  value="0" iconName="utility:sort" size="small" onclick="{! c.sortoopname }" variant="bare"/>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Account Name">Account Name
+                                <lightning:buttonIcon name="col_2" value="1" iconName="utility:sort" size="small" onclick="{! c.sortaccname }" variant="bare"/>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Close Date">Close Date
+                                <lightning:buttonIcon name="col_3" value="2" iconName="utility:sort" size="small" onclick="{! c.sortclosedate }" variant="bare"/>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Stage">Stage
+                                <lightning:buttonIcon name="col_4" value="3" iconName="utility:sort" size="small" onclick="{! c.sortstage }" variant="bare"/>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Amount">Amount
+                                <lightning:buttonIcon name="col_5" value="4" iconName="utility:sort" size="small" onclick="{! c.sortamount }" variant="bare"/>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Contact">Forecast Category
+                                <lightning:buttonIcon name="col_6" value="5" iconName="utility:sort" size="small" onclick="{! c.sortforecategory }" variant="bare"/>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                
+                <aura:iteration items="{!v.oppList}" var="opp">
+                    <tbody>
+                        <tr>
+                            <th scope="row" data-label="Opportunity Name">
+                                <div class="slds-truncate" title="Opportunity Name"><a href="javascript:void(0);">{!opp.Name}</a></div>
+                            </th>
+                            <td data-label="Account Name">
+                                <div class="slds-truncate" title="Account Name">{!opp.Account.Name}</div>
+                            </td>
+                            <td data-label="Expected Book Date">
+                                <div class="slds-truncate" title="Expected Book Date">
+                                    {!opp.CloseDate}
+                                    <!-- apex:outputtext value="{0, date, MM/dd/yyyy}">
+                <apex:param value="{!opp.CloseDate}"></apex:param>
+            </apex:outputtext -->
+                                </div>
+                            </td>
+                            <td data-label="Stage"> 
+                                <div class="slds-truncate" title="Stage">{!opp.StageName}</div>
+                            </td>
+                            
+                            <td data-label="Amount">
+                                <div class="slds-truncate" title="Amount">{!opp.Amount}</div>
+                            </td>
+                            <td data-label="Forecast Category">
+                                <div class="slds-truncate" title="Forecast Category">{!opp.ForecastCategoryName}</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </aura:iteration>   
+                
+            </table>
+        </div> 
+        
+        
+        <!-- filter panel start -->
+        <div class="slds-grid">
+            <div aura:id="filterPanel" class="filterPanel slds-panel slds-size_large slds-panel_docked slds-panel_docked-right" aria-hidden="false" >
+                <div class="slds-panel__header">
+                    <h2 class="slds-panel__header-title slds-text-heading_small slds-truncate" title="Filters">Filters</h2>
+                    <button class="slds-button slds-icon-utility-forward" title="Collapse Panel Header" style="padding-right:10px;" onclick="{!c.toggleFltrPnl}">
+                        
+                        <lightning:icon iconName="utility:forward" title="back" size="x-small" />
+                    </button>
+                </div>
+                <div class="slds-panel__body">
+                    <div class="slds-filters filterCriteriaBox">
+                        <ol class="slds-list_vertical slds-list_vertical-space">
+                            
+                            <aura:iteration items="{!v.filterList}" var="item" indexVar="itemIndex">
+                                <li class="slds-item slds-hint-parent" >
+                                    <!-- filter list start -->
+                                    <c:OppListFilter  filter="{!item}" fltrIndex="{!itemIndex}" fieldsInfoMap="{!v.fieldsInfoMap}" currencyList="{!v.currencyList}" isActiveFltr="{!(v.selectFltrIndex == itemIndex)}"/>
+                                    <!-- filter list end -->
+                                    
+                                </li>    
+                            </aura:iteration>
+                            
+                        </ol>
+                        <div class="slds-filters__footer slds-grid slds-shrink-none">
+                            <button class="slds-button_reset slds-text-link" onclick="{!c.addFilter}">Add Filter</button>
+                            <button class="slds-button_reset slds-text-link slds-col_bump-left" onclick="{!c.removeAllFltr}">Remove All</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            
+        </div>
+        <!-- filter panel end -->
+        
+        <!-- Spinner -->
+        <div class="slds-spinner_container slds-hide" aura:id="spinnerDiv">
+            <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand" >
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+        <!-- Spinner -->
+    </div> 
+    
+    
+    
+</aura:component>

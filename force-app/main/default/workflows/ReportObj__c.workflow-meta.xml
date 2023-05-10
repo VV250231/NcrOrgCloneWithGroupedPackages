@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Send_CSV_Report</fullName>
+        <ccEmails>Derek.Owens@digitalinsight.com</ccEmails>
+        <ccEmails>John.Schweikert@ncr.com</ccEmails>
+        <ccEmails>PC514946@ncr.com</ccEmails>
+        <description>Send CSV Report</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>adminnsc@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>dg185101@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>ls185070@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>rf128188@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Scheduled_Data_Export</template>
+    </alerts>
+    <rules>
+        <fullName>Report CSV Embed</fullName>
+        <actions>
+            <name>Send_CSV_Report</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>ReportObj__c.Report_Trigger__c</field>
+            <operation>greaterThan</operation>
+            <value>0</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ReportObj__c.Report_ID__c</field>
+            <operation>equals</operation>
+            <value>00O70000003tHm5</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Steve Wildey CSV Report</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>ReportObj__c.Report2_Trigger__c</field>
+            <operation>greaterThan</operation>
+            <value>0</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ReportObj__c.Report_ID__c</field>
+            <operation>equals</operation>
+            <value>00O70000004Pxf4</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

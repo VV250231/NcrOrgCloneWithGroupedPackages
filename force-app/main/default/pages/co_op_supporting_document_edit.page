@@ -1,0 +1,31 @@
+<apex:page standardController="Co_Op_Supporting_Document__c" extensions="coOpEditExtension">
+    <apex:form >
+        <!--
+        <apex:pageBlock rendered="{! numberOfAtt==null}">
+        <apex:actionFunction name="ChangeCount" action="{! crateAttInstances}"/>
+        <apex:pageBlockSection>
+        <apex:selectList size="1" label="Number of files to attach" id="NumberofAttachments" value="{! numberOfAtt}" onchange="ChangeCount()">
+                <apex:selectOption itemValue="1" itemLabel="1"/>
+                <apex:selectOption itemValue="2" itemLabel="2"/>
+                <apex:selectOption itemValue="3" itemLabel="3"/>
+                <apex:selectOption itemValue="4" itemLabel="4"/>
+                <apex:selectOption itemValue="5" itemLabel="5"/>
+        </apex:selectList>
+        </apex:pageBlockSection> --- {! coOpId}
+        </apex:pageBlock>-->
+        <apex:pageBlock >
+            <apex:pageBlockSection columns="1" collapsible="false">
+                <apex:inputfile value="{! att.Body}" filename="{! att.Name}"></apex:inputfile>
+                <apex:inputField value="{! supportingDoc.Type__c}"/>
+                <apex:inputField value="{! supportingDoc.Description__c}"/>
+                <apex:inputField value="{! supportingDoc.Date__c}"/>
+                <apex:inputField value="{! supportingDoc.Cost__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{! saveSupportingDoc}"/>
+                <apex:commandButton value="Cancel" action="{! cancel}"/>
+                <apex:outputLink type=""></apex:outputLink>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

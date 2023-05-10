@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_ID</field>
+    </columns>
+    <columns>
+        <field>Account.Account_Owner_Name__c</field>
+    </columns>
+    <columns>
+        <field>Account.Account_Owner_Role__c</field>
+    </columns>
+    <columns>
+        <field>CDF1</field>
+    </columns>
+    <columns>
+        <field>PARENT.NAME</field>
+    </columns>
+    <columns>
+        <field>User.Sales_Org_Code__c</field>
+    </columns>
+    <columns>
+        <field>User.Quicklook_ID__c</field>
+    </columns>
+    <columns>
+        <field>Account.Global_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>Account.Global_Account_Brand__c</field>
+    </columns>
+    <columns>
+        <field>Account.Account_Country_Code__c</field>
+    </columns>
+    <columns>
+        <field>Account.Account_Region__c</field>
+    </columns>
+    <columns>
+        <field>Account.Area__c</field>
+    </columns>
+    <columns>
+        <field>RECORDTYPE</field>
+    </columns>
+    <columns>
+        <field>Account.LOB__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.CDM_SMB_Flag__c</field>
+    </columns>
+    <columns>
+        <field>Account.Active_Account__c</field>
+    </columns>
+    <columns>
+        <field>User.Active_Status__c</field>
+    </columns>
+    <columns>
+        <field>Account.Account_Active_Date__c</field>
+    </columns>
+    <columns>
+        <field>Account.Account_Inactive_Date__c</field>
+    </columns>
+    <columns>
+        <field>Account.CDM_Account_Manager__c</field>
+    </columns>
+    <columns>
+        <field>Account.StoreNext_Partner__c</field>
+    </columns>
+    <columns>
+        <field>User.Manager_Level_01__c</field>
+    </columns>
+    <columns>
+        <field>User.Manager_Level_02__c</field>
+    </columns>
+    <columns>
+        <field>User.Manager_Level_03__c</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>IF(CONTAINS(Account.Account_Owner_Role__c,&quot;SMB&quot;),
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;Channel&quot;),
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;Central&quot;),&quot;Channel Central&quot;,
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;North&quot;),&quot;Channel North&quot;,
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;South&quot;),&quot;Channel South&quot;,
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;West&quot;),&quot;Channel West&quot;, &quot;Channel &quot; &amp; Account.Account_Owner_Role__c)))), 
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;Northeast&quot;),&quot;Northeast&quot;,
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;Southeast&quot;),&quot;Southeast&quot;,
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;Central&quot;),&quot;Central&quot;,
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;Florida&quot;),&quot;Florida&quot;,
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;Texas&quot;),&quot;Texas&quot;,
+IF(CONTAINS(Account.Account_Owner_Role__c,&quot;West&quot;),&quot;West&quot;, Account.Account_Owner_Role__c))))))),&quot;NON-SMB OWNED&quot;)</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>SMB Region</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>Account.Master_Customer_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value></value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.LOB__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>HOSPITALITY</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>All Hospitality Accounts With MCNs</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

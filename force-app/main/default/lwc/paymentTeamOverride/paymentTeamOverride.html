@@ -1,0 +1,37 @@
+<template>
+    <div class="slds-is-relative">
+        <div if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </div>
+        <lightning-quick-action-panel header="Payment Team Override" >
+        
+            <template if:true={recordId}>
+                
+                <div class="slds-p-horizontal_small">
+                    <lightning-input    type    = "number"
+                                        name    = "List Price"
+                                        label   = "Revenue Per Transaction List Price"
+                                        step    = ".01"
+                                        formatter="currency"
+                                        onblur  = {handleListPriceBlur}
+                                        value   = {revenuePerTransactionValue} ></lightning-input>
+                </div>
+                <div slot="footer">
+                    <lightning-button-group>
+                        <lightning-button   variant = "neutral" 
+                                            label   = "Cancel" 
+                                            title   = "Cancel"
+                                            onclick = {handleCancel} 
+                                            class   = ""></lightning-button>
+                        <lightning-button   variant = "brand" 
+                                            label   = "Save" 
+                                            title   = "Save"
+                                            onclick = {handleSave} 
+                                            class   = ""></lightning-button>
+                    </lightning-button-group>
+                </div>
+            </template>
+                
+        </lightning-quick-action-panel>
+    </div>
+</template>

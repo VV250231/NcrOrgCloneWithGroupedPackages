@@ -1,0 +1,7 @@
+<aura:component controller="TableauPortalController"  implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+    <aura:attribute name="faqs" type="TableauPortalAdmin_config__c[]"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:iteration items="{!v.faqs}" var="item">
+    <c:TableauFaqSection question="{!item.Question__c}" answer="{!item.Answer__c}" />
+    </aura:iteration>
+</aura:component>

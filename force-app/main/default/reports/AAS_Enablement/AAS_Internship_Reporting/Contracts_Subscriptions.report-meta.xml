@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Contract.SBQQ__Subscriptions__r$SBQQ__QuoteLine__c.SBQQ__ProductName__c</field>
+    </columns>
+    <columns>
+        <field>Contract.SBQQ__Subscriptions__r$SBQQ__QuoteLine__c.SBQQ__ProductCode__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Contract.SBQQ__Subscriptions__r$SBQQ__QuoteLine__c.blng__BillableUnitPrice__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Contract.SBQQ__Subscriptions__r$SBQQ__QuoteLine__c.SBQQ__Quantity__c</field>
+    </columns>
+    <currency>USD</currency>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Contract$ContractNumber</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Contracts: Subscriptions</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Contracts_Subscriptions_Quote_Lines__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Contract$ActivatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

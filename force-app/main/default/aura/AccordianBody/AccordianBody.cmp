@@ -1,0 +1,8 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+            <aura:attribute name="Product" type="List"></aura:attribute> 
+            <aura:iteration items="{!v.Product}" var="ele2" indexVar="key2">
+                    <aura:set attribute="body">
+                        <p>{!ele2.Product__r.Name}</p>
+                   </aura:set>
+           </aura:iteration>
+</aura:component>

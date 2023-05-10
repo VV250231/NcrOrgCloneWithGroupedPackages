@@ -1,0 +1,18 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false">
+    <apex:includeLightning />
+
+    <div id="lightning" />
+
+    
+    <script>
+    $Lightning.use("c:TableauPortalApp", function() {
+        $Lightning.createComponent("c:TableauPortalMainPage",{}
+                                  ,          
+                                   "lightning",
+                                   function(cmp) {
+                                       // do some stuff
+                                   });
+    }); 
+    </script>
+
+</apex:page>

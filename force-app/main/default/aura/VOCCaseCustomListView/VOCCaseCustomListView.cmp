@@ -1,0 +1,132 @@
+<aura:component controller="listViewController" implements="lightning:actionOverride,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:hasRecordId" access="global" >
+    <aura:attribute name="CaseList" type="Object[]"/>
+    <aura:attribute name="GrandCaseList" type="Object[]"/>
+    <aura:attribute name="SearchCase" type="String" default=""/>
+    <aura:method name="doInit" />
+    <aura:method name="doFilter"/>
+    <aura:attribute name="arrowDirection" type="string" default="arrowdown" />
+    <aura:attribute name="isAsc" type="boolean" default="fasle" /> 
+    <aura:attribute name="selectedTabsoft" type="string" default="caseNumber"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:if isTrue="{!v.spinner}">
+        <lightning:spinner aura:id="mySpinner" alternativeText="Processing.." title="Processing.." variant="brand" size="large"/>
+    </aura:if>
+    <div class="slds-page-header">
+        <div class="slds-page-header__row " >
+            <div class="slds-page-header__col-title">
+                <div class="slds-media">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-opportunity">
+                            <lightning:icon iconName="standard:service_resource" size="large" />
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <div class="slds-page-header__name">
+                            <div class="slds-page-header__name-title">
+                                <h1>
+                                    <span></span>
+                                    <span class="slds-page-header__title slds-truncate" title="Recently Viewed" style="font-size: 23px;">Functional Area Cases</span>
+                                    <span class="slds-page-header__meta-text" style="font-size: 20px;">Total Showing Record ({!v.CaseList.length})</span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="" style="margin-top : -18px;">
+                <lightning:input name="Searh" placeholder="Search Case" value="{!v.SearchCase}" onchange="{!c.searchCase}"/>  
+            </div>
+        </div>
+     
+        </div>
+
+    <!-- List view Start here -->
+    <div class="" >
+        <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="slds-is-sortable slds-text-title--caps" scope="col" onclick="{!c.sortCaseNumber}">
+                        <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+                            <span class="slds-assistive-text">Sort</span>
+                            <span class="slds-truncate" title="CaseNumber">Case Number</span>  
+                            <aura:if isTrue="{! and(v.arrowDirection == 'arrowdown', v.selectedTabsoft == 'CaseNumber') }">&nbsp;  &#9660; </aura:if>  
+                            <aura:if isTrue="{! and(v.arrowDirection != 'arrowdown', v.selectedTabsoft == 'CaseNumber') }"> &nbsp;  &#9650; </aura:if>                      
+                        </a>
+                    </th>
+                    
+                   <th class="" scope="col">
+                        <div class="slds-truncate" title="Subject" >Contact Name</div>
+                    </th>
+   
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Subject" >Subject</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Status">Status</div>
+                    </th>
+                                       <th class="slds-is-sortable slds-text-title=caps" scope="col" onclick="{!c.sortContactName}">
+                        <a href="javascript:void(0);" class="slds-th__action slds-text-link=reset">
+                            <span class="slds-assistive-text">Sort</span>
+                            <span class="slds-truncate" title="Name">Owner Name</span>  
+                            <aura:if isTrue="{! and(v.arrowDirection == 'arrowdown', v.selectedTabsoft == 'Owner_Name__c') }">&nbsp;  &#9660; </aura:if>  
+                            <aura:if isTrue="{! and(v.arrowDirection != 'arrowdown', v.selectedTabsoft == 'Owner_Name__c') }"> &nbsp;  &#9650; </aura:if>                      
+                        </a>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Priority">Priority</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Created Date">Created Date</div>
+                    </th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <aura:if isTrue='{!(v.CaseList.length &gt;0)}'>
+                    <aura:iteration items="{!v.CaseList}" var="obj" indexVar="index">
+                        <tr class="slds-hint-parent" id="{!index}">
+                            <td data-label="Case Details" scope="row">
+                                <div class="slds-truncate" title="Case Details" id="this">
+                                    <a href="javascript:void(0);" tabindex="-1" onclick="{!c.gotoDetail}" id="{!index}">{!obj.CaseNumber}</a>
+                                </div>
+                            </td>
+
+                            <td data-label="Contact Name">
+                                <div class="slds-truncate" title="Contact Name">{!obj.Contact.Name}</div>
+                            </td>
+                             <td data-label="Subject">
+                                <div class="slds-truncate" title="Subject" style="width:200px">{!obj.Subject}</div>
+                            </td>
+                             <td data-label="Status">
+                                <div class="slds-truncate" title="Status">{!obj.Status}</div>
+                            </td>
+                             <td data-label="Owner Name">
+                                <div class="slds-truncate" title="Owner Name">{!obj.Owner.Name}</div>
+                            </td>
+                             <td data-label="Priority">
+                                <div class="slds-truncate" title="Priority">{!obj.Priority}</div>
+                            </td>
+                            <td data-label="Created Date">
+                                <div class="slds-truncate" title="Created Date"><lightning:formattedDateTime aura:id="dt"
+                                     value="{!obj.CreatedDate}"
+                                     month="short"
+                                     day="numeric"
+                                     year="numeric"
+                                     hour="2-digit"
+                                     minute="2-digit"
+                                     second="2-digit"
+                                     hour12="true"
+                                     timeZone="{!$Locale.timezone}"/></div>
+                            </td>
+                         
+                        </tr>
+                    </aura:iteration>
+                     <aura:set attribute="else">
+                    Enjoy!! No Cases Assigned to you yet..
+                    </aura:set>
+                </aura:if>
+            </tbody>
+        </table>
+    </div>
+</aura:component>

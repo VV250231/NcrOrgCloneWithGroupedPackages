@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>CDM_Account_Creation_Alert</fullName>
+        <description>CDM Account Creation Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Idea_Owner_Changed_Old</template>
+    </alerts>
+    <alerts>
+        <fullName>CDM_Account_Creation_Alerts</fullName>
+        <description>CDM Account Creation Alerts</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>NSC_Admin_Templates/Account_Creation_Notification</template>
+    </alerts>
+    <alerts>
+        <fullName>DNBI__Send_Credit_Status_Change_Notification_Account</fullName>
+        <description>Send Credit Status Change Notification for Account</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>DNBI__DNBI_email_Templates/DNBI__DNBI_Credit_Information_Update_for_Account</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_alert_to_Chad_Bruhn_when_account_coverage_changed_to_Teamed</fullName>
+        <description>Email alert to Chad Bruhn when account coverage changed to Teamed</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>pj185054@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Teamed_Account_email_alert</template>
+    </alerts>
+    <alerts>
+        <fullName>Lucus_Ulloque_Inside_Sales_Enterprise</fullName>
+        <description>Lucus Ulloque Inside Sales (Enterprise)</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>Inside Sales Specialist</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Test_Lucus_Ulloque</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Email_to_Account_Owner_If_Account_Record_Type_Changed</fullName>
+        <description>Send Email to Account Owner If Account Record Type Changed.</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Account_Record_Type_Change_Email_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Your_Customers_Contract_is_coming_up_for_renewal</fullName>
+        <description>Your Customers Contract is coming up for renewal.</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>Account Manager</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Channel Account Manager</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Digital Banking Conversion Sales</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Other Involved</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Sales Manager</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Sales Rep</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Services Sales Consultant</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Services Sales Leader</recipient>
+            <type>accountTeam</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Notice_of_upcoming_contract_expiration</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>New_Unique_Account_Field</fullName>
+        <field>Country_with_Master_customer_Number__c</field>
+        <formula>TEXT(Account_Country_Code__c) + Master_Customer_Number__c</formula>
+        <name>New Unique Account Field</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Parent_Account_Name</fullName>
+        <field>Parent_Account_Name__c</field>
+        <formula>Parent.Name</formula>
+        <name>Parent Account Name</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Populate_Data_Source_Code_as_CDM</fullName>
+        <field>MDM_Data_Source_Code__c</field>
+        <formula>&quot;CDM&quot;</formula>
+        <name>Populate Data Source Code as CDM</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Populate_Data_Source_Name_as_CDM</fullName>
+        <field>MDM_Data_Source_Name__c</field>
+        <formula>&quot;CDM&quot;</formula>
+        <name>Populate Data Source Name as CDM</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Populate_Interface_Source_as_CDM</fullName>
+        <field>Interface_Source__c</field>
+        <formula>&quot;CDM&quot;</formula>
+        <name>Populate Interface Source as CDM</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateEnterpriseAccOwner</fullName>
+        <field>OwnerId</field>
+        <lookupValue>nscadmin@ncr.com</lookupValue>
+        <lookupValueType>User</lookupValueType>
+        <name>UpdateEnterpriseAccOwner</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Account_Active_Date</fullName>
+        <field>Account_Active_Date__c</field>
+        <formula>IF(Active_Account__c, NOW() , Account_Active_Date__c)</formula>
+        <name>Update Account Active Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Account_Inactive_Date</fullName>
+        <field>Account_Inactive_Date__c</field>
+        <formula>IF(Active_Account__c , Account_Inactive_Date__c, NOW() )</formula>
+        <name>Update Account Inactive Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Account_Record_Type_to_Customer</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>Customer</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>Update Account Record Type to Customer</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Account_Record_Type_to_Partner</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>Partner</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>Update Account Record Type to Partner</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Account_Record_Type_to_Site</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>Site</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>Update Account Record Type to Site</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Active_Account_field_to_false</fullName>
+        <field>Active_Account__c</field>
+        <literalValue>0</literalValue>
+        <name>Update Active Account field to false</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Active_Account_field_to_true</fullName>
+        <description>Update Active Account field of Account object to True when Status in CDM field on Account consists value in set (Active,Target,ERP Ready)</description>
+        <field>Active_Account__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Active Account field to true</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Previous_Name</fullName>
+        <field>Previous_Name__c</field>
+        <formula>PRIORVALUE(Name)</formula>
+        <name>Update Previous Name</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <outboundMessages>
+        <fullName>Walker_Account_Sync_OB_Msg</fullName>
+        <apiVersion>19.0</apiVersion>
+        <endpointUrl>https://integration.walkerinfo.com/jitterbit_ws/?id=01399327-af8a-44b1-9f66-8b9a69eaec92</endpointUrl>
+        <fields>Account_Country_Code__c</fields>
+        <fields>Account_Region__c</fields>
+        <fields>Active_Account__c</fields>
+        <fields>Area__c</fields>
+        <fields>Customer_Segmentation__c</fields>
+        <fields>Id</fields>
+        <fields>Industry</fields>
+        <fields>LOB__c</fields>
+        <fields>MDM_Customer_Entity_Name__c</fields>
+        <fields>MDM_Customer_Entity_Nbr__c</fields>
+        <fields>MDM_Enterprise_Name__c</fields>
+        <fields>MDM_Enterprise_Nbr__c</fields>
+        <fields>Master_Customer_Number__c</fields>
+        <fields>Name</fields>
+        <fields>OwnerId</fields>
+        <fields>Partner_Program_Level__c</fields>
+        <fields>Partner_Type__c</fields>
+        <fields>Partnership_Status__c</fields>
+        <fields>Region__c</fields>
+        <fields>Tier__c</fields>
+        <includeSessionId>true</includeSessionId>
+        <integrationUser>cximplementation@ncr.com</integrationUser>
+        <name>Walker Account Sync OB Msg</name>
+        <protected>false</protected>
+        <useDeadLetterQueue>false</useDeadLetterQueue>
+    </outboundMessages>
+    <rules>
+        <fullName>Account Coverage changed to Teamed</fullName>
+        <actions>
+            <name>Email_alert_to_Chad_Bruhn_when_account_coverage_changed_to_Teamed</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Account.Coverage__c</field>
+            <operation>equals</operation>
+            <value>Teamed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.LOB__c</field>
+            <operation>equals</operation>
+            <value>FINANCIAL</value>
+        </criteriaItems>
+        <description>Email alert for accounts where the coverage field has been changed to team.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Account Credit Status Change</fullName>
+        <actions>
+            <name>DNBI__Send_Credit_Status_Change_Notification_Account</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <description>Account Credit Status Change notification email</description>
+        <formula>AND(ISCHANGED(DNBI__DnB_Application_Modified_Date__c),  $Setup.DNBI__EnableStatusEmailNotification1__c.DNBI__Enable_Email_Notification__c, NOT($Setup.Automation_Setting__c.Skip_Flow__c))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Alert for Account Record Type Change</fullName>
+        <actions>
+            <name>Send_Email_to_Account_Owner_If_Account_Record_Type_Changed</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <formula>ISCHANGED( RecordTypeId )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>CDM Account Creation Rule</fullName>
+        <actions>
+            <name>CDM_Account_Creation_Alerts</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Account.OwnerId</field>
+            <operation>notEqual</operation>
+            <value>NULL</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.OwnerId</field>
+            <operation>notEqual</operation>
+            <value>00570000001N9kDAAS</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Master_Customer_Number__c</field>
+            <operation>notEqual</operation>
+            <value>NULL</value>
+        </criteriaItems>
+        <description>This workflow rule notifies users except NSC Admin, when an account in created in SF based on Account Owner. Also checks for MCN( master Customer Number) as well!</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Country with Master Customer Number</fullName>
+        <actions>
+            <name>New_Unique_Account_Field</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Account.Master_Customer_Number__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Account_Country_Code__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Country code with Master Customer Number makes unique value for each customer in Account .</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>DNBI__Account Credit Status Change</fullName>
+        <actions>
+            <name>DNBI__Send_Credit_Status_Change_Notification_Account</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <description>Account Credit Status Change notification email</description>
+        <formula>AND(ISCHANGED(DNBI__DnB_Application_Modified_Date__c),  $Setup.DNBI__EnableStatusEmailNotification1__c.DNBI__Enable_Email_Notification__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Enterprise records should be owned by admin</fullName>
+        <actions>
+            <name>UpdateEnterpriseAccOwner</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <formula>AND(RecordType.Name = &apos;Enterprise&apos; ,OR( ISNEW(),ISCHANGED( OwnerId)))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Notify Account Owner of Contrat Expiration</fullName>
+        <active>true</active>
+        <description>This workflow rule is to notify the account owner and account team of a contract that expires in 365 days.</description>
+        <formula>AND(  NOT($Setup.Automation_Setting__c.Skip_Flow__c),  Active_Account__c = true )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Your_Customers_Contract_is_coming_up_for_renewal</name>
+                <type>Alert</type>
+            </actions>
+            <actions>
+                <name>Your_Customers_Contract_is_coming_up_for_renewal_This_is_not_an_auto_renewal_con</name>
+                <type>Task</type>
+            </actions>
+            <offsetFromField>Account.Pramata_AggTerm_End_Date__c</offsetFromField>
+            <timeLength>-365</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Notify Account Owner of Payments Processor Expiration</fullName>
+        <active>true</active>
+        <description>This rule is to provide a 12 month lead time to reps that a customer&apos;s Payment Processor contract is expiring.</description>
+        <formula>AND(  NOT($Setup.Automation_Setting__c.Skip_Flow__c),  ISPICKVAL(LOB__c,&apos;HOSPITALITY&apos;),  NOT(ISBLANK( Contract_Expiration_Date__c )) )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Customer_Payment_Processor_expires_in_12_months</name>
+                <type>Task</type>
+            </actions>
+            <offsetFromField>Account.Contract_Expiration_Date__c</offsetFromField>
+            <timeLength>-365</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Previous Name</fullName>
+        <actions>
+            <name>Update_Previous_Name</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <description>This workflow is used to update Previous Name field on Account with Previous Account Name when Account Name updated.</description>
+        <formula>ISCHANGED(Name)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Set Customer Record Type</fullName>
+        <actions>
+            <name>Update_Account_Record_Type_to_Customer</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Account.CDM_Account_Type__c</field>
+            <operation>equals</operation>
+            <value>END CUSTOMER</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Set Partner Record Type</fullName>
+        <actions>
+            <name>Update_Account_Record_Type_to_Partner</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Account.CDM_Account_Type__c</field>
+            <operation>equals</operation>
+            <value>PARTNER,DISTRIBUTOR,INTERNAL,LOCAL OFFICE</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Set Site Record Type</fullName>
+        <actions>
+            <name>Update_Account_Record_Type_to_Site</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Account.CDM_Account_Type__c</field>
+            <operation>equals</operation>
+            <value>Site</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Account Source</fullName>
+        <actions>
+            <name>Populate_Data_Source_Code_as_CDM</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Populate_Data_Source_Name_as_CDM</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Populate_Interface_Source_as_CDM</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Account.Account_CDM_ID__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.MDM_Data_Source_Code__c</field>
+            <operation>notEqual</operation>
+            <value>CDM</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Active Account field of Account object to Active</fullName>
+        <actions>
+            <name>Update_Active_Account_field_to_true</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <booleanFilter>(1 OR 2 OR 3) AND 4 AND 5 AND 6 AND 7</booleanFilter>
+        <criteriaItems>
+            <field>Account.CDM_Account_Status__c</field>
+            <operation>equals</operation>
+            <value>Active</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.CDM_Account_Status__c</field>
+            <operation>equals</operation>
+            <value>Target</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.CDM_Account_Status__c</field>
+            <operation>equals</operation>
+            <value>ERP Ready</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.CDM_Account_Status__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.CDM_IsMerged__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.MDM_Data_Source_Code__c</field>
+            <operation>equals</operation>
+            <value>CDM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Active_Account__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Active Account field of Account object to InActive</fullName>
+        <actions>
+            <name>Update_Active_Account_field_to_false</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <booleanFilter>((1 AND 2 AND 3) OR 4) AND 5 AND 6</booleanFilter>
+        <criteriaItems>
+            <field>Account.CDM_Account_Status__c</field>
+            <operation>notEqual</operation>
+            <value>Active</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.CDM_Account_Status__c</field>
+            <operation>notEqual</operation>
+            <value>Target</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.CDM_Account_Status__c</field>
+            <operation>notEqual</operation>
+            <value>ERP Ready</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.CDM_IsMerged__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.MDM_Data_Source_Code__c</field>
+            <operation>equals</operation>
+            <value>CDM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Active_Account__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Active%2FInactive Account Date Stamp</fullName>
+        <actions>
+            <name>Update_Account_Active_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Account_Inactive_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <formula>OR(ISNEW(), ISCHANGED(Active_Account__c))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <tasks>
+        <fullName>Customer_Payment_Processor_expires_in_12_months</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Your customer has their contract expiration for their Payment Processor in one year.  Please contact this customer to begin selling NCR Payment Services.</description>
+        <dueDateOffset>1</dueDateOffset>
+        <notifyAssignee>true</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Customer Payment Processor expires in 12 months</subject>
+    </tasks>
+    <tasks>
+        <fullName>Your_Customers_Contract_is_coming_up_for_renewal_This_is_not_an_auto_renewal_con</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Your Customers Contract is coming up for renewal. This is not an auto-renewal contract. Please create a new opportunity to manage this renewal</description>
+        <dueDateOffset>-360</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <offsetFromField>Account.Pramata_AggTerm_End_Date__c</offsetFromField>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Your Customers Contract is coming up for renewal. This is not an auto-renewal contract. Please create a new opportunity to manage this renewal</subject>
+    </tasks>
+</Workflow>

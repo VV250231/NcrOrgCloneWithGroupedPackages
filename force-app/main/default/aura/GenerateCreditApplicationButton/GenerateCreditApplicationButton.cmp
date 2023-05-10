@@ -1,0 +1,15 @@
+<aura:component controller="GenerateLegalDocumentService" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader" access="global"> 
+    <aura:attribute name="isNonCPQ" type="boolean"/>
+    <aura:attribute name="msg" type="String"/>
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/> 
+    
+    <aura:if isTrue="{!v.isNonCPQ}">
+        <div class="slds-text-heading_medium, slds-align_absolute-center"><center><b style="color:red" class="font">{!v.msg}</b></center></div>
+
+        <aura:set attribute="else">
+             <div class="slds-text-heading_large, slds-align_absolute-center">
+    <center><b>Please wait while being redirected.</b></center></div>
+        
+        </aura:set>
+        </aura:if>
+</aura:component>

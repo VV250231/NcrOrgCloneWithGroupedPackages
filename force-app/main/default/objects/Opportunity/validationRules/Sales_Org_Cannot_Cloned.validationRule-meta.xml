@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sales_Org_Cannot_Cloned</fullName>
+    <active>true</active>
+    <description>This rule is to prevent an Opportunity from being closed if the Sales Org equals &quot;CLONED&quot;</description>
+    <errorConditionFormula>AND( 
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+NOT(CATM_Record__c),
+ISCHANGED(IsClosed), 
+Sales_Org__c = &quot;a0R7000000c4QxP&quot; 
+,($Profile.Name &lt;&gt; &quot;02 NSC Administrator&quot;) 
+,($Profile.Name &lt;&gt; &quot;04 NSC UI Administrator&quot;) 
+,($Profile.Name &lt;&gt; &quot;Soup Integration&quot;) 
+)</errorConditionFormula>
+    <errorDisplayField>Sales_Org__c</errorDisplayField>
+    <errorMessage>Opportunity cannot be closed if Sales Org is CLONED</errorMessage>
+</ValidationRule>

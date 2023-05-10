@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notification to any opportunity owner indicating the oppty is cross sell to complete the questionnaire.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>NCRLogoLetterhead</letterhead>
+    <name>Cross Sell Notification</name>
+    <style>freeForm</style>
+    <subject>Reminder - {!Opportunity.Name} for {!Opportunity.Account}</subject>
+    <textOnly>Dear {!Receiving_User.FirstName},
+
+This is a reminder that you must complete a Cross Sell Questionnaire if you have not done so already for the opportunity in the subject.  This will prompt an action from the Review Board to ensure the feasibility of your deal.
+
+
+Hospitality NSC Team
+jb150006@ncr.com</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

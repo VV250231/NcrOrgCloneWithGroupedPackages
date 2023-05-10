@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Channel_Partner_Approved_Notification</fullName>
+        <description>Channel Partner Approved Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Demo_Program/Demo_Program_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Channel_Partner_Notification</fullName>
+        <description>Channel Partner Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Demo_Program/Demo_Program_Notification_to_Partner</template>
+    </alerts>
+    <alerts>
+        <fullName>Channel_Partner_Rejected_Notification</fullName>
+        <description>Channel Partner Rejected Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Demo_Program/Demo_Program_Rejected</template>
+    </alerts>
+    <alerts>
+        <fullName>Notification_to_CAM</fullName>
+        <description>Notification to CAM</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Channel_Account_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Demo_Program/Demo_Program_Notification_to_CAM</template>
+    </alerts>
+    <alerts>
+        <fullName>Notification_to_DFPA</fullName>
+        <description>Notification to DFPA</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>as185663@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Demo_Program/Rejection_Notification_to_Internal_Users</template>
+    </alerts>
+    <alerts>
+        <fullName>Notification_to_EFM_DFPA</fullName>
+        <description>Notification to EFM,DFPA</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>sa250502@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>zt185013@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Demo_Program/Rejection_Notification_to_Internal_Users</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Change_Status_to_Approved</fullName>
+        <field>Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Change Status to Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Change_Status_to_Rejected</fullName>
+        <field>Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Change Status to Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Change_Status_to_Submitted</fullName>
+        <field>Status__c</field>
+        <literalValue>Submitted</literalValue>
+        <name>Change Status to Submitted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Change_Status_to_Submitted_to_CPM3</fullName>
+        <field>Approval_Step__c</field>
+        <literalValue>Submitted to Channel Program Manager</literalValue>
+        <name>Change Status to Submitted to CPM</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Change_Status_to_Submitted_to_DFPA1</fullName>
+        <field>Approval_Step__c</field>
+        <literalValue>Submitted to Dundee Financial Pricing Analyst</literalValue>
+        <name>Change Status to Submitted to DFPA</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Change_Status_to_Submitted_to_EFM1</fullName>
+        <field>Approval_Step__c</field>
+        <literalValue>Submitted to European Finance Manager</literalValue>
+        <name>Change Status to Submitted to EFM</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Change_Status_to_Submitted_to_Final_Appr</fullName>
+        <field>Approval_Step__c</field>
+        <literalValue>Submitted to Final Approver</literalValue>
+        <name>Change Status to Submitted to Final Appr</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Status_submitted_to_Final_Approver</fullName>
+        <field>Approval_Step__c</field>
+        <literalValue>Submitted to Final Approver</literalValue>
+        <name>Status submitted to Final Approver</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+</Workflow>

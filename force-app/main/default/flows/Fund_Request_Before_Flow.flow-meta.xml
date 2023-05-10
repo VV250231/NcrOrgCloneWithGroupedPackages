@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>53.0</apiVersion>
+    <assignments>
+        <description>Updating FML code field, when finance type is Marketing Expense.</description>
+        <name>Assign_value_to_FML_Code</name>
+        <label>Assign value to FML Code</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.FML_Code__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Label.FML_Code</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Updating FML Code to null.</description>
+        <name>Set_FML_Code_to_null</name>
+        <label>Set FML Code to null</label>
+        <locationX>314</locationX>
+        <locationY>431</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.FML_Code__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <description>Checking value of finance type for the given fund request record.</description>
+        <name>Check_fund_request_finance_type</name>
+        <label>Check fund request finance type</label>
+        <locationX>314</locationX>
+        <locationY>311</locationY>
+        <defaultConnectorLabel>Else</defaultConnectorLabel>
+        <rules>
+            <name>If_Marketing_Expense</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Finance_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Marketing Expense</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior.Finance_Type__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Finance_Type__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_value_to_FML_Code</targetReference>
+            </connector>
+            <label>If Marketing Expense</label>
+        </rules>
+        <rules>
+            <name>If_Contra_Revenue</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Finance_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Contra Revenue</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.FML_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Label.FML_Code</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_FML_Code_to_null</targetReference>
+            </connector>
+            <label>If Contra Revenue</label>
+        </rules>
+    </decisions>
+    <description>This flow will run when a record is created or updated, before saving the record to the database.
+Following workflows are migrated to this flow:
+1. CP_Update_FML_Code
+2. CP_Update_FML_Code1</description>
+    <interviewLabel>Fund Request Before Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Fund Request Before Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>188</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Check_fund_request_finance_type</targetReference>
+        </connector>
+        <object>SFDC_MDF__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

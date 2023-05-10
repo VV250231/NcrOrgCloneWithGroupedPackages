@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MCN_is_populated_force_entry_on_ERP_CC</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND
+( 
+NOT(isblank( Master_Customer_Number__c)), 
+(ispickval(  ERP_Country_Code__c ,&apos;&apos;) )
+)</errorConditionFormula>
+    <errorDisplayField>ERP_Country_Code__c</errorDisplayField>
+    <errorMessage>ERP Country Code can’t be blank when Master Customer Number is entered.</errorMessage>
+</ValidationRule>

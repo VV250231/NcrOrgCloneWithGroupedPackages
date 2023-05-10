@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Account$Name</field>
+    </columns>
+    <columns>
+        <field>Account$Owner</field>
+    </columns>
+    <columns>
+        <field>Account$Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>Account.Contacts$Owner</field>
+    </columns>
+    <columns>
+        <field>Account.Contacts$Name</field>
+    </columns>
+    <crossFilters>
+        <criteriaItems>
+            <column>POS_Version__c</column>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>6.7</value>
+        </criteriaItems>
+        <operation>with</operation>
+        <primaryTableColumn>Account$Id</primaryTableColumn>
+        <relatedTable>Zuora__CustomerAccount__c</relatedTable>
+        <relatedTableJoinColumn>Zuora__Account__c</relatedTableJoinColumn>
+    </crossFilters>
+    <currency>USD</currency>
+    <format>Tabular</format>
+    <name>Accounts with Contacts and BA filter</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Accounts_with_Contacts_if_available__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Account$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

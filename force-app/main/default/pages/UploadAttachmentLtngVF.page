@@ -1,0 +1,72 @@
+<apex:page controller="UploadAttachmentControllerLtng" showHeader="false" sidebar="false" lightningStylesheets="true">
+    <head>
+        <apex:slds />
+    </head>
+    <body class="slds-scope slds">
+        <!-- file uploading -->
+        <apex:outputPanel rendered="{! message==''}">
+            <apex:form id="form_Upload" styleClass="slds">
+                <apex:pageMessages />
+                
+                <div id="LoaderImg" class="slds-spinner_container" style="display:none;">
+                    <div class="slds-spinner slds-spinner--small" aria-hidden="false" role="alert">
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                    </div>
+                </div>
+                
+                <div class="slds-form--stacked">
+                    <div class="slds-form-element">
+                        <apex:outputLabel value="File" for="file_File" html-class="slds-form-element__label"/>
+                        <div class="slds-form-element__control">
+                            <apex:inputFile id="file_File" value="{!fileBody}" filename="{!fileName}"/>
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <apex:outputLabel value="Type" for="type" html-class="slds-form-element__label"/>
+                        <div class="slds-form-element__control">
+                            <div class="slds-select_container">
+                                <apex:selectList value="{!selectedType}" size="1" id="type" styleClass="slds-select"> 
+                                    <apex:selectOption itemValue="Diagnostic Worksheet" itemLabel="Diagnostic Worksheet"/>
+                                    <apex:selectOption itemValue="IPP Order Form" itemLabel="IPP Order Form"/>
+                                    <apex:selectOption itemValue="NCRU Certificate" itemLabel="NCRU Certificate"/>
+                                    <apex:selectOption itemValue="Others" itemLabel="Others"/>
+                                </apex:selectList>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <apex:commandButton id="uploadBtn" value="Attach File" action="{!processUpload}" onclick="document.getElementById('LoaderImg').style.display = 'show';" styleclass="slds-button slds-button--brand" />
+                    <!--<button onclick="closePartnetWindow()" class="slds-button slds-button--neutral">
+                        Cancel
+                    </button>-->
+                </div>
+            </apex:form>
+        </apex:outputPanel>
+        
+        <!-- if Success -->
+        <apex:outputPanel rendered="{! message == 'File uploaded successfully.'}">
+            <apex:pageMessages />
+            <!--<button onclick="closePartnetWindow()" class="slds-button slds-button--neutral" style="float:right;">
+                Close
+            </button>-->
+        </apex:outputPanel>
+        
+        <!-- If Error -->
+        <apex:outputPanel rendered="{! message != 'File uploaded successfully.' && message != ''}" >
+            <apex:pageMessages />
+            <!--<button class="slds-button slds-button--neutral" style="float:right;" onclick="closePartnetWindow()">
+                Close
+            </button>-->
+        </apex:outputPanel>
+        
+    </body>
+    
+    <script>
+        function closePartnetWindow() {
+            var lexOrigin = "https://ncr.my.salesforce.com";
+            var message = 'closeModal';
+            parent.postMessage(message,lexOrigin);
+        }
+    </script>
+</apex:page>

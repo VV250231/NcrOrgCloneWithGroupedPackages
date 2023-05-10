@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Step_3_Notification_Limit__c</fullName>
+    <description>This field is used in &apos;Overdue AR balance - 60 days&apos; Email Template.</description>
+    <externalId>false</externalId>
+    <formula>CASE( Account_LOB__c ,&apos;FINANCIAL&apos;,TEXT($CustomMetadata.AR_Detail_Setting__mdt.FINANCIAL.Step_4_Maximum_Due_Amount__c), &apos;HOSPITALITY&apos;,TEXT($CustomMetadata.AR_Detail_Setting__mdt.HOSPITALITY.Step_4_Maximum_Due_Amount__c) , &apos;RETAIL&apos;,Text($CustomMetadata.AR_Detail_Setting__mdt.RETAIL.Step_4_Maximum_Due_Amount__c) , &apos;T&amp;T&apos;,Text($CustomMetadata.AR_Detail_Setting__mdt.T_and_T.Step_4_Maximum_Due_Amount__c) ,&apos;--Error--&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Step 3 Notification Limit</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

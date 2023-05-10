@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Case Cancelled Template</name>
+    <style>none</style>
+    <subject>Case {!Case.CaseNumber} has been cancelled</subject>
+    <textOnly>Dear {!Case.Contact}, 
+ Your reported Case has been cancelled with the following details:  
+Case Number: {!Case.CaseNumber}  
+Site Name: {!Case.Site_Id__c}  
+Store Number / Branch: {!Case.Store_Branch_No__c} 
+Address:  
+Created Date/Time: {!Case.CreatedDate__c} 
+Priority: {!Case.Priority}  
+Software Product: {!Case.ProductId}  
+Brief Description: {!Case.Description}  
+Customer Reference Number: {!Case.GUID_Id__c}  
+If you need additional help or to provide support with an update to your case, feel free to contact the Service Desk.  
+Sincerely,  
+NCR Service Desk
+ {!Case.Support_Phone__c} / {!Case.Support_Email__c}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

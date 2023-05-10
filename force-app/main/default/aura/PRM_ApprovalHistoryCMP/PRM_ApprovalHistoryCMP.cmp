@@ -1,0 +1,167 @@
+<aura:component controller="PRM_ApprovalHistoryController" 
+                implements="force:lightningQuickActionWithoutHeader,force:hasRecordId,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes">
+	
+    <aura:attribute name="approvalHistory" type="PRM_ApprovalHistoryController.HistoryDetails[]"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" /><!--Client-side Controller-->
+    <table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal slds-no-row-hover">
+        <thead>
+            <tr class="slds-text-heading_label">
+                <th class = "bgHeader">Action</th>
+                <th class = "bgHeader">Date</th>
+                <th class = "bgHeader">Status</th>
+                <th class = "bgHeader">Approver</th>
+                <th class = "bgHeader">Actual Approver</th>
+                <th class = "bgHeader">Comments</th>
+                <th class = "bgHeader">Overall Status</th>
+            </tr>
+        </thead>
+        <tbody>
+             <aura:iteration items="{!v.approvalHistory}" var="d">
+                <tr>   
+                    <aura:if isTrue="{!and(d.lstDetail[0]!=' ', d.lstDetail[1]==' ')}">
+                        
+                        <td class = "bgColour">
+                            <b>{!d.lstDetail[0]}</b>
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!and(d.lstDetail[0]!=' ' ,d.lstDetail[2]== 'Pending')}">
+                        <td>
+                            <aura:if isTrue="{!d.isApprover}">
+                                
+                                    Reassign
+                                
+                            </aura:if>                                
+                                
+                            <aura:if isTrue="{!!d.isApprover }"> | </aura:if>
+                                 &nbsp;
+                           	<aura:if isTrue="{!d.showLink}" >
+                                
+                                    Approve
+                               
+                            </aura:if>
+                            <aura:if  isTrue="{!d.showLink }"> | </aura:if>
+                            
+                            <aura:if isTrue="{!!d.showLink}"> | </aura:if>
+                            <aura:if isTrue="{!d.showLink}">
+                                
+                                    Reject
+                                 
+                            </aura:if>
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!d.lstDetail[0]==' ' }">
+                        <td>
+                            {!d.lstDetail[0]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!d.lstDetail[0]=='Approve / Reject'}">
+                        <td class="slds-cell-wrap">
+                            {!d.lstDetail[1]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!d.lstDetail[0]==' ' }">
+                        <td class="slds-cell-wrap">
+                            {!d.lstDetail[1]}
+                        </td>
+                    </aura:if>    
+                    <aura:if isTrue="{!and(d.lstDetail[0]!=' ' , d.lstDetail[0]!= 'Approve / Reject')}">
+                        <td class = "bgColour">
+                            {!d.lstDetail[1]}
+                        </td>
+                    </aura:if>            
+                    <aura:if isTrue="{!and(d.lstDetail[0]!=' ' , d.lstDetail[0]!= 'Approve / Reject')}">
+                        <td class = "bgColour">
+                            {!d.lstDetail[2]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!d.lstDetail[0]=='Approve / Reject'}">
+                        <td class="slds-cell-wrap">
+                            {!d.lstDetail[2]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!d.lstDetail[0]==' '}">
+                        <td class="slds-cell-wrap">
+                            {!d.lstDetail[2]}
+                        </td>
+                    </aura:if>  
+                                 
+                    <aura:if isTrue="{!and(d.lstDetail[0]!=' ' ,d.lstDetail[0]!= 'Approve / Reject')}">
+                        <td class = "bgColour">
+                            {!d.lstDetail[3]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!d.lstDetail[0] == 'Approve / Reject'}">
+                        <td class="slds-cell-wrap">
+                            {!d.lstDetail[3]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!d.lstDetail[0]==' '}">
+                        <td class="slds-cell-wrap">
+                            {!d.lstDetail[3]}
+                        </td>
+                    </aura:if>                
+                    <aura:if isTrue="{!and(d.lstDetail[0]!=' ' ,d.lstDetail[0]!= 'Approve / Reject')}">
+                        <td class = "bgColour">
+                             {!d.lstDetail[4]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!d.lstDetail[0]=='Approve / Reject'}">
+                        <td class="slds-cell-wrap">
+                            {!d.lstDetail[4]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!d.lstDetail[0]==' '}">
+                        <td class="slds-cell-wrap">
+                            {!d.lstDetail[4]}
+                        </td>
+                    </aura:if>                
+                    <aura:if isTrue="{!and(d.lstDetail[0]!=' ', d.lstDetail[0]!= 'Approve / Reject')}">
+                        <td class = "bgColour">
+                            {!d.lstDetail[5]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!d.lstDetail[0]=='Approve / Reject'}">
+                        <td class="slds-cell-wrap">
+                            {!d.lstDetail[5]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!d.lstDetail[0]==' '}">
+                        <td class="slds-cell-wrap">
+                            {!d.lstDetail[5]}
+                        </td>
+                    </aura:if>                
+                    <aura:if isTrue="{!and(and(d.lstDetail[0]!=' ', d.lstDetail[6] == ' ' ), d.lstDetail[0] != 'Approve / Reject')}">
+                        <td class = "bgColour">
+                            {!d.lstDetail[6]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!and(d.lstDetail[0]!=' ' , d.lstDetail[6] == 'Pending')}">
+                        <td class = "Pending">
+                            <img src = "/img/icon/pending12.gif" />{!d.lstDetail[6]}
+                        </td>
+                    </aura:if>                
+                    <aura:if isTrue="{!d.lstDetail[0]==' '}">
+                        <td class="slds-cell-wrap">
+                            {!d.lstDetail[6]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!and(d.lstDetail[0]!=' ', d.lstDetail[6] == 'Approved')}">
+                        <td class = "Approved">
+                            <img src = "/img/icon/approve12.gif" />{!d.lstDetail[6]}
+                        </td>
+                    </aura:if>                                
+                    <aura:if isTrue="{!and(d.lstDetail[0]!=' ', d.lstDetail[6] == 'Rejected')}">
+                        <td class = "Rejected">
+                            <img src = "/img/icon/reject12.gif" />{!d.lstDetail[6]}
+                        </td>
+                    </aura:if>
+                    <aura:if isTrue="{!and(d.lstDetail[0]!=' ' ,d.lstDetail[6] == 'Recalled')}">
+                        <td class = "bgColourGrey">
+                            <img src = "/img/icon/recall12.gif" />{!d.lstDetail[6]}
+                        </td>
+                    </aura:if>                                
+                </tr>                
+            </aura:iteration>
+        </tbody>
+ 	</table>
+</aura:component>

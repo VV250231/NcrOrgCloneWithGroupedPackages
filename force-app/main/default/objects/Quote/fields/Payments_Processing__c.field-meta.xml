@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Payments_Processing__c</fullName>
+    <externalId>false</externalId>
+    <label>Payments Processing</label>
+    <summarizedField>QuoteLineItem.UnitPrice</summarizedField>
+    <summaryFilterItems>
+        <field>QuoteLineItem.Description</field>
+        <operation>contains</operation>
+        <value>NCR Payments Processing</value>
+    </summaryFilterItems>
+    <summaryForeignKey>QuoteLineItem.QuoteId</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <type>Summary</type>
+</CustomField>

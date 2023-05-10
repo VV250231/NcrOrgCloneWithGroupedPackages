@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_39574013</developerName>
+        <masterLabel>Region</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>User.Region_VP__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Chad Bruhn</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Puneet Malhotra</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Jesse Lind</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>George Eubank</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Charlie Mantione</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>William Thornton</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Rodney Anthony</sourceValue>
+            </sourceValues>
+            <value>NAMER</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Bruce Ding</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Keith Au</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Akio Nakaya</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>James Parker</sourceValue>
+            </sourceValues>
+            <value>APAC</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Eamonn O&apos;Brien</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Diego Navarrete</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Kevin Town</sourceValue>
+            </sourceValues>
+            <value>EMEA</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Marcelo Zuccas</sourceValue>
+            </sourceValues>
+            <value>LATAM</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Navroze Dastur</sourceValue>
+            </sourceValues>
+            <value>India</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>number</bucketType>
+        <developerName>BucketField_33610565</developerName>
+        <masterLabel>Subscription vs Perpetual</masterLabel>
+        <nullTreatment>z</nullTreatment>
+        <sourceColumnName>OpportunityLineItem.Total_Cost_Value__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <to>0</to>
+            </sourceValues>
+            <value>Perpetual</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>0</from>
+            </sourceValues>
+            <value>Subscription</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>BucketField_39574013</field>
+    </columns>
+    <columns>
+        <field>ADDRESS1_COUNTRY</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>FORECAST_CATEGORY</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Host_Switch_Network__c</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>OpportunityLineItem.Product_Name__c</field>
+    </columns>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Created_Date_Actual__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>OpportunityLineItem.Actual_Contract_Value__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>OpportunityLineItem.Total_Cost_Value__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>OpportunityLineItem.Total_Cost_Value__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>TOTAL_PRICE.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.PS_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>OpportunityLineItem.Scheduled_Qty__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>OpportunityLineItem.Unscheduled_Quantity__c</field>
+    </columns>
+    <columns>
+        <field>User.Region_VP__c</field>
+    </columns>
+    <columns>
+        <field>User.Manager_Level_01__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Expected_Delivery_Date__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Covers GBRU, SR and BRM</description>
+    <filter>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7</booleanFilter>
+        <criteriaItems>
+            <column>Product2.Service_Offer_Category__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>HW</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Forecast_Category__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Pipeline,Upside,Commit</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Product2.Solution_Portfolio__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Digital Channel - FIN,Store Operations Transformation - RET</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.LOB__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>FINANCIAL</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>STAGE_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Analyzing - NonFunnel,Validating - NonFunnel,Offering - NonFunnel,Proposing - NonFunnel,Closing - NonFunnel,Closed/Booked,Closed/Booked - NonFunnel,Closed/Lost</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OpportunityLineItem.Topline_Product_Lkp__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>D3,Digital Banking,Purchased Rewards</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OpportunityLineItem.Topline_Product_Lkp__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>GBRU,BRM,SR,GBXX</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>OpportunityLineItem.Topline_Product_Lkp__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_33610565</field>
+        <sortOrder>Desc</sortOrder>
+    </groupingsDown>
+    <name>Neill Test recycling Opps GBRU and SR</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>open</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>OpportunityProduct</reportType>
+    <roleHierarchyFilter>ChiefExecutiveOffice</roleHierarchyFilter>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <sortColumn>TOTAL_PRICE.CONVERT</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <endDate>2024-12-31</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2020-01-01</startDate>
+    </timeFrameFilter>
+</Report>

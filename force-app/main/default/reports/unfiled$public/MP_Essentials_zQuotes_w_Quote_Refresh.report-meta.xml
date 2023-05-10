@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>zqu__Quote__c$Entered_Approval_Process__c</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c$Name</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c.zqu__Quote_Rate_Plans__r$Id</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c$zqu__Account__c</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c$CreatedDate</field>
+    </columns>
+    <columns>
+        <field>zqu__Quote__c$Bill_To_MCN__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>zqu__Quote__c$Reporting_BillTo_CMRR__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+        <criteriaItems>
+            <column>zqu__Quote__c.zqu__Quote_Rate_Plans__r$Name</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>NCR Mobile Pay with NPP - Essentials</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>zqu__Quote__c.zqu__Quote_Rate_Plans__r$Name</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>NCR Mobile Pay - EDC - Essentials</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>zqu__Quote__c$Name</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Essentials Refresh</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>zqu__Quote__c.zqu__Quote_Rate_Plans__r$Name</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>MP Essentials  zQuotes w/Quote - Refresh</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>zQuotes_w_Quote_Rate_Plan__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>zqu__Quote__c$Approved_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

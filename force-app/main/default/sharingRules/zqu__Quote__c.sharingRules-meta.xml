@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>zQuote_Shared_to_Implementation_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>zQuote Owned by Dane, Shared to Implementation Team</description>
+        <label>zQuote Shared to Implementation Team</label>
+        <sharedTo>
+            <group>Implementation_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>OwnerId</field>
+            <operation>equals</operation>
+            <value>0054u000006i3ULAAY</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingOwnerRules>
+        <fullName>Hosted_Solution_Users_Group_Read_Write_Sharing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Hosted Solution Users Group Read/Write Sharing</label>
+        <sharedTo>
+            <group>Hosted_Solutions_Users_Group</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Hosted_Solutions_Users_Group</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

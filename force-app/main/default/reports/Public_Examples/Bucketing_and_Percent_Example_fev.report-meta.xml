@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Case$CaseNumber</field>
+    </columns>
+    <columns>
+        <field>Case$Creation_Category__c.Creation_Category_Tier_1__c</field>
+    </columns>
+    <columns>
+        <field>Case$Creation_Category__c.Creation_Category_Tier_2__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Look at simple bucketing feature in reports as well as the formula for the percent of each bucket in total!</description>
+    <filter>
+        <criteriaItems>
+            <column>Case$RecordType</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Case.Hospitality_Support</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <formattingRules>
+        <columnName>FORMULA1</columnName>
+        <values>
+            <backgroundColor>#B50E03</backgroundColor>
+            <rangeUpperBound>5.0</rangeUpperBound>
+        </values>
+        <values>
+            <backgroundColor>#B56200</backgroundColor>
+            <rangeUpperBound>50.0</rangeUpperBound>
+        </values>
+        <values>
+            <backgroundColor>#006714</backgroundColor>
+        </values>
+    </formattingRules>
+    <name>Bucketing and Percent Example</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Case_With_Lookup_Info__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Case$Assigned_Time__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

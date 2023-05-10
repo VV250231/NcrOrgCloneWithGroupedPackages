@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Followup_Case_Type_Validation</fullName>
+    <active>false</active>
+    <description>This Validation is being used to prevent change in Case Type Field for Follow-up Record Type</description>
+    <errorConditionFormula>AND(ISNEW(),RecordType.Name = &apos;Follow-up&apos;,TEXT(Type ) &lt;&gt;  TEXT(Parent.Type))</errorConditionFormula>
+    <errorDisplayField>Type</errorDisplayField>
+    <errorMessage>You can not change Case Type while creating or updating Follow-up Record Type Case</errorMessage>
+</ValidationRule>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Account.Zuora__Subscription_Rate_Plans__r.Zuora__Subscription_Product_Charges__r$Name</field>
+    </columns>
+    <columns>
+        <field>Account$Owner</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Edit criteria to change the &quot;Rate Plan Name&quot; prompt with the 4-digit charge code of the charge you are looking for.</description>
+    <filter>
+        <criteriaItems>
+            <column>Account$Subscription_Group__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Digital Insight</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Zuora__Subscription_Rate_Plans__r.Zuora__Subscription_Product_Charges__r$Zuora__RatePlanName__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>startsWith</operator>
+            <value>4713</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Account$DI_Customer__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Account$Name</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Account.Zuora__Subscription_Rate_Plans__r$Zuora__Subscription__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Customers w/RatePlanChargeCode?</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Accounts_with_Subscription_Rate_Plans_and_Charges__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>false</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <sortColumn>Account.Zuora__Subscription_Rate_Plans__r.Zuora__Subscription_Product_Charges__r$Name</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>Account$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

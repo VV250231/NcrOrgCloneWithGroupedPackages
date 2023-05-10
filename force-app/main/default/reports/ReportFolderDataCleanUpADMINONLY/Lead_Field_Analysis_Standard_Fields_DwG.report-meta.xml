@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>number</bucketType>
+        <developerName>BucketField_92878122</developerName>
+        <masterLabel>Group by % Populated</masterLabel>
+        <nullTreatment>z</nullTreatment>
+        <sourceColumnName>Field_Trip__Field_Analysis__c.Field_Trip__Populated_On_Percent__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <to>0.9</to>
+            </sourceValues>
+            <value>0% - Remove</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>0.9</from>
+                <to>20</to>
+            </sourceValues>
+            <value>1 - 20% - Investigate</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>20</from>
+                <to>50</to>
+            </sourceValues>
+            <value>21 - 50% - Validate Business Need</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>50</from>
+                <to>99</to>
+            </sourceValues>
+            <value>61 - 99% - Watch</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>99</from>
+            </sourceValues>
+            <value>100%</value>
+        </values>
+    </buckets>
+    <columns>
+        <aggregateTypes>Unique</aggregateTypes>
+        <field>Field_Trip__Field_Analysis__c.Field_Trip__Label__c</field>
+    </columns>
+    <columns>
+        <field>Field_Trip__Field_Analysis__c.Field_Trip__Populated_On_Percent__c</field>
+    </columns>
+    <columns>
+        <field>Field_Trip__Field_Analysis__c.Field_Trip__Populated_On__c</field>
+    </columns>
+    <columns>
+        <field>CHILD_NAME</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Field_Trip__Field_Analysis__c.Field_Trip__isRequired__c</field>
+    </columns>
+    <columns>
+        <field>CHILD_LAST_UPDATE</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Field Trip Lead Analysis report - Count of standard Salesforce fields</description>
+    <filter>
+        <criteriaItems>
+            <column>CUST_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Leads</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CHILD_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>__</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_92878122</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Lead Field Analysis: Standard Fields</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntityCustomEntity$Field_Trip__Object_Analysis__c$Field_Trip__Field_Analysis__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>Field_Trip__Field_Analysis__c.Field_Trip__Populated_On_Percent__c</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CUST_LAST_UPDATE</dateColumn>
+        <endDate>2020-06-15</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2020-06-15</startDate>
+    </timeFrameFilter>
+</Report>

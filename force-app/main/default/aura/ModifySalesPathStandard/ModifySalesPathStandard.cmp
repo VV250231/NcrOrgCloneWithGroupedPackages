@@ -1,0 +1,211 @@
+<aura:component controller="SellingStageController" implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,force:hasSObjectName,forceCommunity:availableForAllPageTypes" access="global">
+    
+    <aura:attribute name="OpportunityId" type="string" default="{!v.recordId}"/>
+    <aura:attribute name="opportunity" type="Opportunity" 
+                    default="{ 'sobjectType': 'Opportunity' }"/>
+    <aura:attribute name="showModalA" type="String" />
+    <aura:attribute name="showModalB" type="String"/>
+    <aura:attribute name="stage" type="String"/>
+    <aura:attribute name="confirmQuote" type="Boolean" />
+    <aura:attribute name="confirmCLM" type="Boolean" />
+    <aura:attribute name="IsCPQ" type="Boolean" />
+    <aura:attribute name="ShowReasonCode" type="Boolean" />
+    <aura:attribute name="ShowPaymentReasonCode" type="Boolean"/>
+    <aura:attribute name="randomChange" type="Integer" default="0" />
+    <aura:attribute name="num" type="Integer" />
+    <aura:attribute name="StageToast" type="String"/>
+    <aura:attribute name="selectedpricevariance" type="String"/>
+    <aura:attribute name="fieldMapOptions" type="Map" />   
+    <aura:attribute name="fieldMapOptionsYes" type="List" default="['Solution Differentiation','Relationship Health','Support Quality','Price Sensitivity', 'Migration Simplicity']" />
+    <aura:attribute name="fieldMapOptionsNo" type="List" default="['Lost Funding', 'Project Cancelled not due to Funding', 'Merger/Acquisition/Divestiture', 'Qualified Out by NCR', 'Non Responsive', 'Opportunity created in error or Administrative purposes']" />
+    <aura:attribute name="PrimaryLossReason" type="List" default="[]" />
+    
+    <aura:attribute name="DisableVariable" type="boolean"></aura:attribute>
+    <aura:attribute name="ContractDateReq" type="boolean"></aura:attribute>
+    <aura:attribute name="QuoteConfirmation" type="String"></aura:attribute>
+    <aura:attribute name="callChild" type="Boolean" />
+    <aura:handler name="Event_Notify" event="c:Event_Notify" action="{!c.handleNotifyEvent}"/>
+    <aura:registerEvent name="Event_Notify_child" type="c:Event_Notify_child"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:dependency resource="markup://aura:doneRendering" type="EVENT" />
+    <aura:dependency resource="markup://aura:doneWaiting" type="EVENT" />
+    <aura:dependency resource="markup://force:showToast" type="EVENT" />
+    <aura:handler event="force:showToast" action="{!c.showToastHandle}" />
+    <aura:handler event="aura:doneRendering" action="{!c.refreshStage}" />
+    <aura:handler event="aura:doneWaiting" action="{!c.isDBCall}" />
+    <aura:handler event="force:refreshView" action="{!c.doInit}" />
+    <aura:attribute name="opportunityRecord" type="Opportunity"/>
+    <aura:attribute name="recordError" type="String"/>
+    <aura:attribute name="openModal" type="Boolean" default="false" />
+    <!--added Industry attribute as the part of Cardtronics Salesforce Integration Enhancement CSI_SF-424 by Stuti-->
+    <aura:attribute name="OppIndustry" type="String"/>
+    <aura:attribute name="isCATM" type="Boolean"/>
+    
+    
+    <force:recordData aura:id="opportunityRecordCmp"
+                      recordId="{!v.recordId}"
+                      fields="Id,StageName,CLM_Sales_Acknowledgment__c"
+                      targetFields="{!v.opportunityRecord}"
+                      recordUpdated="{!c.openModal}"
+                      targetError="{!v.recordError}" 
+                      mode="EDIT"/>
+    
+    <!-- Here we wrapped our modal code inside aura:if. If it evaluates true, code inside it will be visible -->
+    <aura:if isTrue="{!v.openModal}" >
+        <c:OpportunityNonCPQCLM OpportunityId="{!v.OpportunityId}" Opportunity="{!v.Opportunity}" openModal="{!v.openModal}"/> 
+    </aura:if>
+    <!--End of Modal Footer-->
+    <!-- Display Lightning Data Service errors, if any -->
+    <aura:if isTrue="{!not(empty(v.recordError))}">
+        <div class="recordError">
+            <ui:message title="Error" severity="error" closable="true">
+                {!v.recordError}
+            </ui:message>
+        </div>
+    </aura:if>
+    
+    
+    
+    
+    <aura:renderIf isTrue="{!v.showModalA=='Y'}"> 
+        <div class="demo-only" style="height: 640px;">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Please fill Required fields for <b>Closed/Booked</b></h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">                       
+                        <!--<div class="slds-form-element slds-size_1-of-2 customWidth">                                
+                            <label class="slds-form-element__label" for="Name">Closed Booked Comments :</label>
+                            <force:inputField value="{!v.opportunity.Closed_Booked_Comments__c}" aura:id="Name"/>
+                        </div>-->
+                        
+                        <div class="slds-form-element slds-size_1-of-2 customWidth"> 
+                            <aura:if isTrue="{!v.confirmQuote}">
+                                <aura:if isTrue="{!v.callChild}">
+                                    <c:Custom_Picklist label="Is Quote Created In Other System :" options="{!v.fieldMapOptions.isquotecreatedinothersystem__c}" assignValue="{! v.opportunity.IsQuoteCreatedInOtherSystem__c }"/>
+                                </aura:if>
+                            </aura:if>
+                        </div>
+                        <aura:if isTrue="{!v.confirmCLM}">
+                            <lightning:input type="checkbox" label=" You acknowledge you have completed the required CLM process, and that any contracts necessary to support this deal have been generated or uploaded via CLM." name="input2" checked="{!v.opportunity.CLM_Sales_Acknowledgment__c}" required="true"/>                                    
+                        </aura:if>
+                        <div class="slds-form-element slds-size_1-of-2 customWidth">   
+                            <aura:renderIf isTrue="{!v.ShowReasonCode}">
+                                <label class="slds-form-element__label" for="Name">Reasons for not adding HWM, SWM, TS or PS :</label>
+                                <force:inputField value="{!v.opportunity.You_have_not_selected_any_TS_HWM_or_SW__c}" aura:id="Name"/>
+                            </aura:renderIf>
+                        </div>
+                        <div class="slds-form-element slds-size_1-of-2 customWidth">   
+                            <aura:renderIf isTrue="{!v.ContractDateReq}">
+                                <label class="slds-form-element__label" for="Name">Payments Contract End Date Required :</label>
+                                <force:inputField value="{!v.opportunity.Payments_Contract_End_Date__c}"  aura:id="Name"/>
+                            </aura:renderIf>
+                        </div>
+                        <div class="slds-form-element slds-size_1-of-2 customWidth">   
+                            <aura:renderIf isTrue="{!v.ShowPaymentReasonCode}">
+                                <label class="slds-form-element__label" for="Name">Reasons for not selecting Payment Processing :</label>
+                                <force:inputField value="{!v.opportunity.Reasons_for_no_Payment_Processing__c}"  aura:id="Name" change="{!c.reasonChanged}"/>
+                            </aura:renderIf>
+                        </div>
+                        
+                        
+                    </div>
+                    <footer class="slds-modal__footer">
+                        
+                        <ui:button class="slds-button slds-button_neutral" press="{!c.redirect}" >Cancel</ui:button>
+                        <ui:button class="slds-button slds-button_neutral slds-button_brand" press="{!c.updateOpportunityRecordNew}">Save</ui:button>
+                        
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:renderIf>
+    <aura:renderIf isTrue="{!v.showModalB=='Y'}"> 
+        <div class="demo-only" style="height: 640px;">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Please fill Required fields for <b>Closed/Lost</b></h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">                       
+                        
+                        <div class="slds-form-element slds-size_1-of-2 customWidth"> 
+                            <aura:if isTrue="{!v.callChild}">
+                                <c:Custom_Picklist label="Lose to a Competitor? :" notify="true" options="{!v.fieldMapOptions.lose_to_a_competitor__c}" assignValue="{! v.opportunity.Lose_to_a_Competitor__c }" />
+                                
+                            </aura:if>
+                        </div>  
+                        <div class="slds-form-element slds-size_1-of-2 customWidth"> 
+                            <aura:if isTrue="{!v.callChild}">
+                                <c:Custom_Picklist label="Primary Loss Reason :" options="{!v.PrimaryLossReason}" assignValue="{! v.opportunity.Primary_Loss_Reason__c}" changeAttribute="{!v.randomChange}"/>                                
+                            </aura:if>
+                        </div>
+                        <div class="slds-form-element slds-size_1-of-2 customWidth"> 
+                            <aura:if isTrue="{!v.callChild}">
+                                <c:Custom_Picklist disabled="{!v.opportunity.Primary_Loss_Reason__c!='Price Sensitivity'}" label="How important was Price in the Decision? :" options="{!v.fieldMapOptions.how_important_was_price_in_the_decision__c}" assignValue="{! v.opportunity.How_important_was_Price_in_the_Decision__c }"/>                                
+                            </aura:if>
+                        </div>
+                        <div class="slds-form-element slds-size_1-of-2 customWidth"> 
+                            <aura:if isTrue="{!v.callChild}">
+                                <c:Custom_Picklist label="Are we the Incumbent? :" options="{!v.fieldMapOptions.are_we_the_incumbent__c}" assignValue="{! v.opportunity.Are_we_the_Incumbent__c }"/>                                
+                            </aura:if>
+                        </div>
+                        <div class="slds-form-element slds-size_1-of-2 customWidth"> 
+                            <aura:if isTrue="{!v.callChild}">
+                                <c:Custom_Picklist  label="Primary Product Type :" options="{!v.fieldMapOptions.primary_product_type__c}" assignValue="{! v.opportunity.Primary_Product_Type__c }"/>                                
+                            </aura:if>
+                        </div>
+                        <div class="slds-form-element slds-size_1-of-2 customWidth"> 
+                            <aura:if isTrue="{!v.callChild}">
+                                <c:Custom_Picklist  label="Secondary Product Type :" options="{!v.fieldMapOptions.secondary_product_type__c}" assignValue="{! v.opportunity.Secondary_Product_Type__c }"/>                                
+                            </aura:if>
+                        </div>
+                        
+                        <aura:renderIf isTrue="{!v.opportunity.Primary_Loss_Reason__c=='Price Sensitivity'}">
+                            <div class="slds-form-element slds-size_1-of-2 customWidth">   
+                                <label class="slds-form-element__label" for="Name">What was the closest competitor price? :</label>
+                                <force:inputField value="{!v.opportunity.What_was_the_closest_competitor_price__c}" aura:id="What_was_the_closest_competitor_price"/>
+                            </div>
+                        </aura:renderIf>
+                        
+                        <div class="slds-form-element slds-size_1-of-2 customWidth">   
+                            <label class="slds-form-element__label" for="Name">Closed Lost Comments :</label>
+                            <lightning:textarea value="{!v.opportunity.Closed_Lost_Comments__c}" aura:id="Closed_Lost_Comments"/>
+                        </div>
+                        <div class="slds-form-element slds-size_1-of-2 customWidth">   
+                            <br/>
+                            <br/>
+                            <br/>                                                       
+                        </div>
+                        
+                    </div>
+                    <footer class="slds-modal__footer">
+                        
+                        <ui:button class="slds-button slds-button_neutral" press="{!c.redirect}" >Cancel</ui:button>
+                        <ui:button class="slds-button slds-button_neutral slds-button--brand" press="{!c.updateOpportunityRecordNew1}">Save</ui:button>
+                        
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:renderIf>
+    
+    
+    <aura:if isTrue="{!v.DisableVariable}">
+        <!--QuoteBuilder Prominent Launcher-->
+        <aura:if isTrue="{!and((v.stage == 'Offering'||v.stage == 'Proposing'||v.stage == 'Closing'), v.IsCPQ==false)}">
+            <a onclick="{!c.redirect_quby}">
+                <img src="/resource/quby_popup" />
+            </a>
+        </aura:if>
+    </aura:if>
+    <!--Wot Quote Creted identifier POPUP-->   
+    
+    
+</aura:component>

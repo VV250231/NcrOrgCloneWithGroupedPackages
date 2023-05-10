@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>CSM closes the case or customer has manually set the status of the case as &quot;Closed&quot;. A notification will be sent to the Customer and CSM related to closing of the case.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>CSM Team Case Closing Template</name>
+    <style>none</style>
+    <subject>Case # {!Case.CaseNumber} Closed</subject>
+    <textOnly>NCR Case Update
+
+
+Case #{!Case.CaseNumber} has been updated to Closed
+
+Case Details
+
+Account:  {!Case.Account}
+Subject:  {!Case.Subject}
+Owner:  {!Case.Owner}
+
+
+
+VIEW THE CASE
+
+
+
+NCR Confidential. FOR INTERNAL USE ONLY.
+NCR Corporation 864 Spring St. NW, Atlanta, GA 30308-1007
+©2020 NCR Corporation. All rights reserved.  ncr.com
+NCR respects your privacy.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_user_modify_any_field_closed_opp</fullName>
+    <active>true</active>
+    <description>Does not allow a user to modify the the Opportunity if the selling stage is Closed.</description>
+    <errorConditionFormula>AND(
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+NOT(CATM_Record__c),
+NOT(ISNEW()),
+(PRIORVALUE(IsClosed) = TRUE),
+($Profile.Name &lt;&gt; &quot;02 NSC Administrator&quot;),
+($Profile.Name &lt;&gt; &quot;04 NSC UI Administrator&quot;),
+($Profile.Name &lt;&gt; &quot;Cloned 54 Hosted Solutions Sales Operations for DS Admin&quot;),
+($Profile.Name &lt;&gt; &quot;System Administrator&quot;),
+($Profile.Name &lt;&gt; &quot;Soup Integration&quot;),
+($Profile.Name &lt;&gt; &quot;iPaas Administration&quot;),
+($Profile.Name &lt;&gt; &quot;C9 Administration&quot;),
+($Profile.Name &lt;&gt; &quot;63 DI Sales Operations&quot;),
+($UserRole.Id &lt;&gt; &quot;00E70000001bmtW&quot;),
+bypass_validation__c&lt;&gt;true,
+cec_bypass_validation__c&lt;&gt;true, 
+IF($Permission.Update_Closed_Opp_for_7_days,(ISCHANGED(CloseDate)&amp;&amp;NOT(ISCHANGED(StageName)))||(today()-PRIORVALUE(CloseDate)&gt;=  VALUE($Label.Opp_Grace_Sales_Rep)+1
+), 
+IF($Permission.Update_Closed_Opp_for_37_days ,(ISCHANGED(CloseDate)&amp;&amp;NOT(ISCHANGED(StageName)))||today()-PRIORVALUE(CloseDate)&gt;=VALUE($Label.Opp_Grace_Sales_Ops)+1,true) 
+)
+)</errorConditionFormula>
+    <errorMessage>Opportunity changes are not allowed after an opportunity has been closed. Please contact NSC Administrator using the Need Help button if you need to re-open or to make changes to this opportunity.</errorMessage>
+</ValidationRule>

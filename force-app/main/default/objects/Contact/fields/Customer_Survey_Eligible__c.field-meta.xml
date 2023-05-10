@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer_Survey_Eligible__c</fullName>
+    <description>Returns Yes if: Account owner is not Admin, Contact Record is Active, Account Record is Active, Account has MCN, Relationship Survey is Yes, Email Address is not Null, Contact Record Type is Customer, Partnership Status is not Active/Suspended/Terminated/Pending. Else No.</description>
+    <externalId>false</externalId>
+    <formula>IF(
+
+AND(
+
+NOT(Account.Account_Owner_Name__c = &apos;NSC ADMIN&apos;),
+NOT(Account.Account_Owner_Name__c = &apos;Admin NSC&apos;),
+NOT(Account.Account_Owner_Name__c = &apos;Dev Admin&apos;),
+Active_Contact__c =TRUE,
+Account.Active_Account__c =TRUE,
+ISPICKVAL( Survey_Flag__c, &quot;Yes&quot;),
+Not(ISBLANK(Email)),
+$RecordType.Name = &quot;Customer Contact&quot;,
+OR(ISPICKVAL( Account.Partnership_Status__c, &quot;&quot;),
+ISPICKVAL( Account.Partnership_Status__c, &quot;Suspended&quot;),
+ISPICKVAL( Account.Partnership_Status__c, &quot;Terminated&quot;),
+ISPICKVAL( Account.Partnership_Status__c, &quot;Pending&quot;)),
+Account.Franchise_Flag__c=FALSE,
+OR(
+ISPICKVAL(Decision_Maker__c,&quot;Decision Maker&quot;),
+ISPICKVAL(Decision_Maker__c,&quot;Influencer&quot;),
+ISPICKVAL(Decision_Maker__c,&quot;End User&quot;)
+)
+),
+&quot;Yes&quot;,&quot;No&quot;
+)</formula>
+    <inlineHelpText>Returns Yes if: Account owner is not Admin, Contact Record is Active, Account Record is Active, Relationship Survey is Yes, Email Address is not Null, Contact Record Type is Customer, Partnership Status is not Active/Suspended/Terminated/Pending. Else No.</inlineHelpText>
+    <label>Customer Survey Eligible</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

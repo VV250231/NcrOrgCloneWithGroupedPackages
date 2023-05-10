@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Opportunity Team Notification</name>
+    <style>none</style>
+    <subject>Added to Opportunity Team</subject>
+    <textOnly>Demystifying Email Design
+
+Partner Community Update
+Added to Opportunity Team
+You have been added to an opportunity that needs your attention.  Please see the details below and reach out to the opportunity owner(s) for next steps:
+
+Opportunity Name:   {!Opportunity.Name}
+Account Name:  {!Opportunity.Account}
+Opportunity Owner:  {!Opportunity.OwnerFullName}
+Expected Close Date:  {!Opportunity.CloseDate}
+Selling Stage:  {!Opportunity.StageName}
+Channel/Local Office:  {!Opportunity.Channel_Office__c}
+
+Warmest regards,
+{!User.Name}
+
+NCR Confidential. FOR INTERNAL USE ONLY.
+NCR Corporation 864 Spring St. NW, Atlanta, GA 30308-1007
+©2020 NCR Corporation. All rights reserved.  ncr.com
+NCR respects your privacy.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

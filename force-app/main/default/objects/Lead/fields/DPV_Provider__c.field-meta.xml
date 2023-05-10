@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DPV_Provider__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <inlineHelpText>The single DPV Provider for this Lead</inlineHelpText>
+    <label>DPV Provider</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Solution_Provider__c.DPV_Product_Count__c</field>
+            <operation>greaterThan</operation>
+            <value>0</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Solution_Provider__c</referenceTo>
+    <relationshipLabel>DPVProviders</relationshipLabel>
+    <relationshipName>DPVProviders</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,465 @@
+<template>
+    <template if:true={showLoadingSpinner}>
+        <lightning-spinner alternative-text="Loading......" size="medium"></lightning-spinner>
+    </template>
+    <div class="slds-page-header slds-page-header_record-home">
+        <div class="slds-page-header__row">
+            <div class="slds-page-header__col-title">
+                <div class="slds-media">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-opportunity">
+                            <lightning-icon icon-name="standard:action_list_component" alternative-text="MDF">
+                            </lightning-icon>
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <div class="slds-page-header__name">
+                            <div class="slds-page-header__name-title">
+                                <h1>
+                                    <span>{headTitle}
+                                        <template if:true={rowCount}>
+                                            <strong>({rowCount})</strong>
+                                        </template>
+                                    </span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-page-header__col-actions">
+                <div class="slds-page-header__controls">
+                    <template if:true={isButtonShow}>
+                        <ul
+                            class="slds-button-group-list slds-list_horizontal slds-has-dividers_right slds-has-block-links_space">
+                            <!--- Add Action Button Here -->
+                            <template if:true={issubmitButton}>
+                                <li class="slds-item">
+                                    <button onclick={onSubmitMDFResults} class="slds-button slds-button_neutral"> Submit
+                                        MDF
+                                        Results</button>
+                                </li>
+                            </template>
+                            <li class="slds-item">
+                                <button onclick={backToListView} class="slds-button slds-button_neutral">Back</button>
+                            </li>
+                        </ul>
+                    </template>
+                </div>
+            </div>
+        </div>
+        <div class="slds-page-header__row slds-page-header__row_gutters">
+            <div class="slds-page-header__col-details">
+
+            </div>
+        </div>
+    </div>
+
+    <template if:true={isListView}>
+        <table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Claim Name">Request Id</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Activity name">Activity name</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Claim Name">Claim Name</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Claim Status">Claim Status</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={fundClaimList} for:item="fundClaim">
+                    <tr class="slds-hint-parent" key={fundClaim.Id}>
+                        <td data-label="Request Id">
+                            <div class="slds-truncate" title="Request Id">
+                                <a data-record={fundClaim.Fund_Request__r.Id} onclick={navigateToFundRequest}>
+                                    <p>{fundClaim.Fund_Request__r.Request_ID__c}</p>
+                                </a>
+                            </div>
+                        </td>
+
+                        <td data-label="Activity name">
+                            <div class="slds-truncate" title="Activity name">
+                                <p>{fundClaim.Fund_Request__r.Name}</p>
+                            </div>
+                        </td>
+
+                        <td data-label="Claim Name">
+                            <div class="slds-truncate" title="Claim Name">
+                                <p>{fundClaim.Name}</p>
+                            </div>
+                        </td>
+
+                        <td data-label="Claim Status">
+                            <div class="slds-truncate" title="Claim Status">
+                                <p>{fundClaim.Status__c}</p>
+                            </div>
+                        </td>
+
+                    </tr>
+
+                </template>
+            </tbody>
+        </table>
+    </template>
+
+    <template if:true={isDetailView}>
+        <template if:true={mdfDetail}>
+            <!-- activity details -->
+            <template if:true={mdfDetail.fundRequest}>
+                <div class="section">
+                    <h2 class="slds-text-heading_small section-heading">Activity Profile</h2>
+                    <div class="slds-grid slds-wrap section-body">
+                        <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                            <div class="slds-grid slds-wrap">
+                                <div class="slds-size_1-of-1">
+                                    <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                        <span class="slds-form-element__label">Activity name</span>
+                                        <div class="slds-form-element__control">
+                                            <p class="slds-form-element__static">
+                                                {mdfDetail.fundRequest.Name}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-size_1-of-1">
+                                    <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                        <span class="slds-form-element__label">Activity Type</span>
+                                        <div class="slds-form-element__control">
+                                            <p class="slds-form-element__static">
+                                                {mdfDetail.fundRequest.Activity_Type__c}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-size_1-of-1">
+                                    <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                        <span class="slds-form-element__label">Status</span>
+                                        <div class="slds-form-element__control">
+                                            <p class="slds-form-element__static">
+                                                {mdfDetail.fundRequest.Status__c}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-size_1-of-1">
+                                    <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                        <span class="slds-form-element__label">Activity Contact</span>
+                                        <div class="slds-form-element__control">
+                                            <p class="slds-form-element__static">
+                                                {mdfDetail.fundRequest.Requester_Name__r.Name}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-size_1-of-1">
+                                    <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                        <span class="slds-form-element__label">Other Vendors Represented</span>
+                                        <div class="slds-form-element__control">
+                                            <p class="slds-form-element__static">
+                                                {mdfDetail.fundRequest.Other_Vendors_Represented__c}
+
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-size_1-of-1">
+                                    <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                        <span class="slds-form-element__label">Activity Description</span>
+                                        <div class="slds-form-element__control">
+                                            <p class="slds-form-element__static">
+                                                {mdfDetail.fundRequest.Activity_Description__c}
+
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-size_1-of-1">
+                                    <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                        <span class="slds-form-element__label">Transaction Reference</span>
+                                        <div class="slds-form-element__control">
+                                            <p class="slds-form-element__static">
+                                                {mdfDetail.fundRequest.Transaction_Reference__c}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                            <div class="slds-grid slds-wrap">
+                                <div class="slds-size_1-of-1">
+                                    <div class="slds-size_1-of-1">
+                                        <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                            <span class="slds-form-element__label">Activity Start Date</span>
+                                            <div class="slds-form-element__control">
+                                                <p class="slds-form-element__static">
+                                                    <lightning-formatted-time
+                                                        value={mdfDetail.fundRequest.Activity_Date__c}>
+                                                    </lightning-formatted-time>
+
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="slds-size_1-of-1">
+                                    <div class="slds-size_1-of-1">
+                                        <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                            <span class="slds-form-element__label">Activity End Date</span>
+                                            <div class="slds-form-element__control">
+
+                                                <p class="slds-form-element__static">
+                                                    <lightning-formatted-time value={mdfDetail.fundRequest.End_Date__c}>
+                                                    </lightning-formatted-time>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="slds-size_1-of-1">
+                                    <div class="slds-size_1-of-1">
+                                        <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                            <span class="slds-form-element__label">Request Submission Date</span>
+                                            <div class="slds-form-element__control">
+                                                <p class="slds-form-element__static">
+                                                    <lightning-formatted-time
+                                                        value={mdfDetail.fundRequest.Request_Submission_Date__c}
+                                                        year="numeric" day="2-digit" month="long" hour="2-digit"
+                                                        minute="2-digit">
+                                                    </lightning-formatted-time>
+
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="slds-size_1-of-1">
+                                <div class="slds-size_1-of-1">
+                                    <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                        <span class="slds-form-element__label">Approved Date</span>
+                                        <div class="slds-form-element__control">
+                                            <p class="slds-form-element__static">
+                                                <lightning-formatted-time
+                                                    value={mdfDetail.fundRequest.Approved_Date__c}>
+                                                </lightning-formatted-time>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /activity details -->
+            </template>
+
+            <!-- activity details -->
+            <template if:true={mdfDetail.fundClaim}>
+                <div class="section">
+                    <h2 class="slds-text-heading_small section-heading">Claim Detail</h2>
+                    <div>
+                        <div class="slds-grid slds-wrap section-body">
+                            <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-size_1-of-1">
+                                        <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                            <span class="slds-form-element__label">Status</span>
+                                            <div class="slds-form-element__control">
+                                                <p class="slds-form-element__static">
+                                                    {mdfDetail.fundClaim.Status__c}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-size_1-of-1">
+                                        <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                            <span class="slds-form-element__label">Claim Submission Date</span>
+                                            <div class="slds-form-element__control">
+                                                <p class="slds-form-element__static">
+                                                    <lightning-formatted-time
+                                                        value={mdfDetail.fundClaim.Claim_Submission_Date__c}>
+                                                    </lightning-formatted-time>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-size_1-of-1">
+                                        <div class="slds-form-element slds-hint-parent slds-border_bottom">
+                                            <span class="slds-form-element__label">Approved Date</span>
+                                            <div class="slds-form-element__control">
+                                                <p class="slds-form-element__static">
+                                                    <lightning-formatted-time
+                                                        value={mdfDetail.fundClaim.Approved_Date__c}>
+                                                    </lightning-formatted-time>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            
+            <template if:true={mdfDetail.supportingAttachments}>
+                <div class="section">
+                    <h2 class="slds-text-heading_small section-heading">Supporting Documentation</h2>
+                    <div class="section-body">
+
+                        <table
+                            class="slds-table slds-table--bordered slds-max-medium-table--stacked-horizontal slds-margin">
+                            <thead>
+                                <tr class="slds-text-heading--label slds-text-title_caps">
+                                    <th scope="col">
+                                        <div class="slds-truncate" title="Pre-Approval">Pre-Approval</div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate" title="Claim">Claim</div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate" title="Document">Document</div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate" title="Document Type">Document Type</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={mdfDetail.supportingAttachments} for:item="fileRecord">
+                                    <tr class="slds-text-title_caps" key={fileRecord.Id}>
+                                        <td>
+                                            <template if:true={fileRecord.Proof_of_Performance_Document_Type__c}>
+                                                <lightning-input type="checkbox" checked disabled focus>
+                                                </lightning-input>
+                                            </template>
+
+                                            <template if:false={fileRecord.Proof_of_Performance_Document_Type__c}>
+                                                <lightning-input type="checkbox" disabled></lightning-input>
+                                            </template>
+                                        </td>
+                                        <td>
+                                            <template if:true={fileRecord.Claim__c}>
+                                                <lightning-input type="checkbox" checked disabled focus>
+                                                </lightning-input>
+                                            </template>
+                                            <template if:false={fileRecord.Claim__c}>
+                                                <lightning-input type="checkbox" disabled></lightning-input>
+                                            </template>
+                                        </td>
+                                        <td>
+                                            <p class="slds-form-element__static">
+                                                {fileRecord .Name}
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <template if:true={fileRecord.Pre_Approval_Document_Type__c}>
+                                                <p class="slds-form-element__static">
+                                                    {fileRecord.Pre_Approval_Document_Type__c}
+                                                </p>
+                                            </template>
+
+                                            <template if:true={fileRecord.Proof_of_Performance_Document_Type__c}>
+                                                <p class="slds-form-element__static">
+                                                    {fileRecord.Proof_of_Performance_Document_Type__c}
+                                                </p>
+                                            </template>
+
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </template>
+            <!--/ document -->
+            <div class="footspace"></div>
+            <!-- Submit MDF Results PopUp-->
+
+            <template if:true={isMDFResultsPopUpOpen}>
+                <div style="height:640px">
+                    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                        aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                        <div class="slds-modal__container">
+                            <header class="slds-modal__header">
+                                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                    title="Close" onclick={onSubmitMDFPopUpClose}>
+                                    <lightning-icon icon-name="utility:close" alternative-text="Close">
+                                    </lightning-icon>
+                                    <span class="slds-assistive-text">Close</span>
+                                </button>
+                                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Submit MDF
+                                    Results</h2>
+                            </header>
+                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                <template if:true={isCurrent}>
+                                    <lightning-input class="inputlightning" required data-id="currentRevenueearn"
+                                        type="text" name="currentRevenueearned" label="Current Revenue Earned"
+                                        value={currentRevenueEarned}
+                                        message-when-value-missing="Please enter current revenue earned"
+                                        onkeyup={validateNumbere}>
+                                    </lightning-input>
+                                </template>
+
+                                <template if:true={isFileUpload}>
+
+                                    <div class="slds-p-around_medium lgc-bg"> 
+                                        <lightning-file-upload data-id="currentRevenueAttachment" label="Attachment"
+                                            name="fileUploader" accept={validFileExtension} record-id={partnerFundRoiID}
+                                            onchange={onFileChanged} onuploadfinished={handleUploadFinished} required>
+                                        </lightning-file-upload>
+                                        <p>{fileName}</p>
+                                    </div>
+                                </template>
+                                <template if:true={isSubmitApproval}>
+                                    <lightning-textarea name="comments" data-id="comments" label="Comment for Approver"
+                                        value={commentstext} maxlength="500">
+                                    </lightning-textarea>
+                                </template>
+                            </div>
+                            <footer class="slds-modal__footer">
+                                <button class="slds-button slds-button_neutral"
+                                    onclick={onSubmitMDFPopUpClose}>Cancel</button> 
+                                <template if:true={isCurrent}>
+                                    <button class="slds-button slds-button_brand" onclick={nextRequest}>Next</button>
+                                </template>
+
+                                <template if:true={isFileUpload}>
+                                    <button class="slds-button slds-button_brand" onclick={onUpLoadFile}
+                                        disabled>Next</button>
+                                </template>
+                                <template if:true={isSubmitApproval}>
+                                    <button class="slds-button slds-button_brand" onclick={submitRoiRequest}>Submit MDF
+                                        Result</button>
+                                </template>
+                            </footer>
+                        </div>
+                    </section>
+                    <div class="slds-backdrop slds-backdrop_open"></div>
+                </div>
+            </template>
+            <!-- Submit MDF Results PopUp-->
+        </template>
+    </template>
+</template>

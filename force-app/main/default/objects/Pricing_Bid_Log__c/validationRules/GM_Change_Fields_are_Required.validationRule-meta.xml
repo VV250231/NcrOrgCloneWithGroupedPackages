@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GM_Change_Fields_are_Required</fullName>
+    <active>true</active>
+    <description>Making GM Changed in % and GM Change in USD required on selecting the Price Erosion and Erosion type.</description>
+    <errorConditionFormula>OR(AND( ISPICKVAL( Is_there_any_Erosion__c , &apos;Price Erosion&apos;), OR(ISBLANK( GM_Change_in__c),ISBLANK( GM_Change_in_USd__c) ) ) , 
+AND( ISPICKVAL( Is_there_any_Erosion__c , &apos;Scope Erosion&apos;), OR(ISBLANK( GM_Change_in__c),ISBLANK( GM_Change_in_USd__c) )))</errorConditionFormula>
+    <errorMessage>You need to fill, GM Change in % and GM Change in USD for the selected &quot;Price Erosion or Scope Erosion&quot;.</errorMessage>
+</ValidationRule>

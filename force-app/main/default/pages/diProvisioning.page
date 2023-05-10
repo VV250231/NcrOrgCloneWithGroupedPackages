@@ -1,0 +1,265 @@
+<apex:page sidebar="false"  lightningStylesheets="true"  tabStyle="zqu__Quote__c" standardController="zqu__Quote__c" extensions="DIProvisioningController" action="{!init}">
+
+  <style type="text/css">
+        .propertycomponentfooter{
+            position: fixed !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            margin-top:108px !important; 
+            height: 60px !important; 
+            width: 100% !important; 
+            background: #f4f6f9 !important;
+            background-color: rgb(244, 246, 249) !important;
+            background-image: none !important;
+            background-repeat: repeat !important;
+            background-attachment: scroll !important;
+            background-clip: border-box !important;
+            background-origin: padding-box !important;
+            background-position-x: 0% !important;
+            background-position-y: 0% !important;
+            background-size: auto auto !important;
+            background-color:#3A4B5C !important;
+            box-shadow:none !important;
+            padding-left:12px !important;
+            padding-right:12px !important;
+            
+        }
+      
+        .myDataButton
+        {
+            background: no-repeat #6ec5ab !important;
+            float: right !important;
+            margin-top:8px !important;
+            background-position:20% 50% !important;
+            font-size: 12px !important;
+            color: #FFF !important;
+            text-transform: uppercase !important;
+            border: none !important;
+            width: 100px !important;
+            height:45px !important;
+            margin-left:6px !important; 
+        }
+        .myDataButton:hover{
+            background-color: #27ac8b !important;
+        }
+        .mybackButton{
+            background :url('{!$Resource.DIlightningleftchevron}') no-repeat #a9b4bf !important;
+            background-position:20% 50% !important;
+            float: right !important;
+            margin-top:8px !important;
+            font-size: 12px !important;
+            color: #FFF !important;
+            text-transform: uppercase !important;
+            border: none !important;
+            width: 100px !important;
+            height:45px !important;
+            margin-left:6px !important;
+        }
+        .mybackButton:hover{
+            background-color: #79838d !important;
+        }
+        .mydoneButton{
+            
+            float:right !important;
+            margin-top:8px !important;
+            background-position:20% 50% !important;
+            font-size: 12px !important;
+            color: #FFF !important;
+            text-transform: uppercase !important;
+            border: none !important;
+            width: 100px !important;
+            height:45px !important;
+            margin-left:6px !important;"
+        }
+        .mydoneButton:hover{
+            background-color: #50687f !important;
+        }
+       
+    </style>
+    
+    <apex:composition template="zqu__QuoteWizardTemplateNoForm"  >
+        <apex:define name="PageBody" >
+        <apex:form id="myForm">
+            <apex:inputHidden value="{!zqu__Quote__c.zqu__Opportunity__r.Opportunity_Classification__c}"/>
+            <apex:inputHidden value="{!zqu__Quote__c.zqu__Opportunity__r.Account.Subscription_Group__c}"/>
+            <apex:inputHidden value="{!zqu__Quote__c.zqu__Opportunity__r.AccountId}"/>
+        <div style="margin: 10px auto; display: {!IF(AND(hasMessages, $User.UITheme == 'Theme3'), 'table;', 'none;')}" Id= "ErrorBlock">
+            <div style="border-radius: 8px; border-color: orange; border-style: solid; border-width: 2px; background-color: #ffffcc; 
+                        display: inline-block; padding-left: 10px; padding-right: 10px;">
+                <img src="/img/msg_icons/warning24.gif" alt="WARNING" class="msgIcon" style="position: relative; top: 10px; float: left;" />
+                <span style="font-weight: bold; padding-top: 5px; padding-left: 38px; display: block;">Warning:</span>
+                <apex:messages />
+            </div> 
+        </div>
+        <apex:messages rendered="{!IF($User.UITheme = 'Theme4d', true, false)}" Id="LightError" />
+        <div style="margin-top: 15px;">
+        <apex:outputPanel id="quoteInformationBlockPanel" layout="none">
+        <apex:pageBlock title="Account Information" id="accountInformationBlock">
+            <!-- DI-1675 show when no other sections shown -->
+            <apex:pageBlockButtons location="top" rendered="{!AND(NOT(renderProvisioningProductsSection), NOT(renderProvisioningSection), NOT(renderApprovalCriteriaSection))}" styleClass="propertycomponentfooter">
+                <div style="margin-right:20px">  
+                <apex:commandButton value="Back" action="{!back}"  rendered="{!renderBackButton}" styleClass="mybackButton"/>
+                <apex:commandButton value="Done" action="{!done}" rendered="{!renderDoneButton}" styleClass="mydoneButton" style="background: no-repeat transparent;border:1px #50687f solid !important"/>
+                </div>            
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.Account.fields.Name.label}" for="theLink"/>
+                    <apex:outputLink id="theLink" value="/{!account.Id}">{!account.Name}</apex:outputLink>
+                </apex:pageBlockSectionItem>
+                    
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        </apex:outputPanel>
+        <apex:pageBlock title="Approval Criteria" rendered="{!renderApprovalCriteriaSection}">
+            <apex:pageBlockButtons location="bottom" rendered="{!NOT(renderProvisioningSection)}" styleClass="propertycomponentfooter" >
+            <div style="margin-right:20px">
+                <apex:commandButton value="Done" action="{!done}" rendered="{!renderDoneButton}" styleClass="mydoneButton" style="background: no-repeat transparent;border:1px #50687f solid !important"/>
+                <apex:commandButton value="Save" action="{!save}" rendered="{!renderSaveButton}"  styleClass="myDataButton"/>
+                <apex:commandButton value="Back" action="{!back}" rendered="{!renderBackButton}" styleClass="mybackButton"/>
+                
+            </div>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection >
+                <apex:inputField value="{!quoteSobject.Renewal_Discount_Level__c}" required="true" rendered="{!AND(isRenewal, NOT(isTeamConnect))}"/>
+                <!--<apex:inputField value="{!quoteSobject.Term_of_contract__c}" required="true"/>-->
+                <apex:pageBlockSectionItem rendered="{!NOT(isTeamConnect)}">
+                    <apex:outputLabel value="{!$ObjectType.zqu__Quote__c.fields.Term_of_contract__c.label}"/>
+                    <apex:outputPanel styleClass="requiredInput">
+                        <div class="requiredBlock"></div>
+                        <apex:selectList value="{!quoteSobject.Term_of_contract__c}" size="1" multiselect="false" required="true">
+                            <apex:selectOptions value="{!termOfContractOptions}"/>
+                        </apex:selectList>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:inputField value="{!quoteSobject.Add_on_Setup_fees_discount__c}" required="true"/>
+                <apex:inputField value="{!quoteSobject.Add_on_Setup_fees_discount_Platform__c}" required="true" rendered="{!isTeamConnect}"/>
+                <apex:inputField value="{!quoteSobject.Effective_Date_of_Pricing_in_a_Renewal__c}" required="true" rendered="{!AND(isRenewal, NOT(isTeamConnect))}"/>
+                <apex:inputField value="{!quoteSobject.Add_on_monthly_fees_discount__c}" required="true"/>
+                <apex:inputField value="{!quoteSobject.Price_Increase__c}" required="true" rendered="{!AND(NOT(isAmendment), NOT(isTeamConnect))}"/>
+                <apex:inputField value="{!quoteSobject.All_transaction_fees_discount__c}" required="true"/>
+                <!--
+                <apex:inputField value="{!quoteSobject.Payment_Terms_or_Waiver_Delay_of_Minimum__c}" required="true"/>
+                -->
+                <apex:pageBlockSectionItem rendered="{!NOT(isTeamConnect)}">
+                    <apex:outputLabel value="{!$ObjectType.zqu__Quote__c.fields.Payment_Terms_or_Waiver_Delay_of_Minimum__c.label}"/>
+                    <apex:outputPanel styleClass="requiredInput">
+                        <div class="requiredBlock"></div>
+                        <apex:selectList value="{!quoteSobject.Payment_Terms_or_Waiver_Delay_of_Minimum__c}" size="1" multiselect="false" required="true">
+                            <apex:selectOptions value="{!paymentTermsWaiverOptions}"/>
+                        </apex:selectList>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:inputField value="{!quoteSobject.Professional_Services_fees_discount__c}" required="true"/>
+                <apex:inputField value="{!quoteSobject.Early_Term_Calculation__c}" required="true" rendered="{!AND(NOT(isAmendment), NOT(isTeamConnect))}"/>
+                <apex:inputField value="{!quoteSobject.Renewal_ARPU__c}" required="true" rendered="{!AND(isRenewal,isTeamConnect)}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <!--Block added to show Quote Information for Non di-->
+        <apex:pageBlock title="Quote Information" rendered="{!renderProvisioningProductsSectionNotDI}">
+         <apex:pageBlockButtons location="bottom" styleClass="propertycomponentfooter">
+            <div style="margin-right:20px">
+               <apex:commandButton value="Done"  action="{!done}" rendered="{!renderDoneButton}" styleClass="mydoneButton" style="background: no-repeat transparent;border:1px #50687f solid !important" />
+               <!--<apex:commandButton value="Save" onclick="CallFromServer(); return false;" rendered="{!renderSaveButton}" styleClass="myDataButton"/>-->
+               <apex:commandButton value="Save" action="{!save}" rendered="{!renderSaveButton}" styleClass="myDataButton"/>           
+               <apex:commandButton value="Back" action="{!back}" rendered="{!renderBackButton}"  styleClass="mybackButton"/>
+            </div>               
+           </apex:pageBlockButtons>
+           <apex:repeat value="{!quoteSobject}" var="acc"> 
+            <apex:pageBlockSection >
+             <apex:repeat value="{!fieldSetMemberList1}" var="fieldSet"> 
+                <apex:inputField value="{!acc[fieldSet]}"  required="{!IF(AND(OR(fieldSet.Label == 'Software Key',fieldSet.Label == 'Aloha Ent ID'),CONTAINS($Profile.Name,'55')),true,fieldSet.required)}"/>
+             </apex:repeat>
+           </apex:pageBlockSection>
+          </apex:repeat>  
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="Provisioning" rendered="{!renderProvisioningSection}" >
+             <apex:pageBlockButtons location="bottom" rendered="{!isCancellation}" styleClass="propertycomponentfooter">
+             <div style="margin-right:20px">
+                <apex:commandButton value="Done" action="{!done}" rendered="{!renderDoneButton}"  styleClass="mydoneButton" style="background: no-repeat transparent;border:1px #50687f solid !important"/>
+                <apex:commandButton value="Save" action="{!save}" rendered="{!renderSaveButton}" styleClass="myDataButton"/>                               
+                <apex:commandButton value="Back" action="{!back}" rendered="{!renderBackButton}" styleClass="mybackButton"/>
+                
+             </div>
+             </apex:pageBlockButtons>
+           <apex:pageBlockSection >
+                <apex:inputField value="{!account.DPV_Interface__c}" rendered="{!AND(NOT(ISBLANK(account)), provisioningFieldsRequired)}" required="true"/>
+                <apex:outputPanel layout="block" styleClass="{IF($User.UITheme == 'Theme4d', 'requiredInput', '')}">
+                    <apex:outputLabel for="SecondaryContact">Primary Contact</apex:outputLabel>
+                    <span style="color: #c23934; padding-right: 5px; margin-left: -10px; display: {!IF($User.UITheme == 'Theme4d', 'inline;', 'none;')}">*</span>
+                    <apex:selectList value="{!provisioning.Primary_Contact__c}" size="1" multiselect="false">
+                        <apex:selectOptions value="{!contactOptions}"/>
+                    </apex:selectList>
+                </apex:outputPanel>
+                <apex:inputField value="{!provisioning.Project_Type__c}" required="{!provisioningFieldsRequired}"/>
+                <apex:outputPanel layout="block" styleClass="{IF($User.UITheme == 'Theme4d', 'requiredInput', '')}">
+                    <apex:outputLabel for="SecondaryContact">Secondary Contact</apex:outputLabel>
+                    <span style="color: #c23934; padding-right: 5px; margin-left: -10px; display: {!IF($User.UITheme == 'Theme4d', 'inline;', 'none;')}">*</span>
+                    <apex:selectList value="{!provisioning.Secondary_Contact__c}" size="1" multiselect="false" id="SecondaryContact" styleClass="requiredInput">
+                        <apex:selectOptions value="{!contactOptions}"/>
+                    </apex:selectList>
+                </apex:outputPanel>
+                <apex:inputField value="{!provisioning.Existing_Domain__c}" required="{!provisioningFieldsRequired}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock title="{!IF(renderProvisioningProductsSectionNotDI, 'Implementation/Provisioning', 'Provisioning Products')}" rendered="{!NOT(isCancellation)}">
+            <apex:pageBlockButtons location="bottom" styleClass="propertycomponentfooter">
+            <div style="margin-right:20px">
+               <apex:commandButton value="Done"  action="{!done}" rendered="{!renderDoneButton}" styleClass="mydoneButton" style="background: no-repeat transparent;border:1px #50687f solid !important" />
+               <!--<apex:commandButton value="Save" onclick="CallFromServer(); return false;" rendered="{!renderSaveButton}" styleClass="myDataButton"/>-->
+                <apex:commandButton value="Save" action="{!save}" rendered="{!renderSaveButton}" styleClass="myDataButton"/>           
+               <apex:commandButton value="Back" action="{!back}" rendered="{!renderBackButton}"  styleClass="mybackButton"/>
+
+            </div>               
+                  
+            </apex:pageBlockButtons>
+            <apex:pageBlockTable value="{!quoteProducts}" var="qp" rendered="{!renderProvisioningProductsSection }" columnsWidth="100px">
+                <apex:column >
+                    <apex:facet name="header">Product</apex:facet>
+                    <apex:outputText value="{!qp.quoteProduct.ZProduct__r.Name}"/> <br/>
+                    <apex:outputText value="{!startDateWarning}" style="color: red" rendered="{!AND(quoteStartInFuture,renderProvisioningProductsSectionNotDI )}" />     
+                </apex:column>
+                <apex:column rendered="{!renderProvisioningProductsSectionNotDI}">
+                    <apex:facet name="header">Quote Rate Plan</apex:facet>
+                    <apex:outputText value="{!qp.quoteProduct.Quote_Rate_Plan__r.Name}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Action</apex:facet>
+                    <apex:selectList value="{!qp.selectedAction}"  size="1" multiselect="false">
+                    <apex:selectOptions value="{!qp.actionPicklist}"/>
+                    </apex:selectList><p/>
+                </apex:column>
+                <!--<apex:column rendered="{!$ObjectType.Quote_Product__c.Fields.Completed_Date__c.Accessible}">        
+                        <apex:facet name="header">Completed Date</apex:facet>       
+                        <apex:inputField value="{!qp.quoteProduct.Completed_Date__c}" />        
+                        <br />      
+                        <apex:outputText value="{!startDateWarning}" style="color: red" rendered="{!quoteStartInFuture}" />     
+                </apex:column>-->
+                <apex:column rendered="{!NOT(renderProvisioningProductsSectionNotDI) }">
+                    <apex:facet name="header">TPV</apex:facet>
+                    <apex:outputLink value="/{!account.Id}" rendered="{!qp.renderTPVEmptyListMessage}" style="text-decoration: underline;">
+                        <apex:outputText value="Product requires a solution provider product to be added to the account" />
+                    </apex:outputLink>
+                    <apex:outputText value="<br/>" rendered="{!AND(qp.renderTPVEmptyListMessage,qp.renderTPVList)}" escape="false"/>
+                    <apex:selectList value="{!qp.quoteProduct.Solution_Provider_Product__c}" size="1" multiselect="false" rendered="{!qp.renderTPVList}" required="true">
+                        <apex:selectOptions value="{!qp.vendorProductOptions}"/>
+                    </apex:selectList>
+                    <apex:inputField value="{!qp.quoteProduct.Solution_Provider_Product__c}" required="{!IF(qp.actionPicklist[0].label == 'Activate',true,false)}"  rendered="{!qp.renderSPPLookup}"/>
+                </apex:column>
+                <apex:repeat value="{!fieldSetMemberList}" var="f" >
+                
+                  <apex:column >                          
+                         <apex:facet name="header" >{!f.Label}</apex:facet>
+                         <apex:inputField value="{!qp.quoteProduct[f.fieldPath]}" /> 
+                        
+                    </apex:column>
+                 </apex:repeat>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+        </div>
+      </apex:form>
+    </apex:define>
+  </apex:composition>  
+</apex:page>

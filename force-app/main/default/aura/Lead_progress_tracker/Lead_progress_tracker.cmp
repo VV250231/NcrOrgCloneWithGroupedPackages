@@ -1,0 +1,136 @@
+<aura:component controller="Controller_lead_process_tracker" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+    
+    <aura:attribute type="List" name="tracker_details" />
+    <aura:handler name="init" value="{!this}" action="{!c.load_details}" />
+    <aura:attribute name="recordidd" type="Id"  default="{!v.recordId}"/>
+    <aura:handler event="force:refreshView" action="{!c.load_details}" />
+    <aura:attribute name="show_modal" type="Boolean" default="false"/>
+    <aura:attribute name="modaldetials" type="string" />
+    <aura:attribute name="dependentlist" type="string[]" />    
+    <aura:attribute name="depend_value" type="string[]" />
+    <aura:attribute name = "update_disabled" type = "Boolean" default="true" />
+    <aura:attribute name ="isCATMRecord" type = "Boolean" default="false" />
+    
+    <article class="slds-card">
+        <div class="slds-path">
+            <div class="slds-grid slds-path__track">
+                <div class="slds-grid slds-path__scroller-container">
+                    <div class="slds-path__scroller" >
+                        <div class="slds-path__scroller_inner">
+                            <ul class="slds-path__nav" role="listbox" aria-orientation="horizontal">
+                                <aura:iteration items="{!v.tracker_details}" var="objectt" >
+                                    <li class="{!if(objectt.classname=='1','slds-path__item slds-is-incomplete',if(objectt.classname=='2','slds-path__item slds-is-complete','slds-path__item slds-is-active'))}" role="presentation">
+                                        <a aria-selected="false" class="slds-path__link" href="javascript:void(0);" id="path-16" role="option" tabindex="-1">
+                                            <span class="slds-path__stage">
+                                                <lightning:icon iconName="utility:check"  size="x-small" />
+                                                <span class="slds-assistive-text">Stage Complete</span>
+                                            </span>
+                                            <span class="slds-path__title">
+                                                &nbsp;
+                                                <lightning:helptext class="{!if(objectt.tooltipv=='NA','align-below slds-hide','align-below')}" content="{!objectt.tooltipv}" />
+                                           {!objectt.stagename} 
+                                            </span>
+                                        </a>
+                                    </li>
+                                </aura:iteration>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-grid slds-path__action">
+                    <span class="slds-path__stage-name">**********</span>
+                    <span class="tooltip" >
+                        <button class="{!if(v.tracker_details[0].if_nurt_disq=='nurt',
+                                       'slds-button slds-button_brand slds-path__mark-complete sldss-yel',
+                                       if(v.tracker_details[0].if_nurt_disq=='disq',
+                                       'slds-button slds-button_brand slds-path__mark-complete sldss-grey',
+                                       'slds-button slds-button_brand slds-path__mark-complete'))}"
+                                
+                                disabled="{!if(v.tracker_details[0].if_nurt_disq=='nurt','true',
+                                          if(v.tracker_details[0].if_nurt_disq=='disq','true',false))}"
+                                
+                                value="nurt"
+                                id="{!v.tracker_details[0].if_nurt_disq}"
+                                
+                                onclick="{!c.show_update_modal}" >
+                            Nurture
+                        </button>
+                        <div class="{!if(v.tracker_details[0].if_nurt_disq=='nurt','tooltiptext','slds-hide')}">
+                            {!v.tracker_details[0].tooltipnur}
+                        </div>
+                    </span>
+                    &nbsp; 
+                    <span class="tooltip" >
+                        <button class="{!if(v.tracker_details[0].if_nurt_disq=='disq',
+                                       'slds-button slds-button_brand slds-path__mark-complete sldss-red',
+                                       if(v.tracker_details[0].if_nurt_disq=='nurt',
+                                       'slds-button slds-button_brand slds-path__mark-complete sldss-grey',
+                                       'slds-button slds-button_brand slds-path__mark-complete'))}"
+                                
+                                disabled="{!if(v.tracker_details[0].if_nurt_disq=='nurt','true',
+                                          if(v.tracker_details[0].if_nurt_disq=='disq','true',false))}"
+                                
+                                value="disq"
+                                id="{!v.tracker_details[0].if_nurt_disq}"
+                                
+                                onclick="{!c.show_update_modal}" >
+                            Disqualified
+                        </button>
+                        <div class="{!if(v.tracker_details[0].if_nurt_disq=='disq','tooltiptext','slds-hide')}">
+                            {!v.tracker_details[0].tooltipnur}
+                        </div>
+                    </span>
+                </div>
+                
+            </div>
+        </div>
+    </article>
+    <aura:if isTrue="{!v.show_modal}">
+        <div id="modal_id" aura:id="modal_aura">
+            <section role="dialog" class="slds-modal slds-fade-in-open" >
+                <div class="slds-modal__container" >
+                    <div class="slds-modal__header" >
+                        {!v.modaldetials[0]}<br>{!v.modaldetials[1]}</br>
+                    </div>
+                    <div class="slds-modal__content"> 
+                        <lightning:recordEditForm aura:id="myRecordForm"
+                                                  class="width_form" 
+                                                  recordId="{!v.recordidd}" 
+                                                  objectApiName="Lead" 
+                                                  onsuccess="{!c.onSuccess}"
+                                                  onsubmit="{!c.onSubmit}"
+                                                  onload="{!c.onLoad}"
+                                                  onerror="{!c.onError}">
+                            <div class="slds-media">
+                                <div class="slds-media__body">
+                                    <!--    <lightning:inputField fieldName="Branches__c" /> -->
+                                    <lightning:inputField disabled="true" aura:id="status" fieldName="Status" />
+                                    <aura:iteration items="{!v.dependentlist}" var="item" >
+                                        <lightning:inputField disabled="false" class="{!item}" required="true" aura:id="{!item}" id="{!item}" fieldName="{!item}" />
+                                    </aura:iteration>
+                                    <p>Reason for {!v.modaldetials[0]}</p>
+                                    <ui:inputSelect class="single" aura:id="InputSelectSingle" required="true" change="{!c.onSingleSelectChange}">
+                                        <ui:inputSelectOption text="--None--" value="true"/>
+                                        <aura:iteration items="{!v.depend_value}" var="label" >
+                                            <ui:inputSelectOption text="{!label}"  />
+                                        </aura:iteration>
+                                    </ui:inputSelect>
+                                    <aura:if isTrue="{!and(v.isCATMRecord, v.modaldetials[0] == 'Disqualified')}"> 
+                                        <lightning:inputField aura:id="dsqRsnCmmnts" fieldName="Disqualified_Reason_Comments__c" />
+                                    </aura:if>
+                                    <lightning:layout horizontalAlign="center" class="slds-m-top_large set_margin_b">
+                                        <lightning:button class="slds-m-top_small" variant="brand" type="submit" disabled="{!v.update_disabled}" onclick="{!c.show_Submit_modal}" name="update" label="Update" />
+                                        <lightning:button class="slds-m-top_small" variant="neutral" onclick="{!c.show_update_modal}"  label="Cancel" />
+                                    </lightning:layout>
+                                   
+                                </div>
+                            </div>
+                        </lightning:recordEditForm>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open" />
+        </div>
+    </aura:if>
+    
+</aura:component>

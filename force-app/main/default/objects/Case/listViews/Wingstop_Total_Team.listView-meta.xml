@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Wingstop_Total_Team</fullName>
+    <booleanFilter>(1 OR 3) AND 2</booleanFilter>
+    <columns>Site_Id__c</columns>
+    <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>Support_Queue__c</columns>
+    <columns>CASES.STATUS</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Support_Queue__c</field>
+        <operation>equals</operation>
+        <value>HOS ENT WINGSTOP CASE MANAGEMENT</value>
+    </filters>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>equals</operation>
+        <value>New,Assigned,In_Progress,In Progress,Open,Pending</value>
+    </filters>
+    <filters>
+        <field>Support_Queue__c</field>
+        <operation>equals</operation>
+        <value>HOS ENT WINGSTOP ESCALATED MANAGEMENT</value>
+    </filters>
+    <label>Wingstop Total Team</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

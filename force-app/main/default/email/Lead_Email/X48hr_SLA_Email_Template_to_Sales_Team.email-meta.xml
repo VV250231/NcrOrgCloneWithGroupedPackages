@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Template for 48hr SLA to Sales Team</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>X2015_NCR_Logo_Letterhead</letterhead>
+    <name>48hr SLA Email Template to Sales Team</name>
+    <style>freeForm</style>
+    <subject>Lead In Open Status For More Than 2 Days</subject>
+    <textOnly>{!Lead.OwnerFullName}
+
+You have a lead from Sales Development that has exceeded the accepted SLA for updating the lead status. This means the lead has been sitting in Open status without an update for more than 2 days.
+ 
+The lead was passed to you after the Sales Development Representative spoke with the customer who has agreed to a follow up meeting with an NCR Sales Representative. If you or a Business Partner have met with the customer, or are planning to do so please update the Lead Status field to “Accept.” If for any reason you don’t believe this a valid lead please update the Lead Status to “Disqualified” or “Return to Nurture.”
+ 
+Please take action by reviewing your lead on the Leads tab in NSC and updating your Open lead.
+
+{!Lead.Link}
+
+Thank you
+NSC Administration</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

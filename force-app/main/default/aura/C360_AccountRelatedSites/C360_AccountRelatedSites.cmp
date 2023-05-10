@@ -1,0 +1,30 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" controller="HierarchyController">
+                
+    <aura:attribute type="Account[]" name="accountList"/>
+    <aura:attribute type="Account[]" name="allAccountList"/>
+    <aura:attribute name="columns" type="List"/>
+      <aura:attribute name="searchValue" type="String" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <aura:handler name="change" value="{!v.recordId}" action="{!c.init}"/>
+    <lightning:spinner aura:id="mySpinner" />
+    
+    <div class="slds-size_1-of-1">          
+                   <div class="slds-grid slds-gutters slds-grid_align-end" >
+                        <div class="slds-col slds-form-element slds-size_4-of-12" style="line-height:45px;margin-top:10px;margin-bottom:25px;margin-right:10px;" >
+                            <span>
+                                <lightning:input class="searchbox" maxlength="100" type="search" variant ="label-hidden" value="{!v.searchValue}"  oncommit="{!c.searchTextChange}" placeholder="Search by Name or Address and Click enter Key..." />
+                            </span>
+                        </div>
+                    </div>
+       </div>               
+     
+    <div class="slds-size_1-of-1">
+        <lightning:icon iconName="utility:info" alternativeText="info" title="info" size="small"/> If <b>Primary Bill To</b> or <b>Primary Ship To</b> is not appropriately checked for any site, go to CDM Portal to correct this. 
+    <lightning:datatable data="{!v.accountList}" 
+                         columns="{!v.columns}" 
+                         keyField="id"
+                         hideCheckboxColumn="true" />
+    </div>
+    
+</aura:component>

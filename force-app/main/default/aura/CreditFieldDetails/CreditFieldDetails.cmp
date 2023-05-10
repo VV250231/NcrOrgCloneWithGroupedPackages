@@ -1,0 +1,154 @@
+<aura:component controller="Controller_CreditDetails_ltng" implements="flexipage:availableForAllPageTypes,force:hasRecordId">
+    
+    <!--	 ########################################################################################       --> 
+    <aura:attribute name="CID" type="Id"  default="{!v.recordId}"/>
+    <aura:attribute name="creditobject" type="Credit_Detail__c" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    
+    <!--	 ###########################################   INVOICE BUTTON ##########################################       --> 
+    
+    <div class="slds-box slds-border_bottom">
+        <button class="slds-button slds-button_brand" style="position:relative; float:right;margin-right:100px;" type="button" onclick="{! c.redirect_myncr }">View Invoices and Disputes</button>
+    	<br/>
+    </div> 
+    <!--#########################################################################################################-->
+    <div class="slds-box slds-border_bottom" id="Mainframe" style="" >
+        <div class="slds-box slds-theme_shade slds-box_small"   style=  "background-color: rgba(250, 250, 250, 1);"> 
+            <center>  <h1>Credit Details</h1></center> 
+        </div>
+        <br></br>
+        
+        <div class="slds-panel__section">  
+            <fieldset class="slds-form_compound">
+                <legend class="slds-form-element__label"></legend>
+                <div class="form-element__group">   
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size_1-of-2 slds-border_bottom">
+                            <label class="slds-form-element__label" for="input-01">Risk Level : </label>
+                            <ui:outputText value="{!v.creditobject.Risk_Level__c}" />
+                        </div>  
+                        <div class="slds-form-element slds-size_1-of-2 slds-border_bottom"> 
+                            <label class="slds-form-element__label" for="input-02">On Hold : </label>
+                            <ui:outputText value="{!v.creditobject.On_Hold__c}"/>
+                        </div> 
+                    </div>
+                </div>  
+            </fieldset> 
+            <fieldset class="slds-form_compound">
+                
+                <legend class="slds-form-element__label"></legend>
+                <div class="form-element__group">   
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size_1-of-2 slds-border_bottom">
+                            <label class="slds-form-element__label" for="input-01">Customer Balance : </label>
+                            <ui:outputCurrency value="{!v.creditobject.Customer_Balance__c}" format="$##,##,###,###.00" />
+                        </div> 
+                        <div class="slds-form-element slds-size_1-of-2 slds-border_bottom">
+                            <!--
+                            <label class="slds-form-element__label" for="input-02">Average Days Late : </label>
+                            <ui:outputText value="{!v.creditobject.Average_Days_Late__c}"/>
+							-->
+                            &nbsp;
+                        </div>
+                    </div>
+                </div> 
+            </fieldset> 
+            <fieldset class="slds-form_compound">
+                <legend class="slds-form-element__label"></legend>
+                <div class="form-element__group">   
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size_1-of-2 slds-border_bottom">
+                            <label class="slds-form-element__label" for="input-01">Not Due 1-360 Days : </label>
+                            <ui:outputCurrency value="{!v.creditobject.Not_Due_1_360_Days__c}" format="$##,##,###,###.00" />
+                        </div> 
+                        <div class="slds-form-element slds-size_1-of-2 slds-border_bottom">
+                            <label class="slds-form-element__label" for="input-02">Not Due 360+ Days : </label>
+                            <ui:outputCurrency value="{!v.creditobject.Not_Due_360_Days__c}" format="$##,##,###,###.00"/>
+                        </div>
+                    </div>
+                </div> 
+            </fieldset> 
+            <fieldset class="slds-form_compound">
+                <legend class="slds-form-element__label"></legend>
+                <div class="form-element__group">   
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size_1-of-2 slds-border_bottom">
+                            <label class="slds-form-element__label" for="input-01">Ageing &lt; 31 : </label>
+                            <ui:outputCurrency value="{!v.creditobject.X1_30_Days_Late__c}" format="$##,##,###,###.00"/>
+                        </div> 
+                        <div class="slds-form-element slds-size_1-of-2 slds-border_bottom">
+                            <label class="slds-form-element__label" for="input-01">Ageing – 31-60: </label>
+                            <ui:outputCurrency value="{!v.creditobject.X31_60_Days_Late__c}" format="$##,##,###,###.00"/>
+                        </div> 
+                       
+                    </div>
+                </div> 
+            </fieldset>
+            
+            <fieldset class="slds-form_compound">
+                <legend class="slds-form-element__label"></legend>
+                <div class="form-element__group">   
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size_1-of-2 slds-border_bottom">
+                            <label class="slds-form-element__label" for="input-01">Ageing – 61-90 : </label>
+                            <ui:outputCurrency value="{!v.creditobject.X61_90_Days_Late__c}" format="$##,##,###,###.00" />
+                        </div> 
+                        <div class="slds-form-element slds-size_1-of-2 slds-border_bottom">
+                            <label class="slds-form-element__label" for="input-02">Ageing – 91-180 : </label>
+                            <ui:outputCurrency value="{!v.creditobject.X91_180_Days_Late__c}" format="$##,##,###,###.00"/>
+                        </div>
+                    </div>
+                </div> 
+            </fieldset> 
+            <fieldset class="slds-form_compound">
+                <legend class="slds-form-element__label"></legend>
+                <div class="form-element__group">   
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size_1-of-2 slds-border_bottom">
+                            <label class="slds-form-element__label" for="input-01">Ageing – 181-360 : </label>
+                            <ui:outputCurrency value="{!v.creditobject.X181_360_Days_Late__c}" format="$##,##,###,###.00"/>
+                        </div> 
+                        <div class="slds-form-element slds-size_1-of-2 slds-border_bottom">
+                            <label class="slds-form-element__label" for="input-01">Ageing &gt; 360 : </label>
+                            <ui:outputCurrency value="{!v.creditobject.X361_Days_Late__c}" format="$##,##,###,###.00"/>
+                        </div> 
+                       
+                    </div>
+                </div> 
+            </fieldset> 
+            <fieldset class="slds-form_compound">
+                <legend class="slds-form-element__label"></legend>
+                <div class="form-element__group">   
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size_1-of-2 slds-border_bottom">
+                            <label class="slds-form-element__label" for="input-01">Credit Limit : </label>
+                            <ui:outputCurrency value="{!v.creditobject.Account__r.Credit_Limit__c}" format="$##,##,###,###.00"/>
+                        </div> 
+                        <div class="slds-form-element slds-size_1-of-2 slds-border_bottom">
+                            <label class="slds-form-element__label" for="input-01">Available Credit : </label>
+                            <ui:outputCurrency value="{!v.creditobject.Account__r.Available_Credit__c}" format="$##,##,###,###.00"/>
+                        </div> 
+                       
+                    </div>
+                </div> 
+            </fieldset> 
+            
+                       
+        </div>
+        <br></br>  
+    </div>
+    <!--	 ###################################  CREDIT ACTIVITY COMPONENT  #####################################################       --> 
+    <div class="slds-box slds-border_bottom" id="Mainframe" style="" >
+        <div>
+            <div class="slds-box slds-theme_shade slds-box_small"   style=  "background-color: rgba(250, 250, 250, 1);">
+                <Center><b>CUSTOMER DISCUSSIONS</b></Center>                
+            </div>
+            <c:Credit_Activity CID="{!v.CID}" />            
+        </div>  
+    </div>
+    <!--	 ###################################  CREDIT ACTIVITY COMPONENT END  #####################################################       --> 
+    <!--	 ########################################################################################       --> 
+    <!--c:accountDisputeDetails accountId="{!v.CID}" /-->
+</aura:component>

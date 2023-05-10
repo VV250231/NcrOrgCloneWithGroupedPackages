@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Inbound_Payments_status_update_failed</fullName>
+        <ccEmails>NI230017@ncr.com</ccEmails>
+        <description>Inbound Payments status update failed</description>
+        <protected>false</protected>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>JetPay_Templates/JP_Inbound_Service_Failed</template>
+    </alerts>
+    <alerts>
+        <fullName>JP_OutBound_Service_Failed</fullName>
+        <ccEmails>NI230017@ncr.com.test</ccEmails>
+        <description>JP OutBound Service Failed</description>
+        <protected>false</protected>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>JetPay_Templates/JP_Outbound_Service_Failed</template>
+    </alerts>
+    <alerts>
+        <fullName>JP_Service_Failed</fullName>
+        <ccEmails>es185185@ncr.com</ccEmails>
+        <description>JP Service Failed</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>at250303@ncr.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/JP_Service_Failed</template>
+    </alerts>
+    <rules>
+        <fullName>JP Inbound Service Failed</fullName>
+        <actions>
+            <name>Inbound_Payments_status_update_failed</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <booleanFilter>1 AND (2 OR 3) AND 4</booleanFilter>
+        <criteriaItems>
+            <field>JPLogs__c.Type__c</field>
+            <operation>equals</operation>
+            <value>InBound</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>JPLogs__c.Status__c</field>
+            <operation>contains</operation>
+            <value>Failure</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>JPLogs__c.Status__c</field>
+            <operation>contains</operation>
+            <value>Exce</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>JPLogs__c.Response__c</field>
+            <operation>notContain</operation>
+            <value>Failure-Error :Infinicept Application Id does not exist</value>
+        </criteriaItems>
+        <description>Notifies Payments status inbound service failure</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>JP Outbound Service Failed</fullName>
+        <actions>
+            <name>JP_OutBound_Service_Failed</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <booleanFilter>1 AND 2</booleanFilter>
+        <criteriaItems>
+            <field>JPLogs__c.Type__c</field>
+            <operation>equals</operation>
+            <value>OutBound</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>JPLogs__c.Status__c</field>
+            <operation>contains</operation>
+            <value>Failure</value>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

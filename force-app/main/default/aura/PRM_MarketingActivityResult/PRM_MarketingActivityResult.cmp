@@ -1,0 +1,29 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" controller="PRM_MarketingActivityResultCon" access="global" >
+    
+    <aura:handler name="init" action="{!c.doInit}" value="{! this}" access="global" />
+    <aura:attribute name="mdf" type="SFDC_MDF__c" />
+    <aura:attribute name="claim" type="SFDC_MDF_Claim__c" />
+    <aura:attribute name="activityValue" type="String" />
+    
+    <aura:if isTrue="{! v.activityValue != 'NCR defined Sales Program – Funded Head Count Distributor Only'}">
+        <table style="border: 1px solid black;">
+            <tr><th>Lead Type</th><th>Estimated</th><th>Actual</th></tr>
+            <aura:if isTrue="{!! (v.activityValue == 'Print – Business case driven' || v.activityValue == 'NCR defined Sales Program – Funded Head Count Distributor Only')}">
+                <tr><td>New Leads</td><td style="text-align:right;padding-right:5px;"><ui:outputText value="{! v.mdf.Estimated_New_Leads__c}"/></td><td style="text-align:right;padding-right:5px;" class="{! and((v.mdf.Estimated_New_Leads__c > v.claim.Actual_New_Leads__c),(v.claim != null))? 'redBackG': ''}"><ui:outputText value="{! v.claim.Actual_New_Leads__c}"/></td></tr>
+            </aura:if>
+            <aura:if isTrue="{!! (v.activityValue == 'Search Engine Marketing/Social Media/PR' || v.activityValue == 'Print – Business case driven' || v.activityValue == 'Sales Program - Incentive' || v.activityValue == 'NCR defined Sales Program – Funded Head Count Distributor Only')}">
+                <tr><td>Existing Leads</td><td style="text-align:right;padding-right:5px;"><ui:outputText value="{! v.mdf.Estimated_Existing_Leads__c}"/></td><td style="text-align:right;padding-right:5px;" class="{! and((v.mdf.Estimated_Existing_Leads__c > v.claim.Actual_Existing_Leads__c),(v.claim != null))? 'redBackG': ''}"><ui:outputText value="{! v.claim.Actual_Existing_Leads__c}"/></td></tr>
+            </aura:if>
+            <aura:if isTrue="{!! (v.activityValue == 'Event - Customer Briefing Center (CBC) Visit' || v.activityValue == 'Event – Webinar' || v.activityValue == 'E-marketing Digital Campaign' || v.activityValue == 'Print – Business case driven' || v.activityValue == 'NCR defined Sales Program – Funded Head Count Distributor Only' ||v.activityValue == 'Sales Program - Incentive')}">
+                <tr><td>Interactions</td><td style="text-align:right;padding-right:5px;"><ui:outputText value="{! v.mdf.Estimated_Interactions__c}"/></td><td style="text-align:right;padding-right:5px;" class="{! and((v.mdf.Estimated_Interactions__c > v.claim.Actual_Interactions__c),(v.claim != null))? 'redBackG': ''}"><ui:outputText value="{! v.claim.Actual_Interactions__c}"/></td></tr>
+            </aura:if>
+            <aura:if isTrue="{!! (v.activityValue == 'Search Engine Marketing/Social Media/PR' || v.activityValue == 'E-marketing - Video' || v.activityValue == 'Print – Business case driven' || v.activityValue == 'NCR defined Sales Program – Funded Head Count Distributor Only') }">
+                <tr><td>Opportunities</td><td style="text-align:right;padding-right:5px;"><ui:outputText value="{! v.mdf.Estimated_Opportunity__c}"/></td><td style="text-align:right;padding-right:5px;" class="{! and((v.mdf.Estimated_Opportunity__c > v.claim.Actual_Opportunity__c),(v.claim != null))? 'redBackG': ''}"><ui:outputText value="{! v.claim.Actual_Opportunity__c}"/></td></tr>
+            </aura:if>
+        </table>
+        <aura:set attribute="else">
+            No Lead type results.
+        </aura:set>
+    </aura:if>
+    
+</aura:component>

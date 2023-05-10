@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Response_Report__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( AND(LEN(Qualtrics_Response_ID__c)&gt;0,LEN(Qualtrics_Survey_ID__c)&gt;0)   , HYPERLINK(&apos;https://login.qualtrics.com/CP/Report.php?SID=&apos;&amp;Qualtrics_Survey_ID__c&amp;&apos;&amp;R=&apos; &amp; Qualtrics_Response_ID__c, &apos;View&apos;, &apos;_blank&apos;), &apos;&apos;)</formula>
+    <label>Response Report</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

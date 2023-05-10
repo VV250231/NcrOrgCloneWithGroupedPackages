@@ -1,0 +1,152 @@
+<apex:page showHeader="false">
+<html>
+
+<!-- This script takes the endpoint URL parameter passed from the deployment page and makes it the action for the form -->
+<script type='text/javascript'>
+
+    (function () {
+        function handlePageLoad() {
+            var endpointMatcher = new RegExp("[\\?\\&]endpoint=([^&#]*)");
+            var domainMatcher = new RegExp("(https?:\\/\\/(.+?\\.)?(salesforce|salesforceliveagent)\\.com(\\/[A-Za-z0-9\\-\\._~:\\/\\?#\[\\]@!$&'\\(\\)\*\\+,;\\=]*)?)");
+
+            var endpointAttr = endpointMatcher.exec(document.location.search)[1];
+            // if the endpoint domain is valid
+            if (domainMatcher.test(decodeURIComponent(endpointAttr))) {
+                document.getElementById('prechatForm').setAttribute('action',
+                    decodeURIComponent(endpointAttr.replace("javascript:", "")));
+            } else {
+                // invalid endpoint domain, set the action to empty
+                console.error("invalid domain: " + endpointAttr);
+                document.getElementById('prechatForm').setAttribute('action', "");
+            }
+        }
+        if (window.addEventListener) {
+            window.addEventListener('load', handlePageLoad, false);
+        } else {
+            window.attachEvent('onload', handlePageLoad, false);
+        }
+    })();
+</script>
+
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"/>
+
+<!-- Form that gathers information from the chat visitor and sets the values to Live Agent Custom Details used later in the example -->
+<div class="mainContainer">
+    <div class="headerBar">
+        <!-- <div class="logo">
+            <span><img class="icon" src="assets/images/QuByLogo_Color.svg" /></span>
+        </div><!-- /.logo -->
+        <div class="logo-text">
+            <span><i class="fa fa-comments" aria-hidden="true" alt=" "></i> Chat with us</span>
+        </div><!-- /.logo-text-->
+    </div><!-- /.headerBar-->
+    <div class="content">
+        <div><span>Question or Issue:</span></div>
+        <form method='post' id='prechatForm'>
+            <textarea class="issueTextArea" name='liveagent.prechat:CaseSubject' id='subject' ></textarea><br />
+
+            <!-- Used to set the visitor's name for the agent in the Console -->
+            <input type="hidden" name="liveagent.prechat.name" id="prechat_field_name" />
+            <input type="hidden" name="liveagent.prechat:CaseRecordType" value="0120g000000N3Pg" />
+            <input type="hidden" name="liveagent.prechat:CaseOrigin" value="QuoteBuilderLiveChat" /><br />
+            <input type="hidden" name="liveagent.prechat.findorcreate.map:Case" value="Subject,CaseSubject;Status,CaseStatus;Origin,CaseOrigin;RecordTypeId,CaseRecordType" />
+
+            <!-- doCreate example for a Case: create a case to attach to the chat, set the Case Subject to the value provided by the customer and set the case's Status and Origin fields -->
+            <input type="hidden" name="liveagent.prechat.findorcreate.map.doCreate:Case" value="Subject,true;Status,true;Origin,true;RecordTypeId,true" />
+
+            <!-- linkToEntity: Set the record Contact record, found/created above, as the Contact on the Case that's created -->
+            <input type="hidden" name="liveagent.prechat.findorcreate.linkToEntity:Contact" value="Case,ContactId" />
+
+            <!-- showOnCreate: Open the Contact and Case records as sub-tabs to the chat for the agent in the Console -->
+            <input type="hidden" name="liveagent.prechat.findorcreate.showOnCreate:Contact" value="true" />
+            <input type="hidden" name="liveagent.prechat.findorcreate.showOnCreate:Case" value="true" />
+
+            <!-- saveToTranscript: Associates the records found / created, i.e. Contact and Case, to the Live Chat Transcript record. -->
+            <input type="hidden" name="liveagent.prechat.findorcreate.saveToTranscript:Contact" value="ContactId" />
+            <input type="hidden" name="liveagent.prechat.findorcreate.saveToTranscript:Case" value="CaseId" />
+
+            <!-- displayToAgent: Hides the case record type from the agent -->
+            <input type="hidden" name="liveagent.prechat.findorcreate.displayToAgent:CaseRecordType" value="false" />
+
+            <!-- searchKnowledge: Searches knowledge article based on the text, this assumes that Knowledge is setup -->
+            <input type="hidden" name="liveagent.prechat.knowledgeSearch:CaseSubject" value="true" />
+            <input class="submitButton" type='submit' value='Initiate Chat' id='prechat_submit' onclick="setName()" />
+        </form>
+    </div><!-- /.content-->
+    <!-- <div class="footer">
+        <span>Some Text</span>
+    </div><!-- /.footer -->
+</div><!-- /.mainContainer-->
+
+<style type="text/css">
+    body{
+        margin: 0px;
+    }
+    .mainContainer {
+        display: flex;
+        flex-flow: column nowrap;
+        height: 100%;
+        font-family: Lato, sans-serif;
+        align-items: center;
+        width: 99%;
+    }
+    .headerBar {
+        display: flex;
+        height: 22px;
+        background-color: #70BF60;
+        color: white;
+        padding: 8px;
+        font-weight: bold;
+        font-size: 18px;
+        justify-content: flex-start;
+        width: 99%;
+        flex-direction: column;
+    }
+    .logo-text{
+        padding-left: 10px;
+    }
+    .content {
+        display: flex;
+        flex-flow: column nowrap;
+        flex-grow: 1;
+        align-items: center;
+        padding: 10px 10px 10px 10px;
+        width: 85%;
+        margin-top: 10px;
+    }
+    .content > div{
+        width: 100%;
+    }
+    .issueTextArea{
+        resize: none;
+        height: 150px;
+        width: 100%;
+        margin: 5px;
+    }
+    form{
+        display: flex;
+        flex-flow: column;
+        width: 100%;
+        margin-bottom: 0px;
+        align-items: center;
+    }
+    .submitButton{
+        padding: 10px;
+        color: white;
+        background-color: #70BF60;
+        border: none;
+        font-size: 18px;
+        width: 65%;
+    }
+</style>
+
+<!-- Set the visitor's name for the agent in the Console to first and last name provided by the customer -->
+<script type="text/javascript">
+    function setName() {
+        document.getElementById("prechat_field_name").value =
+            document.getElementById("firstName").value + " " + document.getElementById("lastName").value;
+    }
+</script>
+
+</html>
+</apex:page>

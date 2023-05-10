@@ -1,0 +1,938 @@
+<template>
+    <c-wizard header="Schedule Report Flow" variant="path" current-step="step-1" oncomplete={scheduleReport}>
+        <!--STEP 1-->
+        <c-wizard-step label="Select Contacts" name="step-1"  hide-next-button>
+            <div class="slds-p-around_medium lgc-bg">
+                <!--Report Name field-->
+                <lightning-input type="text" value={reportName} label="Enter Schedule Report Name" required
+                    onchange={handleName} maxlength="100"></lightning-input>
+                <br>
+
+                <!--Custom Lookup LWC to select user-->
+                <label> Schedule Report Requested by</label>
+                <c-custom-look-up data-id="userLookup" obj-name="User" search-placeholder="Search Users"
+                    icon-name="standard:user" onlookupselected={handleRequester}> </c-custom-look-up>
+
+                <br>
+                
+                <!--Custom MultiSelectLookup LWC to select contacts-->
+                <c-custom-multi-select-lookup data-id="multiLookup" class="conTable" required
+                    label-name="Search Contacts in Salesforce" is-required=true help-text-value="You can not select more than 10 contacts"
+                    object-api-name="contact" field-api-names="Id,Name,Email" filter-field-api-name="Name"
+                    icon-name="standard:contact" onretrieve={handleConLookUp} onremove={handleRemoveConLookUp}>
+                </c-custom-multi-select-lookup>
+                <br>
+                <!--Report Field Label-->
+                <div class="req">
+                    <label  > Select Reports</label> <lightning-helptext content="Selected report should have MCN as first filter"></lightning-helptext>
+                    
+                </div>
+              <!--Custom lookup to select report-->
+                <c-custom-look-up  data-id="report1Lookup" obj-name="Report" search-placeholder="Search Reports"
+                    icon-name="standard:report" onlookupselected={handleReportLookUp1}> </c-custom-look-up>
+              
+                    <!--Show Report 2 Lookup-->
+                <template if:true={showLookUp2}>
+                    <br>
+                    <c-custom-look-up data-id="report2Lookup" id='lookup2' obj-name="Report"
+                        search-placeholder="Search Reports" icon-name="standard:report"
+                        onlookupselected={handleReportLookUp2}> </c-custom-look-up>
+                </template>
+                <!--Show Report 3 Lookup-->
+                <template if:true={showLookUp3}>
+                    <br>
+                    <c-custom-look-up data-id="report3Lookup" id='lookup3' obj-name="Report"
+                        search-placeholder="Search Reports" icon-name="standard:report"
+                        onlookupselected={handleReportLookUp3}> </c-custom-look-up>
+                </template>
+               
+                <!--Add/Remove buttons for report lookup-->
+                <lightning-button label="add" variant="base" icon-name="utility:add" icon-position="right"
+                    onclick={handleAddClick} disabled={disableAddBtn}>
+                </lightning-button>
+                &nbsp; &nbsp;
+                <lightning-button label="remove" variant="base" icon-name="utility:close" icon-position="right"
+                    onclick={handleRemoveClick} disabled={disableRemoveBtn}>
+                </lightning-button>
+            </div>
+            <!--Custom Next button for step-1-->
+            <div class="slds-float_right slds-m-top_x-large">
+                <lightning-button variant="brand" label="Next" onclick={handleNextStep1} class="slds-m-left_x-small">
+                </lightning-button>
+            </div>
+        </c-wizard-step>
+
+        <!--STEP 2-->
+        <c-wizard-step label="Select Report Filter and Other Details" name="step-2"  hide-next-button >
+
+        <div style="width:100%;overflow:auto"> 
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped slds-table_col-bordered slds-table_fixed-layout slds-table_resizable-cols" >
+            <!--Header of the table-->
+                    <thead>
+                        <tr class="slds-line-height_reset">
+
+                            <th class="slds-text-align_center slds-is-resizable" scope="col" style="width:180px">
+                                <div class="slds-truncate" >Name</div>
+                            </th>
+                            <th class="slds-text-align_center slds-is-resizable" scope="col" style="width:180px">
+                                <div class="slds-truncate">Email</div>
+                            </th>
+                            <th class="slds-text-align_center slds-is-resizable" scope="col" style="width:180px">
+                                <div class="slds-truncate">Direct MCN's</div>
+                            </th>
+                            <th class="slds-text-align_center slds-is-resizable" scope="col" style="width:180px">
+                                <div class="slds-truncate">Indirect MCN's</div>
+                            </th>
+
+                            <th class="slds-text-align_center slds-is-resizable" scope="col" style="width:180px">
+                                <div class="slds-truncate">Direct FUA's</div>
+                            </th>
+                            <th class="slds-text-align_center slds-is-resizable" scope="col" style="width:180px">
+                                <div class="slds-truncate" >Indirect FUA's</div>
+                            </th>
+                           
+                           
+                            <th class="slds-text-align_center slds-is-resizable" scope="col" style="width:180px">
+                                <div class="slds-truncate">Reporting Filter</div>
+                            </th>
+                            <th class="slds-text-align_center slds-is-resizable" scope="col" style="width:180px">
+                                <div class="slds-truncate">Additional Recipient Type</div>
+                            </th>
+                            <th class="slds-text-align_center slds-is-resizable" scope="col" style="width:180px" >
+                                <div class="slds-truncate">Select Recipient 1*</div>
+                            </th>
+                            <th class="slds-text-align_center slds-is-resizable" scope="col" style="width:180px">
+                                <div class="slds-truncate">Select Recipient 2*</div>
+                            </th>
+                            <th class="slds-text-align_center slds-is-resizable" scope="col" style="width:180px">
+                                <div class="slds-truncate">Select Recipient 3*</div>
+                            </th>
+                            <th class="slds-text-align_center slds-is-resizable" scope="col" style="width:190px">
+                                <div class="slds-truncate">Select Recipient 4*</div>
+                            </th>
+
+
+                        </tr>
+                    </thead>
+
+                    <!--Body of the table-->
+                    <tbody>
+                        <template for:each={contactMap} for:item="item" for:index="indexVar">
+                            <tr data-id={item.recordId} key={item.recordId} class="slds-hint-parent">
+
+                                <td class ="slds-text-align_center slds-cell-wrap">
+                                    <div class="">
+                                        {item.recordName}
+                                    </div>
+                                </td>
+                                <td class ="slds-cell-wrap">
+                                    <div class="">
+                                        {item.recordEmail}
+                                    </div>
+                                </td>
+                                <td class ="slds-text-align_center">
+                                    <div class="slds-truncate">
+                                        {item.recordDirectMCN}
+                                    </div>
+                                </td>
+
+                                <template if:true ={item.recordIndirectMCN}>
+                                    <template if:true ={item.charLimitMCN}>
+                                    <td class="slds-cell-wrap " >
+                                        <div class="slds-list_horizontal ">
+                                            <div class="slds-line-clamp  slds-text-align_center">
+                                                {item.filteredMCN} 
+                                            </div> 
+                                            <div style ='padding-top: 32px;'>
+                                            <lightning-button data-id={item.recordId} variant="base" label="More" title="Click here to see all values" onclick={handleShowMore} class="slds-m-left_x-small"></lightning-button>
+                                        </div>
+                                        </div>
+                                        <div class="slds-text-align_center">
+                                            <lightning-button data-id={item.recordId} variant="base" label="Filter" title="Click here to filter MCN's" onclick={handleFilterMCN} class="slds-m-left_x-small"></lightning-button>
+                                        </div>
+                                        </td>
+
+                                    </template>
+                                  
+                                    <template if:false ={item.charLimitMCN}>
+                                        <template if:false ={item.singleIndirectMCN}>
+                                        <td class="slds-cell-wrap" >
+                                                    <div class="slds-line-clamp  slds-text-align_center">
+                                                        {item.filteredMCN} 
+                                                    </div> 
+                                                    <div class="slds-text-align_center">
+                                                    <lightning-button data-id={item.recordId} variant="base" label="Filter" title="Click here to filter MCN's" onclick={handleFilterMCN} class="slds-m-left_x-small"></lightning-button>
+                                                </div> 
+                                                     </td>
+                                        </template>
+                                         <template if:true ={item.singleIndirectMCN}>
+                                        <td class="slds-cell-wrap" >
+                                                        <div class="slds-line-clamp  slds-text-align_center">
+                                                            {item.filteredMCN} 
+                                                        </div> 
+            
+                                                         </td>
+                                         </template>
+                                         </template>
+                                </template>
+                                    <template if:false ={item.recordIndirectMCN}>
+                                        <template if:false ={item.indirectCharLimitMCN}>
+                                            <td class="slds-cell-wrap" >
+                                                <div class="slds-line-clamp  slds-text-align_center">
+                                                    {item.filteredMCN} 
+                                                </div> 
+    
+                                                 </td>
+    
+                                        </template>
+                                    </template>
+                                    
+                               
+                                
+                               
+                                <td class ="slds-text-align_center">
+                                    <div class="slds-truncate">
+                                        {item.recordDirectFUA}
+                                    </div>
+                                </td>
+                                <template if:true ={item.recordIndirectFUA}>
+                                <template if:true ={item.charLimitFUA}>
+                                    <td class="slds-cell-wrap" >
+                                        <div class="slds-list_horizontal">
+                                            <div class="slds-line-clamp  slds-text-align_center">
+                                                {item.filteredFUA} 
+                                            </div> 
+                                            <div style ='padding-top: 32px;'>
+                                                <lightning-button data-id={item.recordId} variant="base" label="More" title="Click here to see all values" onclick={handleShowMoreFUA} class="slds-m-left_x-small"></lightning-button>
+        
+                                            </div>
+
+                                        </div>
+                                        <div class="slds-text-align_center">
+                                        <lightning-button data-id={item.recordId} variant="base" label="Filter" title="Click here to filter FUA's" onclick={handleFilterFUA} class="slds-m-left_x-small"></lightning-button>
+                                    </div>
+                                            </td>
+                                        
+                                    </template>
+                                    <template if:false ={item.charLimitFUA}>
+                                        <template if:false ={item.singleIndirectFUA}>
+                                            <td class="slds-cell-wrap" >
+                                                <div class="slds-line-clamp  slds-text-align_center">
+                                                    {item.filteredFUA} 
+                                                </div> 
+                                                <div class="slds-text-align_center">
+                                                <lightning-button data-id={item.recordId} variant="base" label="Filter" title="Click here to filter FUA's" onclick={handleFilterFUA} class="slds-m-left_x-small"></lightning-button>
+                                            </div> 
+                                                 </td>
+                                        </template>
+                                        <template if:true ={item.singleIndirectFUA}>
+                                            <td class="slds-cell-wrap" >
+                                                <div class="slds-line-clamp  slds-text-align_center">
+                                                    {item.filteredFUA} 
+                                                </div> 
+                                                
+                                                 </td>
+                                        </template>
+                                        
+                                    
+                                    </template>
+                                </template>
+                                <template if:false ={item.recordIndirectFUA}>
+                                    <td class="slds-cell-wrap" >
+                                        <div class="slds-line-clamp  slds-text-align_center">
+                                            {item.filteredFUA} 
+                                        </div> 
+                                        
+                                         </td>
+                                </template>
+                                <td >
+                                    <div class="">
+                                        <template if:true={item.isDirectMCN}>
+                                            <select onchange={handleReportFilter} id={item.recordId} data-id={item.recordId}>
+                                                
+                                                <template if:true={item.recordDirectMCN}>
+                                                <option value="Direct MCN" selected>Direct MCN</option>
+                                            </template>
+                                                <template if:true={item.recordDirectFUA}>
+                                                    <option value="Direct FUA" >Direct FUA</option>
+                                                </template>
+                                                
+                                                <template if:true={item.recordIndirectMCN}>
+                                                    <option value="Indirect MCN">Indirect MCN</option>
+                                                </template>
+                                                <template if:true={item.recordIndirectFUA}>
+                                                    <option value="Indirect FUA" >Indirect FUA</option>
+                                                </template>
+                                                <template if:true={item.recordShowAllFUA}>
+                                                <option value="All FUA">All FUA</option>
+                                            </template>
+                                            <template if:true={item.recordShowAllMCN}>
+                                                <option value="All MCN">All MCN</option>
+                                            </template>
+                                            </select>
+                                        </template>
+
+                                        <template if:true={item.isIndirectMCN}>
+                                            <select onchange={handleReportFilter} id={item.recordId} data-id={item.recordId}>
+
+                                                
+                                                <template if:true={item.recordDirectMCN}>
+                                                    <option value="Direct MCN" >Direct MCN</option>
+                                                </template>
+                                                    <template if:true={item.recordDirectFUA}>
+                                                        <option value="Direct FUA" >Direct FUA</option>
+                                                    </template>
+                                                    
+                                                    <template if:true={item.recordIndirectMCN}>
+                                                        <option value="Indirect MCN" selected>Indirect MCN</option>
+                                                    </template>
+                                                    <template if:true={item.recordIndirectFUA}>
+                                                        <option value="Indirect FUA" >Indirect FUA</option>
+                                                    </template>
+                                                    <template if:true={item.recordShowAllFUA}>
+                                                        <option value="All FUA">All FUA</option>
+                                                    </template>
+                                                    <template if:true={item.recordShowAllMCN}>
+                                                        <option value="All MCN">All MCN</option>
+                                                    </template>
+                                            </select>
+                                        </template>
+
+                                        <template if:true={item.isDirectFUA}>
+                                            <select onchange={handleReportFilter} id={item.recordId} data-id={item.recordId}>
+
+                                                
+                                                <template if:true={item.recordDirectMCN}>
+                                                    <option value="Direct MCN" >Direct MCN</option>
+                                                </template>
+                                                    <template if:true={item.recordDirectFUA}>
+                                                        <option value="Direct FUA" selected >Direct FUA</option>
+                                                    </template>
+                                                    
+                                                    <template if:true={item.recordIndirectMCN}>
+                                                        <option value="Indirect MCN" >Indirect MCN</option>
+                                                    </template>
+                                                    <template if:true={item.recordIndirectFUA}>
+                                                        <option value="Indirect FUA" >Indirect FUA</option>
+                                                    </template>
+                                                    <template if:true={item.recordShowAllFUA}>
+                                                        <option value="All FUA">All FUA</option>
+                                                    </template>
+                                                    <template if:true={item.recordShowAllMCN}>
+                                                        <option value="All MCN">All MCN</option>
+                                                    </template>
+                                            </select>
+                                        </template>
+
+                                        <template if:true={item.isIndirectFUA}>
+                                            <select onchange={handleReportFilter} id={item.recordId} data-id={item.recordId}>
+
+                                                
+                                                <template if:true={item.recordDirectMCN}>
+                                                    <option value="Direct MCN" >Direct MCN</option>
+                                                </template>
+                                                    <template if:true={item.recordDirectFUA}>
+                                                        <option value="Direct FUA"  >Direct FUA</option>
+                                                    </template>
+                                                    
+                                                    <template if:true={item.recordIndirectMCN}>
+                                                        <option value="Indirect MCN" >Indirect MCN</option>
+                                                    </template>
+                                                    <template if:true={item.recordIndirectFUA}>
+                                                        <option value="Indirect FUA" selected >Indirect FUA</option>
+                                                    </template>
+                                                    <template if:true={item.recordShowAllFUA}>
+                                                        <option value="All FUA">All FUA</option>
+                                                    </template>
+                                                    <template if:true={item.recordShowAllMCN}>
+                                                        <option value="All MCN">All MCN</option>
+                                                    </template>
+                                            </select>
+                                        </template>
+
+                                        <template if:true={item.isAllFUA}>
+                                            <select onchange={handleReportFilter} id={item.recordId} data-id={item.recordId}>
+                                                <template if:true={item.recordDirectMCN}>
+                                                    <option value="Direct MCN" >Direct MCN</option>
+                                                </template>
+                                                    <template if:true={item.recordDirectFUA}>
+                                                        <option value="Direct FUA"  >Direct FUA</option>
+                                                    </template>
+                                                    
+                                                    <template if:true={item.recordIndirectMCN}>
+                                                        <option value="Indirect MCN" >Indirect MCN</option>
+                                                    </template>
+                                                    <template if:true={item.recordIndirectFUA}>
+                                                        <option value="Indirect FUA"  >Indirect FUA</option>
+                                                    </template>
+                                                    <template if:true={item.recordShowAllFUA}>
+                                                        <option value="All FUA" selected>All FUA</option>
+                                                    </template>
+                                                    <template if:true={item.recordShowAllMCN}>
+                                                        <option value="All MCN">All MCN</option>
+                                                    </template>
+                                            </select>
+                                        </template>
+
+                                        <template if:true={item.isAllMCN}>
+                                            <select onchange={handleReportFilter} id={item.recordId} data-id={item.recordId}>
+                                                <template if:true={item.recordDirectMCN}>
+                                                    <option value="Direct MCN" >Direct MCN</option>
+                                                </template>
+                                                    <template if:true={item.recordDirectFUA}>
+                                                        <option value="Direct FUA"  >Direct FUA</option>
+                                                    </template>
+                                                    
+                                                    <template if:true={item.recordIndirectMCN}>
+                                                        <option value="Indirect MCN" >Indirect MCN</option>
+                                                    </template>
+                                                    <template if:true={item.recordIndirectFUA}>
+                                                        <option value="Indirect FUA"  >Indirect FUA</option>
+                                                    </template>
+                                                    <template if:true={item.recordShowAllFUA}>
+                                                        <option value="All FUA" >All FUA</option>
+                                                    </template>
+                                                    <template if:true={item.recordShowAllMCN}>
+                                                        <option value="All MCN" selected>All MCN</option>
+                                                    </template>
+                                            </select>
+                                        </template>
+                                  
+                                        <br>
+                                        <lightning-formatted-text class="reportingFilterError" value="" data-id={item.recordId}  style="color:red" hidden>
+                                        </lightning-formatted-text>
+                                 </div>
+                                </td>
+                                <td >
+                                    <div class="">
+                                        <template if:true={item.isAccountOwner}>
+                                            <select class="selectAdditionalRecipient"  onchange={handleAdditionalRecipient}
+                                                id={item.recordId} data-id={item.recordId}>
+                                                <option value="--None--">--None--</option>
+                                                <option value="Account Owner" selected>Account Owner</option>
+                                                <option value="Manually Enter Emails">Manually Enter Emails</option>
+                                            </select>
+                                           
+                                        </template>
+                                        <template if:true={item.isManual}>
+                                            <select onchange={handleAdditionalRecipient}
+                                                id={item.recordId} data-id={item.recordId}>
+                                                <option value="--None--">--None--</option>
+                                                <option value="Account Owner" >Account Owner</option>
+                                                <option value="Manually Enter Emails" selected>Manually Enter Emails
+                                                </option>
+                                            </select>
+                                        </template>
+                                        <template if:true={item.isNone}>
+                                            <select onchange={handleAdditionalRecipient}
+                                                id={item.recordId} data-id={item.recordId}>
+                                                <option value="--None--">--None--</option>
+                                                <option value="Account Owner">Account Owner</option>
+                                                <option value="Manually Enter Emails">Manually Enter Emails</option>
+                                            </select>
+
+                                        </template>
+
+                                        <br>
+                                        <lightning-formatted-text class="additionalRecipientTextError" value="" data-id={item.recordId} id={item.recordId} style="color:red" hidden>
+                                        </lightning-formatted-text>
+
+                                    </div>
+                                </td>
+                                <td >
+                                    <div class="">
+                                        <template if:true={item.isAccountOwner}>
+                                            <input  type="email" name="input1" disabled id={item.recordId} 
+                                                onchange={handleRecipientInput1}>
+                                               
+                                        </template>
+                                        <template if:true={item.isManual}>
+                                            <template if:true={item.recordAdditionalRecipient1}>
+                                                <input  pattern=".+@ncr\.com"  data-id={item.recordId}  type="email" value={item.recordAdditionalRecipient1} name="input1"
+                                                 id={item.recordId} onchange={handleRecipientInput1}  >
+                                            </template>
+                                            <template if:false={item.recordAdditionalRecipient1}>
+                                                <input  pattern=".+@ncr\.com" data-id={item.recordId} type="email"  name="input1"
+                                                 id={item.recordId} onchange={handleRecipientInput1}  >
+                                            </template>
+                                           
+                                                
+                                        </template>
+                                        <template if:true={item.isNone}>
+                                            <input  type="email" name="input1" disabled id={item.recordId}
+                                                onchange={handleRecipientInput1}>
+
+                                        </template>
+                                        <lightning-formatted-text name="input1" data-id={item.recordId} class="additionalRecipientInputError" value="" id={item.recordId} style="color:red" hidden>
+                                        </lightning-formatted-text> <br>
+                                        <lightning-formatted-text name="input1" data-id={item.recordId} class="additionalRecipientInputError2" value="" id={item.recordId} style="color:red" hidden>
+                                        </lightning-formatted-text>
+                                    </div>
+                                </td>
+                                <td >
+                                    <div class="">
+                                        <template if:true={item.isAccountOwner}>
+                                            <input  type="email" name="input2" disabled id={item.recordId}
+                                                onchange={handleRecipientInput2}>
+
+                                        </template>
+                                        <template if:true={item.isManual}>
+                                            <template if:true={item.recordAdditionalRecipient2}>
+                                                <input pattern=".+@ncr\.com"  type="email" value={item.recordAdditionalRecipient2}
+                                                    name="input2" id={item.recordId}  data-id={item.recordId} onchange={handleRecipientInput2}>
+
+                                            </template>
+                                            <template if:false={item.recordAdditionalRecipient2}>
+                                                <input pattern=".+@ncr\.com" type="email" name="input2"  data-id={item.recordId} id={item.recordId}
+                                                    onchange={handleRecipientInput2}>
+                                            </template>
+                                        </template>
+                                        <template if:true={item.isNone}>
+                                            <input  type="email" name="input2" disabled id={item.recordId}
+                                                onchange={handleRecipientInput2}>
+
+                                        </template>
+                                        <lightning-formatted-text name="input2" data-id={item.recordId} class="additionalRecipientInputError" value="" id={item.recordId} style="color:red" hidden>
+                                        </lightning-formatted-text> <br>
+                                        <lightning-formatted-text name="input2" data-id={item.recordId} class="additionalRecipientInputError2" value="" id={item.recordId} style="color:red" hidden>
+                                        </lightning-formatted-text>
+                                    </div>
+                                </td>
+                                <td >
+                                    <div class="">
+                                        <template if:true={item.isAccountOwner}>
+                                            <input  type="email" name="input3" disabled id={item.recordId}
+                                                onchange={handleRecipientInput3}>
+
+                                        </template>
+                                        <template if:true={item.isManual}>
+                                            <template if:true={item.recordAdditionalRecipient3}>
+                                                <input pattern=".+@ncr\.com" type="email" value={item.recordAdditionalRecipient3}
+                                                    name="input3" id={item.recordId}  data-id={item.recordId} onchange={handleRecipientInput3}>
+                                            </template>
+                                            <template if:false={item.recordAdditionalRecipient3}>
+                                                <input pattern=".+@ncr\.com" type="email" name="input3"  data-id={item.recordId} id={item.recordId}
+                                                    onchange={handleRecipientInput3}>
+                                            </template>
+
+                                        </template>
+                                        <template if:true={item.isNone}>
+                                            <input  type="email" name="input3" disabled id={item.recordId}
+                                                onchange={handleRecipientInput3}>
+
+                                        </template>
+                                        <lightning-formatted-text name="input3" data-id={item.recordId} class="additionalRecipientInputError" value="" id={item.recordId} style="color:red" hidden>
+                                        </lightning-formatted-text> <br>
+                                        <lightning-formatted-text name="input3" data-id={item.recordId} class="additionalRecipientInputError2" value="" id={item.recordId} style="color:red" hidden>
+                                        </lightning-formatted-text>
+                                    </div>
+                                </td>
+                                <td >
+                                    <div class="">
+                                        <template if:true={item.isAccountOwner}>
+                                            <input  type="email" name="input4" disabled id={item.recordId}
+                                                onchange={handleRecipientInput4}>
+
+                                        </template>
+                                        <template if:true={item.isManual}>
+                                            <template if:true={item.recordAdditionalRecipient4}>
+                                                <input pattern=".+@ncr\.com"  type="email" value={item.recordAdditionalRecipient4}
+                                                    name="input4" id={item.recordId}  data-id={item.recordId} onchange={handleRecipientInput4}>
+                                            </template>
+                                            <template if:false={item.recordAdditionalRecipient4}>
+                                                <input pattern=".+@ncr\.com" type="email" name="input4"  data-id={item.recordId} id={item.recordId}
+                                                    onchange={handleRecipientInput4}>
+                                            </template>
+
+                                        </template>
+                                        <template if:true={item.isNone}>
+                                            <input  type="email" name="input4" disabled id={item.recordId}
+                                                onchange={handleRecipientInput4}>
+
+                                        </template>
+                                    
+                                        <lightning-formatted-text name="input4" data-id={item.recordId} class="additionalRecipientInputError" value="" id={item.recordId} style="color:red" hidden>
+                                        </lightning-formatted-text> <br>
+                                        <lightning-formatted-text name="input4" data-id={item.recordId} class="additionalRecipientInputError2" value="" id={item.recordId} style="color:red" hidden>
+                                        </lightning-formatted-text>
+                                    </div>
+                                </td>
+                            </tr>
+                        </template>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="slds-text-align_right">
+                <strong> *Only NCR email Ids are allowed</strong> 
+            </div>
+            <!--Custom Next Button for step-2-->
+            <div class="slds-col slds-col_bump-left slds-text-align_right slds-m-top_xx-large slds-float_right">
+                <lightning-button variant="brand" label="Next" onclick={handleNextStep2} >
+                </lightning-button>
+            </div>
+        
+        </c-wizard-step>
+
+        <!--STEP-3-->
+        <c-wizard-step label="Enter Report Scheduling Details" name="step-3" before-change={validateStep3}>
+            <br /><br />
+            <lightning-combobox data-id="rsd" name="Frequency" label="Select Frequency" placeholder="Select Frequency"
+                options={frqOptions} onchange={handleFrequencyChange} required value={frequencyValue}>
+            </lightning-combobox><br /><br />
+            <lightning-input value={strStartDate} class="dateCmp" time-zone="EST" data-id="rsd" type="date" name="input1"
+                label="Enter Start Date" onchange={handleStartDate} required></lightning-input><br /><br />
+            <lightning-input value={strEndDate} class="dateCmp2" time-zone="EST" data-id="rsd" type="date" name="input3"
+                label="Enter End Date" onchange={handleEndDate} required></lightning-input><br /><br />
+            <lightning-input value={scheduleTime} data-id="rsd" type="time" name="input4" label="Schedule Time"
+                onchange={handleTime} required></lightning-input>
+                <div class="slds-text-align_right">
+                    <strong> *Email will be scheduled based on EDT Timezone</strong> 
+                </div>
+        </c-wizard-step>
+
+        <!--STEP-4-->
+        <c-wizard-step  label="Enter Email Details" name="step-4" before-change={validateStep4}>
+            <lightning-input data-id="emailFields" required type="text" label="Email Subject" value={emailSubject} onchange={handleEmailSubjectChange}></lightning-input>
+            <br/> <br/>
+    
+            <label  >Email Body</label>
+            <lightning-input-rich-text value={emailBody} onchange={handleEmailBodyChange}> </lightning-input-rich-text>
+        </c-wizard-step>
+
+        <!--STEP-5-->
+        <c-wizard-step label="Review and Confirm Details" name="step-5">
+          
+            <div>
+                <strong>Frequency</strong> - {frequencyValue} &nbsp;&nbsp;<strong>Start Date</strong> - <lightning-formatted-date-time value={startDate}>
+                </lightning-formatted-date-time> &nbsp;&nbsp; <strong>End Date</strong> - <lightning-formatted-date-time value={endDate}>
+                </lightning-formatted-date-time> 
+                <br> <br>
+                <div style="width:100%;overflow:auto">
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped slds-table_col-bordered slds-table_fixed-layout slds-table_resizable-cols" >
+
+                        <!--Header of the table-->
+                        <thead>
+                            <tr class="slds-line-height_reset">
+
+                                <th class="slds-text-align_center slds-is-resizable" scope="col" style="width:180px">
+                                    <div class="slds-truncate">Name</div>
+                                </th>
+                                <th class="slds-text-align_center slds-is-resizable" scope="col" style="width:180px">
+                                    <div class="slds-truncate">Email</div>
+                                </th>
+                                <th class="slds-text-align_center slds-is-resizable" scope="col" style="width:180px">
+                                    <div class="slds-truncate">Direct MCN's</div>
+                                </th>
+                                <th class="slds-text-align_center slds-is-resizable" scope="col" style="width:180px">
+                                    <div class="slds-truncate" style="width:12rem">Indirect MCN's</div>
+                                </th>
+                                <th class="slds-text-align_center slds-is-resizable" scope="col" style="width:180px">
+                                    <div class="slds-truncate">Direct FUA's</div>
+                                </th>
+                                <th class="slds-text-align_center slds-is-resizable" scope="col" style="width:180px">
+                                    <div class="slds-truncate" >Indirect FUA's</div>
+                                </th>
+                                <th class="slds-text-align_center slds-is-resizable" scope="col" style="width:180px">
+                                    <div class="slds-truncate">Reporting Filter</div>
+                                </th>
+                                <th class="slds-text-align_center slds-is-resizable" scope="col" style="width:180px">
+                                    <div class="slds-truncate">Additional Recipient Type</div>
+                                </th>
+                                <th class="slds-text-align_center slds-is-resizable" scope="col" style="width:180px">
+                                    <div class="slds-truncate">Account Owner</div>
+                                </th>
+                                <th class="slds-text-align_center slds-is-resizable" scope="col" style="width:190px">
+                                    <div class="slds-truncate">Additional Recipient Email</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <!--Body of the table-->
+                        <tbody>
+                            <template for:each={contactMap} for:item="item" for:index="indexVar">
+                                <tr key={item.recordId} class="slds-hint-parent">
+                                    <td class="slds-text-align_center slds-cell-wrap">
+                                        <div>
+                                            {item.recordName}
+                                        </div>
+                                    </td>
+                                    <td class="slds-cell-wrap">
+                                        <div>
+                                            {item.recordEmail}
+                                        </div>
+                                    </td>
+                                    <td class="slds-text-align_center slds-cell-wrap">
+                                        <div>
+                                            {item.recordDirectMCN}
+                                        </div>
+                                    </td>
+                                    <template if:true ={item.charLimitMCN}>
+                                        <td class="slds-cell-wrap slds-list_horizontal" >
+                                            <div class="slds-line-clamp  slds-text-align_center">
+                                                {item.filteredMCN} 
+                                            </div> 
+                                            <div style ='padding-top: 32px;'>
+                                                <lightning-button data-id={item.recordId} variant="base" label="More" title="Click here to see all values" onclick={handleShowMore} class="slds-m-left_x-small"></lightning-button>
+        
+                                            </div>
+                                                </td>
+                                            
+                                        </template>
+                                        <template if:false ={item.charLimitMCN}>
+                                            <td class="slds-cell-wrap" >
+                                                <div class="slds-line-clamp  slds-text-align_center">
+                                                    {item.filteredMCN} 
+                                                </div> 
+                                                 </td>
+                                        
+                                        </template>
+                                  
+                                    
+                                   
+                                    <td class ="slds-text-align_center">
+                                        <div class="slds-truncate">
+                                            {item.recordDirectFUA}
+                                        </div>
+                                    </td>
+                                    <template if:true ={item.charLimitFUA}>
+                                        <td class="slds-cell-wrap slds-list_horizontal" >
+                                            <div class="slds-line-clamp  slds-text-align_center">
+                                                {item.filteredFUA} 
+                                            </div> 
+                                            <div style ='padding-top: 32px;'>
+                                                <lightning-button data-id={item.recordId} variant="base" label="More" title="Click here to see all values" onclick={handleShowMoreFUA} class="slds-m-left_x-small"></lightning-button>
+        
+                                            </div>
+                                                </td>
+                                            
+                                        </template>
+                                        <template if:false ={item.charLimitFUA}>
+                                            <td class="slds-cell-wrap" >
+                                                <div class="slds-line-clamp  slds-text-align_center">
+                                                    {item.filteredFUA} 
+                                                </div> 
+                                                 </td>
+                                        
+                                        </template>
+                                   
+                                    
+                                    <td class="slds-text-align_center slds-cell-wrap">
+                                        <div>
+                                            {item.recordReportingFilter}
+                                        </div>
+                                    </td>
+                                    <td class="slds-text-align_center slds-cell-wrap">
+                                        <div>
+                                            {item.recordAdditinalRecipientType}
+                                        </div>
+                                    </td>
+                                    <td class="slds-text-align_center slds-cell-wrap">
+                                        <div>
+                                            {item.recordAccountName}
+                                        </div>
+                                    </td>
+                                    <td class="slds-cell-wrap">
+                                        <div>
+                                            <template if:true={item.showAdditionalEmail}>
+                                            {item.recordAdditionalRecipient}
+                                            {item.recordAdditionalRecipient1}
+                                            <template if:true={item.recordAdditionalRecipient1}>
+                                                <template if:true={item.recordAdditionalRecipient2}>,
+                                                    {item.recordAdditionalRecipient2}</template>
+                                                <template if:true={item.recordAdditionalRecipient3}>,
+                                                    {item.recordAdditionalRecipient3}</template>
+                                                <template if:true={item.recordAdditionalRecipient4}>,
+                                                    {item.recordAdditionalRecipient4}</template>
+                                            </template>
+
+                                            <template if:false={item.recordAdditionalRecipient1}>
+                                                <template
+                                                    if:true={item.recordAdditionalRecipient2}>{item.recordAdditionalRecipient2}
+                                                    <template if:true={item.recordAdditionalRecipient3}>,
+                                                        {item.recordAdditionalRecipient3}</template>
+                                                    <template if:true={item.recordAdditionalRecipient4}>,
+                                                        {item.recordAdditionalRecipient4}</template>
+                                                </template>
+                                                <template if:false={item.recordAdditionalRecipient2}>
+                                                    <template
+                                                        if:true={item.recordAdditionalRecipient3}>{item.recordAdditionalRecipient3}
+                                                        <template if:true={item.recordAdditionalRecipient4}>,
+                                                            {item.recordAdditionalRecipient4}</template>
+                                                    </template>
+                                                    <template if:false={item.recordAdditionalRecipient3}>
+                                                        <template
+                                                            if:true={item.recordAdditionalRecipient4}>{item.recordAdditionalRecipient4}</template>
+                                                    </template>
+                                                </template>
+                                            </template>
+                                        </template>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </c-wizard-step>
+    </c-wizard>
+
+  <!--Spinner Element-->
+    <div if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading..." variant="brand" class="slds-is-fixed">
+        </lightning-spinner>
+    </div>
+
+    <!-- ERROR  MODAL -->
+    <template if:true={isModalShown}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                            size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading" class="slds-modal__title slds-hyphenate">{modalMessage}</h2>
+                </header>
+
+                <footer class="slds-modal__footer slds-modal__footer_directional">
+                    <div class="slds-align_absolute-center">
+                        <lightning-button label="Ok" onclick={next}></lightning-button>
+                    </div>
+
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <!-- / MODAL -->
+
+     <!-- SHOW MORE  MODAL -->
+     <template if:true={isModalShown2}>
+        <div >
+
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium" >
+            <div class="slds-modal__container" >
+                <header class="slds-modal__header" >
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                            size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                   
+                        <h2 id="modal-heading1" class="slds-scrollable_y" style="word-break:break-all;max-height: 17rem;" >{modalMessage2}</h2>
+               
+                    
+                </header>
+
+                <footer class="slds-modal__footer slds-modal__footer_directional">
+                    <div class="slds-align_absolute-center">
+                        <lightning-button label="Ok" onclick={next}></lightning-button>
+                    </div>
+
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+    </template>
+    <!-- / MODAL -->
+
+     <!-- / MODAL -->
+
+     <!-- SHOW MCN  MODAL -->
+     <template if:true={isMcnModalShown}>
+        <div >
+
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium" >
+            <div class="slds-modal__container" >
+                <header class="slds-modal__header" >
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                            size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                   
+                        <h2 id="modal-heading2" class="slds-scrollable_y"  >
+                            <lightning-dual-listbox
+                            name="FilterMCN"
+                            label="Select MCN's"
+                            value={selectedMCNs}
+                            source-label="Available"
+                            selected-label="Selected"
+                            
+                            options={optionsMCN}
+                            onchange={handleMCNChange}
+                            ></lightning-dual-listbox>
+
+                        </h2>
+               
+                    
+                </header>
+
+                <footer class="slds-modal__footer slds-modal__footer_directional">
+                    <div class="slds-align_absolute-center">
+                        <lightning-button label="Ok" onclick={submitFilterMCN}></lightning-button>
+                    </div>
+
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+    </template>
+    <!-- / MODAL -->
+
+     <!-- SHOW MCN  MODAL -->
+     <template if:true={isFuaModalShown}>
+        <div >
+
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium" >
+            <div class="slds-modal__container" >
+                <header class="slds-modal__header" >
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                            size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                   
+                        <h2 id="modal-heading3" class="slds-scrollable_y"  >
+                            <lightning-dual-listbox
+                            name="FilterFUA"
+                            label="Select FUA's"
+                            source-label="Available"
+                            selected-label="Selected"
+                           
+                            value={selectedFUAs}
+                            options={optionsFUA}
+                            onchange={handleFUAChange}
+                            ></lightning-dual-listbox>
+
+                        </h2>
+               
+                    
+                </header>
+
+                <footer class="slds-modal__footer slds-modal__footer_directional">
+                    <div class="slds-align_absolute-center">
+                        <lightning-button label="Ok" onclick={submitFilterFUA}></lightning-button>
+                    </div>
+
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+    </template>
+    <!-- / MODAL -->
+
+</template>

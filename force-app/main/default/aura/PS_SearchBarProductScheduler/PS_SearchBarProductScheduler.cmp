@@ -1,0 +1,366 @@
+<aura:component controller="PS_SearchBarComponentController" implements="flexipage:availableForAllPageTypes,force:hasRecordId,force:LightningQuickAction" access="global" >
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/> 
+    <!--<aura:handler event="c:SearchKeyChange" action="{!c.searchKeyChange}"/>-->
+    <aura:attribute name="ScreenName" type="String" />
+    <aura:attribute name="ModalControll" type="boolean" default="false"/>
+    <aura:attribute name="prdcategory" type="String[]"/>
+    <aura:attribute name="srchKey" type="String"/>
+    <aura:attribute name="Prddivision" type="String[]"/>  
+    <aura:attribute name="prodname" type="WrapperFavorite"/>
+    <aura:attribute name="prodname2" type="WrapperFavorite"/>
+    <aura:attribute name="prodnameFltr" type="WrapperFavorite"/>
+    <aura:attribute name="filterArray" type="String[]"/>
+    <!--Added by Nagendra-->
+    <aura:attribute name="Session" type="String" />
+    <aura:attribute name="StoreDivisionAfterClose" type="String[]"/>
+    <aura:attribute name="tempfilterArray" type="String[]"/>
+    <aura:attribute name="ShowSpinner" type="boolean" default="false"/>
+    <!--End-->
+     <!--Add By Pankaj-->
+    <aura:attribute name="ShowProduct" type="boolean" default="false"/>
+    <aura:attribute type="String" name="ToogleSpinner" default="slds-hide"></aura:attribute> 
+    
+    <aura:attribute name="BundleData" type="List"></aura:attribute>
+    <!--<aura:attribute name="ToggelBundleComponent" type="Boolean" default="false"></aura:attribute>-->
+    <aura:registerEvent name="EverntFromBundleComptoSearchComp" type="c:EverntFromBundleComptoSearchComp"/>
+    <aura:handler event="c:EverntFromBundleComptoSearchComp" action="{!c.refreshBundle}"/>
+    <aura:attribute name="RefreshAddtoBundleRight" type="boolean" default="false"></aura:attribute>
+    <!--End-->
+    <aura:attribute name="filter" type="boolean" default="false"/>
+    <aura:attribute name="PrdCategorypickval" type="WrapperFavorite"/>
+    <aura:attribute name="PrdDivisionval" type="WrapperFavorite"/>
+    <aura:attribute name="showSpin" type="Boolean"/>
+    <aura:attribute name="unScheduleId" type="String"/>
+    <aura:attribute name="unScheduleName" type="String"/>
+    <aura:attribute name="bulkUnScheduleIds" type="String[]"/>
+    <aura:attribute name="ProductCount" type="String"/>
+    <aura:attribute name="MessageDifference" type="Boolean"/>
+    <aura:attribute name="passId" type="String"/>
+    <aura:registerEvent name="appEvent" type="c:ceEvent"/>
+    <aura:registerEvent name="appdeleteEvent" type="c:ceEventDelete"/>
+    <aura:registerEvent name="appfavEvent" type="c:psaddfavEvent_PS"/>
+    <aura:registerEvent name="RemoveScheduleEvent" type="c:RemoveScheduleEvent"/>
+    <aura:registerEvent name="InsertScheduleEvent" type="c:InsertScheduleEvent"/>
+    <aura:registerEvent name="PassProductToBundle" type="c:PassProductToBundle"/>
+    <aura:registerEvent name="appdeletefavEvent" type="c:psdeletefavEvent_PS"/>
+    <aura:handler event="c:PassRecordIdEvent" action="{!c.passRecordId}"/>
+    <!--<ltng:require styles="/resource/SLDS103/assets/styles/salesforce-lightning-design-system.min.css"/>-->
+    <!-- Product Search Button -->
+    
+        
+    <button class="slds-button slds-button_neutral" onclick="{!c.searchProducts}">
+        <img src="/resource/MyIcon/svg/search.svg" class="slds-button__icon slds-button__icon_left" />
+        SEARCH PRODUCTS
+    </button>
+    
+    
+    
+    <!--Spinner-->
+    <div class="slds-spinner_container" id="spinnerdiv" style="display:None">
+        <div class="slds-spinner_brand slds-spinner slds-spinner_medium" role="alert">
+            <span class="slds-assistive-text">Loading</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+        </div>
+    </div>
+    <div id="ABCVG" style="{!if(v.ShowSpinner,'display:block','display:None')}">
+       <lightning:spinner aura:id="myLtngSpinner" variant="brand" />
+   </div>
+    
+    <lightning:spinner alternativeText="Loading" size="medium" class="{!v.ToogleSpinner}"/>
+    
+    <aura:if isTrue="{!v.ShowProduct}"> 
+    <!--All Filter with modal window-->
+    <div class="slds-modal slds-fade-in-open" aria-hidden="false" role="dialog" id="searchwindow" > 		
+        
+        <div class="slds-modal__container" >   
+            
+            <div class="slds-modal__header" style="height:10px;">
+                
+                <!--Cross Button -->
+                <button class="slds-button slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.CancelProductSearch}">
+                    <img src="/resource/MyIcon/svg/multiply.svg" style="width: 1rem;height: 1rem; "/>
+                    
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                
+                <b style="float:left;margin-top: -10px">Product Selection</b>
+            </div>
+            
+            <div class="slds-modal__content slds-p-around_small" >
+                
+                <div class="slds-grid" style="border: 20px solid #005fb2;background-color: #005fb2;">
+                    <div class="slds-col">
+                    <div class="slds-button-group" role="group">
+                            <button  class="slds-button slds-button_neutral" disabled="true" style="color: #0070d2;">ALL</button>
+                            <div class="slds-dropdown-trigger slds-button_last" >
+                                <span class="slds-button slds-button_icon-border-filled" style="height:2.2rem;">
+                                    <c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#down" 
+                                               category="Utility" size="small" name="down" />
+                                    <span class="slds-assistive-text">More Actions</span>
+                                </span>
+                                <div  class="slds-dropdown slds-dropdown_left slds-text-heading_label slds-dropdown_menu">
+                                    <ul class="slds-dropdown__list slds-scrollable_y" role="menu">
+                                        <legend class="slds-form-element__label" aria-label="select-1">Revenue Type &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <div Style="float:right;">
+                                              <ui:button class="slds-button slds-button_neutral bgcolor"   press="{!c.ApplyFilter}" label="Apply"></ui:button>
+                                           </div>
+                                    </legend>
+                                        
+                                        
+                                        <aura:iteration var="position" items="{!v.PrdCategorypickval}" >                        
+                                            <!-- <input type="checkbox"  text="{!position.value}" aura:id="mycheck1"/> -->
+                                            <div>
+                                            <ui:inputCheckbox text="{!'RevenueType: ' + position.FilterName}" value="{!position.selected}"  aura:id="inpcheckboxCat" 
+                                                              change="{!c.GetFilterId}" name="{!'RevenueType: ' + position.FilterName}" class="styleInline"/> 
+                                                <p style="margin-left: 25px;display:inline;">{!position.FilterName}</p>
+                                            </div>
+                                            
+                                        </aura:iteration>
+                                        <br></br>
+                                        <legend class="slds-form-element__label" aria-label="select-1">Industry</legend>
+                                        <aura:iteration var="division" items="{!v.PrdDivisionval}" > 
+                                            <!-- <ui:inputCheckbox value="{!division.isSelected}"/> -->
+                                            <div>
+                                            <ui:inputCheckbox text="{!'Industry: ' + division.FilterName}" value="{!division.selected}"  aura:id="inpcheckboxDiv"
+                                                              change="{!c.GetFilterId}" name="{!'Industry: ' + division.FilterName}" class="styleInline"/> 
+                                                <p style="margin-left: 25px;display:inline;" />{!division.FilterName}
+                                            </div>
+                                            
+                                        </aura:iteration>
+                                    </ul><br/>
+                                </div>
+                            </div >
+                        </div>  
+                    </div>
+                    <div class="slds-col" style="margin-left: -27px;"><ui:inputText aura:id="GetSearchtext" placeholder="Enter Product Name"  class="SearchInput"/></div>
+                    <div class="slds-col"><ui:button class="slds-button slds-button_neutral"  press="{!c.searchKeyChange}"  label="Search"> </ui:button></div>
+                    <div class="slds-col"><ui:button class="slds-button slds-button_neutral slds-hide slds-custombutton"   aura:id="clearbutton" press="{!c.ClearAllFilters}"  label="Clear Filters"> </ui:button></div>
+                </div>
+                
+                <div >
+                    <!-- Testing Filter Box output text -->
+                   
+                    <div >
+                        <span>
+                            <aura:if isTrue="{!v.filter}">
+                                <p >Filter by: <br/> 
+                                    
+                                    <aura:iteration var="ft" items="{!v.filterArray}">
+                                        
+                                        <span class="slds-pill" aura:id="pill" onclick="{!c.RemovePill}"  data-ids="{!ft}">
+                                            
+                                            <a class="slds-pill__label" >
+                                                <ui:outputText aura:id="oName" class="output" value="{!ft}" /></a>
+                                            
+                                            <button class="pill-class slds-button slds-button_icon slds-pill__remove"  >
+                                                
+                                                <c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#close" 
+                                                           category="Utility" size="x-small" name="close" />
+                                                
+                                                <span class="slds-assistive-text">Remove</span>
+                                            </button>
+                                            
+                                        </span>
+                                        
+                                    </aura:iteration>
+                                    
+                                    
+                                    <br/>
+                                </p>
+                            </aura:if>
+                        </span>    
+                        
+                    </div>
+                </div>  
+                
+                <!--Product List table-->
+                <table class="slds-table slds-table_bordered slds-tablevfixed-layout" role="grid">
+                    
+                    <thead >  
+                        <tr class="slds-text-title_caps" style="background-color: #f0f8fc;">
+                            <th class="slds-cell-shrink" scope="col">
+                                <label class="slds-checkbox">
+                                    <ui:inputCheckbox aura:id="SelectAllCheckBox" change="{!c.fireCheckAllCheckboxes}" />
+                                    <span class="slds-checkbox_faux"></span>          
+                                </label>
+                            </th>
+                            <th class="slds-cell-shrink" scope="col">
+                                <label class="slds-button">
+                                    <button class="slds-button " onclick="{!c.bulkfavourite}" data-ids="{!v.prodname}"> 
+                                        <img src="/resource/MyIcon/svg/like.svg" style="width:20px;margin:right:5px;"/>
+                                    </button>
+                                </label> 
+                                <label class="slds-button">
+                                    <button class="slds-button" onclick="{!c.bulkSchedule}" data-ids="{!v.prodname}" >         
+                                        <img src="/resource/MyIcon/svg/interface.svg" style="width:25px;margin:right:5px;"/>
+                                    </button>                                    
+                                </label>     
+                                
+                            </th>
+                            <th class="slds-cell-shrink" scope="col">
+                                <label class="slds-button">
+                                    <button class="slds-button "  data-ids="{!v.prodname}"> 
+                                        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                                    </button> 
+                                    
+                                    
+                                </label>
+                            </th>
+                            <th class="slds-is-resizable"  aria-label="Product Name">                  
+                                <span class="slds-truncate" title="Product Name">Name</span>          
+                                <span class="slds-assistive-text" aria-live="assertive" aria-atomic="true"></span>               
+                            </th>      
+                        </tr>
+                    </thead>
+                    
+                    <tbody>                        
+                        <aura:iteration items="{!v.prodname}" var="item">
+                            <tr class="slds-hint-parent" style="{!if(item.HasSchedule,'background-color:LightSteelBlue;','background-color:')}">
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">
+                                    <label class="slds-checkbox">
+                                        <ui:inputCheckbox aura:id="TheCheckBox" name="{!item.prd.Name}"  text="{!item.prd.Id}"/>
+                                        <span class="slds-checkboxvfaux"></span>          
+                                    </label>
+                                    
+                                </td> 
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row "> 
+                                    <span>
+                                        <aura:if isTrue="{!item.favselected == TRUE}">
+                                            <button class="slds-button" onclick="{!c.SingleFavProduct}" data-ids="{!item.prd.Id}">
+                                                <img src="/resource/MyIcon/svg/heart.svg" style="width:20px;margin:right:5px;" title="Make Unfavourite"/>
+                                            </button>
+                                            <aura:set attribute="else" >
+                                                <button class="slds-button" onclick="{!c.SingleUnFavProduct}" data-ids="{!item.prd.Id}" title="Add to favourite">
+                                                    <img src="/resource/MyIcon/svg/like.svg" style="width:20px;margin:right:5px;" name="{!item.prd.Name}"/>
+                                                </button>
+                                            </aura:set>  
+                                            
+                                        </aura:if>
+                                    </span>  
+                                    <span>
+                                        <aura:if isTrue="{!item.HasSchedule == TRUE}">
+                                            <button class="slds-button" onclick="{!c.showAlertMessage}" data-ids="{!item.prd.Id}" title="Make Unschedule">         
+                                                <img src="/resource/MyIcon/svg/calendar_dark.svg" style="width:25px;margin:right:5px;"/>
+                                                
+                                            </button>
+                                            <aura:set attribute="else" >
+                                                <button class="slds-button" onclick="{!c.SingleUnScheduleProduct}" data-ids="{!item.prd.Id}" title="Add to Schedule">         
+                                                    <img src="/resource/MyIcon/svg/interface.svg" style="width:25px;margin:right:5px;"/>								
+                                                </button>
+                                            </aura:set>
+                                        </aura:if>
+                                    </span>    
+                                </td>
+                                <td role="gridcell" class="slds-cell-shrink" data-label="Select row ">                             
+                                    
+                                    
+                                </td>    
+                                <td role="gridcell" data-label="Product Name">
+                                    <div class="" title="{!item.prd.Name}" style="min-width: 19.25rem;">
+                                        <ui:outputText value="{!item.prd.Name}" aura:id="prdname"/>                        
+                                    </div>
+                                </td>      
+                            </tr>
+                        </aura:iteration>  
+                    </tbody>
+                </table>
+                
+            </div>    
+            
+            
+            <center>
+                <span>
+                    <div class="slds-modal__footer">  
+                        <ui:button class="slds-button slds-button_neutral "  press="{!c.addSchedule}">Add</ui:button>
+                   		<ui:button class="slds-button slds-button_neutral "  press="{!c.AddToBundle}">Add To Bundle</ui:button>
+                    </div>
+                </span>     
+            </center>
+            
+        </div>  
+    </div> 
+    <div class="slds-backdrop slds-backdrop_open" id="grayoutbackground"></div>
+    </aura:if>    
+   
+        <!--Modal on unScheduling the Product from search bar-->
+    
+    <div class="slds-modal slds-fade-in-open" aria-hidden="false" role="dialog" id="Modal" style="display:none;width:100;">
+        
+        <div class="slds-modal__container slds-p-around_large" style="height: 600px;width:400px;">
+            <div class="slds-modal__header">
+                <b style="color:red;">*Caution </b>
+            </div>
+            <div class="slds-modal__content slds-p-around_large" style="height:150px;">
+                <div>
+                    <b><ui:outputText value="{!v.unScheduleName}"/></b>
+                    <p>This action will remove the Product
+                        and all its schedule.</p>
+                    
+                    <p >Do you want to continue?</p>
+                    
+                </div>
+            </div>
+            
+            
+            <center>
+                <div class="slds-modal__footer"> 
+                    
+                    <button class="slds-button slds-button_neutral slds-button_brand"  onclick="{!c.SingleScheduleProduct}" >Yes</button>
+                    <button class="slds-button slds-button_neutral slds-button_brand"  onclick="{!c.closeAlertWindow}">No</button>
+                    
+                </div>
+            </center>
+        </div> 
+        
+    </div>     
+    <div class="slds-backdrop slds-backdrop_open" id="greyBackground" style="display:none;"></div>
+    <!--Added by Saritha-->
+    <!--Modal on BulkunScheduling the Product from search bar .-->
+    
+    <div class="slds-modal slds-fade-in-open" aria-hidden="false" role="dialog" id="BulkModal" style="display:none;width:100;">
+        
+        <div class="slds-modal__container slds-p-aroundlarge" style="height: 600px;width:400px;">
+            <div class="slds-modal__header">
+                <b style="color:red;">*Caution </b>
+            </div>
+            <div class="slds-modal__content slds-p-around_large" style="height:150px;">
+                <div>
+                    
+                    <aura:if isTrue="{!v.MessageDifference}">
+                        <b><ui:outputText value="{!v.ProductCount}"/></b>
+                        <p>This action will remove the  selected Product 
+                            and all its schedule.</p>
+                        
+                        <aura:set attribute="else">
+                            <p>This action will remove the <b><ui:outputText value="{!v.ProductCount}"/></b> selected Products 
+                                and all its schedule.</p>
+                        </aura:set>
+                    </aura:if>
+                    <p >Do you want to continue?</p> 
+                    
+                </div>
+            </div>
+            
+            
+            <center>
+                <div class="slds-modal__footer"> 
+                    
+                    <button class="slds-button slds-button_neutral slds-button_brand"  onclick="{!c.BulkunScheduleProduct}">Yes</button>
+                    <button class="slds-button slds-button_neutral slds-button_brand"  onclick="{!c.closeAlertWindow}">No</button>
+                    
+                </div>
+            </center>
+        </div> 
+    </div>
+     <!--Code Start For Add Bundle Component-->
+    		    <!--<aura:if isTrue="{!v.ToggelBundleComponent}">		
+                        
+                    <c:AddProductToBundle SelectedProductForBundle="{!v.SelectedProductForBundle}"></c:AddProductToBundle>
+                  
+    		    </aura:if>-->
+ 
+    <!--Code End For Add Bundle Component-->
+     {!v.body}
+</aura:component>

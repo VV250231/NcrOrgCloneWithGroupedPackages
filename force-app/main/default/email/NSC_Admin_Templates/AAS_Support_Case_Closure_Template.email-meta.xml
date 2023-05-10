@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>AAS Support Case Closure Template</name>
+    <style>none</style>
+    <subject>Your case #{!Case.CaseNumber} has been closed</subject>
+    <textOnly>Greetings {!IF (Case.Origin=&quot;Salesforce&quot;, Case.CreatedBy, Case.SuppliedName)},
+
+This is to notify you that your case: {!Case.CaseNumber} has been closed based on the following information: {!Case.Close_Resolution__c}.
+
+If you have further questions regarding {!Case.CaseNumber} , please reply to this email with the case number in the subject line.
+
+Thank you!
+
+Salesforce Administrator Team
+NCR Corporation
+salesforce.administration@ncr.com
+
+
+NCR Confidential. FOR INTERNAL USE ONLY.
+NCR Corporation 864 Spring St. NW, Atlanta, GA 30308-1007
+©2020 NCR Corporation. All rights reserved.  ncr.com
+NCR respects your privacy.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

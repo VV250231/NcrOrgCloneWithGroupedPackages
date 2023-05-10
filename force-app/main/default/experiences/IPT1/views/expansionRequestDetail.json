@@ -1,0 +1,102 @@
+{
+  "appPageId" : "1ea4cd32-d8b1-4474-918d-713544400617",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "c8966d03-93b9-490b-8032-895970970930",
+  "label" : "Expansion Request Detail",
+  "regions" : [ {
+    "id" : "aaac1401-2e79-4235-9172-8bae2ef80aca",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "recordId" : "{!recordId}"
+      },
+      "componentName" : "forceCommunity:recordHeadline",
+      "id" : "3f854c2a-3ddd-434c-bcc9-86e5512ab076",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "detailsTabLabel" : "Details",
+        "discussionsTabLabel" : "Feed",
+        "recordId" : "{!recordId}",
+        "relatedTabLabel" : "Related",
+        "tab1Type" : "details",
+        "tab2Type" : "related",
+        "tab3Type" : "none",
+        "tab4Type" : "none",
+        "timelineTabLabel" : "Activity"
+      },
+      "componentName" : "forceCommunity:recordHomeTabs",
+      "id" : "82dc6159-46bb-48e3-b04b-6e5d1ce3e640",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "ce05d6d9-6e61-4ab0-b17d-4319f1d3bd7d",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "allowPrepopulatePrechatFields" : true,
+        "avatarImgURL" : "",
+        "defaultMinimizedText" : "Chat with Partner Assist",
+        "displayHelpButton" : true,
+        "eswConfigurationJSON" : {
+          "baseCoreURL" : "https://ncr.my.salesforce.com",
+          "baseLiveAgentContentURL" : "https://c.la4-c2-dfw.salesforceliveagent.com/content",
+          "baseLiveAgentURL" : "https://d.la4-c2-dfw.salesforceliveagent.com/chat",
+          "buttonId" : "5730g000000PCSq",
+          "deploymentId" : "5720g0000008Ppj",
+          "enabledFeatures" : [ "LiveAgent" ],
+          "entryFeature" : "LiveAgent",
+          "eswConfigDevName" : "IPT_Snap_In",
+          "eswConfigId" : "04I0g0000008OIFEA2",
+          "eswLiveAgentDevName" : "EmbeddedServiceLiveAgent_Parent04I0g0000008OIFEA2_1635352e9ce",
+          "gslbBaseURL" : "https://service.force.com",
+          "isOfflineCasesEnabled" : "0",
+          "orgId" : "00D700000008mDk"
+        },
+        "externalScripts" : "",
+        "externalStyles" : "",
+        "fallbackRouting" : "",
+        "offlineSupportMinimizedText" : "Contact Us",
+        "offlineText" : "Partner Assist Offline",
+        "onlineLoadingText" : "Loading",
+        "prechatBackgroundImgURL" : "",
+        "smallCompanyLogoImgURL" : "",
+        "waitingStateBackgroundImgURL" : ""
+      },
+      "componentName" : "forceCommunity:embeddedService",
+      "id" : "856cf9b9-5571-4b88-8c2d-2c472eed8f07",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "a67ffe7f-47c3-4f51-9a16-88a83315fc82",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "{!Record._Object}: {!Record._Title}"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "2ae9e6eb-3fea-469e-9a72-df8f9ffee34c",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "75878d67-463a-4cc5-b2b9-1d9f68e5ea4c",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "detail-a6r"
+}

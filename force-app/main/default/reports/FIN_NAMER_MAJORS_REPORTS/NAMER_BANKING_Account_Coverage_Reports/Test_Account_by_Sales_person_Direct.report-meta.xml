@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_37025841</developerName>
+        <masterLabel>Manager Bucket</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>User.Manager_Level_01__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Bo Watson</sourceValue>
+            </sourceValues>
+            <value>Southeast</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Brian Pilla</sourceValue>
+            </sourceValues>
+            <value>Northeast</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>John D Morgan</sourceValue>
+            </sourceValues>
+            <value>Midwest</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Alan Walsh</sourceValue>
+            </sourceValues>
+            <value>Enterprise</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>David E Watson</sourceValue>
+            </sourceValues>
+            <value>Nationals</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Mark Leinenkugel</sourceValue>
+            </sourceValues>
+            <value>Central</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Benjamin Seelos</sourceValue>
+            </sourceValues>
+            <value>West</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Ian Kirkpatrick</sourceValue>
+            </sourceValues>
+            <value>Canada</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Robert Malik</sourceValue>
+            </sourceValues>
+            <value>Channel</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Allison Constantino</sourceValue>
+            </sourceValues>
+            <value>Business Development</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>Account.Coverage__c</field>
+    </columns>
+    <columns>
+        <field>Account.CDM_Account_Type__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>List of accounts</description>
+    <filter>
+        <booleanFilter>1 AND 2</booleanFilter>
+        <criteriaItems>
+            <column>USERS.NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Audra Bradstreet</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Coverage__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>,Direct,N/A</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>USERS.NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Test - Account by Sales person - Direct</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>ACCOUNT.NAME</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

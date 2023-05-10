@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CATM_Lock_Closed_Opportunitiy</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+CATM_Record__c,NOT(OR($Profile.Name=&apos;Soup Integration&apos;,$Profile.Name=&apos;04 NSC UI Administrator&apos;,$Profile.Name=&apos;iPaas Administration&apos;, $Profile.Name=&apos;CATM - System Admin&apos;)),
+OR(
+ISPICKVAL( PRIORVALUE(StageName) , &quot;Closed/Booked&quot;) ,
+ISPICKVAL( PRIORVALUE(StageName) , &quot;Closed/Lost&quot;)
+),
+TEXT(Opportunity_Classification__c) != &quot;CATM - iDesign&quot;,
+TEXT(Opportunity_Classification__c) != &quot;CATM - atmAd&quot; ,
+IF($Permission.CATM_Cant_Update_Closed_Opportunities_90days,(ISCHANGED(CloseDate)&amp;&amp;NOT(ISCHANGED(StageName)))||today()-PRIORVALUE(CloseDate)&gt;=VALUE($Label.CATM_Opp_Grace_CATM_System_Admin)+1,true)
+)</errorConditionFormula>
+    <errorMessage>ERROR: You cannot edit closed opportunities, please contact sales support.</errorMessage>
+</ValidationRule>

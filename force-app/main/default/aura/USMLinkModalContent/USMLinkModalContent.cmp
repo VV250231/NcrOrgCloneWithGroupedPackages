@@ -1,0 +1,19 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction"
+                controller="USMDetailController"
+                access="global" >
+        <aura:attribute name="oppId" type="string"/>
+        <aura:attribute name="USMNumber" type="string"/>
+        <aura:handler event="c:usm_associate" action="{!c.callService}"/>
+        <aura:registerEvent name="UpdateUSMComponent" type="c:UpdateUSMComponent"/>
+        <aura:attribute name='showSpinner' type='Boolean' default='false' />
+        <div aura:id="uploadCard" style="position:relative">
+		<c:Spinner showSpinner="{!v.showSpinner}" message = "Validating and Associating USM Opportunity..."/>
+        </div>
+    
+      <!-- Loading spinner end-->  
+    <div style = "padding-top: 30px;padding-bottom: 30px;">
+    <lightning:input name="USM#" required="true" value="{!v.USMNumber}" label="USM Opportunity Number" maxlength="10" minlength = "10"/>
+    </div>
+    
+    
+</aura:component>

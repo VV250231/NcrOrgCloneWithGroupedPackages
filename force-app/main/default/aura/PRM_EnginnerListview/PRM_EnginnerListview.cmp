@@ -1,0 +1,111 @@
+<aura:component controller="PRM_EngineerController" 
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes" access="global" >
+    
+   
+    <aura:attribute name="ObjectData" type="List" />
+    
+    <aura:attribute name="PaginationList" type="List"/>
+    <aura:attribute name="currentPage" type="Integer" default="0"/>
+    <aura:attribute name="start" type="Integer" default="0"/>
+    <aura:attribute name="end" type="Integer" default="0"/>
+    <aura:attribute name="totalPages" type="Integer" default="0"/>
+    <aura:attribute name="paginationTable" type="List" />
+    <aura:attribute name="totalRecords" type="Integer" default="0"/>
+    <aura:attribute name="pageSize" type="Integer" default="10"/>
+    <aura:attribute name="selectedView" type="String" default="All"/>
+    <aura:attribute name="dealRegistrationListviews" type="String[]" 
+                    default="All,In Breach Engineers,Inactive Engineers"/>
+
+    <aura:attribute name="next" type="boolean" default="true"/>
+    <aura:attribute name="prev" type="boolean" default="true" />
+    
+    <aura:attribute name="isListView" type="boolean" default="true"/>
+    <aura:attribute name="isDetail" type="boolean" default="false" />
+   
+    <aura:attribute name="drId" type="String" />
+    
+    <aura:attribute name="engineerListviews" type="String[]" 
+                    default="All,Active Engineers,Inactive Engineers,In Breach Engineers"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <div class="slds-page-header" role="banner">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-has-flexi-truncate"> 
+                <div class="slds-media slds-media_center slds-no-space slds-grow">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-account">
+                            <lightning:icon iconName="standard:account" size="large" alternativeText="Indicates approval"/>
+                            <span class="slds-assistive-text">Engineers</span>
+                        </span>
+                    </div>
+                    <div class="slds-media__body slds-size_1-of-4 ">
+                       
+                        <lightning:select aura:id="select" name="select" label="Engineer" value="{!v.selectedView}" onchange="{! c.cViewChange}" >
+                            <aura:iteration items="{!v.engineerListviews}" var="val">
+                                <option value="{!val}" text="{!val}"></option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>
+                </div>                    
+            </div>  
+            <!-- ACTION BUTTONS -->
+            <div class="slds-col slds-no-flex slds-grid slds-wrap slds-align-top">
+                <div class="slds-button-group" role="group">
+                    <button class="slds-button slds-button_neutral" onclick="{!c.cNewEngineer}">
+                        New Engineer
+                    </button>
+                </div>
+            </div>
+            <!-- / ACTION BUTTONS -->               
+        </div>
+    </div>
+    
+        
+    <table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal" style="margin-bottom: 10px;"><!--Table must be responsive-->
+        <thead>
+            <tr class="slds-text-heading_label ">
+                <th class="" scope="col">Engineer #</th>                    
+                <th class="" scope="col">Engineer Id</th>                    
+                <th class="slds-is-sortable" scope="col">First Names</th>
+                <th class="slds-is-sortable" scope="col">Last Name</th>
+                <th class="slds-is-sortable" scope="col">Active</th>
+                <th class="slds-is-sortable" scope="col">Certified</th>   
+                <th class="slds-is-sortable" scope="col">Portal Access Approved</th>
+                <th class="slds-is-sortable" scope="col">Diagnostics Approved</th> 
+                <th class="slds-is-sortable" scope="col">Created Date</th> 
+            </tr>  
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.PaginationList}" var="eng">
+                <tr class="slds-hint-parent">  
+                    
+                    <td data-label="Engineer #" ><a data-record="{!eng.Id}" onclick="{!c.redirectToRecord}">
+                        {!eng.Name}</a>
+                    </td>
+                    <td data-label="Engineer ID" ><ui:outputText value="{!eng.Engineer_ID__c}" /></td>
+                    <td data-label="First Name" >{!eng.First_Name__c}</td>
+                    <td data-label="Last Name"> {!eng.Last_Name__c} </td>
+                   <!-- <td data-label="Certified">{!eng.Certified__c}</td>-->
+                    <td><ui:outputCheckbox  aura:id="ActiveEng"  value="{!eng.Active_Engineer__c}" /></td>
+                    <td><ui:outputCheckbox  aura:id="Certified"  value="{!eng.Certified__c}" /></td>
+                    <td><ui:outputCheckbox aura:id="Portal_Access_Approved" value="{!eng.Portal_Approved__c}"/></td>
+                    <td><ui:outputCheckbox aura:id="Diagnostics_Approved"  value="{!eng.Diagnostics_Approved__c}" /></td>
+                  <!--  <td data-label="Diagnostics Approved">{!eng.Diagnostics_Approved__c}</td> -->
+                    <td data-label="Created Date"><ui:outputDate value="{!eng.CreatedDate}"/></td> 
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table>
+    <lightning:button label="Previous" disabled="{! 1 >= v.currentPage }" 
+                      class="slds-button slds-button_neutral slds-p-horizontal_xx-small slds-m-right_x-small slds-float_left"  
+                      onclick="{!c.cPrevious}" variant="brand"
+                      iconName='utility:back'/>
+    
+    <lightning:button label="Next" disabled="{!v.currentPage >= v.totalPages}"
+                      class="slds-button slds-button_neutral slds-p-horizontal_xx-small slds-m-right_x-small slds-float_left"
+                      onclick="{!c.cNext}" variant="brand"
+                      iconName='utility:forward' iconPosition='right'/>
+    
+   
+</aura:component>

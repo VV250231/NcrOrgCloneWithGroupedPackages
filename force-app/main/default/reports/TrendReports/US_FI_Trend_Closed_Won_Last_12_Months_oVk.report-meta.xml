@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_36258485</developerName>
+        <masterLabel>Trend Product</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Opportunity.Product_Category__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Allpoint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allpoint+, Other, Allpoint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allpoint, Other, Managed Services</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allpoint, Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allpoint, Managed Services, Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allpoint, Managed Services</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allpoint, Branding</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allpoint+, Allpoint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Other, Allpoint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Other, Allpoint, Managed Services</sourceValue>
+            </sourceValues>
+            <value>Allpoint</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Branding</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Branding, Allpoint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Branding, Allpoint+, Allpoint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Branding, Managed Services</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Branding, Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Other, Branding</sourceValue>
+            </sourceValues>
+            <value>ATM Branding</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Managed Services</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Managed Services, Allpoint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Managed Services, Allpoint, Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Managed Services, Branding</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Managed Services, Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Managed Services, Other, Allpoint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Managed Services, Surcharge Increase, Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Surcharge Increase, Managed Services, Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Other, Managed Services</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Other, Managed Services, Allpoint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Other, Managed Services, Surcharge Increase</sourceValue>
+            </sourceValues>
+            <value>ATM Managed Services</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Allpoint+, Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allpoint+</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Other, Allpoint+</sourceValue>
+            </sourceValues>
+            <value>Allpoint+</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Mobile Cash Access</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Mobile Cash Access, Allpoint+</sourceValue>
+            </sourceValues>
+            <value>Mobile API</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Other</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Surcharge Increase</sourceValue>
+            </sourceValues>
+            <value>Other</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>VAR</sourceValue>
+            </sourceValues>
+            <value>VAR</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>Opportunity.Product_Category__c</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>OWNER_DEPARTMENT</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Incremental_ACV__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Weighted_ACV__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Annual_Contract_Value__c.CONVERT</field>
+    </columns>
+    <currency>USD</currency>
+    <description>All Time</description>
+    <filter>
+        <criteriaItems>
+            <column>Opportunity.Incremental_ACV__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>greaterOrEqual</operator>
+            <value>USD 0</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_36258485</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>US FI Trend - Closed Won Last 12 Months</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>Opportunity.Incremental_ACV__c.CONVERT</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EntitlementProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <SObjectType>Case</SObjectType>
+    <active>false</active>
+    <description>The default support process for Hospitality NAMER Direct cases</description>
+    <entryStartDateField>Case.CreatedDate</entryStartDateField>
+    <exitCriteriaFilterItems>
+        <field>Case.IsClosed</field>
+        <operation>equals</operation>
+        <value>true</value>
+    </exitCriteriaFilterItems>
+    <milestones>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Hospitality Namer Direct</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Category_Hospitality__c</field>
+            <operation>equals</operation>
+            <value>Billing</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Subcategory__c</field>
+            <operation>equals</operation>
+            <value>Invoice copy, Invoice question, Credit memo not received</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>HOSPD Resolution Time</milestoneName>
+        <minutesToComplete>480</minutesToComplete>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Hospitality Namer Direct</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Category_Hospitality__c</field>
+            <operation>equals</operation>
+            <value>Billing</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Subcategory__c</field>
+            <operation>equals</operation>
+            <value>HWM Backup Request</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>HOSPD Resolution Time</milestoneName>
+        <minutesToComplete>16</minutesToComplete>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Hospitality Namer Direct</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Category_Hospitality__c</field>
+            <operation>equals</operation>
+            <value>Billing</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Subcategory__c</field>
+            <operation>equals</operation>
+            <value>Maintenance Billing Review/Approval, Invoice not received, Invoice dispute</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>HOSPD Resolution Time</milestoneName>
+        <minutesToComplete>24</minutesToComplete>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+</EntitlementProcess>

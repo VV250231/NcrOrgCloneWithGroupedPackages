@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Template for Global Entitlements to notify Account Owner no recovery found</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Global_Entitlements_Letterhead</letterhead>
+    <name>Closed Entitlement - No Recovery Email</name>
+    <style>freeForm</style>
+    <subject>Entitlement Case Closed for {!Case.Account} - No Recovery</subject>
+    <textOnly>I wanted to let you know that we have completed the review of entitlements for  {!Case.Account} which has the following results:
+
+•         Summary of issues found - No Entitlement Recovery
+If you have any questions regarding this review, please let us know so we can assist.
+
+Thank you,
+{!Case.OwnerFullName}
+{!User.Title}
+{!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

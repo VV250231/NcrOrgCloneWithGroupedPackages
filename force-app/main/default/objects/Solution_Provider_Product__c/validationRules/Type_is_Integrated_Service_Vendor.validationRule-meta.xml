@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type_is_Integrated_Service_Vendor</fullName>
+    <active>true</active>
+    <description>The Integrated Service product type requires the Product Manager, Product Category, and Internal Status fields</description>
+    <errorConditionFormula>AND( 
+    ISPICKVAL( Product_Type__c , &apos;Integrated Service Vendor&apos;), 
+    OR( ISBLANK( Product_Manager__c ), 
+        ISPICKVAL( Solution_Provider_Product_Category__c , &apos;&apos;),
+        ISPICKVAL( Internal_Status__c , &apos;&apos;)
+       )
+)</errorConditionFormula>
+    <errorMessage>Product Manager, Product Category, and Internal Status are required for Integrated Service Products</errorMessage>
+</ValidationRule>

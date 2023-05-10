@@ -1,0 +1,79 @@
+<aura:component controller="fetchOpportunityDetail" implements="flexipage:availableForAllPageTypes,force:appHostable" access="global">
+    <aura:attribute type="String" name="Msg" default="Hi you are here!!"/>
+    <aura:attribute type="String" name="Category"  default="Success"/>   
+    <aura:attribute type="boolean" name="ShowHide" default="false" />
+    <aura:attribute type="boolean" name="Success" default="false" />
+    <aura:attribute type="boolean" name="Warning" default="false" />
+    <aura:attribute type="boolean" name="Error" default="false" />
+    <aura:attribute name="isCommunityUser" type="Boolean" default="false"/>
+    <aura:attribute name="IPTPartnerCommunityUrl" type="String"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler event="c:FloatMsgEvent" action="{!c.handleMessages}"/>
+    <div>
+     
+    <aura:if isTrue="{!v.ShowHide}">
+    <div class="container show" id="containerCollapsable" style="display:block;position: absolute;top: 0px;left: 25%;right: 25%;">
+    <div class="toastContainer slds-is-relative mycontainer">
+        <span>
+        <aura:if isTrue="{!v.Success}">
+        <div class="slds-notify slds-notify--toast slds-theme--success" aura:id="abc" role="alert">
+            <span class="slds-assistive-text">Info</span>
+            <button class="slds-button slds-notify__close slds-button--icon-inverse" title="Close" onclick="{!c.hideMsg}">              
+                 <aura:if isTrue="{!v.isCommunityUser}">
+                <span><c:svgIcon svgPath="{!v.IPTPartnerCommunityUrl+'/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#close'}" category="standard" size="small" name="warning" /></span>
+                <aura:set attribute="else">
+                     <span><c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#close" category="standard" size="small" name="warning" /></span>     
+                 </aura:set>
+                </aura:if>
+                    <span class="slds-assistive-text">Close</span>
+            </button>
+            <div class="slds-notify__content">
+                <h2 class="slds-text-heading--small">Success !!{!v.Msg}</h2>
+            </div>
+        </div>
+        </aura:if>
+        </span> 
+        <span>
+        <aura:if isTrue="{!v.Warning}">
+            <div class="slds-notify slds-notify--toast slds-theme--warning" aura:id="abc" role="alert">
+                <span class="slds-assistive-text">Info</span>
+                <button class="slds-button slds-notify__close slds-button--icon-inverse" title="Close" onclick="{!c.hideMsg}">              
+                    <aura:if isTrue="{!v.isCommunityUser}">
+                        <c:svgIcon svgPath="{!v.IPTPartnerCommunityUrl+'/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#close'}" category="standard" size="small" name="warning" />
+                        <aura:set attribute="else">
+                            <c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#close" category="standard" size="small" name="warning" />
+                        </aura:set>
+                    </aura:if>
+                    <span class="slds-assistive-text">Close</span>
+            </button>
+            <div class="slds-notify__content">
+                <h2 class="slds-text-heading--small">Warning !!{!v.Msg}</h2>
+            </div>
+        </div>
+        </aura:if> 
+        </span> 
+        <span>
+        <aura:if isTrue="{!v.Error}">
+        <div class="slds-notify slds-notify--toast slds-theme--error" aura:id="abc" role="alert">
+            <span class="slds-assistive-text">Info</span>
+            <button class="slds-button slds-notify__close slds-button--icon-inverse" title="Close" onclick="{!c.hideMsg}">              
+                <aura:if isTrue="{!v.isCommunityUser}">
+                <span><c:svgIcon svgPath="{!v.IPTPartnerCommunityUrl+'/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#close'}" category="standard" size="small" name="warning" /></span>
+                 <aura:set attribute="else">
+                    <span><c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#close" category="standard" size="small" name="warning" /></span>
+                   </aura:set>
+                </aura:if>
+                     <span class="slds-assistive-text">Close</span>
+            </button>
+            <div class="slds-notify__content">
+                <h2 class="slds-text-heading--small">Error !!{!v.Msg}</h2>
+            </div>
+        </div>
+        </aura:if>
+        </span>     
+    </div>
+ </div>
+ </aura:if>
+        
+</div>
+</aura:component>

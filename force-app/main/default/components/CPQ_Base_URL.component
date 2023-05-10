@@ -1,0 +1,5 @@
+<apex:component controller="CPQ_BaseURL" access="global" selfClosing="true">
+    <apex:attribute name="label" type="String" required="false" description="Label of hyperlink"/>
+    <apex:attribute name="recordID" type="String" required="false" description="record id"/>
+    <apex:outputLink value="{!getSalesforceBaseUrl+'/'+recordID}">{!label}</apex:outputLink>
+</apex:component>

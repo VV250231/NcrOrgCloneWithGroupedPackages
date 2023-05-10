@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CASE_NUMBER</field>
+    </columns>
+    <columns>
+        <field>STATUS</field>
+    </columns>
+    <columns>
+        <field>Case.Support_Queue__c</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>CREATED_ALIAS</field>
+    </columns>
+    <columns>
+        <field>OWNER</field>
+    </columns>
+    <columns>
+        <field>SUBJECT</field>
+    </columns>
+    <columns>
+        <field>Case.Creation_Category__c</field>
+    </columns>
+    <columns>
+        <field>Case.Resolution_Category__c</field>
+    </columns>
+    <columns>
+        <field>Case.Resolution_Other__c</field>
+    </columns>
+    <columns>
+        <field>Case.Resolution_Notes__c</field>
+    </columns>
+    <columns>
+        <field>CDF1</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>IF(Case.Case_Closed_by__c = &quot;Ana Liza Abdon&quot;, &quot;AM&quot;, 
+IF(Case.Case_Closed_by__c = &quot;Christen Abjelina&quot;, &quot;AM&quot;, 
+IF(Case.Case_Closed_by__c = &quot;Ryan Bagaporo&quot;, &quot;PM&quot;, 
+IF(Case.Case_Closed_by__c = &quot;Tracy Bontuyan&quot;, &quot;AM&quot;, 
+IF(Case.Case_Closed_by__c = &quot;Manny Gomez&quot;, &quot;AM&quot;, 
+IF(Case.Case_Closed_by__c = &quot;Cherry Anne Lapinid&quot;, &quot;AH&quot;, 
+IF(Case.Case_Closed_by__c = &quot;Rhealyn Maghanoy&quot;, &quot;AM&quot;, 
+IF(Case.Case_Closed_by__c = &quot;Cleoford Margaha&quot;, &quot;AH&quot;, 
+IF(Case.Case_Closed_by__c = &quot;Robespierre Paderanga&quot;, &quot;PM&quot;, 
+IF(Case.Case_Closed_by__c = &quot;Christine Reyes&quot;, &quot;AH&quot;, 
+IF(Case.Case_Closed_by__c = &quot;Ivan Capangpangan&quot;, &quot;AM&quot;, 
+IF(Case.Case_Closed_by__c = &quot;Aidyl Fernandez&quot;, &quot;PM&quot;, 
+IF(Case.Case_Closed_by__c = &quot;Jill Olive Tanio&quot;, &quot;PM&quot;, 
+IF(Case.Case_Closed_by__c = &quot;Edgar Latras&quot;, &quot;AM&quot;, 
+IF(Case.Case_Closed_by__c = &quot;Nico Maramba&quot;, &quot;AM&quot;, &quot;other&quot;)
+))))))))))))))</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>Team</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>CLOSED</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>STATUS</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Cancelled</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CLOSED_DATEONLY</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>THIS_MONTH</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case.Case_Closed_by__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Ana Liza Abdon,Christen Abjelina,Ryan Davies Bagaporo,Tracy Bontuyan,Manny Gomez,Cherry Anne Lapinid,Rhealyn Maghanoy,Cleoford Margaha,Robespierre Paderanga,Christine Reyes,Ivan Capangpangan,Ralph Anthony Gabinete,Aidyl Fernandez,Jill Olive Tanio,Edgar Latras,Nico Maramba,Rachel Ann Omana,Reina Marie Alcazar</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Case.Case_Closed_by__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Hosted Admin - Closed WIP</name>
+    <params>
+        <name>units</name>
+        <value>h</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CaseList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>CREATED_DATE</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATEONLY</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

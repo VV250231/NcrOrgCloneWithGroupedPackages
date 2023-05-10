@@ -1,0 +1,162 @@
+<aura:component controller="TableauPortalController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction,forceCommunity:availableForAllPageTypes" access="global" >
+    <aura:attribute name="home" type="Boolean"/>
+    <aura:attribute name="team" type="Boolean"/>
+    <aura:attribute name="faq" type="Boolean"/>
+    <aura:attribute name="news" type="Boolean"/>
+	<aura:attribute name="userinfo" type="User"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <!-- HEADER SECTION-->
+    <div class="slds-theme_default" > <!-- ## below primary page details -->
+        <div class="slds-tabs_default slds-tabs_medium">
+            <ul class="slds-tabs_default__nav" role="tablist">
+                <li  aura:id="tab_home" class="slds-tabs_default__item slds-is-active" title="Item One" role="presentation" onclick="{!c.home}">
+                    <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-default-1" id="tab-default-1__item" >Home</a>
+                </li>
+                <li aura:id="tab_team" class="slds-tabs_default__item" title="Item Two" role="presentation" onclick="{!c.team}">
+                    <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-2" id="tab-default-2__item" >Our Team</a>
+                </li>
+                <li aura:id="tab_faq" class="slds-tabs_default__item" title="Item Three" role="presentation" onclick="{!c.faq}">
+                    <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-3" id="tab-default-3__item">FAQ</a>
+                </li>
+                <li aura:id="tab_news" class="slds-tabs_default__item" title="Item Three" role="presentation" onclick="{!c.news}">
+                    <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-4" id="tab-default-4__item">Newsletter</a>
+                </li>
+            </ul>            
+        </div>
+        <div class="slds-grid slds-grid_vertical " >
+            <div class="slds-col"  id="shade1" style="height:50px;color:white" > <!-- ## header of the page -->
+                <div class="slds-align_absolute-center font-weight-bold" style="margin-top:10px;font-size:2em;">
+                    <h1><b>Global Sales Analytics</b></h1>
+                </div>
+            </div>
+        
+            
+            <div class="slds-col " >  <!-- ## body of the page -->
+                
+                <div class="slds-grid slds-grid_vertical" >
+                    <div class="slds-col" >
+                        <div class="slds-grid">                            
+                            <div class="slds-col slds-size_2-of-12"  >
+                            </div>
+                            <div class="slds-col slds-size_8-of-12">
+                                <c:TableauPortalCrousel />                                
+                            </div>
+                            <div class="slds-col slds-size_2-of-12">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+            <!-- header section ends--> 
+            <!-- SECTION ENDS-->
+            <!-- ANALYTICS SECTION-->
+            <aura:if isTrue="{!v.team}">
+            <div class="slds-col" >  <!-- ## body of the page -->
+                <div class="slds-col" style="height:60px;color:Grey" > <!-- ## header of the page -->
+                    <div class="slds-align_absolute-center font-weight-bold" style="margin-top:40px;font-size:2em;">
+                        <h1><b> Global Sales Analytics Team</b></h1>
+                    </div>
+                </div>
+                <div class="slds-grid slds-grid_vertical" >
+                    <div class="slds-col">
+                        <div class="slds-grid">
+                            <div class="slds-col slds-size_2-of-12" >
+                            </div>
+                            <div class="slds-col slds-size_8-of-12">
+                                <c:TableauPortalGSATeam />
+                            </div>
+                            <div class="slds-col slds-size_2-of-12" >
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            </aura:if>
+            <!-- sECTION ENDS-->
+            <!-- HOME SECTION-->
+            <aura:if isTrue="{!v.home}">
+            <div class="slds-col" >  <!-- ## body of the page -->
+                <div class="slds-col" style="height:60px;color:Grey" > <!-- ## header of the page -->
+                    <div class="slds-align_absolute-center font-weight-bold" style="margin-top:40px;font-size:2em;">
+                        <h1><b>Dashboards</b></h1>
+                    </div>
+                </div>
+                <div class="slds-grid slds-grid_vertical" >
+                    <div class="slds-col">
+                        <div class="slds-grid">
+                            <div class="slds-col slds-size_2-of-12" >
+                            </div>
+                            <div class="slds-col slds-size_8-of-12">
+                                <c:TableauPortalDashboard name1="{!v.userinfo.Name}" email1="{!v.userinfo.Email}" usertype="{!v.userinfo.UserType}"/>
+                            </div>
+                            <div class="slds-col slds-size_2-of-12" >
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            </aura:if>
+            <!-- sECTION ENDS-->
+            <!-- FAQ SECTION-->
+            <aura:if isTrue="{!v.faq}">
+            <div class="slds-col" >  <!-- ## body of the page -->
+                <div class="slds-col" style="height:60px;color:Grey" > <!-- ## header of the page -->
+                    <div class="slds-align_absolute-center font-weight-bold" style="margin-top:40px;font-size:2em;">
+                        <h1><b>FAQ</b></h1>
+                    </div>
+                </div>
+                <div class="slds-grid slds-grid_vertical" >
+                    <div class="slds-col">
+                        <div class="slds-grid">
+                            <div class="slds-col slds-size_2-of-12" >
+                            </div>
+                            <div class="slds-col slds-size_8-of-12">
+                                <c:TableauPortalFAQ />
+                            </div>
+                            <div class="slds-col slds-size_2-of-12" >
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            </aura:if>
+            <aura:if isTrue="{!v.news}">
+            <div class="slds-col" >  <!-- ## body of the page -->
+                <div class="slds-col" style="height:60px;color:Grey" > <!-- ## header of the page -->
+                    <div class="slds-align_absolute-center font-weight-bold" style="margin-top:40px;font-size:2em;">
+                        <h1><b>News Letter</b></h1>
+                    </div>
+                </div>
+                <div class="slds-grid slds-grid_vertical" >
+                    <div class="slds-col">
+                        <div class="slds-grid">
+                            <div class="slds-col slds-size_2-of-12" >
+                            </div>
+                            <div class="slds-col slds-size_8-of-12">
+                                <c:TableauPortalNewsLetter usertype="{!v.userinfo.UserType}"/>
+                            </div>
+                            <div class="slds-col slds-size_2-of-12" >
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            </aura:if>
+            <!-- sECTION ENDS-->
+            <div class="slds-col footer" style="width:100%;height:50px;background-color:#47a012;color:white;" >  <!-- ## footer of the page -->
+                <div class="slds-align_absolute-center font-weight-bold" style="margin-top:20px;" >
+                    
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+    
+</aura:component>

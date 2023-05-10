@@ -1,0 +1,296 @@
+<messaging:emailTemplate subject="You have a new lead assigned." recipientType="User" relatedToType="Lead" >
+<messaging:htmlEmailBody >
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet" type="text/css"/>
+<link href="http://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" type="text/css"/>
+
+<style type="text/css">
+    
+a {
+    color: #54b948;
+}
+body {
+    font-family: 'Open Sans',  Arial, sans-serif;
+    }   
+.auto-style1 {
+    font-family: Raleway, Arial, Helvetica, sans-serif;
+    font-weight: 900;
+    font-size: 46px;
+    color: #FFFFFF;
+    text-transform: normal;
+    letter-spacing: 3px;
+}
+.auto-style4 {
+    color: #1D1D1D;
+}
+.auto-style5 {
+    color: #1D1D1D;
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    margin-right: 15px;
+}
+</style>
+</head>
+<body>
+<!--MAIN TABLE -->
+
+
+<table border="0" cellpadding="0" cellspacing="0" width="655" style="padding-center:0px" align="center">
+    <tbody>
+      <tr>
+        <td>
+            <table border="0" cellspacing="0" cellpadding="0" bgcolor="#0099bf" style="width: 665px">
+              <tr>
+                <td width="655">
+                <table border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                      <td bgcolor="#0099bf" align="right" width="30" height="43">
+                    </td>
+                     <td bgcolor="#0099bf" height="43">
+                    </td>
+                    <td bgcolor="#0099bf" align="left" width="25" height="43">
+                    </td>
+                    </tr>
+                    
+                    <tr>
+                    <td bgcolor="#0099bf" align="right" width="30">
+                    </td>
+
+                  <td bgcolor="#0099bf">
+                        <p style="padding:0; margin:0;" align="left" class="auto-style1">New Lead Assignment</p>
+                        
+                    </td>
+                       <td bgcolor="#0099bf" align="left" width="25">
+                </td>
+
+                </tr>
+                              <tr>
+                      <td bgcolor="#0099bf" align="right" width="30" style="height: 43px">
+                    </td>
+                     <td bgcolor="#0099bf" style="height: 43px">
+                    </td>
+                    <td bgcolor="#0099bf" align="left" width="25" style="height: 43px">
+                    </td>
+                    </tr>
+                    
+
+                </table>
+                </td>
+                </tr>
+              <tr valign="bottom">
+                <td valign="bottom" width="665" height="9">
+                    <img src="http://www.ncr.com/web/RsdMkt/emailCampaigns/templates/internalComms/images/email-green-bar.png" width="665" height="9"/>
+                </td>
+                </tr>
+              </table></td>
+           
+            </tr>
+    </tbody></table>
+       
+
+
+  <br/>
+  
+  <table border="0" bgcolor="#FFFFFF" style="width: 665px; padding-center:0px" align="center">
+    
+    <!--HEADLINE SECTION --> 
+
+    <tr>
+        <td>
+            <p style="font-family: 'Raleway', Arial, Helvetica, sans-serif; font-size: 20px; font-weight:700; line-height: 23px; color: #008000;">
+            NCR Corporation<br/>
+            <img src="https://ncrpr.ncr.com/web/RsdMkt/emailCampaigns/templates/internalComms/images/green-line.png" width="623" height="2"/></p>
+      
+       </td>
+    </tr>
+    
+    
+  </table>
+   <style>
+    .demo1 {
+        border:1px solid #ffffff;
+        border-collapse:collapse;
+        padding:5px;
+    }
+    .demo1 th {
+        border:1px solid #ffffff;
+        padding:5px;
+        background:#F0F0F0;
+    }
+    .demo1 td {
+        border:1px solid #ffffff;
+        padding:5px;
+    }
+    }
+</style>
+<table class="demo1" border="0" cellpadding="0" cellspacing="0" width="655" style="padding-center:0px" align="center">
+<tr>
+<td>
+You have a new lead assigned. Please see the details below.
+</td></tr>
+<tr><br/>
+<td>
+ <p>Lead  URL - <a href="https://ncr.my.salesforce.com/lightning/r/lead/{!relatedTo.Id}/view"> {!relatedTo.Name}</a></p>
+ </td></tr>
+</table>
+  <!--END OF HEADLINE SECTION-->
+  
+<br/>
+   <style>
+    .demo {
+        border:1px solid #C0C0C0;
+        border-collapse:collapse;
+        padding:5px;
+    }
+    .demo th {
+        border:1px solid #C0C0C0;
+        padding:5px;
+        background:#F0F0F0;
+    }
+    .demo td {
+        border:1px solid #C0C0C0;
+        padding:5px;
+    }
+</style>
+ <br/> 
+
+
+     <table class="demo" border="0" cellpadding="0" cellspacing="0" width="655" style="padding-center:0px" align="center">
+   
+   <tbody>
+  
+    <tr>
+        <td>Company</td>
+        <td>{!relatedTo.Company}</td>
+    </tr>
+<tr>
+        <td>First / Last Name</td>
+        <td>{!relatedTo.FirstName} {!relatedTo.LastName}</td>
+    </tr>
+<tr>
+        <td>Business</td>
+        <td>{!relatedTo.Industry}</td>
+    </tr>
+<tr>
+        <td>City</td>
+        <td>{!relatedTo.City}</td>
+    </tr>
+<tr>
+        <td>Zip</td>
+        <td>{!relatedTo.PostalCode}</td>
+    </tr>
+<tr>
+        <td>State</td>
+        <td>{!relatedTo.State}</td>
+    </tr>
+<tr>
+        <td>Country</td>
+        <td>{!relatedTo.Country}</td>
+    </tr>
+<tr>
+        <td>Phone</td>
+        <td>{!relatedTo.Phone}</td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td>{!relatedTo.Email}</td>
+    </tr>
+    <tr>
+        <td>Lead Source</td>
+        <td>{!relatedTo.LeadSource}</td>
+    </tr>
+    <apex:outputText rendered="{!If(relatedTo.Campaign_Code__c!=null ,true,false)}">
+    <tr>
+        <td>Campaign</td>
+        <td>{!relatedTo.Campaign_Code__c}</td>
+    </tr>
+    </apex:outputText>
+    <apex:outputText rendered="{!If(relatedTo.LeadSource__c == 'Sales-HOS-Restaurant Data' ,true,false)}">
+    <tr>
+        <td>Campaign</td>
+        <td>Sales-HOS-RestaurantData</td>
+    </tr>
+    </apex:outputText>
+    <apex:outputText rendered="{!If(relatedTo.LeadSource__c == 'Sales-HOS-Fab Five' ,true,false)}">
+    <tr>
+        <td>Campaign</td>
+        <td>Sales-HOS-FabFive</td>
+    </tr>
+    </apex:outputText>
+    <tr>
+        <td>Reseller Name</td>
+        <td>{!relatedTo.Reseller_office__c}</td>
+    </tr>
+    <tr>
+        <td>Reseller Email</td>
+        <td>{!relatedTo.Reseller_Email_1__c}</td>
+    </tr>
+   </tbody>
+   </table>
+  <!--END OF SECTION CONTENT-->
+       
+   <br/> 
+    
+    
+
+<!--FOOTER GRAPHICS AND CONTENT -->
+  <table border="0" cellpadding="0" cellspacing="0" width="655"  bgcolor="#f1f2f2" style="padding-center:0px" align="center">
+    <tbody>
+      <tr>
+        <td><table width="656" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="565"><table width="565" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+        <td bgcolor="#f1f2f2" style="padding-left:25px;"><span style="font-family: 'Open Sans', Arial, Helvetica, sans-serif; font-size: 13px; color: #58595b;"></span></td>
+                </tr>
+
+              <tr>
+                <td bgcolor="#f1f2f2" style="padding-top: 10px; padding-bottom: 20px; padding-left: 10px;">
+                <span style="font-family: 'Open Sans', Arial, Helvetica, sans-serif; font-size: 13px; " class="auto-style3">
+                NCR Confidential. FOR INTERNAL USE ONLY.<br/>
+                NCR Corporation 864 Spring St. NW, Atlanta, GA 30308-1007<br/>
+                ©2020 NCR Corporation. All rights reserved. </span><span style="font-family: 'Open Sans', Arial, Helvetica, sans-serif; font-size: 13px; color: #58595b;">
+                <a href="http://www.ncr.com?elqTrackId=f9a8c9ac8ee64584a5fe2fa3a7d92f50&elqTrack=true" target="_blank" class="auto-style3">ncr.com</a></span><span style="font-family: 'Open Sans', Arial, Helvetica, sans-serif; font-size: 13px; "><br/> 
+                    </span>
+                <span style="font-family: 'Open Sans', Arial, Helvetica, sans-serif; font-size: 13px; ">
+                <span style="font-family: 'Open Sans', Arial, Helvetica, sans-serif; font-size: 13px; " class="auto-style4">
+                    NCR respects</span></span><span style="font-family: 'Open Sans', Arial, Helvetica, sans-serif; font-size: 13px; color: #58595b;">
+                <a href="http://www.ncr.com/home/privacy-policy" style="color: #54b948;" target="_blank">your privacy</a>.</span><br/>
+                  <br/>
+                  <table width="168" border="0" cellspacing="" cellpadding="0">
+                    <tr>
+                     <td><a href="http://on.fb.me/k7ehst">
+                     <img alt="facebook" border="0" hspace="0" src="https://ncrpr.ncr.com/web/RsdMkt/emailCampaigns/templates/internalComms/images/img-icon-fbGreen.png" style="margin-right: 5px;"></img></a></td>
+                      <td><a href="http://bit.ly/ncrtwit">
+                      <img alt="twitter" border="0" src="https://ncrpr.ncr.com/web/RsdMkt/emailCampaigns/templates/internalComms/images/img-icon-twtGreen.png" style="padding-right:5px"></img></a></td>
+                      <td><a href="http://co.ncr.com/15RlQKy">
+                      <img alt="linkedin" border="0" src="https://ncrpr.ncr.com/web/RsdMkt/emailCampaigns/templates/internalComms/images/img-icon-linkedinGreen.png" style="padding-right: 5px;"></img></a></td>
+                      <td><a href="http://bit.ly/kh0jQU">
+                      <img alt="youtube" border="0" src="https://ncrpr.ncr.com/web/RsdMkt/emailCampaigns/templates/internalComms/images/img-icon-ytGreen.png" style="padding-right:5px"></img></a></td>
+                      <td><a href="http://co.ncr.com/11klyVo">
+                      <img alt="rss" border="0" src="https://ncrpr.ncr.com/web/RsdMkt/emailCampaigns/templates/internalComms/images/img-icon-rssGreen.png" style="padding-right:5px"></img></a></td>
+                      <td><a href="https://co.ncr.com/2Ia1pTc">
+                      <img src="https://ncrpr.ncr.com/web/RsdMkt/emailCampaigns/templates/internalComms/images/img-icon-igGreen.png" alt="instagram" border="0"></img></a></td>
+
+                      </tr>
+                    </table></td>
+                </tr>
+              <tr>
+                <td valign="bottom">&nbsp;</td>
+                </tr>
+              </table></td>
+            <td width="91" valign="bottom">
+            <img src="https://ncrpr.ncr.com/web/RsdMkt/emailCampaigns/templates/internalComms/images/NCR-block-border.png" width="100" height="100"/></td>
+            </tr>
+          </table></td>
+        </tr>
+      </tbody>
+  </table><!--END OF FOOTER GRAPHICS AND CONTENT TABLE -->
+</body>
+</html>
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>

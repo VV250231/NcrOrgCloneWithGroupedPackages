@@ -1,0 +1,31 @@
+<messaging:emailTemplate subject="Quote Technical Review - REJECTED: {!relatedTo.Technical_Review__r.CPQQuote__r.Name} for {!relatedTo.Technical_Review__r.CPQQuote__r.SBQQ__Opportunity2__r.Name}"
+recipientType="User"
+relatedToType="sbaa__Approval__c">
+<messaging:HtmlEmailBody >
+<html>
+<body>
+
+
+<b></b>
+<p></p><br/>
+
+Hello {!recipient.name}, 
+
+<p> Your approval request for Quote {!relatedTo.Technical_Review__r.CPQQuote__r.Name} has been rejected for the below reason. Please revise the quote as needed and re-submit for approval.
+</p>
+
+<b>Quote Rejected Comments:</b> {!relatedTo.sbaa__CommentsLong__c}
+
+<p><b>Quote: </b>&nbsp;<apex:outputLink value="{!LEFT($Api.Enterprise_Server_URL_300, FIND('/services',$Api.Enterprise_Server_URL_300))}/{!relatedTo.Technical_Review__r.CPQQuote__r.Id}" 
+>{!relatedTo.Technical_Review__r.CPQQuote__r.Name}</apex:outputLink><br/>
+<b>Account: </b>&nbsp;<apex:outputLink value="{!LEFT($Api.Enterprise_Server_URL_300, FIND('/services',$Api.Enterprise_Server_URL_300))}/{!relatedTo.Technical_Review__r.CPQQuote__r.SBQQ__Account__r.Id}" 
+>{!relatedTo.Technical_Review__r.CPQQuote__r.SBQQ__Account__r.Name}</apex:outputLink><br/>
+<b>Opportunity: </b>&nbsp;<apex:outputLink value="{!LEFT($Api.Enterprise_Server_URL_300, FIND('/services',$Api.Enterprise_Server_URL_300))}/{!relatedTo.Technical_Review__r.CPQQuote__r.SBQQ__Opportunity2__r.Id}" 
+>{!relatedTo.Technical_Review__r.CPQQuote__r.SBQQ__Opportunity2__r.Name}</apex:outputLink><br/></p>
+
+<p style="color:white"><apex:outputText value="{!relatedTo.Id}"/></p>
+
+</body>
+</html>
+</messaging:HtmlEmailBody>
+</messaging:emailTemplate>

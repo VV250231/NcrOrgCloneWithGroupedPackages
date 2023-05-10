@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case_Category_Service_Number_Required</fullName>
+    <active>true</active>
+    <description>If Services ticket created on behalf of customer thenServices Incident Number is required on case</description>
+    <errorConditionFormula>AND(  ISPICKVAL(Actions__c, &apos;Services ticket created on behalf of customer&apos;) ,
+     ISBLANK(Services_Incident_Number__c) 
+)</errorConditionFormula>
+    <errorDisplayField>Services_Incident_Number__c</errorDisplayField>
+    <errorMessage>You have selected &quot;Services ticket created on behalf of customer &quot; in Actions field.Please Enter Services Incident Number to proceed further.</errorMessage>
+</ValidationRule>

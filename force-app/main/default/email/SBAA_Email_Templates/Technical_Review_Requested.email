@@ -1,0 +1,40 @@
+<messaging:emailTemplate subject="Technical Review - REQUESTED: {!relatedTo.Technical_Review__r.CPQQuote__r.Name} for {!relatedTo.Technical_Review__r.CPQQuote__r.SBQQ__Opportunity2__r.Name}" recipientType="User" relatedToType="sbaa__Approval__c">
+<messaging:HtmlEmailBody >
+<html>
+<body>
+
+
+
+Hello {!recipient.name},
+
+<p>{!relatedTo.Technical_Review__r.Sales_Survey__r.Owner.Name} is requesting Technical Review approval for a Quote, please see below.<br/></p>
+
+<p><b>Quote Name: </b>&nbsp;<apex:outputLink value="{!LEFT($Api.Enterprise_Server_URL_300, FIND('/services',$Api.Enterprise_Server_URL_300))}/{!relatedTo.Technical_Review__r.CPQQuote__r.Id}" >{!relatedTo.Technical_Review__r.CPQQuote__r.Name}</apex:outputLink><br/>
+
+<b>Opportunity Name: </b>&nbsp;<apex:outputLink value="{!LEFT($Api.Enterprise_Server_URL_300, FIND('/services',$Api.Enterprise_Server_URL_300))}/{!relatedTo.Technical_Review__r.CPQQuote__r.SBQQ__Opportunity2__r.Id}" >{!relatedTo.Technical_Review__r.CPQQuote__r.SBQQ__Opportunity2__r.Name}</apex:outputLink><br/>
+
+<b>Site Name: </b>{!relatedTo.Technical_Review__r.CPQQuote__r.qtc_Bill_To_Site__r.Name}<br/>
+<b>Site Address: </b>{!relatedTo.Technical_Review__r.CPQQuote__r.qtc_Bill_To_Site__r.BillingStreet}<br/>
+{!relatedTo.Technical_Review__r.CPQQuote__r.qtc_Bill_To_Site__r.BillingCity}, {!relatedTo.Technical_Review__r.CPQQuote__r.qtc_Bill_To_Site__r.BillingState} {!relatedTo.Technical_Review__r.CPQQuote__r.qtc_Bill_To_Site__r.BillingPostalCode}<br/>
+{!relatedTo.Technical_Review__r.CPQQuote__r.qtc_Bill_To_Site__r.BillingCountry}<br/>
+
+<b>Local Office Region: </b>{!relatedTo.Technical_Review__r.Sales_Survey__r.Local_Office_Region__c}<br/>
+<b>NetSuite Quote #: </b>{!relatedTo.Technical_Review__r.Sales_Survey__r.NetSuite_Quote__c}<br/>
+<b>Existing Payments: </b>{!relatedTo.Technical_Review__r.CPQQuote__r.Existing_Payments_Customer__c}<br/>
+
+<p><b>Approval Notes: </b>{!relatedTo.Technical_Review__r.Notes__c}<br/></p>
+
+</p>
+<p><b>Next Step:</b> To approve or reject this request, navigate to the quote in salesforce, or click on one of these links:&nbsp;&nbsp;<apex:outputLink value="{!LEFT($Api.Partner_Server_URL_140,FIND('.com',$Api.Partner_Server_URL_140)+4)+'apex/SBAA__Approve?id='+relatedTo.Id}">Approve</apex:outputLink>&nbsp;&nbsp;&nbsp;<apex:outputLink value="{!LEFT($Api.Partner_Server_URL_140,FIND('.com',$Api.Partner_Server_URL_140)+4)+'apex/SBAA__Reject?id='+relatedTo.Id}">Reject</apex:outputLink><br/></p>
+
+
+<p>
+<b>Approvals:</b><br/>
+<sbaa:relatedList rendered="{!relatedTo.Technical_Review__c != null}" recordId="{!relatedTo.Technical_Review__c}" relationshipName="Approvals__r" fieldSetName="Approval_Request_Email"/>
+</p>
+
+<p style="color:white"><apex:outputText value="{!relatedTo.Id}"/></p>
+</body>
+</html>
+</messaging:HtmlEmailBody>
+</messaging:emailTemplate>

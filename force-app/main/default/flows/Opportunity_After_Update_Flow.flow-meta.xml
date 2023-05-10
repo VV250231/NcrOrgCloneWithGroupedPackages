@@ -1,0 +1,1266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Closed Opportunity Alert</description>
+        <name>Closed_Opportunity_Alert</name>
+        <label>Closed Opportunity Alert</label>
+        <locationX>367</locationX>
+        <locationY>3647</locationY>
+        <actionName>Opportunity.Closed_Opportunity_Alert</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Send_email_to_Mariana_Miranda</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>Description:	Closed Opportunity Alert For CFI and Channel</description>
+        <name>Closed_Opportunity_Alert_For_CFI_and_Channel</name>
+        <label>Closed Opportunity Alert For CFI and Channel</label>
+        <locationX>364</locationX>
+        <locationY>4201</locationY>
+        <actionName>Opportunity.Closed_Opportunity_Alert_For_CFI_and_Channel</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>When_the_Sales_Program_value_Hospitality_Cross_Selling</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>Cross Sell Notification when the Sales Program value = Hospitality Cross-Selling, trigger an email notification to opportunity creator is sent.</description>
+        <name>Cross_Sell_Notification_when_the_Sales_Program_value_Hospitality_Cross_Selling</name>
+        <label>Cross Sell Notification when the Sales Program value = Hospitality Cross-Selling</label>
+        <locationX>333</locationX>
+        <locationY>4468</locationY>
+        <actionName>Opportunity.Cross_Sell_Notification_when_the_Sales_Program_value_Hospitality_Cross_Selling_t</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Opp_Record_Type</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>(DNBI__DnB_Status__c =&quot;Approved&quot;) &amp;&amp; ISCHANGED( DNBI__DnB_Application_Created_Date__c )</description>
+        <name>DNBI_Approved_Email</name>
+        <label>DNBI Approved Email</label>
+        <locationX>631</locationX>
+        <locationY>4991</locationY>
+        <actionName>Opportunity.DNBI_Credit_Approved</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Test_Update</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>DNBI_Credit_Declined_Notification</name>
+        <label>DNBI: Credit Declined Notification</label>
+        <locationX>367</locationX>
+        <locationY>4991</locationY>
+        <actionName>Opportunity.DNBI_Credit_Declined</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>DNBI_Credit_Pending_Notification</name>
+        <label>DNBI: Credit Pending Notification</label>
+        <locationX>103</locationX>
+        <locationY>4991</locationY>
+        <actionName>Opportunity.DNBI_Credit_Pending</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>Email_alert_of_Special_Bid_Reg_conversion_to_Opportunity</name>
+        <label>Email alert of Special Bid Reg conversion to Opportunity</label>
+        <locationX>367</locationX>
+        <locationY>1631</locationY>
+        <actionName>Opportunity.Email_alert_of_Special_Bid_Reg_conversion_to_Opportunity</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>notify_TESCO_account_owner_of_CTS</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>FIN NAMER new customer email alert</description>
+        <name>FIN_NAMER_new_customer_email_alert</name>
+        <label>FIN NAMER new customer email alert</label>
+        <locationX>364</locationX>
+        <locationY>3010</locationY>
+        <actionName>Opportunity.FIN_NAMER_new_customer_email_alert</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Send_email_to_DI_CAs</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>Notify Accounts Owner of new TESCO opportunity</description>
+        <name>Notify_Accounts_Owner_of_new_TESCO_opportunity</name>
+        <label>Notify Accounts Owner of new TESCO opportunity</label>
+        <locationX>382</locationX>
+        <locationY>2399</locationY>
+        <actionName>Opportunity.Notify_Accounts_Owner_of_new_TESCO_opportunity</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Opp_Notify_Payments_Rep1</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>Opp_Notify_Payments_Rep_Email_Alert1</name>
+        <label>Opp_Notify_Payments_Rep_Email_Alert</label>
+        <locationX>383</locationX>
+        <locationY>2683</locationY>
+        <actionName>Opportunity.Opp_Notify_Payments_Rep_Email_Alert</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Send_email_to_Chad_Bruhn_when_new_customer_opportunity_is_Closed_Booked</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>As part of story  - 2284 we are sending email alert when selling stage changes to validating . This is  specific 62 D1 Account Manager</description>
+        <name>opportunity_selling_stage_changes</name>
+        <label>opportunity selling stage changes</label>
+        <locationX>340</locationX>
+        <locationY>4638</locationY>
+        <actionName>Opportunity.opportunity_selling_stage_changes</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>DNBI_Pending_Notification_Check</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>Ring the Bell email alert</description>
+        <name>Ring_the_Bell_email_alert</name>
+        <label>Ring the Bell email alert</label>
+        <locationX>366</locationX>
+        <locationY>3887</locationY>
+        <actionName>Opportunity.Ring_the_Bell_email_alert</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Send_email_to_Ron_Furnier_when_an_opportunity_is_Closed</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>Description:	Email Alert for DI CA&apos;s when an opportunity is placed in the Closed/Booked status.</description>
+        <name>Send_email_to_DI_CA</name>
+        <label>Send email to DI CAs</label>
+        <locationX>367</locationX>
+        <locationY>3311</locationY>
+        <actionName>Opportunity.Email_Alert_for_DI_CA_s_when_an_opportunity_is_placed_in_the_Closed_Booked_statu</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Send_email_to_John_Morgan_when_an_opportunity_is_Closed</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>55.0</apiVersion>
+    <assignments>
+        <description>This assignment will popuate custom created Date(Created_Date__c) field on Opportunity)</description>
+        <name>Populate_Custom_Created_Date</name>
+        <label>Populate Custom Created Date</label>
+        <locationX>367</locationX>
+        <locationY>503</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Created_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Created_Date_Formula</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Is_Opp_Field_Change</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Reset_bypass_validation</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Reset by pass validation value from True to False</description>
+        <name>reset_by_pass_validation_value</name>
+        <label>reset by pass validation value</label>
+        <locationX>367</locationX>
+        <locationY>839</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.bypass_validation__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Is_Opp_Field_Change</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Is_Opportunity_Updated</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Update_automation_update_field</name>
+        <label>Update Automation update field</label>
+        <locationX>367</locationX>
+        <locationY>1175</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.is_Automation_Update__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Reverse_Auomation_Update</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Opportunity_Record</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>This decision will update Created_Date__c  with appropriate value if it blank. This will replace Created Date Actual workflow rule.</description>
+        <name>Check_Blank_Created_Date_c</name>
+        <label>Check Blank Created_Date__c</label>
+        <locationX>499</locationX>
+        <locationY>383</locationY>
+        <defaultConnector>
+            <targetReference>Reset_bypass_validation</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Blank Created_Date__c</defaultConnectorLabel>
+        <rules>
+            <name>Blank_Created_Date_c</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Created_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Populate_Custom_Created_Date</targetReference>
+            </connector>
+            <label>Blank Created_Date__c</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This decision will replace DNBI Pending Notification workflow rule.</description>
+        <name>DNBI_Pending_Notification_Check</name>
+        <label>DNBI Pending Notification Check</label>
+        <locationX>499</locationX>
+        <locationY>4871</locationY>
+        <defaultConnector>
+            <targetReference>Opportunity_JP_flow_call</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Else</defaultConnectorLabel>
+        <rules>
+            <name>Further_Review_Required_DnB_Status</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.DNBI__DnB_Application_Created_Date__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.DNBI__DnB_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Further Review Required</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>DNBI_Credit_Pending_Notification</targetReference>
+            </connector>
+            <label>Further Review Required DnB Status</label>
+        </rules>
+        <rules>
+            <name>Declined_DnB_Status</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.DNBI__DnB_Application_Created_Date__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.DNBI__DnB_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Declined</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>DNBI_Credit_Declined_Notification</targetReference>
+            </connector>
+            <label>Declined DnB Status</label>
+        </rules>
+        <rules>
+            <name>Approved_DnB_Status</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.DNBI__DnB_Application_Created_Date__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.DNBI__DnB_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Approved</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>DNBI_Approved_Email</targetReference>
+            </connector>
+            <label>Approved DnB Status</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_Opportunity_Updated</name>
+        <label>Is Opportunity Updated</label>
+        <locationX>499</locationX>
+        <locationY>1055</locationY>
+        <defaultConnector>
+            <targetReference>Linked_Deal_Bid_Registration_Changed</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Opportunity Not Updated</defaultConnectorLabel>
+        <rules>
+            <name>Opportunity_Updated</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Is_Opp_Field_Change</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_automation_update_field</targetReference>
+            </connector>
+            <label>Opportunity Updated</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This decision will replace Acknowledge users when Special Bid Reg converted to Opportunity workflow rule.</description>
+        <name>Linked_Deal_Bid_Registration_Changed</name>
+        <label>Linked Deal Bid Registration Changed</label>
+        <locationX>499</locationX>
+        <locationY>1511</locationY>
+        <defaultConnector>
+            <targetReference>notify_TESCO_account_owner_of_CTS</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Blank Linked Deal Bid Registration</defaultConnectorLabel>
+        <rules>
+            <name>Not_Blank_Linked_Deal_Bid_Registration</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Linked_Special_Bid_Registration__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Email_alert_of_Special_Bid_Reg_conversion_to_Opportunity</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>Not Blank Linked Deal Bid Registration</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Description:	This workflow rule will send an email alert to the account owner anytime an opportunity is created under one of the TESCO MCN&apos;s.
+Rule Criteria:	Account: Master Customer NumberEQUALS 98921462,1010287A2,6880177,74591GB,75150GB,7034683,71974GB,134371GB,9950350</description>
+        <name>notify_TESCO_account_owner_of_CTS</name>
+        <label>notify TESCO account owner of CTS</label>
+        <locationX>540</locationX>
+        <locationY>2245</locationY>
+        <defaultConnector>
+            <targetReference>Opp_Notify_Payments_Rep1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Condition does not met</defaultConnectorLabel>
+        <rules>
+            <name>Condition_Met2</name>
+            <conditionLogic>(1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9) AND 10</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Account.Master_Customer_Number__c</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>98921462</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Account.Master_Customer_Number__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>1010287A2</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Account.Master_Customer_Number__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>6880177</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Account.Master_Customer_Number__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>74591GB</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Account.Master_Customer_Number__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>75150GB</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Account.Master_Customer_Number__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>7034683</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Account.Master_Customer_Number__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>71974GB</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Account.Master_Customer_Number__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>134371GB</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Account.Master_Customer_Number__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>9950350</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>IsNew</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Notify_Accounts_Owner_of_new_TESCO_opportunity</targetReference>
+            </connector>
+            <label>Condition Met</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>EBA_SF-1254 - Notify Payments Specialist when they are added to an opportunity</description>
+        <name>Opp_Notify_Payments_Rep1</name>
+        <label>Opp_Notify_Payments_Rep</label>
+        <locationX>539</locationX>
+        <locationY>2545</locationY>
+        <defaultConnector>
+            <targetReference>Send_email_to_Chad_Bruhn_when_new_customer_opportunity_is_Closed_Booked</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Condition does not met</defaultConnectorLabel>
+        <rules>
+            <name>Notify_Payment_Rep</name>
+            <conditionLogic>((1 AND 4) OR (5 AND 6 AND 7)) AND 2 AND 3</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record__Prior.Payments_Rep__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Payments_Rep__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Payments_Rep__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Payments_Rep__r.IsActive</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.isCloneWithProduct__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.HasOpportunityLineItem</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Opp_Notify_Payments_Rep_Email_Alert1</targetReference>
+            </connector>
+            <label>Notify Payment Rep</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>As part of story EBA_SF-2284. We are sending notification that we  ready to have a Solutions Consultant scheduled when the selling stage changes to validating on an opportunity.</description>
+        <name>Opportunity_selling_stg_chg_to_validating</name>
+        <label>Opp selling stg chg to validating</label>
+        <locationX>498</locationX>
+        <locationY>4617</locationY>
+        <defaultConnector>
+            <targetReference>DNBI_Pending_Notification_Check</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Selling_Stage_Validating</name>
+            <conditionLogic>1 AND 2 AND ((3 AND 4) OR (5 AND 6)) AND 7</conditionLogic>
+            <conditions>
+                <leftValueReference>$User.ProfileId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>00e70000000k66K</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordTypeId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Opp_Record_Type.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.StageName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Validating</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.StageName</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.StageName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Validating</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Label.DI_Demo_Inactive</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>opportunity_selling_stage_changes</targetReference>
+            </connector>
+            <label>Selling Stage Validating</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Description: This workflow is part of the Salespath Component.
+Rule Criteria: Opportunity: bypass validation EQUALS True</description>
+        <name>Reset_bypass_validation</name>
+        <label>Reset bypass validation</label>
+        <locationX>499</locationX>
+        <locationY>719</locationY>
+        <defaultConnector>
+            <targetReference>Is_Opportunity_Updated</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Condition Does Not Met</defaultConnectorLabel>
+        <rules>
+            <name>Condition_Met10</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.bypass_validation__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>reset_by_pass_validation_value</targetReference>
+            </connector>
+            <label>Condition Met</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Rule Criteria	
+(Opportunity: Opportunity Record TypeEQUALSIndirect - Include in Funnel Distributor,Indirect - Include in Funnel Reseller,Include in Funnel) AND (Opportunity: StageEQUALSClosed/Booked) AND (Opportunity: TypeEQUALSNew Customer) AND (Opportunity: Owner RoleCONTAINSFIN-NAMER)</description>
+        <name>Send_email_to_Chad_Bruhn_when_new_customer_opportunity_is_Closed_Booked</name>
+        <label>Send email to Chad Bruhn when new customer opportunity is Closed/Booked</label>
+        <locationX>533</locationX>
+        <locationY>2854</locationY>
+        <defaultConnector>
+            <targetReference>Send_email_to_DI_CAs</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Condition Does Not Met</defaultConnectorLabel>
+        <rules>
+            <name>Condition_Met3</name>
+            <conditionLogic>( 1 OR 2 OR 3 ) AND  4 AND 5 AND 6</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Indirect - Include in Funnel Distributor</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Indirect - Include in Funnel Reseller</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Include in Funnel</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.StageName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed/Booked</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>New Customer</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Owner_Role__c</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>FIN-NAMER</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>FIN_NAMER_new_customer_email_alert</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>Condition Met</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Description : Send email to DI CAs when an opportunity is placed in the Closed/Booked status
+Rule Criteria	
+(Account: Subscription GroupEQUALSDigital Insight,Digital Insight- Billing Hold) AND (Opportunity: StageEQUALSClosed/Booked)</description>
+        <name>Send_email_to_DI_CAs</name>
+        <label>Send email to DI CAs</label>
+        <locationX>499</locationX>
+        <locationY>3191</locationY>
+        <defaultConnector>
+            <targetReference>Send_email_to_John_Morgan_when_an_opportunity_is_Closed</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Condition Does Not Met</defaultConnectorLabel>
+        <rules>
+            <name>Condition_Met4</name>
+            <conditionLogic>(1 OR 2) AND 3</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Account.Subscription_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Digital Insight</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Account.Subscription_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Customer Billing Hold</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.StageName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed/Booked</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_email_to_DI_CA</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>Condition Met</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Rule Criteria: 	
+(Opportunity: Opportunity Record TypeEQUALSIndirect - Include in Funnel Distributor,Indirect - Include in Funnel Reseller,Include in Funnel,Indirect - Exclude from Funnel,Indirect - Include in Funnel Distributor,Indirect - Include in Funnel Reseller,Exclude from Funnel,Include in Funnel) AND (Opportunity: StageEQUALSClosed/Booked,Closed/Lost) AND (Opportunity: Owner RoleCONTAINSFIN-NAMER-CFI-MIDWEST)</description>
+        <name>Send_email_to_John_Morgan_when_an_opportunity_is_Closed</name>
+        <label>Send email to John Morgan when an opportunity is Closed</label>
+        <locationX>499</locationX>
+        <locationY>3527</locationY>
+        <defaultConnector>
+            <targetReference>Send_email_to_Mariana_Miranda</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Condition Does Not Met</defaultConnectorLabel>
+        <rules>
+            <name>Condition_Met5</name>
+            <conditionLogic>(1 OR 2 OR 3 OR 4 OR  5 OR 6 OR 7) AND ( 8 OR 10 ) AND 9</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Indirect - Include in Funnel Distributor</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Indirect - Include in Funnel Reseller</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Include in Funnel</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Indirect - Exclude from Funnel</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Indirect - Include in Funnel Distributor</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Indirect - Include in Funnel Reseller</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Exclude from Funnel</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.StageName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed/Booked</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Owner_Role__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>FIN-NAMER-CFI-MIDWEST</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.StageName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed/Lost</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Closed_Opportunity_Alert</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>Condition Met</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Send email to Mariana Miranda when Banking opportunity is Closed/Booked</description>
+        <name>Send_email_to_Mariana_Miranda</name>
+        <label>Send email to Mariana Miranda</label>
+        <locationX>505</locationX>
+        <locationY>3787</locationY>
+        <defaultConnector>
+            <targetReference>Send_email_to_Ron_Furnier_when_an_opportunity_is_Closed</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Condition Does Not Met</defaultConnectorLabel>
+        <rules>
+            <name>Condition_Met6</name>
+            <conditionLogic>(1 OR 2 OR  3) AND 4 AND 5 AND 6</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Indirect - Include in Funnel Distributor</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Indirect - Include in Funnel Reseller</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Include in Funnel</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.StageName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed/Booked</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Ring_The_Bell_Candidate__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Industry__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Financial</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Ring_the_Bell_email_alert</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>Condition Met</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Rule Criteria	
+((Opportunity: Opportunity Record TypeEQUALSIndirect - Exclude from Funnel,Indirect - Include in Funnel Distributor,Indirect - Include in Funnel Reseller,Exclude from Funnel,Include in Funnel) AND (Opportunity: StageEQUALSClosed/Booked - NonFunnel,Closed/Booked)) AND((Current User: Manager Level 01CONTAINSBenjamin Seelos,Brian Pilla,Mark Leinenkugel,John Morgan,Bo Watson,Robert Malik) OR (Current User: Manager Level 02EQUALSron furnier))</description>
+        <name>Send_email_to_Ron_Furnier_when_an_opportunity_is_Closed</name>
+        <label>Send email to Ron Furnier when an opportunity is Closed</label>
+        <locationX>503</locationX>
+        <locationY>3994</locationY>
+        <defaultConnector>
+            <targetReference>When_the_Sales_Program_value_Hospitality_Cross_Selling</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Condition Does Not Met</defaultConnectorLabel>
+        <rules>
+            <name>Condition_Met7</name>
+            <conditionLogic>(1 OR 2 OR 3 OR 4 OR 5) AND ( 6 OR 7 ) AND (8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 )</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Indirect - Exclude from Funnel</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Indirect - Include in Funnel Distributor</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Indirect - Include in Funnel Reseller</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Exclude from Funnel</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Include in Funnel</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.StageName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed/Booked - NonFunnel</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.StageName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed/Booked</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$User.Manager_Level_01__c</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Benjamin Seelos</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$User.Manager_Level_02__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>ron furnier</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$User.Manager_Level_01__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Brian Pilla</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$User.Manager_Level_01__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Mark Leinenkugel</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$User.Manager_Level_01__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>,John Morgan</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$User.Manager_Level_01__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Bo Watson</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$User.Manager_Level_01__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Robert Malik</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Closed_Opportunity_Alert_For_CFI_and_Channel</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>Condition Met</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Description:	When the Sales Program value = Hospitality Cross-Selling, trigger an email notification to opportunity creator.
+Rule Criteria:	Opportunity: Sales ProgramEQUALSHospitality Cross-Selling</description>
+        <name>When_the_Sales_Program_value_Hospitality_Cross_Selling</name>
+        <label>When the Sales Program value = Hospitality Cross-Selling</label>
+        <locationX>487</locationX>
+        <locationY>4320</locationY>
+        <defaultConnector>
+            <targetReference>Opp_Record_Type</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Condition Does Not Met</defaultConnectorLabel>
+        <rules>
+            <name>Condition_Met8</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Marketing_Program__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Hospitality Cross-Selling</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Cross_Sell_Notification_when_the_Sales_Program_value_Hospitality_Cross_Selling</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>Condition Met</label>
+        </rules>
+    </decisions>
+    <description>Last workflow migrated to this flow - Opp_Notify_Payments_Rep
+Last Modification done for - EBA_SF-2284
+This was version V7. V7 deleted for story EBA_SF- 2472</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Created_Date__c field formula</description>
+        <name>Created_Date_Formula</name>
+        <dataType>Date</dataType>
+        <expression>IF( AND(Not(ISBLANK({!$Record.Created_date_TEAM__c})), {!$Record.Created_date_TEAM__c} &lt; DATEVALUE( {!$Record.CreatedDate})) ,{!$Record.Created_date_TEAM__c} ,DATEVALUE( {!$Record.CreatedDate}) )</expression>
+    </formulas>
+    <formulas>
+        <name>IsNew</name>
+        <dataType>Boolean</dataType>
+        <expression>ISNEW()</expression>
+    </formulas>
+    <formulas>
+        <name>Opportunity_OCR_Team</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK({!$Record.Sales_Org__c})), {!$Record.Sales_Org__r.Hierarchy_6__c}, &apos; &apos;)</expression>
+    </formulas>
+    <formulas>
+        <name>Reverse_Auomation_Update</name>
+        <dataType>Boolean</dataType>
+        <expression>NOT({!$Record.is_Automation_Update__c})</expression>
+    </formulas>
+    <formulas>
+        <name>Track_Oppty_Close_Date</name>
+        <dataType>Boolean</dataType>
+        <expression>AND (
+($Profile.Name &lt;&gt; &quot;02 NSC Administrator&quot;),
+($Profile.Name &lt;&gt; &quot;C9 Administration&quot;),
+($Profile.Name &lt;&gt; &quot;iPaas Administration&quot;),
+OR( ISPICKVAL( {!$Record.StageName}, &apos;Closed/Booked&apos;),
+ISPICKVAL( {!$Record.StageName}, &apos;Closed/Lost&apos;),
+ISPICKVAL( {!$Record.StageName}, &apos;Closed/Discontinued&apos;),
+ISPICKVAL( {!$Record.StageName}, &apos;Closed/Booked - NonFunnel&apos;)) ,
+({!$Record.Prevent_Account_Change_Retrigger__c}= false))</expression>
+    </formulas>
+    <interviewLabel>Opportunity After Update Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Opportunity After Update Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Opp_Record_Type</name>
+        <label>Opp Record Type</label>
+        <locationX>501</locationX>
+        <locationY>4498</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Opportunity_selling_stg_chg_to_validating</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>012700000001PoZAAU</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>RecordType</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>(DNBI__DnB_Status__c =&quot;Approved&quot;) &amp;&amp; ISCHANGED( DNBI__DnB_Application_Created_Date__c )</description>
+        <name>Test_Update</name>
+        <label>Test Update</label>
+        <locationX>631</locationX>
+        <locationY>5111</locationY>
+        <inputAssignments>
+            <field>StageName</field>
+            <value>
+                <stringValue>Offering</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Opportunity_Record</name>
+        <label>Update Opportunity Record</label>
+        <locationX>367</locationX>
+        <locationY>1295</locationY>
+        <connector>
+            <targetReference>Linked_Deal_Bid_Registration_Changed</targetReference>
+        </connector>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>373</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>Check_Blank_Created_Date_c</targetReference>
+        </connector>
+        <filterFormula>AND({!$Setup.Automation_Setting__c.Skip_Flow__c} = false,
+{!$Record.CATM_Record__c} = false)</filterFormula>
+        <object>Opportunity</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <description>JP related emails are triggered by using this flow</description>
+        <name>Opportunity_JP_flow_call</name>
+        <label>Opportunity JP flow call</label>
+        <locationX>895</locationX>
+        <locationY>4991</locationY>
+        <flowName>Opportunity_sub_flow</flowName>
+        <inputAssignments>
+            <name>oldrecord</name>
+            <value>
+                <elementReference>$Record__Prior</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>Record</name>
+            <value>
+                <elementReference>$Record</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <variables>
+        <name>Is_Opp_Field_Change</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+</Flow>

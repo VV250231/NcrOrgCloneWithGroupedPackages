@@ -1,0 +1,387 @@
+<apex:page standardStylesheets="false" showHeader="false" standardController="Idea" extensions="NCR_ViewIdeapageExtension">
+<html lang="en">
+    <c:NCR_CustomHead />
+<style>
+     .popover .popover-content {
+    background-color: #ededed;
+    color: #333;
+    font-size: 15px;
+    font-family: Arial;
+    margin: 20px;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    padding: 10;
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+}
+    .popover {
+      
+    
+    width: 700px;
+ </style>
+    <body >
+        <style>
+            #displayinput{
+                display:none !important;
+            }
+            #outputIdeaBody>span>span {
+                font-size:14px!important;
+            }
+        </style>
+        <c:NCR_HomepageHeader />
+        
+        <apex:form id="formPage">
+                      
+            <div class="" style='padding:2px'>
+                <div class="col-md-12">
+                    
+                    
+                   
+                    
+                    <div class="row panel">
+                      <h3><apex:outputLink value="{!returl}" rendered="{!rendBack}" > Back</apex:outputLink></h3>
+                        <h1>Idea Details</h1>
+                        <apex:outputpanel rendered="{!msg != ''}">
+                        <h2><apex:outputtext value="{!msg}" style="color:red"/></h2>
+                        </apex:outputpanel>
+                        <table width="100%" style="margin-top: 20px;">
+                            <tr rowspan="4" valign="top">
+                                <apex:outputPanel id="formPage1">
+                                    <td width="130px">
+                                        <div align="center" style="width: 100%;">
+                                            <apex:image url="{!IF(currentIdea.CreatedBy.pics__c!=null, newUrl+currentIdea.CreatedBy.pics__c, URLFOR($Resource.NCR_cssjsimg, 'img/ideas-default-avatar.png') )}" style="max-width: 100px !important; max-height: 100px !important; margin-bottom: 5px !important; width: 100px; height: 100px;"/>
+                                            <apex:commandButton image="{!URLFOR($Resource.NCR_cssjsimg, 'img/like_on.png')}" styleClass="btn btn-default col-md-2" action="{!voteUp}" style="padding: 13px 40px; background:none; width:100px; height:45px; margin: 5px 5px 2px 15px !important;" disabled="{!disableVote}" reRender="formPage, votesTotal" value="Vote"/>
+                                        </div>
+                                        <div align="center" style="width: 100%;">
+                                          <!-- <apex:outputText Value="{!currentIdea.VoteTotal} points" rendered="{!currentIdea.VoteTotal>0}" style="font-size: 14px !important; font-weight: normal;"/>-->
+                                           <a href="#" id="test" >{!currentIdea.VoteTotal} Points</a>
+                                         
+                                        </div>
+                                    </td>
+                                </apex:outputPanel><!--end of formPage1;form for first column-->
+                                <td width="30px"></td><!--space between column 1 and column 2-->
+                                <td valign="top">
+                                        <table width="100%">
+                                                <tr>
+                                                    <td width="100%">
+                                                    <!--
+                                                            Parent Idea Section
+                                                            -->
+                                                            <br/>
+                                                            <apex:outputPanel style="background-color: #FDE8E5; padding: 10px 50px;" rendered="{!currentIdea.isMerged}">  
+                                                                <apex:outputText style="list-style-image: url('http://free-121d5f44d20-121d603d1c5-121ee2b8103.force.com/img/msg_icons/warning16.png');" value="You are viewing an idea that has been merged. To comment or vote on this idea, please return to " />
+                                                                <apex:outputlink value="/apex/NCR_ViewIdeapage?id={!currentIdea.ParentIdeaId}" >{!currentIdea.ParentIdea.Title}</apex:outputlink>                                                                
+                                                                <br/>
+                                                            </apex:outputPanel>
+                                                            <!--
+                                                            End of Parent Idea Section
+                                                            -->
+                                                        <apex:outputPanel id="formPage4">
+                                                            <h2 class="title-drk-blue" style="width: 100% !important;">
+                                                                <div id="outputIdeaTitle">
+                                                                    <apex:outputText value="{!currentIdea.Title}"/>
+                                                                </div>
+                                                            
+                                                                <div id="inputIdeaTitle" style="display: none !important;">
+                                                                    
+                                                                    <apex:inputText value="{!ideaTitleNew}" html-placeholder="{!currentIdea.Title}" style="width: 50% !important;font-size:14px;"/>
+                                                            
+                                                                <br/>
+                                                                </div>
+                                                            </h2>
+                                                        </apex:outputPanel><!--end of formPage4;form for input of idea title-->
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="100%">
+                                                        <apex:outputPanel id="formPage6">
+                                                              
+                                                            
+                                                            
+                                                            <div id="outputIdeaStatus">
+                                                                <apex:outputText value="{!currentIdea.Status}" rendered="{!currentIdea.Status!='Under Point Threshold' && currentIdea.Status!=null}" style="float: left; background-color: #666666 !important; color: #FFFFFF !important; padding: 3px !important; font-size: 14px !important; border-radius: 2px !important;" />
+                                                            </div><!--
+                                                            <div id="inputIdeaStatus" style="display: none !important;">
+                                                                <apex:selectList value="{!ideaStatusNew}" size="1" style="height: 20px !important; font-size: 14px;">
+                                                                    <apex:selectOptions value="{!statusValues}"/>
+                                                                </apex:selectList>
+                                                            </div>-->
+                                                            <apex:outputPanel id="attachmentPanel" rendered="{!currentIdea.AttachmentName != null}">
+                                                                <br/>
+                                                                    <a href="#" onclick="openwindow();" value="">{!currentIdea.AttachmentName}</a>
+                                                                    <!--apex:outputlink value="/servlet/fileField?entityId={!currentIdea.ID}&field=AttachmentBody" target="_blank">{!currentIdea.AttachmentName}</apex:outputlink-->
+                                                                <br/>
+                                                            </apex:outputPanel>
+                                                            
+                                                        </apex:outputPanel><!--end of formPage6;form for idea status-->
+                                                        <apex:outputLink value="/apex/NCR_ViewAllPage?lob={!currentIdea.Di_Idea_Line_of_Business__c}&selectTab=AllIdeas" rendered="{!currentIdea.Di_Idea_Line_of_Business__c!=null}" style="font-size: 14px !important; color:#666666; text-decoration:none; margin-left: {!IF(currentIdea.Status!='Under Point Threshold' && currentIdea.Status!=null, '7px', '0px')} !important;">{!currentIdea.Di_Idea_Line_of_Business__c}</apex:outputLink>
+                                                       
+                                                       <apex:outputText value=", {!currentIdea.Di_Idea_Channel__c}" rendered="{!currentIdea.Di_Idea_Channel__c != null}" style="font-size: 14px !important; color:#666666; text-decoration:none;"/>
+                                                       
+                                                        <apex:commandLink action="{!gotoViewAll}" style="font-size: 14px !important; color:#666666; text-decoration:none;" rendered="{!currentIdea.Di_Idea_Category__c != null}">, {!currentIdea.Di_Idea_Category__c}</apex:commandLink>
+                                                        <apex:outputText value=", {!currentIdea.Di_Idea_DI_Release_Date__c}" rendered="{!currentIdea.Di_Idea_DI_Release_Date__c!=null  && currentIdea.Di_Idea_DI_Release_Date__c!=''}  " style="font-size: 14px !important; color:#666666; text-decoration:none;"/>
+                                                        
+                                                    </td>
+                                                </tr>
+                                            <tr>
+                                                <td width="100%" style="padding: 10px 0px;">
+                                                    <div id="outputIdeaBody">
+                                                        <apex:outputText id="displayoutput" style="font-size: 14px!important" value="{!currentIdea.Body}" escape="false"/>
+                                                    </div>
+                                                    <div id="inputIdeaBody" style="display: none !important;">
+                                                        <apex:inputTextarea id="displayinput" style="width:100%; height:100px;font-size:14px!important;" value="{!currentIdea.Body}" richText="true"/>
+                                                    </div><!--end of formPage5;div for input of idea body-->
+                                                </td>
+                                            </tr><!--
+                                            <tr>
+                                                <td width="100%" style="padding: 10px 0px;">
+                                                    <apex:outputPanel id="attFOrm">
+                                                    <apex:actionRegion >
+                                                        <div id="outputIdeaAtt">
+                                                            <apex:outputField value="{!currentIdea.AttachmentName}"/>
+                                                        </div>
+                                                        <div id="inputIdeaAtt" style="display: none !important;">
+                                                            <apex:inputFile value="{!currentIdea.AttachmentBody}"/></br>
+                                                            
+                                                        </div>
+                                                    </apex:actionRegion>
+                                                    </apex:outputPanel>
+                                                </td>
+                                            </tr>-->
+                                            <tr>
+                                                <td width="100%">
+                                                    <apex:outputPanel id="formPage2">
+                                                        <apex:outputLink value="/apex/NCR_MyProfilePage?id={!currentIdea.CreatedById}" styleClass="drk-gray" style="float: left; padding-right: 3px !important;">{!currentIdea.CreatedBy.Name} <apex:outputText value="{! ', '+currentIdea.Createdby.Title}" rendered="{! currentIdea.Createdby.Title != null}" /> <apex:outputText value="{! ', '+ currentIdea.CreatedBy.DI_Fi_Name__c}" rendered="{! currentIdea.CreatedBy.DI_Fi_Name__c != null}"/> | </apex:outputLink>
+                                                        <apex:outputText value="{0,date, MM/dd/yy}" styleClass="drk-gray" style="float: left;"> <apex:param value="{!currentIdea.CreatedDate}" /></apex:outputText>
+                                                        <apex:commandButton styleclass="add-fave-link" rendered="{!displayAdd}" value="| Add to Favorites" action="{!insertToMyFavorites}"/>
+                                                        <apex:commandButton styleclass="add-fave-link" rendered="{!displayRemove}" value="| Remove from Favorites" action="{!deleteToMyFavorites}" reRender="formPage" />
+                                                        <div id="editIdeaButton" style="float: left;">
+                                                            <apex:commandButton rendered="{!currentIdea.createdById==currentUser.id && currentIdea.Status =='Under Point Threshold' && currentIdea.isMerged == false}" styleclass="add-fave-link" action="{!enableEditIdea}" value="| Edit" disabled="{!currentIdea.Status=='Product Team Review'}" />
+                                                            
+                                                        </div>
+                                                        <div id="deleteIdeaButton" style="float: left;">
+                                                            <apex:commandButton rendered="{!currentIdea.createdById==currentUser.id && currentIdea.Status =='Under Point Threshold' && currentIdea.isMerged == false}" styleclass="add-fave-link" style="padding-left:0px;" value="| Delete" action="{!enableDeleteIdea}" disabled="{!currentIdea.Status=='Product Team Review'}" />
+                                                        </div>
+                                                        <br/>
+                                                        <br/>
+                                                        <!---
+                                                            Child Ideas Section
+                                                            -->
+                                                            <apex:outputPanel rendered="{!hasChild}">
+                                                                <apex:outputText Value="Merged Ideas ({!childIdeaSize})"/>
+                                                                <br/>
+                                                                <apex:repeat value="{!childIdeaList}" var="ci">
+                                                                    <apex:outputlink value="/apex/NCR_ViewIdeapage?id={!ci.ID}">{!ci.Title}</apex:outputlink>
+                                                                    <br/>
+                                                                </apex:repeat>
+                                                            </apex:outputPanel>
+                                                            <!--
+                                                            End of Child Ideas Section
+                                                            -->
+                                                            <br/>
+
+                                                        <apex:actionRegion >
+                                                        <div id="saveIdeaButton" style="display: none !important; float: left;">
+                                                            <apex:commandButton styleclass="add-fave-link" onclick="displaySaveAll();" value="| Save" reRender="formPage4, formPage2, formPage6" />
+                                                        </div>
+                                                        </apex:actionRegion>
+                                                        <div id="cancelIdeaButton" style="display: none !important; float: left;">
+                                                            <apex:commandButton styleclass="add-fave-link" onclick="displayCancelAll();" value="| Cancel" reRender="formPage4, formPage2, formPage6" />
+                                                        </div>
+                                                    </apex:outputPanel><!--end of formPage2; form for createdby, date, and favorites button-->
+                                                </td>
+                                            </tr>
+                                        </table> <!--end of table of right column;inner table-->
+                                </td><!--end of td of right column;outer table for idea details-->
+                            </tr>
+                        </table>
+                                    <apex:inputFile rendered="{!currentIdea.createdById==currentUser.id}" value="{!currentIdea.AttachmentBody}" contentType="{!currentIdea.AttachmentContentType}" fileName="{!currentIdea.AttachmentName}" style="float:left;"/>
+                                <apex:commandButton rendered="{!currentIdea.createdById==currentUser.id}" value="Attach File" style="float:left;" action="{!saveAttachment}" />
+                                <br/><br/><apex:outputText id="limit" style="font-style:italic; font-size:12px" value="max file size is 3mb"/><br/>
+                        <div class="gray-line" style="margin: 30px 0 0 0 !important;"></div>
+                        
+                        <!-- ******************************   COMMENTS SECTION   ****************************** -->
+                            <apex:outputPanel rendered="{!IF(currentCommentsTotal > 0, true, false)}" style="margin-top: 30px !important;">
+                                <apex:variable var="count" value="{!0}"/>
+                                <!--LatestComment-->
+                                <apex:outputPanel layout="block" rendered="{! latestComment != null}" style="background-color: {!IF(iUser==true,'#f5fbff', '#FFFFFF')}; padding: 30px 0px !important;">
+                                        <table width="100%">
+                                            <tr valign="top">
+                                                <td width="130px">
+                                                    <div align="right" width="100% !important;">
+                                                        <apex:image url="{!IF(latestComment.CreatedBy.pics__c!=null, newUrl+latestComment.CreatedBy.pics__c, URLFOR($Resource.NCR_cssjsimg, 'img/ideas-default-avatar.png'))}" style="width: 65px !important; max-width: 100px !important; max-height: 75px !important;"/>
+                                                    </div>
+                                                </td><!--end of first column of comments table;includes commentor photo-->
+                                                <td width="30px"></td><!--space between column 1 and column 2-->
+                                                <td>
+                                                    <table width="95%">
+                                                        <tr>
+                                                            <td width="100%">
+                                                                <apex:outputText value="{!latestComment.CommentBody}" escape="false" style="font-size: 14px;"/>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="100%">
+                                                                <apex:outputText value="Latest from Digital Insight |" rendered="{!IF(iUser==true,true,false)}" style="font-size: 14px; color: #666666; font-weight: bold; padding: 3px 5px 3px 0px;"/> <apex:outputLink value="/apex/NCR_MyProfilePage?id={!latestComment.CreatedById}" style="color:#666666; text-decoration:none; font-size: 14px;"> {!latestComment.CreatedBy.Name}<apex:outputtext rendered="{!latestComment.CreatedBy.Title != null}" value="{! ', ' + latestComment.CreatedBy.Title}" /><apex:outputText rendered="{!latestComment.CreatedBy.DI_Fi_Name__c != null}" value="{! ', ' + latestComment.CreatedBy.DI_Fi_Name__c}"/> </apex:outputLink> | <apex:outputText value="{0,date, MM/dd/yy}" style="color:#666666; font-size: 14px!important;"> <apex:param value="{!latestComment.CreatedDate}" /> </apex:outputText>
+                                                            </td>
+                                                        </tr>
+                                                    </table><!--end of inner table for comments on second column-->
+                                                </td><!--end of second column of comments table;includes commentbody-->
+                                            </tr>
+                                        </table><!--end of table for comments-->                                        
+                                    </apex:outputPanel>
+                                    <apex:outputPanel rendered="{! latestComment != null}" styleclass="gray-line" style="margin: 0px 0px !important;"></apex:outputPanel>
+                                <!--end of latest Comment-->
+                                <apex:repeat value="{!currentIdeaComment}" var="ic">
+                                    <div style="background-color: {!IF(iUser==true && ic.id==latestComment.id,'#FFFFFF', '#FFFFFF')}; padding: 30px 0px !important;">
+                                        <table width="100%">
+                                            <tr valign="top">
+                                                <td width="130px">
+                                                    <div align="right" width="100% !important;">
+                                                        <apex:image url="{!IF(ic.CreatedBy.pics__c!=null, newUrl+ic.CreatedBy.pics__c, URLFOR($Resource.NCR_cssjsimg, 'img/ideas-default-avatar.png'))}" style="width: 65px !important; max-width: 100px !important; max-height: 75px !important;"/>
+                                                    </div>
+                                                </td><!--end of first column of comments table;includes commentor photo-->
+                                                <td width="30px"></td><!--space between column 1 and column 2-->
+                                                <td>
+                                                    <table width="95%">
+                                                        <tr>
+                                                            <td width="100%">
+                                                                <apex:outputText value="{!ic.CommentBody}" escape="false" style="font-size: 14px;"/>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="100%">
+                                                                <apex:outputText value="Latest from Digital Insight |" rendered="{!IF(iUser==true && ic.id==latestComment.id,true,false)}" style="font-size: 14px; color: #666666; font-weight: bold; padding: 3px 5px 3px 0px;"/> <apex:outputLink value="/apex/NCR_MyProfilePage?id={!ic.CreatedById}" style="color:#666666; text-decoration:none; font-size: 14px;"> {!ic.CreatedBy.Name}<apex:outputtext rendered="{! ic.CreatedBy.Title != null}" value="{! ', ' + ic.CreatedBy.Title}" /><apex:outputText rendered="{! ic.CreatedBy.DI_Fi_Name__c != null}" value="{! ', ' + ic.createdBy.DI_Fi_Name__c}"/> </apex:outputLink> | <apex:outputText value="{0,date, MM/dd/yy}" style="color:#666666; font-size: 14px!important;"> <apex:param value="{!ic.CreatedDate}" /> </apex:outputText>
+                                                            </td>
+                                                        </tr>
+                                                    </table><!--end of inner table for comments on second column-->
+                                                </td><!--end of second column of comments table;includes commentbody-->
+                                            </tr>
+                                        </table><!--end of table for comments-->
+                                        <apex:variable value="{!count+1}" var="count"/>
+                                    </div>
+                                    <div class="gray-line" style="margin: 0px 0px !important;"></div>
+                                </apex:repeat>
+                            </apex:outputPanel>
+                        <!-- ******************************   END OF COMMENTS SECTION   ****************************** -->
+                        <h2>Add a Comment</h2>
+                        <apex:outputPanel id="formPge3" style="margin-top: 20px;"><!--comment text box and button form-->
+                           
+                            <!--<apex:inputTextarea id="newText" value="{!newCommentValue}" />-->
+                            <apex:inputField id="newText" value="{! newIdeaComment.CommentBody}"/>
+                            <apex:messages />
+                            <apex:commandButton value="Post Comment" style="margin-top:20px;" styleClass="btn btn-default col-md-2" action="{!insertComment}"/>
+                        </apex:outputPanel><!--end of formPage3;includes the comment text box-->
+                        
+                    </div><!--end of div class row panel-->             
+                </div><!--end of div class col-md-12-->
+            </div><!--end of div class container-->
+        
+            <apex:actionFunction name="callSaveMethod" action="{!enableSaveIdea}" />
+        
+        </apex:form><!--end of homepage-->
+        
+        <apex:includeScript value="{!URLFOR($Resource.NCR_cssjsimg, 'js/leapfrog.min.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.NCR_cssjsimg, 'js/docs.js')}"/>
+    </body>
+    <style>
+        .nicEdit-panel {
+            padding:8px 5px;
+            background:transparent linear-gradient(to bottom, #f4f4f4 0px, #d7d6d6 100%) repeat scroll 0% 0%!important;
+            margin:0px!important;
+        }
+        p>img {
+            width:100%;
+        }
+        
+        /*
+        div#outputIdeaBody>span>img {
+            width:100%;
+        } */ 
+    </style>
+</html>
+    <script>
+            window.onload=function(){
+                var hgt = $(document).height() + "px";
+                    top.postMessage(hgt, '*');
+                    $(document).scrollTop();
+            };
+            
+             $(document).ready(function(){
+                $('#test').popover({
+                           html:true,
+                           trigger:"hclick",
+                        content: function(){
+                            var str = {!currentIdea.VoteTotal}+'&nbsp; Points <br/><div class="gray-line" style=" float: left !important;"></div><br/>';
+                            <apex:repeat value="{!Votelst}" var="us"> 
+                                str = str +'<font size="2px"><small><img src="{!IF(us.CreatedBy.pics__c!=null, newUrl+us.CreatedBy.pics__c, URLFOR($Resource.NCR_cssjsimg, 'img/ideas-default-avatar.png') )}" alt="some_text" style="width:20px;height:20px;"/>{!us.CreatedBy.Name}{!if(us.CreatedBy.DI_Fi_Name__c!='',','+us.CreatedBy.DI_Fi_Name__c,'')}</small></font><div class="gray-line" style=" float: left !important;"></div><br/>';
+                                 
+                            </apex:repeat>
+                           return str;
+                        }
+                        
+                 });
+                
+            });
+            
+         function setSpellChecker(){
+            var iframe = document.getElementById('j_id0:j_id1:newText_frame');
+            var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+            iframeDocument.getElementsByTagName('body')[0].spellcheck = true;
+        }
+        window.setTimeout(setSpellChecker, 1000); // fire after 1 second
+        
+        function displayEditAll() {
+            document.getElementById("outputIdeaTitle").style.display = "none";
+            document.getElementById("inputIdeaTitle").style.display = "inline";
+            document.getElementById("outputIdeaStatus").style.display = "none";
+            //document.getElementById("inputIdeaStatus").style.display = "inline";
+            document.getElementById("outputIdeaBody").style.display = "none";
+            document.getElementById("inputIdeaBody").style.display = "inline";
+            document.getElementById("editIdeaButton").style.display = "none";
+            document.getElementById("deleteIdeaButton").style.display = "none";
+            document.getElementById("saveIdeaButton").style.display = "inline";
+            document.getElementById("cancelIdeaButton").style.display = "inline";
+            document.getElementById("outputIdeaAtt").style.display = "none";
+            document.getElementById("inputIdeaAtt").style.display = "inline";
+        }
+        
+        function displaySaveAll() {
+            callSaveMethod();
+        }
+        
+        function displayCancelAll() {
+            document.getElementById("outputIdeaTitle").style.display = "inline";
+            document.getElementById("inputIdeaTitle").style.display = "none";
+            document.getElementById("outputIdeaStatus").style.display = "inline";
+            //document.getElementById("inputIdeaStatus").style.display = "none";
+            document.getElementById("outputIdeaBody").style.display = "inline";
+            document.getElementById("inputIdeaBody").style.display = "none";
+            document.getElementById("editIdeaButton").style.display = "inline";
+            document.getElementById("deleteIdeaButton").style.display = "inline";
+            document.getElementById("saveIdeaButton").style.display = "none";
+            document.getElementById("cancelIdeaButton").style.display = "none";
+            document.getElementById("outputIdeaAtt").style.display = "inline";
+            document.getElementById("inputIdeaAtt").style.display = "none";
+        }
+            
+            
+            //google analytics
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+             
+              ga('create', 'UA-66575504-1', 'auto');
+              ga('send', 'pageview');
+              
+        function openwindow(){
+            window.open("/servlet/fileField?entityId={!currentIdea.ID}&field=AttachmentBody","_blank","status=no,menubar=no,scrollbars=no,directories=no,titlebar=no,toolbar=no,width=500, height=500");
+        }
+    </script>
+    
+</apex:page>

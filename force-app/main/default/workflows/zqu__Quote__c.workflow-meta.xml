@@ -1,0 +1,721 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>DI_Quote_Approved_Notification</fullName>
+        <description>DI Quote Approved Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/DI_Quote_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>DI_Quote_Rejection_Notification</fullName>
+        <description>DI Quote Rejection Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/DI_Quote_Rejected</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Alert_for_Quote_Owner_when_Quote_Sent_to_Z_billing</fullName>
+        <description>Email Alert for Quote Owner when Quote Sent to Z-billing</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/DI_Quote_Sent_to_Z_billing</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_for_Hosted_Re_Billing</fullName>
+        <ccEmails>Billing.Hosted@ncr.com</ccEmails>
+        <description>Email for Hosted Re Billing</description>
+        <protected>false</protected>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Email_for_Hosted_Billing</template>
+    </alerts>
+    <alerts>
+        <fullName>Quote_Approved</fullName>
+        <description>Quote Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <recipients>
+            <field>Opportunity_Owner_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Quote_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Quote_Rejected</fullName>
+        <description>Quote Rejected</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <recipients>
+            <field>Opportunity_Owner_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Quote_Rejected</template>
+    </alerts>
+    <alerts>
+        <fullName>Rebill_quote_sent_to_Z_Billing_for_Cinema</fullName>
+        <ccEmails>NCRCinema.Support@ncr.com</ccEmails>
+        <description>Rebill quote sent to Z-Billing when Account Subscription Group is Cinema</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Rebill_quote_sent_to_Z_Billing</template>
+    </alerts>
+    <alerts>
+        <fullName>Rebill_quote_sent_to_Z_Billing_for_Enterprise_Ticketing</fullName>
+        <ccEmails>eticketing_billing_error@lists.ncr.com</ccEmails>
+        <description>Rebill quote sent to Z-Billing when Account Subscription Group is Enterprise Ticketing</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Rebill_quote_sent_to_Z_Billing</template>
+    </alerts>
+    <alerts>
+        <fullName>Rebill_quote_sent_to_Z_Billing_for_Hosted_Solutions</fullName>
+        <ccEmails>billing.hosted@ncr.com</ccEmails>
+        <description>Rebill quote sent to Z-Billing when Account Subscription Group is Hosted Solutions</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Rebill_quote_sent_to_Z_Billing</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Approval_Step1</fullName>
+        <field>Track_Approval_Steps__c</field>
+        <literalValue>Step1</literalValue>
+        <name>Track Approval Step 1</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Entered_Approval_Process</fullName>
+        <field>Entered_Approval_Process__c</field>
+        <literalValue>1</literalValue>
+        <name>Entered Approval Process</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Exit_Approval_Process</fullName>
+        <field>Entered_Approval_Process__c</field>
+        <literalValue>0</literalValue>
+        <name>Exit Approval Process</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>ForecastedLiveDate</fullName>
+        <field>Forecasted_Live_Date__c</field>
+        <formula>zqu__StartDate__c</formula>
+        <name>ForecastedLiveDate</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>IsSiteNoChanged</fullName>
+        <field>IsSiteNoChanged__c</field>
+        <literalValue>1</literalValue>
+        <name>IsSiteNoChanged</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>PendingSiteUpdate</fullName>
+        <field>PendingSiteUpdate__c</field>
+        <literalValue>1</literalValue>
+        <name>PendingSiteUpdate</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Populate_Service_Activation_Date</fullName>
+        <description>When Provisioning Not Required= True and Service Activation Date = null, populate the Service Activation Date on the Quote with the Quote Start Date.</description>
+        <field>zqu__Service_Activation_Date__c</field>
+        <formula>zqu__StartDate__c</formula>
+        <name>Populate Service Activation Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Quote_Set_Record_Type_Amendment</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>zqu__Amendment</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>Quote Set Record Type = Amendment</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Quote_Set_Record_Type_Amendment_ReadOn</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>zqu__Amendment_ReadOnly</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>Quote Set Record Type = Amendment ReadOn</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Quote_Set_Record_Type_Canc_ReadOnly</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>zqu__Cancellation_ReadOnly</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>Quote Set Record Type = Canc. ReadOnly</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Quote_Set_Record_Type_Cancellation</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>zqu__Cancellation</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>Quote Set Record Type = Cancellation</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Quote_Set_Record_Type_New_Renewal</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>NewRenewal</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>Quote Set Record Type = New Renewal</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Quote_Set_Record_Type_ReadOnly</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>zqu__ReadOnly</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>Quote Set Record Type=ReadOnly</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Ready_for_billing</fullName>
+        <field>zqu__Status__c</field>
+        <literalValue>Ready for Billing</literalValue>
+        <name>Ready for billing</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_DI_Approval_Status_Approved</fullName>
+        <field>DI_Approval_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Set DI Approval Status Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_DI_Approval_Status_NULL</fullName>
+        <field>DI_Approval_Status__c</field>
+        <name>Set DI Approval Status NULL</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_DI_Approval_Status_Pending</fullName>
+        <field>DI_Approval_Status__c</field>
+        <literalValue>Pending</literalValue>
+        <name>Set DI Approval Status Pending</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_DI_Approval_Status_Rejected</fullName>
+        <field>DI_Approval_Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Set DI Approval Status Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Existing_Subscription_ID_External_ID</fullName>
+        <field>Exist_Subscription_ID_External_ID__c</field>
+        <formula>zqu__ExistSubscriptionID__c</formula>
+        <name>Set Existing Subscription ID External ID</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Quote_Record_Type_Default</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>zqu__Default</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>Set Quote Record Type=Default</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>TrackApprovalInitialStep</fullName>
+        <field>Track_Approval_Steps__c</field>
+        <literalValue>Initial</literalValue>
+        <name>Track Approval Initial Step</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>TrackApprovalStep2</fullName>
+        <field>Track_Approval_Steps__c</field>
+        <literalValue>Step2</literalValue>
+        <name>Track Approval Step 2</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>TrackApprovalStep3</fullName>
+        <field>Track_Approval_Steps__c</field>
+        <literalValue>Step3</literalValue>
+        <name>Track Approval Step 3</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>TrackApprovalStep4</fullName>
+        <field>Track_Approval_Steps__c</field>
+        <literalValue>Step4</literalValue>
+        <name>Track Approval Step 4</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>TrackStep3</fullName>
+        <field>Track_Approval_Steps__c</field>
+        <literalValue>Step3</literalValue>
+        <name>Track Step 3</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>TrackStep4</fullName>
+        <field>Track_Approval_Steps__c</field>
+        <literalValue>Step4</literalValue>
+        <name>Track Step 4</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Track_Approval_3_Final_Rejetion</fullName>
+        <field>Track_Approval_Steps__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Track Approval 3 Final Rejection</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Track_Approval_3_Step</fullName>
+        <field>Track_Approval_Steps__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Track Approval 3 Step</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Track_Approval_Recalled</fullName>
+        <field>Track_Approval_Steps__c</field>
+        <literalValue>Recalled</literalValue>
+        <name>Track Approval Recalled</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Track_Final_Approval</fullName>
+        <field>Track_Approval_Steps__c</field>
+        <literalValue>Accepted</literalValue>
+        <name>Track Final Approval</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Track_Final_Approval_Rejection</fullName>
+        <field>Track_Approval_Steps__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Track Final Approval Rejection</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Track_Final_Rejection</fullName>
+        <field>Track_Approval_Steps__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Track Final Rejection</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Track_Step1</fullName>
+        <field>Track_Approval_Steps__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Track Step 1</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Track_Step2</fullName>
+        <field>Track_Approval_Steps__c</field>
+        <literalValue>Step2</literalValue>
+        <name>Track Step 2</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateSAD</fullName>
+        <field>zqu__Service_Activation_Date__c</field>
+        <formula>zqu__StartDate__c</formula>
+        <name>UpdateSAD</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Quote_Approved_Date</fullName>
+        <field>Approved_Date__c</field>
+        <formula>TODAY()</formula>
+        <name>Update Quote Approved Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>setInvoiceSeparate</fullName>
+        <field>zqu__InvoiceSeparately__c</field>
+        <literalValue>1</literalValue>
+        <name>setInvoiceSeparate</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>zuora_approval_status_QA_Processing_C</fullName>
+        <description>used in zuora approval process
+on approval : change status = QA Processing Complete</description>
+        <field>zqu__Status__c</field>
+        <literalValue>QA Processing Complete</literalValue>
+        <name>zuora approval : status =QA Processing C</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>zuora_approval_status_new</fullName>
+        <field>zqu__Status__c</field>
+        <literalValue>New</literalValue>
+        <name>zuora approval : status = new</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>zuora_approval_status_ready_for_bill</fullName>
+        <field>zqu__Status__c</field>
+        <literalValue>Ready for Billing</literalValue>
+        <name>zuora approval : status = ready for bill</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>zuora_approval_status_rejected</fullName>
+        <description>used in zuora approval process 
+on rejection : change status = rejected</description>
+        <field>zqu__Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>zuora approval : status = rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>IsSiteNoChanged</fullName>
+        <actions>
+            <name>IsSiteNoChanged</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>PendingSiteUpdate</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>This workflow works with scheduled class QuoteListToUpdate</description>
+        <formula>OR(ISCHANGED( Bill_To_Site_Number__c ) ,ISCHANGED(Ship_To_Site_Number__c))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Populate Service Activation Date</fullName>
+        <actions>
+            <name>Populate_Service_Activation_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>zqu__Quote__c.ImplementationRequired__c</field>
+            <operation>equals</operation>
+            <value>No</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>zqu__Quote__c.zqu__Service_Activation_Date__c</field>
+            <operation>equals</operation>
+        </criteriaItems>
+        <description>When Provisioning Not Required= True and Service Activation Date = null, populate the Service Activation Date on the Quote with the Quote Start Date.</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Rebill quote sent to Z-Billing for Cinema</fullName>
+        <actions>
+            <name>Rebill_quote_sent_to_Z_Billing_for_Cinema</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>zqu__Quote__c.zqu__Status__c</field>
+            <operation>equals</operation>
+            <value>Sent to Z-Billing</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>zqu__Quote__c.Rebill__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>zqu__Quote__c.Account_s_Subscription_Group__c</field>
+            <operation>equals</operation>
+            <value>Cinema</value>
+        </criteriaItems>
+        <description>Rebill quote sent to Z-Billing when Account Subscription Group is Cinema</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Rebill quote sent to Z-Billing for Enterprise Ticketing</fullName>
+        <actions>
+            <name>Rebill_quote_sent_to_Z_Billing_for_Enterprise_Ticketing</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>zqu__Quote__c.zqu__Status__c</field>
+            <operation>equals</operation>
+            <value>Sent to Z-Billing</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>zqu__Quote__c.Rebill__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>zqu__Quote__c.Account_s_Subscription_Group__c</field>
+            <operation>equals</operation>
+            <value>Enterprise Ticketing</value>
+        </criteriaItems>
+        <description>Rebill quote sent to Z-Billing when Account Subscription Group is Enterprise Ticketing</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Rebill quote sent to Z-Billing for Hosted Solutions</fullName>
+        <actions>
+            <name>Rebill_quote_sent_to_Z_Billing_for_Hosted_Solutions</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>zqu__Quote__c.zqu__Status__c</field>
+            <operation>equals</operation>
+            <value>Sent to Z-Billing</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>zqu__Quote__c.Rebill__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>zqu__Quote__c.Account_s_Subscription_Group__c</field>
+            <operation>equals</operation>
+            <value>Hospitality Hosted Solutions</value>
+        </criteriaItems>
+        <description>Rebill quote sent to Z-Billing when Account Subscription Group is Hosted Solutions</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Send email to Quote Owner when status Sent to Z-billing</fullName>
+        <actions>
+            <name>Email_Alert_for_Quote_Owner_when_Quote_Sent_to_Z_billing</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <formula>AND(ISPICKVAL(zqu__Status__c, &apos;Sent to Z-Billing&apos;), ISPICKVAL( zqu__Account__r.Subscription_Group__c , &apos;Digital Insight&apos;))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Set Existing Subscription ID External ID</fullName>
+        <actions>
+            <name>Set_Existing_Subscription_ID_External_ID</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>ISCHANGED(zqu__ExistSubscriptionID__c)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Set PNR with ImplementationRequired</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>zqu__Quote__c.ImplementationRequired__c</field>
+            <operation>equals</operation>
+            <value>No</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>zqu__Quote__c.Is_NCR_Quote__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>Set PNR with ImplementationRequired</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update SAD for DI</fullName>
+        <actions>
+            <name>UpdateSAD</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Update SAD with Start Date of Quote For DI</description>
+        <formula>CONTAINS(Text(zqu__Account__r.Subscription_Group__c), &apos;Digital Insight&apos;)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>set_InvoiceSeparate</fullName>
+        <actions>
+            <name>setInvoiceSeparate</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>zqu__Quote__c.ReportingOnly__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>zqu__Quote__c.Account_s_Subscription_Group__c</field>
+            <operation>notEqual</operation>
+            <value>Digital Insight</value>
+        </criteriaItems>
+        <description>This workflow is used to set Invoice Separate on quote to Yes whenever the Reporting only is true in case of new subscription.</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>update ForecastedLiveDate</fullName>
+        <actions>
+            <name>ForecastedLiveDate</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>zqu__Quote__c.zqu__StartDate__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

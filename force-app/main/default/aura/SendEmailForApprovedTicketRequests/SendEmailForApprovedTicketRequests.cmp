@@ -1,0 +1,82 @@
+<aura:component controller="sendEmailRequestApproved" implements="lightning:actionOverride,force:hasRecordId,force:hasSObjectName,force:lightningQuickActionWithoutHeader" access="global">
+    
+    <aura:attribute name="email" type="string"/>
+    <aura:attribute name="subject" type="string" />
+    <aura:attribute name="body" type="string" />
+    <aura:attribute name="mailStatus" type="boolean" default="false"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="loggedInUserEmail" type="string"/>
+    <aura:attribute name="ContactsEmail" type="String"/>
+    <aura:attribute name="EventName" type="string"/>
+    <aura:attribute name="customerName" type="string"/>
+    <aura:attribute name="errorMsg" type="boolean" default="false"/>
+    <aura:attribute name="emailModal" type="boolean" default="True"/>
+    <aura:attribute name="Status" type="string"/>
+    <aura:attribute name="senderName" type="string"/>
+    
+    <!-- Error Message -->
+    <aura:if isTrue="{!v.errorMsg}">
+    <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert" aura:id="alertMessage">
+       
+        <h2>Sorry! You cannot send an email because your Ticket Request is <b>{!v.Status}</b>.</h2>
+    </div>
+    </aura:if>
+    <!---Part 2 [header part] --> 
+    <aura:if isTrue="{!v.emailModal}">
+    <div  aura:id="emailModal">
+        <div class="slds-page-header" role="banner" >
+            <h1 class="slds-page-header__title slds-m-right--small slds-align-middle slds-truncate" title="this should match">
+                Send Invitation Email to <b>{!v.customerName}</b>!!
+            </h1>
+        </div>
+        <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_warning" role="alert">
+            <span class="slds-assistive-text">warning</span>
+            <span class="slds-icon_container slds-icon-utility-warning slds-m-right_x-small" title="" style="margin-bottom: 20px;">
+                <lightning:icon iconName="utility:warning" size="x-small"/>
+            </span>
+            <h2>If you want to add more email address, please add it by appending comma <b>"," </b> after each email address.</h2>
+        </div>
+	        <div class="slds-m-around--medium" >
+            <div class="slds-container--medium">
+                <div class="slds-form--stacked">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="CC">Email</label>
+                        <div class="slds-form-element__control">
+                            <ui:inputEmail class="slds-input" aura:id="email"  value="{!v.ContactsEmail}" required="true" placeholder="abc@email.com"/>
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="CC">Subject</label>
+                        <div class="slds-form-element__control">
+                            <ui:inputText class="slds-input" aura:id="subject"  value="{!v.subject}" placeholder="Subject"/>
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="textareaSample2">Mail Body</label>
+                        <div class="slds-form-element__control">
+                            <lightning:inputRichText aura:id="emailbody" value="{!v.body}" />
+                            
+                        </div>
+                    </div>
+                    
+                    <div aura:id="emailAlert" class=" slds-m-top--xx-small slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error slds-hide" role="alert">
+                        <h2><lightning:icon iconName="utility:ban" size="x-small"/> Please enter valid email address.</h2>
+                    </div>
+                    <div aura:id="bodyAlert" class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error slds-hide" role="alert">
+                        <h2> <lightning:icon iconName="utility:ban" size="x-small"/> Please write something in the email body</h2>
+                    </div>
+                    <div aura:id="subjectAlert" class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error slds-hide" role="alert">
+                        <h2> <lightning:icon iconName="utility:ban" size="x-small"/>Please write the subject for the email.</h2>
+                    </div>
+                    
+                    <div class="slds-form-element slds-m-top--xx-small">    
+                        <button class="slds-button slds-button--brand" onclick="{!c.sendMail}">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+    </aura:if>
+</aura:component>

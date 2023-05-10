@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_To_Create_Save_Record</fullName>
+    <active>true</active>
+    <errorConditionFormula>Opportunity__r.IsClosed</errorConditionFormula>
+    <errorDisplayField>Account_Name__c</errorDisplayField>
+    <errorMessage>This Opportunity is already closed, try with a different opportunity.</errorMessage>
+</ValidationRule>

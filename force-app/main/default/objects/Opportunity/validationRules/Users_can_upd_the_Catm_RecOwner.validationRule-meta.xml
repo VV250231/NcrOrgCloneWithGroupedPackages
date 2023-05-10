@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Users_can_upd_the_Catm_RecOwner</fullName>
+    <active>true</active>
+    <errorConditionFormula>($Permission.CATM_Owner_Permission) &amp;&amp; ISCHANGED(OwnerId) 
+
+&amp;&amp;
+
+ CATM_Record__c = FALSE</errorConditionFormula>
+    <errorMessage>CATM Champions can change only CATM Record&apos;s Owner</errorMessage>
+</ValidationRule>

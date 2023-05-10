@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>FK_$Account.LOB__c</field>
+    </columns>
+    <columns>
+        <field>FK_$Account.Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>prmtsf__Pramata_Contract__c.prmtsf__Contract_Type__c</field>
+    </columns>
+    <columns>
+        <field>prmtsf__Pramata_Contract__c.prmtsf__Contract_Title__c</field>
+    </columns>
+    <columns>
+        <field>prmtsf__Pramata_Contract__c.prmtsf__Effective_Date__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>report for George Pierce</description>
+    <filter>
+        <criteriaItems>
+            <column>FK_$Account.Account_Country_Code__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>US</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>FK_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Pramata Contracts US customers</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$prmtsf__Pramata_Contract__c@prmtsf__Pramata_Contract__c.prmtsf__Account__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>prmtsf__Pramata_Contract__c.prmtsf__Effective_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2015-01-01</startDate>
+    </timeFrameFilter>
+</Report>

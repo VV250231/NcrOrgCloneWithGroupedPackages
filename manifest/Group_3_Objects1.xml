@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+    <!--
+    1st batch:
+    <members>Opportunity</members>
+    <members>Account</members>
+    <members>Contact</members>
+    <members>Customer__c</members>
+    <members>Solution_Provider_Product_Interface__c</members>
+    <members>Solution_Provider__c</members>
+    <members>Solution_Provider_Product__c</members>
+    <members>Institutions__c</members>
+
+    2nd batch:
+    <members>Lead</members>
+    <members>Case</members>
+
+    3rd batch:
+    <members>AccountContactRelation</members>
+    <members>AccountContactRole</members>
+    <members>Account_Entitlements__c</members>
+    <members>Account_Exception__c</members>
+    <members>Account_Heatmap_Yellow_Products__mdt</members>
+    <members>AccountTeamMember</members>
+    <members>CaseContactRole</members>
+    <members>Case_Incident_Relationship__c</members>
+    <members>CaseMilestone</members>
+    <members>CaseRelatedIssue</members>
+    <members>Case_Reopen_Window__mdt</members>
+    <members>Case_Template__c</members>
+
+    4th batch:
+    <members>Activity</members>
+    <members>Task</members>
+    <members>EmailMessage</members>
+    <members>Email_Recipient__c</members>
+    <members>EmailTemplatePrepondedPD__c</members>
+    <members>EmialTemplateCadd__c</members>
+    <members>ContactRequest</members>
+    <members>Asset</members>
+    <members>AssetAction</members>
+    <members>AssetActionSource</members>
+    <members>AssetRelationship</members>
+    <members>AssetStatePeriod</members>
+
+5th batch:
+    <members>AssistantProgress</members>
+    <members>AssociatedLocation</members>
+    <members>Campaign</members>
+    <members>CampaignMember</members>
+    <members>Campaign_Activity__c</members>
+    <members>Campaign_Member_History__c</members>
+    <members>ChangeRequest</members>
+    <members>ChangeRequestRelatedIssue</members>
+    <members>ChangeRequestRelatedItem</members>
+    <members>ChatterActivity</members>
+    <members>CollaborationGroup</members>
+    <members>CollaborationGroupMember</members>
+    <members>ConsumptionRate</members>
+    <members>ConsumptionSchedule</members>
+    <members>ContentVersion</members>
+    <members>Contract</members>
+    <members>ContractContactRole</members>
+    <members>Customer360RelatedConf__mdt</members>
+    <members>Customer_Bio__c</members>
+    <members>Customer__c</members>
+    <members>Customer_Document__c</members>
+    <members>Customer_Meeting_Request__c</members>
+    <members>Customer_Product_Setup__c</members>
+    <members>DuplicateRecordItem</members>
+
+6th batch:
+    <members>All_profie_config__c</members>
+    <members>All_profie_list_config__c</members>
+    <members>Altify_Solution_Mapping__mdt</members>
+    <members>Analysis_Acc_Master__c</members>
+    <members>Anaplan_Config__mdt</members>
+    <members>Anaplan_Process__c</members>
+    <members>Anaplan_ProductCategory_FamilyMapping__c</members>
+    <members>APL_Account_Open_Dispatches__c</members>
+    <members>APL_Account_Revenue__c</members>
+    <members>APL_Revenue_Category_Mapping__c</members>
+    <members>APOC_Utilization__c</members>
+    <members>Application__c</members>
+    <members>AQS_CPQ_Flow__c</members>
+    <members>ARCSEMailList__c</members>
+    <members>AR_Detail_Setting__mdt</members>
+    <members>ASM_Role_Hierarchy__c</members>
+    <members>AssociateResourceandRequest__c</members>
+    <members>Attachment__c</members>
+    <members>Automation_Setting__c</members>
+    <members>Blacklist_Audit__c</members>
+    <members>Blacklisted_Word__c</members>
+    <members>BPM_Action_Owner__mdt</members>
+    <members>BPM_Aging_History__c</members>
+    <members>BPM_Annuity__c</members>
+    <members>BPM_Annuity_Line__c</members>
+    <members>BPM_Configuration__c</members>
+    <members>BPMNotificationLog__c</members>
+    <members>BPM_Stop_Email_Alert__mdt</members>
+    <members>BPM_User_Provisioning__c</members>
+    <members>Breach__c</members>
+    <members>Business_Continuity__c</members>
+    <members>CADDDoNotReply__c</members>
+    <members>CADD_Management_History__c</members>
+    <members>CA_Hierarchy__c</members>
+    <members>CalculateCommitmentRistSwitch__mdt</members>
+    <members>CAM_and_TAM_Profile_Name__c</members>
+    <members>CA_Matrix__c</members>
+    <members>CAP_Form__c</members>
+    <members>CCAD_Config__mdt</members>
+    <members>cdm_Account_Relationship__c</members>
+    <members>CDM_Config__mdt</members>
+    <members>cdm_Default_Sales_Org__c</members>
+    <members>CDM_Log__c</members>
+    <members>CEC_Attendees__c</members>
+    <members>CEC__c</members>
+    <members>Certification__c</members>
+    <members>cfs_hw_product__c</members>
+    <members>Channel_Benefit_Action_Packs__c</members>
+    <members>Channel_Level_Revenue_Information__c</members>
+    <members>Channel_Price_Book__c</members>
+    <members>Channel_Price_Book_Turkey__c</members>
+    <members>cmc_sw_product__c</members>
+    <members>Co_Branded_Collateral__c</members>
+    <members>Co_Branding_Request__c</members>
+    <members>CommitmentRiskSection__mdt</members>
+    <members>Competitors__c</members>
+    <members>Contract_For_Service__c</members>
+    <members>ContractLineItem</members>
+    <members>Co_Op__c</members>
+    <members>Country_Code__mdt</members>
+    <members>CPQAdminSupportEmail__c</members>
+    <members>CPQAmendContractUrl__c</members>
+    <members>CPQ_Sales_Survey__c</members>
+    <members>CPQ_Trigger__mdt</members>
+    <members>Creation_Category__c</members>
+    <members>Credit_Detail_Break_Up__c</members>
+    <members>Credit_Detail__c</members>
+    <members>Custom_Clone_Opportunity__c</members>
+    -->
+<!--
+7th batch:
+<members>Daily_Non_ERP_Order__c</members>
+    <members>Daily_Order_Combined__c</members>
+    <members>Data_Clean_up_Utility_Logs__c</members>
+    <members>DeactivatedProductReport__c</members>
+    <members>Deal_Registration_Approval_User__c</members>
+    <members>Deal_Registration__c</members>
+    <members>Deming__c</members>
+    <members>Deming_Log__c</members>
+    <members>Demo_Opportunity__c</members>
+    <members>Demo_Program__c</members>
+    <members>DICustomerNumberSequence__c</members>
+    <members>DI_Demo_Request__c</members>
+    <members>DI_IdeaExchange_Bad_Words__c</members>
+    <members>DI_Idea_Exchange_Daily_Digest__c</members>
+    <members>Di_Idea_Favorites__c</members>
+    <members>Di_Idea_History__c</members>
+    <members>Di_Idea_Internal_Category_Map__c</members>
+    <members>Di_Idea_Internal_Comments__c</members>
+    <members>DI_IdeaSubscription__c</members>
+    <members>DisableCDMNSCSupportNotifications__c</members>
+    <members>DI_Sales_Operations_Team__c</members>
+    <members>Discontinued_Product__c</members>
+    <members>Dispute_Integration_Logs__c</members>
+    <members>Distribution_List_For_Zuora__c</members>
+    <members>EBDEDDSetting__c</members>
+    <members>EBT_Revenue_Summary__c</members>
+    <members>EDBI_Order__c</members>
+    <members>Eloqua_Form__c</members>
+    <members>EmialTemplateCadd__c</members>
+    <members>End_Customer_Account_Name__c</members>
+    <members>Engineers__c</members>
+    <members>Entitlement</members>
+    <members>EntitlementContact</members>
+    <members>Equipment__c</members>
+    <members>Equipment_Declaration__c</members>
+    <members>Equipment_List__c</members>
+    <members>ERP_Order_Line__c</members>
+    <members>ERP_Orders_Backlog__c</members>
+    <members>Error_Log__c</members>
+    <members>Error_Message__e</members>
+    <members>EULA_submission__c</members>
+    <members>Event</members>
+    <members>Exception_Account__c</members>
+    <members>ExchangeUserMapping</members>
+    <members>Executive_Briefing__c</members>
+    <members>Expansion_Request__c</members>
+    <members>ExpressionFilter</members>
+    <members>ExpressionFilterCriteria</members>
+    <members>ExternalEventMapping</members>
+    -->
+    <!--
+    8th batch:
+    <members>Favorite_Bundle__c</members>
+    <members>FeedItem</members>
+    <members>FieldHistory__c</members>
+    <members>File__c</members>
+    <members>FlowOrchestrationInstance</members>
+    <members>FlowOrchestrationWorkItem</members>
+    <members>GEMs_Incident__c</members>
+    <members>Hierarchy_Relation__c</members>
+    <members>Hospitality_Case_Time_Window__c</members>
+    <members>Hospitality_Support_Alerts__c</members>
+    <members>HOSP_SMB_QuickBase_Project_Overview__c</members>
+    <members>HSR_Case__e</members>
+    <members>HW_Quality__c</members>
+    <members>ICM_User__c</members>
+    <members>Idea</members>
+    <members>ID_Reference__c</members>
+    <members>Image</members>
+    <members>Incentive_All_Program_Config__c</members>
+    <members>Incentive_Program__c</members>
+    <members>Incentive_Program_Enrollment__c</members>
+    <members>Incentive_Program_Exception_Account__c</members>
+    <members>Incentive_WPL_mapping__c</members>
+    <members>Incident</members>
+    <members>IncidentRelatedItem</members>
+    <members>Incumbent__c</members>
+    <members>Institutions__c</members>
+    <members>Interface_Log__c</members>
+    <members>Invoice_Accuracy_Metric__c</members>
+    <members>Ips_Field_Country_Code__c</members>
+    <members>JetPay_Access__c</members>
+    <members>Jira_Incidents__c</members>
+    <members>Job_Role_Mapping__c</members>
+    <members>JP_EndPoint__c</members>
+    <members>JPLogs__c</members>
+    <members>Junction_Ticket_Contact__c</members>
+    <members>Junction_Ticket_Opportunity__c</members>
+    <members>KeysForSecuredUrls__c</members>
+    <members>Knowledge__kav</members>
+    <members>Last_SIEM_Logs_Sent__c</members>
+    <members>Lead</members>
+    <members>Lead_Groom_Source__c</members>
+    <members>Lead_Groom_Status__c</members>
+    <members>Lead_Groom_Sub_Industry__c</members>
+    <members>Lead_Groom_Title__c</members>
+    <members>Lead_Help_Access__c</members>
+    <members>LeadOwnerNotificationSwitch__c</members>
+    <members>Lead_progress_tracker__c</members>
+    <members>Lead_progress_tracker_dependencies__c</members>
+    <members>LeadRegionCountryMapping__c</members>
+    <members>Lead_Status_Stage_Mapping__c</members>
+    <members>Loca_Metric__c</members>
+    <members>Location</members>
+    <members>LocationTrustMeasure</members>
+    <members>Log_Opportunity_Linkage__c</members>
+    <members>Macro</members>
+    <members>MacroAction</members>
+    <members>MacroInstruction</members>
+    <members>MacroUsage</members>
+    <members>Majors_Product_Matrix__c</members>
+    <members>Marketing_Concierge__c</members>
+    <members>Marketing_Program__c</members>
+    <members>Market_Share_Captures__c</members>
+    <members>Master_Non_ERP__c</members>
+    <members>MDF_Expense_Detail__c</members>
+    <members>Message_Center__c</members>
+    <members>MLModelFactor</members>
+    <members>MLModelFactorComponent</members>
+    <members>MY_NCR_user_log__c</members>
+    <members>NCR_CPQBLG_Email__c</members>
+    <members>NCR_EmailMessage__c</members>
+    <members>NCR_Employee_Detail__c</members>
+    <members>NCR_Payments_Site__c</members>
+    <members>Non_ERP_Order__c</members>
+    <members>NSC_Support_Error_Notification__c</members>
+    <members>NSC_To_QuBy_Quote__c</members>
+    <members>User</members>
+    <members>User__c</members>
+    <members>User_Country_Mapping__c</members>
+    <members>UserExternalCredential</members>
+    <members>User_Favorite_Products__c</members>
+    <members>UserProvisioningRequest</members>
+
+    9th batch:
+    <members>OCR_Calender__c</members>
+    <members>OCR_Commit__c</members>
+    <members>Onboarding__c</members>
+    <members>Open_Help_Desk_Case__c</members>
+    <members>Open_Receivables__c</members>
+    <members>Open_SOM_Requests__c</members>
+    <members>Opportunity</members>
+    <members>OpportunityAndCECObject__c</members>
+    <members>OpportunityCompetitor</members>
+    <members>OpportunityContactRole</members>
+    <members>OpportunityLineItem</members>
+    <members>Opportunity_Status__c</members>
+    <members>Opportunity_Type__c</members>
+    <members>Order</members>
+    <members>OrderItem</members>
+    <members>OrgMetricScanResult</members>
+    <members>OrgMetricScanSummary</members>
+    <members>Other_Attachments__c</members>
+    <members>Partner_Dashboard_Configuration__c</members>
+    <members>Partner_Fund_ROI__c</members>
+    <members>PartnerMaturityLevelActions__c</members>
+    <members>Partner_NonROR__c</members>
+    <members>Partner_Opportunity__c</members>
+    <members>Partner_Quickview__c</members>
+    <members>Partner_Revenue__c</members>
+    <members>PartnerRole</members>
+    <members>Partner_Spotlight__c</members>
+    <members>Payment_Fees_Management__c</members>
+    <members>Performance_Scoreboard__c</members>
+    <members>PMDM_Active_Status__c</members>
+    <members>PMDM_Request_log__c</members>
+    <members>PMDMRevenueType__c</members>
+    <members>PMDM_UniqueKey_Pid_Mappings__c</members>
+    <members>PO_Matrix__c</members>
+    <members>Pramata_Contracts_EDW__c</members>
+    <members>PreApprovalDocCRUDvalidater__c</members>
+    <members>Presales_Engineer_Activity__c</members>
+    <members>Presales_Engineer__c</members>
+    <members>Presales_Funding_Request__c</members>
+    <members>Pricebook2</members>
+    <members>PricebookEntry</members>
+    <members>Pricing_Bid_Log__c</members>
+    <members>Pricing_Bid_Log_Detail_Version_History__c</members>
+    <members>PRM_Services__c</members>
+    <members>Problem</members>
+    <members>ProblemIncident</members>
+    <members>ProblemRelatedItem</members>
+    <members>Process_Details_Zuora__c</members>
+    <members>ProcessException</members>
+    <members>Prod_Reason_Required__c</members>
+    <members>Product2</members>
+    <members>Product_Bundle__c</members>
+    <members>Product_Bundle_Import__c</members>
+    <members>Product_Bundle_Rate_Plan__c</members>
+    <members>Product_Relationship__c</members>
+    <members>Product_Solution__c</members>
+    <members>profiletracker__c</members>
+    <members>Program__c</members>
+    <members>Project_Request__c</members>
+    <members>Projects_Late_Billing__c</members>
+    <members>PromptAction</members>
+    <members>PromptError</members>
+    <members>Provisioning__c</members>
+    <members>PSFR_Retail_Approval_Assignment__c</members>
+    <members>PS_Otif__c</members>
+    <members>qtc_CPQ_Custom_Pricing__c</members>
+    <members>qtc_Custom_Calculator__c</members>
+    <members>qtc_FO_Settings__c</members>
+    <members>qtc_FulfillmentOrder__c</members>
+    <members>qtc_FulfillmentOrderProduct__c</members>
+    <members>qtc_PaymentsApproval__c</members>
+    <members>QuBy_Detail__c</members>
+    <members>QuickText</members>
+    <members>QuickTextUsage</members>
+    <members>Quote</members>
+    <members>Quote_Details__c</members>
+    <members>QuoteLineItem</members>
+    <members>Ramp_Up_Task_Notification__c</members>
+    <members>Reason_Code__c</members>
+    <members>ReassignDataHistory__c</members>
+    <members>RecordMergeHistory</members>
+    <members>Related_NCR_Rep__c</members>
+    <members>Renewable_Products__c</members>
+    <members>ReportObj__c</members>
+    <members>Reseller__c</members>
+    <members>ResellerNotificationSwitchs__c</members>
+    <members>Resolution_Category__c</members>
+    <members>Resource__c</members>
+    <members>Retail_Customer_Churn_Model__c</members>
+    <members>RMA__c</members>
+    <members>RSIM_Active_Entitlement__c</members>
+    <members>Sales_Compensation_Notification__c</members>
+    <members>Sales_Org__c</members>
+    <members>Sales_org_Code_Mapping__c</members>
+    <members>Sales_Org_Temp__c</members>
+    <members>Sales_Survey_Contact__c</members>
+    <members>SBAA_Enablement_IDs__c</members>
+    <members>Schedule_External_Report__c</members>
+    <members>Scorecard</members>
+    <members>ScorecardAssociation</members>
+    <members>ScorecardMetric</members>
+    <members>Sell_Bill__c</members>
+    <members>ServiceContract</members>
+    <members>Services_Late_Billing__c</members>
+    <members>SetDisputeStatusCode__c</members>
+    <members>SFDC_MDF__c</members>
+    <members>SFDC_MDF_Claim__c</members>
+    <members>SharingRecordCollection</members>
+    <members>SharingRecordCollectionItem</members>
+    <members>SharingRecordCollectionMember</members>
+    <members>Shippable_HW_SW_OTIF__c</members>
+    <members>Site</members>
+    <members>SiteLink__c</members>
+    <members>Snapshot__c</members>
+    <members>SocialPersona</members>
+    <members>SocialPost</members>
+    <members>Solution</members>
+    <members>Solution_Provider__c</members>
+    <members>Solution_Provider_Contact__c</members>
+    <members>Solution_Provider_Product_Interface__c</members>
+    <members>Solution_Provider_Relationship__c</members>
+    <members>Solution_Set_HW_Role_Relation__c</members>
+    <members>Solutions_Late_Billing__c</members>
+    <members>SOUP_Endpoint__c</members>
+    <members>SR_Metric__c</members>
+    <members>StreamActivityAccess</members>
+    <members>StreamingChannel</members>
+    <members>Subscription_only_products__c</members>
+    <members>Subscriptions_Late_Billing__c</members>
+    <members>SuccessManagerGroupMaping__mdt</members>
+    <members>Support_Class_Failure_Reason_Relation__c</members>
+    <members>Support_Desk__c</members>
+    <members>Support_Queue_Config__c</members>
+    <members>SW_Quality_by_Release_and_Affect_Version__c</members>
+    <members>SyncOLI_Config__c</members>
+    <members>Tab_Access__c</members>
+    <members>Tableau__c</members>
+    <members>TableauPortalAdmin_config__c</members>
+    <members>Tableau_Portal_Feedback__c</members>
+    <members>Tableau_SalesOrg__c</members>
+    <members>TableauSubRoleIDs__c</members>
+    <members>TableauSubUser__c</members>
+    <members>TableauUser__c</members>
+    <members>TableauWorkbookURL__c</members>
+    <members>Technical_Review__c</members>
+    <members>Termination__c</members>
+    <members>Theater_Area_Mapping__c</members>
+    <members>TH_Recommendation__c</members>
+    <members>Ticket_Request__c</members>
+    <members>Ticket_Request_Event__c</members>
+    <members>Topic</members>
+    <members>TopicAssignment</members>
+    <members>ToplineCompetetors__c</members>
+    <members>Touchpoint_Surveys__c</members>
+    <members>TriggerDeactivation__c</members>
+    <members>TS_On_Time__c</members>
+    <members>UpDownGrade__c</members>
+    <members>Usage_Staging_Table__c</members>
+    <members>USM__c</members>
+    <members>USM_Log__c</members>
+    <members>USM_Opportunity_Detail__c</members>
+    <members>VideoCall</members>
+    <members>VideoCallParticipant</members>
+    <members>VideoCallRecording</members>
+    <members>VoiceCall</members>
+    <members>Warranty_Labor_Request__c</members>
+    <members>Weekly_Funnel_Summaries__c</members>
+    <members>WorkOrder</members>
+    <members>WorkOrderLineItem</members>
+    <members>WorkPlan</members>
+    <members>WorkPlanTemplate</members>
+    <members>WorkPlanTemplateEntry</members>
+    <members>WorkStep</members>
+    <members>WorkStepTemplate</members>
+    <members>ZuoraCustomizationPlugin__c</members>
+    <members>ZuoraOptions__c</members>
+
+    10th batch:
+    <members>Account_Heatmap_Yellow_Products__mdt</members>
+<members>Altify_Solution_Mapping__mdt</members>
+<members>Anaplan_Config__mdt</members>
+<members>AR_Detail_Setting__mdt</members>
+<members>BPM_Action_Owner__mdt</members>
+<members>BPM_Stop_Email_Alert__mdt</members>
+<members>CalculateCommitmentRistSwitch__mdt</members>
+<members>Case_Reopen_Window__mdt</members>
+<members>CCAD_Config__mdt</members>
+<members>CDM_Config__mdt</members>
+<members>CommitmentRiskSection__mdt</members>
+<members>Country_Code__mdt</members>
+<members>CPQ_Trigger__mdt</members>
+<members>Customer360RelatedConf__mdt</members>
+<members>Deal_Registration_Approval_Setting__mdt</members>
+<members>Deal_Registration_Detail__mdt</members>
+<members>DemingNotificationSwitch__mdt</members>
+<members>Dispute_Flwup_Answ_and_Detailed_Ques__mdt</members>
+<members>Dispute_Reason_and_Flwup_Question__mdt</members>
+<members>Distributors_and_Emails__mdt</members>
+<members>Do_Not_Reply_User_Id__mdt</members>
+<members>Get_help_Configuration__mdt</members>
+<members>Grant_Permission__mdt</members>
+<members>homepagelink__mdt</members>
+<members>Hospitality_Case_Assignment_Rule__mdt</members>
+<members>ID_Config__mdt</members>
+<members>Industry_Switch__mdt</members>
+<members>IndustryToSuccessManagerMapping__mdt</members>
+<members>JP_ProdCode_Price_map__mdt</members>
+<members>Lead_Help_Config__mdt</members>
+<members>Lead_Help_Industry_Config__mdt</members>
+<members>MCN_Switch__mdt</members>
+<members>NCR_Payments_Processing__mdt</members>
+<members>NCR_PriceBook__mdt</members>
+<members>OppId__mdt</members>
+<members>Original_Corporation_Mapping__mdt</members>
+<members>PRM_Triggers_Controller__mdt</members>
+<members>Product_POS_Field_Mapping__mdt</members>
+<members>ReasonCode__mdt</members>
+<members>ReasonCodeSwitch__mdt</members>
+<members>Related_Campaign_Code__mdt</members>
+<members>Request_Payments_Review_Queue__mdt</members>
+<members>SOUP_Credential__mdt</members>
+<members>Soup_Username__mdt</members>
+<members>SuccessManagerGroupMaping__mdt</members>
+<members>TechnologyFields__mdt</members>
+<members>VocFunctiona__mdt</members>
+<members>VocLineOfBusiness__mdt</members>
+<members>VocRecordTypeChild__mdt</members>
+-->
+    <!--
+    <members>DuplicateRecordSet</members>
+    <members>current_year_order_summary_vw__x</members>
+    <members>current_year_order_summary__x</members>
+    <members>current_year_revenue_summary__x</members>
+    <members>current_year_rev_summary_vw__x</members>
+    <members>Do_Not_Reply_User_Id__mdt</members>
+    <members>Deal_Registration_Approval_Setting__mdt</members>
+    <members>Deal_Registration_Detail__mdt</members>
+    <members>DemingNotificationSwitch__mdt</members>
+    <members>Dispute_Flwup_Answ_and_Detailed_Ques__mdt</members>
+    <members>Dispute_Reason_and_Flwup_Question__mdt</members>
+    <members>Distributors_and_Emails__mdt</members>
+    <members>EntityMilestone</members>
+    <members>NCR_Payments_Processing__mdt</members>
+    <members>MCN_Switch__mdt</members>
+    <members>Lead_Help_Config__mdt</members>
+    <members>Lead_Help_Industry_Config__mdt</members>
+    <members>IndustryToSuccessManagerMapping__mdt</members>
+    <members>Get_help_Configuration__mdt</members>
+    <members>Grant_Permission__mdt</members>
+    <members>homepagelink__mdt</members>
+    <members>Hospitality_Case_Assignment_Rule__mdt</members>
+    <members>ID_Config__mdt</members>
+    <members>Industry_Switch__mdt</members>
+    <members>inv_shipment_summary_vw__x</members>
+    <members>JP_ProdCode_Price_map__mdt</members>
+    <members>NCR_PriceBook__mdt</members>
+    <members>MLModel</members>
+    <members>open_invoice_summary_vw__x</members>
+    <members>open_invoice_summary__x</members>
+    <members>open_order_summary_vw__x</members>
+    <members>open_order_summary__x</members>
+    <members>OppId__mdt</members>
+    <members>order_shipment_summary_vw__x</members>
+    <members>order_shipment_summary__x</members>
+    <members>Original_Corporation_Mapping__mdt</members>
+    <members>PRM_Triggers_Controller__mdt</members>
+    <members>Product_POS_Field_Mapping__mdt</members>
+    <members>qtcContractOrder__e</members>
+    <members>qtcOrderActivation__e</members>
+    <members>Quote_Ordered__e</members>
+    <members>ReasonCode__mdt</members>
+    <members>ReasonCodeSwitch__mdt</members>
+    <members>Related_Campaign_Code__mdt</members>
+    <members>Request_Payments_Review_Queue__mdt</members>
+    <members>SOUP_Credential__mdt</members>
+    <members>Soup_Username__mdt</members>
+    <members>TechnologyFields__mdt</members>
+    <members>VocFunctiona__mdt</members>
+    <members>VocLineOfBusiness__mdt</members>
+    <members>VocRecordTypeChild__mdt</members>
+    <members>ProductConsumptionSchedule</members>
+    <members>RecordAction</members>
+    <members>Recommendation</members>
+    -->
+    <!--
+    <members>Account</members>
+    <members>AccountContactRelation</members>
+    <members>AccountContactRole</members>
+    <members>Account_Entitlements__c</members>
+    <members>Account_Exception__c</members>
+    <members>Account_Heatmap_Yellow_Products__mdt</members>
+    <members>AccountTeamMember</members>
+    <members>Activity</members>
+    <members>All_profie_config__c</members>
+    <members>All_profie_list_config__c</members>
+    <members>Altify_Solution_Mapping__mdt</members>
+    <members>Analysis_Acc_Master__c</members>
+    <members>Anaplan_Config__mdt</members>
+    <members>Anaplan_Process__c</members>
+    <members>Anaplan_ProductCategory_FamilyMapping__c</members>
+    <members>APL_Account_Open_Dispatches__c</members>
+    <members>APL_Account_Revenue__c</members>
+    <members>APL_Revenue_Category_Mapping__c</members>
+    <members>APOC_Utilization__c</members>
+    <members>Application__c</members>
+    <members>AQS_CPQ_Flow__c</members>
+    <members>ARCSEMailList__c</members>
+    <members>AR_Detail_Setting__mdt</members>
+    <members>ASM_Role_Hierarchy__c</members>
+    <members>Asset</members>
+    <members>AssetAction</members>
+    <members>AssetActionSource</members>
+    <members>AssetRelationship</members>
+    <members>AssetStatePeriod</members>
+    <members>AssistantProgress</members>
+    <members>AssociatedLocation</members>
+    <members>AssociateResourceandRequest__c</members>
+    <members>Attachment__c</members>
+    <members>Automation_Setting__c</members>
+    <members>Engineers__c</members>
+    <members>Equipment__c</members>
+    <members>Exception_Account__c</members>
+    <members>NCR_Employee_Detail__c</members>
+    <members>Presales_Funding_Request__c</members>
+    <members>Subscription_Tracking__c</members>
+    -->
+<members>All_profie_config__c</members>
+<members>All_profie_list_config__c</members>
+<members>Anaplan_ProductCategory_FamilyMapping__c</members>
+<members>AQS_CPQ_Flow__c</members>
+<members>ARCSEMailList__c</members>
+<members>Automation_Setting__c</members>
+<members>BPM_Configuration__c</members>
+<members>BPM_User_Provisioning__c</members>
+<members>CADDDoNotReply__c</members>
+<members>CAM_and_TAM_Profile_Name__c</members>
+<members>CPQAdminSupportEmail__c</members>
+<members>CPQAmendContractUrl__c</members>
+<members>Custom_Clone_Opportunity__c</members>
+<members>DeactivatedProductReport__c</members>
+<members>Deal_Registration_Approval_User__c</members>
+<members>DI_Sales_Operations_Team__c</members>
+<members>DICustomerNumberSequence__c</members>
+<members>DisableCDMNSCSupportNotifications__c</members>
+<members>Distribution_List_For_Zuora__c</members>
+<members>EBDEDDSetting__c</members>
+<members>EmailTemplatePrepondedPD__c</members>
+<members>EmialTemplateCadd__c</members>
+<members>Hospitality_Case_Time_Window__c</members>
+<members>Incentive_All_Program_Config__c</members>
+<members>Incentive_WPL_mapping__c</members>
+<members>JetPay_Access__c</members>
+<members>JP_EndPoint__c</members>
+<members>KeysForSecuredUrls__c</members>
+<members>Last_SIEM_Logs_Sent__c</members>
+<members>Lead_Groom_Source__c</members>
+<members>Lead_Groom_Status__c</members>
+<members>Lead_Groom_Sub_Industry__c</members>
+<members>Lead_Groom_Title__c</members>
+<members>Lead_progress_tracker__c</members>
+<members>Lead_progress_tracker_dependencies__c</members>
+<members>Lead_Status_Stage_Mapping__c</members>
+<members>LeadOwnerNotificationSwitch__c</members>
+<members>LeadRegionCountryMapping__c</members>
+<members>NCR_CPQBLG_Email__c</members>
+<members>NSC_Support_Error_Notification__c</members>
+<members>Partner_Dashboard_Configuration__c</members>
+<members>PartnerMaturityLevelActions__c</members>
+<members>PMDM_Active_Status__c</members>
+<members>PMDMRevenueType__c</members>
+<members>PreApprovalDocCRUDvalidater__c</members>
+<members>Prod_Reason_Required__c</members>
+<members>PSFR_Retail_Approval_Assignment__c</members>
+<members>qtc_FO_Settings__c</members>
+<members>Renewable_Products__c</members>
+<members>ResellerNotificationSwitchs__c</members>
+<members>SBAA_Enablement_IDs__c</members>
+<members>SetDisputeStatusCode__c</members>
+<members>SiteLink__c</members>
+<members>SOUP_Endpoint__c</members>
+<members>Subscription_only_products__c</members>
+<members>SyncOLI_Config__c</members>
+<members>TableauWorkbookURL__c</members>
+<members>ToplineCompetetors__c</members>
+<members>TriggerDeactivation__c</members>
+<members>UpDownGrade__c</members>
+<members>User__c</members>
+<members>USM__c</members>
+<members>ZuoraCustomizationPlugin__c</members>
+<members>ZuoraOptions__c</members>
+<name>CustomObject</name>
+  </types>
+    <version>56.0</version>
+</Package>
+<!-- Standard Objects
+    <members>AccountBrand</members>
+    <members>AgentWork</members>
+    <members>AgentWorkSkill</members>
+    <members>AuthorizationForm</members>
+    <members>AuthorizationFormConsent</members>
+    <members>AuthorizationFormDataUse</members>
+    <members>AuthorizationFormText</members>
+    <members>AccountRelationship</members>
+-->

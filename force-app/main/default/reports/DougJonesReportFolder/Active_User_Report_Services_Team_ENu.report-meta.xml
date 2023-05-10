@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>User$Name</field>
+    </columns>
+    <columns>
+        <field>User$Title</field>
+    </columns>
+    <columns>
+        <field>User*User$Manager_Level_01__c</field>
+    </columns>
+    <columns>
+        <field>User*User$Manager_Level_02__c</field>
+    </columns>
+    <columns>
+        <field>User*User$Region_VP__c</field>
+    </columns>
+    <columns>
+        <field>User$UserRole</field>
+    </columns>
+    <columns>
+        <field>User$Profile</field>
+    </columns>
+    <columns>
+        <field>User*User$Job_Category__c</field>
+    </columns>
+    <columns>
+        <field>User*User$Region_OCR_Team__c</field>
+    </columns>
+    <columns>
+        <field>User$Department</field>
+    </columns>
+    <columns>
+        <field>User*User$License_Entitlement__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Active user report where Mgr Lvl 1_2_3 report to Bob Tramontano</description>
+    <filter>
+        <booleanFilter>1 AND (2 OR 3 OR 4)</booleanFilter>
+        <criteriaItems>
+            <column>User$IsActive</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User*User$Manager_Level_01__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Bob Tramontano</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User*User$Manager_Level_02__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Bob Tramontano</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User*User$Manager_Level_03__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Bob Tramontano</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Active User Report: Services Team</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>User_Custom__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>User$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CATM_Before_Closed_Won_Pending_Address</fullName>
+    <active>true</active>
+    <description>CATM-Before setting stage to Closing address is required (street, city, state, zip) for Reporting Geography = Australia, Canada, Mexico, US</description>
+    <errorConditionFormula>AND (
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+CATM_Record__c,
+IsPickVal( StageName , &quot;Closing&quot;),
+
+   OR(
+      IsPickVal(  Reporting_Geography__c , &quot;Australia&quot;),
+      IsPickVal( Reporting_Geography__c , &quot;Canada&quot;),
+      IsPickVal( Reporting_Geography__c , &quot;Mexico&quot;),
+      IsPickVal( Reporting_Geography__c , &quot;US&quot;)),
+
+
+Isblank( Account.BillingStreet),
+Isblank( Account.BillingCity),
+Isblank( Account.BillingState),
+Isblank( Account.BillingPostalCode)
+
+)</errorConditionFormula>
+    <errorMessage>Account should have Address before Opp is Closing.</errorMessage>
+</ValidationRule>

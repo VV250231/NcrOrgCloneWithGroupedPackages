@@ -1,0 +1,611 @@
+<aura:component controller="AccountController" implements="flexipage:availableForAllPageTypes,force:hasRecordId">
+    
+    <aura:attribute name="AccountId" type="Id"  default="{!v.recordId}"/>
+    <aura:attribute name="account" type="Account"/>
+    <aura:attribute name="ProfileName" type="String"></aura:attribute> 
+    <aura:attribute name="RevenueWindowEditAccess" type="String"></aura:attribute> 
+ 	<aura:attribute name="myMapAccountLabel" type="Map" />
+    <div class="slds-spinner_container" id="spinnerdiv" style="display:None">
+        <div class="slds-spinner_brand slds-spinner slds-spinner_large" aria-hidden="false" role="alert">
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div> 
+        </div> 
+    </div>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>   
+    <aura:renderIf isTrue="{!v.ProfileName == 'AccessforFiftyFourProfile'}"> 
+        
+        <Div  >
+            <div class="slds-box slds-theme_error">
+                <p>   	
+                    <strong> <c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#warning" category="standard" size="small" name="warning" /> &nbsp; &nbsp;Insufficient Access</strong> Please contact to your account manager. </p>
+            </div>
+            
+        </Div>   
+        
+        <aura:set attribute="else">
+            <div class="slds-panel__section">
+                
+                <fieldset class="slds-form_compound">
+                    <legend class="slds-form-element__label"><b>Account 360</b></legend>
+                    <div class="form-element__group">   
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size_1-of-2">
+                                <label class="slds-form-element__label" for="input-01">{!v.myMapAccountLabel.a360_values_as_of_date__c}</label>
+                                <ui:outputText value="{!v.account.A360_Values_As_Of_Date__c}" />
+                            </div> 
+                            <div class="slds-form-element slds-size-1-of-2">
+                                <label class="slds-form-element__label" for="input-02">{!v.myMapAccountLabel.a360_current_file_value__c}</label>
+                                <ui:outputCurrency value="{!v.account.A360_Current_File_Value__c}" />
+                            </div>
+                        </div>
+                    </div> 
+                </fieldset> 
+                
+                <fieldset class="slds-form_compound">
+                    <legend class="slds-form-element__label"></legend>
+                    <div class="form-element__group">   
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size_1-of-2">
+                                <label class="slds-form-element__label" for="input-01">{!v.myMapAccountLabel.a360_solution_revenue_ytd__c}</label>
+                                <ui:outputCurrency value="{!v.account.A360_Solution_Revenue_YTD__c}" />
+                            </div>
+                            <div class="slds-form-element slds-size_1-of-2">
+                                <label class="slds-form-element__label" for="input-02">{!v.myMapAccountLabel.a360_cms_revenue_ytd__c}</label>
+                                <ui:outputCurrency value="{!v.account.A360_CMS_Revenue_YTD__c}" />
+                            </div>
+                        </div>
+                    </div> 
+                </fieldset> 
+                
+                <fieldset class="slds-form_compound"> 
+                    <legend class="slds-form-element__label"></legend>    
+                    <div class="form-element__group">   
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size_1-of-2">
+                                <label class="slds-form-element__label" for="input-01">{!v.myMapAccountLabel.a360_file_value_ytd_1__c}</label>
+                                <ui:outputCurrency value="{!v.account.A360_File_Value_YTD_1__c}" />
+                            </div>
+                            <div class="slds-form-element slds-size_1-of-2">
+                                <label class="slds-form-element__label" for="input-02">{!v.myMapAccountLabel.a360_solution_revenue_ytd_1__c}</label>
+                                <ui:outputCurrency value="{!v.account.A360_Solution_Revenue_YTD_1__c}" />
+                            </div>
+                        </div>
+                    </div> 
+                </fieldset>
+                
+                <fieldset class="slds-form_compound"> 
+                    <legend class="slds-form-element__label"></legend>  
+                    <div class="form-element__group">   
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size_1-of-2">
+                                <label class="slds-form-element__label" for="input-01">{!v.myMapAccountLabel.a360_cms_revenue_ytd_1__c}</label>
+                                <ui:outputCurrency value="{!v.account.A360_CMS_Revenue_YTD_1__c}" />
+                            </div>
+                            <div class="slds-form-element slds-size_1-of-2">
+                                <label class="slds-form-element__label" for="input-02">{!v.myMapAccountLabel.a360_solution_orders_ytd_1__c}</label>
+                                <ui:outputCurrency value="{!v.account.A360_Solution_Orders_YTD_1__c}" />
+                            </div>
+                        </div>
+                    </div> 
+                </fieldset>
+                
+                <fieldset class="slds-form_compound">
+                    <legend class="slds-form-element__label"></legend>
+                    <div class="form-element__group">   
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size_1-of-2">
+                                <label class="slds-form-element__label" for="input-01">{!v.myMapAccountLabel.a360_annuity_revenue_ytd_1__c}</label>
+                                <ui:outputCurrency value="{!v.account.A360_Annuity_Revenue_YTD_1__c}" />
+                            </div>
+                            <div class="slds-form-element slds-size_1-of-2">
+                                <label class="slds-form-element__label" for="input-02">{!v.myMapAccountLabel.a360_file_value_ytd_2__c}</label>
+                                <ui:outputCurrency value="{!v.account.A360_File_Value_YTD_2__c}" />
+                            </div>
+                        </div>
+                    </div> 
+                </fieldset>
+                
+                <fieldset class="slds-form_compound">
+                    <legend class="slds-form-element__label"></legend>
+                    <div class="form-element__group">   
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size_1-of-2">
+                                <label class="slds-form-element__label" for="input-01">{!v.myMapAccountLabel.a360_solution_revenue_ytd_2__c}</label>
+                                <ui:outputCurrency value="{!v.account.A360_Solution_Revenue_YTD_2__c}" />
+                            </div>
+                            <div class="slds-form-element slds-size_1-of-2">
+                                <label class="slds-form-element__label" for="input-02">{!v.myMapAccountLabel.a360_cms_revenue_ytd_2__c}</label>
+                                <ui:outputCurrency value="{!v.account.A360_CMS_Revenue_YTD_2__c}" />
+                            </div>
+                        </div>  
+                    </div> 
+                </fieldset>
+                
+                <fieldset class="slds-form_compound">
+                    <legend class="slds-form-element__label"></legend>
+                    <div class="form-element__group">   
+                        <div class="slds-form-element__row"> 
+                            <div class="slds-form-element slds-size_1-of-2">
+                                <label class="slds-form-element__label" for="input-01">{!v.myMapAccountLabel.a360_solution_orders_ytd_2__c}</label>
+                                <ui:outputCurrency value="{!v.account.A360_Solution_Orders_YTD_2__c}" />
+                            </div>
+                            <div class="slds-form-element slds-size_1-of-2">
+                                <label class="slds-form-element__label" for="input-02">{!v.myMapAccountLabel.a360_annuity_revenue_ytd_2__c}</label>
+                                <ui:outputCurrency value="{!v.account.A360_Annuity_Revenue_YTD_2__c}" />
+                            </div>
+                        </div>  
+                    </div> 
+                </fieldset>
+                
+                <fieldset class="slds-form_compound">
+                    <legend class="slds-form-element__label"></legend>
+                    <div class="form-element__group">   
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size_1-of-2">
+                                <label class="slds-form-element__label" for="input-01">{!v.myMapAccountLabel.a360_file_value_ytd_3__c}</label>
+                                <ui:outputCurrency value="{!v.account.A360_File_Value_YTD_3__c}" />
+                            </div>
+                            <div class="slds-form-element slds-size_1-of-2">
+                                <label class="slds-form-element__label" for="input-02">{!v.myMapAccountLabel.a360_solution_revenue_ytd_3__c}</label>
+                                <ui:outputCurrency value="{!v.account.A360_Solution_Revenue_YTD_3__c}" />
+                            </div>
+                        </div>  
+                    </div> 
+                </fieldset>
+                
+                <fieldset class="slds-form_compound">
+                    <legend class="slds-form-element__label"></legend>
+                    <div class="form-element__group">   
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size_1-of-2">
+                                <label class="slds-form-element__label" for="input-01">{!v.myMapAccountLabel.a360_cms_revenue_ytd_3__c}</label>
+                                <ui:outputCurrency value="{!v.account.A360_CMS_Revenue_YTD_3__c}" />
+                            </div>
+                            <div class="slds-form-element slds-size_1-of-2">
+                                <label class="slds-form-element__label" for="input-02">{!v.myMapAccountLabel.a360_solution_orders_ytd_3__c}</label>
+                                <ui:outputCurrency value="{!v.account.A360_Solution_Orders_YTD_3__c}" />
+                            </div>
+                        </div>  
+                    </div> 
+                </fieldset>
+                
+                <fieldset class="slds-form_compound">
+                    <legend class="slds-form-element__label"></legend>
+                    <div class="form-element__group">   
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size_1-of-2">
+                                <label class="slds-form-element__label" for="input-01">{!v.myMapAccountLabel.a360_annuity_revenue_ytd_3__c}</label>
+                                <ui:outputCurrency value="{!v.account.A360_Annuity_Revenue_YTD_3__c}" />
+                            </div>
+                            <div class="slds-form-element slds-size_1-of-2">
+                                <label class="slds-form-element__label" for="input-02">{!v.myMapAccountLabel.credit_values_as_of__c}</label>
+                                <ui:outputtext value="{!v.account.Credit_Values_As_Of__c}" />
+                            </div>
+                        </div>  
+                    </div> 
+                </fieldset>
+                
+                <fieldset class="slds-form_compound">
+                    <legend class="slds-form-element__label"></legend>
+                    <div class="form-element__group">   
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size_1-of-2">
+                                <label class="slds-form-element__label" for="input-01">{!v.myMapAccountLabel.credit_limit__c}</label>
+                                <ui:outputCurrency value="{!v.account.Credit_Limit__c}" />
+                            </div>
+                            <div class="slds-form-element slds-size_1-of-2">
+                                <label class="slds-form-element__label" for="input-02">{!v.myMapAccountLabel.available_credit__c}</label>
+                                <ui:outputCurrency value="{!v.account.Available_Credit__c}" />
+                            </div>
+                        </div>  
+                    </div> 
+                </fieldset>
+                
+                <fieldset class="slds-form_compound">
+                    <legend class="slds-form-element__label"></legend>
+                    <div class="form-element__group">   
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size_1-of-2">
+                                <label class="slds-form-element__label" for="input-01">{!v.myMapAccountLabel.open_opportunity_value__c}</label>
+                                <ui:outputCurrency value="{!v.account.Open_Opportunity_Value__c}" />
+                            </div>
+                            <div class="slds-form-element slds-size_1-of-2">
+                                <label class="slds-form-element__label" for="input-02">{!v.myMapAccountLabel.x2012_booked_orders_value__c}</label>
+                                <ui:outputCurrency value="{!v.account.X2012_Booked_Orders_Value__c}" />
+                            </div>
+                        </div>  
+                    </div> 
+                </fieldset>
+                
+                <fieldset class="slds-form_compound">
+                    <legend class="slds-form-element__label"></legend> 
+                    <div class="form-element__group">   
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size_1-of-2">
+                                <label class="slds-form-element__label" for="input-01">{!v.myMapAccountLabel.x2011_booked_orders_value__c}</label>
+                                <ui:outputCurrency value="{!v.account.X2011_Booked_Orders_Value__c}" />
+                            </div>
+                            <div class="slds-form-element slds-size_1-of-2">
+                                <label class="slds-form-element__label" for="input-02">{!v.myMapAccountLabel.x2010_booked_orders_value__c}</label>
+                                <ui:outputCurrency value="{!v.account.X2010_Booked_Orders_Value__c}" />  
+                            </div> 
+                        </div>  
+                    </div> 
+                </fieldset>  
+                
+            </div>  	   <div id="EditButtonidentifier1">	
+            <aura:renderIf isTrue="{!v.ProfileName == 'ButtonAccess'}">
+                <div class="slds-col slds-no-flex slds-align-bottom" >
+                    <center>
+                        <div class="slds-button-group btnstl">
+                            <ui:button class="slds-button slds-button_neutral slds-button_brand" press="{!c.showEditAccountModal}">Edit Account</ui:button>
+                        </div>
+                    </center>     
+                </div>
+                <aura:set attribute="else">
+                    
+                </aura:set>
+            </aura:renderIf>
+            </div>	
+        </aura:set>    
+    </aura:renderIf> 
+    <!--This a a model window for update account-->    
+    <aura:renderIf isTrue="{!v.RevenueWindowEditAccess == 'WindowRevenueAccess'}">
+        <div class="slds-modal slds-fade-in-open" aria-hidden="false" role="dialog" id="backGroundSectionId" style="margin-top:5%">
+            
+            <div class="slds-modal__container"> 
+                <div class="slds-modal__header">
+                    <b>Edit Account 360</b>
+                </div>
+                
+                <div class="slds-modal__content slds-p-around_large">
+                    
+                    <div> 
+                        <fieldset class="slds-form_compound">
+                            <legend class="slds-form-element__label"><b>Account 360</b></legend>
+                            <div class="form-element__group">   
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size_1-of-2">
+                                        <label class="slds-form-element__label" for="input-01">{!v.myMapAccountLabel.a360_values_as_of_date__c}</label>
+                                        <ui:inputText value="{!v.account.A360_Values_As_Of_Date__c}"/> 
+                                    </div>
+                                    <div class="slds-form-element slds-size_1-of-2">
+                                        <label class="slds-form-element__label" for="input-02">{!v.myMapAccountLabel.a360_current_file_value__c}</label>
+                                        <ui:inputCurrency value="{!v.account.A360_Current_File_Value__c}" required="true"/>
+                                    </div>
+                                </div>
+                            </div> 
+                        </fieldset> 
+                        
+                        
+                        <fieldset class="slds-form_compound">
+                            <legend class="slds-form-element__label"></legend>
+                            <div class="form-element__group">   
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size_1-of-2">
+                                        <label class="slds-form-element__label" for="input-01">{!v.myMapAccountLabel.a360_solution_revenue_ytd__c}</label>
+                                        <ui:inputCurrency label="" value="{!v.account.A360_Solution_Revenue_YTD__c}" required="true"/> 
+                                    </div>
+                                    <div class="slds-form-element slds-size_1-of-2">
+                                        <label class="slds-form-element__label" for="input-02">{!v.myMapAccountLabel.a360_cms_revenue_ytd__c}</label>
+                                        <ui:inputCurrency value="{!v.account.A360_CMS_Revenue_YTD__c}" required="true"/>
+                                    </div>
+                                </div>
+                            </div> 
+                        </fieldset> 
+                        
+                        <fieldset class="slds-form_compound">
+                            <legend class="slds-form-element__label"></legend>
+                            <div class="form-element__group">   
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size_1-of-2">
+                                        <label class="slds-form-element__label" for="input-01">{!v.myMapAccountLabel.a360_file_value_ytd_1__c}</label>
+                                        <ui:inputCurrency value="{!v.account.A360_File_Value_YTD_1__c}" required="true"/>
+                                    </div>
+                                    <div class="slds-form-element slds-size_1-of-2">
+                                        <label class="slds-form-element__label" for="input-02">{!v.myMapAccountLabel.a360_solution_revenue_ytd_1__c}</label>
+                                        <ui:inputCurrency value="{!v.account.A360_Solution_Revenue_YTD_1__c}" required="true"/>
+                                    </div>
+                                </div>
+                            </div> 
+                        </fieldset> 
+                        
+                        <fieldset class="slds-form_compound">
+                            <legend class="slds-form-element__label"></legend>
+                            <div class="form-element__group">   
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size_1-of-2">
+                                        <label class="slds-form-element__label" for="input-01">{!v.myMapAccountLabel.a360_cms_revenue_ytd_1__c}</label>
+                                        <ui:inputCurrency value="{!v.account.A360_CMS_Revenue_YTD_1__c}" required="true"/>
+                                    </div>
+                                    <div class="slds-form-element slds-size_1-of-2">
+                                        <label class="slds-form-element__label" for="input-02">{!v.myMapAccountLabel.a360_solution_orders_ytd_1__c}</label>
+                                        <ui:inputCurrency value="{!v.account.A360_Solution_Orders_YTD_1__c}" required="true"/>
+                                    </div>
+                                </div>
+                            </div> 
+                        </fieldset>
+                        
+                        <fieldset class="slds-form_compound">
+                            <legend class="slds-form-element__label"></legend>
+                            <div class="form-element__group">   
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size_1-of-2">
+                                        <label class="slds-form-element__label" for="input-01">{!v.myMapAccountLabel.a360_annuity_revenue_ytd_1__c}</label>
+                                        <ui:inputCurrency value="{!v.account.A360_Annuity_Revenue_YTD_1__c}" required="true"/>
+                                    </div>
+                                    <div class="slds-form-element slds-size_1-of-2">
+                                        <label class="slds-form-element__label" for="input-02">{!v.myMapAccountLabel.a360_file_value_ytd_2__c}</label>
+                                        <ui:inputCurrency value="{!v.account.A360_File_Value_YTD_2__c}" required="true"/>
+                                    </div>
+                                </div>
+                            </div> 
+                        </fieldset>
+                        
+                        <fieldset class="slds-form_compound">
+                            <legend class="slds-form-element__label"></legend>
+                            <div class="form-element__group">   
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size_1-of-2">
+                                        <label class="slds-form-element__label" for="input-01">{!v.myMapAccountLabel.a360_solution_revenue_ytd_2__c}</label>
+                                        <ui:inputCurrency value="{!v.account.A360_Solution_Revenue_YTD_2__c}" required="true"/>
+                                    </div>
+                                    <div class="slds-form-element slds-size_1-of-2">
+                                        <label class="slds-form-element__label" for="input-02">{!v.myMapAccountLabel.a360_cms_revenue_ytd_2__c}</label>
+                                        <ui:inputCurrency value="{!v.account.A360_CMS_Revenue_YTD_2__c}" required="true"/>
+                                    </div>
+                                </div>
+                            </div> 
+                        </fieldset>
+                        
+                        <fieldset class="slds-form_compound">
+                            <legend class="slds-form-element__label"></legend>
+                            <div class="form-element__group">   
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size_1-of-2">
+                                        <label class="slds-form-element__label" for="input-01">{!v.myMapAccountLabel.a360_solution_orders_ytd_2__c}</label>
+                                        <ui:inputCurrency value="{!v.account.A360_Solution_Orders_YTD_2__c}" required="true"/>
+                                    </div>
+                                    <div class="slds-form-element slds-size_1-of-2">
+                                        <label class="slds-form-element__label" for="input-02">{!v.myMapAccountLabel.a360_annuity_revenue_ytd_2__c}</label>
+                                        <ui:inputCurrency value="{!v.account.A360_Annuity_Revenue_YTD_2__c}" required="true"/>
+                                    </div>
+                                </div>
+                            </div> 
+                        </fieldset>
+                        
+                        <fieldset class="slds-form_compound">
+                            <legend class="slds-form-element__label"></legend>
+                            <div class="form-element__group">   
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size_1-of-2">
+                                        <label class="slds-form-element__label" for="input-01">{!v.myMapAccountLabel.a360_file_value_ytd_3__c}</label>
+                                        <ui:inputCurrency value="{!v.account.A360_File_Value_YTD_3__c}" required="true"/>
+                                    </div>
+                                    <div class="slds-form-element slds-size_1-of-2">
+                                        <label class="slds-form-element__label" for="input-02">{!v.myMapAccountLabel.a360_solution_revenue_ytd_3__c}</label>
+                                        <ui:inputCurrency value="{!v.account.A360_Solution_Revenue_YTD_3__c}" required="true"/>
+                                    </div>
+                                </div>
+                            </div> 
+                        </fieldset>
+                        
+                        <fieldset class="slds-form_compound">
+                            <legend class="slds-form-element__label"></legend>
+                            <div class="form-element__group">   
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size_1-of-2">
+                                        <label class="slds-form-element__label" for="input-01">{!v.myMapAccountLabel.a360_cms_revenue_ytd_3__c}</label>
+                                        <ui:inputCurrency value="{!v.account.A360_CMS_Revenue_YTD_3__c}" required="true"/>
+                                    </div>
+                                    <div class="slds-form-element slds-size_1-of-2">
+                                        <label class="slds-form-element__label" for="input-02">{!v.myMapAccountLabel.a360_solution_orders_ytd_3__c}</label>
+                                        <ui:inputCurrency value="{!v.account.A360_Solution_Orders_YTD_3__c}" required="true"/>
+                                    </div>
+                                </div>
+                            </div> 
+                        </fieldset>
+                        
+                        <fieldset class="slds-form_compound">
+                            <legend class="slds-form-element__label"></legend>
+                            <div class="form-element__group">   
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size_1-of-2">
+                                        <label class="slds-form-element__label" for="input-01">{!v.myMapAccountLabel.a360_annuity_revenue_ytd_3__c}</label>
+                                        <ui:inputCurrency value="{!v.account.A360_Annuity_Revenue_YTD_3__c}" required="true"/>
+                                    </div>
+                                    <div class="slds-form-element slds-size_1-of-2">
+                                        <label class="slds-form-element__label" for="input-02">{!v.myMapAccountLabel.credit_values_as_of__c}</label>
+                                        <ui:inputtext value="{!v.account.Credit_Values_As_Of__c}" required="true"/>
+                                    </div>
+                                </div>
+                            </div> 
+                        </fieldset>
+                        
+                        <fieldset class="slds-form_compound">
+                            <legend class="slds-form-element__label"></legend>
+                            <div class="form-element__group">   
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size_1-of-2">
+                                        <label class="slds-form-element__label" for="input-01">Credit Limit</label>
+                                        <ui:inputCurrency value="{!v.account.Credit_Limit__c}" required="true"/>
+                                    </div>
+                                    <div class="slds-form-element slds-size_1-of-2">
+                                        <label class="slds-form-element__label" for="input-02">Available Credit</label>
+                                        <ui:inputCurrency value="{!v.account.Available_Credit__c}" required="true"/>
+                                    </div>
+                                </div>
+                            </div> 
+                        </fieldset>   
+                        
+                    </div>  
+                </div> 
+                <div class="slds-modal__footer slds-modal__footer_directional">  
+                    <ui:button class="slds-button slds-button_neutral" press="{!c.showModal}" >Cancel</ui:button>
+                    <ui:button class="slds-button slds-button_neutral slds-button_brand" label="Save" press="{!c.updateAccount}"></ui:button>
+                </div>
+            </div>    
+            
+        </div>  
+    </aura:renderIf>
+    <aura:renderIf isTrue="{!v.RevenueWindowEditAccess == 'WindowRevenueAccess'}">
+        <div class="slds-backdrop slds-backdrop_open" id="newAccountSectionId"></div> 
+    </aura:renderIf>  
+    <!--Notification  for Insufficent Access -->
+    
+    <!--This is the section to show the toplines in Account-->
+    
+    <aura:attribute name="myrecords" type="String[]"/> 
+    <aura:attribute name="myrecords1" type="String[]"/> 
+    <aura:attribute name="myrecords2" type="String[]"/>    
+    <aura:attribute name="oppprodrecords" type="AggregateResult[]"/>
+    <aura:attribute name="oppprodclosedrecords" type="AggregateResult[]"/>
+    <aura:attribute name="actteammem" type="String"/> 
+    <aura:handler name="componentEventFired1" event="c:ToplinesEvent" action="{!c.handleComponentEventFired}"/>
+    <aura:handler name="componentEventFired2" event="c:ToplinesEventNotSold" action="{!c.handleComponentEventFired1}"/>    
+    <h3 class="slds-page-header"><b>Accounts Toplines</b><br></br>
+        <br></br> 
+        <fieldset class="slds-form_compound">
+            
+            <div class="form-element__group">   
+                <div class="slds-form-element__row" >
+                    <div class="slds-form-element slds-size_1-of-2" >
+                        <div>
+                            <h3 style="float:left;"><b>Solutions installed or owned by Customer</b></h3>
+                            <button class="slds-button slds-button_neutral slds-button_brand" onclick="{!c.showEditCompetetors}" style="float:right">Edit</button>
+                        </div>
+                        <br></br><br></br>
+                        <div class="slds-card" style="overflow-y: scroll;height:135px;">
+                            
+                            <aura:iteration items="{!v.myrecords}" var="mpm">
+                                <ul>
+                                    <li>
+                                        <ui:outputText value="{!mpm}"/>
+                                    </li>
+                                </ul>  
+                            </aura:iteration>
+                            
+                            
+                        </div>
+                    </div>
+                    <div class="slds-form-element slds-size_1-of-2" >
+                        <div>
+                            <h3 style="float:left;"><b>Solutions to sell to customer</b></h3>
+                            <span>
+                                <button class="slds-button slds-button_neutral slds-button_brand" onclick="{!c.showEditNotSoldvalues}" style="float:right">Edit</button>
+                            </span>
+                        </div>
+                        <br></br><br></br>
+                        <div class="slds-card" style="overflow-y: scroll;height:135px;">
+                            
+                            <aura:iteration items="{!v.myrecords2}" var="mpm2">
+                                <ul>
+                                    <li>
+                                        <ui:outputText value="{!mpm2}"/>
+                                    </li>
+                                </ul>
+                            </aura:iteration>
+                            
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+        </fieldset> 
+        <br></br> 
+        <fieldset class="slds-form_compound">
+            
+            <div class="form-element__group">   
+                <div class="slds-form-element__row">
+                    <div class="slds-form-element slds-size_1-of-2" >
+                        <h3><b>Purchased</b></h3>
+                        <div class="slds-card" style="overflow-y: scroll;height:135px;">
+                            
+                                <aura:iteration items="{!v.myrecords1}" var="mpm1">
+                                    <ul>
+                                        <li>
+                                                <ui:outputText value="{!mpm1}" title="{!mpm1}"/>
+                                        </li>
+                                    </ul>
+                                </aura:iteration>
+                                <aura:iteration items="{!v.oppprodclosedrecords}" var="oppprod1">
+                                    <ul>
+                                        <li>   
+                                            {!oppprod1.Name}
+                                            <span style="float:right;width:115px;">
+                                            <ui:outputNumber format="#,###,###" value="{!oppprod1.expr0}" ></ui:outputNumber>
+                                            </span>
+                                                <br>
+                                            </br>
+                                        </li> 
+                                   </ul>
+                                    
+                                </aura:iteration>        
+                            
+                        </div>
+                    </div>
+                    <div class="slds-form-element slds-size_1-of-2" >
+                        <h3 ><b>Current Funnel</b></h3>
+                        <div class="slds-card" style="overflow-y: scroll;height:135px;">
+                            <aura:iteration items="{!v.oppprodrecords}" var="oppprod">
+                                <ul>
+                                    <li>
+                                        <ui:outputText value="{!oppprod.Name}" title="{!oppprod.Name}"></ui:outputText> 
+                                        <span style="float:right;width:115px;">
+                                        <ui:outputNumber format="#,###,###" value="{!oppprod.expr0}"></ui:outputNumber> <br></br> 
+                                        </span>   
+                                    </li> 
+                                </ul> 
+                            </aura:iteration>  
+                            
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </fieldset>
+        
+        
+    </h3>
+    <!--This is the modal window for update competetors-->
+    
+    <div class="slds-modal slds-fade-in-open" aria-hidden="false" role="dialog" id="modalwindow" style="display:None;margin-top:5%">
+        
+        <div class="slds-modal__container">      
+            <div class="slds-modal__content slds-p-around_large">
+                
+                <span>
+                    <c:MuliselectcomponentToplines AccountId="{!v.recordId}" ></c:MuliselectcomponentToplines>
+                </span>   
+                
+            </div>  
+            
+        </div>
+    </div>    
+    
+    <div class="slds-backdrop slds-backdrop_open" id="newcmpsection" style="display:None;"></div>
+    <div>
+        
+    </div> 
+    
+    
+    <!--This is the modal window for Not Sold values-->
+    
+    <div class="slds-modal slds-fade-in-open" aria-hidden="false" role="dialog" id="modalwindow1" style="display:None;margin-top:5%">
+        
+        <div class="slds-modal__container">      
+            <div class="slds-modal__content slds-p-around_large">
+                
+                <span>
+                    <c:MultiselectcomponentToplinesNotSold AccountId="{!v.recordId}"></c:MultiselectcomponentToplinesNotSold>
+                </span>   
+                
+            </div>  
+            
+        </div>
+    </div>    
+    
+    <div class="slds-backdrop slds-backdrop_open" id="newcmpsection1" style="display:None;"></div>
+    
+</aura:component>

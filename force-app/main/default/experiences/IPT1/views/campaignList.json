@@ -1,0 +1,117 @@
+{
+  "appPageId" : "1ea4cd32-d8b1-4474-918d-713544400617",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "aa20be53-c112-4109-b20d-c3fca21ff694",
+  "label" : "Campaign List",
+  "regions" : [ {
+    "id" : "ec907040-1e56-4e05-bf2e-235293a8ff8c",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "tabsetConfig" : {
+          "UUID" : "28a5871a-9cef-46cb-a89b-1f397090aea3",
+          "activeTab" : "tab1",
+          "tabs" : [ {
+            "UUID" : "607883d9-1269-441d-be31-5e53ee86c3c7",
+            "allowGuestUser" : true,
+            "locked" : false,
+            "seedComponents" : [ {
+              "attributes" : {
+                "richTextValue" : "                                  <p><br/></p>                                <p style=&quot;text-align:left;&quot;>                                     Use these campaigns to generate leads and grow your business                                 </p>                       "
+              },
+              "fqn" : "forceCommunity:richTextInline"
+            }, {
+              "attributes" : { },
+              "fqn" : "forceCommunity:campaignTileList"
+            } ],
+            "tabKey" : "tab1",
+            "tabName" : "Campaign Marketplace"
+          }, {
+            "UUID" : "91d02718-6cad-4c9f-a844-0a2440fadcb1",
+            "allowGuestUser" : true,
+            "locked" : false,
+            "seedComponents" : [ {
+              "attributes" : {
+                "filterName" : "{!filterId}",
+                "scope" : "Campaign"
+              },
+              "fqn" : "forceCommunity:objectHome"
+            } ],
+            "tabKey" : "tab2",
+            "tabName" : "All Campaigns"
+          } ],
+          "useOverflowMenu" : false
+        }
+      },
+      "componentName" : "forceCommunity:tabset",
+      "id" : "28a5871a-9cef-46cb-a89b-1f397090aea3",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "richTextValue" : "                                  <p><br/></p>                                <p style=&quot;text-align:left;&quot;>                                     Use these campaigns to generate leads and grow your business                                 </p>                       "
+          },
+          "componentName" : "forceCommunity:richTextInline",
+          "id" : "9a1c5ade-b05d-431f-ae11-0f21437a2779",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "bodyField" : "Description",
+            "categoryField" : "Type",
+            "highlight" : "__",
+            "highlightColor" : "#007DB8",
+            "listViewName" : "AllActiveCampaigns",
+            "showImage" : true,
+            "sortBy" : "Name",
+            "sortOrder" : "Ascending",
+            "titleField" : "Name"
+          },
+          "componentName" : "forceCommunity:campaignTileList",
+          "id" : "d8bf5045-e86c-432a-a6b6-23eb3233153e",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "607883d9-1269-441d-be31-5e53ee86c3c7",
+        "regionLabel" : "Campaign Marketplace",
+        "regionName" : "tab1",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : {
+            "filterName" : "{!filterId}",
+            "layout" : "FULL",
+            "pageSize" : 25,
+            "scope" : "Campaign",
+            "showDisplay" : "showall"
+          },
+          "componentName" : "forceCommunity:objectHome",
+          "id" : "8d8063b6-f15b-47cd-8b5c-ab001b00a234",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "91d02718-6cad-4c9f-a844-0a2440fadcb1",
+        "regionLabel" : "All Campaigns",
+        "regionName" : "tab2",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "c6890174-c3a6-45da-911e-802c3be96145",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "7509c3d7-c3b1-4c80-89f6-ef2671531177",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "list-701"
+}

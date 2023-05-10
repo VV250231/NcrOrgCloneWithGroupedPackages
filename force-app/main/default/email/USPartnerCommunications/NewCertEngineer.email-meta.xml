@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>This notifies the partner that NCR has flagged a tech as certified.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>NCRLogoLetterhead</letterhead>
+    <name>NewCertEngineer</name>
+    <style>freeForm</style>
+    <subject>New Engineer Certification Notification in Region {!Engineers__c.Account_Region__c}</subject>
+    <textOnly>This email is being sent to notify you that NCR has flagged your technician {!Engineers__c.First_Name__c} {!Engineers__c.Last_Name__c} related to {!Engineers__c.Partner_Account__c} as certified.  Please complete the attached IPP Order Form and email to cd230061@ncr.com (Channel Diagnostics).  Once this form is received diagnostic media will be ordered.
+
+Please contact your partner manager with any questions.
+
+Thanks,
+
+NCR Channel Operations Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

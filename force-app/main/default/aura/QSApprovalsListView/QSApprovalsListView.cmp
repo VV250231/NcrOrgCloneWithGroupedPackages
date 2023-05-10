@@ -1,0 +1,88 @@
+<aura:component controller="QSApprovalsListViewController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <aura:attribute name="approvals" type="Object[]" />
+    <aura:attribute name="orderBy" type="String"/>
+    <aura:attribute name="order" type="String"/>
+    <aura:attribute name="spinner" type="boolean" default="FALSE"/>
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/>
+    
+    <!--loading spinner start-->
+    <aura:if isTrue="{!v.spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    <!-- Loading spinner end-->
+
+    <div class="slds-page-header">
+        <div class="slds-media__body">
+            <h3 class="slds-page-header__title slds-truncate slds-align-middle" title="My Pending Approvals">My Pending Approvals</h3>
+        </div>
+    </div>
+    <table class="slds-table slds-table_bordered">
+        <thead>
+            <tr class="slds-text-title_caps">
+                <th scope="col">
+                    <a class="toggle slds-th__action slds-text-link--reset " title="Approval Name" href="javascript:void(0);" onclick="{!c.doShorting}">Approval Name</a>
+                </th>
+                <th scope="col">
+                    <a class="toggle slds-th__action slds-text-link--reset " title="Date Assigned" href="javascript:void(0);" onclick="{!c.doShorting}">Date Assigned</a>
+                </th>
+                <th scope="col">
+                    <a class="toggle slds-th__action slds-text-link--reset " title="Assigned To" href="javascript:void(0);" onclick="{!c.doShorting}">Assigned To</a>
+                </th>
+                <th scope="col">
+                    <a class="toggle slds-th__action slds-text-link--reset " title="Rule Name" href="javascript:void(0);" onclick="{!c.doShorting}">Rule Name</a>
+                </th>
+                <th scope="col">
+                    <a class="toggle slds-th__action slds-text-link--reset " title="Requested By" href="javascript:void(0);" onclick="{!c.doShorting}">Requested By</a>
+                </th>
+                <th scope="col">
+                    <a class="toggle slds-th__action slds-text-link--reset " title="Customer" href="javascript:void(0);" onclick="{!c.doShorting}">Customer</a>
+                </th>
+                <th scope="col">
+                    <a class="toggle slds-th__action slds-text-link--reset " title="Quote" href="javascript:void(0);" onclick="{!c.doShorting}">Quote</a>
+                </th>
+                <th scope="col">
+                    <a class="toggle slds-th__action slds-text-link--reset " title="LO Region" href="javascript:void(0);" onclick="{!c.doShorting}">LO Region</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.approvals}" var="approval">
+                <tr>
+                    <th scope="row" data-label="Approval Name">
+                        <div class="slds-truncate slds-cell-wrap" title="{!approval.aprvl.Name}"><a href="{!'/' + approval.aprvl.Id}">{!approval.aprvl.Name}</a>&nbsp; - &nbsp;<a href="{!'/apex/sbaa__Approve?id=' + approval.aprvl.Id}">(Approve)</a>&nbsp;<a href="{!'/apex/sbaa__Reject?id=' + approval.aprvl.Id}">(Reject)</a></div>
+                    </th>
+                    <td data-label="Date Assigned">
+                        <div class="slds-truncate" title="{!approval.aprvl.qtc_Requested_Date_Display__c}">{!approval.aprvl.qtc_Requested_Date_Display__c}</div>
+                    </td>
+                    <td data-label="Assigned To">
+                        <div class="slds-truncate" title="{!approval.aprvl.qtc_Assigned_To_Name__c}"><a href="{!'/' + approval.aprvl.sbaa__AssignedTo__c}">{!approval.aprvl.qtc_Assigned_To_Name__c}</a></div>
+                    </td>
+                    <td data-label="Rule Name">
+                        <div class="slds-truncate  slds-cell-wrap" title="{!approval.aprvl.QS_Approval_Rule_Name__c}">{!approval.aprvl.QS_Approval_Rule_Name__c}</div>
+                    </td>
+                    <td data-label="Requested By">
+                        <div class="slds-truncate  slds-cell-wrap" title="{!approval.aprvl.qtc_Requested_By__c}">{!approval.aprvl.qtc_Requested_By__c}</div>
+                    </td>
+                    <td data-label="Customer">
+                        <div class="slds-truncate slds-cell-wrap" title="{!approval.aprvl.qtc_Customer__c}">{!approval.aprvl.qtc_Customer__c}</div>
+                    </td>
+                    <td data-label="Quote">
+                        <div class="slds-truncate" title="{!approval.aprvl.QS_Quote_Name__c}"><a href="{!'/' + approval.aprvl.CPQ_Quote_Reference__c}">{!approval.aprvl.QS_Quote_Name__c}</a></div>
+                    </td>
+                    <td data-label="LO Region">
+                        <div class="slds-truncate" title="{!approval.aprvl.SS_LORegion__c}">{!approval.aprvl.SS_LORegion__c}</div>
+                    </td>
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table>
+    
+</aura:component>

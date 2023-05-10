@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOSPD_HWM_Cleanup_Project</fullName>
+    <active>true</active>
+    <description>This will prevent a case from being closed when Subcategory is HWM Cleanup Project and required fields not completed.</description>
+    <errorConditionFormula>( 
+Customer_agrees_HWE_records_100_accurat__c  = FALSE
+||
+ISBLANK(Customer_Contact__c)
+||
+Customer_email_approval_attached__c = FALSE
+||
+ISBLANK(HWE_Issues_Found__c)
+||
+ISBLANK(Steps_taken_to_resolve_future_HWE_issues__c)
+)
+&amp;&amp; 
+ISCHANGED(Status)
+&amp;&amp;
+ISPICKVAL(Subcategory__c,&quot;HWM Cleanup Project&quot;)
+&amp;&amp; 
+ISPICKVAL(Status, &quot;Closed&quot;)</errorConditionFormula>
+    <errorMessage>Must complete fields in HWM Cleanup Project section to Close Case</errorMessage>
+</ValidationRule>

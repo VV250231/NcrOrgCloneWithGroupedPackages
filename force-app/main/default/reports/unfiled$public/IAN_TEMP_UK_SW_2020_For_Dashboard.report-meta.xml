@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_37365027</developerName>
+        <masterLabel>Region</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Opportunity.OCR_2018_TEAM__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:DCH:Germany</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:DCH:Switzerland</sourceValue>
+            </sourceValues>
+            <value>DCH</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:East:Poland</sourceValue>
+            </sourceValues>
+            <value>Poland</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:East:Austria</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:East:Czech</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:East:Hungary</sourceValue>
+            </sourceValues>
+            <value>Central Europe</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:East:GSL CEE</sourceValue>
+            </sourceValues>
+            <value>GSL</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:East:Greece</sourceValue>
+            </sourceValues>
+            <value>Greece</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>GS:FS:EMEA:NorthEast Europe:East:Cyprus</sourceValue>
+            </sourceValues>
+            <value>Cyprus</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Software_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>FORECAST_CATEGORY</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>Opportunity.OCR_2018_TEAM__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>GS:FS:EMEA:UK</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Product2.Service_Offer_Category__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>SW</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FAMILY</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Solution</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OpportunityLineItem.Topline_Product_Lkp__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>XFS Platform</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FORECAST_CATEGORY</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Omitted</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OpportunityLineItem.Topline_Product_Lkp__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>PS Asset</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>OpportunityLineItem.Topline_Product_Lkp__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>* UK SW by Product 2020</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>open</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>OpportunityProduct@Opportunity.Sales_Org__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <endDate>2020-12-31</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2020-01-01</startDate>
+    </timeFrameFilter>
+</Report>

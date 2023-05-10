@@ -1,0 +1,35 @@
+<!-- sldsValidatorIgnore -->
+<template>
+  <lightning-quick-action-panel header="Confirmation">
+      <p if:false={isConfirmed} class="slds-var-p-horizontal_small"><b>Confirm to recall the approval</b></p>
+      <p if:true={error} class="slds-var-p-horizontal_small">{error}</p>
+      
+      <!--Spinner-->
+      <div if:false={isLoaded} class="slds-is-relative" style="height:6rem;">
+        <lightning-spinner variant="brand" alternative-text="Loading...">
+        </lightning-spinner>
+      </div>
+
+      <!-- Info Section: Need to get legal doc signed after recall. -->
+      <div if:true={showMessage} class="slds-scoped-notification slds-media slds-media_center slds-theme_info" role="status" style="margin:15px;">
+        <div class="slds-media__figure">
+          <span class="slds-icon_container slds-icon-utility-info" title="info">
+            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+              <use smlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+            </svg>
+            <span class="slds-assistive-text">info</span>
+          </span>
+        </div>
+        <div class="slds-media__body">
+          <p>You need to get legal doc signed after recall.
+          </p>
+        </div>
+      </div>
+
+      <div if:true={isLoaded} slot="footer">
+          <lightning-button if:true={showCancelBtn} label="Cancel" onclick={handleCancel}></lightning-button>
+          <lightning-button if:true={showOkBtn} variant="brand" label="Ok" onclick={handleRecall} class="slds-var-m-horizontal_x-small"></lightning-button>
+          <lightning-button if:true={showCloseBtn} label="Close" onclick={handleClose}></lightning-button>
+      </div>
+  </lightning-quick-action-panel>
+</template>

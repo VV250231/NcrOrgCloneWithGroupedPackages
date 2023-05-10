@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sales_Rep_Lead_Quality_Required</fullName>
+    <active>true</active>
+    <description>This rule required the Sales Rep Lead Quality field be populated when the Status is changed from Qualified to either Nurture or Disqualified by users in the two SMB profiles. (HOSP SMB Sales and Hosp SMB Sales with Hosted)</description>
+    <errorConditionFormula>AND(
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+ CATM_Record__c = false,
+OR(ISPICKVAL(Status ,&quot;Nurture&quot;), ISPICKVAL(Status ,&quot;Disqualified&quot;)),
+ISPICKVAL(PRIORVALUE(Status),&quot;Qualified&quot;),
+(ISBLANK(TEXT(Sales_Rep_Lead_Quality__c))),
+OR(LastModifiedBy.Profile.Name = &quot;Hosp SMB Sales with Hosted&quot;,
+LastModifiedBy.Profile.Name = &quot;HOSP SMB Sales&quot;))</errorConditionFormula>
+    <errorDisplayField>Sales_Rep_Lead_Quality__c</errorDisplayField>
+    <errorMessage>The Sales Rep Lead Quality field is required when updating a Qualified lead.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>FundClaimApprovedSubmitterNotification</fullName>
+        <description>Fund Claim Approved - Submitter Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/FundClaimApproved</template>
+    </alerts>
+    <alerts>
+        <fullName>FundClaimRejectedSubmitterNotification</fullName>
+        <description>Fund Claim Rejected - Submitter Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/FundClaimRejected</template>
+    </alerts>
+    <alerts>
+        <fullName>FundClaimSubmittedAcknowledgment</fullName>
+        <description>Fund Claim Submitted - Acknowledgment</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/FundClaimAcknowledged</template>
+    </alerts>
+    <alerts>
+        <fullName>MDFClaimSubmitted</fullName>
+        <ccEmails>interact.operations@ncr.com</ccEmails>
+        <description>MDF Claim Submitted</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/FundClaimAcknowledged</template>
+    </alerts>
+    <alerts>
+        <fullName>MDF_Claim_submission_Alert_to_NCR_InteractMDF_ncr_com</fullName>
+        <ccEmails>NCR.InteractMDF@ncr.com</ccEmails>
+        <description>MDF Claim submission Alert to NCR.InteractMDF@ncr.com</description>
+        <protected>false</protected>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/Fund_Claim_submission_Alert_VF</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Notification_Email_to_CAM</fullName>
+        <description>Send Notification Email to CAM</description>
+        <protected>false</protected>
+        <recipients>
+            <field>CAM__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/FundClaimReimbursementEmailTo_PartnerNew</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Reimbursement_email_to_Partner</fullName>
+        <description>Send Reimbursement email to Partner</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/FundClaimReimbursementEmailTo_PartnerNew</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>UpdateApprovedtoFalse</fullName>
+        <description>Used to trigger a budget recalculation. Used in place of driving the recalculation from an approval status text based value</description>
+        <field>Approved__c</field>
+        <literalValue>0</literalValue>
+        <name>Update Approved to False</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateApprovedtoTrue</fullName>
+        <description>Used in favor of the approval status field so that the Apex trigger which will fire using this True/ False field rather than a text based value in the approval status page</description>
+        <field>Approved__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Approved to True</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateFundClaimApprovedDate</fullName>
+        <field>Approved_Date__c</field>
+        <formula>TODAY()</formula>
+        <name>Update Fund Claim Approved Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateFundClaimStatusToApproved</fullName>
+        <field>Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Update Fund Claim Status To Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateFundClaimStatusToDraft</fullName>
+        <field>Status__c</field>
+        <literalValue>Draft</literalValue>
+        <name>Update Fund Claim Status To Draft</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateFundClaimStatusToRejected</fullName>
+        <field>Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Update Fund Claim Status To Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateFundClaimStatusToSubmitted</fullName>
+        <field>Status__c</field>
+        <literalValue>Submitted</literalValue>
+        <name>Update Fund Claim Status To Submitted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdatePerformanceVerifiedToTrue</fullName>
+        <field>Performance_Verified__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Performance Verified To True</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Approval_Status</fullName>
+        <field>Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Update Approval Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Claim_Approved_Date</fullName>
+        <description>Once Claim Is approved, Update the Approved Date.</description>
+        <field>Approved_Date__c</field>
+        <formula>TODAY()</formula>
+        <name>Update Claim Approved Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Claim_Status_to_Paid</fullName>
+        <field>Status__c</field>
+        <literalValue>Paid</literalValue>
+        <name>Update Claim Status to Paid</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Claim_Status_to_Rejected</fullName>
+        <field>Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Update Claim Status to Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Claim_Submitted_Date</fullName>
+        <field>Claim_Submission_Date__c</field>
+        <formula>NOW()</formula>
+        <name>Update Claim Submitted Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Claim Submission WF</fullName>
+        <actions>
+            <name>Update_Claim_Submitted_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>SFDC_MDF_Claim__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Submitted</value>
+        </criteriaItems>
+        <description>Work flow when a MDF claim is submitted.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Set Approved True for Status Approved</fullName>
+        <actions>
+            <name>UpdateApprovedtoTrue</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>SFDC_MDF_Claim__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </criteriaItems>
+        <description>When the Status field for Fund Claim is Approved, Approved checkbox is checked.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Claim Approval Status</fullName>
+        <actions>
+            <name>Update_Claim_Status_to_Paid</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <formula>NOT(AND( ISPICKVAL( Claim_Paid_Month__c , &apos;&apos;), ISPICKVAL( Claim_Paid_Year__c , &apos;&apos;) ))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

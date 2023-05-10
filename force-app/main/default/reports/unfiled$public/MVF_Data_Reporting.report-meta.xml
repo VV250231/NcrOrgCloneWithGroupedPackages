@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_31980206</developerName>
+        <masterLabel>Qualified</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>STATUS</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Qualified - Converted</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Qualified</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Silver Managed</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Partner Managed</sourceValue>
+            </sourceValues>
+            <value>Qualified</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_71463993</developerName>
+        <masterLabel>Qualified/Silver</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>STATUS</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Silver Managed</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Partner Managed</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Qualified - Converted</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Qualified</sourceValue>
+            </sourceValues>
+            <value>Qualified</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>STATUS</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>Lead.Disqualified_Reason__c</field>
+    </columns>
+    <columns>
+        <field>LEAD_ID</field>
+    </columns>
+    <columns>
+        <field>CONVERTED_DATE</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>CONVERTED_OPPORTUNITY_ID</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>LEAD_SOURCE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Affiliate</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>MVF Data Reporting</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>OpportunityLead</reportType>
+    <scope>org</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <endDate>2023-11-17</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2022-11-14</startDate>
+    </timeFrameFilter>
+</Report>

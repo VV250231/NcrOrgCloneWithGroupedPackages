@@ -1,0 +1,26 @@
+<messaging:emailTemplate subject="Quote Technical Review - RECALLED: {!relatedTo.Technical_Review__r.CPQQuote__r.Name} for {!relatedTo.Technical_Review__r.CPQQuote__r.SBQQ__Opportunity2__r.Name}" recipientType="User" relatedToType="sbaa__Approval__c">
+<messaging:HtmlEmailBody >
+<html>
+<body>
+
+
+
+Hello {!recipient.name},
+
+
+<p>Your approval request for Quote {!relatedTo.Technical_Review__r.CPQQuote__r.Name} has been recalled.<br/></p>
+
+<p><b>Quote Name: </b>&nbsp;<apex:outputLink value="{!LEFT($Api.Enterprise_Server_URL_300, FIND('/services',$Api.Enterprise_Server_URL_300))}/{!relatedTo.Technical_Review__r.CPQQuote__r.Id}" >{!relatedTo.Technical_Review__r.CPQQuote__r.Name}</apex:outputLink><br/>
+
+<b>Opportunity Name: </b>&nbsp;<apex:outputLink value="{!LEFT($Api.Enterprise_Server_URL_300, FIND('/services',$Api.Enterprise_Server_URL_300))}/{!relatedTo.Technical_Review__r.CPQQuote__r.SBQQ__Opportunity2__r.Id}" >{!relatedTo.Technical_Review__r.CPQQuote__r.SBQQ__Opportunity2__r.Name}</apex:outputLink><br/>
+</p>
+<p>
+<b>Approvals:</b><br/>
+<sbaa:relatedList rendered="{!relatedTo.Technical_Review__c != null}" recordId="{!relatedTo.Technical_Review__c}" relationshipName="Approvals__r" fieldSetName="Approval_Request_Email"/>
+</p>
+
+<p style="color:white"><apex:outputText value="{!relatedTo.Id}"/></p>
+</body>
+</html>
+</messaging:HtmlEmailBody>
+</messaging:emailTemplate>

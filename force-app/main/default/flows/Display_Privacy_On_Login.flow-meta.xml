@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <description>Display Salesforce Maps Privacy Policy when user login in Salesforce</description>
+    <formulas>
+        <name>CurrentUserId</name>
+        <dataType>String</dataType>
+        <expression>{!$User.Id}</expression>
+    </formulas>
+    <interviewLabel>Display Privacy On Login {!$Flow.CurrentDateTime}</interviewLabel>
+    <isAdditionalPermissionRequiredToRun>true</isAdditionalPermissionRequiredToRun>
+    <label>Display Privacy On Login</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <screens>
+        <name>Salesforce_Maps_Notice</name>
+        <label>Salesforce Maps Notice</label>
+        <locationX>469</locationX>
+        <locationY>39</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Testing</name>
+            <fieldText>&lt;p&gt;&lt;b&gt;Salesforce Maps Privacy Notice&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Last updated June 22, 2020&lt;/p&gt;&lt;p&gt;NCR (“we” or “us” or “our”) respects the privacy of our users (“user” or “you”).&amp;nbsp;This privacy notice supplements and incorporates other NCR policies and explains how we collect, use, and disclose your information when you use the Salesforce Maps mobile application.&amp;nbsp;We reserve the right to make changes to this Privacy Notice at any time for any reason.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Information Collected&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;The Salesforce Map application collects basic demographic information identifiers about you such as your name, email address and Quicklook ID, commercial information that you input into the application related to the interaction between you and potential or current customers, and geolocation information of your check in locations.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Geolocation Information&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The Salesforce application requires the use of geolocation information to track check in locations.&amp;nbsp;The application is not continuously recording your movement, but rather only recording the GPS coordinates of your location when you actively check in to a location on the route.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Use of Your Information&lt;/b&gt;&lt;/p&gt;&lt;p&gt;We collect information to efficiently run our business by optimizing route efficiency and streamlining sales interactions.&amp;nbsp;As permitted by applicable law, the information may be used to investigate allegations of wrongdoing, including violations of law and policy, as well as for reasons of public interest in the area of public health.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Disclosure of Your Information&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;NCR may disclose your information to third parties in the following circumstances:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;as required by law, such as to  comply with a subpoena, or similar legal process;&lt;/li&gt;&lt;li&gt;when we believe in good faith that disclosure is necessary to protect our rights, protect the interests of our users, protect your safety or the safety of others, resolve disputes, troubleshoot problems with respect to the application or its use; investigate fraud, or respond to a government request; and&lt;/li&gt;&lt;li&gt;to our trusted services providers who work on our behalf, do not have an independent use of the information we disclose to them, and have agreed to adhere to the rules set forth in this privacy statement.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Contact Us&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;If you have questions regarding this privacy notice, please contact the NCR Privacy team at &lt;a href=&quot;mailto:office.privacy@ncr.com&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot;&gt;office.privacy@ncr.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 11pt; font-family: Calibri, sans-serif;&quot;&gt;For additional information regarding your rights, as applicable, see NCR’s Privacy Policy at &lt;/span&gt;&lt;a href=&quot;http://www.ncr.com/privacy&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot; style=&quot;font-size: 11pt; font-family: Calibri, sans-serif;&quot;&gt;www.ncr.com/privacy&lt;/a&gt;&lt;span style=&quot;font-size: 11pt; font-family: Calibri, sans-serif;&quot;&gt; or refer to CMP 204 available on the NCR intranet.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>false</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>69</locationX>
+        <locationY>34</locationY>
+        <connector>
+            <targetReference>Salesforce_Maps_Notice</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+</Flow>

@@ -1,0 +1,19 @@
+<apex:component controller="DealRegRejectController" access="global">
+  <apex:attribute name="DealRegId" type="Id" description="Id of the account" assignTo="{!dealId}"/>
+  Dear {!dealReg.Owner.name},<br/>
+  <br/>
+Thank you for your recent Deal Registration submission regarding {!OppName}.<br/>
+After a review your NCR Sales team has determined this submission for  {!OppName} was not approved for the following reason:<br/>
+<apex:repeat value="{!ListOfReason}" var="v">
+    *  {!v} <br/>
+    
+</apex:repeat>
+<br/><br/>
+If you have any questions, please discuss this with your NCR Account Manager.<br/>
+Thank you again for using the NCR Program Tools. <br/>
+
+<br/><br/>
+Sincerely<br/>
+NCR Channel Program Team<br/>
+
+</apex:component>

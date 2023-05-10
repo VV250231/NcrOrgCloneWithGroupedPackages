@@ -1,0 +1,47 @@
+<template>
+        <div class="slds-box" >
+        <div class="dispatches-font " > 
+            <div class="slds-float_left" style="padding:4px">
+				<lightning-icon icon-name="standard:case" title="OpenDispatches" ></lightning-icon>
+			</div>
+			<div class="slds-float_left" style="padding:5px">
+				<h3>Open Dispatches</h3>
+			</div>
+                
+        </div>
+        
+        <table class="slds-table slds-table_cell-buffer slds-cell-focus slds-table_bordered slds-table_fixed-layout slds-border_right slds-border_left">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Blank"></div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Meets SLA">Meets SLA</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Outside SLA">Outside of SLA</div>
+                    </th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                <template if:true={getDispatchList}>
+					<template for:each={getDispatchList} for:item= "getDispatch">
+						<tr class="slds-hint-parent" key={getDispatch.Priority}>
+							<td data-label="Blank" >
+								<div  title={getDispatch.Priority}> Priority {getDispatch.Priority}</div>
+							</td> 
+							<td data-label="Meets SLA" >
+								<div  title={getDispatch.MeetSLACount}>{getDispatch.MeetSLACount}</div>
+							</td>
+							<td data-label="Outside SLA" >
+								<div  title={getDispatch.OutsideSLACount}>{getDispatch.OutsideSLACount}</div>
+							</td>
+						</tr>
+					</template>
+				</template>
+            </tbody>    
+        </table>
+        </div>
+    </template>

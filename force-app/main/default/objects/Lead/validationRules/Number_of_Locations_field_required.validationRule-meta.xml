@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Number_of_Locations_field_required</fullName>
+    <active>true</active>
+    <description>requires number of locations to be populated for certain Status field values</description>
+    <errorConditionFormula>(ISPICKVAL(Status ,&quot;Marketing Qualified&quot;) || ISPICKVAL(Status ,&quot;Partner Managed&quot;) || ISPICKVAL(Status ,&quot;Qualified&quot;) || ISPICKVAL(Status ,&quot;Silver Managed&quot;) || ISPICKVAL(Status ,&quot;Nurture&quot;) || ISPICKVAL(Status ,&quot;Disqualified&quot;) ) &amp;&amp; (ISPICKVAL( Number_of_Locations__c ,&quot;&quot;) ) &amp;&amp;
+$RecordType.Name = &quot;Customer Lead&quot; &amp;&amp;
+OR (
+$Profile.Name = &quot;HOSP SMB Sales&quot;,
+$Profile.Name = &quot;Hosp SMB Sales with Hosted&quot;
+) &amp;&amp;
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c) &amp;&amp;
+ CATM_Record__c = false</errorConditionFormula>
+    <errorDisplayField>Number_of_Locations__c</errorDisplayField>
+    <errorMessage>Number of Locations is required for the Status value you have selected.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,17 @@
+<apex:page standardController="Opportunity" >
+<body style="bgcolor:000;">
+    <center>
+        <img src="{!$Resource.QBLauncher}" style="height:200px;width:200px;"/>
+    </center>
+    <script>
+        var redirectUrl = '/apex/qb_landing_page?id={!Opportunity.Id}';
+        console.log('URL:::'+redirectUrl);
+        if( (typeof sforce.one != 'undefined') && (sforce != null) ) {            
+            sforce.one.navigateToURL(redirectUrl);
+        }
+        else{
+            //window.location.assign(redirectUrl);
+        }
+    </script>
+</body>
+</apex:page>

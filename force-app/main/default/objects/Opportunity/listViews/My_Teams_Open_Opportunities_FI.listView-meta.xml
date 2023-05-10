@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Teams_Open_Opportunities_FI</fullName>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <columns>OPPORTUNITY.CLOSE_DATE</columns>
+    <columns>Expected_Service_Start_Date__c</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>Incremental_ACV__c</columns>
+    <columns>OPPORTUNITY.FORECAST_CATEGORY</columns>
+    <columns>Forecast_Update__c</columns>
+    <filterScope>Team</filterScope>
+    <filters>
+        <field>OPPORTUNITY.STAGE_NAME</field>
+        <operation>equals</operation>
+        <value>Prospecting,Analyzing,Validating,Offering,Proposing,Closing</value>
+    </filters>
+    <filters>
+        <field>Business_Unit__c</field>
+        <operation>equals</operation>
+        <value>FI</value>
+    </filters>
+    <label>CATM My Teams Open Opportunities - FI</label>
+    <sharedTo>
+        <group>All_CATM</group>
+    </sharedTo>
+</ListView>

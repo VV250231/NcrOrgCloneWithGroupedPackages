@@ -1,0 +1,89 @@
+<apex:page sidebar="false" tabStyle="zqu__Quote__c" standardController="zqu__Quote__c" extensions="NCRQuoteSubmit2Controller" action="{!init}">
+    <head>
+    <apex:includeScript value="{!$Resource.jquery_1_11_3}"/>
+    <style>
+    tr.odd {
+        background-color:#eee;
+    }
+    </style>
+    <script type="text/javascript">
+    $(window).load(function(){
+        var jqselector = null;
+        var innerH = null;
+        console.log("on window load start...");
+        <apex:repeat value="{!updates}" var="u">
+        try {
+            console.log('updated {!u.quoteRatePlanId}');
+            jqselector = '#{!u.quoteRatePlanId}_status';
+            console.log('jqselector='+jqselector);
+            console.log($(jqselector).html());
+            $(jqselector).addClass('panelStatusUpdated');
+            $(jqselector).removeClass('panelStatusAdded');
+            innerH = $(jqselector).html();
+            innerH = innerH.replace("ADDED ON", "UPDATED ON");
+            $(jqselector).html(innerH);
+        }catch(exc){
+            console.log(exc);
+        }
+        </apex:repeat>
+        console.log("on window load end.");
+    });
+    </script>
+    </head>
+
+    <apex:sectionHeader title="Quote"
+        subtitle="Order Preview" id="quoteTitle" />
+    <apex:pageMessages />    
+    
+    <apex:pageBlock title="ERROR!" rendered="{!hasInitError}">
+        <apex:pageBlockButtons location="top">
+            <apex:form >
+                <apex:commandButton value="Cancel" action="{!cancelAction}"/>
+            </apex:form>
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+
+<!--
+    <apex:pageBlock title="{!pageBlockTitle}" rendered="{!AND(NOT(hasInitError),hasChanges)}">
+        <apex:outputPanel layout="none">
+        <apex:dataTable value="{!changes}" var="r" width="70%" rowClasses="odd,even">
+            <apex:column style="width:110px">
+                <apex:facet name="header">Action</apex:facet>
+             {!r.action}
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">Name</apex:facet>
+             {!r.ratePlanName}
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">Original Price</apex:facet>
+                <c:Currency value="{!r.price}"/>
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">Quote Price</apex:facet>
+                <c:Currency value="{!r.quotePrice}"/>
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">Original Quantity</apex:facet>
+             {!r.quantity}
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">Quote Quantity</apex:facet>
+             {!r.quoteQuantity}
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">Delta MRR</apex:facet>
+                <c:Currency value="{!r.deltaMRR}"/>
+            </apex:column>
+        </apex:dataTable>
+        </apex:outputPanel>
+    </apex:pageBlock>
+-->
+    <div style="overflow-x: scroll; width: 56%;">
+        <apex:form id="previewform" rendered="{!NOT(hasInitError)}">
+            <zqu:QuotePreview options="{!previewOptions}" />
+            <apex:actionFunction name="toQuoteDetail" action="{!toQuoteDetail}" />
+        </apex:form>
+    </div>
+    
+</apex:page>

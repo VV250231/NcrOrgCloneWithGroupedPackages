@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Percent_of_Total_Rev_Net_New_Cust__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(AND(Net_New_Customer_Revenue__c &lt; 0, Total_Revenue__c &lt; 0),
+-(Net_New_Customer_Revenue__c / Total_Revenue__c),
+Net_New_Customer_Revenue__c / Total_Revenue__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>% of Total Rev Net New Cust</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

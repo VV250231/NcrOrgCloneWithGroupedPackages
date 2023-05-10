@@ -1,0 +1,10 @@
+<aura:component >
+	<aura:attribute name="errorMessage" type="string"/>
+    <aura:attribute name="showError" type="Boolean" default="false"/> 
+    <aura:handler event="c:showQuotsError" action="{!c.showQuotsError}"/>
+    <aura:if isTrue="{!v.showError}">
+        <div class="slds-box slds-theme--error" aura:id="messages">
+            <p><strong>{!v.errorMessage}</strong></p>
+        </div>
+    </aura:if>    
+</aura:component>

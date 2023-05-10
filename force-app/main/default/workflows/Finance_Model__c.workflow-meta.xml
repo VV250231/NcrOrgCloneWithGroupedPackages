@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Clear_Sync_Opp_ID</fullName>
+        <field>Synced_Opp_ID__c</field>
+        <name>Clear Sync Opp ID</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Sync_Opp_ID</fullName>
+        <field>Synced_Opp_ID__c</field>
+        <formula>Opportunity__r.Id</formula>
+        <name>Update Sync Opp ID</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Clear Opp ID on Finance Model</fullName>
+        <actions>
+            <name>Clear_Sync_Opp_ID</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Clear Opp ID on Finance Model to only allow for 1 synced record</description>
+        <formula>AND( NOT($Setup.Automation_Setting__c.Skip_Flow__c), Sync__c = FALSE)</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Set Opp ID on Finance Model</fullName>
+        <actions>
+            <name>Update_Sync_Opp_ID</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Set Opp ID on Finance Model to only allow for 1 synced record</description>
+        <formula>AND( NOT($Setup.Automation_Setting__c.Skip_Flow__c), Sync__c  = TRUE)</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

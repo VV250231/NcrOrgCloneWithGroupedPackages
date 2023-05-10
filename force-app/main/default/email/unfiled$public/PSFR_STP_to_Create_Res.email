@@ -1,0 +1,267 @@
+<messaging:emailTemplate subject="Request to Create Resource for PreSales Fund Request: {!relatedTo.Presales_Funding_Request__r.Name}, Account Name :{!relatedTo.Presales_Funding_Request__r.Account__r.Name} and Region: {!relatedTo.Presales_Funding_Request__r.Region__c}" recipientType="User" relatedToType="Presales_Engineer__c" >
+<messaging:htmlEmailBody >
+<html>
+         <style>
+              p {
+                font-family: Verdana, Helvetica, sans-serif;
+                color: rgb(0,0,0);
+                font-size: 12.5px;
+                font-style: normal;
+                font-variant: normal;
+                font-weight: 400;
+                line-height: 20px;
+              }
+              
+              .inlineText {
+                  display: inline-block;
+                  margin-left: 12px;
+              }
+             
+         </style>
+    <body>
+
+<table>
+    <tr>
+                <td align="center" valign="middle">
+                    <c:PSFR_Header />
+                </td>
+
+            </tr>
+</table>
+
+    
+<p>Please create resources for PreSales Fund Request: {!relatedTo.Presales_Funding_Request__r.Name}</p>
+
+<p><b>Fund Request Details</b></p>
+
+<table cellpadding="3" cellspacing="2" style="border: thin solid #FFFFFF; font-size: 16px; font-family: 'Calibri ';">
+      <tr>
+          <td style="background-color: #b9c9fe; color: #039; font-weight: bold;">
+             <p>Label</p></td>
+          <td style="background-color: #b9c9fe; color: #039; font-weight: bold;">
+              <p>Value</p></td>
+      </tr>
+      <tr>
+          <td style="background-color: #e8edff; color: #669;">
+              <p>Sales Engineer</p>
+          </td>
+          <td style="background-color: #e8edff; color: #669;">
+               <p><apex:outputField value="{!relatedTo.Presales_Funding_Request__r.PFR_Sales_Engineer__r.name}" /></p>
+          </td>
+      </tr>
+      <tr>
+          <td style="background-color: #e8edff; color: #669;">
+              <p>Presales Category</p>
+          </td>
+          <td style="background-color: #e8edff; color: #669;">
+               <p><apex:outputField value="{!relatedTo.Presales_Funding_Request__r.PFR_Presales_Category__c}" /></p>
+          </td>
+      </tr>
+      <tr>
+          <td style="background-color: #e8edff; color: #669;">
+              <p>Opportunity</p>
+          </td>
+          <td style="background-color: #e8edff; color: #669;">
+               <p><apex:outputField value="{!relatedTo.Presales_Funding_Request__r.PFR_Opportunity__r.Name}" /></p>
+          </td>
+      </tr>
+
+      <tr>
+          <td style="background-color: #e8edff; color: #669;">
+              <p>Account</p>
+          </td>
+          <td style="background-color: #e8edff; color: #669;">
+               <p><apex:outputField value="{!relatedTo.Presales_Funding_Request__r.Account__r.Name}" /></p>
+          </td>
+      </tr>
+      <tr>
+          <td style="background-color: #e8edff; color: #669;">
+              <p>Expected Start Date</p>
+          </td>
+          <td style="background-color: #e8edff; color: #669;">
+               <p><apex:outputField value="{!relatedTo.Presales_Funding_Request__r.PFR_Expected_Date__c}" /></p>
+          </td>
+      </tr>
+      <tr>
+          <td style="background-color: #e8edff; color: #669;">
+              <p>PreSales Fund Request Number</p>
+          </td>
+          <td style="background-color: #e8edff; color: #669;">
+               <p><apex:outputField value="{!relatedTo.Presales_Funding_Request__r.Name}" /></p>
+          </td>
+      </tr>
+      <tr>
+          <td style="background-color: #e8edff; color: #669;">
+              <p>PreSales Fund Request Owner</p>
+          </td>
+          <td style="background-color: #e8edff; color: #669;">
+               <p><apex:outputField value="{!relatedTo.Presales_Funding_Request__r.Owner.Name}" /></p>
+          </td>
+      </tr>
+       <tr>
+          <td style="background-color: #e8edff; color: #669;">
+              <p>Success Criteria</p>
+          </td>
+          <td style="background-color: #e8edff; color: #669;">
+               <p><apex:outputField value="{!relatedTo.Presales_Funding_Request__r.PFR_Success_Criteria__c}" /></p>
+          </td>
+      </tr>
+       <tr>
+          <td style="background-color: #e8edff; color: #669;">
+              <p>Justification</p>
+          </td>
+          <td style="background-color: #e8edff; color: #669;">
+               <p><apex:outputField value="{!relatedTo.Presales_Funding_Request__r.PFR_Justification__c}" /></p>
+          </td>
+      </tr>
+      <tr>
+          <td style="background-color: #e8edff; color: #669;">
+              <p>Is this recoverable?</p>
+          </td>
+          <td style="background-color: #e8edff; color: #669;">
+               <p><apex:outputField value="{!relatedTo.Presales_Funding_Request__r.PFR_Is_this_Recoverable__c}" /></p>
+          </td>
+      </tr>
+      <tr>
+          <td style="background-color: #e8edff; color: #669;">
+              <p>Fund Request Status</p>
+          </td>
+          <td style="background-color: #e8edff; color: #669;">
+               <p><apex:outputField value="{!relatedTo.Presales_Funding_Request__r.Approval_Status__c}" /></p>
+          </td>
+      </tr>
+
+      <tr>
+          <td style="background-color: #e8edff; color: #669;">
+              <p>Additional Comments</p>
+          </td>
+          <td style="background-color: #e8edff; color: #669;">
+               <p><apex:outputField value="{!relatedTo.Body__c}" /></p>
+          </td>
+      </tr>
+        
+</table>
+
+<p><b>Opportunity Information</b></p>
+
+<table cellpadding="3" cellspacing="2" style="border: thin solid #FFFFFF; font-size: 16px; font-family: 'Calibri ';">
+      <tr>
+          <td style="background-color: #b9c9fe; color: #039; font-weight: bold;">
+             <p>Label</p></td>
+          <td style="background-color: #b9c9fe; color: #039; font-weight: bold;">
+              <p>Value</p></td>
+      </tr>
+      <tr>
+          <td style="background-color: #e8edff; color: #669;">
+              <p>Opportunity Number</p>
+          </td>
+          <td style="background-color: #e8edff; color: #669;">
+               <p><apex:outputField value="{!relatedTo.Presales_Funding_Request__r.PFR_Opportunity_Number__c}" /></p>
+          </td>
+      </tr>
+      <tr>
+          <td style="background-color: #e8edff; color: #669;">
+              <p>Opportunity Owner</p>
+          </td>
+          <td style="background-color: #e8edff; color: #669;">
+               <p><apex:outputField value="{!relatedTo.Presales_Funding_Request__r.PFR_Opportunity_Owner__c}" /></p>
+          </td>
+      </tr>
+      <tr>
+          <td style="background-color: #e8edff; color: #669;">
+              <p>Opportunity Selling Stage</p>
+          </td>
+          <td style="background-color: #e8edff; color: #669;">
+               <p><apex:outputField value="{!relatedTo.Presales_Funding_Request__r.PFR_Opportunity_Selling_Stage__c}" /></p>
+          </td>
+      </tr>
+      <tr>
+          <td style="background-color: #e8edff; color: #669;">
+              <p>Forecast Category</p>
+          </td>
+          <td style="background-color: #e8edff; color: #669;">
+               <p><apex:outputField value="{!relatedTo.Presales_Funding_Request__r.PFR_Forecast_Category__c}" /></p>
+          </td>
+      </tr>
+      <tr>
+          <td style="background-color: #e8edff; color: #669;">
+              <p>Opportunity Amount</p>
+          </td>
+          <td style="background-color: #e8edff; color: #669;">
+               <p><apex:outputField value="{!relatedTo.Presales_Funding_Request__r.PFR_Opportunity_Amount__c}" /></p>
+          </td>
+      </tr>
+      <tr>
+          <td style="background-color: #e8edff; color: #669;">
+              <p>Region</p>
+          </td>
+          <td style="background-color: #e8edff; color: #669;">
+               <p><apex:outputField value="{!relatedTo.Presales_Funding_Request__r.Region__c}" /></p>
+          </td>
+      </tr>
+      
+      <tr>
+          <td style="background-color: #e8edff; color: #669;">
+              <p>Software Products</p>
+          </td>
+          <td style="background-color: #e8edff; color: #669;">
+               <p><apex:outputField value="{!relatedTo.Presales_Funding_Request__r.PFR_Software_Products__c}" /></p>
+          </td>
+      </tr>
+      <tr>
+          <td style="background-color: #e8edff; color: #669;">
+              <p>Hardware Products</p>
+          </td>
+          <td style="background-color: #e8edff; color: #669;">
+               <p><apex:outputField value="{!relatedTo.Presales_Funding_Request__r.PFR_Hardware_Products__c}" /></p>
+          </td>
+      </tr>
+      
+      <tr>
+          <td style="background-color: #e8edff; color: #669;">
+              <p>Serivces Products</p>
+          </td>
+          <td style="background-color: #e8edff; color: #669;">
+               <p><apex:outputField value="{!relatedTo.Presales_Funding_Request__r.Services_Products__c}" /></p>
+          </td>
+      </tr>
+      
+     <tr>
+          <td style="background-color: #e8edff; color: #669;">
+              <p>Cloud Products</p>
+          </td>
+          <td style="background-color: #e8edff; color: #669;">
+               <p><apex:outputField value="{!relatedTo.Presales_Funding_Request__r.Cloud_Products__c}" /></p>
+          </td>
+      </tr>
+    <tr>
+          <td style="background-color: #e8edff; color: #669;">
+              <p>PS Products</p>
+          </td>
+          <td style="background-color: #e8edff; color: #669;">
+               <p><apex:outputField value="{!relatedTo.Presales_Funding_Request__r.PS_Product__c}" /></p>
+          </td>
+      </tr>
+      <tr>
+          <td style="background-color: #e8edff; color: #669;">
+              <p>Expected Book Date</p>
+          </td>
+          <td style="background-color: #e8edff; color: #669;">
+               <p><apex:outputField value="{!relatedTo.Presales_Funding_Request__r.PFR1_Expected_Book_Date__c}" /></p>
+          </td>
+      </tr>
+            
+  </table> 
+  <table>
+<p>Please <a href="https://ncr.force.com/BPMEmployeeCommunity?id=#PreSalesRequestFormid">Click Here</a> to view the Fund Request </p>
+ <tr>
+                <td>
+                    <c:DemingEmail />
+                </td>
+
+            </tr>
+</table>
+</body>
+</html>
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>template for closing cases sent to the SFDC box</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SFDC Case Closed</name>
+    <style>none</style>
+    <subject>Salesforce Support - Resolution Notification</subject>
+    <textOnly>Hello, 
+ 
+This is to let you know that your email:  {!Case.Subject}, has been resolved based on the following information:  {!Case.Close_Resolution__c}. 
+
+If you have further questions, or feel that the issue is not resolved, please provide the Case number or forward a copy of your initial request.  
+
+Please do not respond to this email. If you have a question, please send a new email to salesforce.administration@ncr.com.
+
+Thank you,  
+
+The Salesforce Admin Team</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

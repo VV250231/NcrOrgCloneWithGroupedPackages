@@ -1,0 +1,25 @@
+<apex:component controller="CPQPaymentSiteHelper" access="global">
+    <apex:attribute type="id" name="quote"  description="Record Id" assignTo="{!quoteId}"/>     
+    <table class="data-table">
+        <tr class="data-table-row">
+            <th class="data-table-header">DBA Name</th>
+            <th class="data-table-header">DBA Address</th>
+            <th class="data-table-header">MID</th> 
+            <th class="data-table-header">TID (in-store)</th> 
+            <th class="data-table-header">TID (e-commerce)</th> 
+            
+        </tr>
+        <apex:repeat var="site" value="{!PaymentSites}">
+        
+            <tr class="data-table-row">
+                <td class="data-table-cell">{!site.Account_Sites__r.Name}</td> 
+                <td class="data-table-cell">{!site.Account_Sites__r.BillingStreet}&nbsp;{!site.Account_Sites__r.BillingCity}&nbsp;{!site.Account_Sites__r.BillingState}&nbsp;{!site.Account_Sites__r.BillingPostalCode}&nbsp;{!site.Account_Sites__r.BillingCountry}</td> 
+                <td class="data-table-cell">{!site.MID__c}</td>
+                <td class="data-table-cell">{!LEFT(site.TID__c,LEN(site.TID__c)-(FIND('||', site.TID__c )+1))}</td> 
+                <td class="data-table-cell">{!RIGHT(site.TID__c,LEN(site.TID__c)-(FIND('||', site.TID__c )+1))}</td>  
+                
+            </tr>
+        </apex:repeat>                  
+    </table>    
+    
+</apex:component>

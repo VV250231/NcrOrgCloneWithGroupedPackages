@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <columns>
+        <field>QuBy_Detail__c.Quote_Number__c</field>
+    </columns>
+    <columns>
+        <field>QuBy_Detail__c.ERP_Order_Number__c</field>
+    </columns>
+    <columns>
+        <field>QuBy_Detail__c.Opportunity_No__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <criteriaItems>
+            <column>FK_$Opportunity.Opportunity_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>700577390,700577394,700578363,700578655,700580070,700580085,700580229,700586947,700588648,700588666,700588668,700588671,700588681,700588698,700588736,700588833,700589723,700589765,700589886,700589898,700590529,700590940,700591283,700591480,700591511,700591561,700591589,700591772</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>All QuBy Quotes with Opp and ERP</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$QuBy_Detail__c@QuBy_Detail__c.Opportunity__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>QuBy_Detail__c.Solution_Acknowledged_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

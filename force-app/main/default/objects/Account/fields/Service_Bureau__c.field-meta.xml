@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Service_Bureau__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <inlineHelpText>Set a Service Bureau here. For &quot;In House&quot; hosting types, leave this field blank.</inlineHelpText>
+    <label>Service Bureau</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Solution_Provider__c.Parent_Solution_Provider_Id__r.Id</field>
+            <operation>equals</operation>
+            <valueField>$Source.DPV_Provider__c</valueField>
+        </filterItems>
+        <isOptional>true</isOptional>
+    </lookupFilter>
+    <referenceTo>Solution_Provider__c</referenceTo>
+    <relationshipLabel>Accounts (Service Bureau)</relationshipLabel>
+    <relationshipName>Service_Bureau</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

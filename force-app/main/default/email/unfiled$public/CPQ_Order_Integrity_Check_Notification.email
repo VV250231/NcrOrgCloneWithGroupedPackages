@@ -1,0 +1,51 @@
+<messaging:emailTemplate subject="[CPQ] Quote: {!relatedTo.qtc_Quote_Number__c} - Order Integrity Check for {!relatedTo.qtc_Quote__r.SBQQ__Account__r.Name}" recipientType="User" relatedToType="qtc_FulfillmentOrder__c">
+  
+  <messaging:plainTextEmailBody >
+    The following Salesforce CPQ Quote is ready for you to perform an order integrity check and select the appropriate Project Template.
+    
+    CPQ Quote Number: {!relatedTo.qtc_Quote__r.Name}
+    NetSuite Quote Number: {!relatedTo.Sales_Survey__r.NetSuite_Quote__c}
+    MCN: {!relatedTo.qtc_Quote__r.SBQQ__Account__r.Master_Customer_Number__c}
+    FUA: {!relatedTo.qtc_DeliverToSite__c}
+    Local Office Region: {!relatedTo.Sales_Survey__r.Local_Office_Region__c}
+  </messaging:plainTextEmailBody>
+  
+  <messaging:htmlEmailBody >
+  
+    <c:CPQ_Header heading="Order Integrity Check Notification"></c:CPQ_Header>
+	
+    <table border="0" align="center" bgcolor="#FFFFFF" style="width: 665px;font-size:15px; font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;">
+      <!--CONTENT SECTION-->
+
+      <tr valign="top">
+        <td>
+          <p>
+            The following Salesforce CPQ Quote is ready for you to perform an
+            order integrity check and select the appropriate Project Template.
+          </p>
+          <p>
+            <b>CPQ Quote Number:</b>&nbsp;
+            <c:CPQ_Base_URL label="{!relatedTo.qtc_Quote__r.Name}"
+              recordID="{!relatedTo.qtc_Quote__c}"
+            />
+          </p>
+          <p>
+            <b>NetSuite Quote Number:</b> {!relatedTo.Sales_Survey__r.NetSuite_Quote__c}
+          </p>
+          <p>
+            <b>MCN:</b> {!relatedTo.qtc_Quote__r.SBQQ__Account__r.Master_Customer_Number__c}
+          </p>
+          <p>
+            <b>FUA:</b> {!relatedTo.qtc_DeliverToSite__c}
+          </p>
+          <p>
+            <b>Local Office Region:</b> {!relatedTo.Sales_Survey__r.Local_Office_Region__c}
+          </p>
+        </td>
+      </tr>
+    </table>
+    <br/>
+    <c:CPQ_Footer />
+	
+  </messaging:htmlEmailBody>
+</messaging:emailTemplate>

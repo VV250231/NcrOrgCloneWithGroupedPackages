@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <assignments>
+        <name>Auto_populate_the_lead_Owner</name>
+        <label>Auto populate the lead Owner</label>
+        <locationX>204</locationX>
+        <locationY>1559</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.LeadOwnerManage__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>UpdateLeadOwnerManager</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Update_Lead_Last_Modified_date</name>
+        <label>Update Lead Last Modified date</label>
+        <locationX>182</locationX>
+        <locationY>887</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Last_Modified_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>CurrDateTime</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Check_if_owner_is_assigned</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Update_Lead_Type_to_Chat1</name>
+        <label>Update Lead Type to Chat</label>
+        <locationX>204</locationX>
+        <locationY>551</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.LeadType__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Chat</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Check_Record_type</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Update_Partner_User_Assignment_Date1</name>
+        <label>Update Partner User Assignment Date</label>
+        <locationX>50</locationX>
+        <locationY>1127</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Last_Assigned_Date_To_Partner_User__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>CurrDateTime</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Lead_Owner_Email_field</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Check_Campaign</name>
+        <label>Check Campaign</label>
+        <locationX>336</locationX>
+        <locationY>431</locationY>
+        <defaultConnector>
+            <targetReference>Check_Record_type</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>If_Campaign_is_Chat</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Sys_Campaign_Id__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Get_Chat_Campaign_Id.IDs__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Lead_Type_to_Chat1</targetReference>
+            </connector>
+            <label>If Campaign is Chat</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_if_owner_is_assigned</name>
+        <label>Check if owner is assigned</label>
+        <locationX>182</locationX>
+        <locationY>1007</locationY>
+        <defaultConnector>
+            <targetReference>Update_Lead_Owner_Email_field</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>IsOwnerAssigned</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>005</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record__Prior.OwnerId</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Partner_User_Assignment_Date1</targetReference>
+            </connector>
+            <label>IsOwnerAssigned</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Record_type</name>
+        <label>Check Record type</label>
+        <locationX>336</locationX>
+        <locationY>767</locationY>
+        <defaultConnector>
+            <targetReference>Update_Lead_Owner_Email_field</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>IsPartnerCommunityLead</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Partner Community Lead</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Profile.Name</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Marketo Administration</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Lead_Last_Modified_date</targetReference>
+            </connector>
+            <label>IsPartnerCommunityLead</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Update_Lead_Owner_Email_field</name>
+        <label>Update Lead Owner Email field</label>
+        <locationX>336</locationX>
+        <locationY>1439</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Update_UpdateOwnerEmail</name>
+            <conditionLogic>1 AND (2 OR 3)</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Owner:User.ManagerId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Owner:Group.Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Owner:User.Manager.Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Auto_populate_the_lead_Owner</targetReference>
+            </connector>
+            <label>Update UpdateOwnerEmail</label>
+        </rules>
+    </decisions>
+    <description>Migrated from the: 1.2 Lead Escalation workflow rule
+Workflow rule description: &quot;</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>CurrDateTime</name>
+        <dataType>DateTime</dataType>
+        <expression>NOW()</expression>
+    </formulas>
+    <formulas>
+        <name>UpdateLeadOwnerManager</name>
+        <dataType>String</dataType>
+        <expression>{!IF(ISBLANK($Record.Owner:User.ID), $Record.Owner:Group.Email,$Record.Owner:User.Manager.Email)}</expression>
+    </formulas>
+    <interviewLabel>Lead Before Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Lead Before Flow</label>
+    <migratedFromWorkflowRuleName>1.2 Lead Escalation</migratedFromWorkflowRuleName>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Chat_Campaign_Id</name>
+        <label>Get Chat Campaign Id</label>
+        <locationX>336</locationX>
+        <locationY>311</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_Campaign</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Sys_CampId</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>ID_Config__mdt</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>210</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Chat_Campaign_Id</targetReference>
+        </connector>
+        <filterFormula>AND(NOT({!$Setup.Automation_Setting__c.Skip_Flow__c}), {!$Record.CATM_Record__c} = false)</filterFormula>
+        <object>Lead</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

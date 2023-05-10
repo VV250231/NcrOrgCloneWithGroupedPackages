@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Disqualified_Reason_Lost_to_Competitor</fullName>
+    <active>true</active>
+    <errorConditionFormula>(ISPICKVAL(Disqualified_Reason__c ,&quot;Lost to Competitor&quot;) ) &amp;&amp; (ISBLANK( elq_hospitality_lead_feedback__c ) ) &amp;&amp;
+($RecordType.Name = &apos;HOSP Restaurant&apos;) &amp;&amp; NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c) &amp;&amp;
+ CATM_Record__c = false</errorConditionFormula>
+    <errorDisplayField>elq_hospitality_lead_feedback__c</errorDisplayField>
+    <errorMessage>Hospitality Lead Feedback must be populated when Disqualified Reason is Lost to Competitor</errorMessage>
+</ValidationRule>

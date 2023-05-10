@@ -1,0 +1,41 @@
+<aura:component controller="PRM_CaseController" 
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+
+
+    <aura:attribute name="lstComment" type="CaseComment[]"/>
+    <aura:handler name="init" value="{!this}" action="{!c.cAttachmentDetails}"/>
+    
+           
+    
+    		<table class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout">
+                <thead>
+                     <tr class="slds-text-heading-label slds-text-title_caps">
+                         <th scope="col"><div class="slds-truncate" title="Title">Case Comment</div></th>
+                         <th scope="col"><div class="slds-truncate" title="Title">Created Date</div></th>
+                         <th scope="col"><div class="slds-truncate" title="Title">Created By</div></th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                    <aura:iteration items="{!v.lstComment}" var="rec">
+                         <tr>
+                             <td data-label="Case Comment">
+                                 <div class="slds-truncate" title="{! rec.CommentBody}">                                
+                                    {! rec.CommentBody}
+                                 </div>
+                             </td>
+                            <td data-label="Created Date">
+                                 <div class="slds-truncate">                                     
+                                    <ui:outputDate value="{!rec.CreatedDate}"/>
+                                 </div>
+                             </td>
+                             <td data-label="Created By">
+                                 <div class="slds-truncate">                                     
+                                    {! rec.CreatedBy.Name}
+                                 </div>
+                             </td>
+                         </tr>
+                     </aura:iteration>
+                 </tbody> 
+            </table> 
+         
+</aura:component>

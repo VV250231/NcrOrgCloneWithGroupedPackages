@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sol_Reward__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(AND(Order_Obj__c &gt;250000, Order_Obj__c &lt;1000000),&quot;CoE&quot;,IF( Order_Obj__c &gt;= 1000000,&quot;CoD&quot;,IF(AND(Revenue_Obj__c &gt;250000, Revenue_Obj__c &lt;1000000),&quot;CoE&quot;,IF(Revenue_Obj__c &gt;=1000000,&quot;CoD&quot;,&quot;Not Eligible&quot;))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Solution Reward Program Eligibility</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Order_Nbr__c</fullName>
+    <externalId>false</externalId>
+    <formula>HYPERLINK( &quot;/lightning/cmp/c__ERPOrderLineDashboard?c__orderNbr=&quot; &amp; Order_Nbr_with_Country_Code__c &amp;&quot;&amp;c__orderType=&quot; &amp; Related_Order__r.Backlog_Orders_Status__c &amp;&quot;&amp;c__orderId=&quot; &amp; Order_Id__c &amp;&quot;&amp;c__source=CADD&quot; &amp;&quot;&amp;c__acctN=&quot; &amp; Account_Name__c , Order_number__c , &quot;_blank&quot; )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Order Number</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,35 @@
+:host .tooltip {
+    display: inline;
+    position: relative;
+  }
+  
+  :host .tooltip:hover:after {
+    background: #070707; 
+    border-radius: 5px;
+    bottom: 15px;
+    color: #fff;
+    font-weight: 500;
+    content: attr(data-title);
+    left: 100%;
+    padding: 5px 15px;
+    position: absolute;
+    z-index: 98;
+    width: 296px;
+    font-size: 12px;
+    text-align: justify;
+  }
+ /* 
+  :host .tooltip:hover:before {
+    border: solid;
+    border-color: #070707;
+    border-width: 6px 6px 0 6px;
+    bottom: 10px;
+    content: "";
+    left: 50%;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    position: absolute;
+    z-index: 99;
+    font-size: 12px;
+  }
+  */

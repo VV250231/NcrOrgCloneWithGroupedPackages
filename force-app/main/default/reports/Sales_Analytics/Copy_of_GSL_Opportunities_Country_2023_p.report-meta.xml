@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>Account.MDM_ERP_Country_Entity_Name__c</field>
+    </columns>
+    <columns>
+        <field>Account.MDM_ERP_Country_Entity_Code__c</field>
+    </columns>
+    <columns>
+        <field>Account.ISO_Country_Code__c</field>
+    </columns>
+    <columns>
+        <field>Account.MDM_Billing_Location_Country_Code__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Define ERP Country Entity Names based on ERP Country Entity Name but if CEE Operating Unit or GSL Operating Unit or MEA USD Entities Operating Unit following should be applied: 
+If Account Record Type = Partner/Distributor, define using ISO Country Code,</description>
+    <filter>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Opportunity.Indirect_Exclude_from_Funnel,Opportunity.ExcludefromFunnel</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Sales_Org__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>IPS</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>AMOUNT</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>USD 0</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FULL_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Validation Test User</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.MDM_ERP_Country_Entity_Code__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>A2,XC,XG,XM</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Copy of GSL Opportunities Country 2023 p</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2020-01-01</startDate>
+    </timeFrameFilter>
+</Report>

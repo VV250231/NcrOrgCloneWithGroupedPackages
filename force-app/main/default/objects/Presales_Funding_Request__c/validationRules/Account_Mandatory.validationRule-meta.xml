@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_Mandatory</fullName>
+    <active>true</active>
+    <description>If PreSales Category is &quot;6-Non-Standard Gratis work / Customer satisfaction issue&quot;, Account is mandatory</description>
+    <errorConditionFormula>AND(
+Text(PFR_Presales_Category__c) = &apos;6-Non-Standard Gratis work / Customer satisfaction issue&apos;,Account__c = null,PFR_Opportunity__c	= null)</errorConditionFormula>
+    <errorDisplayField>Account__c</errorDisplayField>
+    <errorMessage>If PreSales Category is &quot;6-Non-Standard Gratis work / Customer satisfaction issue&quot;, Account is mandatory</errorMessage>
+</ValidationRule>

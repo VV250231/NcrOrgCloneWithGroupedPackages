@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status_Validation_for_sales_resps</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+!$Setup.Automation_Setting__c.Skip_Validation_Rule__c,
+AND($Permission.CATM_Sys_Admin = false),
+AND( $Permission.CATM_Legal_Team = false),
+AND(
+ISPICKVAL(PRIORVALUE( Termination_Status__c),&quot;Requested&quot;),
+OR(
+ISPICKVAL(Termination_Status__c,&quot;Pending Removal&quot;),
+ISPICKVAL(Termination_Status__c,&quot;De-installed&quot;)
+)
+),
+$RecordType.Name &lt;&gt; &quot;Terminations&quot;
+)</errorConditionFormula>
+    <errorMessage>Incorrect status selected, please contact Sales Support</errorMessage>
+</ValidationRule>

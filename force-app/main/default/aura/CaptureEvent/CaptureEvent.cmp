@@ -1,0 +1,54 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId">
+	 <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>   
+     <aura:attribute name="arrvals" type="String[]" default="Contacted,Open,Unqualified,Nurturing,Closed"/>    
+  <div class="slds-grid" > 
+  <div class="slds-tabs_path" role="application">
+    <ul class="slds-tabs_path__nav" role="tablist" aura:id="main">
+      <li class="slds-tabs_path__item slds-is-complete" role="presentation" onclick="{!c.showDetail}" id="1">
+        <a class="slds-tabs_path__link" id="tabs-path-1" aria-controls="content-path-1" aria-selected="false" tabindex="-1" role="tab" href="javascript:void(0);" aria-live="assertive">
+          <span class="slds-tabs_path__stage">
+            <span class="slds-assistive-text">Stage Complete</span>
+          </span>
+          <span class="slds-tabs_path__title">Contacted</span>
+        </a> 
+      </li>
+      <li class="slds-tabs_path__item slds-is-incomplete" role="presentation" onclick="{!c.showDetail}" id="2">
+        <a class="slds-tabs_path__link" id="tabs-path-2" aria-controls="content-path-1" aria-selected="false" tabindex="-1" role="tab" href="javascript:void(0);" aria-live="assertive">
+          <span class="slds-tabs_path__stage">
+            
+            <span class="slds-assistive-text">Stage Complete</span>
+          </span>
+          <span class="slds-tabs_path__title">Open</span>
+        </a>
+      </li>
+      <li class="slds-tabs_path__item slds-is-incomplete" role="presentation" onclick="{!c.showDetail}" id="3">
+        <a class="slds-tabs_path__link" id="tabs-path-3" aria-controls="content-path-1" aria-selected="false" tabindex="-1" role="tab" href="javascript:void(0);" aria-live="assertive">
+          <span class="slds-tabs_path__stage">
+           
+          </span>
+          <span class="slds-tabs_path__title">Unqualified</span>
+        </a>
+      </li>
+      <li class="slds-tabs_path__item slds-is-incomplete" role="presentation" onclick="{!c.showDetail}" id="4">
+        <a class="slds-tabs_path__link" id="tabs-path-4" aria-controls="content-path-1" aria-selected="false" tabindex="-1" role="tab" href="javascript:void(0);" aria-live="assertive">
+          <span class="slds-tabs_path__stage">
+           
+          </span>
+          <span class="slds-tabs_path__title">Nurturing</span>
+        </a>
+      </li>
+      <li class="slds-tabs_path__item slds-is-incomplete" role="presentation" onclick="{!c.showDetail}" id="5">
+        <a class="slds-tabs_path__link" id="tabs-path-5" aria-controls="content-path-1" aria-selected="false" tabindex="-1" role="tab" href="javascript:void(0);" aria-live="assertive">
+          <span class="slds-tabs_path__stage">
+           
+          </span>
+          <span class="slds-tabs_path__title">Closed</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+      
+  <button class="slds-button slds-button_brand slds-path__mark-complete slds-no-flex slds-m-horizontal_small">
+    Mark Status as Complete</button>
+</div>
+</aura:component>

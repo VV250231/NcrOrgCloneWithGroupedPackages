@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>CATM_Lead_NABG</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>CATM Lead NABG</label>
+        <sharedTo>
+            <group>US_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>CATM_Region__c</field>
+            <operation>equals</operation>
+            <value>NABG</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CATM_Leads_for_AUS</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>CATM Leads for AUS</label>
+        <sharedTo>
+            <group>Australia_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Geography__c</field>
+            <operation>equals</operation>
+            <value>Australia</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CATM_Leads_for_Germany</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>CATM Leads for Germany</label>
+        <sharedTo>
+            <group>Germany_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Geography__c</field>
+            <operation>equals</operation>
+            <value>Germany</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CATM_Leads_for_Spain</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>CATM Leads for Spain</label>
+        <sharedTo>
+            <group>Spain_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Geography__c</field>
+            <operation>equals</operation>
+            <value>Spain</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CATM_Leads_for_UK</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>CATM Leads for UK</label>
+        <sharedTo>
+            <group>UK_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Geography__c</field>
+            <operation>equals</operation>
+            <value>UK</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CATM_South_Africa_Leads</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>CATM South Africa Leads</label>
+        <sharedTo>
+            <group>SA_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Geography__c</field>
+            <operation>equals</operation>
+            <value>South Africa</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CATM_leads_for_NEZ</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>CATM leads for NEZ</label>
+        <sharedTo>
+            <group>New_Zealand_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Geography__c</field>
+            <operation>equals</operation>
+            <value>NZ</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>HOSP_SDR_rep_sharing_for_all_HOSP</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule grants the HOSP SDR reps access to edit all hospitality leads.</description>
+        <label>HOSP SDR rep sharing for all HOSP</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>HOSP_SMB_SDR</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>Industry__c</field>
+            <operation>equals</operation>
+            <value>Hospitality</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Country__c</field>
+            <operation>equals</operation>
+            <value>CANADA,UNITED STATES</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

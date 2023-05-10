@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <assignments>
+        <name>Assign_Matching_Id</name>
+        <label>Assign Matching Id</label>
+        <locationX>193</locationX>
+        <locationY>590</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.blng__MatchingId__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>formulaMatchingId</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>TEST</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Set_Not_Expecting_for_F_F_Rating_CS</name>
+        <label>Set Not Expecting for F&amp;F Rating CS</label>
+        <locationX>497</locationX>
+        <locationY>608</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.qtc_Usage_Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Not Expecting Usage</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>SFCPQBLG-379- Set Usage Status from QL if Not Expecting Usage.</description>
+        <name>Set_Usage_Status</name>
+        <label>Set Usage Status</label>
+        <locationX>199</locationX>
+        <locationY>960</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.qtc_Usage_Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.blng__OrderProduct__r.SBQQ__QuoteLine__r.qtc_Usage_Status__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Zero_Rate_Usage_Summary</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Zero_Rate_Usage_Summary</name>
+        <label>Do Not Rate Usage Summary</label>
+        <locationX>201</locationX>
+        <locationY>1124</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.qtc_Do_Not_Rate__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ZeroRateFormula</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <name>TEST</name>
+        <label>F&amp;F Consumption Schedule</label>
+        <locationX>185</locationX>
+        <locationY>782</locationY>
+        <defaultConnector>
+            <targetReference>Set_Usage_Status</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Other Usage Summaries</defaultConnectorLabel>
+        <rules>
+            <name>F_F</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.blng__OrderItemConsumptionSchedule__r.SBQQ__ConsumptionSchedule__r.qtc_F_F_Rating__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Not_Expecting_for_F_F_Rating_CS</targetReference>
+            </connector>
+            <label>F&amp;F</label>
+        </rules>
+    </decisions>
+    <description>SFCPQBLG-699 - ATG - 29-Nov-2021 - Moved Matching Id population to this flow and inactivated the old one.
+SFCPQBLG-379- Update Usage Status on Usage Summary from Quote Line
+Make CS F&amp;F Rating: US Usage Status = Not Expecting Usage
+Make CS F&amp;F Zero Rate = True : US Do Not Rate = True</description>
+    <formulas>
+        <name>formulaMatchingId</name>
+        <dataType>String</dataType>
+        <expression>{!Get_Order.qtc_Master_Customer_Number__c}+&apos;:&apos;+{!Get_Order.qtc_Deliver_To_Site_Number__c}+&apos;:&apos;+{!Get_Order_Product.Product2.ProductCode}+&apos;:&apos;+{!$Record.blng__OrderProduct__c}</expression>
+    </formulas>
+    <formulas>
+        <name>ZeroRateFormula</name>
+        <dataType>Boolean</dataType>
+        <expression>IF({!$Record.blng__OrderItemConsumptionSchedule__r.SBQQ__ConsumptionSchedule__r.qtc_F_F_Zero_Rate__c} = True, True, False)</expression>
+    </formulas>
+    <interviewLabel>BLG Usage Summary on Create Before Save {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>BLG Usage Summary on Create Before Save</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Order</name>
+        <label>Get Order</label>
+        <locationX>177</locationX>
+        <locationY>277</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Order_Product</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.blng__OrderProduct__r.OrderId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Order</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Order_Product</name>
+        <label>Get Order Product</label>
+        <locationX>174</locationX>
+        <locationY>404</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Matching_Id</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.blng__OrderProduct__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>OrderItem</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Get_Order</targetReference>
+        </connector>
+        <object>blng__UsageSummary__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>recordID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

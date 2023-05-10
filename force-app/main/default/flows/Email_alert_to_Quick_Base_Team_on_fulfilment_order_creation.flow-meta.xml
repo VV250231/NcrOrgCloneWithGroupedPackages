@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Get_Email_Body</name>
+        <label>Get Email Body</label>
+        <locationX>710</locationX>
+        <locationY>624</locationY>
+        <actionName>CPQ_EmailTemplateBody</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Order_Integrity_Check_Notification</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>templateDeveloperName</name>
+            <value>
+                <elementReference>templateDeveloperNameCons</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>whatId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>whoId</name>
+            <value>
+                <elementReference>$User.Id</elementReference>
+            </value>
+        </inputParameters>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
+        <name>Order_Integrity_Check_Notification</name>
+        <label>Order Integrity Check Notification</label>
+        <locationX>710</locationX>
+        <locationY>744</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>Get_Email_Body.htmlBody</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddressesArray</name>
+            <value>
+                <elementReference>emailRecipients</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sendRichBody</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>[CPQ] Quote: {!$Record.qtc_Quote_Number__c} - Order Integrity Check for {!$Record.qtc_Quote__r.SBQQ__Account__r.Name}</stringValue>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>56.0</apiVersion>
+    <assignments>
+        <name>Central_Recipients</name>
+        <label>Central Recipients</label>
+        <locationX>578</locationX>
+        <locationY>408</locationY>
+        <assignmentItems>
+            <assignToReference>emailRecipients</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>sanskar.shukla@ncr.com</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Email_Body</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Northeast_Recipients</name>
+        <label>Northeast Recipients</label>
+        <locationX>50</locationX>
+        <locationY>408</locationY>
+        <assignmentItems>
+            <assignToReference>emailRecipients</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>sanskar.shukla@ncr.com</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Email_Body</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Southeast_Recipients</name>
+        <label>Southeast Recipients</label>
+        <locationX>314</locationX>
+        <locationY>408</locationY>
+        <assignmentItems>
+            <assignToReference>emailRecipients</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>sanskar.shukla@ncr.com</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Email_Body</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Texas_Recipients</name>
+        <label>Texas Recipients</label>
+        <locationX>842</locationX>
+        <locationY>408</locationY>
+        <assignmentItems>
+            <assignToReference>emailRecipients</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>sanskar.shukla@ncr.com</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Email_Body</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>West_Recipients</name>
+        <label>West Recipients</label>
+        <locationX>1106</locationX>
+        <locationY>408</locationY>
+        <assignmentItems>
+            <assignToReference>emailRecipients</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>sanskar.shukla@ncr.com</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Email_Body</targetReference>
+        </connector>
+    </assignments>
+    <constants>
+        <name>templateDeveloperNameCons</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>CPQ_Order_Integrity_Check_Notification</stringValue>
+        </value>
+    </constants>
+    <decisions>
+        <name>Local_Office_Region</name>
+        <label>Local Office Region</label>
+        <locationX>710</locationX>
+        <locationY>288</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Northeast_PDC_TRS_NEE</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Sales_Survey__r.Local_Office_Region__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Northeast – PDC, TRS, NEE</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Northeast_Recipients</targetReference>
+            </connector>
+            <label>Northeast – PDC, TRS, NEE</label>
+        </rules>
+        <rules>
+            <name>Southeast_CAR_FLA_ATL</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Sales_Survey__r.Local_Office_Region__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Southeast – CAR, FLA, ATL</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Southeast_Recipients</targetReference>
+            </connector>
+            <label>Southeast – CAR, FLA, ATL</label>
+        </rules>
+        <rules>
+            <name>Central_OHD_MIN_CHI</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Sales_Survey__r.Local_Office_Region__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Central – OHD, MIN, CHI</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Central_Recipients</targetReference>
+            </connector>
+            <label>Central – OHD, MIN, CHI</label>
+        </rules>
+        <rules>
+            <name>Texas_AUS_DFW_SAT_HOU</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Sales_Survey__r.Local_Office_Region__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Texas – AUS, DFW, SAT, HOU</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Texas_Recipients</targetReference>
+            </connector>
+            <label>Texas – AUS, DFW, SAT, HOU</label>
+        </rules>
+        <rules>
+            <name>West_NOC_LVN_RMT</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Sales_Survey__r.Local_Office_Region__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>West – NOC, LVN, RMT</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>West_Recipients</targetReference>
+            </connector>
+            <label>West – NOC, LVN, RMT</label>
+        </rules>
+    </decisions>
+    <description>Sends email alert to quick base team on fulfilment order creation, so the team can select/update template on fulfilment order record.
+# Adding jennifer.shivery@ncr.com in email recipient as part of V3.</description>
+    <environments>Default</environments>
+    <interviewLabel>Email alert to Quick Base Team on fulfilment order creation {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Email alert to Quick Base Team on fulfilment order creation</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>122</locationX>
+        <locationY>0</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Sales_Survey__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>qtc_FulfillmentOrder__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <scheduledPaths>
+            <connector>
+                <targetReference>Local_Office_Region</targetReference>
+            </connector>
+            <pathType>AsyncAfterCommit</pathType>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Obsolete</status>
+    <textTemplates>
+        <name>emailBody</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;table class=&quot;ql-table-blob&quot; border=&quot;0&quot; style=&quot;width:498.75pt;mso-cellspacing:0in;background:#0099BF;mso-yfti-tbllook:
+ 1184;mso-padding-alt:0in 0in 0in 0in&quot; width=&quot;665&quot;&gt;
+ &lt;tbody&gt;&lt;tr&gt;
+  &lt;td width=&quot;665&quot; style=&quot;width:498.75pt;padding:0in 0in 0in 0in&quot;&gt;
+  &lt;p class=&quot;MsoNormal&quot; align=&quot;center&quot; style=&quot;text-align:center&quot;&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/p&gt;
+  &lt;table class=&quot;MsoNormalTable&quot; border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; width=&quot;690&quot; style=&quot;width:517.5pt;mso-cellspacing:0in;mso-yfti-tbllook:1184;mso-padding-alt:
+   0in 0in 0in 0in&quot;&gt;
+   &lt;tbody&gt;&lt;tr&gt;
+    &lt;td width=&quot;690&quot; style=&quot;width: 517.5pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; padding: 0in;&quot;&gt;
+    &lt;p class=&quot;MsoNormal&quot; align=&quot;center&quot; style=&quot;margin-bottom:0in;text-align:center;
+    line-height:normal&quot;&gt;&lt;b&gt;&lt;span style=&quot;font-size:34.5pt;font-family:&amp;quot;Raleway&amp;quot;,sans-serif;
+    mso-fareast-font-family:&amp;quot;Times New Roman&amp;quot;;mso-bidi-font-family:&amp;quot;Times New Roman&amp;quot;;
+    color:white;letter-spacing:2.25pt&quot;&gt;Order Integrity Check Notification&lt;/span&gt;&lt;/b&gt;&lt;b&gt;&lt;span style=&quot;font-size:14.0pt;font-family:&amp;quot;Raleway&amp;quot;,sans-serif;mso-fareast-font-family:
+    &amp;quot;Times New Roman&amp;quot;;mso-bidi-font-family:&amp;quot;Times New Roman&amp;quot;;color:white;
+    letter-spacing:2.25pt&quot;&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/b&gt;&lt;/p&gt;
+    &lt;/td&gt;
+   &lt;/tr&gt;
+  &lt;/tbody&gt;&lt;/table&gt;
+  &lt;/td&gt;
+ &lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14pt; font-family: &amp;quot;Open Sans&amp;quot;, &amp;quot;Open Sans_EmbeddedFont&amp;quot;, &amp;quot;Open Sans_MSFontService&amp;quot;, sans-serif; color: rgb(29, 29, 29);&quot;&gt;The following Salesforce CPQ Quote is ready for you to perform an order integrity check and select the appropriate Project Template.&amp;nbsp;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14pt; font-family: &amp;quot;Open Sans&amp;quot;, &amp;quot;Open Sans_EmbeddedFont&amp;quot;, &amp;quot;Open Sans_MSFontService&amp;quot;, sans-serif; color: rgb(29, 29, 29);&quot;&gt;CPQ Quote Number: &lt;/span&gt;&lt;a href=&quot;{!baseURL}/{!$Record.qtc_Quote__c}&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot; style=&quot;font-size: 14pt; font-family: &amp;quot;Open Sans&amp;quot;, &amp;quot;Open Sans_EmbeddedFont&amp;quot;, &amp;quot;Open Sans_MSFontService&amp;quot;, sans-serif; color: rgb(29, 29, 29);&quot;&gt;{!$Record.qtc_Quote__r.Name}&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14pt; font-family: &amp;quot;Open Sans&amp;quot;, &amp;quot;Open Sans_EmbeddedFont&amp;quot;, &amp;quot;Open Sans_MSFontService&amp;quot;, sans-serif; color: rgb(29, 29, 29);&quot;&gt;NetSuite Quote Number:&amp;nbsp;{!$Record.Sales_Survey__r.NetSuite_Quote__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14pt; font-family: &amp;quot;Open Sans&amp;quot;, &amp;quot;Open Sans_EmbeddedFont&amp;quot;, &amp;quot;Open Sans_MSFontService&amp;quot;, sans-serif; color: rgb(29, 29, 29);&quot;&gt;MCN:&amp;nbsp;{!$Record.qtc_Quote__r.SBQQ__Account__r.Master_Customer_Number__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14pt; font-family: &amp;quot;Open Sans&amp;quot;, &amp;quot;Open Sans_EmbeddedFont&amp;quot;, &amp;quot;Open Sans_MSFontService&amp;quot;, sans-serif; color: rgb(29, 29, 29);&quot;&gt;FUA:&amp;nbsp;{!$Record.qtc_DeliverToSite__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14pt; font-family: &amp;quot;Open Sans&amp;quot;, &amp;quot;Open Sans_EmbeddedFont&amp;quot;, &amp;quot;Open Sans_MSFontService&amp;quot;, sans-serif; color: rgb(29, 29, 29);&quot;&gt;Local Office Region:&amp;nbsp;{!$Record.Sales_Survey__r.Local_Office_Region__c}&lt;/span&gt;&lt;/p&gt;</text>
+    </textTemplates>
+    <variables>
+        <name>baseURL</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue></stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>CommaSeparatedEmailAddresses</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>emailRecipients</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_TDS_Open_Vitalcast_Cases</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>Support_Queue__c</columns>
+    <columns>Site_Id__c</columns>
+    <columns>CASES.LAST_UPDATE_DATE_ONLY</columns>
+    <columns>CreatedDate__c</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>NAME</columns>
+    <columns>Resolution_Category__c</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.STATUS</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Support_Queue__c</field>
+        <operation>contains</operation>
+        <value>TDS Vitalcast</value>
+    </filters>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Closed,Cancelled</value>
+    </filters>
+    <filters>
+        <field>Project__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>All TDS Open Vitalcast Cases</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

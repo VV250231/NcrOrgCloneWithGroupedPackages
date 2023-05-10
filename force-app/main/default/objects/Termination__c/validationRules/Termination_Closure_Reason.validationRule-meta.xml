@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Termination_Closure_Reason</fullName>
+    <active>true</active>
+    <description>when the termination is Closed,Need to enter the Closure reason</description>
+    <errorConditionFormula>AND (
+!$Setup.Automation_Setting__c.Skip_Validation_Rule__c,
+OR (ISPICKVAL( Termination_Status__c , &quot;Closed&quot;)),
+ISPICKVAL(  Termination_Closure_Reason__c  ,&apos;&apos; )
+
+)</errorConditionFormula>
+    <errorDisplayField>Termination_Closure_Reason__c</errorDisplayField>
+    <errorMessage>Please select the Closure Reason for Termination</errorMessage>
+</ValidationRule>

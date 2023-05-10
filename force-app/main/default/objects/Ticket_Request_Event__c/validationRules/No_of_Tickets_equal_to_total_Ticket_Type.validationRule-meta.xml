@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>No_of_Tickets_equal_to_total_Ticket_Type</fullName>
+    <active>true</active>
+    <errorConditionFormula>VALUE( No_Of_Tickets_Available__c )  &lt;&gt; 
+(VALUE( Suite_Tickets_Available__c ) + 
+ VALUE( Lower_Level_Tickets_Available__c  ) + 
+ VALUE( VVIP_Tickets_Available__c))</errorConditionFormula>
+    <errorMessage>No. Of Tickets Available should be equals to total of each type(Suite, Lower Level and VVIP) of tickets</errorMessage>
+</ValidationRule>

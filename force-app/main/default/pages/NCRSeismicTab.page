@@ -1,0 +1,14 @@
+<apex:page showHeader="false" sidebar="false">
+    <apex:include pageName="seismic__SeismicWebApplication"/>
+    <apex:includeLightning />
+    <div id="lightning" />
+    <script>
+    $Lightning.use("c:SeismicLightningApp", function() {
+        $Lightning.createComponent("c:SeismicLoginActivity",
+                                   "",
+                                   "lightning",
+                                   function(cmp) {
+                                   });
+    });
+    </script>
+</apex:page>

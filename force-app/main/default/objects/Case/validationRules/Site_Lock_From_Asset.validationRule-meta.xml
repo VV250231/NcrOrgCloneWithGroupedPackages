@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Site_Lock_From_Asset</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName = &quot;Hospitality_Support&quot;,
+$Setup.Automation_Setting__c.Skip_Validation_Rule__c = FALSE,
+ISCHANGED( Site_Id__c ),
+OR(
+Work_Order_Asset_Lock__c = TRUE,
+NOT(ISBLANK
+( AssetId ))
+)
+)</errorConditionFormula>
+    <errorMessage>Site cannot be changed while Asset is on Case or attached Work Order</errorMessage>
+</ValidationRule>

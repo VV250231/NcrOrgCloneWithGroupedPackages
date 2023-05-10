@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CCAD_Dispute_Fields_As_ReadOnly</fullName>
+    <active>true</active>
+    <description>This validation rule will restrict admin or non admin users for making changes in specific dispute fields</description>
+    <errorConditionFormula>AND(
+				$RecordType.Name = &quot;Dispute&quot;,  
+				AND($Profile.Name &lt;&gt; &quot;Soup Integration&quot;),
+				OR(
+							  AND(PRIORVALUE(IsEscalated)=true,(IsEscalated)=false), 
+									AND( NOT(ISBLANK(PRIORVALUE(CCAD_Dispute_Nbr__c))), ISCHANGED(CCAD_Dispute_Nbr__c)),
+									AND( NOT(ISBLANK(PRIORVALUE(Dispute_Reason__c))), ISCHANGED(Dispute_Reason__c)),
+									AND( NOT(ISBLANK(PRIORVALUE(Followup_Questions__c))), ISCHANGED(Followup_Questions__c)),
+									AND( NOT(ISBLANK(PRIORVALUE(Follow_up_answers__c))), ISCHANGED(Follow_up_answers__c)),
+									AND( NOT(ISBLANK(PRIORVALUE(Country_Code__c))), ISCHANGED(Country_Code__c)),
+									AND( NOT(ISBLANK(PRIORVALUE(Master_Customer_Nbr__c))), ISCHANGED(Master_Customer_Nbr__c)),
+									
+									AND( NOT(ISBLANK(PRIORVALUE(Currency_Code__c))), ISCHANGED(Currency_Code__c)),
+								 AND( NOT(ISBLANK(PRIORVALUE(Chat_User_Country__c))), ISCHANGED(Chat_User_Country__c)),
+								AND( NOT(ISBLANK(PRIORVALUE(AccountId))), ISCHANGED(AccountId)),
+								AND( NOT(ISBLANK(PRIORVALUE(Dispute_Details__c))), ISCHANGED(Dispute_Details__c))
+									
+
+						)
+					)</errorConditionFormula>
+    <errorMessage>You cannot change these fields in Salesforce</errorMessage>
+</ValidationRule>

@@ -1,0 +1,239 @@
+<aura:component controller="PRM_AccountController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes" access="global" >
+    
+    <aura:attribute name="objAccount" type="Account"/>
+    <aura:attribute name="recordId" type="Id"/>
+    
+    <aura:attribute name="comment" type="String" default=""/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.getAccount}"/>
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+    
+    <!-- 'showLoadingSpinner' attribute for show/hide the uploading image and msg in aura:if-->
+   	<aura:attribute name="showLoadingSpinner" type="boolean" default="false" />
+ 	<!-- 'fileName' attribute for display the selected file name -->  
+   	<aura:attribute name="fileName" type="String" default="No File Selected.." />
+    
+    <aura:attribute name="isAttachment" type="boolean" default="false"/>
+        
+   	<aura:attribute name="isCaseComment" type="boolean" default="false"/>
+    <aura:attribute name="caseComment" type="String" default=""/>
+    
+    <!--loading spinner start... style=Brand Medium (blue dots)-->
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner_brand  slds-spinner slds-spinner_large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    <!-- Loading spinner end--> 
+    
+    <div class="slds-page-header" role="banner">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-has-flexi-truncate"> 
+                <div class="slds-media slds-media_center slds-no-space slds-grow">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-account">
+                            <lightning:icon iconName="standard:account" size="large" alternativeText="Indicates approval"/>
+                            <span class="slds-assistive-text"> Account</span>
+                        </span>
+                    </div>
+                    <div class="slds-media__body ">
+                        <p class="slds-text-title_caps slds-line-height_reset" title="Case">
+                            <h2 class="slds-text-heading_small">Account</h2></p>
+                    </div>
+                </div>                    
+            </div>  
+            <!-- ACTION BUTTONS -->
+            <div class="slds-col slds-no-flex slds-grid slds-wrap slds-align-top">
+                <button class="slds-button slds-button_neutral" onclick="{!c.back}">
+                    Back
+                </button>
+            </div>
+            <!-- / ACTION BUTTONS -->               
+        </div>
+    </div>
+    
+    <div class="slds">
+        <div class="section">
+            <h2 class="slds-text-heading_small section-heading">Account Information</h2>
+            <div class="slds-grid slds-wrap section-body">
+                <!-- / FIRST COLUMN -->
+                <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                    <div class="slds-form">
+                        
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control" >
+                                <label class="slds-form-element__label">Account Name</label>
+                                <div class="slds-form-element__control">
+                                    <ui:outputText class="slds-form-element__static" aura:id="AccountName"  value="{!v.objAccount.Name}" />
+                                </div>
+                            </div>    
+                        </div> 
+                        
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control" >
+                                <label class="slds-form-element__label">Account Name (Local)</label>
+                                <div class="slds-form-element__control">
+                                    <ui:outputText class="slds-form-element__static" aura:id="Account_Name_Local"  value="{!v.objAccount.Account_Name_Local__c}" />
+                                </div>
+                            </div>    
+                        </div> 
+                        
+                        
+                        
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control" >
+                                <label class="slds-form-element__label">Corporate Address</label>
+                                <div class="slds-form-element__control">
+                                    <aura:if isTrue="{!and(v.objAccount.BillingStreet != null, v.objAccount.BillingStreet != '')}">
+                                    <ui:outputText class="slds-form-element__static" aura:id="BillingStreet"  value="{!v.objAccount.BillingStreet}" />
+                                    </aura:if>
+                                    <ui:outputText class="slds-form-element__static" aura:id="BillingStreet"  
+      									value="{!v.objAccount.BillingCity + if(and(v.objAccount.BillingCity != null ,v.objAccount.BillingCity != ''), ', ','') +v.objAccount.BillingState  +' ' + v.objAccount.BillingPostalCode}" />
+                                    
+                                    <aura:if isTrue="{!and(v.objAccount.BillingCountry != null, v.objAccount.BillingCountry != '')}">
+                                    <ui:outputText class="slds-form-element__static" aura:id="BillingCountry"  value="{!v.objAccount.BillingCountry}" />
+                                    </aura:if>
+                                </div>
+                            </div>    
+                        </div> 
+                        
+                         <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <label class="slds-form-element__label">LOB</label>
+                                <div class="slds-form-element__control">
+                                    <ui:outputText class="slds-form-element__static" aura:id="LOB"  value="{!v.objAccount.LOB__c}" />
+                                </div>
+                            </div>
+                        </div>
+                        
+                         <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <label class="slds-form-element__label">Region</label>
+                                <div class="slds-form-element__control">
+                                    <ui:outputText class="slds-form-element__static" aura:id="Account_Region"  value="{!v.objAccount.Account_Region__c}" />
+                                </div>
+                            </div>
+                        </div>
+                         <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <label class="slds-form-element__label">Area</label>
+                                <div class="slds-form-element__control">
+                                    <ui:outputText class="slds-form-element__static" aura:id="Area"  value="{!v.objAccount.Area__c}" />
+                                </div>
+                            </div>
+                        </div>
+                        
+                         <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <label class="slds-form-element__label">Account Currency</label>
+                                <div class="slds-form-element__control">
+                                    <ui:outputText class="slds-form-element__static" aura:id="CurrencyIsoCode"  value="{!v.objAccount.CurrencyIsoCode}" />
+                                </div>
+                            </div>
+                        </div>
+                         <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <label class="slds-form-element__label">Industry</label>
+                                <div class="slds-form-element__control">
+                                    <ui:outputText class="slds-form-element__static" aura:id="Industry"  value="{!v.objAccount.Industry}" />
+                                </div>
+                            </div>
+                        </div>
+                     <!--   <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <label class="slds-form-element__label">Executive Sponsorship Program 2017</label>
+                                <div class="slds-form-element__control">
+                                    <ui:outputCheckbox class="slds-form-element__static" aura:id="Executive_Sponsorship_Program_2017"  
+                                                       value="{!v.objAccount.Executive_Sponsorship_Program_2017__c}" />
+                                </div>
+                            </div>
+                        </div> -->
+                       <!-- commenting due to EBA_SF-688 -->
+                    </div>
+                </div>
+                <!-- / SECOND COLUMN -->
+                <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                    <div class="slds-form">  
+                        
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <label class="slds-form-element__label">Phone</label>
+                                <div class="slds-form-element__control">
+                                    <ui:outputText class="slds-form-element__static" aura:id="Phone"  value="{!v.objAccount.Phone}" />
+                                </div>
+                            </div>
+                        </div>                        
+                        
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control" >
+                                <label class="slds-form-element__label">Fax</label>
+                                <div class="slds-form-element__control">
+                                    <ui:outputText class="slds-form-element__static" aura:id="Fax"  value="{!v.objAccount.Fax}" />
+                                </div>
+                            </div>    
+                        </div>
+                        
+                         <div class="slds-form-element">
+                            <div class="slds-form-element__control" >
+                                <label class="slds-form-element__label">Website</label>
+                                <div class="slds-form-element__control">
+                                    <ui:outputText class="slds-form-element__static" aura:id="Website"  value="{!v.objAccount.Website}" />
+                                </div>
+                            </div>    
+                        </div>
+                        
+                         <div class="slds-form-element">
+                            <div class="slds-form-element__control" >
+                                <label class="slds-form-element__label">Partner Program Level</label>
+                                <div class="slds-form-element__control">
+                                    <ui:outputText class="slds-form-element__static" aura:id="Partner_Program_Level"  value="{!v.objAccount.Partner_Program_Level__c}" />
+                                </div>
+                            </div>    
+                        </div>
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <label class="slds-form-element__label">Interact Reseller Agreement</label>
+                                <div class="slds-form-element__control">
+                                    <ui:outputCheckbox class="slds-form-element__static" aura:id="Interact_Reseller_Agreement"  value="{!v.objAccount.Interact_Reseller_Agreement__c}" />
+                                </div>
+                            </div>
+                        </div>
+                        
+                   <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <label class="slds-form-element__label">Rules of Engagement</label>
+                                <div class="slds-form-element__control">
+                                    <ui:outputCheckbox class="slds-form-element__static" aura:id="Rules_of_Engagement"  value="{!v.objAccount.Rules_of_Engagement__c}" />
+                                </div>
+                            </div>
+                        </div> 
+                        
+                         
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="section">
+            <h2 class="slds-text-heading_small section-heading">NCRU Certifications</h2>
+            <div class="slds-form">
+                <c:PRM_NCRUPartnerCertifications recordId="{!v.recordId}"/>
+            </div>
+        </div>
+        
+         <div class="section">
+            <h2 class="slds-text-heading_small section-heading">Attachment Details</h2>
+            <div class="slds-form">
+                <c:PRM_AccountAttachmentDetail recordId="{!v.recordId}"/>
+            </div>
+        </div>
+    </div>
+    
+</aura:component>

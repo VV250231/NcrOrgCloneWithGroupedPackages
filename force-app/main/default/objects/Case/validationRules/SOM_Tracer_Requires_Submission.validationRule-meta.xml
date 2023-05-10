@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SOM_Tracer_Requires_Submission</fullName>
+    <active>true</active>
+    <description>Requires a Submission record to be on the Submission related list if SOM Tracer # is filled in.</description>
+    <errorConditionFormula>AND(
+NOT(ISBLANK(Number_of_Submissions__c)),
+NOT(ISBLANK(SOM_Tracer__c)))</errorConditionFormula>
+    <errorMessage>Must add new Submission to fill in SOM Tracer #</errorMessage>
+</ValidationRule>

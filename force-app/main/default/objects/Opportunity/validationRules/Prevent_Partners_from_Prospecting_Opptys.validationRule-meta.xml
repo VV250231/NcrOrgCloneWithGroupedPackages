@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_Partners_from_Prospecting_Opptys</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+NOT(CATM_Record__c),
+OR(RecordType.Name = &quot;Indirect - Include in Funnel Distributor&quot;,RecordType.Name = &quot;Indirect - Include in Funnel Reseller&quot;),ISPICKVAL(StageName, &apos;Prospecting&apos;)
+,($Profile.Name &lt;&gt; &quot;Soup Integration&quot;))</errorConditionFormula>
+    <errorMessage>As a CAM or TAM you are not allowed into the Prospecting Selling Stage. Please start the Opportunity in Analyzing.</errorMessage>
+</ValidationRule>

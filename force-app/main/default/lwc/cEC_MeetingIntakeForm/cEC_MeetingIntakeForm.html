@@ -1,0 +1,760 @@
+<template>
+        <div class="container-fluid,bg" id="grad1">
+          <template if:true={isfirstPage1}>
+            <div class="row justify-content-center mt-0">
+              <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-0 mt-3 mb-2">
+                <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                  <center>
+                    <h2 style="font-size: 25px;color: #2C3E50;margin-top: 15px;font-weight: bold;">
+                      <strong>Welcome to New Customer Briefing Request</strong>
+                    </h2>
+                  </center>
+                  <div class="row">
+                    <div class="col-md-12 mx-0">
+                      <form id="msfor" class="msform">
+                        <fieldset>
+                          <div class="form-card" style="background-color:white;height: 400px;">
+                            <center>
+																<p>{label.CECWelcomeMessage} </p> 
+																
+							<!--	Ashish EBA 2000	<p>{label.moreinfoWelcomemessage}-->
+														<p>
+																<a href={label.Cecprogramguideurl} target="_blank">CEC Program Guide</a>
+																</p>	
+														<!--	</p>-->
+                            </center>
+                            <div class="slds-m-around_medium">
+                              <center>
+                                <img style ="max-width:70%" src={trailheadLogoUrl}>
+                              </center>
+																<center>
+																<h2 style="font-size: 22px;color: #2C3E50;font-weight: bold; align:center">
+																	<strong>Request CEC Engagement</strong>
+															</h2></center>
+																
+                            </div>
+															
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                          </div>
+                          <input type="button" name="next" class="next action-button" value="Let's Start" onclick={firstPageCEC} />
+                        </fieldset>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+          <template if:true={isfirstPage}>
+            <div class="row justify-content-center mt-0">
+              <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
+                <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                  <center>
+                    <h2 style="font-size: 25px;color: #2C3E50;margin-top: 15px;font-weight: bold;">
+                      <strong>New CEC Meeting Request</strong>
+                    </h2>
+                    <p>Fill all form field to go to next step</p>
+                  </center>
+                  <div class="row">
+                    <div class="col-md-12 mx-0">
+                      <form id="msform" class="msform">
+                        <lightning-progress-indicator current-step="1" type="base" variant="base">
+                          <lightning-progress-step label="Step 1" value="1">Step1</lightning-progress-step>
+                          <lightning-progress-step label="Step 2" value="2"></lightning-progress-step>
+                          <lightning-progress-step label="Step 3" value="3"></lightning-progress-step>
+                          <lightning-progress-step label="Step 4" value="4"></lightning-progress-step>
+                          <lightning-progress-step label="Step 5" value="5"></lightning-progress-step>
+                        </lightning-progress-indicator>
+                        <fieldset>
+                          <div class="form-card" style="background-color:white;">
+                            <center>
+                              <h2 class="fs-title">Intake Form</h2>
+                              <br />
+                            </center>
+                            <p class="label-css"> Select Experience Center </p>
+                            <br />
+                            <div class="group">
+                              <div class="RadLabel">
+                                <input type="radio" name="Experience_Center__c" id="rb1" value="Atlanta" onchange={handleChange1} style="width:25%" />
+                                <label for="rb1" class="RadLabel Atlanta">Atlanta</label>
+                              </div>
+                              <div class="RadLabel">
+                                <input type="radio" data-id='rb2' value="Belgrade" onchange={handleChange1} id="rb2" name="Experience_Center__c" style="width:25%" />
+                                <label for="rb2" class="RadLabel Belgrade">Belgrade</label>
+                              </div>
+                              <div class="RadLabel">
+                                <input type="radio" data-id='rb3' value="Dundee" onchange={handleChange1} id="rb3" name="Experience_Center__c" style="width:25%" />
+                                <label for="rb3" class="RadLabel Dundee">Dundee</label>
+                              </div>
+                              <div class="RadLabel">
+                                <input type="radio" data-id='rb4' value="Virtual" onchange={handleChange1} id="rb4" name="Experience_Center__c" style="width:25%" />
+                                <label for="rb4" class="RadLabel Virtual">Virtual</label>
+                              </div>
+                            </div>
+                            <label class="slds-form-element__label label-css required-field">CEC Meeting Name</label>
+                            <lightning-input name="Name" class="validate" variant="label-hidden" type="text" label="CEC Meeting Name" onchange={handleChange1} value={cECRecord.Name} placeholder="type here..." required></lightning-input>
+                            <br />
+                            <label class="slds-form-element__label label-css">Meeting Purpose</label>
+                            <select class="slds-select validate" name="Meeting_Purpose__c" onchange={handleChange1} required>
+                              <template if:true={meetingPickVal}>
+                                <option value={meetIngPickList}>{meetIngPickList}</option>
+                                <option value="">--None--</option>
+                              </template>
+                              <template if:false={meetingPickVal}>
+                                <option value="">--None--</option>
+                              </template>
+                              <template for:each={selectTargetValues.data} for:item="selectOptItem">
+                                <option key={selectOptItem.custFldvalue} value={selectOptItem.custFldvalue}> {selectOptItem.custFldlabel} </option>
+                              </template>
+                            </select>
+                            <br />
+                            <br />
+															<!--eba-sf-1715-->
+															<template if:true={isDetailsVisible}>  
+                              <label class="slds-form-element__label label-css required-field">Meeting Purpose: Other</label>&nbsp;&nbsp;
+                              <lightning-textarea class="validate" name="Meeting_Purpose_Other__c" onchange={handleChange1} variant="label-hidden" label="Meeting Purpose: Other" placeholder="type here..." value={meetingPurpose} required></lightning-textarea>															
+															</template>
+															<br/>
+                              <label class="slds-form-element__label label-css">Tour Only</label>
+															<lightning-input  class="slds-p-left_xx-large" name="Tour_Only__c" type="checkbox" label="" onchange={handleChange1} checked={tourBool}></lightning-input>
+															<br/>
+                              <center>
+                                <h2 class="fs-title">Goals</h2>
+                                <br />
+                              </center>
+                            <label class="slds-form-element__label label-css required-field">Customer Expectations</label>&nbsp;&nbsp;
+                            <!--<div class="tooltip"><i class="fa fa-info-circle" style="font-size:18px"></i>
+                              <span class="tooltiptext">What is the customer hoping to achieve ?</span>
+                            </div>-->
+															<div class="tooltip">
+																	<span class="tooltiptext">What is the customer hoping to achieve?</span>
+																	<div class="slds-form-element">
+																			<div class="slds-form-element__icon slds-align-middle" onmouseover={display} onmouseout={displayOut}>
+																							<lightning-icon icon-name="utility:info" size="xx-small" alternative-text="help"></lightning-icon>
+																			</div>
+																	</div>
+															</div>
+                            <lightning-textarea  name="Customer_Expectations__c" label="Customer Expectations" variant="label-hidden" onchange={handleChange1} value={cECRecord.Customer_Expectations__c} placeholder="type here..." required></lightning-textarea>
+                            <br />
+                            <div class="slds-p-around_medium lgc-bg">
+                              <label class="slds-form-element__label label-css required-field">NCR Expectations</label>&nbsp;&nbsp;
+                              <!--<div class="tooltip"><i class="fa fa-info-circle" style="font-size:18px"></i>
+                                <span class="tooltiptext">What is NCR’s goal for the meeting?</span>
+                              </div>-->
+																<div class="tooltip">
+																		<span class="tooltiptext">What is NCR’s goal for the meeting?</span>
+																		<div class="slds-form-element">
+																				<div class="slds-form-element__icon slds-align-middle" onmouseover={display} onmouseout={displayOut}>
+																								<lightning-icon icon-name="utility:info" size="xx-small" alternative-text="Help"></lightning-icon>
+																				</div>
+																		</div>
+
+
+
+																</div>
+                             
+                              <lightning-textarea class="validate" name="NCR_Expectations__c" onchange={handleChange1} variant="label-hidden" label="NCR Expectations" placeholder="type here..." value={cECRecord.NCR_Expectations__c} required></lightning-textarea>
+                            </div>
+                            <br />
+												
+															<label class="slds-form-element__label label-css required-field">Cause for the customer to meet with NCR?</label>&nbsp;&nbsp;
+															<div class="tooltip">
+																	<span class="tooltiptext">Please share any background such as escalations or team changes that have led to the meeting</span>
+																	<div class="slds-form-element">
+																			<div class="slds-form-element__icon slds-align-middle" onmouseover={display} onmouseout={displayOut}>
+																							<lightning-icon icon-name="utility:info" size="xx-small" alternative-text="help"></lightning-icon>
+																			</div>
+																	</div>
+															</div>
+                            <lightning-textarea  name="Cause_for_the_customer_to_meet_with_NCR__c" label="Cause for the customer to meet with NCR?" variant="label-hidden" onchange={handleChange1} value={cECRecord.Cause_for_the_customer_to_meet_with_NCR__c} placeholder="type here..." required></lightning-textarea>
+                            <br />
+                            <div class="slds-p-around_medium lgc-bg">
+                              <label class="slds-form-element__label label-css required-field">Anticipated group size (NCR & customer) </label>&nbsp;&nbsp;
+																<div class="tooltip">
+																		<span class="tooltiptext">Team needs this information to secure comfortable meeting space</span>
+																		<div class="slds-form-element">
+																				<div class="slds-form-element__icon slds-align-middle" onmouseover={display} onmouseout={displayOut}>
+																								<lightning-icon icon-name="utility:info" size="xx-small" alternative-text="Help"></lightning-icon>
+																				</div>
+																		</div>
+																</div>
+                             
+                              <lightning-textarea class="validate" name="Anticipated_group_size_NCR_customer__c" onchange={handleChange1} variant="label-hidden" label="Anticipated group size (NCR & customer) " placeholder="type here..." value={cECRecord.Anticipated_group_size_NCR_customer__c} required></lightning-textarea>
+																
+														<label class="slds-form-element__label label-css">Customer Strategic Priorities</label>
+															<div class="tooltip">
+																		<span class="tooltiptext">What are the customer’s top business priorities?</span>
+																		<div class="slds-form-element">
+																				<div class="slds-form-element__icon slds-align-middle" onmouseover={display} onmouseout={displayOut}>
+																								<lightning-icon icon-name="utility:info" size="xx-small" alternative-text="Help"></lightning-icon>
+																				</div>
+																		</div>
+																</div>
+																<lightning-textarea class="Validate" name="Customer_Strategic_Priorities__c" onchange={handleChange1}  variant="label-hidden"  label="Customer Strategic Priorities"  placeholder="type here..." value={cECRecord.Customer_Strategic_Priorities__c}></lightning-textarea>
+                            </div>
+															
+															
+													<!--		<lightning-helptext content='What are the customer’s top business priorities?'></lightning-helptext>
+                              <lightning-textarea name="Customer_Strategic_Priorities__c" variant="label-hidden"  label="Customer Strategic Priorities "  value={Customer_Strategic_Priorities__c} placeholder="type here..."></lightning-textarea>  
+															-->
+											
+                            <br />
+														
+															
+                            <!--<label class="slds-form-element__label label-css required-field">Ideal Meeting Duration</label>-->
+															<!--eba-sf-1715-->
+                            <!--<lightning-input name="Ideal_Meeting_Duration__c" class="validate" type="text" variant="label-hidden" label="Ideal Meeting Duration" onchange={handleChange1} value={cECRecord.Ideal_Meeting_Duration__c} placeholder="type here..." required></lightning-input>-->
+														<!--	<select class="slds-select validate" name="Ideal_Meeting_Duration__c" onchange={handleChange1} required>
+																	<template if:true={durationPickVal}>
+																			<option value={durationPickList}>{durationPickList}</option>  
+																			<option value="">--None--</option> 
+																	</template>     
+																	<template if:false={durationPickVal}>
+
+																			<option value="">--None--</option> 
+																	</template>
+																	<template for:each={durationTargetValues.data} for:item="selectOptItem">
+																			<option key={selectOptItem.custFldvalue} value={selectOptItem.custFldvalue}>
+																					{selectOptItem.custFldlabel}
+																			</option>
+																	</template>
+															</select>
+                            <br />
+                            <br />
+                            -->
+                            <template if:true={isAccVisible}>
+                              <lightning-record-edit-form object-api-name="CEC__c" id="createContsactFor1m">
+                                <lightning-input-field class="slds-hide" name="Account_Name__c" field-name="Account_Name__c" value={recordId} variant="label-hidden" onchange={handleChange1}></lightning-input-field>
+                              </lightning-record-edit-form>
+                            </template>
+                            <template if:true={isOppVisible}>
+                              <lightning-record-edit-form object-api-name="CEC__c" id="createContactFor1m">
+                                <lightning-input-field class="slds-hide" name="Opportunity__c" field-name="Opportunity__c" value={accVal} variant="label-hidden" onchange={handleChange1}></lightning-input-field>
+                              </lightning-record-edit-form>
+                            </template>
+                          </div>
+                          <input type="button" name="next" class="next action-button" value="Next" onclick={handleNavigate} />
+                        </fieldset>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+         <!-- <template if:true={isMeetingPage}>
+            <div class="row justify-content-center mt-0">
+              <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
+                <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                  <center>
+                    <h2 style="font-size: 25px;color: #2C3E50;margin-top: 15px;font-weight: bold;">
+                      <strong>Add Meeting Information</strong>
+                    </h2>
+                  </center>
+                  <div class="row">
+                    <div class="col-md-12 mx-0">
+                      <form id="msform3" class="msform">
+                        <lightning-progress-indicator current-step="2" type="base" variant="base">
+                          <lightning-progress-step label="Step 1" value="1"></lightning-progress-step>
+                          <lightning-progress-step label="Step 2" value="2"></lightning-progress-step>
+                          <lightning-progress-step label="Step 3" value="3"></lightning-progress-step>
+                          <lightning-progress-step label="Step 4" value="4"></lightning-progress-step>
+                          <lightning-progress-step label="Step 5" value="5"></lightning-progress-step>
+                        </lightning-progress-indicator>
+                        <fieldset>
+                          <div class="form-card" style="background-color:white;">
+                            <h2 class="fs-title">Meeting Information</h2>
+	
+                            <label class="slds-form-element__label label-css">Type of Visit</label>
+                            <select class="slds-select" name="Meeting_Type__c" onchange={handleChange1}>
+                              <template if:true={typeOfVisitPickList}>
+                                <option value={typeOfVisitPickList}>{typeOfVisitPickList}</option>
+                                <option value="">--None--</option>
+                              </template>
+                              <template if:false={typeOfVisitPickList}>
+                                <option value="">--None--</option>
+                              </template>
+                              <template for:each={typeTargetValues.data} for:item="selectOptItem">
+                                <option key={selectOptItem.custFldvalue} value={selectOptItem.custFldvalue}> {selectOptItem.custFldlabel} </option>
+                              </template>
+                            </select>
+                            <br />
+                            <br />-->
+                         <!--   <label class="slds-form-element__label label-css">Sales Leader Name</label>
+                            <div class="slds-box slds-p-top_small" style="background-color: white;">
+                              <lightning-record-edit-form object-api-name="CEC__c" id="createContactForm" required>
+                                <lightning-input-field name="Sales_Leader_Name__c" field-name="Sales_Leader_Name__c" value={SalesLookUp} variant="label-hidden" onchange={handleChange1} required></lightning-input-field>
+                              </lightning-record-edit-form>
+                            </div>
+                            <br />
+                            <label class="slds-form-element__label label-css">RVP Name</label>
+                            <div class="slds-box slds-p-top_small" style="background-color: white;">
+                              <lightning-record-edit-form object-api-name="CEC__c" id="createContactForm1" required>
+                                <lightning-messages></lightning-messages>
+                                <lightning-input-field name="RVP_Name__c" field-name="RVP_Name__c" value={rVPLookUp} variant="label-hidden" onchange={handleChange1} required></lightning-input-field>
+                              </lightning-record-edit-form>
+                            </div>
+                          <input type="button" name="previous" class="previous action-button-previous" value="Previous" onclick={gotoFirstPage} />
+                          <input type="button" name="next" class="next action-button" value="Next" onclick={gotoAttendeePage} />
+                        </fieldset>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>-->
+          <template if:true={isReasonPage}>
+            <div class="row justify-content-center mt-0">
+              <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
+                <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                  <center>
+                    <h2 style="font-size: 25px;color: #2C3E50; margin-top: 15px;font-weight: bold;">
+                      <strong>Add Background Information</strong>
+                    </h2>
+                  </center>
+                  <div class="row">
+                    <div class="col-md-12 mx-0">
+                      <form id="msform5" class="msform">
+                        <lightning-progress-indicator current-step="4" type="base" variant="base">
+                          <lightning-progress-step label="Step 1" value="1"></lightning-progress-step>
+                          <lightning-progress-step label="Step 2" value="2"></lightning-progress-step>
+                          <lightning-progress-step label="Step 3" value="3"></lightning-progress-step>
+                          <lightning-progress-step label="Step 4" value="4"></lightning-progress-step>
+                          <lightning-progress-step label="Step 5" value="5"></lightning-progress-step>
+                        </lightning-progress-indicator>
+                        <fieldset>
+                          <div class="form-card" style="background-color:white;">
+                            <h2 class="fs-title">Background Information</h2>
+                            <!--<label class="slds-form-element__label label-css  required-field">Describe relationship with the Customer</label>
+														<lightning-helptext content='Red, Yellow, Green'></lightning-helptext>
+                            <lightning-textarea name="Customer_Relationship__c"  variant="label-hidden" label="Describe relationship with the Customer" onchange={handleChange1} value={cECRecord.Customer_Relationship__c} placeholder="type here..." required></lightning-textarea>
+                            <br />
+                            <br />
+                            <label class="slds-form-element__label label-css required-field">#1 Most important message for Customer</label>
+                            <lightning-textarea name="X1st_Customer_Takeaway__c"  variant="label-hidden" label="#1 Most important message for Customer" onchange={handleChange1} value={cECRecord.X1st_Customer_Takeaway__c} placeholder="type here..." required ></lightning-textarea>
+                            <br />
+                            <label class="slds-form-element__label label-css required-field">#2 Most important message for Customer</label>
+                            <lightning-textarea name="X2nd_Customer_Takeaway__c"  variant="label-hidden" label="#2 Most important message for Customer" onchange={handleChange1} value={cECRecord.X2nd_Customer_Takeaway__c} placeholder="type here..." required></lightning-textarea>
+                            <br />
+                            <label class="slds-form-element__label label-css required-field">#3 Most important message for Customer</label>
+                            <lightning-textarea name="X3rd_Customer_Takeway__c"  variant="label-hidden" label="#3 Most important message for Customer" onchange={handleChange1} value={cECRecord.X3rd_Customer_Takeway__c} placeholder="type here..." required ></lightning-textarea>
+                            <br />
+                            <label class="slds-form-element__label label-css required-field">Questions to be answered by Customer?</label>
+															<lightning-helptext content='What questions do we need to have answered by the customer in this briefing?'></lightning-helptext>
+                            <lightning-textarea name="Questions_for_Customer__c"  variant="label-hidden" label="Questions to be answered by Customer?" onchange={handleChange1} value={cECRecord.Questions_for_Customer__c} placeholder="type here..." required></lightning-textarea>
+                            <br />
+                            <label class="slds-form-element__label label-css required-field">Field Service Issues?</label>
+															<lightning-helptext content='	Explain field service fidelity and the customer’s satisfaction level.
+                               Are there issues with service? If so, what is planned to remediate?'></lightning-helptext>
+                            <lightning-textarea name="Field_Service_Fidelity__c"  variant="label-hidden" label="Field Service Issues?" onchange={handleChange1} value={cECRecord.Field_Service_Fidelity__c} placeholder="type here..." required></lightning-textarea>
+                            <br />
+                            <label class="slds-form-element__label label-css required-field">Teleconference tools owned by Customer?</label>
+															<lightning-helptext content='What teleconference platforms does the customer use?'></lightning-helptext>
+                            <lightning-textarea name="Teleconference_Platform_Usage__c"  variant="label-hidden" label="Teleconference tools owned by Customer?" onchange={handleChange1} value={cECRecord.Teleconference_Platform_Usage__c} placeholder="type here..." required ></lightning-textarea>
+                            <br />
+                            <label class="slds-form-element__label label-css required-field">COVID-19 Impact to Customer goals?</label>
+															<lightning-helptext content='How has COVID-19 impacted the customer’s business goals?'></lightning-helptext>
+                            <lightning-textarea name="COVID_Goal_Impact__c"  variant="label-hidden" label="COVID-19 Impact to Customer goals?" onchange={handleChange1} value={cECRecord.COVID_Goal_Impact__c} placeholder="type here..." required></lightning-textarea>
+                            <br />-->
+                            <label class="slds-form-element__label label-css">Briefing part of active/upcoming RFP?</label>
+															<lightning-helptext content='Is this briefing affiliated with an active or upcoming RFP?'></lightning-helptext>
+                            <select class="slds-select" name="RFP_Affiliation__c" onchange={handleChange1}>
+                              <template if:true={briefPickList}>
+                                <option value={briefPickList}>{briefPickList}</option>
+                                <option value="">--None--</option>
+                              </template>
+                              <template if:false={briefPickList}>
+                                <option value="">--None--</option>
+                              </template>
+                              <template for:each={rPFTargetValues.data} for:item="selectOptItem">
+                                <option key={selectOptItem.custFldvalue} value={selectOptItem.custFldvalue} > {selectOptItem.custFldlabel} </option>
+                              </template>
+                            </select>
+                            <br />
+                            <br />
+															<template if:true={isRFPVisible}>  
+                            <label class="slds-form-element__label label-css">If yes, what is the name of the RFP?</label>
+                            <lightning-textarea name="RFP_Name__c" variant="label-hidden" label="If yes, what is the name of the RFP?" onchange={handleChange1} value={rfpName} placeholder="type here..."></lightning-textarea>
+                           
+															</template>
+                           
+                            <br />
+                            <label class="slds-form-element__label label-css">Is your RVP aware of this briefing?</label>
+															<lightning-helptext content='Regional Vice President. RVPs receive a weekly summary of all upcoming briefings each Friday'></lightning-helptext>
+                            <select class="slds-select" name="RVP_Aware__c" onchange={handleChange1}>
+                              <template if:true={rvpAwarePickList}>
+                                <option value={rvpAwarePickList}>{rvpAwarePickList}</option>
+                                <option value="">--None--</option>
+                              </template>
+                              <template if:false={rvpAwarePickList}>
+                                <option value="">--None--</option>
+                              </template>
+                              <template for:each={rVPTargetValues.data} for:item="selectOptItem">
+                                <option key={selectOptItem.custFldvalue} value={selectOptItem.custFldvalue}> {selectOptItem.custFldlabel} </option>
+                              </template>
+                            </select>
+                            <br />
+                            <br />
+                            <label class="slds-form-element__label label-css required-field">NCR solutions to be covered?</label>
+															<lightning-helptext content='	What NCR solutions would you like to cover?'></lightning-helptext>
+                            <lightning-textarea name="NCR_solutions__c" variant="label-hidden" label="NCR solutions to be covered?" onchange={handleChange1} value={cECRecord.NCR_solutions__c} placeholder="type here..." required></lightning-textarea>
+                            <br />
+                            <label class="slds-form-element__label label-css required-field">Who are NCR Competitors?</label>
+                            <div class="slds-box slds-p-top_small" style="background-color: white;">
+                              <lightning-record-edit-form object-api-name="CEC__c" id="creat1eContactForm">
+                                <lightning-input-field name="Customer_Competitors__c" field-name="Customer_Competitors__c" value={cUSLookUpValue} variant="label-hidden" onchange={handleChange1} required></lightning-input-field>
+                              </lightning-record-edit-form>
+                            </div>
+                            <br />
+                            <!--<label class="slds-form-element__label label-css">Has Customer visited NCR?</label>
+															<lightning-helptext content='Has the customer previously visited an NCR CEC location? If so, which one?'></lightning-helptext>
+                            <select class="slds-select" name="Visited_NCR_CEC_Location__c" onchange={handleChange1}>
+                              <template if:true={visitPickList}>
+                                <option value={visitPickList}>{visitPickList}</option>
+                                <option value="">--None--</option>
+                              </template>
+                              <template if:false={visitPickList}>
+                                <option value="">--None--</option>
+                              </template>
+                              <template for:each={VLocTargetValues.data} for:item="selectOptItem">
+                                <option key={selectOptItem.custFldvalue} value={selectOptItem.custFldvalue}> {selectOptItem.custFldlabel} </option>
+                              </template> 
+                            </select>
+                            <br />
+                            <br />-->
+															<!--eba-sf 1715-->
+															 <br>
+														<label class="slds-form-element__label label-css">When/where was last visit to an NCR CEC?</label>
+                            <lightning-textarea name="When_last_visit__c" variant="label-hidden"  label="When/where was last visit to an NCR CEC?" onchange={handleChange1} value={lastVisit} placeholder="type here..."></lightning-textarea>               
+														
+															 <br />
+                            <label class="slds-form-element__label label-css ">Name of company for meeting materials</label>
+															<lightning-helptext content='Exact organization/company name as it should appear on digital signage and meeting materials'></lightning-helptext>
+                            <lightning-textarea name="Name_of_company_for_meeting_materials__c" variant="label-hidden"  label="Name of company for meeting materials" onchange={handleChange1} value={cECRecord.Name_of_company_for_meeting_materials__c} placeholder="type here..." ></lightning-textarea>
+                            <br />
+                            <label class="slds-form-element__label label-css ">Special requests for personalization?</label>
+															<lightning-helptext content='Customer success milestones, partnership milestones, favorite foods/beverages, birthday, religious considerations, etc.'></lightning-helptext>
+                            <lightning-textarea name="Personal_Customer_Considerations__c" variant="label-hidden"  label="Special requests for personalization?" onchange={handleChange1} value={cECRecord.Personal_Customer_Considerations__c} placeholder="type here..."></lightning-textarea>
+                            <br />
+														<!--eba_sf-1715
+                            <label class="slds-form-element__label label-css required-field">ELT Attendance Tracking</label>
+                            <lightning-textarea name="ELT_Attendance__c"  variant="label-hidden" label="ELT Attendance Tracking" onchange={handleChange1} value={cECRecord.ELT_Attendance__c} placeholder="type here..." required ></lightning-textarea>
+                            <br />-->
+                            <label class="slds-form-element__label label-css ">Presenters already secured?</label>
+                            <lightning-textarea name="Presenters_already_secured__c" variant="label-hidden"  label="Presenters already secured?" onchange={handleChange1} value={cECRecord.Presenters_already_secured__c} placeholder="type here..." ></lightning-textarea>
+                            <br />
+                           <!-- <label class="slds-form-element__label label-css ">Special notes/requests</label>
+                            <lightning-textarea name="Special_notes_requests__c" variant="label-hidden"  label="Special notes/requests" onchange={handleChange1} value={cECRecord.Special_notes_requests__c} placeholder="type here..." ></lightning-textarea>
+                            <br />-->
+															
+                            <!--<label class="slds-form-element__label label-css required-field">FML Code</label>
+                            <lightning-input name="Chargeback_FML_Org_Code__c" variant="label-hidden" class="validate" type="text" label="FML Code" onchange={handleChange1} value={cECRecord.Chargeback_FML_Org_Code__c} placeholder="type here..." required></lightning-input>
+                            <br />
+                            <label class="slds-form-element__label label-css">Chargeback Manager Name</label>
+                            <div class="slds-box slds-p-top_small" style="background-color: white;">
+                              <lightning-record-edit-form object-api-name="CEC__c" id="creat1eContactForm1">
+                                <lightning-input-field class="validate" name="Chargeback_Manager_Name__c" field-name="Chargeback_Manager_Name__c" value={chareBackManager} variant="label-hidden" onchange={handleChange1} required></lightning-input-field>
+                              </lightning-record-edit-form>
+                            </div>-->
+                            <br />
+                            <div class="custom-radios label-css">Temperature <div style="margin-bottom: 12px;">
+                                <input type="radio" id="color-1" class="color-1" name="Temperature__c" value="Red" onchange={handleChange1}>
+                                <label for="color-1">
+                                  <span style="  background-color: #e74c3c;">
+                                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" class="Red" alt="Checked Icon" />
+                                  </span>
+                                </label>
+                              </div>
+                              <div>
+                                <input type="radio" id="color-2" class="color-2" name="Temperature__c" value="Yellow" onchange={handleChange1}>
+                                <label for="color-2">
+                                  <span style="  background-color: #f1c40f;">
+                                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" class="Yellow" alt="Checked Icon" />
+                                  </span>
+                                </label>
+                              </div>
+                              <div>
+                                <input type="radio" id="color-3" class="color-3" name="Temperature__c" value="Green" onchange={handleChange1}>
+                                <label for="color-3">
+                                  <span style="  background-color: #2ecc71;">
+                                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" class="Green" alt="Checked Icon" />
+                                  </span>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                          <input type="button" name="previous" class="previous action-button-previous" value="Previous" onclick={gotoFirstPage} />
+                          <input type="button" name="Submit" class="next action-button" value="Submit" onclick={gotoReasonPage} />
+                        </fieldset>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+							 <template if:true={loaded}>
+              <lightning-spinner alternative-text="Loading"></lightning-spinner>
+            </template>
+          </template>
+          <template if:true={isAttendeePage}>
+            <div class="row justify-content-center mt-0">
+              <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
+                <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                  <center>
+											 <h2 style="font-size: 18px;color: #2C3E50; margin-top: 15px; font-weight: bold;">
+												<strong>For this meeting to qualify to be hosted by the CEC, engagements should join C-level attendees. Other meetings may be considered</strong>	
+											</h2>
+													
+                    <h2 style="font-size: 15px;color: #2C3E50; margin-top: 15px; font-weight: bold;">
+                      <strong>Add Attendee</strong>
+                    </h2>
+                  </center>
+                  <div class="row">
+                    <div class="col-md-12 mx-0">
+                      <form id="msform1" class="msform">
+                        <lightning-progress-indicator current-step="2" type="base" variant="base">
+                          <lightning-progress-step label="Step 1" value="1"></lightning-progress-step>
+                          <lightning-progress-step label="Step 2" value="2"></lightning-progress-step>
+                          <lightning-progress-step label="Step 3" value="3"></lightning-progress-step>
+                          <lightning-progress-step label="Step 4" value="4"></lightning-progress-step>
+                          <lightning-progress-step label="Step 5" value="5"></lightning-progress-step>
+                        </lightning-progress-indicator>
+                        <fieldset>
+                          <div class="form-card" style="background-color:white;">
+                            <h2 class="fs-title">Attendee Information</h2>
+                            <label class="slds-form-element__label label-css">Type of Attendee</label>
+                            <select class="slds-select" onchange={selectOptionAttendeeValue} value={attPickVal}>
+                              <option value="6">None</option>
+                              <option value="1">Contacts in Salesforce</option>
+                              <!--<option value="2">Sales Lead</option>-->
+                              <option value="3">NCR Employee in Salesforce</option>
+																<option value="7">Non Salesforce NCR Employee</option>	<!--eba-sf- 1792-->
+                              <option value="4">Contacts not in Salesforce</option>
+                            </select>
+                            <template if:true={ValidateContactVisibility}>
+                              <div class="slds-m-vertical_medium">
+                                <c-lwc-multi-select-lookup  label-name="Search Contacts in Salesforce" help-text-value= "Customer already in Salesforce.com contact records" object-api-name="Contact" field-api-names="Id,Name,Email" filter-field-api-name="Name" icon-name="standard:contact" onretrieve={selectedContactsEventHandler} onremove={deleteContactsEventHandler} contact-global-selected-items={selectedContactsEleToDisplay}></c-lwc-multi-select-lookup>
+                                <template if:true={isItemExists}>
+                                  <h3 class="slds-p-horizontal_small">                                                                                       
+                                  </h3>
+                                </template>
+                              </div>
+                            </template>
+														<!--commented as part of eba-sf 1791
+                            <template if:true={ValidateLeadVisibility}>
+                              <div class="slds-m-vertical_medium">
+                                <c-lwc-multi-select-lookup  label-name="Search Lead" object-api-name="Lead" help-text-value= " NCR Sales contact" field-api-names="Id,Name,Email" filter-field-api-name="Name" icon-name="standard:lead" onretrieve={selectedLeadsEventHandler} onremove={deleteLeadsEventHandler} lead-global-selected-items={selectedLeadsEleToDisplay}></c-lwc-multi-select-lookup>
+                                <template if:true={isItemExists}>
+                                  <h3 class="slds-p-horizontal_small">                                                                                         
+                                  </h3>
+                                </template>
+                              </div>
+                            </template>-->
+                            <template if:true={ValidateUserVisibility}>
+                              <div class="slds-m-vertical_medium">
+                                <c-lwc-multi-select-lookup  label-name="Search NCR Employee in Salesforce" help-text-value= "NCR employees" object-api-name="User" field-api-names="Id,Name,Email" filter-field-api-name="Name" icon-name="standard:user" onretrieve={selectedUsersEventHandler} onremove={deleteUsersEventHandler} user-global-selected-items={selectedUsersEleToDisplay}></c-lwc-multi-select-lookup>
+                                <template if:true={isItemExists}>
+                                  <h3 class="slds-p-horizontal_small"></h3>
+                                </template>
+                              </div>
+                            </template>
+															 <!-- eba_sf 1792 This section is to add the attendee who are in NCR but not in Salesforce-->
+															<template if:true={ValidateUserNotInSfVisibility}>
+																	<div class="slds-m-vertical_medium">
+																			<label class="slds-form-element__label ">Add Internal Attendee Not In Salesforce</label>
+																			<!--<lightning-helptext content=" not in the Salesforce.com  records "></lightning-helptext>-->
+																			<template for:each={itemListUser} for:item="itemUser" for:index="index">
+																					<form key={itemUser.id} object-api-name="CEC_Attendees__c">
+																							<lightning-messages></lightning-messages>
+																							<lightning-layout multiple-rows class="msform">
+																									<lightning-layout-item padding="around-small" style="margin:-5px">
+																											<div class="attinput">
+																													<lightning-input name="Non_Sf_NCR__c" type="text" onchange={handleChange3} value={itemUser.Non_Sf_NCR__c} placeholder="Name"></lightning-input>
+																													<lightning-input name="Role__c" type="text" onchange={handleChange3} value={itemUser.Role__c} placeholder="Role"></lightning-input>
+																													<lightning-input name="Email__c" type="text" onchange={handleChange3} value={itemUser.Email__c} placeholder="Email"></lightning-input>
+																													<!--<lightning-input name="Email__c" type="text" onchange={handleChange3} value={itemUser.Email__c} placeholder="Phone"></lightning-input>
+																		<lightning-input name="Email__c" type="text" onchange={handleChange3} value={itemUser.Email__c} placeholder="Title"></lightning-input>-->
+																													<lightning-icon icon-name="action:new" access-key={itemUser.id} id={index} alternative-text="Add Row" title="Add Row" onclick={addRowUser}></lightning-icon>
+																													<lightning-icon icon-name="action:delete" access-key={itemUser.id} id={index} alternative-text="Delete Row" title="Delete Row" onclick={removeRowUser}></lightning-icon>
+																											</div>
+																									</lightning-layout-item>
+																							</lightning-layout>
+																					</form>
+																			</template>
+																	</div>
+															</template>
+                            <template if:true={ValidateExtUserVisibility}>
+                              <div class="slds-m-vertical_medium">
+                                <label class="slds-form-element__label">Add Contacts not in Salesforce</label>
+																	<lightning-helptext content="Customer contact not in the Salesforce.com contact records "></lightning-helptext>
+                                <template for:each={itemList} for:item="item" for:index="index">
+                                  <form key={item.id} object-api-name="CEC_Attendees__c">
+                                    <lightning-messages></lightning-messages>
+                                    <lightning-layout multiple-rows class="msform">
+                                      <lightning-layout-item padding="around-small" style="margin:-5px">
+                                        <div class="attinput">
+                                          <lightning-input name="Attendee_Name_External__c" type="text" onchange={handleChange2} value={item.Attendee_Name_External__c} placeholder="Name"></lightning-input>
+                                          <lightning-input name="Role__c" type="text" onchange={handleChange2} value={item.Role__c} placeholder="Role"></lightning-input>
+                                          <lightning-input name="Email__c" type="text" onchange={handleChange2} value={item.Email__c} placeholder="Email"></lightning-input>
+                                          <lightning-icon icon-name="action:new" access-key={item.id} id={index} alternative-text="Add Row" title="Add Row" onclick={addRow}></lightning-icon>
+                                          <lightning-icon icon-name="action:delete" access-key={item.id} id={index} alternative-text="Delete Row" title="Delete Row" onclick={removeRow}></lightning-icon>
+                                        </div>
+                                      </lightning-layout-item>
+                                     </lightning-layout>
+                                  </form>
+                                </template>
+                              </div>
+                            </template>
+                            <div class="slds-m-vertical_medium">
+                                <c-lwc-multi-select-lookup  label-name="Add Opportunity Influenced" help-text-value= "Link all opportunities that are being discussed or will be influenced by dialogue in this briefing"  object-api-name="Opportunity" record-id={recordId} field-api-names="Id,Name,Opportunity_Number__c,AccountId" filter-field-api-name="Name,Opportunity_Number__c" icon-name="standard:opportunity" onretrieve={selectedOppsEventHandler} onremove={deleteOppsEventHandler} opp-global-selected-items={selectedOppsEleToDisplay} opp-name={Oppname} opp-id={oppId}></c-lwc-multi-select-lookup>
+                            </div>
+                          </div>
+                          <input type="button" name="previous" class="previous action-button-previous" value="Previous" onclick={gotoMeetPage} />
+                          <input type="button" name="next" class="next action-button" value="Next" onclick={gotoDatesPage} />
+                        </fieldset>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--<template if:true={loaded}>
+              <lightning-spinner alternative-text="Loading"></lightning-spinner>
+            </template>-->
+          </template>
+           <template if:true={isMeetingDates}>
+            <div class="row justify-content-center mt-0">
+              <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
+                <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                  <center>
+                    <h2 style="font-size: 25px;color: #2C3E50;margin-top: 15px;font-weight: bold;">
+                      <strong>Select Meeting Dates</strong>
+                    </h2>
+                  </center>
+                  <div class="row">
+                    <div class="col-md-12 mx-0">
+                      <form id="msform3" class="msform">
+                        <lightning-progress-indicator current-step="3" type="base" variant="base">
+                          <lightning-progress-step label="Step 1" value="1"></lightning-progress-step>
+                          <lightning-progress-step label="Step 2" value="2"></lightning-progress-step>
+                          <lightning-progress-step label="Step 3" value="3"></lightning-progress-step>
+                          <lightning-progress-step label="Step 4" value="4"></lightning-progress-step>
+                          <lightning-progress-step label="Step 5" value="5"></lightning-progress-step>
+                        </lightning-progress-indicator>
+                        <fieldset>
+                          <div class="form-card" style="background-color:white;">
+                            <br />
+                         
+                            <lightning-input name="X1st_Potential_Meeting_Date_Time__c" classs='validate' field-level-help="Please provide three dates below to discuss with core teams on our intake call to align calendars quickly and prioritize with leaders.                                                                                    
+
+                             CEC team supports highly collaborative, cross-industry customer briefings. We work with sales teams, subject matter experts and NCR leaders to drive an outcomes-focused approach to hosting customers, prospects and partners" class="validate" type="datetime" label="1st Preferred Date/Time" onchange={handleChange1} value={cECRecord.X1st_Potential_Meeting_Date_Time__c} placeholder="type here..." required></lightning-input>
+                            <br />
+                            <lightning-input name="X2nd_Potential_Meeting_Date_Time__c" classs='validate' field-level-help="Please provide three dates below to discuss with core teams on our intake call to align calendars quickly and prioritize with leaders.                                                                                    
+
+                             CEC team supports highly collaborative, cross-industry customer briefings. We work with sales teams, subject matter experts and NCR leaders to drive an outcomes-focused approach to hosting customers, prospects and partners"   class="validate" type="datetime" label="2nd Preferred Date/Time" onchange={handleChange1} value={cECRecord.X2nd_Potential_Meeting_Date_Time__c} placeholder="type here..." required></lightning-input>
+                            <br />
+                            <lightning-input name="X3rd_Potential_Meeting_Date_Time__c" field-level-help="Please provide three dates below to discuss with core teams on our intake call to align calendars quickly and prioritize with leaders.                                                                                    
+
+                             CEC team supports highly collaborative, cross-industry customer briefings. We work with sales teams, subject matter experts and NCR leaders to drive an outcomes-focused approach to hosting customers, prospects and partners"   type="datetime" label="3rd Preferred Date/Time" onchange={handleChange1} value={cECRecord.X3rd_Potential_Meeting_Date_Time__c} placeholder="type here..."></lightning-input>
+                            <br />
+															<label class="slds-form-element__label label-css">Ideal Meeting Duration</label>
+														<select class="slds-select" name="Ideal_Meeting_Duration__c" onchange={handleChange1} required>
+																	<template if:true={durationPickVal}>
+																			<option value={durationPickList}>{durationPickList}</option>  
+																			<option value="">--None--</option> 
+																	</template>     
+																	<template if:false={durationPickVal}>
+																			<option value="">--None--</option> 
+																	</template>
+																	<template for:each={durationTargetValues.data} for:item="selectOptItem">
+																			<option key={selectOptItem.custFldvalue} value={selectOptItem.custFldvalue}>
+																					{selectOptItem.custFldlabel}
+																			</option>
+																	</template>
+															</select>
+															<br> </br>													
+                            <label class="slds-form-element__label label-css">Customer Time Zone</label>
+                            <select class="slds-select" name="Customer_Time_Zone__c" onchange={handleChange1} >
+                              <template if:true={cusTimeZonePickVal}>
+                                <option value={cusTimeZonePickVal}>{cusTimeZonePickVal}</option>
+                                <option value="">--None--</option>
+                              </template>
+                              <template if:false={cusTimeZonePickVal}>
+                                <option value="">--None--</option>
+                              </template>
+                              <template for:each={cusTimeTargetValues.data} for:item="selectOptItem">
+                                <option key={selectOptItem.custFldvalue} value={selectOptItem.custFldvalue}> {selectOptItem.custFldlabel} </option>
+                              </template>
+                            </select>
+                            <br />
+                       </div>
+                       <input type="button" name="previous" class="previous action-button-previous" value="Previous" onclick={gotoAttendees} />
+                       <input type="button" name="next" disabled={disableSubmitButton} class="next action-button" value="Next" onclick={launchSubmitMethod} />
+                        </fieldset>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+						<!--2356 <template if:true={loaded}>
+              <lightning-spinner alternative-text="Loading"></lightning-spinner>
+            </template>-->
+          </template>
+          <template if:true={isFinalPage}>
+            <div class="row justify-content-center mt-0">
+              <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
+                <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                  <!--<center>
+                    <h2 style="font-size: 25px;color: #2C3E50;margin-top: 15px;font-weight: bold;">
+                      <strong>Meeting Scheduled!</strong>
+                    </h2>
+                  </center>-->
+                  <div class="row">
+                    <div class="col-md-12 mx-0">
+                      <form id="msform4" class="msform">
+                        <lightning-progress-indicator current-step="5" type="base" variant="base">
+                          <lightning-progress-step label="Step 1" value="1"></lightning-progress-step>
+                          <lightning-progress-step label="Step 2" value="2"></lightning-progress-step>
+                          <lightning-progress-step label="Step 3" value="3"></lightning-progress-step>
+                          <lightning-progress-step label="Step 4" value="4"></lightning-progress-step>
+                          <lightning-progress-step label="Step 5" value="5"></lightning-progress-step>
+                        </lightning-progress-indicator>
+                        <fieldset>
+                          <div class="form-card" style="background-color:aliceblue;">
+															<center><h2 style="font-size: 20px;
+																			color: #2C3E50;
+																			margin-top: 15px;">
+																			<p  style="font-size: 15px; color:lightseagreen; font-weight: bold;" >Thank you for completing a request for a customer engagement with {accountVar}. We will contact you within 24 hours to set up a call to clarify details in your request before reviewed by sales leaders for confirmation. Confirmations are shared each Tuesday. <br>More information can be viewed here: <a href="https://online.fliphtml5.com/kyvvb/jlxi/#p=1" target="_blank">Customer Experience Centers Program Guide</a> </p>
+																     	 
+																	
+																			
+																			<p style="font-size: 15px; color:lightseagreen; font-weight: bold;" >We look forward to working with you.  If you have any questions regarding the planning process, please contact cec.team@ncr.com. </p>																
+																			</h2>
+																	</center>
+                            <center>
+                              <svg viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg">
+                                <g stroke="currentColor" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+                                  <path class="circle" d="M13 1C6.372583 1 1 6.372583 1 13s5.372583 12 12 12 12-5.372583 12-12S19.627417 1 13 1z"></path>
+                                  <path class="tick" d="M6.5 13.5L10 17 l8.808621-8.308621"></path>
+                                </g>
+                              </svg>
+                              <p>
+                                <input type="button" name="next" class="next action-button" style="width:220px" value="Navigate to CEC Record" onclick={redirectcecrecord} />
+                              </p>
+                            </center>
+                          </div>
+                        </fieldset>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </template>

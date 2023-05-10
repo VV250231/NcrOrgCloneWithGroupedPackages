@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Send_for_Signature_For_Account</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <height>600</height>
+    <linkType>url</linkType>
+    <masterLabel>Send for Signature</masterLabel>
+    <openType>sidebar</openType>
+    <protected>false</protected>
+    <url>{!URLFOR(&apos;/apex/echosign_dev1__AgreementTemplateProcess&apos;, null, [
+masterID = Account.Id,
+templateId=&apos;a4Y70000001movx&apos;
+]
+)}</url>
+</WebLink>

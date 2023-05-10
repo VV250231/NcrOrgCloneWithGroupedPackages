@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Germany_Core_Closed_Won_Pending</fullName>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <columns>OPPORTUNITY.CLOSE_DATE</columns>
+    <columns>CORE.USERS.FULL_NAME</columns>
+    <columns>Sales_Admin__c</columns>
+    <columns>Sales_Admin_Status__c</columns>
+    <columns>Win_Loss_Reason__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CATM_Record__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>OPPORTUNITY.STAGE_NAME</field>
+        <operation>equals</operation>
+        <value>Closing</value>
+    </filters>
+    <filters>
+        <field>Geography__c</field>
+        <operation>equals</operation>
+        <value>Germany</value>
+    </filters>
+    <filters>
+        <field>Business_Unit__c</field>
+        <operation>equals</operation>
+        <value>Opportunity.IBG_Core_Opportunity</value>
+    </filters>
+    <label>CATM GER.-Core-Closed Won-Pending</label>
+    <sharedTo>
+        <group>IntBG_Sales_Admin_Germany</group>
+    </sharedTo>
+</ListView>

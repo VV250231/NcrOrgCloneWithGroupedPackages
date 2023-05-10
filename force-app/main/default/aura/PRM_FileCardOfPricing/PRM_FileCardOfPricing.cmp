@@ -1,0 +1,70 @@
+<aura:component controller="PRM_FileCardOfPricingCon" implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global" >
+    <aura:attribute name="Region" type="String"/>
+    <aura:attribute name="Industry" type="String"/>
+    <aura:attribute name="priceWrapper" type="PRM_FileCardOfPricingCon.PriceBookWrapper[]" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:iteration items="{! v.priceWrapper}" var="item">
+        <aura:if isTrue="{! item.partnerCountryCode == 'TR'}">
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered slds-table_striped slds-table_bordered">
+                <thead>
+                    <tr>
+                        <th colspan="5" class="slds-text-heading_small slds-text-title_caps">Turkey Standard Discount Framework</th>
+                        
+                    </tr> 
+                    <tr>
+                        <th>Product Group</th>
+                        <th>Product Name</th>
+                        <th>PID</th>
+                        <!--<th>Old Discount %</th>-->
+                        <th>Discount %</th>
+                    </tr> 
+                    
+                </thead>
+                <tbody>
+                    <aura:iteration items="{! item.trukeyPriceList}" var="priceItem">
+                        <tr>
+                            <td>{! priceItem.Product_Group__c}</td>
+                            <td>{! priceItem.Name}</td>
+                            <td>{! priceItem.PID__c}</td>
+                            <!--<td>{! priceItem.Old_Discount__c}</td>-->
+                            <td>{! priceItem.New_Discount__c}</td>
+                        </tr>
+                    </aura:iteration>
+                </tbody>
+            </table>
+        </aura:if>
+        
+        <aura:if isTrue="{! item.partnerCountryCode != 'TR'}">
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered slds-table_striped slds-table_bordered">
+                
+                <thead>
+                    <tr>
+                        <th colspan="5" class="slds-text-heading_small slds-text-title_caps">
+                            <h1>{! item.partnerRegion} &nbsp; {! item.industry} &nbsp; Standard Discount Framework</h1>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Partner Type</th>
+                        <th>Partner Level</th>
+                        <!--<th>Old Discount %</th>-->
+                        <th>Discount %</th>
+                        <th>Currency</th>
+                    </tr>
+                </thead>
+                <aura:iteration items="{! item.priceList}" var="priceItem">
+                    <tr>
+                        <td>{! priceItem.Partner_Type__c}</td>
+                        <td>{! priceItem.Channel_Program_Level__r.Name}</td>
+                        <!--<td>{! priceItem.Old_Value__c}</td>-->
+                        <td>{! priceItem.New_Value__c}</td>
+                        <td>{! priceItem.CurrencyIsoCode}</td>
+                    </tr>
+                </aura:iteration>
+            </table>
+            <br/>
+            <br/>
+        </aura:if>
+        
+    </aura:iteration>
+</aura:component>

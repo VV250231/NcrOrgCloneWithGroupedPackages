@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>51.0</apiVersion>
+    <assignments>
+        <name>Current_Account_Owner</name>
+        <label>Current Account Owner</label>
+        <locationX>143</locationX>
+        <locationY>648</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.OwnerId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Account_Owner.OwnerId</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Lead</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Accounts_are_match</name>
+        <label>Accounts are match</label>
+        <locationX>275</locationX>
+        <locationY>528</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Account_found</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Account_Owner</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Current_Account_Owner</targetReference>
+            </connector>
+            <label>Account found</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Get the Domain Name and Not null Domin name</description>
+        <name>Domain_not_Null_or_Common_Domain</name>
+        <label>Domain not Null or Common Domain</label>
+        <locationX>473</locationX>
+        <locationY>288</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Domain_Name</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>VarDomain</leftValueReference>
+                <operator>NotEqualTo</operator>
+            </conditions>
+            <conditions>
+                <leftValueReference>VarDomain</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>yahoo.</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>VarDomain</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Hotmail.</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>VarDomain</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Gmail.</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>VarDomain</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>ymail.</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>VarDomain</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Cardtonics.</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>VarDomain</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>aol.</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>VarDomain</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>icloud.</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>VarDomain</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Outlook.</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>VarDomain</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>NCR.</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Account_Owner</targetReference>
+            </connector>
+            <label>Domain Name</label>
+        </rules>
+    </decisions>
+    <description>Lead Owner Assignment Based on the Account&apos;s Website Domain Name</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>VarDomain</name>
+        <dataType>String</dataType>
+        <expression> left({!VarWebSite}, FIND(&quot;.&quot;, {!VarWebSite}))</expression>
+    </formulas>
+    <formulas>
+        <name>VarWebSite</name>
+        <dataType>String</dataType>
+        <expression>SUBSTITUTE({!$Record.Email}, LEFT({!$Record.Email}, FIND(&quot;@&quot;, {!$Record.Email})), NULL)</expression>
+    </formulas>
+    <interviewLabel>lead Owner Assignment based on Account website domin {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>CATM lead Owner Assignment based on Account website domain Name</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Account_Owner</name>
+        <label>Get Account Owner</label>
+        <locationX>275</locationX>
+        <locationY>408</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Accounts_are_match</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Website</field>
+            <operator>Contains</operator>
+            <value>
+                <elementReference>VarDomain</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>OriginalCorporation__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Cardtronics</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Lead</name>
+        <label>Update Lead</label>
+        <locationX>143</locationX>
+        <locationY>768</locationY>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Get_Account_Owner.OwnerId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <filterFormula>AND(
+    OR(
+TEXT({!$Record.SubIndustry__c}) = &quot;Aerospace &amp; Defense&quot;,
+TEXT({!$Record.SubIndustry__c}) = &quot;ATM&quot;,
+TEXT({!$Record.SubIndustry__c}) = &quot;Banking&quot;,
+TEXT({!$Record.SubIndustry__c}) = &quot;Business Services&quot;,
+TEXT({!$Record.SubIndustry__c}) = &quot;Gas Station&quot;,
+TEXT({!$Record.SubIndustry__c}) = &quot;Education&quot;,
+TEXT({!$Record.SubIndustry__c}) = &quot;Entertainment&quot;,
+TEXT({!$Record.SubIndustry__c}) = &quot;Food &amp; Beverage&quot;,
+TEXT({!$Record.SubIndustry__c}) = &quot;Game &amp; Gambling&quot;,
+TEXT({!$Record.SubIndustry__c}) = &quot;Government&quot;,
+TEXT({!$Record.SubIndustry__c}) = &quot;Healthcare&quot;,
+TEXT({!$Record.SubIndustry__c}) = &quot;Recreation&quot;,
+TEXT({!$Record.SubIndustry__c}) = &quot;Retail&quot;,
+TEXT({!$Record.SubIndustry__c}) = &quot;Telecommunications&quot;,
+TEXT({!$Record.SubIndustry__c}) = &quot;Travel&quot;,
+TEXT({!$Record.SubIndustry__c}) = &quot;FMCG&quot;,
+TEXT({!$Record.SubIndustry__c}) = &quot;Other&quot;,
+AND (
+  ISPICKVAL({!$Record.Industry__c},&apos;Payments &amp; Network&apos;),
+  ISBLANK(Text({!$Record.SubIndustry__c}))
+)
+),
+NOT(ISBLANK({!$Record.Email})),
+NOT({!$Setup.Automation_Setting__c.Skip_Flow__c})
+)</filterFormula>
+        <object>Lead</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <scheduledPaths>
+            <connector>
+                <targetReference>Domain_not_Null_or_Common_Domain</targetReference>
+            </connector>
+            <pathType>AsyncAfterCommit</pathType>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Obsolete</status>
+</Flow>

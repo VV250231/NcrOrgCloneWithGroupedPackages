@@ -1,0 +1,354 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction"
+                controller="USMDetailController"
+                access="global" >
+    <aura:attribute name="isLOB" type="Boolean"/>
+    <aura:attribute name="error" type="Boolean"/>
+    <aura:attribute name="sys_error" type="Boolean"/>
+    <aura:attribute name="userQuicklook" type="String"/>
+    <aura:attribute name="isManagedService" type="Boolean"/>
+    <aura:attribute name="oppId" type="string"/>
+    <aura:attribute name="ssc" type="string"/>
+    <aura:attribute name="oppDetail" type="Opportunity" default="{'sobjectType': 'Opportunity'}"/>
+    <aura:attribute name="usmOppDetail" type="USM_Opportunity_Detail__c" default="{'sobjectType': 'USM_Opportunity_Detail__c'}"/>
+    <aura:handler name='init' action="{!c.init}" value="{!this}" />
+    <aura:handler event="c:saveUSMDetails" action="{!c.handleUSMEvent}"/>
+    <aura:registerEvent name="closeUSMDetail" type="c:closeUSMDetail"/>
+    <aura:registerEvent name="usm_showError" type="c:usm_showError"/>
+    <aura:registerEvent name="refrshView" type="force:refreshView"/>
+    <aura:handler name="change" value="{!v.oppDetail.Services_Sales_Consultant__c}" action="{!c.validateAndSaveServiceSales}"/>
+    <aura:registerEvent name="UpdateUSMComponent" type="c:UpdateUSMComponent"/>
+    
+    <aura:attribute name='showSpinner' type='Boolean' default='false' />
+    <c:Spinner showSpinner="{!v.showSpinner}" message = "Synching with USM please wait ..."/>	
+    
+    <!-- Loading spinner end-->  
+    <div class="slds-form" role="list">
+        <fieldset class="slds-form-element">
+            <!--<legend class="slds-form-element__label slds-form-element__legend slds-text-title_caps">Location</legend>-->
+            <div class="slds-form-element__group">
+                
+                <div class="slds-form-element__row">
+                    <div class="slds-form__item" role="listitem">
+                       
+                    <div class="slds-form-element slds-size_1-of-2 customWidth">
+                        <label class="slds-form-element__label" for="Name">Opportunity Name :</label>
+                        <force:outputField value="{!v.oppDetail.Name}" aura:id="Name"/><br/>
+                        <label class="slds-form-element__label" for="Name">Customer :</label>
+                        <force:outputField value="{!v.oppDetail.Account.Name}" aura:id="Name"/>
+                    </div>
+                    <div class="slds-form-element slds-size_1-of-2 customWidth">
+                        <label class="slds-form-element__label" for="Opportunity_Number__c">Opportunity Number :</label>
+                        <force:outputField value="{!v.oppDetail.Opportunity_Number__c}" aura:id="Opportunity_Number__c"/>
+                        </div>
+                        </div>
+                    
+                </div>  
+                
+                <div class="slds-form-element__row">
+				<div class="slds-form__item" role="listitem">
+                    <div class="slds-form-element slds-size_1-of-2 customWidth">
+                        <label class="slds-form-element__label" for="Parent__c">Parent Account Name :</label>
+                        <force:inputField value="{!v.usmOppDetail.Parent__c}" aura:id="Parent__c" />
+                        <div aura:id="Parent__c_error"></div>
+                    </div>
+                    <div class="slds-form-element slds-size_1-of-2 customWidth">
+                        <label class="slds-form-element__label" for="services_sales_consultant__c"><abbr class="slds-required" title="required">*</abbr>Services Sales Consultant :</label>
+                        <force:inputField value="{!v.oppDetail.Services_Sales_Consultant__c}" aura:id="services_sales_consultant__c" change="{!c.validateAndSaveServiceSales}"  />
+                        <div aura:id="services_sales_consultant__c_error"></div>
+                    </div> 
+					</div>
+                </div>
+                
+                
+                
+            </div>
+            <div class="slds-form-element__row">
+			<div class="slds-form__item" role="listitem">
+                <div class="slds-form-element slds-size_1-of-2 customWidth">
+                    <label class="slds-form-element__label" for="Account_Country_Code__c">Customer Country : </label>
+                    <force:outputField value="{!v.oppDetail.Account.Account_Country_Code__c}" aura:id="Account_Country_Code__c"/>
+                </div>
+            </div>
+			</div>
+            
+            <div class="slds-form-element__row">
+			<div class="slds-form__item" role="listitem">
+                <div class="slds-form-element slds-size_1-of-2 customWidth">
+                    <label class="slds-form-element__label" for="Services_Countries__c">Services Countries:</label>
+                    <force:inputField value="{!v.usmOppDetail.Services_Countries__c}" aura:id="Services_Countries__c"/>
+                </div>
+                <div class="slds-form-element slds-size_1-of-2 customWidth">
+                    <label class="slds-form-element__label" for="Required_Bid_Completion_Date__c"><abbr class="slds-required" title="required">*</abbr>Required Bid Completion Date:</label>
+                    <force:inputField value="{!v.usmOppDetail.Required_Bid_Completion_Date__c}" aura:id="Required_Bid_Completion_Date__c" />
+                </div>
+				</div>
+                
+            </div>
+            
+            <div class="slds-form-element__row">
+			<div class="slds-form__item" role="listitem">
+                <div class="slds-form-element slds-size_1-of-2 customWidth">
+                    <label class="slds-form-element__label" for="Services_Regions__c">Services Regions:</label>
+                    <force:inputField value="{!v.usmOppDetail.Services_Regions__c}" aura:id="Services_Regions__c"/>
+                </div>
+                <div class="slds-form-element slds-size_1-of-2 customWidth">
+                    <label class="slds-form-element__label" for="What_problem_is_customer_trying_to_solve__c"><abbr class="slds-required" title="required">*</abbr>What problem is customer trying to solve?:</label>
+                    <force:inputField value="{!v.usmOppDetail.What_problem_is_customer_trying_to_solve__c}" aura:id="What_problem_is_customer_trying_to_solve__c"  class="slds-required"/>
+                    <div aura:id="What_problem_is_customer_trying_to_solve__c_error"></div>
+                </div>
+                
+            </div>  
+		</div>			
+            
+            <div class="slds-form-element__row">
+			<div class="slds-form__item" role="listitem">
+                <div class="slds-form-element slds-size_1-of-2 customWidth">
+                    <label class="slds-form-element__label" for="Nonstandard_Terms__c">Nonstandard Terms:</label>
+                    <force:inputField value="{!v.usmOppDetail.Nonstandard_Terms__c}" aura:id="Nonstandard_Terms__c"/>
+                </div>
+                <div class="slds-form-element slds-size_1-of-2 customWidth">
+                    <label class="slds-form-element__label" for="Supported_Equipment__c">Supported Equipment:</label>
+                    <force:inputField value="{!v.usmOppDetail.Supported_Equipment__c}" aura:id="Supported_Equipment__c"/>
+                </div>
+                
+            </div> 
+			</div>
+            
+            <div class="slds-form-element__row">
+			<div class="slds-form__item" role="listitem">
+                <div class="slds-form-element slds-size_1-of-2 customWidth">
+                    <label class="slds-form-element__label" for="Additonal_Nonstandard_Terms__c">Additonal Nonstandard Terms:</label>
+                    <force:inputField value="{!v.usmOppDetail.Additonal_Nonstandard_Terms__c}" aura:id="Additonal_Nonstandard_Terms__c" />  
+                </div>
+                <div class="slds-form-element slds-size_1-of-2 customWidth">
+                    <label class="slds-form-element__label" for="Additional_Information__c">Additional Information:</label>
+                    <force:inputField value="{!v.usmOppDetail.Additional_Information__c}" aura:id="Additional_Information__c"/>
+                </div>
+                </div>
+            </div> 
+            
+            <div class="slds-form-element__row">
+			<div class="slds-form__item" role="listitem">
+                <div class="slds-form-element slds-size_1-of-2 customWidth">
+                    <label class="slds-form-element__label" for="TS_SOW_duration_Months__c">Transaction Services SOW duration (Months):</label>
+                    <force:inputField value="{!v.usmOppDetail.TS_SOW_duration_Months__c}" aura:id="TS_SOW_duration_Months__c"/>
+                </div>
+                <div class="slds-form-element slds-size_1-of-2 customWidth">
+                    <label class="slds-form-element__label" for="File_Value_at_Risk__c">File value at Risk:</label>
+                    <force:inputField value="{!v.usmOppDetail.File_Value_at_Risk__c}" aura:id="File_Value_at_Risk__c"/>
+                </div>
+                </div>
+            </div>   
+            
+            <div class="slds-form-element__row">
+			<div class="slds-form__item" role="listitem">
+                <div class="slds-form-element slds-size_1-of-2 customWidth">
+                    <label class="slds-form-element__label" for="TS_SOW_Value_USD__c">Transaction Services SOW Value($USD):</label>
+                    <force:inputField value="{!v.usmOppDetail.TS_SOW_Value_USD__c}" aura:id="TS_SOW_Value_USD__c"/>
+                </div>
+                <div class="slds-form-element slds-size_1-of-2 customWidth">
+                    <label class="slds-form-element__label" for="Expected_Total_Service_Contract__c">Expected Total Service Contract:</label>
+                    <force:inputField value="{!v.usmOppDetail.Expected_Total_Service_Contract__c}" aura:id="Expected_Total_Service_Contract__c" />
+                </div>
+                </div>
+            </div>
+            
+            
+            
+            <div class="slds-form-element__row">
+			<div class="slds-form__item" role="listitem">
+                <div class="slds-form-element slds-size_1-of-2 customWidth">
+                    <label class="slds-form-element__label" for="isManagedService">Managed Services Required :</label>
+                    
+                    <aura:If isTrue="{!v.isManagedService}">
+                        <span class="slds-icon_container" title="Has Managed Service">
+                            <img src="/resource/USM/img/check.png" class="slds-icon" style="width:20px;height:20px;"/>
+                        </span>                        
+                        
+                        
+                        <aura:set attribute="else">
+                            
+                            <span class="slds-icon_container" title="Does not have Managed Service">
+                                <img src="/resource/USM/img/close.jpg" class="slds-icon" style="width:20px;height:20px;"/>
+                            </span> 
+                        </aura:set>
+                    </aura:If>
+                </div>
+                <div class="slds-form-element slds-size_1-of-2 customWidth">
+                    <label class="slds-form-element__label" for="Multi_Vendor__c">Multi-Vendor Included:</label>
+                    <force:inputField value="{!v.usmOppDetail.Multi_Vendor__c}" aura:id="Multi_Vendor__c"/>
+                </div>
+                </div>
+            </div>
+            
+            <div class="slds-form-element__row">
+			<div class="slds-form__item" role="listitem">
+                <div class="slds-form-element slds-size_1-of-2 customWidth">
+                    
+                </div>
+                <div class="slds-form-element slds-size_1-of-2 customWidth">
+                    <label class="slds-form-element__label" for="Total_Premise__c">Total Premise Included:</label>
+                    <force:inputField value="{!v.usmOppDetail.Total_Premise__c}" aura:id="Total_Premise__c"/>
+                </div>
+				</div>
+            </div>
+            <div class="slds-form-element__row">
+			<div class="slds-form__item" role="listitem">
+                <div class="slds-form-element slds-size_1-of-2 customWidth">
+                    <label class="slds-form-element__label" for="Is_this_a_renewal_or_new_business__c">New or Renewal business?:</label>
+                    <force:inputField value="{!v.usmOppDetail.Is_this_a_renewal_or_new_business__c}" aura:id="Is_this_a_renewal_or_new_business__c" />
+                    <div aura:id="Is_this_a_renewal_or_new_business__c_error"></div>
+                    
+                </div>
+                <aura:renderIf isTrue="{!v.usmOppDetail.Account_LOB__c == 'T&amp;T'}">
+                    <div class="slds-form-element slds-size_1-of-2 customWidth">
+                        <label class="slds-form-element__label" for="Are_requested_services_in_price_book__c"><abbr class="slds-required" title="required">*</abbr>Are Requested service on Price Book?:</label>
+                        <force:inputField value="{!v.usmOppDetail.Are_requested_services_in_price_book__c}" aura:id="Are_requested_services_in_price_book__c"/>
+                        <div aura:id="Are_requested_services_in_price_book__c_error"></div>
+                        
+                    </div>
+                </aura:renderIf>
+				</div>
+            </div> 
+            <div class="slds-form-element__row">
+			<div class="slds-form__item" role="listitem">
+                <aura:renderIf isTrue="{!v.usmOppDetail.Is_this_a_renewal_or_new_business__c == 'New'}">
+                    <div class="slds-form-element slds-size_1-of-2 customWidth">
+                        <label class="slds-form-element__label" for="Will_this_be_added_to_existing_contract__c"><abbr class="slds-required" title="required">*</abbr>Service scope to be added to an existing contract?:</label>
+                        <force:inputField value="{!v.usmOppDetail.Will_this_be_added_to_existing_contract__c}" aura:id="Will_this_be_added_to_existing_contract__c"/>
+                        <div aura:id="Will_this_be_added_to_existing_contract__c_error"></div>
+                        
+                    </div>
+                </aura:renderIf>
+                <!--test-->
+                <aura:renderIf isTrue="{!v.usmOppDetail.Are_requested_services_in_price_book__c == 'Yes'}">  
+                    <div class="slds-form-element slds-size_1-of-2 customWidth">
+                        <label class="slds-form-element__label" for="T_T_Price_book__c"><abbr class="slds-required" title="required">*</abbr>Approved T&amp;T Price book:</label>
+                        <force:inputField value="{!v.usmOppDetail.T_T_Price_book__c}" aura:id="T_T_Price_book__c"/>
+                        <div aura:id="T_T_Price_book__c_error"></div>
+                        
+                    </div>
+                </aura:renderIf>
+            </div>
+			</div>
+            <div class="slds-form-element__row">
+			<div class="slds-form__item" role="listitem">
+                <aura:renderIf isTrue="{!v.isManagedService}"> 
+                    <div class="slds-form-element slds-size_1-of-2 customWidth">
+                        <label class="slds-form-element__label" for="Is_customer_requesting_On_Premise__c"><abbr class="slds-required" title="required">*</abbr>On Premise Requested:</label>
+                        <force:inputField value="{!v.usmOppDetail.Is_customer_requesting_On_Premise__c}" aura:id="Is_customer_requesting_On_Premise__c"/>
+                        <div aura:id="Is_customer_requesting_On_Premise__c_error"></div>
+                        
+                    </div>
+                </aura:renderIf>
+				</div>
+            </div> 
+            
+            <aura:renderIf isTrue="{!v.isManagedService}">
+                <div class="slds-form-element__row">
+				<div class="slds-form__item" role="listitem">
+                    <div class="slds-form-element slds-size_1-of-2 customWidth">
+                        <label class="slds-form-element__label" for="Is_customer_Direct_or_Channel__c"><abbr class="slds-required" title="required">*</abbr>Direct or Channel Customer:</label>
+                        <force:inputField value="{!v.usmOppDetail.Is_customer_Direct_or_Channel__c}" aura:id="Is_customer_Direct_or_Channel__c"/>
+                        <div aura:id="Is_customer_Direct_or_Channel__c_error"></div>
+                        
+                    </div>
+                    
+                    <div class="slds-form-element slds-size_1-of-2 customWidth">
+                        <label class="slds-form-element__label" for="Is_in_country_location_required__c"><abbr class="slds-required" title="required">*</abbr>In-country location required?:</label>
+                        <force:inputField value="{!v.usmOppDetail.Is_in_country_location_required__c}" aura:id="Is_in_country_location_required__c"/>
+                        <div aura:id="Is_in_country_location_required__c_error"></div>
+                        
+                    </div>	
+					</div>
+                    
+                </div> 
+            </aura:renderIf>
+            <div class="slds-form-element__row">
+                <div class="slds-form__item" role="listitem">
+                <div class="slds-form-element slds-size_1-of-2 customWidth">
+                    <label class="slds-form-element__label" for="Any_change_in_PPM_SLA_or_geography__c"><abbr class="slds-required" title="required">*</abbr>Principle Period of Maintenance (PPM), Service Level Agreement (SLA) or Geography Changes:</label>
+                    <force:inputField value="{!v.usmOppDetail.Any_change_in_PPM_SLA_or_geography__c}" aura:id="Any_change_in_PPM_SLA_or_geography__c" />
+                    <div aura:id="Any_change_in_PPM_SLA_or_geography__c_error"></div>
+                </div>
+                <aura:renderIf isTrue="{!v.isManagedService}">
+                    
+                    <div class="slds-form-element slds-size_1-of-2 customWidth">
+                        <label class="slds-form-element__label" for="Will_NCR_provide_NCR_break_fix_Service__c"><abbr class="slds-required" title="required">*</abbr>NCR providing break-fix Service?:</label>
+                        <force:inputField value="{!v.usmOppDetail.Will_NCR_provide_NCR_break_fix_Service__c}" aura:id="Will_NCR_provide_NCR_break_fix_Service__c"/>
+                        <div aura:id="Will_NCR_provide_NCR_break_fix_Service__c_error"></div>
+                        
+                    </div>
+                </aura:renderIf>
+            </div>
+			</div>
+            
+            
+            
+            <div class="slds-form-element__row">
+                <div class="slds-form__item" role="listitem">
+                
+                <div class="slds-form-element slds-size_1-of-2 customWidth">
+                    <label class="slds-form-element__label" for="Additional_Information__c"><abbr class="slds-required" title="required">*</abbr>Are additional services being requested?:</label>
+                    <force:inputField value="{!v.usmOppDetail.Are_additional_services_being_requested__c}" aura:id="Are_additional_services_being_requested__c" />
+                    <div aura:id="Are_additional_services_being_requested__c_error"></div>
+                    
+                </div>
+                <aura:renderIf isTrue="{!v.isManagedService}">
+                    <div class="slds-form-element slds-size_1-of-2 customWidth">
+                        <label class="slds-form-element__label" for="Customer_network_connectivity_strategy__c"><abbr class="slds-required" title="required">*</abbr>Customer network connectivity strategy:</label>
+                        <force:inputField value="{!v.usmOppDetail.Customer_network_connectivity_strategy__c}" aura:id="Customer_network_connectivity_strategy__c"/>
+                        <div aura:id="Customer_network_connectivity_strategy__c_error"></div>
+                        
+                    </div>
+                </aura:renderIf>
+            </div>
+			</div>
+            
+            <div class="slds-form-element__row">
+                <div class="slds-form__item" role="listitem">
+                <div class="slds-form-element slds-size_1-of-2 customWidth">
+                    <label class="slds-form-element__label" for="Are_new_hardware_products_being_added__c"><abbr class="slds-required" title="required">*</abbr>New hardware products added?:</label>
+                    <force:inputField value="{!v.usmOppDetail.Are_new_hardware_products_being_added__c}" aura:id="Are_new_hardware_products_being_added__c" />
+                    <div aura:id="Are_new_hardware_products_being_added__c_error"></div>
+                    
+                </div>
+                <aura:renderIf isTrue="{!v.isManagedService}">
+                    
+                    <div class="slds-form-element slds-size_1-of-2 customWidth">
+                        <label class="slds-form-element__label" for="What_is_the_HW_configuration__c"><abbr class="slds-required" title="required">*</abbr> Hardware configuration?:</label>
+                        <force:inputField value="{!v.usmOppDetail.What_is_the_HW_configuration__c}" aura:id="What_is_the_HW_configuration__c"/>
+                        <div aura:id="What_is_the_HW_configuration__c_error"></div>
+                        
+                    </div>
+                </aura:renderIf>
+				</div>
+            </div>     
+            
+            <aura:renderIf isTrue="{!v.isManagedService}">
+                
+                <div class="slds-form-element__row">
+                    
+                    <div class="slds-form-element slds-size_1-of-2 customWidth">
+                        <label class="slds-form-element__label" for="SW_maintenance_required_on_end_points__c"><abbr class="slds-required" title="required">*</abbr>Software maintenance required on end points?:</label>
+                        <force:inputField value="{!v.usmOppDetail.SW_maintenance_required_on_end_points__c}" aura:id="SW_maintenance_required_on_end_points__c"/>
+                        <div aura:id="SW_maintenance_required_on_end_points__c_error"></div>
+                        
+                    </div>
+                    <div class="slds-form-element slds-size_1-of-2 customWidth">
+                        <label class="slds-form-element__label" for="What_is_SW_configuration__c"><abbr class="slds-required" title="required">*</abbr>Software configuration?:</label>
+                        <force:inputField value="{!v.usmOppDetail.What_is_SW_configuration__c}" aura:id="What_is_SW_configuration__c"/>
+                        <div aura:id="What_is_SW_configuration__c_error"></div>
+                        
+                    </div>
+                    
+                </div> 
+            </aura:renderIf>
+    </fieldset>
+</div>
+
+<!-- USM Detail End -->
+
+
+
+</aura:component>

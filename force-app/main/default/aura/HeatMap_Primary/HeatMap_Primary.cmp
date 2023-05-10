@@ -1,0 +1,308 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" controller="FinancialAccountDetailController" access="global" >
+    
+    <aura:attribute name="recordId" type="Id" default="0017000000NDl72AAD"/>
+    <aura:attribute name="accountObj" type="SObject" default="{'sobjectType':'Account'}"/>
+    <aura:attribute name="nonfinancial" type="Boolean"/>
+    <aura:attribute name="labels" type="Map" />
+    <aura:attribute name="productsYellowMap" type="Map" />
+    <aura:attribute name="vfHost" type="String"  default="ncr--cert--c.cs53.visual.force.com"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+  <!--  
+<ltng:require scripts='https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js'  afterScriptsLoaded="{!c.scriptloaded}" />
+    <ltng:require scripts="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"  afterScriptsLoaded="{!c.scriptloaded}" />
+-->    
+   <!-- <lightning:button variant="brand" label="Generate PDF" onclick="{!c.genreatepdf }" /> -->
+    <br></br> 
+    
+    <div class="slds-grid slds-gutters" id="capture_screen" style="margin-top:5px;">
+        
+        <div class="slds-col slds-size_3-of-12 grey-back" style="">
+            <!-- ######################### start :: Digital Banking #################################### -->
+            <div class="" style="padding-bottom:8px;">
+                <div style="text-align:center; font-weight:bold;font-size:14px; padding:5px 0px;">Digital Banking</div>
+                
+                <div class="slds-grid slds-gutters" >
+                    <div class="slds-col slds-size_1-of-2 ">
+                        <div style="word-wrap: break-word;">
+                            <c:HeatMap_Boxes boxLabel='{!v.labels.retail_online_banking_vendor__c}' boxValue='{!v.accountObj.Retail_Online_Banking_Vendor__c}' boxColor=""  isboxBorderYellow="{!v.productsYellowMap.Retail_Online_Banking_Vendor}" />
+                        </div> 
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 ">
+                        <div style="word-wrap: break-word;">
+                            <c:HeatMap_Boxes boxLabel='{!v.labels.retail_mobile_banking_vendor__c}' boxValue='{!v.accountObj.Retail_Mobile_Banking_Vendor__c}' boxColor=""  isboxBorderYellow="{!v.productsYellowMap.Retail_Mobile_Banking_Vendor}" />
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slds-grid slds-gutters" style="margin-top:4px;">
+                    <div class="slds-col slds-size_1-of-2">
+                        <c:HeatMap_Boxes boxLabel='{!v.labels.retail_mrdc_provider__c}' boxValue='{!v.accountObj.Retail_mRDC_Provider__c}' boxColor="" />
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <c:HeatMap_Boxes boxLabel='{!v.labels.retail_bill_payment_vendor__c}' boxValue='{!v.accountObj.Retail_Bill_Payment_Vendor__c}' boxColor="" />
+                    </div>
+                </div>
+                
+                <div class="slds-grid slds-gutters" style="margin-top:4px;">
+                    <div class="slds-col slds-size_1-of-2 ">
+                        <c:HeatMap_Boxes boxLabel='{!v.labels.business_banking_vendor__c}' boxValue='{!v.accountObj.Business_Banking_Vendor__c}' boxColor=""  isboxBorderYellow="{!v.productsYellowMap.Business_Banking_Vendor}" />
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 ">
+                        <c:HeatMap_Boxes boxLabel='{!v.labels.business_mrdc__c}' boxValue='{!v.accountObj.Business_mRDC__c}' boxColor="" />
+                    </div>
+                </div>
+                
+                <div class="slds-grid slds-gutters" style="margin-top:4px;">
+                    <div class="slds-col slds-size_1-of-2">
+                        <c:HeatMap_Boxes boxLabel='{!v.labels.business_bill_payment_vendor__c}' boxValue='{!v.accountObj.Business_Bill_Payment_Vendor__c}' boxColor="" />
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <c:HeatMap_Boxes boxLabel='{!v.labels.pfm_vendor__c}' boxValue='{!v.accountObj.PFM_Vendor__c}' boxColor="" />
+                    </div>
+                </div>
+                
+            </div>   
+            <!-- ######################### end :: Digital Banking #################################### -->
+            
+            <!-- ######################### start :: Enterprise #################################### -->
+            <div class="" style="margin-top:8px;border-top:5px solid white;">
+                <div style="text-align:center; font-weight:bold;font-size:14px; padding-top:5px;padding-bottom:5px;"> Enterprise</div>
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                         <c:HeatMap_Boxes boxLabel='{!v.labels.host_switch_network__c}' boxValue='{!v.accountObj.Host_Switch_Network__c}' boxColor="" isboxBorderYellow="{!v.productsYellowMap.Host_Switch_Network}"  />    
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <c:HeatMap_Boxes boxLabel='{!v.labels.omni_platform__c}' boxValue='{!v.accountObj.Omni_Platform__c}' boxColor="" isboxBorderYellow="{!v.productsYellowMap.Omni_Platform}"  />  
+                        
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters" style="margin-top:4px;margin-bottom:10px;">
+                    <div class="slds-col slds-size_1-of-2">
+                    <c:HeatMap_Boxes boxLabel='{!v.labels.cash_management__c}' boxValue='{!v.accountObj.Cash_Management__c}' boxColor=""  isboxBorderYellow="{!v.productsYellowMap.Cash_Management}" /> 
+                    </div>
+                </div>
+            </div>
+            <!-- ######################### end :: Enterprise #################################### -->
+            
+        </div>
+        
+        
+        <div class="slds-col slds-size_9-of-12">
+            
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_10-of-12 grey-back" style="height:308px">
+                    <!-- ######################### start :: ATM and ITM #################################### -->
+                    <div style="text-align:center; font-weight:bold;font-size:14px;">ATM &amp; ITM</div>
+                    
+                    <div class="slds-grid slds-gutters" >
+                        <div class="slds-col slds-size_1-of-5 ">
+                            <div class="slds-grid slds-wrap" >
+                                <div class="slds-col" style="background-color:black;padding:3px;color:white; text-align:center;margin-bottom:4px;" >
+                                    Hardware
+                                </div>
+                                <div class="slds-col">
+                                    <c:HeatMap_Boxes boxLabel='{!v.labels.atm_hardware_vendors__c}' boxValue='{!v.accountObj.ATM_Hardware_Vendors__c}' boxColor="" isboxBorderYellow="{!v.productsYellowMap.ATM_Hardware_Vendors}" />
+                                </div>
+                                <div class="slds-col" style="margin-top:4px;">
+                                    <c:HeatMap_Boxes boxLabel='{!v.labels.itm_hardware_vendors__c}' boxValue='{!v.accountObj.ITM_Hardware_Vendors__c}' boxColor="" isboxBorderYellow="{!v.productsYellowMap.ITM_Hardware_Vendors}"  />
+                                </div>
+                                 <div class="slds-col" style="margin-top:4px;">
+                                    <c:HeatMap_Boxes boxLabel='{!v.labels.atm_recyclers__c}' boxValue='{!v.accountObj.ATM_Recyclers__c}' boxColor="" isboxBorderYellow="{!v.productsYellowMap.ATM_Recyclers}"  />
+                                </div>
+                                
+                                
+                               
+                               
+                            </div>
+                        </div> 
+                        <div class="slds-col slds-size_1-of-5 ">
+                            <div class="slds-grid slds-wrap" >
+                                <div class="slds-col" style="background-color:black;min-width:80px;padding:3px;color:white; text-align:center;margin:3px 3px 4px 3px;" >
+                                    HW Services
+                                </div>
+                                <div class="slds-col " style="min-width:133px;">
+                                    <c:HeatMap_Boxes boxLabel='{!v.labels.flm__c}' boxValue='{!v.accountObj.FLM__c}' boxColor="" />
+                                </div>
+                                <div class="slds-col" style="margin-top:4px;">
+                                    <c:HeatMap_Boxes boxLabel='{!v.labels.slm__c}' boxValue='{!v.accountObj.SLM__c}' boxColor="" />
+                                </div> 
+                                <div class="slds-col" style="margin-top:4px;">
+                                    <c:HeatMap_Boxes boxLabel='{!v.labels.turnkey_installation_services__c}' boxValue='{!v.accountObj.Turnkey_Installation_Services__c}' boxColor="" isboxBorderYellow="{!v.productsYellowMap.Turnkey_Installation_Services}"  />
+                                </div>
+                               
+                                <div class="slds-col" style="margin-top:4px;">
+                                    <c:HeatMap_Boxes boxLabel='{!v.labels.managed_services__c}' boxValue='{!v.accountObj.Managed_Services__c}' boxColor="" isboxBorderYellow="{!v.productsYellowMap.Managed_Services}" />
+                                </div>
+                                
+                               
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-5 ">
+                            <div class="slds-grid slds-wrap" >
+                                <div class="slds-col" style="background-color:black;padding:3px;color:white; text-align:center;margin-bottom:4px;" >
+                                    Client Software
+                                </div>
+                                <div class="slds-col" >
+                                    <c:HeatMap_Boxes boxLabel='{!v.labels.atm_itm_application_software_version__c}' boxValue='{!v.accountObj.ATM_ITM_Application_Software_Version__c}' boxColor="" isboxBorderYellow="{!v.productsYellowMap.ATM_ITM_Application_Software_Version}"  />
+                                </div>
+                                <div class="slds-col" style="margin-top:4px;">
+                                    <c:HeatMap_Boxes boxLabel='{!v.labels.marketing_sw__c}' boxValue='{!v.accountObj.Marketing_SW__c}' boxColor="" isboxBorderYellow="{!v.productsYellowMap.Marketing_SW}" />
+                                </div>
+                                <div class="slds-col" style="margin-top:4px;">
+                                    <c:HeatMap_Boxes boxLabel='{!v.labels.white_listing__c}' boxValue='{!v.accountObj.White_Listing__c}' boxColor="" isboxBorderYellow="{!v.productsYellowMap.White_Listing}"  />
+                                </div>
+                                <div class="slds-col" style="margin-top:4px;">
+                                    <c:HeatMap_Boxes boxLabel='{!v.labels.bios_management__c}' boxValue='{!v.accountObj.BIOS_Management__c}' boxColor="" isboxBorderYellow="{!v.productsYellowMap.BIOS_Management}" />
+                                </div>
+                                <div class="slds-col" style="margin-top:4px;">
+                                    <c:HeatMap_Boxes boxLabel='{!v.labels.hard_disk_encryption__c}' boxValue='{!v.accountObj.Hard_Disk_Encryption__c}' boxColor="" isboxBorderYellow="{!v.productsYellowMap.Hard_Disk_Encryption}" />
+                                </div>
+                                
+                               
+                                
+                            </div>  
+                        </div>
+                        <div class="slds-col slds-size_1-of-5 ">
+                            <div class="slds-grid slds-wrap" >
+                                <div class="slds-col" style="background-color:black;padding:3px;color:white; text-align:center;margin-bottom:4px;" >
+                                    Middle-ware
+                                </div>
+                                 <div class="slds-col " >
+                                    <c:HeatMap_Boxes boxLabel='{!v.labels.interactive_banker__c}' boxValue='{!v.accountObj.Interactive_Banker__c}' boxColor="" isboxBorderYellow="{!v.productsYellowMap.Interactive_Banker}"  />
+                                </div>
+                                <div class="slds-col" style="margin-top:4px;">
+                                    <c:HeatMap_Boxes boxLabel='{!v.labels.interactive_teller__c}' boxValue='{!v.accountObj.Interactive_Teller__c}' boxColor="" isboxBorderYellow="{!v.productsYellowMap.Interactive_Teller}"  />
+                                </div>
+                               
+                                <div class="slds-col" style="margin-top:4px;">
+                                    <c:HeatMap_Boxes boxLabel='{!v.labels.core_integrations__c}' boxValue='{!v.accountObj.Core_Integrations__c}' boxColor="" isboxBorderYellow="{!v.productsYellowMap.Core_Integrations}"  />
+                                </div>
+                            </div>  
+                        </div>
+                        <div class="slds-col slds-size_1-of-5 ">
+                            <div class="slds-grid slds-wrap" >
+                                <div class="slds-col" style="background-color:black;padding:3px;color:white; text-align:center;margin-bottom:4px;" >
+                                    Back Office
+                                </div>
+                                 <div class="slds-col " >
+                                    <c:HeatMap_Boxes boxLabel='{!v.labels.monitoring_incident_mgmt__c}' boxValue='{!v.accountObj.Monitoring_Incident_Mgmt__c}' boxColor="" isboxBorderYellow="{!v.productsYellowMap.Monitoring_Incident_Mgmt}"  />
+                                </div>
+                                 <div class="slds-col" style="margin-top:4px;">
+                                    <c:HeatMap_Boxes boxLabel='{!v.labels.sw_distribution__c}' boxValue='{!v.accountObj.SW_Distribution__c}' boxColor=""  isboxBorderYellow="{!v.productsYellowMap.SW_Distribution}" />
+                                </div>
+                                <div class="slds-col" style="margin-top:4px;">
+                                    <c:HeatMap_Boxes boxLabel='{!v.labels.cash_and_transaction_balancing__c}' boxValue='{!v.accountObj.Cash_and_transaction_balancing__c}' boxColor="" isboxBorderYellow="{!v.productsYellowMap.Cash_and_transaction_balancing}" />
+                                </div>
+                                 <div class="slds-col" style="margin-top:4px;">
+                                    <c:HeatMap_Boxes boxLabel='{!v.labels.transaction_monitoring__c}' boxValue='{!v.accountObj.Transaction_monitoring__c}' boxColor=""  isboxBorderYellow="{!v.productsYellowMap.Transaction_monitoring}"  />
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ######################### start :: ATM and ITM #################################### -->
+                
+                
+                              
+                <!-- ######################### start :: check image process #################################### -->
+                
+                <!-- ######################### end :: check image process #################################### -->
+            	<div class="slds-size_2-of-12">
+            		<div class="slds-grid slds-wrap" style="">
+                <div class="slds-col slds-size_12-of-12" style="" >
+                    <!-- ######################### start :: key #################################### --> 
+                    <div class="border-white" style="height:308px">
+                        <div style="text-align:center; font-weight:bold;font-size:14px;margin-top:0px;">Key</div>
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-size_2-of-2" style="margin-top:8px;padding-right:5px;padding-left:5px;" >
+                                <div class="slds-box slds-box_x-small slds-text-align_center" style="background-color:green;">
+                                    NCR
+                                </div>
+                            </div>
+                            <div class="slds-size_2-of-2" style="margin-top:8px;padding-right:5px;padding-left:5px;">
+                                <div class="slds-box slds-box_x-small slds-text-align_center" style="background-color:yellow;color:black;">
+                                    NCR Partial
+                                </div>
+                            </div>
+                            <div class="slds-size_2-of-2" style="margin-top:8px;padding-right:5px;padding-left:5px;">
+                                <div class="slds-box slds-box_x-small slds-text-align_center" style="background-color:red;">
+                                    Non-NCR
+                                </div>
+                            </div>
+                            <div class="slds-size_2-of-2" style="margin-top:8px;padding-right:5px;padding-left:5px;">
+                                <div class="slds-box slds-box_x-small slds-text-align_center" style="background-color:darkslategrey;">
+                                    No Solution or Unknown
+                                </div>
+                            </div>
+                            <div class="slds-size_2-of-2" style="margin-top:10px;padding-right:5px;padding-left:5px;margin-bottom:8px;">
+                                <div class="slds-box slds-box_x-small slds-text-align_center" style="border:3px solid rgb(21, 137, 238); color:black;">
+                                    NCR Opportunity
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                    <!-- ######################### end :: key #################################### -->
+                	
+                </div>
+  
+            </div>
+                    
+        </div>
+                  
+                
+              
+            </div>
+            
+            <div class="slds-grid slds-wrap">
+                <div class="grey-back slds-col slds-size_10-of-12" style="border-top:5px solid white;">
+                    <div style="text-align:center; font-weight:bold;font-size:14px;">Check/Image Processing</div>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-8">
+                            <c:HeatMap_Boxes boxLabel='{!v.labels.commercial__c}' boxValue='{!v.accountObj.Commercial__c}' boxColor="" isboxBorderYellow="{!v.productsYellowMap.Commercial}" />
+                        </div>
+                        <div class="slds-col slds-size_1-of-8">
+                            <c:HeatMap_Boxes boxLabel='{!v.labels.atm__c}' boxValue='{!v.accountObj.ATM__c}' boxColor="" isboxBorderYellow='{!v.productsYellowMap.ATM}'  />
+                        </div>	
+                        <div class="slds-col slds-size_1-of-8">
+                            <c:HeatMap_Boxes boxLabel='{!v.labels.branch__c}' boxValue='{!v.accountObj.Branch__c}' boxColor="" isboxBorderYellow="{!v.productsYellowMap.Branch}" />
+                        </div>
+                        <div class="slds-col slds-size_1-of-8">
+                            <c:HeatMap_Boxes boxLabel='{!v.labels.back_office_processing__c}' boxValue='{!v.accountObj.Back_Office_Processing__c}' boxColor="" isboxBorderYellow="{!v.productsYellowMap.Back_Office_Processing}"  />
+                        </div>
+                        <div class="slds-col slds-size_2-of-8 ">
+                            <c:HeatMap_Boxes boxLabel='{!v.labels.rdc_to_back_office_connection__c}' boxValue='{!v.accountObj.RDC_to_Back_Office_Connection__c}' boxColor="" isboxBorderYellow="{!v.productsYellowMap.RDC_to_Back_Office_Connection}"   />
+                        </div>
+                        <div class="slds-col slds-size_1-of-8">
+                            <c:HeatMap_Boxes boxLabel='{!v.labels.archive__c}' boxValue='{!v.accountObj.Archive__c}' boxColor="" isboxBorderYellow="{!v.productsYellowMap.Archive}"  />
+                        </div>
+                        <div class="slds-col slds-size_1-of-8" style="">
+                            <c:HeatMap_Boxes boxLabel='{!v.labels.mobile__c}' boxValue='{!v.accountObj.Mobile__c}' boxColor="" isboxBorderYellow="{!v.productsYellowMap.Mobile}" />
+                        </div>
+                        
+                    </div>
+                </div>
+                <!--<div class="slds-col slds-size_1-of-12"></div>-->
+                <div class="slds-col slds-size_2-of-12">
+                <div class="grey-back" style="margin-left:1px; margin-top:4px; width:auto">
+                    <div style="text-align:center; font-weight:bold;font-size:14px;">Branch</div>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-8" style="min-width:130px; min-height:56px;">
+                            <c:HeatMap_Boxes boxLabel='{!v.labels.teller__c}' boxValue='{!v.accountObj.Teller__c}' boxColor="" isboxBorderYellow="false" />
+                        </div>
+                        
+                    </div>
+                </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        
+     
+    </div> 
+    
+</aura:component>

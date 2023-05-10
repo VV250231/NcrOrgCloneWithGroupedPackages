@@ -1,0 +1,41 @@
+<aura:component implements="lightning:availableForFlowScreens,lightning:availableForFlowActions" access="global">
+   <aura:attribute name="InvoiceTableData" type="String"></aura:attribute>
+   <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+   <aura:attribute name="TableDataParesd" type="list" Default=""></aura:attribute> 
+   <aura:attribute name="CurrencyCode" type="String"></aura:attribute>
+   <html>
+    <body>
+          <div  style="overflow:auto; max-height: 200px;;  border-radius: 10px;"> 
+          <table>
+              <tbody>
+                    <tr>
+                      <th style="width:40%">Customer Name</th> 
+                      <th style="width:10%">Invoice Number</th>
+                      <th style="width:10%">Invoice Date</th>
+                      <!--<th style="width:8%">Original Balance (USD)</th>-->
+                      <th style="width:8%">Balance Due({!v.CurrencyCode})</th>
+                      <th style="width:8%">Freight Amount({!v.CurrencyCode})</th>
+                      <th style="width:8%">Tax Amount({!v.CurrencyCode})</th>
+                      <th style="width:8%">Line Amount({!v.CurrencyCode})</th>
+                    </tr>
+                        
+                           <aura:iteration items="{!v.TableDataParesd}" var="item">
+                                <tr>
+                                  <td>{!item.CustomerName}</td>
+                                  <td>{!item.InvoiceNumber}</td>
+                                  <td>{!item.InvoiceDate}</td>
+                                  <!--<td>{!item.OriginalBalance}</td>-->
+                                  <td>{!item.BalanceDue}</td>
+                                  <td>{!item.FreightAmount}</td>
+                                  <td>{!item.TaxAmount}</td>
+                                  <td>{!item.LineAmount}</td>
+                                </tr>
+                          </aura:iteration>    
+              
+                </tbody>        
+          </table>
+        </div>
+
+</body>
+    </html>
+</aura:component>

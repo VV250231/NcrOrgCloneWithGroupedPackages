@@ -1,0 +1,80 @@
+<aura:component controller="MultiselecttoplinesController" implements="flexipage:availableForAllPageTypes,force:hasRecordId">
+   <aura:attribute type="String" name="AccountId" ></aura:attribute> 
+   <aura:attribute name="arrvals"  type="String[]"/> 
+   <aura:attribute name="arrvalsSelect"  type="String[]"/>
+   <aura:attribute name="notsoldvalue" type="String"/>
+   <aura:registerEvent name="componentEventFired" type="c:compEvent"/>
+   <aura:registerEvent name="componentEventFired2" type="c:ToplinesEventNotSold"/>  
+   
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>      
+  <div class="slds-picklist_draggable slds-grid">
+  <div class="slds-form-element">
+    <span class="slds-form-element__label" aria-label="select-1">Not Sold Products </span> 
+    <div class="slds-picklist picklist_multi">
+      <ul class="slds-picklist__options slds-picklist__options_multi">
+        <aura:iteration items="{!v.arrvals}" var="paySt">
+            <li draggable="true" id="po-8-0" class="slds-picklist__item" aria-selected="false" tabindex="0" role="option">
+                   <span class="slds-truncate" aura:id="lob" onclick="{!c.RightToLeft}"> {!paySt.value}</span> 
+            </li>  
+         </aura:iteration> 
+      </ul>
+    </div>
+  </div>
+     
+  <div class="slds-grid slds-grid_vertical">
+   
+    <button class="slds-button slds-button_icon-container">
+      >>
+      <span class="slds-assistive-text">Arrow right</span>
+    </button>
+  </div>
+  <div class="slds-form-element" >
+    <span class="slds-form-element__label" aria-label="select-1" >Sold Products</span>
+    <div aura:id="rightid" class="slds-picklist picklist_multi"  value="{!v.arrvalsSelect}">
+      <ul class="slds-picklist__options slds-picklist__options_multi" >
+          	<aura:iteration items="{!v.arrvalsSelect}" var="payStl" >
+                	<li draggable="true" id="po-8-0" class="slds-picklist__item" aria-selected="false" tabindex="0" role="option" >
+                   			<span  class="slds-truncate" onclick='{!c.LeftToRight}' > {!payStl.value}</span>  
+            		</li> 
+            </aura:iteration> 
+      </ul>
+    </div>
+  </div>
+  <div class="slds-grid slds-grid_vertical">
+    <button class="slds-button slds-button_icon-container" onclick="{!c.fireComponentEvent}">
+     
+      <span class="slds-assistive-text" >Arrow up</span>
+    </button>
+    <button class="slds-button slds-button_icon-container">
+      
+      <span class="slds-assistive-text">Arrow down</span>
+    </button>
+  </div>
+</div>
+
+  <div aura:id="msg" class="hide">
+ <ui:outputText aura:id="settest" value="" />
+</div>
+
+    
+    <div>
+      		<fieldSet class="form-group col-md-2">
+                             <div>
+                            <legend class="slds-form-element__label"><b>Add Not Sold Products</b></legend>
+                            <ui:inputText aura:id="comp"  class="form-control" value="{!v.notsoldvalue}"/>
+                           </div>
+             </fieldSet>  
+        
+        </div>
+    
+      <div>
+              <div class="slds-modal__footer slds-modal__footer_directional">  
+              <ui:button class="slds-button slds-button_neutral" label="Cancel" press="{!c.CancelNotSoldSection}"></ui:button>
+              <ui:button class="slds-button slds-button_neutral" label="Add" press="{!c.setNotSoldvalues}"></ui:button>
+              <ui:button class="slds-button slds-button_neutral" label="Save" press="{!c.saveNotSold}"></ui:button>
+              
+              </div>
+        
+      </div>
+    
+</aura:component>

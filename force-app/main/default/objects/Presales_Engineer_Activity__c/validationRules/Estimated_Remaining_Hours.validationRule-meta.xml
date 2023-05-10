@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Estimated_Remaining_Hours</fullName>
+    <active>true</active>
+    <description>If activity has an end date &quot;Estimated Remaining Hours&quot; should be 0.</description>
+    <errorConditionFormula>NOT(ISBLANK( PSE_End_Date__c))&amp;&amp;  PSE_Estimated_Remaining_Hours__c  &gt; 0</errorConditionFormula>
+    <errorDisplayField>PSE_Estimated_Remaining_Hours__c</errorDisplayField>
+    <errorMessage>Estimated Remaining Hours should be zero &apos;0&apos; when an activity has an End Date</errorMessage>
+</ValidationRule>

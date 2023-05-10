@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <environments>Default</environments>
+    <formulas>
+        <name>Update_Overall_Contract_ValueFormula</name>
+        <dataType>Currency</dataType>
+        <expression>($Record.Monthly_Revenue_Amount__c *  $Record.Contract_Term_Mths__c) +  $Record.One_Time_Revenue__c</expression>
+        <scale>0</scale>
+    </formulas>
+    <interviewLabel>CATM_Update Total Contract Value {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>CATM_Update Total Contract Value</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <description>Updates TCV when products are added to opportunity</description>
+        <name>mainUpdate</name>
+        <label>mainUpdate</label>
+        <locationX>176</locationX>
+        <locationY>311</locationY>
+        <inputAssignments>
+            <field>Overall_Contract_Value__c</field>
+            <value>
+                <elementReference>Update_Overall_Contract_ValueFormula</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>mainUpdate</targetReference>
+        </connector>
+        <filterFormula>AND(
+NOT({!$Setup.Automation_Setting__c.Skip_Flow__c}),
+{!$Record.CATM_Record__c},
+{!$Record.OLI_Count__c} &gt;= 1,
+{!$Record.Override_Product_Calculations__c} = False
+)</filterFormula>
+        <object>Opportunity</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

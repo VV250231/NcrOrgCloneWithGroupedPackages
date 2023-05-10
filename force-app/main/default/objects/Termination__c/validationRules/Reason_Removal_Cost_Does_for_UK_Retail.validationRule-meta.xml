@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_Removal_Cost_Does_for_UK_Retail</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+!$Setup.Automation_Setting__c.Skip_Validation_Rule__c,
+OR( $Permission.CATM_Retail_Manager = true,
+ $Permission.CATM_Retail_User = true),ISPICKVAL(Owner:User.Geography__c , &quot;UK&quot;), ISPICKVAL( Is_Removal_Billable_to_Client__c , &apos;No&apos;), ISBLANK( Reason_Removal_Cost_Doesn_t_Apply__c ), RecordType.Name = &apos;Removals&apos; )</errorConditionFormula>
+    <errorDisplayField>Reason_Removal_Cost_Doesn_t_Apply__c</errorDisplayField>
+    <errorMessage>Please fill the Reason_Removal Cost Does not Apply</errorMessage>
+</ValidationRule>

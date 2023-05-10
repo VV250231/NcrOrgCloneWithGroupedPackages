@@ -1,0 +1,138 @@
+<aura:component controller="Controller_indvidualobject_listview" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="indobject" type="String[]" />
+    <aura:attribute type="Boolean" name="togglesearchcriteria" default="false" />
+    <aura:attribute type="Boolean" name="toggleerrorfromserver" default="false" />
+    <aura:attribute type="Boolean" name="norecords" default="false" />
+    <aura:attribute type="Boolean" name="togglereports" default="false" />
+    <aura:attribute type="Boolean" name="somerecords" default="false" />
+    
+    
+    <aura:if isTrue="{!v.toggleerrorfromserver}">
+        <div class="alert-box_error"> 
+            <div class="slds-box slds-theme_error">
+                <p>Error occured at server, Please send screenshot to admin</p>
+            </div>
+        </div> 
+    </aura:if>
+    <aura:if isTrue="{!v.norecords}">
+        
+        <article class="slds-card" style="height:100%;">
+            <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-contact" title="GDPR/Individual Object">
+                            <lightning:icon iconName="standard:omni_supervisor" variant="error" size="large" />
+                            <span class="slds-assistive-text">Individual Object</span>
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <a href="javascript:void(0);" class="slds-card__header-link slds-truncate" title="Contacts (1)">
+                                <span class="slds-text-heading_small">GDPR Information</span>
+                            </a>
+                        </h2>
+                    </div>
+                    <div class="slds-no-flex">
+                        <button style="" class="slds-button slds-button_outline-brand" aria-haspopup="true" onclick="{!c.togglereportview}" >
+                            <span class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-utility-page slds-current-color">
+                                    <lightning:icon iconName="utility:page" size="x-small" />
+                                </span>
+                            </span>
+                            <span class="slds-media__body">
+                                <span class="slds-truncate" title="Dropdown">Reports</span>
+                                <span class="slds-icon_container slds-icon-utility-chevrondown slds-current-color slds-m-left_small">
+                                    <lightning:icon iconName="utility:chevrondown" size="x-small" />
+                                </span>
+                            </span>
+                        </button>&nbsp;
+                        <lightning:buttonIcon iconName="utility:delete" variant="bare" onclick="{!c.openrecyclebin}" alternativeText="Open Recycle Bin" iconClass="dark"/>
+                        <aura:if isTrue="{!v.togglereports}">
+                            <div class="slds-dropdown slds-dropdown_inverse slds-dropdown_left" style="margin-left: 1110px;">
+                                <ul class="slds-dropdown__list" role="menu">
+                                    <li class="slds-dropdown__item slds-is-selected" role="presentation">
+                                        <a href="/00O0g000005MYfWEAW" target="_blank" role="menuitem" tabindex="0">
+                                            <span class="slds-truncate" title="Click to open report">
+                                                <lightning:icon iconName="utility:download" size="xx-small" />
+                                                Suspended / Opt-In Lead</span>
+                                        </a>
+                                    </li>
+                                    <li class="slds-dropdown__item" role="presentation">
+                                        <a href="/00O0g000005MYfVEAW" target="_blank" role="menuitem" tabindex="-1">
+                                            <span class="slds-truncate" title="Click to open report">
+                                                <lightning:icon iconName="utility:download" size="xx-small" />
+                                                Suspended / Opt-In Contact</span>
+                                        </a>
+                                    </li>
+                                    <li class="slds-has-divider_top-space" role="separator"></li>
+                                    <li class="slds-dropdown__item" role="presentation">
+                                        <a href="javascript:void(0);" role="menuitem" tabindex="-1">
+                                            <span class="slds-truncate" title="Click to open report">
+                                                <lightning:icon iconName="utility:download" size="xx-small" />
+                                                More Reports</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </aura:if>
+                    </div>
+                </header>
+            </div>
+            <div class="slds-card__body" onclick="{!c.hidereportview}" >
+                <aura:if isTrue="{!v.togglesearchcriteria}">
+                    <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_warning"> 
+                        <lightning:icon iconName="utility:warning" size="xx-small" />&nbsp;
+                        <p> No Individual Records Exist, Please create few !</p>&nbsp;&nbsp;&nbsp;
+                        <lightning:icon iconName="utility:smiley_and_people" size="xx-small" />
+                    </div> 
+                </aura:if>
+                <aura:if isTrue="{!v.somerecords}">
+                    <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                        <thead>
+                            <tr class="slds-text-title_caps">
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Name">Name</div>
+                                </th>
+                                <th>
+                                    <div class="slds-truncate" title="Object">Owner Name</div>
+                                </th>
+                                <th>
+                                    <div class="slds-truncate" title="Object">Don't Process</div>
+                                </th>
+                                <th>
+                                    <div class="slds-truncate" title="Object">Export Individual's Data</div>
+                                </th>
+                                <th>
+                                    <div class="slds-truncate" title="Object">Forget this Individual</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <aura:iteration items="{!v.indobject}" var="item">
+                                <tr>
+                                    <td scope="row" data-label="Name">
+                                        <div class="slds-truncate" title="{!item.id}"><a href="{!'/'+item.Id}" target="_blank" ><ui:outputText value="{!item.Name}" /></a></div>
+                                    </td>
+                                    <td scope="row" data-label="Owner Name">
+                                        <div class="slds-truncate" title="Owner Name"><ui:outputText value="{!item.Owner.Name}" /></div>
+                                    </td>
+                                    <td scope="row" data-label="Don't Process">
+                                        <div class="slds-truncate" title="Don't Process"><ui:outputCheckbox value="{!item.HasOptedOutProcessing}" /></div>
+                                    </td>
+                                    <td scope="row" data-label="Object">
+                                        <div class="slds-truncate" title="SendIndividualData"><ui:outputCheckbox value="{!item.SendIndividualData}" /></div>
+                                    </td>
+                                    <td scope="row" data-label="Object">
+                                        <div class="slds-truncate" title="Forget this Individual"><ui:outputCheckbox value="{!item.ShouldForget}" /></div>
+                                    </td>
+                                </tr>
+                            </aura:iteration>
+                        </tbody>
+                    </table>
+                </aura:if>
+            </div>
+            <footer class="slds-card__footer" onclick="{!c.hidereportview}"></footer>
+        </article>
+    </aura:if>
+</aura:component>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Email_notification_to_user_of_Trailmix_assignment</fullName>
+        <description>Email notification to user of Trailmix assignment</description>
+        <protected>false</protected>
+        <recipients>
+            <field>trailheadapp__User__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>my.trailhead@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Trailmix_Assignment_Email</template>
+    </alerts>
+    <rules>
+        <fullName>Email alert of new Trailmix assigned</fullName>
+        <actions>
+            <name>Email_notification_to_user_of_Trailmix_assignment</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>trailheadapp__Trailmix_Assignment__c.trailheadapp__User__c</field>
+            <operation>notEqual</operation>
+            <value>Linda Sherman</value>
+        </criteriaItems>
+        <description>This workflow rule will notify a user that they have been assigned a Trailmix.</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

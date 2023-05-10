@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <aggregateTypes>Average</aggregateTypes>
+        <field>CDF1</field>
+    </columns>
+    <columns>
+        <field>Lead.INQ_Trigger_Date__c</field>
+    </columns>
+    <columns>
+        <field>Lead.SAL_Date__c</field>
+    </columns>
+    <columns>
+        <field>COMPANY_ACCT</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>LEAD_SOURCE</field>
+    </columns>
+    <columns>
+        <field>FIRST_NAME</field>
+    </columns>
+    <columns>
+        <field>LAST_NAME</field>
+    </columns>
+    <columns>
+        <field>LAST_UPDATE</field>
+    </columns>
+    <columns>
+        <field>LEAD_OWNER</field>
+    </columns>
+    <columns>
+        <field>Lead.Nurture_Trigger_Date__c</field>
+    </columns>
+    <columns>
+        <field>Lead.SQL_Date__c</field>
+    </columns>
+    <columns>
+        <field>STATUS</field>
+    </columns>
+    <columns>
+        <field>CREATED</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>ROUND(8 * (
+   ( 5 * FLOOR( ( DATEVALUE( Lead.SAL_Date__c ) - DATE( 1900, 1, 8) ) / 7) +
+    MIN(5, 
+     MOD( DATEVALUE( Lead.SAL_Date__c ) - DATE( 1900, 1, 8), 7) +
+     MIN( 1, 24 / 8 * ( MOD( Lead.SAL_Date__c - DATETIMEVALUE( &apos;1900-01-08 13:00:00&apos; ), 1 ) ) )
+    ) 
+   )
+ -
+   ( 5 * FLOOR( ( DATEVALUE( Lead.INQ_Trigger_Date__c ) - DATE( 1900, 1, 8) ) / 7) +
+     MIN( 5,
+      MOD( DATEVALUE( Lead.INQ_Trigger_Date__c ) - DATE( 1996, 1, 1), 7 ) +
+      MIN( 1, 24 / 8 * ( MOD( Lead.INQ_Trigger_Date__c - DATETIMEVALUE( &apos;1900-01-08 13:00:00&apos; ), 1) ) )
+    )
+   ) 
+  ), 5)*60</calculatedFormula>
+        <dataType>Double</dataType>
+        <developerName>CDF1</developerName>
+        <label>Minutes To Contacted</label>
+        <scale>6</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>Lead.INQ_Trigger__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead.LeadType__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>,Sales,Prospect</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead.SDR__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Braxton Hawcroft,Jackson Hawthorne,Jesse Lopez-Garcia,Braxton,Sarah Snyder,Lizzy D&apos;antoni,Valentina Galvez</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CREATED_DATE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>THIS_WEEK</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CREATED</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>Braxton Hawcroft,Jackson Hawthorne,Jesse Lopez-Garcia,Sarah Snyder,Lizzy D&apos;antoni,Valentina Galvez</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>COMPANY_ACCT</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Rocko’s Country Cookin’LLC,My own,Chicken Stop,TGI Fridays,O Paddock,Tim&apos;z Barber Suite,Old Germantown,gh,Merchant Management,Coffee Shop,good vibes,Restaurant,Teds montana Grill,Dog &amp; Suds,Prohibition,Central Connections,Scanfluence,JustFoodForDogs,Ahuevo,KW Property Management and Consulting,Potholder Cafe P3,Spud McGee’s,Creekside Bar &amp; Grill,Double Eagle de Mesilla,Great Adirondack brewing company,The Rabbit Hole,New and used,Amvets Post 94,Kiki’s Mexican Restaurant,NCR Hosted Solutions Customer- Lisa Goodman,Route 2 pizza,CR Hosted Solutions Customer- Lisa Goodman,Reno’s,Bloomer&apos;s,Taverna,Ascend Prime Steak &amp; Sushi,Los Toxicos,Hemricks grocery,The Big Texan Steak Ranch</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CDF1</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value></value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>LEAD_SOURCE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Phone Inquiry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>COMPANY_ACCT</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>Mcdonalds,Mykeias Cakes And Pastries,Chicken Stop NYC,the Victorian Corner Cafe,Good Vibes - Pipeline Rd.,PBR LLC,Earl of Sandwich,Chyna’s playhouse inc,Boba-n-chai LLC,Milton Wright DBA Tech Direct IT Services</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Lead.SDR__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Testing Minutes to Contact - Ajay 2</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>OpportunityLead</reportType>
+    <scope>org</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>LAST_ACTIVITY</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

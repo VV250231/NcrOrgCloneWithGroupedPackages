@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>sp1Namer_Finacial_Change_Status_or_Change_Owner_Email_Alert_0</name>
+        <label>Lead.Namer_Finacial_Change_Status_or_Change_Owner_Email_Alert</label>
+        <locationX>565</locationX>
+        <locationY>456</locationY>
+        <actionName>Lead.Namer_Finacial_Change_Status_or_Change_Owner_Email_Alert</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>55.0</apiVersion>
+    <decisions>
+        <name>Check_if_owner_is_active</name>
+        <label>Check if owner is active</label>
+        <locationX>697</locationX>
+        <locationY>336</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Check_email_conditions</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Owner:User.IsActive</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.LeadOwnerManage__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>sp1Namer_Finacial_Change_Status_or_Change_Owner_Email_Alert_0</targetReference>
+            </connector>
+            <label>Check email conditions</label>
+        </rules>
+    </decisions>
+    <description>Migrated from the: Namer Financial Lead SLA Rule- Update Status or Change Owner workflow rule
+Workflow rule description: This workflow rule fires when the status or the owner has not been changed within two days from the lead created date.&quot;</description>
+    <environments>Default</environments>
+    <label>Namer Financial Lead SLA Rule- Update Status or Change Owner</label>
+    <migratedFromWorkflowRuleName>Namer Financial Lead SLA Rule- Update Status or Change Owner</migratedFromWorkflowRuleName>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>372</locationX>
+        <locationY>44</locationY>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterFormula>AND(ISPICKVAL({!$Record.Lead_State_SDL_Team__c} , &apos;Assigned to SDL Team&apos;),NOT({!$Setup.Automation_Setting__c.Skip_Flow__c}), {!$Record.CATM_Record__c} = false)</filterFormula>
+        <object>Lead</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <scheduledPaths>
+            <name>X2_days_after_created_date</name>
+            <connector>
+                <targetReference>Check_if_owner_is_active</targetReference>
+            </connector>
+            <label>2 days after created date</label>
+            <offsetNumber>2</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <recordField>CreatedDate</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

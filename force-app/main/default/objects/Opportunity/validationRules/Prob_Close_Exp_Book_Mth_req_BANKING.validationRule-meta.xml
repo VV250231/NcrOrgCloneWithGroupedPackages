@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prob_Close_Exp_Book_Mth_req_BANKING</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),
+NOT(CATM_Record__c),
+ISPICKVAL(Probability_of_Closing_on_Exp_Book_Date__c, &quot;&quot;),
+ISPICKVAL( CurrencyIsoCode , &apos;USD&apos;),
+ISPICKVAL(Account.Region__c ,&quot;NAMER&quot;),
+ISPICKVAL(Account.LOB__c ,&quot;FINANCIAL&quot;),
+($Profile.Name &lt;&gt; &quot;Soup Integration&quot;),
+($Profile.Name &lt;&gt; &quot;iPaas Administration&quot;),
+OR($Profile.Name = &quot;Banking Account Manager&quot;,
+$Profile.Name = &quot;Banking Channel Account Manager&quot;,
+$Profile.Name = &quot;Banking Territory Account Manager&quot;,
+$Profile.Name = &quot;Banking Account Director&quot;))</errorConditionFormula>
+    <errorMessage>You must populate the Month Timing Risk field.</errorMessage>
+</ValidationRule>

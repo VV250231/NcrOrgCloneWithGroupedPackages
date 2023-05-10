@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>AAS_Subscription_Flag_True</fullName>
+        <description>Subscription Flag =  true</description>
+        <field>Is_Subscriptioned__c</field>
+        <literalValue>1</literalValue>
+        <name>AAS Subscription Flag True</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>AAS_subscription_field_update</fullName>
+        <field>Is_Subscriptioned__c</field>
+        <literalValue>1</literalValue>
+        <name>AAS subscription field update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Populate_Line_Item_Primary_Key</fullName>
+        <field>Primary_Line_Item_Key__c</field>
+        <formula>Id</formula>
+        <name>Populate Line Item Primary Key</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_IsOppLineItemTypeUpdate_to_true</fullName>
+        <field>IsOppLineItemTypeUpdate__c</field>
+        <literalValue>1</literalValue>
+        <name>Set IsOppLineItemTypeUpdate to true</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>OpportunityId</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SubscriptionFlagTrue</fullName>
+        <description>Sub Flag True</description>
+        <field>Is_Subscriptioned__c</field>
+        <literalValue>1</literalValue>
+        <name>SubscriptionFlagTrue</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Subscription_Flag_False</fullName>
+        <field>Is_Subscriptioned__c</field>
+        <literalValue>0</literalValue>
+        <name>Subscription Flag False</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Contract_Term_on_Product</fullName>
+        <description>CATM</description>
+        <field>Number_of_Terms__c</field>
+        <formula>Opportunity.Contract_Term_Mths__c</formula>
+        <name>Update Contract Term on Product</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Line_Total_TCV_Price</fullName>
+        <field>Line_Total_TCV_Price__c</field>
+        <formula>IF(Opportunity.CPQ__c,Line_TCV__c, TotalPrice)</formula>
+        <name>Update Line Total/TCV Price</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Product_Annual_Contract_Value</fullName>
+        <field>Product_Annual_Contract_Value__c</field>
+        <formula>If(One_Time_Revenue__c = True,TotalPrice,
+If(Opportunity.Contract_Term_Mths__c &gt;= 12 &amp;&amp; One_Time_Revenue__c = False, TotalPrice * 12,
+If (Opportunity.Contract_Term_Mths__c &lt;12, TotalPrice * Opportunity.Contract_Term_Mths__c,0)))</formula>
+        <name>Update Product Annual Contract Value</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Product_Category</fullName>
+        <field>Product_Category__c</field>
+        <formula>TEXT(Product2.Product_Category__c)</formula>
+        <name>Update Product Category</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Product_Category_Field</fullName>
+        <field>Product_Category__c</field>
+        <formula>Text(Product2.Product_Category__c)</formula>
+        <name>Update Product Category Field</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Revenue_Type_Field</fullName>
+        <field>Revenue_Type__c</field>
+        <formula>Product2.Service_Offer_Category__c</formula>
+        <name>Update Revenue Type Field</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>test2</fullName>
+        <field>Annuity_Test__c</field>
+        <formula>if(OR(PricebookEntry.Product2.Annuity_product__c, Is_Subscriptioned__c ), (UnitPrice * Quantity) ,0)</formula>
+        <name>test2</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Annuity Test</fullName>
+        <actions>
+            <name>test2</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND(NOT($Setup.Automation_Setting__c.Skip_Flow__c),  NOT(ISNULL(Annuity_Product__c)))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM - Update Opp Contract Term</fullName>
+        <actions>
+            <name>Update_Contract_Term_on_Product</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <formula>AND( NOT($Setup.Automation_Setting__c.Skip_Flow__c), Opportunity.CATM_Record__c, Opportunity.TotalOpportunityQuantity &gt;= 1, Opportunity.Contract_Term_Mths__c &gt;= 0 )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM - Update Product Annual Contract Value and Product Category</fullName>
+        <actions>
+            <name>Update_Product_Annual_Contract_Value</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Product_Category</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND( NOT($Setup.Automation_Setting__c.Skip_Flow__c), Opportunity.CATM_Record__c, Quantity &gt;= 1 )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Cloud products Subscription</fullName>
+        <actions>
+            <name>AAS_Subscription_Flag_True</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Cloud products have Subscription flag = true</description>
+        <formula>!$Setup.Automation_Setting__c.Skip_Flow__c &amp;&amp; Revenue_Type__c = &apos;Cloud&apos; &amp;&amp; Is_Subscriptioned__c = FALSE &amp;&amp; Opportunity.CPQ__c = FALSE</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Populate Line Item Primary Key Rule</fullName>
+        <actions>
+            <name>Populate_Line_Item_Primary_Key</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>!$Setup.Automation_Setting__c.Skip_Flow__c &amp;&amp;  Primary_Line_Item_Key__c = NULL</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Populate Line Total%2FTCV Price</fullName>
+        <actions>
+            <name>Update_Line_Total_TCV_Price</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>!$Setup.Automation_Setting__c.Skip_Flow__c &amp;&amp; True</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Subscription Flag for Cloud products</fullName>
+        <actions>
+            <name>SubscriptionFlagTrue</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Cloud products have Subscription flag = true</description>
+        <formula>!$Setup.Automation_Setting__c.Skip_Flow__c &amp;&amp; 
+OR(AND(Revenue_Type__c = &apos;Cloud&apos;, !Is_Subscriptioned__c), AND(!Is_Subscriptioned__c, Product_Name__c = &apos;NCR Payments Processing&apos; ), AND(!Is_Subscriptioned__c, Revenue_Type__c = &apos;As a Service&apos; ), AND(!Is_Subscriptioned__c, Product2.OriginalCorporation__c = &apos;Cardtronics&apos;)) &amp;&amp; OR( !Opportunity.CPQ__c, Opportunity.Silver_Opportunity_flag__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Subscription Flag for Non-Cloud%2C Non available for Subscription</fullName>
+        <actions>
+            <name>Subscription_Flag_False</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>!$Setup.Automation_Setting__c.Skip_Flow__c &amp;&amp; !Product2.Available_for_Subscription__c &amp;&amp; Revenue_Type__c = &apos;Cloud&apos; &amp;&amp; Is_Subscriptioned__c &amp;&amp; Opportunity.IsClosed = FALSE &amp;&amp; TEXT(Source__c) = &apos;&apos; &amp;&amp; Product_Name__c = &apos;NCR Payments Processing&apos; &amp;&amp; OR(!Opportunity.CPQ__c, Opportunity.Silver_Opportunity_flag__c )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update IsOppLineItemTypeUpdate on Opportunity</fullName>
+        <actions>
+            <name>Set_IsOppLineItemTypeUpdate_to_true</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>!$Setup.Automation_Setting__c.Skip_Flow__c &amp;&amp; AND(Opportunity.IsClosed=False,  Opportunity.IsOppLineItemTypeUpdate__c = false, OR(ISNEW(), ISCHANGED(Opportunity_Line_Item_Type__c)),  OR(Revenue_Type__c =  &apos;HWM&apos;, Revenue_Type__c =  &apos;SWM&apos;, Revenue_Type__c  = &apos;Managed Service&apos;),  $Profile.Name &lt;&gt;  &quot;Soup Integration&quot;  )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Product Category</fullName>
+        <actions>
+            <name>Update_Product_Category_Field</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>!$Setup.Automation_Setting__c.Skip_Flow__c &amp;&amp; true</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Revenue Type</fullName>
+        <actions>
+            <name>Update_Revenue_Type_Field</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>!$Setup.Automation_Setting__c.Skip_Flow__c &amp;&amp; true</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

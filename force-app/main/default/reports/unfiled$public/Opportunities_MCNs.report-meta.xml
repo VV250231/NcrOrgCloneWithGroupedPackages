@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Account$Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>Account$Name</field>
+    </columns>
+    <columns>
+        <field>Account.Contacts$Name</field>
+    </columns>
+    <columns>
+        <field>Account.Contacts.OpportunityContactRoles$Name</field>
+    </columns>
+    <columns>
+        <field>Account$Open_Opportunity_Value__c</field>
+    </columns>
+    <columns>
+        <field>Account$Open_Opportunity_Value__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>Account.Contacts.OpportunityContactRoles$Id</field>
+    </columns>
+    <columns>
+        <field>Account.Contacts.OpportunityContactRoles$RecordType</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Opportunities &amp; MCNs</description>
+    <format>Tabular</format>
+    <name>Opportunities &amp; MCNs</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Account_Contacts_with_Oppty__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Account$Account_Active_Date__c</dateColumn>
+        <endDate>2021-12-31</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2020-04-01</startDate>
+    </timeFrameFilter>
+</Report>

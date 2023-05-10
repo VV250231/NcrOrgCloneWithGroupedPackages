@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>trailheadapp__Debug_Log__c.trailheadapp__Class__c</field>
+    </columns>
+    <columns>
+        <field>trailheadapp__Debug_Log__c.trailheadapp__Method__c</field>
+    </columns>
+    <columns>
+        <field>trailheadapp__Debug_Log__c.trailheadapp__Message__c</field>
+    </columns>
+    <columns>
+        <field>trailheadapp__Debug_Log__c.trailheadapp__Severity__c</field>
+    </columns>
+    <columns>
+        <field>trailheadapp__Debug_Log__c.trailheadapp__Datetime__c</field>
+    </columns>
+    <currency>USD</currency>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>trailheadapp__Debug_Log__c.trailheadapp__Transaction__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Debug Logs today</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$trailheadapp__Debug_Log__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>trailheadapp__Debug_Log__c.trailheadapp__Datetime__c</dateColumn>
+        <interval>INTERVAL_THISWEEK</interval>
+    </timeFrameFilter>
+</Report>

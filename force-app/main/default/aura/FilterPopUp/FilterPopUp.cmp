@@ -1,0 +1,67 @@
+<aura:component controller="OppListViewController">
+    <aura:attribute name="fieldsInfoMap" type="Map" />
+    <aura:attribute name="filter" type="OppListViewController.FieldFilterWrapper"/>
+    <aura:attribute name="fltrIndex" type="Integer" /> 
+    <aura:attribute name="currencyList" type="String[]" />
+    
+    <!-- attributes for popup box -->
+    <aura:attribute name="selectFieldName" type="String" />
+    <aura:attribute name="selectOperator" type="String"  />
+    <aura:attribute name="selectOperand" type="String" />
+    <aura:attribute name="selectOptions" type="String[]" />
+    <aura:attribute name="isPicklistField" type="Boolean" default="true"/>
+    <aura:attribute name="avlPicklstOptions" type="Object[]"  />
+    <aura:attribute name="oprndFieldType" type="String"  />
+    <!-- attributes for popup box -->
+    
+    <aura:registerEvent name="saveFilter" type="c:LVFilterSave"/> 
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="selectChange" event="c:SelectChange" action="{!c.handlePcklstSelectChange}"/>
+    
+    <section aura:id="fltrPopup" aria-describedby="filter-dialog" class="slds-popover slds-nubbin_right" role="dialog" style="position: absolute;top:-98px;left:-330px;" onclick="{!c.popupclick}">
+        <div class="slds-popover__body" id="filter-dialog">
+            <div class="slds-form" style="padding:2px;">
+                <fieldset class="slds-form slds-form_stacked">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label">Field</label>
+                        <div class="slds-form-element__control">
+                            <ui:inputSelect class="slds-select slds-dropdown-trigger slds-dropdown-trigger_click" aura:id="fieldLblpcklst"  value="{!v.selectFieldName}" change="{!c.onFieldChange}" /> 
+                        </div>
+                    </div>
+                    
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label">Operator</label>
+                        <div class="slds-form-element__control">
+                            <ui:inputSelect class="slds-select slds-dropdown-trigger slds-dropdown-trigger_click" aura:id="oprtpcklst"  value="{!v.selectOperator}" />  
+                        </div>
+                    </div>
+                    
+                    <div class="slds-form-element">              
+                        <label class="slds-form-element__label" for="input-id-02">Value</label>
+                        
+                        <div class="slds-form-element__control">
+                            <aura:if isTrue="{!(v.oprndFieldType == 'PICKLIST')}">
+                                <!-- <ui:inputSelect class="slds-select slds-dropdown-trigger slds-dropdown-trigger_click" aura:id="oprndpcklst"  value="{!v.selectOperand}"/> -->
+                                <c:MultiSelPicklist options="{!v.avlPicklstOptions}" variant="label-hidden" width="100%;" />
+                                
+                                <aura:set attribute="else">                                    
+                                    <aura:if isTrue="{!(v.oprndFieldType == 'DATE')}">            
+                                        <lightning:input type="date" value="{!v.selectOperand}" />
+                                        <aura:set attribute="else">
+                                            <lightning:input aura:id="inputOprnd" value="{!v.selectOperand}" />
+                                        </aura:set>
+                                    </aura:if>                                    
+                                </aura:set>
+                            </aura:if> 
+                        </div>                 
+                    </div>
+                    <div class="slds-form-element">  
+                        <div class="slds-float_right slds-m-top_x-small">
+                            <lightning:button label="Done" onclick="{!c.saveFilter}"></lightning:button></div> 
+                    </div> 
+                </fieldset>
+            </div> 
+        </div>
+    </section>
+</aura:component>

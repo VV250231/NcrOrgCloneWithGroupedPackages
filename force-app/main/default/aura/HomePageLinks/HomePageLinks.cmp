@@ -1,0 +1,35 @@
+<aura:component controller="HomePageLinks" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="links" type="homepagelink__mdt[]" />
+    
+   
+    <div clas="slds">
+        <div class="narrow homeHomeCard homeRecentRecordContainer"> 
+            <div class="slds-card forceBaseCard">
+                <div class="narrow homeHomeCard homeRecentRecordContainer">       
+                    <div class="slds-card__header slds-grid" data-aura-rendered-by="273:541;a">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate" >
+                            <!--render facet: 277:541;a--><div class="slds-media__body">
+                            <h2 class="header-title-container" id="header">
+                                <span class="slds-text-heading_small slds-truncate" title="Links" >
+                                    Links
+                                </span>
+                            </h2>
+                            </div>
+                        </header><!--render facet: 284:541;a--></div>
+                    <div class="slds-col">
+                        <div class="slds-m-around_medium slds-text-align_left">
+                            <ul >
+                                <aura:iteration items="{!v.links}" var="obj">                                    
+                                    <li class="slds-m-top_medium"><a href="{!obj.Link__c}" target="_blank">{!obj.MasterLabel}</a>
+                                    </li>                                    
+                                </aura:iteration>                                
+                            </ul>                            
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</aura:component>

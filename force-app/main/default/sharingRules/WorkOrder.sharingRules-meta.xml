@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Work_Order_Edit_Rule</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Work Order Edit Rule</label>
+        <sharedTo>
+            <group>Hospitality_Work_Order_Edit_Access</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>WorkOrderNumber</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Marketing_Activites</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND
+(
+ INCLUDES(Marketing_Activities__c, &apos;other&apos;),
+ISBLANK( Other_Activities__c ) 
+)</errorConditionFormula>
+    <errorDisplayField>Other_Activities__c</errorDisplayField>
+    <errorMessage>Please enter “Other Activities”</errorMessage>
+</ValidationRule>

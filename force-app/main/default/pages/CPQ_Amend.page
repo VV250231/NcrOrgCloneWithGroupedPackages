@@ -1,0 +1,21 @@
+<apex:page StandardController="Contract" extensions="CPQAmendContractController" action="{!amendContract}" showHeader="true" sidebar="false" lightningStylesheets="true">
+    <apex:form >
+            <apex:actionFunction action="{!viewContract}" name="openContract"/>
+            <apex:actionFunction action="{!URLFOR('$Action.Contract.CPQ_Amend_Contract', recordId)}" name="amendContract"/>
+    </apex:form>
+    
+    <script language="javascript">
+    
+    function showMessage(){
+        if({!amendFailed}){  
+            sforce.one.showToast({'title':'Contract Amend Failed','message':'{!amendErrorMsg}','type':'error','mode': 'sticky'});
+            openContract();
+        } else {
+            amendContract();
+       }
+    }
+    
+    showMessage();
+    </script>
+    
+</apex:page>

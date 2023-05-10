@@ -1,0 +1,135 @@
+<aura:component controller="ProductSelectChildController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+     <aura:attribute Name="ChangeInParent" Type="Boolean"></aura:attribute>
+   <aura:handler name="change" value="{!v.ChangeInParent}" action="{!c.onChildAttributeChange}"/>
+    <aura:attribute Name="IsCheck" Type="Boolean"></aura:attribute>
+    <aura:attribute Name="ProductName" Type="String"></aura:attribute>
+    <aura:attribute Name="Quantity" Type="Integer" ></aura:attribute>
+    <aura:attribute Name="UnitPrice" Type="Integer" ></aura:attribute>
+    <aura:attribute Name="Totalvalue" Type="Integer" ></aura:attribute>
+    <aura:attribute Name="ProductId" Type="String"></aura:attribute>
+    <aura:attribute Name="LineItemId" Type="String"></aura:attribute>
+    <aura:attribute Name="ProductPopOver" Type="String" default="slds-hide"></aura:attribute>
+    <aura:attribute Name="ToggleSpinner" Type="Boolean" default="false"></aura:attribute>
+    <aura:attribute name="NoOfTerms" type="Integer" ></aura:attribute>
+    <aura:attribute name="OneTimeFee" type="Integer" ></aura:attribute>
+    <aura:attribute name="MonthlyFee" type="Decimal"></aura:attribute>
+    <aura:attribute name="timer" type="Integer"/>
+    <aura:attribute name="AvailableforSubscription" type="Boolean"></aura:attribute>
+    <aura:attribute name="mandateSubscriptioned" type="boolean"/>
+    <aura:attribute name="ProductCatogery" type="String"></aura:attribute>
+    <aura:attribute name="subscription" type="boolean"/>
+    <aura:attribute name="masterLineId" type="String"></aura:attribute>
+     <aura:attribute name="mainOppId" type="String" />
+    <aura:attribute name="qtyTyp" type="String"></aura:attribute>
+     <aura:attribute name="catchParentLoadData" type="Aura.Action" />
+    <aura:attribute name="fieldMap" type="Map"/>
+    <aura:registerEvent name="refreshPackageScreen" type="c:PS_AddProduct_refreshPackage" />
+    <aura:attribute name="catmOpp" type="Opportunity" />
+    <aura:attribute name="isCatm"  type="boolean"/> 
+    <aura:attribute name="isCATMProduct"  type="boolean" access="public"/> 
+    
+    <aura:attribute name="errMsg"  type="String" /> 
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+
+    <aura:attribute name="parent" type="Aura.Component"/>
+    
+    <!-- Added changes for story EBA_SF-2397 -->
+    <aura:attribute Name="TotalACVvalue" Type="Integer"></aura:attribute>
+    <!-- Added changes for story EBA_SF-2397 -->
+    
+   <!-- <aura:attribute name="isPackageTab" type="boolean" default="true"></aura:attribute>
+    <aura:attribute name="isPackage" type="boolean"/>
+    <aura:attribute name="Sites" type="Integer"></aura:attribute>
+    <aura:attribute name="isCompanion" type="boolean"/>
+    <aura:attribute Name="packageId" Type="String"></aura:attribute>
+    <aura:attribute Name="packageIdforModalPopup" Type="String"></aura:attribute>
+    <aura:attribute Name="packageNameforModalPopup" Type="String"></aura:attribute>
+    <aura:attribute name="isOpen" type="boolean" default="false"/>
+    <aura:attribute name="isSubPkg" type="boolean" default="false" /> 
+    -->
+   <!-- <aura:handler event="c:PS_refreshAddedPackage" action="{!c.deleteForReconfigure}"/>-->
+    
+    <!--Reconfigure code-->
+    <!--<aura:handler name="reconfigPKG" event="c:ReconfigEvt" action="{!c.handleReconfigPKG}"/>-->
+    
+    <!--showdata: {!v.showData}
+     MasterLineId: {!v.masterLineId}
+    isPackage: {!v.isPackage}
+    isCompanion: {!v.isCompanion}
+    packageid: {!v.packageId}-->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/> 
+    <aura:method name="oppTermChange" action="{!c.onOppTermChange}" > 
+    </aura:method> 
+    
+    <aura:if isTrue="{! v.ToggleSpinner }">
+        
+        <lightning:spinner alternativeText="Loading" />
+    </aura:if>
+                
+                <tr>
+                    <td> 
+                        <ui:inputCheckbox value="{!v.IsCheck}" aura:id="rowCheckBox" ></ui:inputCheckbox>
+                    </td>
+                    <td>
+                        <ui:OutPuttext value="{!v.ProductName}"></ui:OutPuttext>  
+                    </td>
+                    <td>
+                        <aura:if isTrue="{!or(or(v.AvailableforSubscription,v.mandateSubscriptioned), v.isCATMProduct)}">
+                            
+                            <ui:inputnumber  maxlength="6" aura:id="OneTimeFee" format="0.00"  class="{!'inputHeight customStyle '+v.CustomError}" value="{!v.OneTimeFee}" change="{!c.calculateUnitPricevalue}"  updateOn="keyup" />
+                            <aura:set attribute="else">
+                                <center>N/A <lightning:icon iconName="utility:info"  size="xx-small" title="Not Required For Sales Product, Only For Subscription" variant="success"/></center>
+                            </aura:set> 
+                        </aura:if>     
+                    </td> 
+                     <aura:if isTrue="{!!v.isCatm}">
+                        <td>
+                             <aura:if isTrue="{!or(v.AvailableforSubscription, v.mandateSubscriptioned)}">
+                                <!--<span style="font-size: 10px;" class="slds-badge">12x</span>-->
+                                <ui:inputnumber  maxlength="3" aura:id="NoOfTerms" format="Number"  class="{!'inputHeight customStyle '+v.CustomError}" value="{!v.NoOfTerms}" change="{!c.calculateUnitPricevalue}"  updateOn="keyup"/>
+                                <aura:set attribute="else">
+                                    <center>N/A <lightning:icon iconName="utility:info"  size="xx-small" title="Not Required For Sales Product, Only For Subscription" variant="success"/></center>
+                                </aura:set>
+                            </aura:if>     
+                        </td>
+                    </aura:if>  
+                    <td>
+                        <ui:inputnumber  maxlength="6" aura:id="Quantity" format="Number"  class="{!'inputHeight customStyle '+v.CustomError}" value="{!v.Quantity}" change="{!c.calculateUnitPricevalue}"  updateOn="keyup"/>
+                    </td>
+                    <aura:if isTrue="{!v.isCatm}">
+                    <td> 
+                        <lightning:select aura:id="qtyType" value="{!v.qtyTyp}" onchange="{!c.calculateUnitPricevalue}" name="qtyTypeName" required="true">
+                            <aura:iteration items="{!v.fieldMap}" var="i" indexVar="key">
+                                <option text="{!i.value}" value="{!i.key}" selected="{!i.key==v.qtyTyp}" />
+                            </aura:iteration>
+                        </lightning:select>
+                        <!--<ui:inputnumber  maxlength="6" aura:id="qtyTyp" format="string"  class="{!'inputHeight customStyle '+v.CustomError}" value="{!v.qtyTyp}"/-->
+                        </td>
+                    </aura:if>
+                    <td> 
+                          <aura:if isTrue="{!v.isCatm}">
+                              <lightning:input type="number" name="UnitPrice"  value="{!v.UnitPrice}" onchange="{!c.calculateUnitPricevalue}" step=".0001"/>
+                              
+                                <aura:set attribute="else">
+                       				 <ui:inputNumber  maxlength="10" aura:id="UnitPrice" class="inputHeight customStyle" value="{!v.UnitPrice}" change="{!c.calculateUnitPricevalue}" updateOn="keyup"/>
+                       
+                        		</aura:set>
+                        </aura:if>
+                       
+                    </td>
+                    <!-- Added changes for story EBA_SF-2397 -->
+                    <td>
+                        <ui:inputNumber  maxlength="6" aura:id="TotalACVvalue"  class="inputHeight customStyle"  value="{!v.TotalACVvalue}" change="{!c.calculateTotalvalue}" disabled="true" updateOn="keyup"/> 
+                    </td>  
+                    <td>
+                        <ui:inputNumber  maxlength="6" aura:id="Totalvalue"  class="inputHeight customStyle" change="{!c.calculateTotalvalue}"  value="{!v.Totalvalue}" disabled="true" updateOn="keyup"/>
+                        <!-- 
+                        <ui:inputNumber  maxlength="6" aura:id="Totalvalue"  class="inputHeight customStyle"  value="{!v.Totalvalue}" change="{!c.calculateTotalvalue}" disabled="{!(v.AvailableforSubscription || v.ProductCatogery == 'Cloud' || v.isCATMProduct)}" updateOn="keyup"/> 
+	 					--> 
+                    </td>
+                    <!-- Added changes for story EBA_SF-2397 -->
+                    
+                </tr>
+    {!v.body}
+</aura:component>

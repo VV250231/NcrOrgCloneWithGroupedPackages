@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_27021137</developerName>
+        <masterLabel>Created By</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>CREATED</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Matthew Kircher</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Catherine Skinner</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Cara Dukes</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Stacy Fernandez</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Paul White</sourceValue>
+            </sourceValues>
+            <value>Catherine Skinner</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Mackenzie King</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Patrick Quigley</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Rebecca Brotons</sourceValue>
+            </sourceValues>
+            <value>Rebecca Brotons</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Willis Overton</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Alexis Bahr</sourceValue>
+            </sourceValues>
+            <value>Alexis Bahr</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Abe Ellorin</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Allan Conquer</sourceValue>
+            </sourceValues>
+            <value>Sydney Aaron</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Joel Keller</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Angelo Calicchia</sourceValue>
+            </sourceValues>
+            <value>Gift Ogunwale</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>FORECAST_CATEGORY</field>
+    </columns>
+    <columns>
+        <field>CREATED</field>
+    </columns>
+    <columns>
+        <field>ROLLUP_DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Master_Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>STAGE_DURATION</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>Opportunity.OwnerAssignedDate__c</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>Opportunity.DNBI__DnB_Status__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>AMOUNT.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Hardware_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Software_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <field>CAMPAIGN_SOURCE</field>
+    </columns>
+    <columns>
+        <field>CLOSE_MONTH</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Actual_Close_Date__c</field>
+    </columns>
+    <currency>USD</currency>
+    <filter>
+        <booleanFilter>1 AND 2 AND 3</booleanFilter>
+        <criteriaItems>
+            <column>ROLLUP_DESCRIPTION</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>SMB,smb</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Marketing_Program__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>SMB Windows 7</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>STAGE_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Closed/Lost</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Windows 7 Closed Lost Opps_PBI</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>closed</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Opportunity.Actual_Close_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reselling_Used_Refurb_NCR</fullName>
+    <active>true</active>
+    <description>If Reselling used/refurb ncr is true then Reselling used/refurb ncr detail is a required field</description>
+    <errorConditionFormula>AND
+( Reselling_Used_Refurb_NCR__c  = true,
+ ISBLANK(Reselling_Used_Refurb_NCR_Detail__c) 
+)</errorConditionFormula>
+    <errorDisplayField>Reselling_Used_Refurb_NCR_Detail__c</errorDisplayField>
+    <errorMessage>Please enter “Reselling Used/Refurb NCR Detail”</errorMessage>
+</ValidationRule>

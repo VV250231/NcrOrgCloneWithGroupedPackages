@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOSPD_Billing_Project</fullName>
+    <active>true</active>
+    <description>This will prevent a case from being closed when Subcategory is Billing Project and required fields not completed.</description>
+    <errorConditionFormula>(
+Account_clear_of_disputes_late_invoices__c  = FALSE
+||
+ISBLANK(Processes_in_place_to_keep_account_clear__c )
+||
+ISBLANK(Processes_and_or_customer_agreements__c)
+)
+&amp;&amp;
+ISCHANGED(Status)
+&amp;&amp; 
+ISPICKVAL(Subcategory__c,&quot;Billing Project&quot;)
+&amp;&amp;
+ISPICKVAL(Status, &quot;Closed&quot;)</errorConditionFormula>
+    <errorMessage>Must complete fields in Billing Project section to Close Case</errorMessage>
+</ValidationRule>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>Opportunity.Solution_Value__c.CONVERT:SUM+Opportunity.Cloud_Products__c.CONVERT:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Solution + TCV</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_34102443</developerName>
+        <masterLabel>BDR</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>CREATED</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Michael Adamson</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Stacy Arnold</sourceValue>
+            </sourceValues>
+            <value>Christian Pontalti</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Patrick Quigley</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Paula Britton</sourceValue>
+            </sourceValues>
+            <value>Rebecca Brotons</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>David Tercek</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>John Delaney</sourceValue>
+            </sourceValues>
+            <value>Gift Ogunwale</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Paul White</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>David J Nimz</sourceValue>
+            </sourceValues>
+            <value>Catherine Williams</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Jesse Aujla</sourceValue>
+            </sourceValues>
+            <value>Alexis Bahr</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Stephanie Souza</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Kathleen Baer</sourceValue>
+            </sourceValues>
+            <value>Jack Langford</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Opportunity_Number__c</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Actual_Close_Date__c</field>
+    </columns>
+    <columns>
+        <field>FORECAST_CATEGORY</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>Account.Coverage__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>AMOUNT.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Solution_Value__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Soln_Opp_Amount__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Hardware_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Software_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.PS_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Cloud_Products__c.CONVERT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>CDF1</field>
+    </columns>
+    <columns>
+        <field>PROBABILITY</field>
+    </columns>
+    <columns>
+        <field>AGE</field>
+    </columns>
+    <columns>
+        <field>LEAD_SOURCE</field>
+    </columns>
+    <currency>USD</currency>
+    <customDetailFormulas>
+        <calculatedFormula>Opportunity.Solution_Value__c.CONVERT-Opportunity.Soln_Opp_Amount__c.CONVERT</calculatedFormula>
+        <dataType>Double</dataType>
+        <developerName>CDF1</developerName>
+        <label>SW TCV</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <booleanFilter>(1 OR 2) OR (3 AND 4)</booleanFilter>
+        <criteriaItems>
+            <column>CREATED</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Catherine Williams,Daniel Odom,Sydney Aaron,Gift Ogunwale,Annie Lathrup,Rebecca Brotons,Jack Langford,Alexis Bahr</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Opportunity_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>700861354,700857249,700858846,700687424,700757126,700685396,700745896,700659202,700662236,700764348,700752138</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CREATED</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Hannah Hunter,Mackenzie King,Christian Pontalti</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CREATED_DATE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>LAST_YEAR</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_34102443</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CREATED</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>BDR Closed/Won Last 12 Months</name>
+    <params>
+        <name>terr</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>open</name>
+        <value>closedwon</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Opportunity.Actual_Close_Date__c</dateColumn>
+        <endDate>2022-10-31</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2021-10-01</startDate>
+    </timeFrameFilter>
+</Report>

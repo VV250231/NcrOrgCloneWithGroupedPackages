@@ -1,0 +1,141 @@
+<aura:component controller="AllAccountCntrl" implements="flexipage:availableForAllPageTypes,force:appHostable" access="global">
+    
+    <!--aura:handler name="init" action="{!c.doInit}" value="{!this}" /-->
+    <aura:attribute name="accounts1" type="Account[]" />
+    <aura:attribute name="searchResultMessage" type="String"/>
+    <aura:attribute name="searchKey" type="String"/>
+    <aura:attribute name="spin" type="Boolean"/>
+    <aura:attribute name="inf" type="Boolean"/>
+    <aura:attribute name="ofset" type="Integer" /> 
+    <aura:attribute name="count" type="Integer"/>
+    
+    
+    
+    <div class="slds slds-m-around_medium" >
+        
+        <div class="slds-text-heading_Medium  slds-m-top_large " > 
+            <span class="slds-icon_container slds-icon-standard-account " title="Accounts">            
+                <c:svgIcon svgPath="/resource/SLDS103/assets/icons/standard-sprite/svg/symbols.svg#account" category="standard" size="large" name="Account" /> 
+                <span class="slds-assistive-text">Accounts</span>
+                
+            </span> 
+            <span>
+                Account Search.                
+            </span>
+            <span class="slds-float_right">&nbsp;If you need to request an account transfer or need access to an account, please submit a New SF Support Case request.</span>
+            
+            <span class="slds-icon_container slds-icon-text-warning slds-float_right" style="background:#ffbc00" title="Accounts">            
+                <c:svgIcon svgPath="/resource/SLDS103/assets/icons/utility-sprite/svg/symbols.svg#info" category="standard" size="small" name="info" /> 
+                <span class="slds-float_right"></span>
+            </span> 
+        </div>
+        
+        
+        
+        
+        <div class="slds-form-element slds-lookup" data-select="single">            
+            <div class="slds-form-element__control">                
+                <div class="slds-grid slds-grid_pull-padded slds-m-around_medium">                    
+                    <div class="slds-p-horizontal_small slds-size_1-of-1 slds-float_left">
+                        <lightning:input aura:id="searchKey" type="search" label="Search by Account Name or Master Customer Number" name="search" placeholder="Please input search criteria" />
+                    </div>
+                    <div class="slds-float_right slds-m-top_large" style="float: right">
+                        <lightning:button variant="brand" label="Search" onclick="{! c.search }"  />
+                    </div> 
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>       
+    <div class="slds" style="position:relative">
+        <aura:if isTrue="{!v.spin}">
+            <lightning:spinner variant="brand" size="large"/>
+        </aura:if>
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-max-medium-table_stacked-horizontal">
+            <thead>
+                <tr class="slds-text-heading_label">
+                    <th scope="col" class="nobordertop" title="Account Name">
+                        <div>Account Name</div>
+                    </th>
+                    <th scope="col" class="nobordertop" title="Master Customer Number">
+                        <div>Master Customer Number</div>
+                    </th>
+                    <th scope="col" class="nobordertop" title="Active Account">
+                        <div>Active Account</div>
+                    </th>
+                    <th scope="col" class="nobordertop" title="Owner Name">
+                        <div>Owner Name</div>
+                    </th>
+                    <th scope="col" class="nobordertop" title="Industry">
+                        <div>Account Record Type</div>
+                    </th>
+                    <th scope="col" class="nobordertop" title="Area">
+                        <div>LOB</div>
+                    </th>                    
+                    <th scope="col" class="nobordertop" title="Account Country Code">
+                        <div>Account Country Code</div>
+                    </th>
+                    <th scope="col" class="nobordertop" title="Area">
+                        <div>Area</div>
+                    </th>
+                    <th scope="col" class="nobordertop" title="Industry">
+                        <div>Industry</div>
+                    </th>                                   
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.accounts1}" var="acc">     
+                    <tr>
+                        <td data-label="Name" title="Name">
+                            <div>{!acc.Name}</div>
+                        </td>
+                        <td data-label="Master Customer Number" title="Master Customer Number">
+                            <div>{!acc.Master_Customer_Number__c}</div>
+                        </td>
+                        <td data-label="Active Account" title="Active Account">
+                            <div><span class="uiImage uiOutputCheckbox" data-aura-class="uiImage uiOutputCheckbox"><img src="/auraFW/resources/aura/s.gif" class="{!(acc.Active_Account__c ? 'checked' : 'unchecked')}" alt="{!(acc.Active_Account__c ? 'True' : 'False')}"/></span></div> 
+                            
+                        </td>
+                        <td data-label="Owner" title="Owner">
+                            <div>{!acc.Owner.Name}</div>
+                        </td>
+                        <td data-label="Area" title="Area">
+                            <div>{!acc.RecordType.Name}</div>
+                        </td>
+                        <td data-label="Account Industry" title="LOB">
+                            <div>{!acc.LOB__c}</div>
+                        </td> 
+                        <td data-label="Coutry Code" title="Account Country code">
+                            <div>{!acc.Account_Country_Code__c}</div>
+                        </td> 
+                        <td data-label="Account Industry" title="Area">
+                            <div>{!acc.Area__c}</div>
+                        </td> 
+                        <td data-label="Account Industry" title="Account Industry">
+                            <div>{!acc.Industry}</div>
+                        </td> 
+                        
+                        
+                        
+                        
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table> 
+    </div>
+    <aura:if isTrue="{! v.count>=v.ofset &amp;&amp;  v.inf}">
+        <div class="slds-grid slds-m-top-large slds-align_absolute-center">
+            <div class="slds-inline_icon_text slds-grid slds-m-bottom_large">                   
+                <p class="slds-text-body_small page-header_info">&nbsp;Displaying {!v.ofset+25} out of {!v.count} 
+                    <a onclick="{!c.more}">
+                        View More
+                    </a>
+                </p>
+            </div>
+        </div>
+    </aura:if>
+    <div class="slds-text-align_center">
+        
+    </div>
+</aura:component>

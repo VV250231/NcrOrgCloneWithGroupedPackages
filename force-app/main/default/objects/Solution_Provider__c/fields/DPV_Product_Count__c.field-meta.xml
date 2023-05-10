@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DPV_Product_Count__c</fullName>
+    <description>The number of DPV products that a Solution Provider offers</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The number of DPV products that a Solution Provider offers</inlineHelpText>
+    <label>DPV Product Count</label>
+    <summaryFilterItems>
+        <field>Solution_Provider_Product__c.Product_Type__c</field>
+        <operation>equals</operation>
+        <value>Core Processing Vendor</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Solution_Provider_Product__c.Solution_Provider_Id__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

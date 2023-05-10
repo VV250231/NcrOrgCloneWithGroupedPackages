@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Solution_Opp_Amount_USD__c</fullName>
+    <description>This field converts the value of Solution Opp Amount field into USD. This field is sent to USM.</description>
+    <externalId>false</externalId>
+    <formula>IF( ISPICKVAL(CurrencyIsoCode, &quot;USD&quot;), 
+(Soln_Opp_Amount__c) ,(Soln_Opp_Amount__c/ Currency_Conversion_Rate__c))</formula>
+    <label>Orders Funnel Opp Amount For USM</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>3</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

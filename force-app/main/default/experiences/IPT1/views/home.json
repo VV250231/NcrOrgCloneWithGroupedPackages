@@ -1,0 +1,144 @@
+{
+  "appPageId" : "1ea4cd32-d8b1-4474-918d-713544400617",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "9f7f1ffa-90f2-4ac8-8977-96cff95a599e",
+  "label" : "Home",
+  "regions" : [ {
+    "id" : "e54ad73d-aaa2-4c52-ab86-72e624a2d559",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:channelProgramDashboard",
+      "id" : "119d9864-0f46-4738-908f-d41ac4b2d439",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "4cc0cbdf-b3b0-479f-ba8e-4d16171b67ba",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "actions" : [ {
+          "isPublic" : true,
+          "name" : "NewLead"
+        }, {
+          "isPublic" : true,
+          "name" : "NewOpportunity"
+        }, {
+          "isPublic" : true,
+          "name" : "NewTask"
+        }, {
+          "isPublic" : true,
+          "name" : "NewCase"
+        } ],
+        "label" : "Quick Create"
+      },
+      "componentName" : "forceCommunity:createRecordButton",
+      "id" : "6ca9abd3-3803-4eba-961c-e78cb3d53703",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "listViewIdForNavigation" : "DI_Central_Queue_Lead",
+        "navigateToListView" : true,
+        "pageSize" : 5,
+        "sortBy" : "CreatedDate",
+        "title" : "Lead Inbox"
+      },
+      "componentName" : "forceCommunity:leadInbox",
+      "id" : "ded72595-a5d8-4b6c-a528-84c5503dc289",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "filterName" : "MyOpportunities",
+        "layout" : "COMPACT",
+        "pageSize" : 5,
+        "scope" : "Opportunity",
+        "showDisplay" : "showall"
+      },
+      "componentName" : "forceCommunity:objectHome",
+      "id" : "659a8a35-0f6a-48e5-964c-9e10bf1a0415",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "filterName" : "OPEN",
+        "layout" : "COMPACT",
+        "pageSize" : 5,
+        "scope" : "Task",
+        "showDisplay" : "showall"
+      },
+      "componentName" : "forceCommunity:objectHome",
+      "id" : "7d4a63f6-f4f9-4b87-bbb8-9b0a62f57345",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "2d2971dc-3561-4443-817d-6f35467cad25",
+    "regionName" : "sidebar",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "allowPrepopulatePrechatFields" : true,
+        "avatarImgURL" : "",
+        "defaultMinimizedText" : "Chat with Partner Assist",
+        "displayHelpButton" : true,
+        "eswConfigurationJSON" : {
+          "baseCoreURL" : "https://ncr.my.salesforce.com",
+          "baseLiveAgentContentURL" : "https://c.la4-c2-phx.salesforceliveagent.com/content",
+          "baseLiveAgentURL" : "https://d.la4-c2-phx.salesforceliveagent.com/chat",
+          "buttonId" : "5730g000000PCSq",
+          "deploymentId" : "5720g0000008Ppj",
+          "enabledFeatures" : [ "LiveAgent" ],
+          "entryFeature" : "LiveAgent",
+          "eswConfigDevName" : "IPT_Snap_In",
+          "eswConfigId" : "04I0g0000008OIFEA2",
+          "eswLiveAgentDevName" : "EmbeddedServiceLiveAgent_Parent04I0g0000008OIFEA2_1635352e9ce",
+          "gslbBaseURL" : "https://service.force.com",
+          "orgId" : "00D700000008mDk"
+        },
+        "offlineText" : "Partner Assist Offline",
+        "onlineLoadingText" : "Loading",
+        "prechatBackgroundImgURL" : "",
+        "smallCompanyLogoImgURL" : "",
+        "waitingStateBackgroundImgURL" : ""
+      },
+      "componentName" : "forceCommunity:embeddedService",
+      "id" : "5da5c811-00eb-4013-9954-96e3c73b6944",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "c10af242-e616-4779-b603-7859caf90ee8",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Home"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "4067c36e-6c57-42cc-b083-a91272fe9980",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "e6f420fe-a92f-4ab8-91b4-1ff867ed0ae3",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "home"
+}

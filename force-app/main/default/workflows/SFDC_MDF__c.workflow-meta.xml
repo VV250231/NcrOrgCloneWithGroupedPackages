@@ -1,0 +1,644 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Acknowledgement_Mail_for_the_MDF_Requester</fullName>
+        <description>Acknowledgement Mail for the MDF Requester</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Requester_Name__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/Acknowledgement_Temp_for_MDF_Requester</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Alert_30_Days</fullName>
+        <description>Submit Claim if you have not submitted yet.</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/Claim_30_Day_Notification</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Alert_45_Days</fullName>
+        <description>Second Email Alert After the 45 days of the Activity End Date</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/Claim_45_Day_Notification</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Alert_60_Days</fullName>
+        <description>Sending the third email to the owner after three days of the activity end date</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/Claim_60_Day_Notification</template>
+    </alerts>
+    <alerts>
+        <fullName>Fourth_Email_Alert_After_the_120_days_of_the_Activity_End_Date</fullName>
+        <description>Fourth Email Alert After the 120 days of the Activity End Date</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <recipients>
+            <field>CAM__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>RCL__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/Claim_120_Day_Notification</template>
+    </alerts>
+    <alerts>
+        <fullName>FundRequestApprovedSubmitterNotification</fullName>
+        <description>Fund Request Approved - Submitter Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/FundRequestApproved</template>
+    </alerts>
+    <alerts>
+        <fullName>FundRequestRejectedSubmitterNotification</fullName>
+        <description>Fund Request Rejected - Submitter Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/FundRequestRejected</template>
+    </alerts>
+    <alerts>
+        <fullName>FundRequestSubmittedAcknowledgment</fullName>
+        <description>Fund Request Submitted - Acknowledgment</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/FundRequestSubmitterAcknowledgment</template>
+    </alerts>
+    <alerts>
+        <fullName>Fund_Request_Approved</fullName>
+        <ccEmails>NCR.InteractMDF@ncr.com</ccEmails>
+        <description>Fund Request Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/MDF_Request_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Fund_Request_Rejected</fullName>
+        <description>Fund Request Rejected</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/FundRequestRejected</template>
+    </alerts>
+    <alerts>
+        <fullName>MDF_Rejection_Notification_to_Partner</fullName>
+        <ccEmails>NCR.InteractMDF@ncr.com</ccEmails>
+        <description>MDF Rejection Notification to Partner</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/Fund_Request_Rejection</template>
+    </alerts>
+    <alerts>
+        <fullName>MDF_Request_Cancellation_Email_Alert</fullName>
+        <description>Operation team has the right to cancel MDF request after the approval.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Requester_Name__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/MDF_Cancellation_Email_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>MDF_request_submission_Alert_to_NCR_InteractMDF_ncr_com</fullName>
+        <ccEmails>NCR.InteractMDF@ncr.com</ccEmails>
+        <description>MDF request submission Alert to NCR.InteractMDF@ncr.com</description>
+        <protected>false</protected>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/Fund_Request_Approval_Alert_VF</template>
+    </alerts>
+    <alerts>
+        <fullName>Request_Approved</fullName>
+        <description>User is notified that the corresponding Fund Request has been approved.</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/FundRequestApproved</template>
+    </alerts>
+    <alerts>
+        <fullName>Request_Rejected</fullName>
+        <description>User is notified that the corresponding Fund Request has been rejected.</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/FundRequestRejected</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Notification_Email_process03</fullName>
+        <description>Send Notification Email process03</description>
+        <protected>false</protected>
+        <recipients>
+            <field>CAM__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/MDF_Request_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Notification_Email_to_CAM</fullName>
+        <description>Send Notification Email to CAM</description>
+        <protected>false</protected>
+        <recipients>
+            <field>CAM__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/MDF_Request_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Notification_Email_to_CAMDist</fullName>
+        <description>Send Notification Email to CAMDist</description>
+        <protected>false</protected>
+        <recipients>
+            <field>CAM__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/MDF_Request_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Notification_Email_to_CAMFin</fullName>
+        <description>Send Notification Email to CAMFin</description>
+        <protected>false</protected>
+        <recipients>
+            <field>CAM__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/MDF_Request_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Notification_Email_to_CAM_Dist</fullName>
+        <description>Send Notification Email to CAMHosp</description>
+        <protected>false</protected>
+        <recipients>
+            <field>CAM__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>partner.resourcecenter@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDFEmailTemplates/MDF_Request_Approved</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>CP_Update_FML_Code</fullName>
+        <field>FML_Code__c</field>
+        <formula>&apos;800-99999-200127-9999-9999-USA0001-999-9999-9999&apos;</formula>
+        <name>CP_Update_FML_Code</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>CP_Update_FML_Code1</fullName>
+        <field>FML_Code__c</field>
+        <name>CP_Update_FML_Code1</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Check_Is_Assigned_To_Opps_Team</fullName>
+        <field>Is_Assigned_To_Opps_Team__c</field>
+        <literalValue>1</literalValue>
+        <name>Check Is Assigned To Opps Team</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>NullClaimDeadlineDate</fullName>
+        <description>Good to reset this at the start of an approval process.</description>
+        <field>Claim_Deadline_Date__c</field>
+        <name>Null Claim Deadline Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Sent_for_Level_2_Review</fullName>
+        <field>Status__c</field>
+        <literalValue>Level 2 Review</literalValue>
+        <name>Sent for Level 2 Review</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SetFundClaimDeadlineDate</fullName>
+        <field>Claim_Deadline_Date__c</field>
+        <formula>TODAY() + 60</formula>
+        <name>Set Fund Claim Deadline Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateApprovedtoFalse</fullName>
+        <description>Used to trigger a budget recalculation. Used in place of driving the recalculation from an approval status text based value</description>
+        <field>Approved__c</field>
+        <literalValue>0</literalValue>
+        <name>Update Approved to False</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateApprovedtoTrue</fullName>
+        <description>Used in favor of the approval status field so that the Apex trigger which will fire using this True/ False field rather than a text based value in the approval status page</description>
+        <field>Approved__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Approved to True</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateFundRequestApprovedDate</fullName>
+        <field>Approved_Date__c</field>
+        <formula>TODAY()</formula>
+        <name>Update Fund Request Approved Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateFundRequestStatusToApproved</fullName>
+        <field>Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Update Fund Request Status To Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateFundRequestStatusToDraft</fullName>
+        <field>Status__c</field>
+        <literalValue>Draft</literalValue>
+        <name>Update Fund Request Status To Draft</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateFundRequestStatusToInProcess</fullName>
+        <field>Status__c</field>
+        <literalValue>In Process</literalValue>
+        <name>Update Fund Request Status To In Process</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateFundRequestStatusToRejected</fullName>
+        <field>Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Update Fund Request Status To Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateFundRequestStatusToSubmitted</fullName>
+        <field>Status__c</field>
+        <literalValue>Submitted</literalValue>
+        <name>Update Fund Request Status To Submitted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Approved_Date</fullName>
+        <description>Update Approved Date of MDF Request.</description>
+        <field>Approved_Date__c</field>
+        <formula>NOW()</formula>
+        <name>Update Approved Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_CAM_Decision_Date</fullName>
+        <field>CAM_Acknowledgment_Date__c</field>
+        <formula>NOW()</formula>
+        <name>Update CAM Decision Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_RCL_Approval_Date</fullName>
+        <field>Regional_Channel_Leader_Approval_Date__c</field>
+        <formula>NOW()</formula>
+        <name>Update RCL Approval Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Record_Lock_Field</fullName>
+        <field>Is_Record_Locked__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Record Lock Field</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Record_Lock_Field_to_Unloack</fullName>
+        <field>Is_Record_Locked__c</field>
+        <literalValue>0</literalValue>
+        <name>Update Record Lock Field to Unloack</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Record_Lock_Field_to_Unloack1</fullName>
+        <field>Is_Record_Locked__c</field>
+        <literalValue>0</literalValue>
+        <name>Update Record Lock Field to Unloack</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Request_submission_date</fullName>
+        <description>Update the Request Submitted date when user submits the MDF Request.</description>
+        <field>Request_Submission_Date__c</field>
+        <formula>NOW()</formula>
+        <name>Update Request submission date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Submitted_for_Approval</fullName>
+        <field>Status__c</field>
+        <literalValue>Submitted for Approval</literalValue>
+        <name>Update Status to Submitted for Approval</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>CP_Update_FML_Code</fullName>
+        <actions>
+            <name>CP_Update_FML_Code</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>SFDC_MDF__c.Finance_Type__c</field>
+            <operation>equals</operation>
+            <value>Marketing Expense</value>
+        </criteriaItems>
+        <description>Workflow will update FML Code based on selected Finance Type.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>CP_Update_FML_Code1</fullName>
+        <actions>
+            <name>CP_Update_FML_Code1</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>SFDC_MDF__c.Finance_Type__c</field>
+            <operation>equals</operation>
+            <value>Contra Revenue</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>SFDC_MDF__c.FML_Code__c</field>
+            <operation>equals</operation>
+            <value>10110100000022910000000DMDF0000US</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>MDF Request Cancellation</fullName>
+        <actions>
+            <name>MDF_Request_Cancellation_Email_Alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>SFDC_MDF__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Cancelled</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>SendEmailAlertToPartner-120days</fullName>
+        <active>true</active>
+        <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+        <criteriaItems>
+            <field>SFDC_MDF__c.No_of_Submitted_Claims__c</field>
+            <operation>equals</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>SFDC_MDF__c.No_of_Submitted_Claims__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>SFDC_MDF__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </criteriaItems>
+        <description>Sending the email alert to owner after three days of the activity end date.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Fourth_Email_Alert_After_the_120_days_of_the_Activity_End_Date</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>SFDC_MDF__c.End_Date__c</offsetFromField>
+            <timeLength>120</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>SendEmailAlertToPartner-30days%2E</fullName>
+        <active>true</active>
+        <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+        <criteriaItems>
+            <field>SFDC_MDF__c.No_of_Submitted_Claims__c</field>
+            <operation>equals</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>SFDC_MDF__c.No_of_Submitted_Claims__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>SFDC_MDF__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </criteriaItems>
+        <description>Sending email to the partner if the claims are not submitted after the activity end date.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Email_Alert_30_Days</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>SFDC_MDF__c.End_Date__c</offsetFromField>
+            <timeLength>30</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>SendEmailAlertToPartner-45days%2E</fullName>
+        <active>true</active>
+        <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+        <criteriaItems>
+            <field>SFDC_MDF__c.No_of_Submitted_Claims__c</field>
+            <operation>equals</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>SFDC_MDF__c.No_of_Submitted_Claims__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>SFDC_MDF__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </criteriaItems>
+        <description>Sending the email alert to owner after two days of the activity end date.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Email_Alert_45_Days</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>SFDC_MDF__c.End_Date__c</offsetFromField>
+            <timeLength>45</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>SendEmailAlertToPartner-60days</fullName>
+        <active>true</active>
+        <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+        <criteriaItems>
+            <field>SFDC_MDF__c.No_of_Submitted_Claims__c</field>
+            <operation>equals</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>SFDC_MDF__c.No_of_Submitted_Claims__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>SFDC_MDF__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </criteriaItems>
+        <description>Sending the email alert to owner after three days of the activity end date.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Email_Alert_60_Days</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>SFDC_MDF__c.End_Date__c</offsetFromField>
+            <timeLength>60</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Set Approved True for Request Status Approved</fullName>
+        <actions>
+            <name>UpdateApprovedtoTrue</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>SFDC_MDF__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </criteriaItems>
+        <description>When the status field for the Fund Request is set to Approved, Approved checkbox is checked.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

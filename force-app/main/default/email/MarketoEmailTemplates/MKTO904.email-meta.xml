@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>09-10-21 HOS CMC Migration.Email 1</name>
+    <style>none</style>
+    <subject>NCR Command Center Migration to Azure</subject>
+    <textOnly>Decommission of Command Center in the NCR Dallas Data Center
+Dear Valued Customer:
+
+Previously, NCR notified you of plans to migrate Command Center from 
+our on-premises data center to Azure Cloud platform. This is to notify you that your sites have been identified for migration to Azure. This migration will include both a CMCAgent version upgrade and migration to our Command Center environment in Azure public cloud. 
+
+ACTION REQUIRED:
+
+You must ensure that you whitelist the NCR endpoints to prepare for the migration, or you will be at risk of losing access to your licensed NCR products that are being migrated to Microsoft Azure Public Cloud. See the full list of NUA01 Public Endpoints per Application &lt;[[https://ncr.quickbase.com/up/bqe6gx23b/g/rc9/ek/va/Command Center Firewall New Azure NUA01-SEC Requirements Updated 4-12-21.pdf]]&gt;. 
+
+To access your migrated sites, you will need to download the Command Center client using this link and instructions &lt;[[https://ncr.quickbase.com/up/bqe6gx23b/g/rc9/ek/va/Command Center Firewall New Azure NUA01-SEC Requirements Updated 4-12-21.pdf]]&gt; provided.
+
+TIMING:
+
+Migration window: September 21-23, 2021
+WHAT TO 
+EXPECT:
+
+NCR has already deployed the CMCreqcheck.exe software to test and confirm that your site(s) can access the new endpoint. Sites identified for migration will have their CMCAgent upgraded prior to the targeted window noted above.
+ 
+Thank you for your continued cooperation in ensuring that you have whitelisted the NCR endpoints in advance to avoid any risk of losing access to your licensed NCR products once they are migrated to the Microsoft Azure Public Cloud. Please contact NCR Customer Support at support@alohaenterprise.com if you have any questions or experience any issues, so we can assist you as quickly as possible.
+ 
+We appreciate your partnership with NCR.
+ 
+Thank you, 
+NCR Hospitality
+Enhancements
+CMC-766: Migration Process Fortified and Streamlined 
+
+Specifically for use by Command Center migration teams to migrate sites to the Azure data centers (such as US-PROD migration from DFW05 to NUA01-SEC).
+
+In the CmcInst action to migrate, 
+connectivity checks will now be made to the required endpoints: RDFWeb, RDFServer, SSH servers, and, if applicable, the OnlineOrderServer specified in the config file.
+
+Recurring connectivity checks will continue as necessary to complete the migration. If the connectivity checks fail and CmcAgent resumes connectivity to the &quot;originating&quot; data center, the connectivity checks will continue every 4 hours to determine whether or not all “destination” data center endpoints can be reached. Once successful, the agent will disconnect from the “originating” data center and connect to the “destination” data center.
+
+CMC-755: Terminate Installation when Site is Using a Junction Point
+
+If a shortcut exists in the CmcAgent install path on the site controller (this is called a &quot;junction point&quot;), the installer may not be able to configure the Windows Firewall to allow nodes to connect. CmcInst will now check for the existence of a junction point in the CmcAgent install path before performing an upgrade or install. If a junction point is found in the install path, the CmcInst process will terminate and provide related messaging. This applies to fresh installs as well as to upgrades.
+
+Note that any site using a junction point in the CmcAgent install path will not be able receive this release or future CmcAgent updates. The decision to use a shortcut in this manner is managed by the customer. Corrective action steps can be provided by our Support team.
+
+CMC-745: Removes a Configuration Element Resulting in Irrelevant a Mid-Level Alert
+
+When CmcInst performs this upgrade, it will remove a previously deprecated configuration element, if present, which has resulted in some sites reporting an irrelevant, medium-level alert regarding an error in CommandCenter.config.
+Fixes
+CMC-818 (ARE-4072): Again allowing store-side CmcPopUp.exe to run on all supported BOH system languages (English, Italian, French, German, and Spanish) in EDC or CFC remote logins within VNC session.
+Notes
+To schedule the upgrade of your company’s sites to CMC Agent version 19.2.6, please send a request to NCR Support at support@alohaenterprise.com. 
+
+To request more information about this release or any NCR solution, contact us at NCR.com &lt;[[https://www.ncr.com/contact-us]]&gt;.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

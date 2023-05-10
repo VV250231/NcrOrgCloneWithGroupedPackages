@@ -1,0 +1,67 @@
+<!--
+
+This page is for authentication Page 2(landing page)
+
+Created by Saagar Kinja
+
+-->
+
+
+<apex:page controller="PSFRApexController" standardStylesheets="false" applyBodyTag="false" sidebar="false" showHeader="false" docType="html-5.0" applyHTMLTag="false" cache="false" expires="0">
+ 
+ <head>
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/bootstrap/css/bootstrap.min.css')}"/>        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"/>   
+   
+        <link rel="stylesheet" href="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/datatables/dataTables.bootstrap.css')}"/>
+        
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/bootstrap/css/AdminLTE.min.css')}"/>
+        <style>
+            
+            .centered-text {
+            text-align:center
+            } 
+            
+        </style>
+    </head>
+<apex:form >
+<body class="hold-transition lockscreen">
+<!-- Automatic element centering -->
+<div class="lockscreen-wrapper">
+  <div class="lockscreen-logo">
+    <b>PS-</b>Authentication
+  </div>
+  <div class="lockscreen-item">
+    <form class="lockscreen-credentials">
+      <div class="input-group">
+        <apex:input type="text" value="{!PS_Token}" styleclass="form-control" html-placeholder="Authentication Token"/>
+         <div class="input-group-btn">
+          <apex:actionfunction name="callUpdate" action="{!Auth_Check}" />
+          <button type="button" class="btn"  onClick="callUpdate();" ><i class="fa fa-arrow-right text-muted"></i></button>
+        </div>
+           
+      </div>
+      
+    </form>
+
+  </div>
+  <div class="help-block text-center">
+    Please enter the authentication token
+  </div>
+  <div class="text-center">
+    <a href="http://ncrpresalesfundrequest.force.com/PreSalesRequestForm/PSFR_Authentication_Stage1?id={!MasterRecordId}&psid={!PsidRecordId}">Or Return back to previous screen</a>
+  </div>
+  <div class="lockscreen-footer text-center">
+    Copyright © 2016 <b>NCR Corporation</b>
+    All rights reserved
+  </div>
+</div>
+<!-- jQuery 2.2.3 -->
+<script src="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/plugins/jQuery/jquery-2.2.3.min.js')}"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="{!URLFOR($Resource.PSFR_Resource,'PSFR_Resource/bootstrap/js/bootstrap.min.js')}"></script>
+
+
+</body>
+</apex:form>
+</apex:page>

@@ -1,0 +1,26 @@
+<aura:component controller='CaseController' implements="force:lightningQuickActionWithoutHeader,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" >
+    <aura:handler name="init" value ="{!this}" action = "{!c.doInit}"/> 
+    <aura:attribute name="show" type="Boolean" default="true"/>
+    <aura:attribute name="closeTheLoopRecordTypeId" type="string"/>
+    <aura:attribute name="cxRecordTypeId" type="string"/>
+    <aura:attribute name="recordtypeid" type="string"/>
+    
+      <aura:attribute name="parentCaseeid" type="string"/>
+         <aura:if isTrue="{!v.recordtypeid==v.closeTheLoopRecordTypeId &amp;&amp; v.show == true}">
+    <div> 
+        <lightning:buttonGroup>
+            <lightning:button label="Assign to FX" iconName="" onclick="{!c.AssigntoFX}"/>
+        </lightning:buttonGroup> 
+    </div>
+    </aura:if>
+    
+      <aura:if isTrue="{!v.recordtypeid==v.cxRecordTypeId &amp;&amp; v.show == true}">
+          										
+    <div>
+        <lightning:buttonGroup>
+            <lightning:button label="Assign to FX" iconName="" onclick="{!c.CXChildCreation}"/>
+        </lightning:buttonGroup> 
+    </div>
+    </aura:if>
+ 
+</aura:component>

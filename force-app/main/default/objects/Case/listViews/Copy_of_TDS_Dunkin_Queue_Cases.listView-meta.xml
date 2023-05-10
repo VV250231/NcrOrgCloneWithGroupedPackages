@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Copy_of_TDS_Dunkin_Queue_Cases</fullName>
+    <booleanFilter>((1 OR 4) AND 2 AND 3) OR ((1 OR 4) and 2 and 5 and 6)</booleanFilter>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>Site_Id__c</columns>
+    <columns>CASES.LAST_UPDATE_DATE_ONLY</columns>
+    <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+    <columns>Support_Queue__c</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>NAME</columns>
+    <columns>CASES.STATUS</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Support_Queue__c</field>
+        <operation>contains</operation>
+        <value>HOS TDS Vitalcast</value>
+    </filters>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Closed,Cancelled</value>
+    </filters>
+    <filters>
+        <field>CASES.PRIORITY</field>
+        <operation>equals</operation>
+        <value>P1 - Critical,P2 - Major,P3 - Minor,P3 - Medium</value>
+    </filters>
+    <filters>
+        <field>Support_Queue__c</field>
+        <operation>contains</operation>
+        <value>HOS TDS Accuview</value>
+    </filters>
+    <filters>
+        <field>CASES.PRIORITY</field>
+        <operation>equals</operation>
+        <value>P4 - Minor</value>
+    </filters>
+    <filters>
+        <field>OWNER_NAME</field>
+        <operation>contains</operation>
+        <value>HOS TDS</value>
+    </filters>
+    <label>TDS Vitalcast/Accuview Queue Cases</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,91 @@
+<template>
+  <div class="slds-box">
+    <div if:true={dataAvail} class="slds-grid slds-wrap">
+      <div class="slds-col slds-size_1-of-1 slds-m-bottom_small">
+        <div class="slds-text-align_center">
+          <div class="slds-border_bottom slds-border_left">
+            <template if:true={revenuedata}>
+              <h1
+                class="slds-p-left_small slds-p-right_small slds-text-heading_small slds-p-bottom_small"
+              >
+                <strong
+                  >{year}&nbsp;{label.Rev_Sub_Perf}</strong
+                >
+              </h1>
+            </template>
+          </div>
+        </div>
+      </div>
+      <!--div class="slds-col slds-col slds-size_1-of-2"-->
+      <div class="slds-col slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-medium-size_6-of-12
+                slds-large-size_6-of-12"
+      >
+        <div class="slds-text-align_center ">
+          <div class="inner-box">
+            <div class="round">
+              <canvas
+                lwc:dom="manual"
+                data-id="doughnutChart"
+                width="200"
+                height="200"
+                class="doughnutChart"
+                role="img"
+              ></canvas>
+              <div style="height: 2px; width: 100%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--div class="slds-col slds-size_1-of-2"-->
+      <div
+        class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12 prm-center"
+      >
+        <div class="slds-text-align_left prm-padding">
+          <template if:true={revenuedata}>
+            <p
+              class="prm-green prmtext slds-text-body_regular slds-m-left_small slds-m-bottom_x-small"
+            >
+              YTD Orders&nbsp;<span>{YTDRevenu}</span>
+            </p>
+
+         
+                <p
+                  class="prm-gry prmtext slds-text-body_regular slds-m-left_small slds-m-bottom_x-small"
+                >
+                  Annual Quota&nbsp;<span>{QuotaRevenu}</span>
+                </p>
+            
+             
+
+     
+              <p
+                class="prm-black prmtext slds-text-body_regular slds-m-left_small slds-m-bottom_x-small"
+              >
+                <span>Quota Attainment {QuotaData}%</span>
+              </p>
+          </template>
+        </div>
+      </div>
+    </div>
+	<div if:false={dataAvail} class="slds-grid slds-wrap">
+		<div class="slds-col slds-size_1-of-1">
+					  <div class="slds-box">
+						<div class="slds-grid slds-wrap">
+						  <div class="slds-col slds-size_1-of-1 slds-m-bottom_small">
+							<div class="slds-text-align_center">
+							  <div class="slds-border_bottom slds-border_left">
+								<h1 class=" slds-text-heading_small slds-p-bottom_small">
+								  <strong>{year}&nbsp;{label.Rev_Sub_Perf}</strong>
+								</h1>
+							  </div>
+							</div>
+						  </div>
+						  <div class="slds-col slds-col slds-size_1-of-1 slds-text-align_center">
+							{msg}
+						  </div>
+						</div>
+					  </div>
+					</div>
+	</div>
+  </div>
+</template>

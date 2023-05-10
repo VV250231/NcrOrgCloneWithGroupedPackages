@@ -1,0 +1,45 @@
+<apex:page standardController="Deal_Registration__c" extensions="DealRegistrationEditController" >
+   
+     <apex:sectionHeader title="Deal Registration" subtitle="{!rt.Name}"  help="https://help.salesforce.com/htviewhelpdoc?id=co_edit.htm&siteLang=en_US"/>
+     <!--<apex:sectionHeader title="Deal Registration" subtitle="NCR Interact Retail Deal Registration"   help="https://help.salesforce.com/htviewhelpdoc?id=co_edit.htm&siteLang=en_US" />-->
+     <apex:form >
+      <Apex:pageMessages id="error"></Apex:pageMessages>
+        <apex:pageBlock title="Deal Registration Edit" >
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!Save}" value="Save"/>
+                <apex:commandButton action="{!Cancel}" value="Cancel"/>
+             <!--   <apex:commandButton action="{!SubmitForApproval}" value="Submit for Approval" /> -->
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Information">
+               <apex:inputField value="{!dealreg.Name_of_Account_Financial_Institution__c }" rendered="{!IF(rt.name =='Experience 2020 - Frictionless Program', true, false) }"  required="true" />
+              <!--  <apex:inputField value="{!dealreg.Primary_Contact_Name__c}" rendered="{!IF(rt.name =='Experience 2020 - Frictionless Program', true, false)}" required="true"/>-->
+             <apex:inputField value="{!dealreg.Primary_Contact_NameText__c}" rendered="{!IF(rt.name =='Experience 2020 - Frictionless Program', true, false)}" required="true"/>
+              
+               <apex:inputField value="{!dealreg.End_Customer_Company_Name__c}" rendered="{!IF(rt.name =='NCR Interact Retail Deal Registration', true, false)}" required="true" />
+               <apex:inputField value="{!dealreg.NCR_Account_Manager__c}" required="true"  />
+               <apex:inputField value="{!dealreg.End_Customer_Key_Contact_Name__c}"  rendered="{!IF(rt.name =='NCR Interact Retail Deal Registration', true, false)}" required="true"/>
+                <apex:inputField value="{!dealreg.Projected_Opportunity_Value__c }" required="true"/>
+                
+              
+                <apex:inputField value="{!dealreg.Estimated_Close_Date__c }" required="true" />
+               <apex:inputField value="{!dealreg.Is_this_part_of_an_RFP__c}" />
+               <apex:inputField value="{!dealreg.TAM__c}" required="true" rendered="{!IF(rt.name =='Experience 2020 - Frictionless Program', "true","false" )}"/>
+               <apex:inputField value="{!dealreg.CAM__c}" required="true" rendered="{!IF(rt.name =='Experience 2020 - Frictionless Program', "true","false" )}"/>
+              
+            </apex:pageBlockSection>    
+            <apex:pageBlockSection title=" NCR Partner details">
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel title="Channel Partner Key Contact" value="{!IF(rt.name =='Experience 2020 - Frictionless Program', "Channel Partner Key Contact","Partner Contact" )}"  style="font-weight: bold"/>
+                   <apex:outputText value="{!ChannelPartnerKeyContactText}"/>
+                   
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                 <apex:outputLabel title="Channel Partner Company Name" value="{!IF(rt.name =='Experience 2020 - Frictionless Program', "Channel Partner Account","Partner Company Name" )}" style="font-weight: bold"/>
+                   <apex:outputText value="{!ChannelPartnerAccount}"/>
+                </apex:pageBlockSectionItem>
+                
+            </apex:pageBlockSection>
+        </apex:pageBlock> 
+    </apex:form>
+</apex:page>

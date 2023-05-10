@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Incumbent_only_for_Financial_Customers</fullName>
+    <active>true</active>
+    <description>This validation rule is used to restrict Incumbent” records to be created if the Account Industry contains “Financial”.</description>
+    <errorConditionFormula>AND(ISNEW(),
+OR(ISBLANK(TEXT(Account_Name__r.Industry)), 
+   NOT(BEGINS(TEXT(Account_Name__r.Industry), &quot;FINANCIAL&quot;))))</errorConditionFormula>
+    <errorMessage>You can create Incumbent records only for Accounts having Industry starting with &quot;Financial&quot;.</errorMessage>
+</ValidationRule>

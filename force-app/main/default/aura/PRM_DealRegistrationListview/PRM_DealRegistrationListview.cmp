@@ -1,0 +1,195 @@
+<aura:component controller="PRM_DealRegistrationController" 
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <!--<ltng:require scripts="/resource/PRM_jQuery, /resource/PRM_jsonQ_min"></ltng:require>-->
+    <aura:attribute name="ObjectData" type="List" />
+    <aura:attribute name="objPartnerAccount" type="Account" />
+    <aura:attribute name="PaginationList" type="List"/>
+    <aura:attribute name="currentPage" type="Integer" default="0"/>
+    <aura:attribute name="start" type="Integer" default="0"/>
+    <aura:attribute name="end" type="Integer" default="0"/>
+    <aura:attribute name="totalPages" type="Integer" default="0"/>
+    <aura:attribute name="paginationTable" type="List" />
+    <aura:attribute name="totalRecords" type="Integer" default="0"/>
+    <aura:attribute name="pageSize" type="Integer" default="10"/>
+    <aura:attribute name="selectedView" type="String" default="Partner Feature Friday"/>
+    <aura:attribute name="dealRegistrationListviews" type="String[]" 
+                    default="All,Created,Approved,Rejected,Submitted"/>
+    
+    <aura:attribute name="next" type="boolean" default="true"/> 
+    <aura:attribute name="prev" type="boolean" default="true" />
+    <!-- Code Added by deeksharth-->
+    
+    <aura:attribute name="isListView" type="boolean" default="true"/>
+    <aura:attribute name="isDetail" type="boolean" default="false" />
+    
+    <aura:attribute name="isAccess" type="boolean" default="true"/>
+    <aura:attribute name="drId" type="String" />
+    
+    <aura:attribute name="mode" type="String"/>
+    
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <aura:if isTrue="{!and(v.objPartnerAccount.Interact_Reseller_Agreement__c , v.objPartnerAccount.Rules_of_Engagement__c)}">
+    <aura:if isTrue="{!v.isListView}">
+        <div class="slds-page-header" role="banner">
+            <div class="slds-grid slds-wrap">
+                
+                <div class="slds-col slds-has-flexi-truncate"> 
+                    <div class="slds-media slds-media_center slds-no-space slds-grow">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-account">
+                                <lightning:icon iconName="standard:account" size="large" alternativeText="Indicates approval"/>
+                                <span class="slds-assistive-text slds-text-title_caps">Deal Registration</span>
+                            </span>
+                        </div>
+                        <div class="slds-media__body slds-size_1-of-4 ">
+                            <lightning:select aura:id="select" name="select" label="Deal Registration" value="{!v.selectedView}" onchange="{! c.cViewChange}" >
+                                <aura:iteration items="{!v.dealRegistrationListviews}" var="val">
+                                    <option value="{!val}" text="{!val}"></option>
+                                </aura:iteration>
+                            </lightning:select>
+                        </div>
+                    </div>                    
+                </div>  
+                <!-- ACTION BUTTONS -->
+                <div class="slds-col slds-no-flex slds-grid slds-wrap slds-align-top">
+                    <div class="slds-button-group" role="group">
+                        <button class="slds-button slds-button_neutral" onclick="{!c.cNewSpotlight}">
+                            New Deal Registration
+                        </button>
+                    </div>
+                </div>
+                <!-- / ACTION BUTTONS -->               
+            </div>
+        </div>
+        
+        <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered slds-table_fixed-layout" role="grid">
+            <thead>
+                <tr class="slds-line-height_reset slds-text-heading_label ">
+                    <th scope="col" >
+                        <div class="slds-truncate" title="Action">Action</div>
+                    </th>
+                    <th scope="col">
+                            <div class="slds-truncate" title="Deal Registration #">Deal Registration #</div>
+                    </th>                    
+                    <th scope="col">
+                        <div class="slds-truncate" title="Deal Name">Deal Name</div>
+                    </th>                    
+                    <th scope="col">
+                        <div class="slds-truncate" title="Account Name">Account Name</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Customer Name">Customer Name</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Opportunity Value">Opportunity Value</div>
+                    </th> 
+                    <th scope="col">
+                        <div class="slds-truncate" title="Expected Close Date">Expected Close Date</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Expected Close Date">Status</div>
+                    </th>  
+                </tr>  
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.PaginationList}" var="obj">
+                    <tr>
+                        <!-- code commented by deeksharth 
+							isTrue="{!or(obj.Status__c == 'Created',obj.Status__c == 'Rejected')}"
+						-->
+                            <td data-label="Action" scope="row" role="gridcell">
+                                <div class="slds-truncate" title="Edit">
+                                    <aura:if isTrue="{!and(!obj.isRecordLocked,and(obj.objDR.Status__c != 'Approved',obj.objDR.Status__c != 'Converted to an Opportunity'))}"><a data-record="{!obj.objDR.Id}" onclick="{!c.onEditClick}">Edit</a></aura:if>
+                                </div>
+                            </td>
+                        <td data-label="Deal Registration #" role="gridcell">
+                            <div class="slds-truncate" title="{!obj.objDR.Name}">
+                                <a data-record="{!obj.objDR.Id}" onclick="{!c.onClick}">{!obj.objDR.Name}</a>
+                            </div>                            
+                        </td>
+                        <td data-label="Deal Name" role="gridcell">
+                            <div class="slds-truncate" title="{!obj.objDR.Deal_Name__c}">
+                                    {!obj.objDR.Deal_Name__c}
+                            </div>
+                        </td>
+
+                        <td data-label="Account Name" role="gridcell">
+                            <div class="slds-truncate" title="{!obj.objDR.Account_Name_formula__c}">
+                                {!obj.objDR.Account_Name_formula__c}
+                            </div>
+                        </td>
+
+                        <td data-label="Customer Name" role="gridcell">
+                            <div class="slds-truncate" title="{!obj.objDR.End_Customer_Company_Name__c}">
+                                {!obj.objDR.End_Customer_Company_Name__c}
+                            </div> 
+                        </td>
+                        <td data-label="Opportunity Value" role="gridcell">
+                            <div class="slds-truncate" title="{!obj.objDR.Projected_Opportunity_Value__c}">
+                                {!obj.objDR.Projected_Opportunity_Value__c}
+                            </div> 
+                        </td>
+                        <td data-label="Expected Close Date" role="gridcell">
+                            <div class="slds-truncate" title="{!obj.objDR.Estimated_Close_Date__c}">
+                                    {!obj.objDR.Estimated_Close_Date__c}
+                            </div> 
+                        </td>
+                        <td data-label="Status" role="gridcell">
+                            <div class="slds-truncate" title="{!obj.objDR.Status__c}">
+                                {!obj.objDR.Status__c}
+                            </div> 
+                        </td> 
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+        <br/>
+        
+        <lightning:button label="Previous" disabled="{! 1 >= v.currentPage }" 
+                          class="slds-button slds-button_neutral slds-p-horizontal_xx-small slds-m-right_x-small slds-float_left"  
+                          onclick="{!c.cPrevious}" variant="brand"
+                          iconName='utility:back'/>
+        
+        <lightning:button label="Next" disabled="{!v.currentPage >= v.totalPages}"
+                          class="slds-button slds-button_neutral slds-p-horizontal_xx-small slds-m-right_x-small slds-float_left"
+                          onclick="{!c.cNext}" variant="brand"
+                          iconName='utility:forward' iconPosition='right'/>
+        
+    </aura:if> 
+    
+    <aura:if isTrue="{!v.isDetail}">
+        <c:PRM_DetailDealRegistration DealRegistrationId="{!v.drId}" mode="{!v.mode}"/>
+    </aura:if>
+    
+    </aura:if>
+    
+    <aura:if isTrue="{!or(!v.objPartnerAccount.Interact_Reseller_Agreement__c , !v.objPartnerAccount.Rules_of_Engagement__c)}">
+        
+        <div class="slds">
+            <div class="section">
+                <div class="slds-grid slds-wrap section-body">
+                    <aura:if isTrue="{!and(and(!v.objPartnerAccount.Interact_Reseller_Agreement__c , !v.objPartnerAccount.Rules_of_Engagement__c ), v.objPartnerAccount.Id != null)}">
+                    <ui:message aura:id="fp_error" title="Note:" severity="error" closable="false" ><!--class="slds-hide" removed-->
+                        You have not signed the Interact Reseller Agreement and the Rules of Engagement, you cannot proceed to Deal Registration. Please contact your NCR Channel Account Manager.
+                    </ui:message>
+                    </aura:if>
+                    
+                    <aura:if isTrue="{!and(!v.objPartnerAccount.Interact_Reseller_Agreement__c , v.objPartnerAccount.Rules_of_Engagement__c)}">
+                    <ui:message aura:id="fp_error" title="Note:" severity="error" closable="false" ><!--class="slds-hide" removed-->
+                        You have not signed the Interact Reseller Agreement, you cannot proceed to Deal Registration. Please contact your NCR Channel Account Manager.
+                    </ui:message>
+                    </aura:if>
+                    
+                    <aura:if isTrue="{!and(v.objPartnerAccount.Interact_Reseller_Agreement__c , !v.objPartnerAccount.Rules_of_Engagement__c)}">
+                    <ui:message aura:id="fp_error" title="Note:" severity="error" closable="false" ><!--class="slds-hide" removed-->
+                        You have not signed the Rules of Engagement, you cannot proceed to Deal Registration. Please contact your NCR Channel Account Manager.
+                    </ui:message>
+                    </aura:if>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+</aura:component>

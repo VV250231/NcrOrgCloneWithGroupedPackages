@@ -1,0 +1,17 @@
+<aura:component controller="TableauPortalController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction,forceCommunity:availableForAllPageTypes" access="global" >
+    <aura:attribute name="carousal" type="TableauPortalAdmin_config__c[]"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <lightning:carousel disableAutoRefresh="false" disableAutoScroll="false" class="carouselclass">
+        <aura:iteration items="{!v.carousal}" var="c">
+            <lightning:carouselImage 
+                                     src = "{!'/resource/TableauPortalSupportImages/Tableau_Portal_Images/'+c.image_Name__c}"
+                                     header = "{!''+c.Corousal_Header__c}"
+                                     description = "{!''+c.Carousal_Description__c}"
+                                     alternativeText = ""
+                                     href="https://www.salesforce.com" aura:id="carousal1" >
+            </lightning:carouselImage>
+        </aura:iteration>
+        
+    </lightning:carousel>
+</aura:component>

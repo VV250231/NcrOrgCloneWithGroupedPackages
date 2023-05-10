@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CATM_Cant_Clear_Sales_Program_Invoice_Tr</fullName>
+    <active>true</active>
+    <description>CATM can&apos;t clear out the Sales Program or Invoice Trigger fields after opportunity creation.</description>
+    <errorConditionFormula>AND(
+ CATM_Record__c = true,
+ $Setup.Automation_Setting__c.Skip_Validation_Rule__c = false,
+ NOT(ISNEW()),
+OR(
+ ISPICKVAL( Marketing_Program__c,&apos;&apos;),
+ ISPICKVAL( Invoice_Trigger__c,&apos;&apos;)
+)
+)</errorConditionFormula>
+    <errorMessage>Please populate Sales Program and Invoice Trigger, they cannot be blank.</errorMessage>
+</ValidationRule>

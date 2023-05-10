@@ -1,0 +1,332 @@
+<aura:component controller="PRM_EquipmentController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:hasRecordId" access="global" >
+    
+    <aura:attribute name="objEquipment" type="Equipment_Declaration__c" />
+   	<aura:attribute name="recordId" type="Id"/>
+    <aura:attribute name="depnedentFieldMap" type="map" description="map to store dependent values with controlling value"/>
+    <aura:attribute name="depnedentFieldMap2" type="map" description="map to store dependent values with controlling value"/>
+    <aura:attribute name="bDisabledDependentFld" type="boolean" default="true"/>
+    <aura:attribute name="bDisabledDependentFld2" type="boolean" default="true"/>
+    
+    <aura:attribute name="isClassError" type="boolean" default="false"/>
+    <aura:attribute name="isClassTypeError" type="boolean" default="false"/>
+	<aura:attribute name="isFeatureError" type="boolean" default="false"/>
+	<aura:attribute name="isPreviousServiceProviderError" type="boolean" default="false"/>
+    
+    <aura:attribute name="previousServiceProviders" type="String[]" default="['-- None --']"/>	
+    <aura:attribute name="countryCodes" type="String[]" default="['-- None --']"/>    
+    <aura:attribute name="classes" type="String[]" default="['-- None --']" description="to store controller field Class values"/>
+    <aura:attribute name="classTypes" type="String[]" default="['-- None --']" description="to store dependent field Class Type values"/>
+    <aura:attribute name="features" type="String[]" default="['-- None --']" description="to store  dependent field Feature values"/>
+    
+    <aura:attribute type="Date" name="dateDefaultWithTimeString" default="2017-08-23T00:00:00Z"/>
+    
+    <aura:attribute name="counter1" type="Integer" default="1"/>
+    <aura:attribute name="counter2" type="Integer" default="1"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+    
+    <!--loading spinner start... style=Brand Medium (blue dots)-->
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+           <div class="slds-spinner_brand  slds-spinner slds-spinner_large slds-is-relative" role="alert">
+             <span class="slds-assistive-text">Loading</span>
+             <div class="slds-spinner__dot-a"></div>
+             <div class="slds-spinner__dot-b"></div>
+           </div>
+        </div>
+     </aura:if>
+    <!-- Loading spinner end--> 
+    
+        <div class="slds-page-header" role="banner">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-has-flexi-truncate"> 
+                    <div class="slds-media slds-media_center slds-no-space slds-grow">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-account">
+                                <lightning:icon iconName="standard:account" size="large" alternativeText="Indicates approval"/>
+                                <span class="slds-assistive-text">Edit Equipment</span>
+                            </span>
+                        </div>
+                        <div class="slds-media__body ">
+                            <p class="slds-text-title_caps slds-line-height_reset" title="Equipment">
+                                <h2 class="slds-text-heading_small">Edit Equipment</h2></p>
+                        </div>
+                    </div>                    
+                </div>  
+                <!-- ACTION BUTTONS -->
+                <div class="slds-col slds-no-flex slds-grid slds-wrap slds-align-top">
+                    
+                    <button class="slds-button slds-button_brand" onclick="{!c.cSaveEquipment}">
+                        Save Equipment
+                    </button>
+                    
+                    <button class="slds-button slds-button_neutral" onclick="{!c.cancel}">
+                        Cancel
+                    </button>
+                    
+                </div>
+                <!-- / ACTION BUTTONS -->               
+            </div>
+        </div>
+        
+        <div class="slds">
+            <div class="section">
+                <h2 class="slds-text-heading_small section-heading">Equipment Details</h2>
+                <div class="slds-grid slds-wrap section-body">
+                    <!-- / FIRST COLUMN -->
+                    <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                        <div class="slds-form">
+                            
+                            <div class="slds-form-element">
+								<div class="slds-form-element__control" >
+                                	<label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Serial Number</label>
+                                   	<div class="slds-form-element__control">
+                                       <ui:inputText class="slds-input" aura:id="serialNumber"  value="{!v.objEquipment.Name}" required="true"/>
+                                   	</div>
+                                </div>    
+                            </div> 
+               
+                            
+                            <!--<div class="slds-form-element">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Partner Account</label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click" aria-expanded="false" aria-haspopup="listbox" role="combobox">
+         								<div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                                    		<force:inputField class="slds-input" aura:id="Partner_Account"  value="{!v.objEquipment.Partner_Account__c}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>-->
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Customer Name</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="Customer_Name"  value="{!v.objEquipment.Customer_Name__c}" required="true"/>
+                                </div>
+                            </div>
+                            
+                           <!-- <div class="slds-form-element">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Customer Account Name</label>
+                                <div class="slds-form-element__control">
+                                    <force:inputField class="slds-input" aura:id="Account"  value="{!v.objEquipment.Account__c}" />
+                                </div>
+                            </div>-->
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">FDIC#</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="FDIC"  value="{!v.objEquipment.FDIC__c}" />
+                                </div>
+                            </div>
+							
+							<div class="slds-form-element">
+                                <label class="slds-form-element__label">NCUA#</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="NCUA"  value="{!v.objEquipment.NCUA__c}" />
+                                </div>
+                            </div>
+							
+							<div class="slds-form-element">
+                                <label class="slds-form-element__label">SWIFT CODE</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="SWIFT_CODE"  value="{!v.objEquipment.SWIFT_CODE__c}" />
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!-- / SECOND COLUMN -->
+                    <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                        <div class="slds-form">  
+							
+                            
+                            <div class="slds-form-element">
+                                
+                                <div class="slds-form-element__control">
+                                   
+                                    <lightning:select name="class" value="{!v.objEquipment.Class__c}" aura:id="Class" label="Class" required="true" 
+                                                      onchange="{!c.onControllerFieldChange}" class="slds-select-bottom_margin">
+                                        <aura:iteration items="{!v.classes}" var="val">
+                                            <option value="{!val}" selected="{!val == v.objEquipment.Class__c}">{!val}</option>
+                                        </aura:iteration>
+                                    </lightning:select>
+                                </div>
+                                 <aura:if isTrue = "{!v.isClassError}">
+                                    <label class="slds-form-element__label form-element__help" style="color:rgb(194, 57, 52)"> Please select Class:</label>
+                                </aura:if>
+                            </div>
+							
+							<div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <lightning:select name="classType" value="{!v.objEquipment.Class_Type__c}" aura:id="Class_Type" label="Class Type"
+                                                      disabled="{!v.bDisabledDependentFld}" class="slds-select-bottom_margin">
+                                        <aura:iteration items="{!v.classTypes}" var="val">
+                                            <option value="{!val}" selected="{!and(val == v.objEquipment.Class_Type__c, v.counter1 == 1)}">{!val}</option>
+                                        </aura:iteration>
+                                    </lightning:select>
+                                </div>
+                                <aura:if isTrue = "{!v.isClassTypeError}">
+                                    <label class="slds-form-element__label form-element__help" style="color:rgb(194, 57, 52)"> Please select Class Type:</label>
+                                </aura:if>
+                            </div>
+							
+							<div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <!--<ui:inputText class="slds-input" aura:id="Features"  value="{!v.objEquipment.Features__c}"/>-->
+                                    <lightning:select name="feature" value="{!v.objEquipment.Features__c}" aura:id="Features" label="Features" 
+                                                      disabled="{!v.bDisabledDependentFld2}" class="slds-select-bottom_margin">
+                                        <aura:iteration items="{!v.features}" var="val">
+                                            <option value="{!val}" selected="{!and(val == v.objEquipment.Features__c, v.counter2 == 1)}">{!val}</option>
+                                        </aura:iteration>
+                                    </lightning:select>
+                                </div>
+                                 <aura:if isTrue = "{!v.isFeatureError}">
+                                    <label class="slds-form-element__label form-element__help" style="color:rgb(194, 57, 52)"> Please select Features:</label>
+                                </aura:if>
+                            </div>
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <label class="slds-form-element__label">Active Unit</label>
+                                    <div class="slds-form-element__control">
+                                        <ui:inputCheckbox class="slds-checkbox" aura:id="Active_Unit"  value="{!v.objEquipment.Active_Unit__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="section">
+                <h2 class="slds-text-heading_small section-heading">Unit Installation Location</h2>
+                <div class="slds-grid slds-wrap section-body">
+                    <!-- / FIRST COLUMN -->
+                    <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                        <div class="slds-form">
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Installation Address1</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="Installation_Address1"  value="{!v.objEquipment.Installation_Address1__c}" />
+                                </div>
+                            </div>
+							
+							<div class="slds-form-element">
+                                <label class="slds-form-element__label">Installation Address2</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="Installation_Address2"  value="{!v.objEquipment.Installation_Address2__c}" />
+                                </div>
+                            </div>
+                                                        
+                        </div>
+                    </div>
+                    
+                    <!-- / SECOND COLUMN -->
+                    <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                        <div class="slds-form">
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Installation City</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="Installation_City"  value="{!v.objEquipment.Installation_City__c}" />
+                                </div>
+                            </div>
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">Installation State/Province</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="Installation_State_Province"  value="{!v.objEquipment.Installation_State_Province__c}" />
+                                </div>
+                            </div>
+							
+							<div class="slds-form-element">
+                                <label class="slds-form-element__label">Installation Postal Code</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="Installation_Postal_Code"  value="{!v.objEquipment.Installation_Postal_Code__c}" />
+                                </div>
+                            </div>
+							
+							<div class="slds-form-element">
+                                <!--<label class="slds-form-element__label">Country Code</label>-->
+                                <div class="slds-form-element__control">
+                                   
+                                    <lightning:select aura:id="selectCountryCode" label="Country Code" value="{!v.objEquipment.Country_Code__c}"  >
+                                       <aura:iteration items="{!v.countryCodes}" var="ccVal">
+                                            <option value="{!ccVal}" selected="{!ccVal == v.objEquipment.Country_Code__c}">{!ccVal}</option>
+                                        </aura:iteration>                                     
+                                    </lightning:select>
+                                </div>
+                            </div>
+                            
+                        </div> 
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="slds-text-heading_small section-heading">Service History</h2>
+                <div class="slds-grid slds-wrap section-body">
+                    <!-- / FIRST COLUMN -->
+                    <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                        <div class="slds-form">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">Installation Date of New Unit</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputDate displayDatePicker="true" aura:id="Installation_Date_of_New_Unit"  
+                                                  value="{!v.objEquipment.Installation_Date_of_New_Unit__c}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- / SECOND COLUMN -->
+                    <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-col_padded">
+                        <div class="slds-form">
+                            
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">Service Assumption Date</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputDate displayDatePicker="true" aura:id="Service_Assumption_Date"  
+                                                  value="{!v.objEquipment.Service_Assumption_Date__c}" />
+                                </div>
+                            </div>
+							
+							<!--<div class="slds-form-element">
+                                <label class="slds-form-element__label">Previous Service Provider</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="Previous_Service_Provider"  value="{!v.objEquipment.Previous_Service_Provider}" />
+                                </div>
+                            </div>-->
+							<div class="slds-form-element">
+                                
+                                <div class="slds-form-element__control">
+                                  
+                                   <lightning:select aura:id="selectPreviousServiceProvider" label="Previous Service Provider" value="{!v.objEquipment.Previous_Service_Provider__c}"  >
+                                       <aura:iteration items="{!v.previousServiceProviders}" var="pspVal">
+                                            <option value="{!pspVal}" selected="{!pspVal == v.objEquipment.Previous_Service_Provider__c}">{!pspVal}</option>
+                                        </aura:iteration>                                     
+                                    </lightning:select>
+                                </div>
+                                <aura:if isTrue = "{!v.isPreviousServiceProviderError}">
+                                    <label class="slds-form-element__label form-element__help" style="color:rgb(194, 57, 52)"> Please select Previous Service Provider:</label>
+                                </aura:if>
+							</div>   
+							<div class="slds-form-element">
+                                <label class="slds-form-element__label">Previous Service Provider (If Other)</label>
+                                <div class="slds-form-element__control">
+                                    <ui:inputText class="slds-input" aura:id="Previous_Service_Provider_If_Other"  
+                                                  value="{!v.objEquipment.Previous_Service_Provider_If_Other__c}" />
+                                </div>
+                            </div>
+                            
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    
+</aura:component>

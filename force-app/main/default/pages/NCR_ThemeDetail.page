@@ -1,0 +1,213 @@
+<apex:page controller="NCR_ThemeDetailExt" showHeader="false" sidebar="false" standardStylesheets="false" language="en" >
+    <head>
+        <c:NCR_CustomHead /> 
+        <apex:includeScript value="{! $Resource.NCR_jQuery}"/>
+    </head>
+    <div id="container" layout="block" style="padding:8px;">
+        <apex:form id="themeDetailForm">
+            
+            <c:NCR_HomepageHeader />
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-9">
+                    <div class="panel">
+                        <!-- Theme Detail-->
+                        &nbsp;  <apex:outputlink value="/apex/NCR_IdeaThemeHomePage" styleClass="standalone">Back</apex:outputlink>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <h1>
+                                    <apex:outputField value="{! themeRec.Title}"/>
+                                </h1>
+                                <span class="text-long"><apex:outputField value="{! themeRec.Description}"/></span>
+                                <div style="padding-top:15px;">
+                                    <span class="text-legal"><apex:outputText value="{! themeRec.DI_Line_of_Business__c}"/></span>
+                                    <sapn><apex:outputText value=", " rendered="{! NOT(OR(ISBLANK(themeRec.DI_Line_of_Business__c),ISBLANK(themeRec.DI_Category__c))) }"></apex:outputText></sapn>
+                                    <span class="text-legal"><apex:outputText value="{! themeRec.DI_Category__c}"/></span>
+                                    <!--<sapn><apex:outputText value=", " rendered="{! NOT(OR(ISBLANK(themeRec.DI_Category__c),ISBLANK(themeRec.Status)))}"></apex:outputText></sapn>-->
+                                    <span class="label label-primary text-legal" style="background-color:#EDEDED;font-weight: none;"><apex:outputText value="{! themeRec.Status}"/></span>
+                                    <apex:actionRegion >
+                                        <apex:outputPanel rendered="{! favRecId == null}">
+                                            &nbsp;
+                                            <apex:commandLink action="{! addThemeToFavList}" value="Add to Favorites" styleClass="standalone"/>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{! favRecId != null}">
+                                            &nbsp;
+                                            <apex:commandLink value="Remove from Favorites" action="{! removeFromFavList}" styleClass="standalone">
+                                                <apex:param name="favId" value="{! favRecId}"/>
+                                            </apex:commandLink>
+                                        </apex:outputPanel>
+                                    </apex:actionRegion>
+                                </div>
+                            </div>
+                        </div><!-- Theme Detail End-->
+                        
+                        <div class="gray-line" style="margin: 20px 0 20px 0 !important;"></div>
+                        
+                        <!-- Post New Idea -->
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <button id="postNewIdeaBtn" type="button" class="btn btn-secondary" onclick='$("#NewIdeaForm").show(); $("#postNewIdeaBtn").hide()'>Post New Idea</button>
+                                <div id="NewIdeaForm" style="display: none;">
+                                    <h1>
+                                        Post Idea
+                                    </h1>
+                                    <div class="form-group">
+                                        <apex:outputLabel for="ideaTitle">
+                                            <h3>
+                                                Title
+                                            </h3>
+                                        </apex:outputLabel>
+                                        <apex:actionRegion >
+                                            <apex:inputText id="ideaTitle" value="{! newIdeaTitle}" onkeyup="titleKeyUp();" onkeydown="titleKeyDwn();" html-placeholder="As you enter a descriptive title, similar ideas may display." styleclass="form-control"/>
+                                            <apex:actionFunction name="afSearchTitle" action="{!searchTitle}" reRender="similarIdeasId, buttonFormId" status="statusRecent" oncomplete="top.postMessage($('#container').height()+80+'px', '*');" />
+                                        </apex:actionRegion>
+                                         
+                                        <apex:actionStatus id="statusRecent">
+                                            <apex:facet name="start">
+                                                <div style="width: 500px;" align="left">
+                                                    <img src="/img/loading24.gif" style="vertical-align:middle; width:15px;"/>
+                                                    <span style="margin-left: 2px; font-size: 12px; color: #000000;">Searching for duplicates</span>
+                                                </div>
+                                            </apex:facet>
+                                        </apex:actionStatus>
+                                            
+                                        <apex:outputPanel id="similarIdeasId" style="font-size: 14px">
+                                            <apex:outputText value="Similar Ideas" style="font-weight: bold; font-family: Arial !important; font-size: 14px !important;" rendered="{!similarIdeasList.size>0}" /> <apex:outputText value="(Click to open in new window)" style="font-size: 14px !important; font-family: Arial !important;" rendered="{!similarIdeasList.size>0}" />
+                                            <apex:repeat value="{!similarIdeasList}" var="si">
+                                                <ul style="margin-bottom:0px;">
+                                                    <li><apex:outputLink tabindex="3" onfocus="displayPlaceholder();" onblur="checkNextFocus();" value="/apex/NCR_ViewIdeaPage?id={!si.id}&thId={!themeId}" style="color: #000000; font-family: Arial !important;" target="_blank">{!si.Title}</apex:outputLink> - {!si.VoteTotal} Points</li>
+                                                </ul>
+                                            </apex:repeat>
+                                        </apex:outputPanel>
+                                    </div>
+                                    <div class="form-group">
+                                        <apex:outputLabel ><h3>Description</h3><span class="text-light">Share your thoughts on the theme of {! themeRec.Title}</span></apex:outputLabel>
+                                        <apex:inputField value="{! newIdea.Body}" id="ideaBody"/>
+                                    </div>
+                                    <apex:commandButton value="Post Idea" action="{! saveIdea}" styleClass="btn btn-secondary"/>
+                                </div>
+                            </div> 
+                        </div><!-- Post New Idea End -->
+                        
+                        <div class="gray-line" style="margin: 20px 0 0 0 !important;"></div>
+                        
+                        <!-- Theme Idea List -->
+                        <apex:repeat value="{! ideaWrappers}" var="ideaRec">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div class="recent-img" style="padding-left:0px; width:100px !important; height:115px !important;" align="center">
+                                                <apex:image url="{!IF(ideaRec.createdByPic !=null, 'https://aplogin.digitalinsight.com'+ideaRec.createdByPic, URLFOR($Resource.NCR_cssjsimg, 'img/ideas-default-avatar.png'))}" style="max-width: 100px !important; max-height: 50px !important; margin-bottom: 5px !important;"/> 
+                                                <div align="center">
+                                                    <!--<apex:commandButton id="voteButton" title="Vote for this idea" onclick="voteUp('{! ideaRec.ideaId}',this)"
+                                                                        disabled="{! ideaRec.isCurrentUserVotedForIdea}"
+                                                                        image="{!URLFOR($Resource.NCR_cssjsimg, 'img/like_on.png')}"
+                                                                        styleClass="btn btn-default col-md-2 like-btn" style="padding: 8px 15px;  background:none; width:50px; height:35px; margin: 2px 20px !important;"
+                                                                        reRender="dataPanelSearchResult, paginationPanel">
+                                                        <apex:param name="ideaId" value="{! ideaRec.ideaId}" assignTo="{! ideaIdToVote}"/>
+                                                    </apex:commandButton>
+                                                    <button Id="{! ideaRec.ideaId}" type="button" title="Vote for this idea"
+                                                            onclick="voteUp('{! ideaRec.ideaId}',this)" 
+                                                            class="btn btn-default col-md-2 like-btn {! if(ideaRec.isCurrentUserVotedForIdea,'disabled','')}" 
+                                                            style="padding: 8px 15px; background:none; width:50px; height:35px; margin: 2px 20px !important;"                                      
+                                                            >
+                                                        <apex:image url="{! URLFOR($Resource.NCR_cssjsimg, 'img/like_on.png')}" />
+                                                    </button>-->
+                                                    <apex:actionRegion >
+                                                    <apex:commandButton value="Vote for this idea" action="{! processVote}"
+                                                                        image="{!URLFOR($Resource.NCR_cssjsimg, 'img/like_on.png')}"
+                                                                        styleClass="btn btn-default col-md-2 like-btn {! if(ideaRec.isCurrentUserVotedForIdea,'disabled','')}"
+                                                                        style="padding: 8px 15px; background:none; width:50px; height:35px; margin: 2px 20px !important;" reRender="none">
+                                                        <apex:param name="pId" value="{! ideaRec.ideaId}"/>
+                                                    </apex:commandButton>
+                                                    </apex:actionRegion>
+                                                </div>
+                                                <div style="clear:both;">
+                                                    <span id="voteScore{! ideaRec.ideaId}" style="font-size: 13px !important;">
+                                                        {! ideaRec.VoteTotal}
+                                                    </span>
+                                                    <span style="font-size: 13px !important;"> pts.</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <h3>
+                                                <apex:outputLink style="title-drk-blue;text-decoration:none;"
+                                                                 value="{! '/apex/NCR_ViewIdeapage?id='+ideaRec.ideaId}&thId={!themeId}">
+                                                    {! ideaRec.ideaTitle}
+                                                </apex:outputLink>
+                                            </h3>
+                                            <apex:outputPanel styleclass="text-light">{! ideaRec.ideaBody}</apex:outputPanel>
+                                            <div>
+                                                <apex:outputPanel >{! ideaRec.createdByName}</apex:outputPanel>
+                                                <apex:outputPanel rendered="{! ideaRec.createdByTitle != null}">,&nbsp;</apex:outputPanel>
+                                                <apex:outputPanel >{! ideaRec.createdByTitle}</apex:outputPanel>
+                                                <apex:outputPanel rendered="{! ideaRec.fiName != null}">,&nbsp;</apex:outputPanel>
+                                                <apex:outputPanel >{! ideaRec.fiName}</apex:outputPanel>
+                                                <apex:outputPanel > | </apex:outputPanel>
+                                                <apex:outputPanel >
+                                                    <apex:outputText value="{0, date, MM'/'d'/'yy}">
+                                                        <apex:param value="{! ideaRec.createdDate}" />
+                                                    </apex:outputText>
+                                                </apex:outputPanel>
+                                                <apex:outputPanel > | &nbsp;</apex:outputPanel>
+                                                <apex:outputPanel > <apex:outputLink value="{! '/apex/NCR_ViewIdeapage?id='+ideaRec.ideaId+'&thId='+themeId}" style="text-decoration:none;">Comment</apex:outputLink></apex:outputPanel>
+                                                <apex:outputPanel > | &nbsp;</apex:outputPanel>
+                                                <apex:outputPanel rendered="{! ideaRec.favoriteRecId == null}">
+                                                    <apex:commandLink style="text-decoration:none;" value="Add to Favorites" action="{! addIdeaToFavList}">
+                                                        <apex:param name="ideaRecId" value="{! ideaRec.ideaId}"/>
+                                                    </apex:commandLink>
+                                                </apex:outputPanel>
+                                                <apex:outputPanel rendered="{! ideaRec.favoriteRecId != null}">
+                                                    <apex:commandLink style="text-decoration:none;" value="Remove from Favorites" action="{! removeFromFavList}">
+                                                        <apex:param name="favId" value="{! ideaRec.favoriteRecId}"/>
+                                                    </apex:commandLink>
+                                                </apex:outputPanel>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div><!-- Theme Idea List End -->
+                        </apex:repeat>
+                    </div>
+                </div>
+                <!--sideBar column-->    
+                <div class="col-xs-12 col-sm-12 col-md-3" role="complementary">
+                    <nav class=" bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top" >
+                        <c:NCR_HomePageSidebar />       
+                    </nav>
+                </div> <!--sideBar column end-->
+            </div>
+        </apex:form>
+    </div>
+    
+    <script>
+        window.onload=function() {
+            var hgt = $("#container").height();
+            top.postMessage(hgt+80+"px", '*');
+        }
+        
+        var typingTimer;                //timer identifier
+        var doneTypingInterval = 1000;  //time in ms, 5 second for example
+        
+        function titleKeyUp() {
+          clearTimeout(typingTimer);
+          typingTimer = setTimeout(doneTyping, doneTypingInterval);
+        }
+        
+        function titleKeyDwn() {
+          clearTimeout(typingTimer);
+        }
+        
+        function doneTyping () {
+          afSearchTitle();
+        }
+    </script>
+    
+    <!-- working with Ajax Toolkit -->
+    
+    
+    
+</apex:page>

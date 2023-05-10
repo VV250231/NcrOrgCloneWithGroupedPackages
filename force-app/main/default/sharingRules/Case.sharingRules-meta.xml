@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Global_Entitlements_Sharing_Access</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Gives Global Entitlements Users the ability to read or read/write each others cases.</description>
+        <label>Global Entitlements Sharing Access</label>
+        <sharedTo>
+            <group>Entitlements_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>PO Review</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>HOSPDD_Team_Case_Sharing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Gives HOSPD Users the ability to read or read/write each others cases.</description>
+        <label>HOSPDD Team Case Sharing</label>
+        <sharedTo>
+            <group>Hospitality_Namer_Direct</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Hospitality Namer Direct</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Partner_Opportunity_Case_with_Partner_Assist_team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Partner Opportunity Case with Partner Assist team</label>
+        <sharedTo>
+            <group>Partner_Assist_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Category__c</field>
+            <operation>equals</operation>
+            <value>Partner Opportunity</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Record_Type_Based_Case_Read_Write_Access_To_Hospitality_Public_Group</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Record Type Based Case Read Write Access To Hospitality Sales and Service Public Group.</description>
+        <label>Record Type Based Case Read Write Access To Hospitality Public Group</label>
+        <sharedTo>
+            <group>Hospitality_Sales_and_Support</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Hospitality Support,Hospitality Portal Provisioning</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Dispute_Case_With_AR_Users</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share dispute cases with AR Users.</description>
+        <label>Share Dispute Case With AR Users</label>
+        <sharedTo>
+            <group>AR_Users</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Dispute</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>VOC_Access</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>VOC Access</label>
+        <sharedTo>
+            <group>VOC_users</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>OwnerId</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>VOC_Cases</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>VOC Cases</label>
+        <sharedTo>
+            <portalRole>NCREMPLOYEEPartnerUser</portalRole>
+        </sharedTo>
+        <criteriaItems>
+            <field>OwnerId</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

@@ -1,0 +1,116 @@
+<apex:component access="global">
+  <style type="text/css">
+        
+    a {
+        color: #54b948;
+    }
+    body {
+        font-family: 'Open Sans',  Arial, sans-serif;
+        }   
+    .auto-style1 {
+        font-family: Raleway, Arial, Helvetica, sans-serif;
+        font-weight: 900;
+        font-size: 33px;
+        color: #FFFFFF;
+        text-transform: normal;
+        letter-spacing: 3px;
+    }
+    .auto-style4 {
+        color: #1D1D1D;
+    }
+    .auto-style5 {
+        color: #1D1D1D;
+        font-family: "Open Sans", Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        margin-right: 15px;
+    }
+    </style>
+  <apex:attribute name="heading" type="String" required="false" description="Heading of the Email"/>
+  <apex:outputPanel rendered="{!NOT(ISBLANK(heading))}">
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      align="center"
+      style="width: 665px; height: 149px"
+    >
+      <tbody>
+        <tr>
+          <td>
+            <table
+              border="0"
+              cellspacing="0"
+              cellpadding="0"
+              bgcolor="#049cbc"
+              style="width: 665px"
+            >
+              <tr>
+                <td width="655">
+                  <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td
+                        bgcolor="#049cbc"
+                        align="right"
+                        width="30"
+                        height="43"
+                      ></td>
+                      <td bgcolor="#049cbc" height="43"></td>
+                      <td
+                        bgcolor="#049cbc"
+                        align="left"
+                        width="25"
+                        height="43"
+                      ></td>
+                    </tr>
+
+                    <tr>
+                      <td bgcolor="#049cbc" align="right" width="30"></td>
+
+                      <td bgcolor="#049cbc">
+                        <p
+                          style="padding:0; margin:0;"
+                          align="left"
+                          class="auto-style1"
+                        >
+                          <apex:outputText >{!heading}</apex:outputText>
+                        </p>
+                        <br />
+                      </td>
+                      <td bgcolor="#049cbc" align="left" width="25"></td>
+                    </tr>
+                    <tr>
+                      <td
+                        bgcolor="#049cbc"
+                        align="right"
+                        width="30"
+                        style="height: 43px"
+                      ></td>
+                      <td bgcolor="#049cbc" style="height: 43px"></td>
+                      <td
+                        bgcolor="#049cbc"
+                        align="left"
+                        width="25"
+                        style="height: 43px"
+                      ></td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr valign="bottom">
+                <td valign="bottom" width="665" height="9">
+                  <img
+                    src="https://ncrpr.ncr.com/web/RsdMkt/emailCampaigns/templates/internalComms/images/email-green-bar.png"
+                    width="665"
+                    height="9"
+                  />
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br />
+  </apex:outputPanel>
+</apex:component>

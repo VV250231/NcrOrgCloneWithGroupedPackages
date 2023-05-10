@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_OWNER_NAME</field>
+    </columns>
+    <columns>
+        <field>Breach__c.Breach_Owner_Allocation_Date__c</field>
+    </columns>
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Breach__c.Number_of_Business_Days_w_Breach_Owner__c</field>
+    </columns>
+    <columns>
+        <field>Breach__c.Account__c</field>
+    </columns>
+    <columns>
+        <field>Breach__c.Breach_Stage__c</field>
+    </columns>
+    <columns>
+        <field>Breach__c.Date_Generic_Breach_Letter_Mailed__c</field>
+    </columns>
+    <columns>
+        <field>Breach__c.Sales_Team_Breach_Comments__c</field>
+    </columns>
+    <columns>
+        <field>CUST_CREATED_NAME</field>
+    </columns>
+    <currency>GBP</currency>
+    <description>All breaches allocated to me</description>
+    <format>Tabular</format>
+    <name>Breaches Allocated to Me</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Breach__c</reportType>
+    <scope>user</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Breach__c.Breach_Owner_Allocation_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

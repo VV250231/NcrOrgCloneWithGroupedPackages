@@ -1,0 +1,34 @@
+<aura:component controller="TableauPortalController"  implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction,forceCommunity:availableForAllPageTypes" access="global" >
+    <aura:attribute name="newsletter" type="String" Default="https://ncr--cert.lightning.force.com/sfc/servlet.shepherd/document/download/069180000009EaVAAU?operationContext=S1"/>
+    <aura:attribute name="usertype" type="String"/>
+    <!--aura:handler name="init" value="{!this}" action="{!c.doInit}"/-->
+    <article class="slds-card">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <lightning:icon iconName="action:google_news" alternativeText="News Letter" />
+                    
+                </div>
+                
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <a href="javascript:void(0);" class="slds-card__header-link slds-truncate" title="NEWS">
+                            <span>NEWS LETTER</span>
+                        </a>
+                    </h2>
+                </div>
+                <div class="slds-no-flex">
+                    <lightning:icon iconName="action:download" alternativeText="Download Latest News Letter" title="Download Latest News Letter" onclick="{!c.download}"/>
+                </div>
+            </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <p>
+                News letter are monthly communications giving glimpse of what is happening Organization wide.<br/> 
+                It gives you details about upcoming dashboards, NCR future prospects etc.
+            </p>
+        </div>
+        
+        
+    </article>
+</aura:component>

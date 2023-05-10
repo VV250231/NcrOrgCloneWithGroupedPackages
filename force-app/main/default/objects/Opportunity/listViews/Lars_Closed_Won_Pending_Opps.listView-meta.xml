@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lars_Closed_Won_Pending_Opps</fullName>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <columns>Num_of_ATMs__c</columns>
+    <columns>Contract_Term_Mths__c</columns>
+    <columns>OPPORTUNITY.CLOSE_DATE</columns>
+    <columns>Sales_Admin__c</columns>
+    <columns>Sales_Admin_Status__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CATM_Record__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>OPPORTUNITY.STAGE_NAME</field>
+        <operation>equals</operation>
+        <value>Closing</value>
+    </filters>
+    <filters>
+        <field>Business_Unit__c</field>
+        <operation>equals</operation>
+        <value>Opportunity.FI_Opportunity</value>
+    </filters>
+    <filters>
+        <field>Geography__c</field>
+        <operation>equals</operation>
+        <value>Germany</value>
+    </filters>
+    <label>CATM Lars&apos;sTeam Close Won-Pending Opps</label>
+    <sharedTo>
+        <role>International_Business_Grp</role>
+    </sharedTo>
+</ListView>

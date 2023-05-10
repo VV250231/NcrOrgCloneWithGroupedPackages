@@ -1,0 +1,122 @@
+<aura:component controller="MDFListViewCmpController" implements="forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader" >
+    
+    <aura:attribute name="mdfDetailRecords" type="MDFDetails[]"/>
+    <aura:handler name="init" value="{!this}" action="{!c.getMDFRequest}" />
+    <aura:attribute name="conditon" type="String"/>
+    <aura:attribute name="offset" type="integer" />
+    <aura:attribute name="next" type="boolean" />
+    <aura:attribute name="prev" type="boolean" />
+    <aura:attribute name="mdfRequest" type="SFDC_MDF__c" />
+    <aura:attribute name="mdfClaim" type="SFDC_MDF_Claim__c" />
+   
+    <aura:attribute name="recId" type="String"/>
+    <aura:attribute name="strBack" type="String" default="none"/> 
+   
+    
+    <aura:attribute name="isDeleteConfirm" type="boolean" default="false"/>
+    
+    <aura:attribute name="numOfPreApprovalDoc" type="Integer" default="0" />
+    <aura:attribute name="numOfPOPDoc" type="Integer" default="0"/>
+    
+    <!-- 'showLoadingSpinner' attribute for show/hide the uploading image and msg in aura:if-->
+  	<aura:attribute name="showLoadingSpinner" type="boolean" default="false" />
+ 	
+   
+    <!--<aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
+    <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/>-->
+    
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+  
+   
+	<!--loading spinner start... style=Brand Medium (blue dots)-->
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+           <div class="slds-spinner_brand  slds-spinner slds-spinner_large slds-is-relative" role="alert">
+             <span class="slds-assistive-text">Loading</span>
+             <div class="slds-spinner__dot-a"></div>
+             <div class="slds-spinner__dot-b"></div>
+           </div>
+        </div>
+     </aura:if>
+    <!-- Loading spinner end--> 
+    
+        <div class="slds-page-header" role="banner">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-has-flexi-truncate"> 
+                    <div class="slds-media slds-media_center slds-no-space slds-grow">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-account">
+                                <lightning:icon iconName="standard:account" size="large" alternativeText="Indicates approval"/>
+                                <span class="slds-assistive-text">MDF Request</span>
+                            </span>
+                        </div>
+                        <div class="slds-media__body slds-size_1-of-4 ">
+                            <p class="slds-text-title_caps slds-line-height_reset" title="MDF Request">MDF Requests</p>
+                            <ui:inputSelect aura:id="levels" class="slds-m-right_small slds-align-middle slds-size_1-of-4 dropdownHeader"  change="{!c.onSelectChange}">
+                                <ui:inputSelectOption text="All" label="All" value="true"/>
+                                <ui:inputSelectOption text="Created Today" label="Created Today"/>
+                                <ui:inputSelectOption text="Pending" label="Pending"/>
+                                <ui:inputSelectOption text="Approved" label="Approved"/>
+                                <ui:inputSelectOption text="Rejected" label="Rejected"/>
+                                <ui:inputSelectOption text="Request Pending for Approvals" label="Request Pending for Approvals"/>
+                            </ui:inputSelect>
+                        </div>
+                    </div>                    
+                </div>  
+                <!-- ACTION BUTTONS -->
+                <div class="slds-col slds-no-flex slds-grid slds-wrap slds-align-top">
+                    <div class="slds-button-group" role="group">
+                        <button class="slds-button slds-button_neutral" onclick="{!c.showNewRequest}">
+                            New MDF Request
+                        </button>
+                    </div>
+                </div>
+                <!-- / ACTION BUTTONS -->               
+            </div>
+        </div>
+        
+        
+        <table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal slds-margin" style="margin-bottom: 10px;"><!--Table must be responsive-->
+            <thead>
+                <tr class="slds-text-heading_label ">
+                    <th class="" scope="col">Action</th>                    
+                    <th class="" scope="col">Activity</th>                    
+                    <th class="slds-is-sortable" scope="col">MDF Request Status</th>
+                    <th class="slds-is-sortable" scope="col">Activity Start Date</th>
+                    <th class="slds-is-sortable" scope="col">Claim Status</th>
+                    <th class="slds-is-sortable" scope="col">Request No</th>           
+                </tr>  
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.mdfDetailRecords}" var="mdf">
+                    <tr class="slds-hint-parent">  
+                        <td data-label="Action">
+                            <aura:if isTrue="{!mdf.objFundRequest.Status__c == 'Request Created'}">
+                                <a data-ids="{!mdf.objFundRequest.Id}" onclick="{!c.deleteMdf}"> Del </a>
+                            </aura:if> 
+                        </td>
+                        <td data-label="Activity" ><a data-record="{!mdf.objFundRequest.Id}" onclick="{!c.redirectToMdfRecord}">
+                            {!mdf.objFundRequest.Name}</a>
+                        </td>
+                        <td data-label="MDF Request Status" ><ui:outputText value="{!mdf.objFundRequest.Status__c}" /></td>
+                        <td data-label="Activity Start Date" >{!mdf.objFundRequest.Activity_Date__c}</td>
+                        <td data-label="Claim Status"> {!mdf.claimStatus} </td>
+                        <td data-label="Request No">{!mdf.objFundRequest.Request_ID__c}</td> 
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+        
+    
+     <lightning:button label="Previous" disabled="{!v.prev}" 
+                      class="slds-button slds-button_neutral slds-p-horizontal_xx-small slds-m-right_x-small slds-float_left"  
+                      onclick="{!c.Previous}" variant="brand"
+                      iconName='utility:back'/>
+    
+    <lightning:button label="Next" disabled="{!v.next}"
+                      class="slds-button slds-button_neutral slds-p-horizontal_xx-small slds-m-right_x-small slds-float_left"
+                      onclick="{!c.Next}" variant="brand"
+                      iconName='utility:forward' iconPosition='right'/>
+    
+    
+</aura:component>

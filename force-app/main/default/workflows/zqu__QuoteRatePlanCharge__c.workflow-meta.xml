@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Partner_Cost</fullName>
+        <description>From Partner_Cost__c Formula (Currency) to PartnerCost__c Text(255)</description>
+        <field>PartnerCost__c</field>
+        <formula>TEXT(Partner_Cost__c)</formula>
+        <name>Popultae QRPC :Partner Cost(text)</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Populate_QRPC_Channel_Partner_Text</fullName>
+        <field>ChannelPartner__c</field>
+        <formula>ChannelPartner_Lkp__r.Name</formula>
+        <name>Populate QRPC: Channel Partner(Text)</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Populate_QRPC_Gross_Profit</fullName>
+        <field>GrossProfit__c</field>
+        <formula>TEXT(Gross_Profit_Calculation__c)</formula>
+        <name>Populate QRPC: Gross Profit(text)</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Populate_QRPC_Gross_Profit_Currency</fullName>
+        <field>GrossProfit_currency__c</field>
+        <formula>Gross_Profit_Calculation__c</formula>
+        <name>Populate QRPC: Gross Profit(Currency)</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Populate_QRPC_Salesperson_Text</fullName>
+        <field>Salesperson__c</field>
+        <formula>Salesperson_Lkp__r.FirstName &amp; &quot; &quot; &amp; Salesperson_Lkp__r.LastName</formula>
+        <name>Populate QRPC:Salesperson(Text)</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Populate_QRPC_Sup_Channel_Partner_Text</fullName>
+        <description>Populate QRPC: Support Channel Partner(Text)</description>
+        <field>SupportChannelPartner__c</field>
+        <formula>SupportChannelPartnerLkp__r.Name</formula>
+        <name>Populate QRPC: Sup Channel Partner(Text)</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Populate_Salesperson_on_QRP</fullName>
+        <field>Salesperson__c</field>
+        <formula>Salesperson__c</formula>
+        <name>Populate Salesperson on QRP</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>zqu__QuoteRatePlan__c</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Quote_Rate_Plan_Charge_Populate_Cost</fullName>
+        <field>Cost_currency__c</field>
+        <formula>VALUE( Cost__c)</formula>
+        <name>Popultae QRPC : Populate Cost (currency)</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Quote_Rate_Plan_Charge_Populate_Partne</fullName>
+        <field>Partner_Commission_currency__c</field>
+        <formula>VALUE( PartnerCommission__c)</formula>
+        <name>Populate QRPC:Partner Comm(currency)</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Bundle_On_Quote_Rate_Plan_Charge</fullName>
+        <field>BundleName__c</field>
+        <formula>IF( 
+AND(ISPICKVAL( zqu__ProductRatePlanCharge__r.ExcludefromBundle__c ,&quot;No&quot;), 
+NOT(ISPICKVAL( zqu__QuoteRatePlan__r.zqu__Quote__r.BundleNameNew__c ,&quot;Not a Bundle&quot;))), 
+TEXT(zqu__QuoteRatePlan__r.zqu__Quote__r.BundleNameNew__c), 
+&quot;&quot;)</formula>
+        <name>Set Bundle On Quote Rate Plan Charge</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateExistingProduct</fullName>
+        <field>ExistingProduct__c</field>
+        <literalValue>Yes</literalValue>
+        <name>UpdateExistingProduct</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Populate Salesperson on QRP</fullName>
+        <actions>
+            <name>Populate_Salesperson_on_QRP</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>zqu__QuoteRatePlanCharge__c.CreatedById</field>
+            <operation>notEqual</operation>
+            <value>test</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Populate currency fields</fullName>
+        <actions>
+            <name>Partner_Cost</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Populate_QRPC_Channel_Partner_Text</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Populate_QRPC_Gross_Profit</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Populate_QRPC_Gross_Profit_Currency</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Populate_QRPC_Salesperson_Text</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Populate_QRPC_Sup_Channel_Partner_Text</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Quote_Rate_Plan_Charge_Populate_Cost</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Quote_Rate_Plan_Charge_Populate_Partne</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>1=1</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Set_Exisiting_Product_Yes_in_case_of_Amendment</fullName>
+        <actions>
+            <name>UpdateExistingProduct</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>zqu__QuoteRatePlan__c.zqu__AmendmentType__c</field>
+            <operation>equals</operation>
+            <value>UpdateProduct</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>zqu__QuoteRatePlanCharge__c.zqu__SubscriptionRatePlanChargeZuoraId__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>This will default the existing Product value as Yes in case of Amendemnt.</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Bundle Detail on Quote Rate Plan Charge</fullName>
+        <actions>
+            <name>Set_Bundle_On_Quote_Rate_Plan_Charge</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>(ISNEW() || ISCHANGED(  BundleName__c ))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

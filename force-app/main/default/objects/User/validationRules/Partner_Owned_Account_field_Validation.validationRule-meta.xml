@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Partner_Owned_Account_field_Validation</fullName>
+    <active>true</active>
+    <description>Users: Andrew, Anne, Ajay, Janice, Marci, Alok, Ekta</description>
+    <errorConditionFormula>AND(
+ISCHANGED(Partner_Owned_Accounts__c),
+OR(
+AND(ISPICKVAL(UserType,&quot;PowerPartner&quot;), 
+AND(
+$User.Id &lt;&gt; &apos;00570000001rke3&apos;, 
+$User.Id &lt;&gt; &apos;00570000004rIfj&apos;,
+$User.Id &lt;&gt;&apos;0050g0000051Jyl&apos;,
+$User.Id &lt;&gt; &apos;0050g000006InMp&apos;, 
+$User.Id &lt;&gt; &apos;00570000005G7k8&apos;,
+$User.Id &lt;&gt; &apos;00570000004oNv1&apos;, 
+$User.Id &lt;&gt; &apos;0050g000006GyUq&apos;
+)
+),
+NOT(ISPICKVAL(UserType,&quot;PowerPartner&quot;))
+)
+)</errorConditionFormula>
+    <errorDisplayField>Partner_Owned_Accounts__c</errorDisplayField>
+    <errorMessage>Partner Owned Account Field is allowed to be updated by Designated Admins and should be populated for Partner Users only.</errorMessage>
+</ValidationRule>

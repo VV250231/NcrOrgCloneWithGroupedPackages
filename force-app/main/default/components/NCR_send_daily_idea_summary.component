@@ -1,0 +1,24 @@
+<apex:component controller="NCR_SendDailyIdeaSummaryCon" access="global" >
+    <apex:attribute access="global" name="UserRec" type="User" description="Holds the user information"/>
+    <apex:outputPanel layout="none" rendered="{! ideaWrapperList.size > 0}">
+        <p>Below is a summary of the ideas that have been submitted today.</p>
+        <apex:repeat value="{! ideaWrapperList}" var="rec">
+            <p>         
+                <apex:outputLink value="{! UserRec.DI_Fi_Domain__c + '/connect/group/products/idea-exchange?redirectUrl=/apex/NCR_ViewIdeapage?id='+ rec.Idea.Id}">
+                    {! rec.Idea.Title} 
+                </apex:outputLink> submitted by {! rec.idea.CreatedBy.Name} <apex:outputText value="{! ', '+ rec.idea.FI_Name__c}" rendered="{! rec.idea.FI_Name__c != null}"/>
+                <ul>
+                    <li>{! rec.IdeaBody}</li>
+                    <li>Comments: {! rec.Idea.NumComments}</li>
+                    <li>{! rec.Idea.VoteTotal} points</li>               
+                </ul>
+            </p>
+        </apex:repeat>
+        <p>Please login to Idea Exchange to see details, vote, or comment on the ideas.</p>
+    </apex:outputPanel>
+    <apex:outputPanel layout="none" rendered="{! NOT(ideaWrapperList.size > 0)}">
+        No new ideas were submitted today.
+    </apex:outputPanel>
+    <p>Thank you,</p>
+    Idea Exchange
+</apex:component>

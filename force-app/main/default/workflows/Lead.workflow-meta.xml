@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Change_Status</fullName>
+        <description>Change Status</description>
+        <protected>false</protected>
+        <recipients>
+            <field>LeadOwnerManage__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Lead_Email/Namer_Queue_Lead_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Change_Status_or_Change_Owner</fullName>
+        <ccEmails>salesadmin.namerretail@ncr.com</ccEmails>
+        <description>Change Status or Change Owner</description>
+        <protected>false</protected>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Lead_Email/Namer_Queue_Lead_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>DNBI__Send_Credit_Status_Change_Notification_for_Lead</fullName>
+        <description>Send Credit Status Change Notification for Lead</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>DNBI__DNBI_email_Templates/DNBI__DNBI_Credit_Information_Update_for_Lead</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Lead_Owner</fullName>
+        <description>Email Lead Owner</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Lead_Templates/LeadsNewassignmentnotificationSAMPLE</template>
+    </alerts>
+    <alerts>
+        <fullName>GDPR_Lead_Notify_Suspend_Process</fullName>
+        <description>GDPR_Lead_Notify_Suspend_Process</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>GDPR_Support_Team</recipient>
+            <type>group</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/GDPR_Lead_Suspend_Processing</template>
+    </alerts>
+    <alerts>
+        <fullName>Lead_Esclation_Email_for_Partner_Manager</fullName>
+        <description>Lead Esclation Email for Partner Manager</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>USPartnerCommunications/Partner_Manager_Lead_Escalation</template>
+    </alerts>
+    <alerts>
+        <fullName>Lead_Esclation_Email_for_Partners_Users</fullName>
+        <description>Lead Esclation Email for Partners Users</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>I3PartnerManager</recipient>
+            <type>group</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>USPartnerCommunications/Partner_User_Lead_Escalation</template>
+    </alerts>
+    <alerts>
+        <fullName>NamerSixDaysNotification</fullName>
+        <description>NamerSixDaysNotification</description>
+        <protected>false</protected>
+        <recipients>
+            <field>LeadOwnerManage__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>NSC_Admin_Templates/NamerSixDaysNotification</template>
+    </alerts>
+    <alerts>
+        <fullName>Namer_Finacial_Change_Status_or_Change_Owner_Email_Alert</fullName>
+        <description>Namer Finacial Change Status or Change Owner Email Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>LeadOwnerManage__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Lead_Email/Namer_Financial_SDL_Group_Lead_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Notification1</fullName>
+        <description>Notification1</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Lead_Email/LeadOwner1</template>
+    </alerts>
+    <alerts>
+        <fullName>Notification_to_the_Lead_Owner_Manager_after_24_hours</fullName>
+        <description>Notification to the Lead Owner + Manager after 24 hours</description>
+        <protected>false</protected>
+        <recipients>
+            <field>LeadOwnerManage__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Lead_Email/Notification_to_the_Lead_Owner_Manager_after_24_hours</template>
+    </alerts>
+    <alerts>
+        <fullName>Notification_to_the_qualified_Lead_Owner_Manager</fullName>
+        <description>Notification to the qualified Lead Owner + Manager</description>
+        <protected>false</protected>
+        <recipients>
+            <field>LeadOwnerManage__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Lead_Email/Notification_to_the_qualified_Lead_Owner_Manager</template>
+    </alerts>
+    <alerts>
+        <fullName>SendNotificationToSalesRepOwner_and_Manager</fullName>
+        <description>SendNotificationToSalesRepOwner_and_Manager</description>
+        <protected>false</protected>
+        <recipients>
+            <field>LeadOwnerManage__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Lead_Email/X48hr_SLA_Email_Template_to_Sales_Team</template>
+    </alerts>
+    <alerts>
+        <fullName>Sends_the_email_to_the_lead_owner_when_the_new_lead_is_created_through_Lead_impo</fullName>
+        <description>Sends the email to the lead owner when the new lead is created through Lead import wizard</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesforce.donotreply@ncr.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Lead_Email/Lead_Assignment_Email_DEV</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Lead_Stage_equal_to_MQL</fullName>
+        <description>When Eloqua creates a new Lead in NSC, Lead Stage needs to be set = MQL</description>
+        <field>Lead_Stage__c</field>
+        <literalValue>MQL</literalValue>
+        <name>Lead Stage equal to MQL</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Lead_Stage_equal_to_Opportunity</fullName>
+        <description>When Lead Status = ‘Qualified’ or Lead is converted, Lead Status = ‘Opportunity’</description>
+        <field>Lead_Stage__c</field>
+        <literalValue>Opportunity</literalValue>
+        <name>Lead Stage equal to Opportunity</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Lead_Stage_equal_to_lead</fullName>
+        <description>when Lead Status = ‘Return to Nuture’, Lead Stage of ‘Lead’ should be automatically selected.</description>
+        <field>Lead_Stage__c</field>
+        <literalValue>Lead</literalValue>
+        <name>Lead Stage equal to lead</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>MQL_Date_Stamp</fullName>
+        <field>MQL_Date__c</field>
+        <formula>NOW()</formula>
+        <name>MQL Date Stamp</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Namer_Six_Days_Notification</fullName>
+        <field>Namer_Six_Days_Notification__c</field>
+        <literalValue>0</literalValue>
+        <name>Namer Six Days Notification</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateOwnerEmail</fullName>
+        <field>LeadOwnerManage__c</field>
+        <formula>IF(ISBLANK(Owner:User.Id), Owner:Queue.QueueEmail, Owner:User.Manager.Email)</formula>
+        <name>UpdateOwnerEmail</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Business_Unit</fullName>
+        <field>Business_Unit__c</field>
+        <formula>TEXT(  Owner:User.Business_Unit__c )</formula>
+        <name>Update Business Unit</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Department</fullName>
+        <field>Department__c</field>
+        <formula>TEXT( Owner:User.Department__c )</formula>
+        <name>Update Department</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Geography</fullName>
+        <field>Geography__c</field>
+        <formula>TEXT( Owner:User.Geography__c )</formula>
+        <name>Update Geography</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Last_Modified_Date</fullName>
+        <field>Last_Modified_Date__c</field>
+        <formula>NOW()</formula>
+        <name>Update Last Modified Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Lenos_Created_Checkbox</fullName>
+        <description>Updates &quot;Lenos Created?&quot; checkbox if Lenos Admin created the lead.</description>
+        <field>Lenos_Created__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Lenos Created Checkbox</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Partner_User_Assignment_Date1</fullName>
+        <field>Last_Assigned_Date_To_Partner_User__c</field>
+        <formula>LastModifiedDate</formula>
+        <name>Update Partner User Assignment Date1</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Region</fullName>
+        <field>CATM_Region__c</field>
+        <formula>TEXT( Owner:User.CATM_Region__c )</formula>
+        <name>Update Region</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>populate_Lead_type_to_Event</fullName>
+        <description>when lead is created by Lenos user then Lead type will automatically populated as EVENT</description>
+        <field>LeadType__c</field>
+        <literalValue>Event</literalValue>
+        <name>populate Lead type to Event</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>update_Lead_type_to_Chat</fullName>
+        <description>update Lead type to CHAT when lead is assocaited with campaign id = 70170000000vFsG</description>
+        <field>LeadType__c</field>
+        <literalValue>Chat</literalValue>
+        <name>update Lead type to Chat</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>1%2E0 Lead Escalation</fullName>
+        <active>false</active>
+        <description>Lead has been in Partner Queue for over 24 hours with no reassignment</description>
+        <formula>AND(BEGINS(OwnerId , &quot;00G&quot;),RecordType.Name=&quot;Partner Community Lead&quot;, NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c), CATM_Record__c = false)</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Lead_Esclation_Email_for_Partner_Manager</name>
+                <type>Alert</type>
+            </actions>
+            <timeLength>24</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>1%2E2 Lead Escalation</fullName>
+        <actions>
+            <name>Update_Last_Modified_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <formula>AND(RecordType.Name=&quot;Partner Community Lead&quot;, $Profile.Name &lt;&gt; &quot;Marketo Administration&quot;, NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c), CATM_Record__c = false )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>1%2E2%2E0 Lead Escalation</fullName>
+        <actions>
+            <name>Update_Partner_User_Assignment_Date1</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <description>Lead has been assigned to an individual Lead Owner for over 24 hours with no action taken</description>
+        <formula>AND( BEGINS(OwnerId , &quot;005&quot;),PRIORVALUE(OwnerId)&lt;&gt; OwnerId, RecordType.Name=&quot;Partner Community Lead&quot;, $Profile.Name &lt;&gt; &quot;Marketo Administration&quot;, NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c), CATM_Record__c = false)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>1%2E2%2E1 Lead Escalation</fullName>
+        <active>false</active>
+        <formula>AND( Last_Modified_Date__c-Last_Assigned_Date_To_Partner_User__c=0, RecordType.Name=&quot;Partner Community Lead&quot;, NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c), CATM_Record__c = false  )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Lead_Esclation_Email_for_Partners_Users</name>
+                <type>Alert</type>
+            </actions>
+            <timeLength>24</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>CATM - Email Lead Owner</fullName>
+        <actions>
+            <name>Email_Lead_Owner</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <description>Email Lead Owner when Assignment Changes</description>
+        <formula>AND( NOT($Setup.Automation_Setting__c.Skip_Flow__c), CATM_Record__c, ISPICKVAL(Status, &quot;Open&quot;) )</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>CATM - Update Geo Info</fullName>
+        <actions>
+            <name>Update_Business_Unit</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Department</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Geography</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Region</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND(  NOT($Setup.Automation_Setting__c.Skip_Flow__c),  CATM_Record__c,  OR( (ISNEW() &amp;&amp; BEGINS(OwnerId, &quot;005&quot;)), (ISCHANGED(OwnerId) &amp;&amp; BEGINS(OwnerId, &quot;005&quot;)) ) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>DNBI__Lead Credit Status Change</fullName>
+        <actions>
+            <name>DNBI__Send_Credit_Status_Change_Notification_for_Lead</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <description>Lead Credit Status Change notification</description>
+        <formula>AND(ISCHANGED(DNBI__DnB_Application_Modified_Date__c), $Setup.DNBI__EnableStatusEmailNotification1__c.DNBI__Enable_Email_Notification__c)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Email  to Lead Owner</fullName>
+        <actions>
+            <name>Sends_the_email_to_the_lead_owner_when_the_new_lead_is_created_through_Lead_impo</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <description>This Workflow rule is for sending email to the lead owner when the lead has been imported through Lead import wizard.</description>
+        <formula>AND(  CreatedBy.FirstName = &apos;Jhunei&apos;,  CreatedBy.LastName = &apos;Terana&apos;,   NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c) )</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>GDPR_Suspend_Processing_Request</fullName>
+        <actions>
+            <name>GDPR_Lead_Notify_Suspend_Process</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <formula>AND(  NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),  SuspendProcessing_Lead__c = true )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Lead Credit Status Change</fullName>
+        <actions>
+            <name>DNBI__Send_Credit_Status_Change_Notification_for_Lead</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <description>Lead Credit Status Change notification</description>
+        <formula>AND(ISCHANGED(DNBI__DnB_Application_Modified_Date__c), $Setup.DNBI__EnableStatusEmailNotification1__c.DNBI__Enable_Email_Notification__c,NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>NAMER Lead SLA Rule- Update Status</fullName>
+        <active>false</active>
+        <description>This workflow rule fires when the status has not been changed within five days after changing the owner</description>
+        <formula>AND(  TestCheckBox__c = false,  NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),  CATM_Record__c = false )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Change_Status</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Lead.Reassign_Date__c</offsetFromField>
+            <timeLength>5</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Namer Financial Lead SLA Rule- Update Status or Change Owner</fullName>
+        <active>false</active>
+        <description>This workflow rule fires when the status or the owner has not been changed within two days from the lead created date.</description>
+        <formula>AND(  NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),  CATM_Record__c = false,  ISPICKVAL(Lead_State_SDL_Team__c,&apos;Assigned to SDL Team&apos;) )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Namer_Finacial_Change_Status_or_Change_Owner_Email_Alert</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Lead.CreatedDate</offsetFromField>
+            <timeLength>2</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Namer Lead SLA Rule- Update Status or Change Owner</fullName>
+        <active>false</active>
+        <description>This workflow rule fires when the status or the owner has not been changed within five days from the lead created date.</description>
+        <formula>AND(  NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),  CATM_Record__c = false,  TestCheckBox__c = false,  ISBLANK( Reassign_Date__c), OR (  Owner:Queue.QueueName = &apos;NAMER Queue&apos;,  Owner:User.FirstName = &apos;Adrienne&apos; &amp;&amp;  Owner:User.LastName = &apos;Barker&apos;,  Owner:User.FirstName = &apos;Alan&apos; &amp;&amp;  Owner:User.LastName = &apos;Smith&apos;,  Owner:User.FirstName = &apos;Jacqueline&apos; &amp;&amp;  Owner:User.LastName = &apos;McCrorey&apos;,  Owner:User.FirstName = &apos;Joseph&apos; &amp;&amp;  Owner:User.LastName = &apos;Neder&apos;,  Owner:User.FirstName = &apos;Lydia&apos; &amp;&amp;  Owner:User.LastName = &apos;Brown&apos;,  Owner:User.FirstName = &apos;Wesley&apos; &amp;&amp;  Owner:User.LastName = &apos;Swymer&apos;  ) )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Change_Status_or_Change_Owner</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Lead.CreatedDate</offsetFromField>
+            <timeLength>5</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>NamerSentNotificationAfter5Days</fullName>
+        <actions>
+            <name>NamerSixDaysNotification</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>Namer_Six_Days_Notification</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <formula>AND(  NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),  CATM_Record__c = false,  Namer_Six_Days_Notification__c = true)</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Notification to Lead Owner1</fullName>
+        <active>false</active>
+        <formula>AND(CONTAINS(Owner:User.Profile.Name, &apos;IPS&apos;), ISPICKVAL(Status, &quot;Open&quot;), NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c), CATM_Record__c = false)</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Notification1</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Lead.CreatedDate</offsetFromField>
+            <timeLength>5</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>SLA 48 Hours Notification step2</fullName>
+        <actions>
+            <name>SendNotificationToSalesRepOwner_and_Manager</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <formula>AND(NotificationForSalesRep__c=True, TEXT(Status)=LeadStatusSLA__c, TEXT(Status) = &apos;Open&apos;, NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c), CATM_Record__c = false)</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>UpdateOwnerManager</fullName>
+        <actions>
+            <name>UpdateOwnerEmail</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <description>This Workflow auto populate the lead Owner(User) Email to the  lead field LeadOwnerManage.</description>
+        <formula>AND( NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c), CATM_Record__c = false, OR(Not((ISBLANK(Owner:User.Manager.Email))),Not((ISBLANK( Owner:Queue.QueueEmail )))) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>When Created By%3DLenos%2C Lenos Created%3F %3D TRUE</fullName>
+        <actions>
+            <name>Update_Lenos_Created_Checkbox</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>populate_Lead_type_to_Event</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <description>If Lenos creates a new Lead, the Lenos Created? checkbox should be set to True for Eloqua tracking.</description>
+        <formula>AND(  NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),  CATM_Record__c = false,  CreatedBy.FirstName =&apos;Lenos&apos;,  CreatedBy.LastName =&apos;Admin&apos; )</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>update Lead type to Chat</fullName>
+        <actions>
+            <name>update_Lead_type_to_Chat</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <description>when lead is associated with campaign &quot;Chat - Financial Services - 17FIN6429&quot; then lead type will CHAT</description>
+        <formula>AND(  NOT($Setup.Automation_Setting__c.Skip_Validation_Rule__c),  CATM_Record__c = false,  Sys_Campaign_Id__c = &apos;70170000000vFsG&apos; )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <tasks>
+        <fullName>Competitor_contract_is_expiring_in_8_months_please_contact_your_lead</fullName>
+        <assignedTo>kz250077@ncr.com</assignedTo>
+        <assignedToType>user</assignedToType>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Open</status>
+        <subject>Competitor contract is expiring in 8 months, please contact your lead</subject>
+    </tasks>
+</Workflow>

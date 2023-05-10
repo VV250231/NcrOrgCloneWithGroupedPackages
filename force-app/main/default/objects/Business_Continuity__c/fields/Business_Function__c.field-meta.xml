@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Business_Function__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(INCLUDES( Contact_Name__r.Business_Function__c , &quot;Customer Support/Service&quot;), &quot;Customer Support/Service ;&quot;,  
+IF(INCLUDES( Contact_Name__r.Business_Function__c , &quot;Finance/Accounting&quot;), &quot;Finance/Accounting ;&quot;,
+IF(INCLUDES( Contact_Name__r.Business_Function__c , &quot;Fraud Management&quot;), &quot;Fraud Management ;&quot;,
+IF(INCLUDES( Contact_Name__r.Business_Function__c , &quot;Human Resources&quot;), &quot;Human Resources ;&quot;,
+IF(INCLUDES( Contact_Name__r.Business_Function__c , &quot;Information Technology&quot;), &quot;Information Technology ;&quot;,
+IF(INCLUDES( Contact_Name__r.Business_Function__c , &quot;Legal&quot;), &quot;Legal ;&quot;,
+IF(INCLUDES( Contact_Name__r.Business_Function__c , &quot;Marketing&quot;), &quot;Marketing ;&quot;,
+IF(INCLUDES( Contact_Name__r.Business_Function__c , &quot;NCR Ambassador&quot;), &quot;NCR Ambassador ;&quot;,
+IF(INCLUDES( Contact_Name__r.Business_Function__c , &quot;NCR Champion&quot;), &quot;NCR Champion ;&quot;,
+IF(INCLUDES( Contact_Name__r.Business_Function__c , &quot;Operations&quot;), &quot;Operations ;&quot;,
+IF(INCLUDES( Contact_Name__r.Business_Function__c , &quot;Procurement&quot;), &quot;Procurement ;&quot;,
+IF(INCLUDES( Contact_Name__r.Business_Function__c , &quot;Project Management&quot;), &quot;Project Management ;&quot;,
+IF(INCLUDES( Contact_Name__r.Business_Function__c , &quot;Quality/Improvement&quot;), &quot;Quality/Improvement ;&quot;,
+IF(INCLUDES( Contact_Name__r.Business_Function__c , &quot;Research &amp; Development&quot;), &quot;Research &amp; Development ;&quot;,
+IF(INCLUDES( Contact_Name__r.Business_Function__c , &quot;Sales&quot;), &quot;Sales ;&quot;,
+IF(INCLUDES( Contact_Name__r.Business_Function__c , &quot;Service Manager&quot;), &quot;Service Manager &quot;, NULL))))))))))))))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Business Function</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

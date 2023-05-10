@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Above Store Marketplace Alert</name>
+    <style>none</style>
+    <subject>New Activity Needs Your Attention: {{Lead.First Name}} {{Lead.Last Name}} at {{Company.Company Name}}</subject>
+    <textOnly>Restaurant Information
+
+Restaurant Name: {{company.Company Name:default=edit me}}
+POC First Name: {{lead.First Name:default=edit me}}
+POC Last Name: {{lead.Last Name:default=edit me}}
+POC Email: {{lead.Email Address:default=edit me}}
+POC Phone: {{lead.Phone Number:default=edit me}}
+Vendor Information
+Do you currently use a 3rd Party for Above Store Ordering?: {{lead.Do you use 3rd party for ASO?:default=edit me}}
+If Yes, Name of Company: {{lead.ASO Company Name:default=edit me}}
+Above Store Ordering Partner to Enroll: {{lead.ASO Ordering Partner:default=edit me}}
+Have you signed a data release with this Company: {{lead.Signed Data Release:default=edit me}}
+Note to SDR/Sales Rep: If Yes if selected above, please ask the POC for the agreement and upload into the files on the lead record.
+Software Information
+Configuration Center (CFC) version 20 or higher is required. Restaurant&apos;s current version: {{lead.CFC Software Version:default=edit me}}
+Aloha Point of Sale version 12.3 or 15.1 is required. Restaurant&apos;s current version:  {{lead.Aloha POS Version:default=edit me}}
+Aloha Takeout version 17.1.22 or higher is required. Restaurant&apos;s current version: {{lead.ATO Version:default=edit me}}
+Are you currently an Aloha Online Ordering Customer?: {{lead.Current AOO Customer:default=edit me}}
+If No, Do you have an interest in leveraging NCR&apos;s AOO platform for a customer facing solution or just for your 3rd Party Above Store Ordering?: {{lead.Leverage AOO:default=edit me}}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

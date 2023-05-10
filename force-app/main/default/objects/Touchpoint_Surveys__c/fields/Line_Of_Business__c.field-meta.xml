@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Line_Of_Business__c</fullName>
+    <externalId>false</externalId>
+    <formula>If(
+				OR(
+								LOWER(LOB__c) = &apos;banking&apos;,
+				    LOWER(LOB__c) = &apos;fin&apos;
+				),
+				&apos;FINANCIAL&apos;, LOB__c
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Line Of Business</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

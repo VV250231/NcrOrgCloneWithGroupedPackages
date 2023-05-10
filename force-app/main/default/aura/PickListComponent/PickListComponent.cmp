@@ -1,0 +1,6 @@
+<aura:component controller="PicklistController" implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,force:hasSObjectName">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:registerEvent name="PriceVarianceEventFired" type="c:PriceVarianceEvent"/> 
+    <label class="slds-form-element__label" for="input-02">Price variance</label>
+    <ui:inputSelect aura:id="Price" change="{!c.firePriceVarianceEvent}" class="arrowhide"/> 
+</aura:component>

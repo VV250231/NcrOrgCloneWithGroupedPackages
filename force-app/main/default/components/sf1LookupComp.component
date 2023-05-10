@@ -1,0 +1,74 @@
+<apex:component id="MobileLookup" controller="MobileLookupController" layout="block">
+    <apex:attribute name="LabelName" required="true" type="String" description="Attribute to display label along with look up field to distinguish fields" />
+    <apex:attribute name="ObjectApiName" type="String" required="true" description="Api name of component on which search should happen" />
+    <apex:attribute name="DisplayFieldApiNames" description="Attribute to get fields Api Name whose value needs to be displayed while searching.These are seperated by comma.For example : 'firstname,lastname'" required="true" type="String" />
+    <apex:attribute name="LookupFieldValue" type="String" description="Initial name value of lookup field" />
+    <apex:attribute name="LookupFieldId" type="String" description="Initial Id value of lookup field"/>
+    
+    
+    <div class="slds-form-element">  
+        <label for="{!Id}combobox-text-input">{!LabelName}</label>
+        
+        <div class="slds-form-element__control">
+            <div id="{!Id}cbox_container" class="slds-combobox_container {!IF(ISBLANK(LookupFieldValue),'','slds-has-inline-listbox')}">
+                <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open" aria-expanded="false" role="combobox"> 
+                    <div id="{!Id}cbox_child_container" class="slds-combobox__form-element slds-input-has-icon {!IF(ISBLANK(LookupFieldValue),'slds-input-has-icon_right','slds-input-has-icon_left-right')} " role="none">
+                         <!-- selected item container -->
+                         <!-- lookup object icon --> 
+                         <div id="{!Id}objecticon" class="slds-icon_container slds-icon-standard-account slds-combobox__input-entity-icon" style="{!IF(ISBLANK(LookupFieldValue),'display:none;','')}vertical-align:middle;">
+                             <apex:image url="{!URLFOR($Asset.SLDS, '/assets/icons/standard/'+ LOWER(ObjectApiName) + '_60.png')}" styleClass="slds-icon slds-icon_small"/>
+                             <span class="slds-assistive-text">{!LOWER(ObjectApiName)}</span>
+                          </div>
+                          <!-- selected item container --> 
+                          
+                        <input type="text" value="{!LookupFieldValue}"  class="slds-input slds-combobox__input" id="{!Id}combobox-text-input" aria-autocomplete="list" aria-controls="{!Id}listbox" autocomplete="off" role="textbox" 
+                            placeholder="Search {!ObjectApiName}s..."  onkeyup="keyPressedOnLookup('{!Id}', this.id, '{!ObjectApiName}', '{!DisplayFieldApiNames}', '{!$RemoteAction.MobileLookupController.searchRecords}'); return false;" />
+                        
+                        <script>
+                            var srchtext = document.querySelector('#' + '{!Id}combobox-text-input');
+                            if((srchtext  != undefined) && (srchtext.value != null) && (srchtext.value.trim() != '')) {
+                                srchtext.setAttribute("readonly","readonly");   
+                            }
+                        </script>
+                        <!-- search icon -->
+                        <span id="{!Id}searchicon" class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right" style="{!IF(ISBLANK(LookupFieldValue),'','display:none')}">
+                            <apex:image url="{!URLFOR($Asset.SLDS, '/assets/icons/utility/search_60.png')}" styleClass="slds-icon slds-icon slds-icon_x-small slds-icon-text-default"/>
+                        </span>
+                        
+                        <!-- close btn -->
+                        <button id="{!Id}closeicon" class="slds-button slds-button_icon slds-input__icon slds-input__icon_right" title="Remove" style="{!IF(ISBLANK(LookupFieldValue),'display:none','')}" 
+                            onclick="removeRecord('{!Id}');return false;">
+                            <apex:image styleClass="slds-button__icon" url="{!URLFOR($Asset.SLDS, '/assets/icons/utility/close_60.png')}" />
+                            <span class="slds-assistive-text">Remove</span>
+                       </button>
+                        
+                    </div>
+                    
+                    <!-- list items -->
+                    <div id="{!Id}listbox" role="listbox" style="display:none;"> 
+                        <ul id="{!Id}record-list" class="slds-listbox slds-listbox_vertical slds-dropdown slds-dropdown_fluid" role="presentation">
+                           
+                           <li role="presentation" class="slds-listbox__item">
+                           
+                               <div class="slds-media slds-media_center slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" role="option">
+                                    
+                                    <span class="slds-media__figure">
+                                        <span class="slds-icon_container slds-icon-standard-{!LOWER(ObjectApiName)}">
+                                        <apex:image url="{!URLFOR($Asset.SLDS, '/assets/icons/standard/'+ LOWER(ObjectApiName) + '_60.png')}" styleClass="slds-icon slds-icon_small"/>
+                                        </span>
+                                     </span>   
+                             
+                                    <span class="slds-media__body">
+                                       <span class="slds-listbox__option-text slds-listbox__option-text_entity">Salesforce.com, Inc.</span>
+                                       <span class="slds-listbox__option-meta slds-listbox__option-meta_entity">Account • San Francisco</span>
+                                    </span>
+                               </div>
+                           </li> 
+                        </ul>
+                    </div>
+                </div>
+                 </div>
+            </div> 
+    </div>
+    <input type="hidden" id="{!Id}hiddensObjectId" value="{!LookupFieldId}" />
+</apex:component>
